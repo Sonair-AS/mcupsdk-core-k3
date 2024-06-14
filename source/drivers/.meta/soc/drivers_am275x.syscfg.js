@@ -54,12 +54,14 @@ const driverVer = {
 };
 
 const topModules_wkup = [
+    "/drivers/gpio/gpio",
     "/drivers/i2c/i2c",
     "/drivers/uart/uart",
     "/drivers/udma/udma",
 ];
 
 const topModules_main = [
+    "/drivers/gpio/gpio",
     "/drivers/i2c/i2c",
     "/drivers/mcspi/mcspi",
     "/drivers/uart/uart",
@@ -67,6 +69,7 @@ const topModules_main = [
 ];
 
 const topModules_c75 = [
+    "/drivers/gpio/gpio",
     "/drivers/i2c/i2c",
     "/drivers/mcspi/mcspi",
     "/drivers/uart/uart",

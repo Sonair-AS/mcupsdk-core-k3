@@ -5,19 +5,27 @@ let device = "am275x";
 
 const files_r5f={
     common: [
-        "null.c",
+        "eeprom.c",
+        "eeprom_at24c512c.c",
+        "led.c",
+        "led_gpio.c",
+        "led_tpic2810.c",
+        "led_ioexp.c",
+        "ioexp_tca6424.c",
     ],
 };
 
 const files_c75x = {
     common: [
-        "null.c",
+        "ioexp_tca6424.c",
     ],
 };
 
 const filedirs = {
     common: [
-        "null",
+        "ioexp",
+        "led",
+        "eeprom",
     ],
 };
 

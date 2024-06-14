@@ -28,9 +28,13 @@ const device_defines = {
 };
 
 const example_file_list = [
+    "examples/board/eeprom/eeprom_read_write/.project/project.js",
     "examples/empty/.project/project_nortos.js",
     "examples/empty/.project/project_freertos.js",
+    "examples/drivers/gpio/gpio_input_interrupt/.project/project.js",
+    "examples/drivers/gpio/gpio_led_blink/.project/project.js",
     "examples/drivers/i2c/i2c_read/.project/project.js",
+    "examples/drivers/i2c/i2c_led_blink/.project/project.js",
     "examples/drivers/i2c/i2c_temperature/.project/project.js",
     "examples/drivers/mcspi/mcspi_loopback/.project/project.js",
     "examples/drivers/mcspi/mcspi_performance_8bit/.project/project.js",
@@ -48,6 +52,8 @@ const example_file_list = [
     "examples/kernel/freertos/task_switch/.project/project.js",
 
     // Tests
+    "test/board/eeprom/.project/project.js",
+    "test/drivers/gpio/.project/project.js",
     "test/drivers/i2c/.project/project.js",
     "test/drivers/mcspi/mcspi/.project/project.js",
     "test/drivers/sciclient/sciclient_get_version/.project/project.js",

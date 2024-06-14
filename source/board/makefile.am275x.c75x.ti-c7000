@@ -16,10 +16,12 @@ ConfigName:=$(PROFILE)
 LIBNAME:=board.am275x.c75x.ti-c7000.$(PROFILE).lib
 
 FILES_common := \
-    null.c \
+    ioexp_tca6424.c \
 
 FILES_PATH_common = \
-    null \
+    ioexp \
+    led \
+    eeprom \
 
 INCLUDES_common := \
     -I${CG_TOOL_ROOT}/include \

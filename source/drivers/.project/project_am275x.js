@@ -9,6 +9,7 @@ const files_r5f = {
         "csl_intaggr.c",
         "csl_lcdma_ringacc.c",
         "csl_pktdma.c",
+        "gpio.c",
         "i2c_v0.c",
         "i2c_v0_lld.c",
         "i2c_soc.c",
@@ -50,6 +51,7 @@ const files_wkup_r5f = {
         "csl_intaggr.c",
         "csl_lcdma_ringacc.c",
         "csl_pktdma.c",
+        "gpio.c",
         "i2c_v0.c",
         "i2c_v0_lld.c",
         "i2c_soc.c",
@@ -80,6 +82,7 @@ const files_wkup_r5f = {
 const files_c75 = {
     common: [
         "csl_sec_proxy.c",
+        "gpio.c",
         "i2c_v0.c",
         "i2c_v0_lld.c",
         "i2c_soc.c",
@@ -105,6 +108,7 @@ const files_c75 = {
 
 const filedirs = {
     common: [
+        "gpio/v0",
         "hw_include/dru/v2/",
         "hw_include/ringacc/V0/priv/",
         "i2c/v0",
