@@ -1,61 +1,3 @@
-%%{
-    let options = args.options;
-
-    let stackSize = 0x8000;
-    let heapSize =  0x10000;
-    /* with nested interrupts logic added, IRQ stack is only used minimally, instead
-     * SVC stack is used, hence IRQ stack size is less as compared to SVC stack
-     */
-    let irqStackSize = 0x1000;
-    let svcStackSize = 0x0100;
-    let fiqStackSize = 0x0100;
-    let abortStackSize = 0x0100;
-    let undefinedStackSize = 0x0100;
-    let dssFrameBuf = "false";
-    let useFlash = false; 
-    let globalScratchBuf = "false";
-
-    /* if no options given use defaults */
-    if(options && options.stackSize)
-        stackSize = options.stackSize;
-    if(options && options.heapSize)
-        heapSize = options.heapSize;
-    if(options && options.irqStackSize)
-        irqStackSize = options.irqStackSize;
-    if(options && options.fiqStackSize)
-        fiqStackSize = options.fiqStackSize;
-    if(options && options.svcStackSize)
-        svcStackSize = options.svcStackSize;
-    if(options && options.abortStackSize)
-        abortStackSize = options.abortStackSize;
-    if(options && options.undefinedStackSize)
-        undefinedStackSize = options.undefinedStackSize;
-    if(options && options.dssFrameBuf)
-        dssFrameBuf = options.dssFrameBuf;
-    if(options && options.isXip)
-        useFlash = true;
-    if(options && options.globalScratchBuf)
-        globalScratchBuf = options.globalScratchBuf;
-
-    let memoryReg = ""
-
-    if(args.project.cpu == "wkup-r5fss0-0") {
-        memoryReg = "WKUP_R5_OCRAM"
-    } else if(args.project.cpu == "r5fss0-0"){
-        memoryReg = "R50_0_OCRAM"
-    } else if(args.project.cpu == "r5fss0-1"){
-        memoryReg = "R50_1_OCRAM"
-    } else if(args.project.cpu == "r5fss1-0"){
-        memoryReg = "R51_0_OCRAM"
-    }  else if(args.project.cpu == "r5fss1-1"){
-        memoryReg = "R51_1_OCRAM"
-    } else if(args.project.cpu == "c75ss0-0"){
-        memoryReg = "C75_0_OCRAM"
-    } else if(args.project.cpu == "c75ss1-0"){
-        memoryReg = "C75_1_OCRAM"
-    }
-
-%%}
 --retain="*(.bootCode)";
 --retain="*(.startupCode)";
 --retain="*(.startupData)";
@@ -73,11 +15,11 @@
  *   uses this stack.
  * - After vTaskStartScheduler() each task created in FreeRTOS has its own stack
  */
---stack_size=0x`stackSize.toString(16).toUpperCase()`
+--stack_size=0x4000
 /* This is the heap size for malloc() API in NORTOS and FreeRTOS
  * This is also the heap used by pvPortMalloc in FreeRTOS
  */
---heap_size=0x`heapSize.toString(16).toUpperCase()`
+--heap_size=0x8000
 --entry_point=_self_reset_start
 
 /* This is the size of stack when R5 is in IRQ mode
@@ -90,25 +32,25 @@
  * - But then the mode is switched to SVC mode and SVC stack is used for all user ISR callbacks
  * - Hence in FreeRTOS, IRQ stack size is less and SVC stack size is more
  */
-__IRQ_STACK_SIZE = 0x`irqStackSize.toString(16).toUpperCase()`;
+__IRQ_STACK_SIZE = 0x1000;
 /* This is the size of stack when R5 is in IRQ mode
  * - In both NORTOS and FreeRTOS nesting is disabled for FIQ
  */
-__FIQ_STACK_SIZE = 0x0`fiqStackSize.toString(16).toUpperCase()`;
-__SVC_STACK_SIZE = 0x0`svcStackSize.toString(16).toUpperCase()`; /* This is the size of stack when R5 is in SVC mode */
-__ABORT_STACK_SIZE = 0x0`abortStackSize.toString(16).toUpperCase()`;  /* This is the size of stack when R5 is in ABORT mode */
-__UNDEFINED_STACK_SIZE = 0x0`undefinedStackSize.toString(16).toUpperCase()`;  /* This is the size of stack when R5 is in UNDEF mode */
+__FIQ_STACK_SIZE = 0x0100;
+__SVC_STACK_SIZE = 0x0100; /* This is the size of stack when R5 is in SVC mode */
+__ABORT_STACK_SIZE = 0x0100;  /* This is the size of stack when R5 is in ABORT mode */
+__UNDEFINED_STACK_SIZE = 0x0100;  /* This is the size of stack when R5 is in UNDEF mode */
 
 SECTIONS
 {
     /* This has the R5F entry point and vector table, this MUST be at 0x0 */
-    .vectors            : {} palign(8) > `memoryReg`
+    .vectors            : {} palign(8) > WKUP_R5_OCRAM
     .bootCode           : align = 8, load = R5F_TCMB, run = R5F_TCMA
     .startupCode        : align = 8, load = R5F_TCMB, run = R5F_TCMA
     .startupData        : align = 8, load = R5F_TCMB, run = R5F_TCMA, type = NOINIT
 
     /* This has the R5F boot code until MPU is enabled,  this MUST be at a address < 0x80000000
-     * i.e this cannot be placed in `memoryReg`
+     * i.e this cannot be placed in WKUP_R5_OCRAM
      */
     GROUP {
         .text.hwi: palign(8)
@@ -118,37 +60,27 @@ SECTIONS
         .text:abort: palign(8) /* this helps in loading symbols when using XIP mode */
     } load = R5F_TCMB, run = R5F_TCMA
 
-    % if(args.project.ipcVringRTOS === true){
-    /* this is used only when IPC RPMessage is enabled, else this is not used */
-    .bss.ipc_vring_mem   (NOLOAD) : {} > IPC_VRING_RTOS
-    % }
 
-    % if(useFlash === true) {
-    .text            : {} palign(8)      > FLASH
-    .const           : {} palign(8)      > FLASH
-    .rodata          : {} palign(8)      > FLASH
-    % } else {
-    .text            : {} palign(8)      > `memoryReg`
-    .const           : {} palign(8)      > `memoryReg`
-    .rodata          : {} palign(8)      > `memoryReg`
-    % }
-    .cinit           : {} palign(8)      > `memoryReg`
-    .far             : {} align(4)       > `memoryReg`
-    .data            : {} palign(128)    > `memoryReg`
-    .sysmem          : {}                > `memoryReg`
-    .data_buffer     : {} palign(128)    > `memoryReg`
-    .boardcfg_data   : {} align(4)       > `memoryReg`
+    .text            : {} palign(8)      > WKUP_R5_OCRAM
+    .const           : {} palign(8)      > WKUP_R5_OCRAM
+    .rodata          : {} palign(8)      > WKUP_R5_OCRAM
+    .cinit           : {} palign(8)      > WKUP_R5_OCRAM
+    .far             : {} align(4)       > WKUP_R5_OCRAM
+    .data            : {} palign(128)    > WKUP_R5_OCRAM
+    .sysmem          : {}                > WKUP_R5_OCRAM
+    .data_buffer     : {} palign(128)    > WKUP_R5_OCRAM
+    .boardcfg_data   : {} align(4)       > WKUP_R5_OCRAM
 
     GROUP {
         .bss:    {} palign(4)   /* This is where uninitialized globals go */
         RUN_START(__BSS_START)
         RUN_END(__BSS_END)
-    } > `memoryReg`
+    } > WKUP_R5_OCRAM
 
     /* USB or any other LLD buffer for benchmarking */
-    .benchmark_buffer (NOLOAD) {} ALIGN (8) > `memoryReg`
+    .benchmark_buffer (NOLOAD) {} ALIGN (8) > WKUP_R5_OCRAM
 
-    .stack      : {} align(4) > `memoryReg`  (HIGH)
+    .stack      : {} align(4) > WKUP_R5_OCRAM  (HIGH)
 
     /* This is where the stacks for different R5F modes go */
     GROUP {
@@ -167,19 +99,17 @@ SECTIONS
         .undefinedstack: {. = . + __UNDEFINED_STACK_SIZE;} align(4)
         RUN_START(__UNDEFINED_STACK_START)
         RUN_END(__UNDEFINED_STACK_END)
-    } > `memoryReg` (HIGH)
+    } > WKUP_R5_OCRAM (HIGH)
 
     /* Sections needed for C++ projects */
     GROUP {
         .ARM.exidx:  {} palign(8)   /* Needed for C++ exception handling */
         .init_array: {} palign(8)   /* Contains function pointers called before main */
         .fini_array: {} palign(8)   /* Contains function pointers called after main */
-    } > `memoryReg`
-    % if(globalScratchBuf == "true") {
+    } > WKUP_R5_OCRAM
 
     /* global scratch buffer region */
     .globalScratchBuffer (NOLOAD) : {} > SCRATCH_OCRAM
-    % }
 }
 
 MEMORY
@@ -191,12 +121,7 @@ MEMORY
 
     WKUP_R5_OCRAM (RWIX)         : ORIGIN = 0x72000000 LENGTH = 0x00080000 // 512 KB for wakeup core
 
-% if(globalScratchBuf == "true") {
     SCRATCH_OCRAM (RWIX)         : ORIGIN = 0x72080000 LENGTH = 0x00100000 // 1 MB for scratch
-% } 
-% else {
-    R50_0_OCRAM   (RWIX)         : ORIGIN = 0x72080000 LENGTH = 0x00100000 // 1 MB for r5fss0-0 core
-% }
     R50_1_OCRAM   (RWIX)         : ORIGIN = 0x72180000 LENGTH = 0x00080000 // 512 KB for r5fss0-1 core
     R51_0_OCRAM   (RWIX)         : ORIGIN = 0x72280000 LENGTH = 0x00080000 // 512 KB for r5fss1-0 core
     R51_1_OCRAM   (RWIX)         : ORIGIN = 0x72300000 LENGTH = 0x00080000 // 512 KB for r5fss1-1 core
@@ -204,14 +129,5 @@ MEMORY
     C75_0_OCRAM   (RWIX)         : ORIGIN = 0x72200000 LENGTH = 0x00080000 // 512 KB for c75ss0-0 core
     C75_1_OCRAM   (RWIX)         : ORIGIN = 0x72400000 LENGTH = 0x00080000 // 512 KB for c75ss1-0 core
 
-    % if(args.project.isLogSHM === true){
-    LOG_SHM_MEM                  : ORIGIN = 0x72380000, LENGTH = 0x40000
-    % }
-    % if(args.project.ipcVringRTOS === true){
-    IPC_VRING_RTOS               : ORIGIN = 0x723C0000, LENGTH = 0xC000   /* IPC VRING for RTOS/NoRTOS */
-    % }
 
-    % if(useFlash) {
-    FLASH     : ORIGIN = 0x60200000 , LENGTH = 0x00200000
-    % }
 }

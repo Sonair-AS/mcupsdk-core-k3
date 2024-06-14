@@ -19,6 +19,9 @@ FILES_common := \
     ioexp_tca6424.c \
 
 FILES_PATH_common = \
+    flash \
+    flash/ospi \
+    flash/sfdp \
     ioexp \
     led \
     eeprom \

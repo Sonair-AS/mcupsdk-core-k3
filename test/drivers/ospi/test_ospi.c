@@ -57,10 +57,17 @@
 #define TEST_OSPI_1KB_SIZE                 (256*4U)
 #define TEST_OSPI_2KB_SIZE                 (TEST_OSPI_1KB_SIZE*2U)
 #define TEST_OSPI_4KB_SIZE                 (TEST_OSPI_1KB_SIZE*4U)
+#define TEST_OSPI_128KB_SIZE               (TEST_OSPI_1KB_SIZE*128U)
+#define TEST_OSPI_256KB_SIZE               (TEST_OSPI_1KB_SIZE*256U)
+#define TEST_OSPI_512KB_SIZE               (TEST_OSPI_1KB_SIZE*512U)
 #define TEST_OSPI_1MB_SIZE                 (TEST_OSPI_1KB_SIZE*TEST_OSPI_1KB_SIZE)
 #define TEST_OSPI_5MB_SIZE                 (TEST_OSPI_1MB_SIZE*5U)
 #define TEST_OSPI_10MB_SIZE                (TEST_OSPI_1MB_SIZE*10U)
+#if defined (SOC_AM275X)
+#define TEST_OSPI_MAX_TEST_SIZE            (TEST_OSPI_512KB_SIZE)
+#else
 #define TEST_OSPI_MAX_TEST_SIZE            (TEST_OSPI_10MB_SIZE)
+#endif
 #define TEST_OSPI_BLOCK_SIZE               (TEST_OSPI_1KB_SIZE*256U)
 #define TEST_OSPI_READ_FRCOUNT             (10U)  /* Frequency of reading required for average time of read operation*/
 #define TEST_OSPI_PERF_TEST_DATA_COUNT     (3U)   /* Change this value as per testSizes list size */
@@ -129,6 +136,7 @@ uint8_t gOspiTestTxBuf[TEST_OSPI_DATA_SIZE] =
     0xE0,0xE1,0xE2,0xE3,0xE4,0xE5,0xE6,0xE7,0xE8,0xE9,0xEA,0xEB,0xEC,0xED,0xEE,0xEF,
     0xF0,0xF1,0xF2,0xF3,0xF4,0xF5,0xF6,0xF7,0xF8,0xF9,0xFA,0xFB,0xFC,0xFD,0xFE,0xFF
 };
+
 
 uint8_t gOspiTestTxBulkBuf[TEST_OSPI_MAX_TEST_SIZE]__attribute__ ((section (".globalScratchBuffer"), aligned (128U)));
 uint8_t gOspiTestRxBuf[TEST_OSPI_MAX_TEST_SIZE]__attribute__ ((section (".globalScratchBuffer"), aligned (128U)));
@@ -560,9 +568,12 @@ static void test_ospi_read_perf(void *args)
     uint32_t blk, page;
     uint32_t offset = TEST_OSPI_FLASH_OFFSET_BASE;
     uint64_t startTime, endTime;
+#if defined (SOC_AM275X)
+    uint32_t testSizes[TEST_OSPI_PERF_TEST_DATA_COUNT] = {TEST_OSPI_128KB_SIZE, TEST_OSPI_256KB_SIZE, TEST_OSPI_512KB_SIZE};
+#else
     /* Please provide size of atleast 1MiB */
     uint32_t testSizes[TEST_OSPI_PERF_TEST_DATA_COUNT] = {TEST_OSPI_1MB_SIZE, TEST_OSPI_5MB_SIZE, TEST_OSPI_10MB_SIZE};
-
+#endif
     TestData_SizesAttr testDataObj[TEST_OSPI_PERF_TEST_DATA_COUNT],TestDataCurrObj;
 
     const char *flashProtocolList[] = {0,"FLASH_CFG_PROTO_1S_1S_1S","FLASH_CFG_PROTO_1S_1S_2S","FLASH_CFG_PROTO_1S_1S_4S",

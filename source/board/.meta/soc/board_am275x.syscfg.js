@@ -2,6 +2,12 @@
 let common = system.getScript("/common");
 
 const driverVer = {
+    "flash": {
+        version: "v0",
+    },
+    "serialFlash": {
+        version: "v0",
+    },
 };
 
 const topModules_r5 = [
@@ -9,6 +15,7 @@ const topModules_r5 = [
     "/board/eeprom/eeprom",
 ];
 const topModules_wkup_r5 = [
+    "/board/flash/flash",
 ];
 
 const topModules_c75x = [

@@ -74,6 +74,10 @@ FILES_PATH_common = \
     mcspi/v0 \
     mcspi/v0/dma \
     mcspi/v0/dma/udma \
+    ospi \
+    ospi/v0 \
+    ospi/v0/dma \
+    ospi/v0/dma/udma \
     pinmux/am275x \
     sciclient \
     sciclient/soc/am275x \

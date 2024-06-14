@@ -18,13 +18,20 @@ LIBNAME:=board.am275x.r5f.ti-arm-clang.$(PROFILE).lib
 FILES_common := \
     eeprom.c \
     eeprom_at24c512c.c \
+    flash.c \
+    flash_nand_ospi.c \
+    flash_nor_ospi.c \
     led.c \
     led_gpio.c \
     led_tpic2810.c \
     led_ioexp.c \
     ioexp_tca6424.c \
+    nor_spi_sfdp.c \
 
 FILES_PATH_common = \
+    flash \
+    flash/ospi \
+    flash/sfdp \
     ioexp \
     led \
     eeprom \

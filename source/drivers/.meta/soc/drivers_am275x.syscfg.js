@@ -60,6 +60,7 @@ const topModules_wkup = [
     "/drivers/gpio/gpio",
     "/drivers/gtc/gtc",
     "/drivers/i2c/i2c",
+    "/drivers/ospi/ospi",
     "/drivers/uart/uart",
     "/drivers/udma/udma",
 ];
@@ -83,6 +84,7 @@ const topModules_c75 = [
     "/drivers/gtc/gtc",
     "/drivers/i2c/i2c",
     "/drivers/mcspi/mcspi",
+    "/drivers/ospi/ospi",
     "/drivers/uart/uart",
     "/drivers/udma/udma",
 ];

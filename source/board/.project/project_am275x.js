@@ -7,11 +7,15 @@ const files_r5f={
     common: [
         "eeprom.c",
         "eeprom_at24c512c.c",
+        "flash.c",
+        "flash_nand_ospi.c",
+        "flash_nor_ospi.c",
         "led.c",
         "led_gpio.c",
         "led_tpic2810.c",
         "led_ioexp.c",
         "ioexp_tca6424.c",
+        "nor_spi_sfdp.c",
     ],
 };
 
@@ -23,6 +27,9 @@ const files_c75x = {
 
 const filedirs = {
     common: [
+        "flash",
+        "flash/ospi",
+        "flash/sfdp",
         "ioexp",
         "led",
         "eeprom",

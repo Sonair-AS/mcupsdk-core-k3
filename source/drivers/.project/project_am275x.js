@@ -66,6 +66,11 @@ const files_wkup_r5f = {
         "mcspi_v0.c",
         "mcspi_dma.c",
         "mcspi_dma_udma.c",
+        "ospi_v0.c",
+        "ospi_dma.c",
+        "ospi_dma_udma.c",
+        "ospi_nor_flash.c",
+        "ospi_phy.c",
         "pinmux.c",
         "soc.c",
         "sciclient_irq_rm.c",
@@ -84,6 +89,7 @@ const files_wkup_r5f = {
         "udma_rmcfg.c",
         "udma_soc.c",
         "utils.c",
+        "vtm.c",
     ]
 };
 
@@ -133,6 +139,10 @@ const filedirs = {
         "mcspi/v0",
         "mcspi/v0/dma",
         "mcspi/v0/dma/udma",
+        "ospi",
+        "ospi/v0",
+        "ospi/v0/dma",
+        "ospi/v0/dma/udma",
         "pinmux/am275x",
         "sciclient",
         "sciclient/soc/am275x",
