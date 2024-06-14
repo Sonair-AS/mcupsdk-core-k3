@@ -1,5 +1,5 @@
 /*
- *  Copyright (C) 2020 Texas Instruments Incorporated
+ *  Copyright (C) 2018-2024 Texas Instruments Incorporated
  *
  *  Redistribution and use in source and binary forms, with or without
  *  modification, are permitted provided that the following conditions
@@ -28,25 +28,38 @@
  *  THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
  *  (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
  *  OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
- *
  */
-#ifndef GTC_TOP_H_
-#define GTC_TOP_H_
 
-#ifdef __cplusplus
-extern "C"
+#include <stdlib.h>
+#include "ti_drivers_config.h"
+#include "ti_board_config.h"
+#include "ti_drivers_open_close.h"
+#include "ti_board_open_close.h"
+
+void test_main(void *args);
+
+int main()
 {
-#endif
+    int32_t status = SystemP_SUCCESS;
 
-#include <drivers/hw_include/soc_config.h>
+    System_init();
+    Board_init();
 
-#if defined (DRV_VERSION_GTC_V0)
-#include <drivers/gtc/v0/gtc.h>
-#include <drivers/gtc/v0/soc/gtc_soc.h>
-#endif
+    /* Open drivers */
+    Drivers_open();
+    /* Open flash and board drivers */
+    status = Board_driversOpen();
+    DebugP_assert(status==SystemP_SUCCESS);
 
-#ifdef __cplusplus
+    test_main(NULL);
+
+    /* Close board and flash drivers */
+    Board_driversClose();
+    /* Close drivers */
+    Drivers_close();
+
+    Board_deinit();
+    System_deinit();
+
+    return 0;
 }
-#endif
-
-#endif

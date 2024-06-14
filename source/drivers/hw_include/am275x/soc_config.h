@@ -43,6 +43,7 @@ extern "C"
 #define IP_VERSION_ECAP_V0
 #define IP_VERSION_EPWM_V0
 #define IP_VERSION_GPIO_V0
+#define IP_VERSION_GTC_V0
 #define IP_VERSION_I2C_V0
 #define IP_VERSION_INTAGGR_V0
 #define IP_VERSION_INTR_ROUTER_V0
@@ -52,14 +53,17 @@ extern "C"
 #define IP_VERSION_RINGACC_V0
 #define IP_VERSION_DRU_V2
 #define IP_VERSION_UART_V0
+#define IP_VERSION_WATCHDOG_V1
 
 /* Driver versions */
 #define DRV_VERSION_ECAP_V0
 #define DRV_VERSION_EPWM_V0
 #define DRV_VERSION_GPIO_V0
+#define DRV_VERSION_GTC_V0
 #define DRV_VERSION_I2C_V0
 #define DRV_VERSION_MCSPI_V0
 #define DRV_VERSION_UART_V0
+#define DRV_VERSION_WATCHDOG_V1
 
 /* Driver DMA integration */
 #define DMA_VERSION_MCSPI_UDMA

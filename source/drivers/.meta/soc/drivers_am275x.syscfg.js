@@ -6,6 +6,9 @@ Missing IPs:
 ADC
 */
 const driverVer = {
+    "bootloader": {
+        version: "v0",
+    },
     "ecap": {
         version: "v0",
     },
@@ -14,6 +17,9 @@ const driverVer = {
     },
     "gpio":{
         version:"v0_1",
+    },
+    "gtc": {
+        version: "v0",
     },
     "i2c": {
         version: "v0",
@@ -27,19 +33,16 @@ const driverVer = {
     "mcasp": {
         version: "v1",
     },
-    "sciclient": {
-        version: "v0",
-    },
-    "bootloader": {
+    "mcspi": {
         version: "v0",
     },
     "mmcsd": {
         version: "v0", //version check!
     },
-    "gtc": {
+    "ospi": {
         version: "v0",
     },
-    "ospi": {
+    "sciclient": {
         version: "v0",
     },
     "uart": {
@@ -48,13 +51,14 @@ const driverVer = {
     "udma": {
         version: "v0",
     },
-    "mcspi": {
+    "watchdog": {
         version: "v0",
     },
 };
 
 const topModules_wkup = [
     "/drivers/gpio/gpio",
+    "/drivers/gtc/gtc",
     "/drivers/i2c/i2c",
     "/drivers/uart/uart",
     "/drivers/udma/udma",
@@ -64,16 +68,19 @@ const topModules_main = [
     "/drivers/ecap/ecap",
     "/drivers/epwm/epwm",
     "/drivers/gpio/gpio",
+    "/drivers/gtc/gtc",
     "/drivers/i2c/i2c",
     "/drivers/mcspi/mcspi",
     "/drivers/uart/uart",
     "/drivers/udma/udma",
+    "/drivers/watchdog/watchdog",
 ];
 
 const topModules_c75 = [
     "/drivers/ecap/ecap",
     "/drivers/epwm/epwm",
     "/drivers/gpio/gpio",
+    "/drivers/gtc/gtc",
     "/drivers/i2c/i2c",
     "/drivers/mcspi/mcspi",
     "/drivers/uart/uart",

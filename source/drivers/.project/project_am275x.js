@@ -12,6 +12,8 @@ const files_r5f = {
         "ecap.c",
         "epwm.c",
         "gpio.c",
+        "gtc.c",
+        "gtc_soc.c",
         "i2c_v0.c",
         "i2c_v0_lld.c",
         "i2c_soc.c",
@@ -43,6 +45,8 @@ const files_r5f = {
         "udma_rmcfg.c",
         "udma_soc.c",
         "utils.c",
+        "watchdog_rti.c",
+        "watchdog_soc.c",
     ],
 };
 
@@ -54,6 +58,8 @@ const files_wkup_r5f = {
         "csl_lcdma_ringacc.c",
         "csl_pktdma.c",
         "gpio.c",
+        "gtc.c",
+        "gtc_soc.c",
         "i2c_v0.c",
         "i2c_v0_lld.c",
         "i2c_soc.c",
@@ -87,6 +93,8 @@ const files_c75 = {
         "ecap.c",
         "epwm.c",
         "gpio.c",
+        "gtc.c",
+        "gtc_soc.c",
         "i2c_v0.c",
         "i2c_v0_lld.c",
         "i2c_soc.c",
@@ -115,6 +123,8 @@ const filedirs = {
         "ecap/v0",
         "epwm/v0",
         "gpio/v0",
+        "gtc/v0",
+        'gtc/v0/soc/am275x',
         "hw_include/dru/v2/",
         "hw_include/ringacc/V0/priv/",
         "i2c/v0",
@@ -135,6 +145,8 @@ const filedirs = {
         "udma/soc",
         "udma/soc/am275x",
         "utils",
+        "watchdog/v1",
+        `watchdog/v1/soc/am275x`,
     ],
 };
 

@@ -1,5 +1,5 @@
 /*
- *  Copyright (C) 2020 Texas Instruments Incorporated
+ *  Copyright (C) 2023 Texas Instruments Incorporated
  *
  *  Redistribution and use in source and binary forms, with or without
  *  modification, are permitted provided that the following conditions
@@ -28,25 +28,29 @@
  *  THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
  *  (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
  *  OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+ */
+
+/**
+ *  \file   watchdog_soc.c
+ *
+ *  \brief  File containing SOC related APIs to enable WDT.
  *
  */
-#ifndef GTC_TOP_H_
-#define GTC_TOP_H_
 
-#ifdef __cplusplus
-extern "C"
+/* ========================================================================== */
+/*                             Include Files                                  */
+/* ========================================================================== */
+
+#include <drivers/watchdog.h>
+#include <drivers/hw_include/cslr_soc.h>
+#include <drivers/hw_include/am275x/cslr_psc.h>
+
+void Watchdog_reset(Watchdog_Handle handle)
 {
-#endif
-
-#include <drivers/hw_include/soc_config.h>
-
-#if defined (DRV_VERSION_GTC_V0)
-#include <drivers/gtc/v0/gtc.h>
-#include <drivers/gtc/v0/soc/gtc_soc.h>
-#endif
-
-#ifdef __cplusplus
+    return;
 }
-#endif
 
-#endif
+void Watchdog_configureWarmReset(Watchdog_Handle handle)
+{
+    return;
+}

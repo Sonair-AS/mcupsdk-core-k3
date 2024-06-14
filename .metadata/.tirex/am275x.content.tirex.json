@@ -1212,6 +1212,39 @@
             "example"
         ],
         "resourceSubClass": [
+            "example.general"
+        ],
+        "description": "A Watchdog non reset mode example. This example generates NMI. CPU is R5FSS0-0 running FREERTOS.",
+        "name": "watchdog_interrupt",
+        "location": "../../examples/drivers/watchdog/watchdog_interrupt/am275x-evm/r5fss0-0_freertos/ti-arm-clang/example.projectspec",
+        "devtools": [
+            "AM275x_EVM"
+        ],
+        "kernel": [
+            "freertos"
+        ],
+        "compiler": [
+            "ticlang"
+        ],
+        "subCategories": [
+            "drivers",
+            "watchdog",
+            "watchdog_interrupt",
+            "r5fss0-0_freertos"
+        ],
+        "mainCategories": [
+            [
+                "Examples",
+                "Development Tools"
+            ]
+        ]
+    },
+    {
+        "resourceType": "project.ccs",
+        "resourceClass": [
+            "example"
+        ],
+        "resourceSubClass": [
             "example.gettingstarted"
         ],
         "description": "A simple \"Hello, World\" example.  CPU is R5FSS0-0 running NORTOS.",
