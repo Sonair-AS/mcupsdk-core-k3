@@ -120,7 +120,7 @@ endif
 
 syscfg:
 	@echo Generating SysConfig files ...
-	$(SYSCFG_NODE) $(SYSCFG_CLI_PATH)/dist/cli.js --product $(SYSCFG_SDKPRODUCT) $(CORES)
+	$(SYSCFG_NODE) $(SYSCFG_CLI_PATH)/dist/cli.js --device `args.device.getSysCfgDevice(args.project.board)` --product $(SYSCFG_SDKPRODUCT) $(CORES)
 
 syscfg-gui:
 	$(SYSCFG_NWJS) $(SYSCFG_PATH) --product $(SYSCFG_SDKPRODUCT) --device `args.device.getSysCfgDevice(args.project.board)` --part `args.device.getSysCfgPart(args.project.board)` --package `args.device.getSysCfgPkg(args.project.board)` $(CORES)
@@ -217,6 +217,17 @@ BOOTIMAGE_CORE_ID_a53ss0-1      = 6
 BOOTIMAGE_CORE_ID_a53ss1-0      = 7
 BOOTIMAGE_CORE_ID_a53ss1-1      = 8
 BOOTIMAGE_CORE_ID_hsm-m4fss0-0  = 9
+SBL_DEV_ID=55
+% }
+% if (args.project.device == "am275x") {
+BOOTIMAGE_CORE_ID_wkup-r5fss0-0 = 0
+BOOTIMAGE_CORE_ID_r5fss0-0      = 1
+BOOTIMAGE_CORE_ID_r5fss0-1      = 2
+BOOTIMAGE_CORE_ID_r5fss1-0      = 3
+BOOTIMAGE_CORE_ID_r5fss1-1      = 4
+BOOTIMAGE_CORE_ID_c75ss0-0      = 5
+BOOTIMAGE_CORE_ID_c75ss1-0      = 6
+BOOTIMAGE_CORE_ID_hsm-m4fss0-0  = 7
 SBL_RUN_ADDRESS=0x43C00000
 SBL_DEV_ID=55
 % }

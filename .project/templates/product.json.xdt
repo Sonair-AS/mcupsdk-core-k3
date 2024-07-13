@@ -64,7 +64,6 @@
         "/drivers/drivers",
         "/board/board",
         "/fs/fs",
-        "/security/security",
 %if((isDevelopmentMode) && (args.device != "am275x")) {
         "/networking/networking",
 % }

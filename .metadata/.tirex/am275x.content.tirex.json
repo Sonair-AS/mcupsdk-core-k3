@@ -1,12 +1,414 @@
 [
     {
+        "resourceType": "project.ccs",
+        "resourceClass": [
+            "example"
+        ],
+        "resourceSubClass": [
+            "example.gettingstarted"
+        ],
+        "description": "An Empty Example. This example is intended to be a starting point for new development CPU is WKUP-R5FSS0-0 running FREERTOS.",
+        "name": "empty",
+        "location": "../../examples/empty/am275x-evm/wkup-r5fss0-0_freertos/ti-arm-clang/example.projectspec",
+        "devtools": [
+            "AM275x_EVM"
+        ],
+        "kernel": [
+            "freertos"
+        ],
+        "compiler": [
+            "ticlang"
+        ],
+        "subCategories": [
+            "empty",
+            "wkup-r5fss0-0_freertos"
+        ],
+        "mainCategories": [
+            [
+                "Examples",
+                "Development Tools"
+            ]
+        ]
+    },
+    {
+        "resourceType": "project.ccs",
+        "resourceClass": [
+            "example"
+        ],
+        "resourceSubClass": [
+            "example.gettingstarted"
+        ],
+        "description": "An Empty Example. This example is intended to be a starting point for new development CPU is C75SS0-0 running FREERTOS.",
+        "name": "empty",
+        "location": "../../examples/empty/am275x-evm/c75ss0-0_freertos/ti-c7000/example.projectspec",
+        "devtools": [
+            "AM275x_EVM"
+        ],
+        "kernel": [
+            "freertos"
+        ],
+        "compiler": [
+            "ccs"
+        ],
+        "subCategories": [
+            "empty",
+            "c75ss0-0_freertos"
+        ],
+        "mainCategories": [
+            [
+                "Examples",
+                "Development Tools"
+            ]
+        ]
+    },
+    {
+        "resourceType": "project.ccs",
+        "resourceClass": [
+            "example"
+        ],
+        "resourceSubClass": [
+            "example.gettingstarted"
+        ],
+        "description": "An Empty Example. This example is intended to be a starting point for new development CPU is C75SS1-0 running FREERTOS.",
+        "name": "empty",
+        "location": "../../examples/empty/am275x-evm/c75ss1-0_freertos/ti-c7000/example.projectspec",
+        "devtools": [
+            "AM275x_EVM"
+        ],
+        "kernel": [
+            "freertos"
+        ],
+        "compiler": [
+            "ccs"
+        ],
+        "subCategories": [
+            "empty",
+            "c75ss1-0_freertos"
+        ],
+        "mainCategories": [
+            [
+                "Examples",
+                "Development Tools"
+            ]
+        ]
+    },
+    {
+        "resourceType": "project.ccs",
+        "resourceClass": [
+            "example"
+        ],
+        "resourceSubClass": [
+            "example.gettingstarted"
+        ],
+        "description": "An Empty Example. This example is intended to be a starting point for new development CPU is R5FSS0-0 running FREERTOS.",
+        "name": "empty",
+        "location": "../../examples/empty/am275x-evm/r5fss0-0_freertos/ti-arm-clang/example.projectspec",
+        "devtools": [
+            "AM275x_EVM"
+        ],
+        "kernel": [
+            "freertos"
+        ],
+        "compiler": [
+            "ticlang"
+        ],
+        "subCategories": [
+            "empty",
+            "r5fss0-0_freertos"
+        ],
+        "mainCategories": [
+            [
+                "Examples",
+                "Development Tools"
+            ]
+        ]
+    },
+    {
+        "resourceType": "project.ccs",
+        "resourceClass": [
+            "example"
+        ],
+        "resourceSubClass": [
+            "example.gettingstarted"
+        ],
+        "description": "An Empty Example. This example is intended to be a starting point for new development CPU is R5FSS0-1 running FREERTOS.",
+        "name": "empty",
+        "location": "../../examples/empty/am275x-evm/r5fss0-1_freertos/ti-arm-clang/example.projectspec",
+        "devtools": [
+            "AM275x_EVM"
+        ],
+        "kernel": [
+            "freertos"
+        ],
+        "compiler": [
+            "ticlang"
+        ],
+        "subCategories": [
+            "empty",
+            "r5fss0-1_freertos"
+        ],
+        "mainCategories": [
+            [
+                "Examples",
+                "Development Tools"
+            ]
+        ]
+    },
+    {
+        "resourceType": "project.ccs",
+        "resourceClass": [
+            "example"
+        ],
+        "resourceSubClass": [
+            "example.gettingstarted"
+        ],
+        "description": "An Empty Example. This example is intended to be a starting point for new development CPU is R5FSS1-0 running FREERTOS.",
+        "name": "empty",
+        "location": "../../examples/empty/am275x-evm/r5fss1-0_freertos/ti-arm-clang/example.projectspec",
+        "devtools": [
+            "AM275x_EVM"
+        ],
+        "kernel": [
+            "freertos"
+        ],
+        "compiler": [
+            "ticlang"
+        ],
+        "subCategories": [
+            "empty",
+            "r5fss1-0_freertos"
+        ],
+        "mainCategories": [
+            [
+                "Examples",
+                "Development Tools"
+            ]
+        ]
+    },
+    {
+        "resourceType": "project.ccs",
+        "resourceClass": [
+            "example"
+        ],
+        "resourceSubClass": [
+            "example.gettingstarted"
+        ],
+        "description": "An Empty Example. This example is intended to be a starting point for new development CPU is R5FSS1-1 running FREERTOS.",
+        "name": "empty",
+        "location": "../../examples/empty/am275x-evm/r5fss1-1_freertos/ti-arm-clang/example.projectspec",
+        "devtools": [
+            "AM275x_EVM"
+        ],
+        "kernel": [
+            "freertos"
+        ],
+        "compiler": [
+            "ticlang"
+        ],
+        "subCategories": [
+            "empty",
+            "r5fss1-1_freertos"
+        ],
+        "mainCategories": [
+            [
+                "Examples",
+                "Development Tools"
+            ]
+        ]
+    },
+    {
+        "resourceType": "project.ccs",
+        "resourceClass": [
+            "example"
+        ],
+        "resourceSubClass": [
+            "example.gettingstarted"
+        ],
+        "description": "A simple \"Hello, World\" example.  CPU is R5FSS0-0 running NORTOS.",
+        "name": "hello_world",
+        "location": "../../examples/hello_world/am275x-evm/r5fss0-0_nortos/ti-arm-clang/example.projectspec",
+        "devtools": [
+            "AM275x_EVM"
+        ],
+        "kernel": [
+            "nortos"
+        ],
+        "compiler": [
+            "ticlang"
+        ],
+        "subCategories": [
+            "hello_world",
+            "r5fss0-0_nortos"
+        ],
+        "mainCategories": [
+            [
+                "Examples",
+                "Development Tools"
+            ]
+        ]
+    },
+    {
+        "resourceType": "project.ccs",
+        "resourceClass": [
+            "example"
+        ],
+        "resourceSubClass": [
+            "example.gettingstarted"
+        ],
+        "description": "A simple \"Hello, World\" example.  CPU is R5FSS0-0 running FREERTOS.",
+        "name": "hello_world",
+        "location": "../../examples/hello_world/am275x-evm/r5fss0-0_freertos/ti-arm-clang/example.projectspec",
+        "devtools": [
+            "AM275x_EVM"
+        ],
+        "kernel": [
+            "freertos"
+        ],
+        "compiler": [
+            "ticlang"
+        ],
+        "subCategories": [
+            "hello_world",
+            "r5fss0-0_freertos"
+        ],
+        "mainCategories": [
+            [
+                "Examples",
+                "Development Tools"
+            ]
+        ]
+    },
+    {
+        "resourceType": "project.ccs",
+        "resourceClass": [
+            "example"
+        ],
+        "resourceSubClass": [
+            "example.gettingstarted"
+        ],
+        "description": "A simple \"Hello, World\" example.  CPU is WKUP-R5FSS0-0 running FREERTOS.",
+        "name": "hello_world",
+        "location": "../../examples/hello_world/am275x-evm/wkup-r5fss0-0_freertos/ti-arm-clang/example.projectspec",
+        "devtools": [
+            "AM275x_EVM"
+        ],
+        "kernel": [
+            "freertos"
+        ],
+        "compiler": [
+            "ticlang"
+        ],
+        "subCategories": [
+            "hello_world",
+            "wkup-r5fss0-0_freertos"
+        ],
+        "mainCategories": [
+            [
+                "Examples",
+                "Development Tools"
+            ]
+        ]
+    },
+    {
+        "resourceType": "project.ccs",
+        "resourceClass": [
+            "example"
+        ],
+        "resourceSubClass": [
+            "example.gettingstarted"
+        ],
+        "description": "A simple \"Hello, World\" example.  CPU is C75SS0-0 running FREERTOS.",
+        "name": "hello_world",
+        "location": "../../examples/hello_world/am275x-evm/c75ss0-0_freertos/ti-c7000/example.projectspec",
+        "devtools": [
+            "AM275x_EVM"
+        ],
+        "kernel": [
+            "freertos"
+        ],
+        "compiler": [
+            "ccs"
+        ],
+        "subCategories": [
+            "hello_world",
+            "c75ss0-0_freertos"
+        ],
+        "mainCategories": [
+            [
+                "Examples",
+                "Development Tools"
+            ]
+        ]
+    },
+    {
+        "resourceType": "project.ccs",
+        "resourceClass": [
+            "example"
+        ],
+        "resourceSubClass": [
+            "example.gettingstarted"
+        ],
+        "description": "A simple \"Hello, World\" example.  CPU is C75SS1-0 running FREERTOS.",
+        "name": "hello_world",
+        "location": "../../examples/hello_world/am275x-evm/c75ss1-0_freertos/ti-c7000/example.projectspec",
+        "devtools": [
+            "AM275x_EVM"
+        ],
+        "kernel": [
+            "freertos"
+        ],
+        "compiler": [
+            "ccs"
+        ],
+        "subCategories": [
+            "hello_world",
+            "c75ss1-0_freertos"
+        ],
+        "mainCategories": [
+            [
+                "Examples",
+                "Development Tools"
+            ]
+        ]
+    },
+    {
+        "resourceType": "project.ccs",
+        "resourceClass": [
+            "example"
+        ],
+        "resourceSubClass": [
+            "example.gettingstarted"
+        ],
+        "description": "An Empty Example. This example is intended to be a starting point for new development System project.",
+        "name": "empty",
+        "location": "../../examples/empty/am275x-evm/system_freertos/system.projectspec",
+        "devtools": [
+            "AM275x_EVM"
+        ],
+        "kernel": [
+            "freertos"
+        ],
+        "subCategories": [
+            "empty",
+            "system_freertos"
+        ],
+        "mainCategories": [
+            [
+                "Examples",
+                "Development Tools"
+            ]
+        ]
+    },
+    {
         "resourceType": "web.page",
         "resourceClass": [
             "document"
         ],
         "name": "User Guide",
         "location": "../../docs/api_guide_am275x/index.html",
-        "devtools": [],
+        "devtools": [
+            "AM275x_EVM"
+        ],
         "mainCategories": [
             [
                 "Documents"

@@ -12,7 +12,6 @@
         "/drivers/drivers",
         "/board/board",
         "/fs/fs",
-        "/security/security",
     ],
     "devices": [
         "AM64x_beta",
