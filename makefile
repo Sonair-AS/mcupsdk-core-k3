@@ -64,6 +64,12 @@ ifeq ($(DEVICE),$(filter $(DEVICE), am62px))
   # options on am62ax are wkup-r5fss0-0, mcu-r5fss0-0
   SYSCFG_CPU = mcu-r5fss0-0
 endif
+ifeq ($(DEVICE),$(filter $(DEVICE), am275x))
+  SYSCFG_DEVICE = AM275x
+  # default syscfg CPU to use,
+  # options on am275x are wkup-r5fss0-0, r5fss0-1, r5fss1-0, r5fss1-1, c75ss0-0, c75ss1-0
+  SYSCFG_CPU = r5fss0-0
+endif
 all:
 	$(MAKE) -C . -f makefile.$(DEVICE) all PROFILE=$(PROFILE)
 
@@ -186,12 +192,12 @@ endif
 ifeq ($(DEVICE),$(filter $(DEVICE), am62ax am62dx am62px))
 	-$(SYSCFG_NODE) $(SYSCFG_CLI_PATH)/tests/sanityTests.js -s $(SYSCFG_SDKPRODUCT) -d $(SYSCFG_DEVICE) -c mcu-r5fss0-0
 endif
-ifeq ($(DEVICE),$(filter $(DEVICE), am62px))
+ifeq ($(DEVICE),$(filter $(DEVICE), am62px am275x))
 	-$(SYSCFG_NODE) $(SYSCFG_CLI_PATH)/tests/sanityTests.js -s $(SYSCFG_SDKPRODUCT) -d $(SYSCFG_DEVICE) -c wkup-r5fss0-0
 endif
-ifeq ($(DEVICE),$(filter $(DEVICE), am62ax am62dx))
+ifeq ($(DEVICE),$(filter $(DEVICE), am62ax am62dx am275x))
 	-$(SYSCFG_NODE) $(SYSCFG_CLI_PATH)/tests/sanityTests.js -s $(SYSCFG_SDKPRODUCT) -d $(SYSCFG_DEVICE) -c c75ss0-0
-endif
+endif  
 	-$(SYSCFG_NODE) $(SYSCFG_CLI_PATH)/tests/sanityTests.js -s $(SYSCFG_SDKPRODUCT) -d $(SYSCFG_DEVICE) -c r5fss0-0
 ifeq ($(DEVICE),$(filter $(DEVICE), am273x awr294x))
 	-$(SYSCFG_NODE) $(SYSCFG_CLI_PATH)/tests/sanityTests.js -s $(SYSCFG_SDKPRODUCT) -d $(SYSCFG_DEVICE) -c c66ss0

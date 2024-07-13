@@ -1,5 +1,5 @@
 /*
- *  Copyright (C) 2017-2021 Texas Instruments Incorporated.
+ *  Copyright (C) 2017-2024 Texas Instruments Incorporated.
  *
  *  Redistribution and use in source and binary forms, with or without
  *  modification, are permitted provided that the following conditions
@@ -194,6 +194,13 @@ int32_t CSL_clecClearEvent(CSL_CLEC_EVTRegs *pRegs, uint32_t evtNum);
 int32_t CSL_clecConfigEventLevel(CSL_CLEC_EVTRegs *pRegs,
                             uint32_t evtNum,
                             uint32_t is_level);
+
+/**
+ *  \brief   This API returns the cluster ID of the C75 core currently running.
+ *
+ *  \return \ref Returns the cluster ID of the C75 core.
+ */
+uint32_t CSL_clecGetC7xClusterId(void);
 
 /* ========================================================================== */
 /*                       Static Function Definitions                          */

@@ -248,7 +248,6 @@ int32_t HwiP_configClec(uint16_t eventId, uint32_t intNum, uint8_t isPulse);
 /* Initializes CLEC*/
 void HwiP_configClecAccessCtrl();
 
-
 unsigned int Hwi_disable(void);
 unsigned int Hwi_enable(void);
 void Hwi_restore(unsigned int key);

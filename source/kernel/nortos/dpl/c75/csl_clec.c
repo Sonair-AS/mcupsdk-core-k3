@@ -1,5 +1,5 @@
 /*
- *  Copyright (C) 2017-2021 Texas Instruments Incorporated.
+ *  Copyright (C) 2017-2024 Texas Instruments Incorporated.
  *
  *  Redistribution and use in source and binary forms, with or without
  *  modification, are permitted provided that the following conditions
@@ -35,6 +35,7 @@
 #include <drivers/hw_include/csl_clec.h>
 #include <kernel/dpl/SystemP.h>
 #include "csl_clec.h"
+#include <c7x.h>
 
 
 
@@ -141,4 +142,16 @@ int32_t CSL_clecClearEvent(CSL_CLEC_EVTRegs *pRegs, uint32_t evtNum)
     }
 
     return (retVal);
+}
+
+uint32_t CSL_clecGetC7xClusterId(void)
+{
+    uint32_t clusterNum;
+    uint64_t dnum;
+    /* Get the bits from bit 7 to bit 15, which represents the core pac number */
+    dnum = __DNUM;
+
+    clusterNum = (uint32_t) CSL_REG64_FEXT(&dnum, C75_CPU_DNUM_CLUSTER);
+
+    return clusterNum;
 }

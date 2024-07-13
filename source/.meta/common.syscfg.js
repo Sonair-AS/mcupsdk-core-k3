@@ -33,6 +33,8 @@ function getSelfSysCfgCoreName() {
             return system.context;
         case "am62px":
             return system.context;
+        case "am275x":
+            return system.context;
     }
 };
 
@@ -67,6 +69,8 @@ function isSciClientSupported() {
             return true;
         case "am62px":
             return true;
+        case "am275x":
+            return true;
         default:
             return false;
     }
@@ -91,6 +95,8 @@ function getSocName() {
         return "am62dx";
     if(system.deviceData.device == "AM62Px")
         return "am62px";
+    if(system.deviceData.device == "AM275x")
+        return "am275x";
 };
 
 function getDeviceName() {
@@ -116,6 +122,8 @@ function getDeviceName() {
         return "am62dx-evm";
     if(system.deviceData.device == "AM62Px")
         return "am62px-sk";
+    if(system.deviceData.device == "AM275x")
+        return "am275x-evm";
 };
 
 function isCName(id) {
@@ -301,7 +309,7 @@ function getUseWakeupDomainPeripheralsConfig()
         }
     }
 
-    if(getSocName().match(/am62x/) || getSocName().match(/am62ax/) || getSocName().match(/am62dx/) || getSocName().match(/am62px/) )
+    if(getSocName().match(/am62x/) || getSocName().match(/am62ax/) || getSocName().match(/am62dx/) || getSocName().match(/am62px/))
     {
         if(getSelfSysCfgCoreName().includes("r5f"))
         {
@@ -331,6 +339,8 @@ function isWakeupDomainSupported()
         case "am62dx":
             return true;
         case "am62px":
+            return true;
+        case "am275x":
             return true;
         default:
             return false;

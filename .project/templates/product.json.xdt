@@ -52,14 +52,14 @@
         "/board/board",
         "/fs/fs",
         "/networking/networking",
-% }
-% if((args.device == "am62ax")) {
+%}
+% if((args.device == "am62ax") || (args.device == "am275x")) {
         "/kernel/dpl",
         "/drivers/drivers",
         "/board/board",
         "/fs/fs",
         "/security/security",
-%if((isDevelopmentMode)) {
+%if((isDevelopmentMode) && (args.device != "am275x")) {
         "/networking/networking",
 % }
 % }
@@ -101,6 +101,9 @@
 % }
 % if((args.device == "am62dx") || (isDevelopmentMode)) {
         "AM62Dx",
+% }
+% if((args.device == "am275x") || (isDevelopmentMode)) {
+        "AM275x",
 % }
     ],
     "contexts": {
@@ -191,6 +194,17 @@
             "r5fss0-0",
             "c75ss0-0",
             "a53ss0-0",
+        ],
+% }
+% if((args.device == "am275x") || (isDevelopmentMode)) {
+        "AM275x": [
+            "r5fss0-0",
+            "r5fss0-1",
+            "r5fss1-0",
+            "r5fss1-1",
+            "c75ss0-0",
+            "c75ss1-0",
+            "wkup-r5fss0-0",
         ],
 % }
     },

@@ -76,6 +76,7 @@ typedef struct HwiP_Struct_s {
 
 /* global pool of statically allocated semaphore pools */
 static HwiP_freeRtos gOsalHwiPFreeRtosPool[OSAL_FREERTOS_C7X_CONFIGNUM_HWI];
+static CSL_CLEC_EVTRegs* Hwip_getClecBaseAddr();
 
 int32_t HwiP_construct(HwiP_Object *object, HwiP_Params *params)
 {
@@ -235,21 +236,32 @@ int32_t HwiP_configClec(uint16_t eventId, uint32_t intNum, uint8_t isPulse)
     else
     {
         CSL_ClecEventConfig   cfgClec;
+#if (CSL_C7X256V_CLEC_MAIN_CNT == 1U)
         CSL_CLEC_EVTRegs     *clecBaseAddr = (CSL_CLEC_EVTRegs*)CSL_C7X256V0_CLEC_BASE;
-
-        /* Configure CLEC */
-        cfgClec.secureClaimEnable = FALSE;
-        cfgClec.evtSendEnable     = TRUE;
-        cfgClec.rtMap             = CSL_CLEC_RTMAP_CPU_ALL;
-        cfgClec.extEvtNum         = 0;
-        cfgClec.c7xEvtNum         = intNum;
-        CSL_clecClearEvent(clecBaseAddr, eventId);
-        CSL_clecConfigEventLevel(clecBaseAddr, eventId, !(isPulse)); /* configure interrupt as pulse/level */
-        status = CSL_clecConfigEvent(clecBaseAddr, eventId, &cfgClec);
+#elif (CSL_C7X256V_CLEC_MAIN_CNT > 1U)             
+        CSL_CLEC_EVTRegs     *clecBaseAddr = Hwip_getClecBaseAddr();
+        if (clecBaseAddr == (CSL_CLEC_EVTRegs*) NULL)
+        {
+            status = SystemP_FAILURE;
+        }
+        if (SystemP_SUCCESS == status)
+        {
+#endif
+            /* Configure CLEC */
+            cfgClec.secureClaimEnable = FALSE;
+            cfgClec.evtSendEnable     = TRUE;
+            cfgClec.rtMap             = CSL_CLEC_RTMAP_CPU_ALL;
+            cfgClec.extEvtNum         = 0;
+            cfgClec.c7xEvtNum         = intNum;
+            CSL_clecClearEvent(clecBaseAddr, eventId);
+            CSL_clecConfigEventLevel(clecBaseAddr, eventId, !(isPulse)); /* configure interrupt as pulse/level */
+            status = CSL_clecConfigEvent(clecBaseAddr, eventId, &cfgClec);
+#if (CSL_C7X256V_CLEC_MAIN_CNT > 1U)             
+        }
+#endif        
     }
 
     return status;
-
 }
 
 /* The C7x CLEC should be initialized to allow config/re config.
@@ -258,7 +270,7 @@ int32_t HwiP_configClec(uint16_t eventId, uint32_t intNum, uint8_t isPulse)
 void HwiP_configClecAccessCtrl()
 {
     CSL_ClecEventConfig cfgClec;
-    CSL_CLEC_EVTRegs   *clecBaseAddr = (CSL_CLEC_EVTRegs*) CSL_C7X256V0_CLEC_BASE;
+    CSL_CLEC_EVTRegs   *clecBaseAddr = Hwip_getClecBaseAddr();
     uint32_t            i, maxInputs = 511U;
 
     cfgClec.secureClaimEnable = FALSE;
@@ -271,3 +283,35 @@ void HwiP_configClecAccessCtrl()
         CSL_clecConfigEvent(clecBaseAddr, i, &cfgClec);
     }
 }
+
+/* 
+ * Returns the C7x clec base address for the current C7x cluster
+*/
+static CSL_CLEC_EVTRegs* Hwip_getClecBaseAddr()
+{
+    CSL_CLEC_EVTRegs     *clecBaseAddr = (CSL_CLEC_EVTRegs*) NULL;
+
+#if (CSL_C7X256V_CLEC_MAIN_CNT == 1U)
+    clecBaseAddr = (CSL_CLEC_EVTRegs*)CSL_C7X256V0_CLEC_BASE;
+#elif (CSL_C7X256V_CLEC_MAIN_CNT == 2U)
+    uint32_t clusterId;
+
+    clusterId=CSL_clecGetC7xClusterId();
+
+    if (clusterId == CSL_C75_CPU_CLUSTER_NUM_C75_1)
+    {
+        clecBaseAddr = (CSL_CLEC_EVTRegs*)CSL_C7X256V_0_0_CLEC_BASE;
+    }
+    else if (clusterId == CSL_C75_CPU_CLUSTER_NUM_C75_2)
+    {
+        clecBaseAddr = (CSL_CLEC_EVTRegs*)CSL_C7X256V_1_1_CLEC_BASE;
+    }
+    else
+    {
+        clecBaseAddr = (CSL_CLEC_EVTRegs*) NULL;
+    }
+#else 
+#error "Invalid CLEC Count"
+#endif
+    return clecBaseAddr;
+} 

@@ -1,5 +1,5 @@
 /*
- *  Copyright (C) 2020-2024 Texas Instruments Incorporated
+ *  Copyright (C) 2018-2021 Texas Instruments Incorporated
  *
  *  Redistribution and use in source and binary forms, with or without
  *  modification, are permitted provided that the following conditions
@@ -28,58 +28,28 @@
  *  THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
  *  (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
  *  OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
- *
  */
-#ifndef SOC_CONFIG_TOP_H_
-#define SOC_CONFIG_TOP_H_
 
 
-#include <stdint.h>
+#ifndef TI_FREERTOS_C7X_1_CONFIG_H
+#define TI_FREERTOS_C7X_1_CONFIG_H
 
 
-#ifdef __cplusplus
-extern "C"
-{
-#endif
+/*-----------------------------------------------------------
+ * Application specific definitions.
+ *
+ * These definitions should be adjusted for your particular hardware and
+ * application requirements.
+ *
+ * THESE PARAMETERS ARE DESCRIBED WITHIN THE 'CONFIGURATION' SECTION OF THE
+ * FreeRTOS API DOCUMENTATION AVAILABLE ON THE FreeRTOS.org WEB SITE AND IN THE
+ * FreeRTOS REFERENCE MANUAL.
+ *----------------------------------------------------------*/
 
-#if defined (SOC_AM64X) || defined (SOC_AM243X)
-#include <drivers/hw_include/am64x_am243x/soc_config.h>
-#endif
+#define configTIMER_ID                                                    (2)
+#define configTIMER_INT_NUM                                               (16)
 
-#if defined (SOC_AM263X)
-#include <drivers/hw_include/am263x/soc_config.h>
-#endif
+/* Compute Cluster CLEC route map */
+#define portCOMPUTE_CLUSTER_CLEC_RTMAP                                    (CSL_CLEC_RTMAP_CPU_ALL)
 
-#if defined (SOC_AM273X)
-#include <drivers/hw_include/am273x/soc_config.h>
-#endif
-
-#if defined (SOC_AWR294X)
-#include <drivers/hw_include/awr294x/soc_config.h>
-#endif
-
-#if defined (SOC_AM62X)
-#include <drivers/hw_include/am62x/soc_config.h>
-#endif
-
-#if defined (SOC_AM62AX)
-#include <drivers/hw_include/am62ax/soc_config.h>
-#endif
-
-#if defined (SOC_AM62DX)
-#include <drivers/hw_include/am62dx/soc_config.h>
-#endif
-
-#if defined (SOC_AM62PX)
-#include <drivers/hw_include/am62px/soc_config.h>
-#endif
-
-#if defined (SOC_AM275X)
-#include <drivers/hw_include/am275x/soc_config.h>
-#endif
-
-#ifdef __cplusplus
-}
-#endif
-
-#endif
+#endif /* TI_FREERTOS_C7X_1_CONFIG_H */

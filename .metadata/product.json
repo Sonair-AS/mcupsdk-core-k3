@@ -12,7 +12,7 @@
         "/drivers/drivers",
         "/board/board",
         "/fs/fs",
-        "/networking/networking",
+        "/security/security",
     ],
     "devices": [
         "AM64x_beta",
@@ -26,6 +26,7 @@
         "AM62Ax",
         "AM62Px",
         "AM62Dx",
+        "AM275x",
     ],
     "contexts": {
         "AM64x_beta": [
@@ -98,6 +99,15 @@
             "r5fss0-0",
             "c75ss0-0",
             "a53ss0-0",
+        ],
+        "AM275x": [
+            "r5fss0-0",
+            "r5fss0-1",
+            "r5fss1-0",
+            "r5fss1-1",
+            "c75ss0-0",
+            "c75ss1-0",
+            "wkup-r5fss0-0",
         ],
     },
     "pinmuxUIOptions": {

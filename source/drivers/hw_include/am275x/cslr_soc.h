@@ -1,5 +1,5 @@
 /*
- *  Copyright (C) 2020-2024 Texas Instruments Incorporated
+ *  Copyright (C) 2024 Texas Instruments Incorporated
  *
  *  Redistribution and use in source and binary forms, with or without
  *  modification, are permitted provided that the following conditions
@@ -30,56 +30,18 @@
  *  OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  *
  */
-#ifndef SOC_CONFIG_TOP_H_
-#define SOC_CONFIG_TOP_H_
-
-
-#include <stdint.h>
-
+#ifndef CSLR_SOC_IN_H_
+#define CSLR_SOC_IN_H_
 
 #ifdef __cplusplus
 extern "C"
 {
 #endif
 
-#if defined (SOC_AM64X) || defined (SOC_AM243X)
-#include <drivers/hw_include/am64x_am243x/soc_config.h>
-#endif
-
-#if defined (SOC_AM263X)
-#include <drivers/hw_include/am263x/soc_config.h>
-#endif
-
-#if defined (SOC_AM273X)
-#include <drivers/hw_include/am273x/soc_config.h>
-#endif
-
-#if defined (SOC_AWR294X)
-#include <drivers/hw_include/awr294x/soc_config.h>
-#endif
-
-#if defined (SOC_AM62X)
-#include <drivers/hw_include/am62x/soc_config.h>
-#endif
-
-#if defined (SOC_AM62AX)
-#include <drivers/hw_include/am62ax/soc_config.h>
-#endif
-
-#if defined (SOC_AM62DX)
-#include <drivers/hw_include/am62dx/soc_config.h>
-#endif
-
-#if defined (SOC_AM62PX)
-#include <drivers/hw_include/am62px/soc_config.h>
-#endif
-
-#if defined (SOC_AM275X)
-#include <drivers/hw_include/am275x/soc_config.h>
-#endif
+#include <drivers/hw_include/am275x/cslr_soc_baseaddress.h>
+#include <drivers/hw_include/am275x/cslr_soc_defines.h>
 
 #ifdef __cplusplus
 }
 #endif
-
-#endif
+#endif /* CSLR_SOC_IN_H_ */

@@ -39,7 +39,7 @@ extern "C" {
 
 #include <stdint.h>
 #include <kernel/dpl/SystemP.h>
-#if (!defined(SOC_AM62AX)) && (!defined(SOC_AM62DX))
+#if (!defined(SOC_AM62AX)) && (!defined(SOC_AM62DX)) && (!defined(SOC_AM275X))
 #if defined(_TMS320C6X)
 #include <kernel/dpl/CacheP_c6x.h>
 #endif

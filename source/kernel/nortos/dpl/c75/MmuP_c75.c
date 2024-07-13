@@ -44,6 +44,9 @@
 #if defined(SOC_AM62DX)
 #include <drivers/hw_include/am62dx/cslr_soc_baseaddress.h>
 #endif
+#if defined(SOC_AM275X)
+#include <drivers/hw_include/am275x/cslr_soc_baseaddress.h>
+#endif
 
 #include "MmuP_c75.h"
 
@@ -293,7 +296,7 @@ __attribute__((weak)) void MmuP_setConfig()
 	}
 
     HwiP_configClecAccessCtrl();
-	return;
+    return;
 }
 
 void MmuP_disable(void)

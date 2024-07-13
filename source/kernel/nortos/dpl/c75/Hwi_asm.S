@@ -44,11 +44,6 @@ Hwi_switchToNS:
         MVK32 .L1 0, A0
         MVC   .S1 A0, EASGR
 
-        MVK64 .L1 0x7c295b00, a0 ; CLEC register for event 346
-        ldw   .d1 *a0, a1
-        andw  .m1 a1, a2, a1
-        stw   .d1 a1, *a0        ; turn off Secure Claim bit
-
         MVC   .S1 TSR, A2
         MVK64 .L1 0xfffffffffffffff8, A1
         ANDD  .S1 A2 , A1, A2

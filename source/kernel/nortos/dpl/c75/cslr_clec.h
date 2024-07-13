@@ -1,5 +1,5 @@
 /********************************************************************
- * Copyright (C) 2021 Texas Instruments Incorporated.
+ * Copyright (C) 2021-2024 Texas Instruments Incorporated.
  *
  *  Redistribution and use in source and binary forms, with or without
  *  modification, are permitted provided that the following conditions
@@ -271,7 +271,14 @@ typedef struct {
 #define CSL_CLEC_EVT_CFG_ECR_ECR_FLAG_RESETVAL                                 (0x00000000U)
 #define CSL_CLEC_EVT_CFG_ECR_ECR_FLAG_MAX                                      (0x00000001U)
 
+#define CSL_C75_CPU_DNUM_CLUSTER_MASK                                          (0x00FF0000U)
+#define CSL_C75_CPU_DNUM_CLUSTER_SHIFT                                         (16U)
+#define CSL_C75_CPU_DNUM_CLUSTER_RESETVAL                                      (0x00000000U)
+#define CSL_C75_CPU_DNUM_CLUSTER_MAX                                           (0x000000FFU)
+
 #define CSL_CLEC_EVT_CFG_ECR_RESETVAL                                          (0x00000000U)
+#define CSL_C75_CPU_CLUSTER_NUM_C75_1                                          (0X0DU)
+#define CSL_C75_CPU_CLUSTER_NUM_C75_2                                          (0X0EU)
 
 #ifdef __cplusplus
 }

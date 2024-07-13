@@ -73,6 +73,10 @@ extern "C"
 #include <drivers/hw_include/am62px/cslr_soc.h>
 #endif
 
+#if defined (SOC_AM275X)
+#include <drivers/hw_include/am275x/cslr_soc.h>
+#endif
+
 #ifdef __cplusplus
 }
 #endif
