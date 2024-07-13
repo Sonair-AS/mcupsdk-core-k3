@@ -21,8 +21,11 @@ const files_r5f = {
 
 const files_wkup_r5f = {
     common: [
+        "csl_sec_proxy.c",
         "pinmux.c",
         "soc.c",
+        "sciclient_irq_rm.c",
+        "sciclient_fmwSecureProxyMap.c",
     ]
 };
 

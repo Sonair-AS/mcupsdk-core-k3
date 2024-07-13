@@ -280,7 +280,7 @@ typedef uint8_t devgrp_t;
 #endif
 
 /** Aligned address at which the X509 header is placed. */
-#if defined(SOC_AM62X) || defined(SOC_AM62AX)
+#if defined(SOC_AM62X) || defined(SOC_AM62AX) || defined(SOC_AM275X)
 #define SCICLIENT_COMMON_X509_HEADER_ADDR (0x43c3f1e0)
 #elif defined(SOC_AM62PX)
 #define SCICLIENT_COMMON_X509_HEADER_ADDR (0x43c4f1e0)
@@ -330,6 +330,17 @@ typedef uint8_t devgrp_t;
 #include <drivers/sciclient/include/tisci/am62ax/tisci_hosts.h>
 #include <drivers/sciclient/include/tisci/lpm/tisci_lpm.h>
 #include <drivers/sciclient/include/am62ax/sciclient_fmwMsgParams.h>
+#endif
+#if defined (SOC_AM275X)
+#include <drivers/sciclient/include/tisci/am275x/tisci_resasg_types.h>
+#include <drivers/sciclient/include/tisci/am275x/tisci_hosts.h>
+#include <drivers/sciclient/include/tisci/am275x/tisci_sec_proxy.h>
+#include <drivers/sciclient/include/tisci/am275x/tisci_boardcfg_constraints.h>
+#include <drivers/sciclient/include/tisci/am275x/tisci_devices.h>
+#include <drivers/sciclient/include/tisci/am275x/tisci_clocks.h>
+#include <drivers/sciclient/include/tisci/am275x/tisci_hosts.h>
+#include <drivers/sciclient/include/tisci/lpm/tisci_lpm.h>
+#include <drivers/sciclient/include/am275x/sciclient_fmwMsgParams.h>
 #endif
 #if defined (SOC_AM62PX)
 #include <drivers/sciclient/include/tisci/am62px/tisci_resasg_types.h>

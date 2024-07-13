@@ -32,6 +32,13 @@
  */
 
 /**
+ * \ingroup DRV_SCICLIENT_MODULE
+ * \defgroup SCICLIENT_FMW_MSG_PARAMS sciclient_fmwMsgParams.h
+ *
+ * @{
+ */
+
+/**
  *  \file   am275x/sciclient_fmwMsgParams.h
  *
  *  \brief  This file contains the definition of all the parameter IDs for
@@ -66,12 +73,12 @@ extern "C" {
  */
 /* ABI Major revision - Major revision changes
 *       indicate backward compatibility breakage */
-#define SCICLIENT_FIRMWARE_ABI_MAJOR                     (3U)
+#define SCICLIENT_FIRMWARE_ABI_MAJOR                     (4U)
 /* ABI Minor revision - Minor revision changes
 *       indicate backward compatibility is maintained,
 *       however, new messages OR extensions to existing
 *       messages might have been adde */
-#define SCICLIENT_FIRMWARE_ABI_MINOR                     (1U)
+#define SCICLIENT_FIRMWARE_ABI_MINOR                     (0U)
 /** @} */
 
 /**
@@ -108,9 +115,11 @@ extern "C" {
 #define SCICLIENT_CONTEXT_GPU_NONSEC_0                  (12U)
 /** GPU_1(Non Secure): GPU context 1 */
 #define SCICLIENT_CONTEXT_GPU_NONSEC_1                  (13U)
+/** DM2TIFS(Non Secure): DM to TIFS Message forwarding */
+#define SCICLIENT_CONTEXT_DM2TIFS                       (14U)
 
 /** Total number of possible contexts for application. */
-#define SCICLIENT_CONTEXT_MAX_NUM                       (14U)
+#define SCICLIENT_CONTEXT_MAX_NUM                       (15U)
 /** @} */
 
 /**
@@ -211,6 +220,17 @@ extern "C" {
 #include <drivers/sciclient/include/tisci/am275x/tisci_clocks.h>
 /** @} */
 
+
+/**
+ *  \anchor Sciclient_WkupR5fIds
+ *  \name WKUP Pulsar IDs
+ *  @{
+ *  WKUP Device CPU IDs.
+ */
+#define SCICLIENT_DEV_WKUP_R5FSS0_CORE0  (TISCI_DEV_WKUP_R5FSS0_CORE0)
+#define SCICLIENT_DEV_WKUP_R5FSS0_CORE1  (TISCI_DEV_WKUP_R5FSS0_CORE0)
+/** @} */
+
 /**
  * \brief Special ISC ID to refer to compute cluster privid registers
  */
@@ -253,32 +273,23 @@ extern "C" {
 #define SCICLIENT_C7X_0_CLEC_EVENT_IN          (CSLR_C7X256V0_CLEC_SOC_EVENTS_IN_DMASS0_INTAGGR_0_INTAGGR_VINTR_PEND_84)
 #define SCICLIENT_C7X_1_CLEC_EVENT_IN          (CSLR_C7X256V1_CLEC_SOC_EVENTS_IN_DMASS0_INTAGGR_0_INTAGGR_VINTR_PEND_100)
 
-/**
- *  \anchor Sciclient_McuR5fIds
- *  \name Boot/DM R5 IDs
- *  @{
- *  Boot Device CPU IDs.
- */
-#define SCICLIENT_DEV_MCU_R5FSS0_CORE0  (TISCI_DEV_WKUP_R5FSS0_CORE0)
-#define SCICLIENT_DEV_MCU_R5FSS0_CORE1  (TISCI_DEV_WKUP_R5FSS0_CORE0)
-/** @} */
 
 /**
- *  \anchor Sciclient_McuR5fProcIds
- *  \name Boot/DM Pulsar Processor IDs
+ *  \anchor Sciclient_WkupR5fProcIds
+ *  \name WKUP Pulsar Processor IDs
  *  @{
- *  Boot Device Processor IDs.
+ *  WKUP Device Processor IDs.
  */
-#define SCICLIENT_DEV_MCU_R5FSS0_CORE0_PROCID  \
-    (SCICLIENT_PROC_ID_WKUP_R5FSS0_CORE0)
-#define SCICLIENT_DEV_MCU_R5FSS0_CORE1_PROCID  \
-    (SCICLIENT_PROC_ID_WKUP_R5FSS0_CORE0)
+#define SCICLIENT_DEV_WKUP_R5FSS0_CORE0_PROCID  \
+    (SCICLIENT_PROC_ID_R5FSS0_CORE0)
+#define SCICLIENT_DEV_WKUP_R5FSS0_CORE1_PROCID  \
+    (SCICLIENT_PROC_ID_R5FSS0_CORE0)
 /** @} */
 
 /** Board config Base start address */
-#define SCICLIENT_ALLOWED_BOARDCFG_BASE_START 1
+#define SCICLIENT_ALLOWED_BOARDCFG_BASE_START 1U
 /** Board config Base end address */
-#define SCICLIENT_ALLOWED_BOARDCFG_BASE_END   0xFFFFFFFF
+#define SCICLIENT_ALLOWED_BOARDCFG_BASE_END   0xFFFFFFFFU
 
 /* ========================================================================== */
 /*                         Structure Declarations                             */
@@ -291,3 +302,5 @@ extern "C" {
 #endif
 
 #endif /* #ifndef SCICLIENT_FMWMSGPARAMS_H_ */
+
+/** @} */

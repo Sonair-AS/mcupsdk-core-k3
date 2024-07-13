@@ -53,7 +53,7 @@
 /*                           Macros & Typedefs                                */
 /* ========================================================================== */
 
-#if defined (SOC_AM62X) || defined (SOC_AM62AX)
+#if defined (SOC_AM62X) || defined (SOC_AM62AX) || defined (SOC_AM275X)
 #define SCICLIENT_COMMON_X509_HEADER_ADDR               (0x43c3f1e0)
 #define SCICLIENT_SCECURE_PROXY_MESSAGE_SIZE            64U
 #elif defined(SOC_AM62PX)

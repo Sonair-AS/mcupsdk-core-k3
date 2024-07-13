@@ -2,7 +2,7 @@
 # Auto generated makefile
 #
 
-export MCU_PLUS_SDK_PATH?=$(abspath ../..)
+export MCU_PLUS_SDK_PATH?=$(abspath ../../../..)
 include $(MCU_PLUS_SDK_PATH)/imports.mak
 
 CG_TOOL_ROOT=$(CGT_TI_ARM_CLANG_PATH)
@@ -13,28 +13,44 @@ AR=$(CGT_TI_ARM_CLANG_PATH)/bin/tiarmar
 PROFILE?=release
 ConfigName:=$(PROFILE)
 
-LIBNAME:=drivers.am275x.wkup-r5f.ti-arm-clang.$(PROFILE).lib
+LIBNAME:=sciserver.am275x.wkup-r5f.ti-arm-clang.$(PROFILE).lib
 
 FILES_common := \
-    csl_sec_proxy.c \
-    pinmux.c \
-    soc.c \
-    sciclient_irq_rm.c \
-    sciclient_fmwSecureProxyMap.c \
+    sciserver.c \
+    sciserver_secproxyTransfer.c \
+    sciserver_secproxyRoutingDescription.c \
+    sciserver_secproxyConfigData.c \
+    sciserver_dmTxRoutingData.c \
+    sciserver_tirtos.c \
+    sciserver_secproxySocData.c \
+    sciserver_init.c \
 
 FILES_PATH_common = \
-    pinmux/am275x \
-    sciclient \
-    sciclient/soc/am275x \
-    soc/am275x \
+    am275x/ \
+    . \
 
 INCLUDES_common := \
     -I${CG_TOOL_ROOT}/include/c \
     -I${MCU_PLUS_SDK_PATH}/source \
+    -I. \
+    -Iam275x \
+    -I../rm_pm_hal/rm_pm_hal_src/include \
+    -I../rm_pm_hal/rm_pm_hal_src/common/fw_caps \
+    -I../rm_pm_hal/rm_pm_hal_src/pm \
+    -I../rm_pm_hal/rm_pm_hal_src/pm/include \
+    -I../rm_pm_hal/rm_pm_hal_src/rm \
+    -I../rm_pm_hal/rm_pm_hal_src/rm/include \
+    -I../rm_pm_hal/rm_pm_hal_src/include/soc/am275x \
+    -I../rm_pm_hal/rm_pm_hal_src/include/types \
 
 DEFINES_common := \
     -DSOC_AM275X \
-    -DENABLE_SCICLIENT_DIRECT \
+    -DMCU_PLUS_SDK \
+    -DBUILD_DM_R5 \
+    -DBUILD_MCU1_0 \
+    -DBUILD_MCU \
+    -DCONFIG_OSAL_MINIMAL_QUEUES \
+    -DMAKEFILE_BUILD \
     -DSW_VERSION=$(SW_VERSION)
 
 CFLAGS_common := \
@@ -45,8 +61,6 @@ CFLAGS_common := \
     -Wall \
     -Werror \
     -g \
-    -Wno-gnu-variable-sized-type-not-at-end \
-    -Wno-unused-function \
 
 CFLAGS_cpp_common := \
     -Wno-c99-designator \
@@ -82,7 +96,7 @@ INCLUDES := $(INCLUDES_common) $(INCLUDE_$(PROFILE))
 ARFLAGS := $(ARFLAGS_common) $(ARFLAGS_$(PROFILE))
 
 LIBDIR := lib
-OBJDIR := obj/am275x/ti-arm-clang/$(PROFILE)/wkup-r5f/drivers/
+OBJDIR := obj/am275x/ti-arm-clang/$(PROFILE)/wkup-r5f/sciserver/
 OBJS := $(FILES:%.c=%.obj)
 OBJS += $(ASMFILES:%.S=%.obj)
 DEPS := $(FILES:%.c=%.d)

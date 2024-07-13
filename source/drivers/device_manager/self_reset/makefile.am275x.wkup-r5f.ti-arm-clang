@@ -2,7 +2,7 @@
 # Auto generated makefile
 #
 
-export MCU_PLUS_SDK_PATH?=$(abspath ../..)
+export MCU_PLUS_SDK_PATH?=$(abspath ../../../..)
 include $(MCU_PLUS_SDK_PATH)/imports.mak
 
 CG_TOOL_ROOT=$(CGT_TI_ARM_CLANG_PATH)
@@ -13,28 +13,25 @@ AR=$(CGT_TI_ARM_CLANG_PATH)/bin/tiarmar
 PROFILE?=release
 ConfigName:=$(PROFILE)
 
-LIBNAME:=drivers.am275x.wkup-r5f.ti-arm-clang.$(PROFILE).lib
+LIBNAME:=self_reset.am275x.wkup-r5f.ti-arm-clang.$(PROFILE).lib
 
 FILES_common := \
-    csl_sec_proxy.c \
-    pinmux.c \
-    soc.c \
-    sciclient_irq_rm.c \
-    sciclient_fmwSecureProxyMap.c \
+    dm_self_reset.c \
+
+ASMFILES_common := \
+    self_reset_startup_asm.S \
 
 FILES_PATH_common = \
-    pinmux/am275x \
-    sciclient \
-    sciclient/soc/am275x \
-    soc/am275x \
+    . \
 
 INCLUDES_common := \
     -I${CG_TOOL_ROOT}/include/c \
     -I${MCU_PLUS_SDK_PATH}/source \
+    -Isoc/am275x \
 
 DEFINES_common := \
     -DSOC_AM275X \
-    -DENABLE_SCICLIENT_DIRECT \
+    -DMCU_PLUS_SDK \
     -DSW_VERSION=$(SW_VERSION)
 
 CFLAGS_common := \
@@ -45,8 +42,6 @@ CFLAGS_common := \
     -Wall \
     -Werror \
     -g \
-    -Wno-gnu-variable-sized-type-not-at-end \
-    -Wno-unused-function \
 
 CFLAGS_cpp_common := \
     -Wno-c99-designator \
@@ -82,7 +77,7 @@ INCLUDES := $(INCLUDES_common) $(INCLUDE_$(PROFILE))
 ARFLAGS := $(ARFLAGS_common) $(ARFLAGS_$(PROFILE))
 
 LIBDIR := lib
-OBJDIR := obj/am275x/ti-arm-clang/$(PROFILE)/wkup-r5f/drivers/
+OBJDIR := obj/am275x/ti-arm-clang/$(PROFILE)/wkup-r5f/self_reset/
 OBJS := $(FILES:%.c=%.obj)
 OBJS += $(ASMFILES:%.S=%.obj)
 DEPS := $(FILES:%.c=%.d)

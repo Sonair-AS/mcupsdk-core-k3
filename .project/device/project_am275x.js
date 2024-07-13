@@ -2,8 +2,19 @@ const common = require("../common.js");
 
 const component_file_list = [
     "source/drivers/.project/project.js",
+    "source/drivers/device_manager/sciclient_direct/.project/project.js",
+    "source/drivers/device_manager/sciclient_direct/sbl/.project/project.js",
+    "source/drivers/device_manager/sciserver/.project/project.js",
+    "source/drivers/device_manager/self_reset/.project/project.js",
     "source/kernel/nortos/.project/project.js",
     "source/kernel/freertos/.project/project.js",
+];
+
+
+// List of components where makefile is not generated.
+const component_file_list_with_makefile = [
+    "source/drivers/device_manager/rm_pm_hal/.project/project.js",
+    "source/drivers/device_manager/rm_pm_hal/sbl/.project/project.js",
 ];
 
 const device_defines = {
@@ -25,6 +36,10 @@ function getProjectSpecCpu(cpu) {
 
 function getComponentList() {
     return component_file_list;
+}
+
+function getComponentListWithMakefile() {
+    return component_file_list_with_makefile;
 }
 
 function getExampleList() {
@@ -77,6 +92,7 @@ function getFlashAddr() {
 
 module.exports = {
     getComponentList,
+    getComponentListWithMakefile,
     getExampleList,
     getSysCfgDevice,
     getSysCfgCpu,
