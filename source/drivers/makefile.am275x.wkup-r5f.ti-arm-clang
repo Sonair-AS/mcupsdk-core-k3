@@ -21,6 +21,8 @@ FILES_common := \
 
 FILES_PATH_common = \
     pinmux/am275x \
+    sciclient \
+    sciclient/soc/am275x \
     soc/am275x \
 
 INCLUDES_common := \

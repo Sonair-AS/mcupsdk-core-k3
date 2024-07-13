@@ -4,7 +4,17 @@ let device = "am275x";
 
 const files_r5f = {
     common: [
+        "csl_sec_proxy.c",
         "pinmux.c",
+        "sciclient.c",
+        "sciclient_pm.c",
+        "sciclient_rm.c",
+        "sciclient_rm_irq.c",
+        "sciclient_procboot.c",
+        "sciclient_firewall.c",
+        "sciclient_irq_rm.c",
+        "sciclient_fmwSecureProxyMap.c",
+        "sciclient_soc_priv.c",
         "soc.c",
     ],
 };
@@ -18,7 +28,17 @@ const files_wkup_r5f = {
 
 const files_c75 = {
     common: [
+        "csl_sec_proxy.c",
         "pinmux.c",
+        "sciclient.c",
+        "sciclient_pm.c",
+        "sciclient_rm.c",
+        "sciclient_rm_irq.c",
+        "sciclient_procboot.c",
+        "sciclient_firewall.c",
+        "sciclient_irq_rm.c",
+        "sciclient_fmwSecureProxyMap.c",
+        "sciclient_soc_priv.c",
         "soc.c",
     ],
 };
@@ -26,6 +46,8 @@ const files_c75 = {
 const filedirs = {
     common: [
         "pinmux/am275x",
+        "sciclient",
+        "sciclient/soc/am275x",
         "soc/am275x",
     ],
 };

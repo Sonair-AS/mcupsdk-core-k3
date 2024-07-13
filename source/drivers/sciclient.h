@@ -449,6 +449,15 @@ typedef uint8_t devgrp_t;
 #include <drivers/sciclient/include/tisci/j722s/tisci_clocks.h>
 #include <drivers/sciclient/include/j722s/sciclient_fmwMsgParams.h>
 #endif
+#if defined (SOC_AM275X)
+#include <drivers/sciclient/include/tisci/am275x/tisci_resasg_types.h>
+#include <drivers/sciclient/include/tisci/am275x/tisci_hosts.h>
+#include <drivers/sciclient/include/tisci/am275x/tisci_sec_proxy.h>
+#include <drivers/sciclient/include/tisci/am275x/tisci_boardcfg_constraints.h>
+#include <drivers/sciclient/include/tisci/am275x/tisci_devices.h>
+#include <drivers/sciclient/include/tisci/am275x/tisci_clocks.h>
+#include <drivers/sciclient/include/am275x/sciclient_fmwMsgParams.h>
+#endif
 #include <drivers/sciclient/include/tisci/security/tisci_sec_macros.h>
 #include <drivers/sciclient/include/tisci/security/tisci_firewall.h>
 #include <drivers/sciclient/include/tisci/security/tisci_procboot.h>
@@ -476,7 +485,6 @@ typedef uint8_t devgrp_t;
 #include <drivers/sciclient/include/sciclient_dkek.h>
 #include <drivers/sciclient/include/sciclient_procboot.h>
 #include <drivers/sciclient/include/sciclient_boardcfg.h>
-
 #ifdef __cplusplus
 extern "C" {
 #endif

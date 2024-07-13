@@ -1,5 +1,5 @@
 /*
- *  Copyright (C) 2019 Texas Instruments Incorporated
+ *  Copyright (C) 2023 Texas Instruments Incorporated
  *
  *  Redistribution and use in source and binary forms, with or without
  *  modification, are permitted provided that the following conditions
@@ -31,62 +31,29 @@
  *
  */
 /**
- *  \file soc/sciclient_soc_priv.h
+ *  \file am275x/sciclient_irq_rm.h
  *
- *  \brief Private SOC file
+ *  \brief Private AM275X Family specific RM interrupt data
  */
 
-#ifndef SCICLIENT_SOC_PRIV_TOP_H_
-#define SCICLIENT_SOC_PRIV_TOP_H_
+#ifndef SCICLIENT_IRQ_RM_H_
+#define SCICLIENT_IRQ_RM_H_
 
 /* ========================================================================== */
 /*                             Include Files                                  */
 /* ========================================================================== */
 
-#if defined (SOC_AM64X) || defined (SOC_AM243X)
-#include <drivers/sciclient/soc/am64x_am243x/sciclient_soc_priv.h>
-#include <drivers/sciclient/soc/am64x_am243x/sciclient_irq_rm.h>
-#endif
-
-#if defined (SOC_AM62X)
-#include <drivers/sciclient/soc/am62x/sciclient_soc_priv.h>
-#include <drivers/sciclient/soc/am62x/sciclient_irq_rm.h>
-#endif
-
-#if defined (SOC_AM62AX)
-#include <drivers/sciclient/soc/am62ax/sciclient_soc_priv.h>
-#include <drivers/sciclient/soc/am62ax/sciclient_irq_rm.h>
-#endif
-
-#if defined (SOC_AM62DX)
-#include <drivers/sciclient/soc/am62dx/sciclient_soc_priv.h>
-#include <drivers/sciclient/soc/am62dx/sciclient_irq_rm.h>
-#endif
-
-#if defined (SOC_AM62PX)
-#include <drivers/sciclient/soc/am62px/sciclient_soc_priv.h>
-#include <drivers/sciclient/soc/am62px/sciclient_irq_rm.h>
-#endif
-
-#if defined (SOC_J722S)
-#include <drivers/sciclient/soc/j722s/sciclient_soc_priv.h>
-#include <drivers/sciclient/soc/j722s/sciclient_irq_rm.h>
-#endif
-
-#if defined (SOC_AM275X)
-#include <drivers/sciclient/soc/am275x/sciclient_soc_priv.h>
-#include <drivers/sciclient/soc/am275x/sciclient_irq_rm.h>
-#endif
-
-#ifdef __cplusplus
-extern "C" {
-#endif
+#include <stdint.h>
 
 /* ========================================================================== */
 /*                           Macros & Typedefs                                */
 /* ========================================================================== */
 
-#define SCICLIENT_DEV_ID_MAX	0xFFFFU
+#define SCICLIENT_RM_IA_NUM_INST 2
+
+#define SCICLIENT_RM_IR_NUM_INST 3
+
+#define SCICLIENT_IRQ_MAX_ROUTE_DEPTH 3
 
 /* ========================================================================== */
 /*                         Structure Declarations                             */
@@ -95,22 +62,48 @@ extern "C" {
 /* None */
 
 /* ========================================================================== */
-/*                          Function Declarations                             */
+/*                            Global Variables                                */
 /* ========================================================================== */
 
 /* None */
 
-/* ========================================================================== */
-/*                       Static Function Definitions                          */
-/* ========================================================================== */
+enum RmIrqTree{
+	RM_IRQ_TREE_MAIN_GPIOMUX_INTROUTER0,
+	RM_IRQ_TREE_WKUP_MCU_GPIOMUX_INTROUTER0,
+	RM_IRQ_TREE_TIMESYNC_EVENT_INTROUTER0,
+	RM_IRQ_TREE_CPSW0,
+	RM_IRQ_TREE_DMASS0_INTAGGR_0,
+	RM_IRQ_TREE_MCU_TIMER0,
+	RM_IRQ_TREE_TIMER0,
+	RM_IRQ_TREE_TIMER1,
+	RM_IRQ_TREE_TIMER2,
+	RM_IRQ_TREE_TIMER3,
+	RM_IRQ_TREE_TIMER4,
+	RM_IRQ_TREE_TIMER5,
+	RM_IRQ_TREE_TIMER6,
+	RM_IRQ_TREE_TIMER7,
+	RM_IRQ_TREE_MCU_TIMER1,
+	RM_IRQ_TREE_MCU_TIMER2,
+	RM_IRQ_TREE_MCU_TIMER3,
+	RM_IRQ_TREE_WKUP_GTC0,
+	RM_IRQ_TREE_GPIO0,
+	RM_IRQ_TREE_GPIO1,
+	RM_IRQ_TREE_MCU_GPIO0,
+	RM_IRQ_TREE_GPMC0,
+	RM_IRQ_TREE_EPWM0,
+	RM_IRQ_TREE_WKUP_TIMER0,
+	RM_IRQ_TREE_WKUP_TIMER1,
+	RM_IRQ_TREE_MCRC64_0,
+	RM_IRQ_TREE_DEBUGSS0,
+	RM_IRQ_TREE_DSS0,
+	RM_IRQ_TREE_DMASS1_INTAGGR_0,
+	RM_IRQ_TREE_DSS1,
+	RM_IRQ_TREE_MCASP3,
+	RM_IRQ_TREE_MCASP4,
+	RM_IRQ_TREE_I2C4,
+	RM_IRQ_TREE_PCIE0,
+	RM_IRQ_TREE_DMPAC0,
+	RM_IRQ_TREE_MAX,
+};
 
-/* None */
-
-uint32_t Sciclient_getContext(uint32_t contextType, uint32_t coreId);
-uint32_t Sciclient_getDevId(uint32_t coreId);
-
-#ifdef __cplusplus
-}
-#endif
-
-#endif /* SCICLIENT_SOC_PRIV_TOP_H_ */
+#endif /* SCICLIENT_IRQ_RM_H_ */
