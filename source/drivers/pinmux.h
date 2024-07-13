@@ -76,6 +76,10 @@ extern "C"
 #include <drivers/pinmux/j722s/pinmux.h>
 #endif
 
+#if defined (SOC_AM275X)
+#include <drivers/pinmux/am275x/pinmux.h>
+#endif
+
 #ifdef __cplusplus
 }
 #endif

@@ -63,7 +63,7 @@ static Pinmux_PerCfg_t gPinMuxMcuDomainCfg[] = {
 void Pinmux_init(void)
 {
     Pinmux_config(gPinMuxMainDomainCfg, PINMUX_DOMAIN_ID_MAIN);
-% if(common.isMcuDomainSupported()) {
+% if(common.isMcuDomainSupported()|| common.isWakeupDomainSupported()) {
     Pinmux_config(gPinMuxMcuDomainCfg, PINMUX_DOMAIN_ID_MCU);
 % }
 }

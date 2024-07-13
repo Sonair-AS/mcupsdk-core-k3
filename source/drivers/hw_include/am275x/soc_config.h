@@ -39,6 +39,8 @@ extern "C"
 #endif
 
 /* IP versions */
+#define IP_VERSION_INTAGGR_V0
+#define IP_VERSION_INTR_ROUTER_V0
 #define IP_VERSION_UART_V0
 
 /* Driver versions */

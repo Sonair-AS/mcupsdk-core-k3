@@ -1,5 +1,5 @@
 /*
- *  Copyright (C) 2024 Texas Instruments Incorporated
+ *  Copyright (C) 2023 Texas Instruments Incorporated
  *
  *  Redistribution and use in source and binary forms, with or without
  *  modification, are permitted provided that the following conditions
@@ -30,31 +30,21 @@
  *  OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  *
  */
-#ifndef CSLR_SOC_IN_H_
-#define CSLR_SOC_IN_H_
+
+#ifndef CSLR_SOC_CTRL_MMR_H
+#define CSLR_SOC_CTRL_MMR_H
 
 #ifdef __cplusplus
 extern "C"
 {
 #endif
 
-#include <drivers/hw_include/am275x/csl_psilcfg_thread_map.h>
-#include <drivers/hw_include/am275x/csl_soc_psc.h>
-#include <drivers/hw_include/am275x/cslr_dmss_defines.h>
-#include <drivers/hw_include/am275x/cslr_intr_c7x256v0_clec.h>
-#include <drivers/hw_include/am275x/cslr_intr_c7x256v1_clec.h>
-#include <drivers/hw_include/am275x/cslr_intr_main_gpio_introuter0.h>
-#include <drivers/hw_include/am275x/cslr_intr_r5fss0_core0.h>
-#include <drivers/hw_include/am275x/cslr_intr_r5fss0_core1.h>
-#include <drivers/hw_include/am275x/cslr_intr_r5fss1_core0.h>
-#include <drivers/hw_include/am275x/cslr_intr_r5fss1_core1.h>
-#include <drivers/hw_include/am275x/cslr_intr_wkup_r5fss0_core0.h>
-#include <drivers/hw_include/am275x/cslr_psc.h>
-#include <drivers/hw_include/am275x/cslr_soc_ctrl_mmr.h>
-#include <drivers/hw_include/am275x/cslr_soc_baseaddress.h>
-#include <drivers/hw_include/am275x/cslr_soc_defines.h>
+#include <drivers/hw_include/am275x/cslr_main_ctrl_mmr.h>
+#include <drivers/hw_include/am275x/cslr_wkup_ctrl_mmr.h>
 
 #ifdef __cplusplus
 }
 #endif
-#endif /* CSLR_SOC_IN_H_ */
+
+
+#endif /* CSLR_SOC_CTRL_MMR_H */
