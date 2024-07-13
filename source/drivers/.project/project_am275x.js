@@ -5,6 +5,10 @@ let device = "am275x";
 const files_r5f = {
     common: [
         "csl_sec_proxy.c",
+        "csl_bcdma.c",
+        "csl_intaggr.c",
+        "csl_lcdma_ringacc.c",
+        "csl_pktdma.c",
         "pinmux.c",
         "sciclient.c",
         "sciclient_pm.c",
@@ -16,16 +20,48 @@ const files_r5f = {
         "sciclient_fmwSecureProxyMap.c",
         "sciclient_soc_priv.c",
         "soc.c",
+        "uart_v0.c",
+        "uart_dma.c",
+        "udma.c",
+        "udma_ch.c",
+        "udma_event.c",
+        "udma_flow.c",
+        "udma_ring_common.c",
+        "udma_ring_lcdma.c",
+        "udma_rm.c",
+        "udma_rmcfg_common.c",
+        "udma_utils.c",
+        "udma_rmcfg.c",
+        "udma_soc.c",
+        "utils.c",
     ],
 };
 
 const files_wkup_r5f = {
     common: [
         "csl_sec_proxy.c",
+        "csl_bcdma.c",
+        "csl_intaggr.c",
+        "csl_lcdma_ringacc.c",
+        "csl_pktdma.c",
         "pinmux.c",
         "soc.c",
         "sciclient_irq_rm.c",
         "sciclient_fmwSecureProxyMap.c",
+        "uart_v0.c",
+        "uart_dma.c",
+        "udma.c",
+        "udma_ch.c",
+        "udma_event.c",
+        "udma_flow.c",
+        "udma_ring_common.c",
+        "udma_ring_lcdma.c",
+        "udma_rm.c",
+        "udma_rmcfg_common.c",
+        "udma_utils.c",
+        "udma_rmcfg.c",
+        "udma_soc.c",
+        "utils.c",
     ]
 };
 
@@ -43,15 +79,28 @@ const files_c75 = {
         "sciclient_fmwSecureProxyMap.c",
         "sciclient_soc_priv.c",
         "soc.c",
+        "uart_v0.c",
+        "uart_dma.c",
+        "utils.c",
     ],
 };
 
 const filedirs = {
     common: [
+        "hw_include/dru/v2/",
+        "hw_include/ringacc/V0/priv/",
         "pinmux/am275x",
         "sciclient",
         "sciclient/soc/am275x",
         "soc/am275x",
+        "uart/v0",
+        "uart/v0/dma",
+        "uart/v0/dma/udma",
+        "udma",
+        "udma/hw_include",
+        "udma/soc",
+        "udma/soc/am275x",
+        "utils",
     ],
 };
 

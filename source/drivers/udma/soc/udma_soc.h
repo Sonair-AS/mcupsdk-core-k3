@@ -67,6 +67,10 @@
 #include <drivers/udma/soc/j722s/udma_soc.h>
 #endif
 
+#if defined (SOC_AM275X)
+#include <drivers/udma/soc/am275x/udma_soc.h>
+#endif
+
 #ifdef __cplusplus
 extern "C" {
 #endif

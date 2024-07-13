@@ -28,12 +28,25 @@ FILES_common := \
     sciclient_fmwSecureProxyMap.c \
     sciclient_soc_priv.c \
     soc.c \
+    uart_v0.c \
+    uart_dma.c \
+    utils.c \
 
 FILES_PATH_common = \
+    hw_include/dru/v2/ \
+    hw_include/ringacc/V0/priv/ \
     pinmux/am275x \
     sciclient \
     sciclient/soc/am275x \
     soc/am275x \
+    uart/v0 \
+    uart/v0/dma \
+    uart/v0/dma/udma \
+    udma \
+    udma/hw_include \
+    udma/soc \
+    udma/soc/am275x \
+    utils \
 
 INCLUDES_common := \
     -I${CG_TOOL_ROOT}/include \

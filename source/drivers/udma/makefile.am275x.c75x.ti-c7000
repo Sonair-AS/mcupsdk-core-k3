@@ -2,38 +2,24 @@
 # Auto generated makefile
 #
 
-export MCU_PLUS_SDK_PATH?=$(abspath ../..)
+export MCU_PLUS_SDK_PATH?=$(abspath ../../..)
 include $(MCU_PLUS_SDK_PATH)/imports.mak
 
-CG_TOOL_ROOT=$(CGT_TI_ARM_CLANG_PATH)
+CG_TOOL_ROOT=$(CGT_TI_C7000_PATH)
 
-CC=$(CGT_TI_ARM_CLANG_PATH)/bin/tiarmclang
-AR=$(CGT_TI_ARM_CLANG_PATH)/bin/tiarmar
+CC=$(CGT_TI_C7000_PATH)/bin/cl7x
+AR=$(CGT_TI_C7000_PATH)/bin/ar7x
 
 PROFILE?=release
 ConfigName:=$(PROFILE)
 
-LIBNAME:=drivers.am275x.r5f.ti-arm-clang.$(PROFILE).lib
+LIBNAME:=udma.am275x.c75x.ti-c7000.$(PROFILE).lib
 
 FILES_common := \
-    csl_sec_proxy.c \
     csl_bcdma.c \
     csl_intaggr.c \
     csl_lcdma_ringacc.c \
     csl_pktdma.c \
-    pinmux.c \
-    sciclient.c \
-    sciclient_pm.c \
-    sciclient_rm.c \
-    sciclient_rm_irq.c \
-    sciclient_procboot.c \
-    sciclient_firewall.c \
-    sciclient_irq_rm.c \
-    sciclient_fmwSecureProxyMap.c \
-    sciclient_soc_priv.c \
-    soc.c \
-    uart_v0.c \
-    uart_dma.c \
     udma.c \
     udma_ch.c \
     udma_event.c \
@@ -41,68 +27,59 @@ FILES_common := \
     udma_ring_common.c \
     udma_ring_lcdma.c \
     udma_rm.c \
-    udma_rmcfg_common.c \
-    udma_utils.c \
     udma_rmcfg.c \
+    udma_rmcfg_common.c \
     udma_soc.c \
-    utils.c \
+    udma_utils.c \
 
 FILES_PATH_common = \
-    hw_include/dru/v2/ \
-    hw_include/ringacc/V0/priv/ \
-    pinmux/am275x \
-    sciclient \
-    sciclient/soc/am275x \
-    soc/am275x \
-    uart/v0 \
-    uart/v0/dma \
-    uart/v0/dma/udma \
-    udma \
-    udma/hw_include \
-    udma/soc \
-    udma/soc/am275x \
-    utils \
+    ../udma \
+    ../udma/hw_include \
+    ../udma/soc \
+    ../udma/soc/am275x \
 
 INCLUDES_common := \
-    -I${CG_TOOL_ROOT}/include/c \
+    -I${CG_TOOL_ROOT}/include \
     -I${MCU_PLUS_SDK_PATH}/source \
 
 DEFINES_common := \
     -DSOC_AM275X \
-    -DMCU_R5 \
     -DSW_VERSION=$(SW_VERSION)
 
 CFLAGS_common := \
-    -mcpu=cortex-r5 \
-    -mfloat-abi=hard \
-    -mfpu=vfpv3-d16 \
-    -mthumb \
-    -Wall \
-    -Werror \
-    -g \
-    -Wno-gnu-variable-sized-type-not-at-end \
-    -Wno-unused-function \
-
-CFLAGS_cpp_common := \
-    -Wno-c99-designator \
-    -Wno-extern-c-compat \
-    -Wno-c++11-narrowing \
-    -Wno-reorder-init-list \
-    -Wno-deprecated-register \
-    -Wno-writable-strings \
-    -Wno-enum-compare \
-    -Wno-reserved-user-defined-literal \
-    -Wno-unused-const-variable \
-    -x c++ \
+    -mv7504 \
+    --abi=eabi \
+    -q \
+    -mo \
+    -pden \
+    -pds=238 \
+    -pds=880 \
+    -pds1110 \
+    --endian=little \
+    --disable_inlining \
+    -ea.se71 \
+    --emit_warnings_as_errors \
+    --diag_suppress=770 \
+    --diag_suppress=69 \
+    --diag_suppress=70 \
 
 CFLAGS_debug := \
+    -Dxdc_target_name__=C71 \
     -D_DEBUG_=1 \
+    --opt_level=0 \
+    --symdebug:dwarf \
+    -DBUILD_C7X_1 \
+    -DBUILD_C7X \
 
 CFLAGS_release := \
-    -Os \
+    -Dxdc_target_name__=C71 \
+    --opt_level=3 \
+    --symdebug:none \
+    -DBUILD_C7X_1 \
+    -DBUILD_C7X \
 
 ARFLAGS_common := \
-    rc \
+    rq \
 
 FILES := $(FILES_common) $(FILES_$(PROFILE))
 ASMFILES := $(ASMFILES_common) $(ASMFILES_$(PROFILE))
@@ -117,7 +94,7 @@ INCLUDES := $(INCLUDES_common) $(INCLUDE_$(PROFILE))
 ARFLAGS := $(ARFLAGS_common) $(ARFLAGS_$(PROFILE))
 
 LIBDIR := lib
-OBJDIR := obj/am275x/ti-arm-clang/$(PROFILE)/r5f/drivers/
+OBJDIR := obj/am275x/ti-c7000/$(PROFILE)/c75x/udma/
 OBJS := $(FILES:%.c=%.obj)
 OBJS += $(ASMFILES:%.S=%.obj)
 DEPS := $(FILES:%.c=%.d)
@@ -128,11 +105,11 @@ vpath %.S $(FILES_PATH)
 
 $(OBJDIR)/%.obj %.obj: %.c
 	@echo  Compiling: $(LIBNAME): $<
-	$(CC) -c $(CFLAGS) $(INCLUDES) $(DEFINES) -MMD -o $(OBJDIR)/$@ $<
+	$(CC) $(CFLAGS) $(INCLUDES) $(DEFINES) -ppd=$(OBJDIR)/$(basename $@).d -ppa -fr=$(OBJDIR)/ -fc=$<
 
 $(OBJDIR)/%.obj %.obj: %.S
 	@echo  Compiling: $(LIBNAME): $<
-	$(CC) -c $(ASMFLAGS) -o $(OBJDIR)/$@ $<
+	$(CC) $(CFLAGS) $(INCLUDES) $(DEFINES) -ppd=$(OBJDIR)/$(basename $@).d -ppa -fr=$(OBJDIR)/ -fa=$<
 
 all: $(LIBDIR)/$(LIBNAME)
 

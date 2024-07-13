@@ -143,6 +143,11 @@ if (common.getSocName() == "j722s")
     uart_driver_open_close_config = "/drivers/uart/templates/uart_open_close_config_j722s.c.xdt";
 }
 
+if (common.getSocName() == "am275x" )
+{
+    uart_driver_config_file = "/drivers/uart/templates/uart_config_am275x.c.xdt";
+    uart_driver_open_close_config = "/drivers/uart/templates/uart_open_close_config_am275x.c.xdt";
+}
 let uart_module = {
     displayName: "UART",
 
