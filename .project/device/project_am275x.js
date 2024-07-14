@@ -8,8 +8,10 @@ const component_file_list = [
     "source/drivers/device_manager/sciclient_direct/sbl/.project/project.js",
     "source/drivers/device_manager/sciserver/.project/project.js",
     "source/drivers/device_manager/self_reset/.project/project.js",
+    "source/dhrystone_benchmark/.project/project.js",
     "source/kernel/nortos/.project/project.js",
     "source/kernel/freertos/.project/project.js",
+    "test/unity/.project/project.js",
 ];
 
 
@@ -29,6 +31,15 @@ const example_file_list = [
     "examples/empty/.project/project_nortos.js",
     "examples/empty/.project/project_freertos.js",
     "examples/hello_world/.project/project.js",
+    "examples/kernel/dpl/dpl_demo/.project/project.js",
+    "examples/kernel/freertos/dhrystone_benchmark/.project/project.js",
+    //"examples/kernel/freertos/memcpy_benchmark/.project/project.js",
+    "examples/kernel/freertos/posix_demo/.project/project.js",
+    "examples/kernel/freertos/task_switch/.project/project.js",
+
+    // Tests
+    "test/kernel/dpl/.project/project.js",
+    "test/kernel/freertos/.project/project.js",
 ];
 
 function getProjectSpecCpu(cpu) {

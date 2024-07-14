@@ -379,6 +379,336 @@
         "resourceSubClass": [
             "example.gettingstarted"
         ],
+        "description": "A \"Dpl Demo\" example. This example shows configuration and usage of CPU and baremetal/RTOS kernel for MPU, cache, interrupts, heaps, semaphores, timers and cycle counters. CPU is R5FSS0-0 running NORTOS.",
+        "name": "dpl_demo",
+        "location": "../../examples/kernel/dpl/dpl_demo/am275x-evm/r5fss0-0_nortos/ti-arm-clang/example.projectspec",
+        "devtools": [
+            "AM275x_EVM"
+        ],
+        "kernel": [
+            "nortos"
+        ],
+        "compiler": [
+            "ticlang"
+        ],
+        "subCategories": [
+            "kernel",
+            "dpl",
+            "dpl_demo",
+            "r5fss0-0_nortos"
+        ],
+        "mainCategories": [
+            [
+                "Examples",
+                "Development Tools"
+            ]
+        ]
+    },
+    {
+        "resourceType": "project.ccs",
+        "resourceClass": [
+            "example"
+        ],
+        "resourceSubClass": [
+            "example.gettingstarted"
+        ],
+        "description": "A \"Dpl Demo\" example. This example shows configuration and usage of CPU and baremetal/RTOS kernel for MPU, cache, interrupts, heaps, semaphores, timers and cycle counters. CPU is R5FSS0-0 running FREERTOS.",
+        "name": "dpl_demo",
+        "location": "../../examples/kernel/dpl/dpl_demo/am275x-evm/r5fss0-0_freertos/ti-arm-clang/example.projectspec",
+        "devtools": [
+            "AM275x_EVM"
+        ],
+        "kernel": [
+            "freertos"
+        ],
+        "compiler": [
+            "ticlang"
+        ],
+        "subCategories": [
+            "kernel",
+            "dpl",
+            "dpl_demo",
+            "r5fss0-0_freertos"
+        ],
+        "mainCategories": [
+            [
+                "Examples",
+                "Development Tools"
+            ]
+        ]
+    },
+    {
+        "resourceType": "project.ccs",
+        "resourceClass": [
+            "example"
+        ],
+        "resourceSubClass": [
+            "example.gettingstarted"
+        ],
+        "description": "A \"Dpl Demo\" example. This example shows configuration and usage of CPU and baremetal/RTOS kernel for MPU, cache, interrupts, heaps, semaphores, timers and cycle counters. CPU is C75SS0-0 running FREERTOS.",
+        "name": "dpl_demo",
+        "location": "../../examples/kernel/dpl/dpl_demo/am275x-evm/c75ss0-0_freertos/ti-c7000/example.projectspec",
+        "devtools": [
+            "AM275x_EVM"
+        ],
+        "kernel": [
+            "freertos"
+        ],
+        "compiler": [
+            "ccs"
+        ],
+        "subCategories": [
+            "kernel",
+            "dpl",
+            "dpl_demo",
+            "c75ss0-0_freertos"
+        ],
+        "mainCategories": [
+            [
+                "Examples",
+                "Development Tools"
+            ]
+        ]
+    },
+    {
+        "resourceType": "project.ccs",
+        "resourceClass": [
+            "example"
+        ],
+        "resourceSubClass": [
+            "example.gettingstarted"
+        ],
+        "description": "A \"Dpl Demo\" example. This example shows configuration and usage of CPU and baremetal/RTOS kernel for MPU, cache, interrupts, heaps, semaphores, timers and cycle counters. CPU is C75SS1-0 running FREERTOS.",
+        "name": "dpl_demo",
+        "location": "../../examples/kernel/dpl/dpl_demo/am275x-evm/c75ss1-0_freertos/ti-c7000/example.projectspec",
+        "devtools": [
+            "AM275x_EVM"
+        ],
+        "kernel": [
+            "freertos"
+        ],
+        "compiler": [
+            "ccs"
+        ],
+        "subCategories": [
+            "kernel",
+            "dpl",
+            "dpl_demo",
+            "c75ss1-0_freertos"
+        ],
+        "mainCategories": [
+            [
+                "Examples",
+                "Development Tools"
+            ]
+        ]
+    },
+    {
+        "resourceType": "project.ccs",
+        "resourceClass": [
+            "example"
+        ],
+        "resourceSubClass": [
+            "example.gettingstarted"
+        ],
+        "description": "A \"Dpl Demo\" example. This example shows configuration and usage of CPU and baremetal/RTOS kernel for MPU, cache, interrupts, heaps, semaphores, timers and cycle counters. CPU is WKUP-R5FSS0-0 running FREERTOS.",
+        "name": "dpl_demo",
+        "location": "../../examples/kernel/dpl/dpl_demo/am275x-evm/wkup-r5fss0-0_freertos/ti-arm-clang/example.projectspec",
+        "devtools": [
+            "AM275x_EVM"
+        ],
+        "kernel": [
+            "freertos"
+        ],
+        "compiler": [
+            "ticlang"
+        ],
+        "subCategories": [
+            "kernel",
+            "dpl",
+            "dpl_demo",
+            "wkup-r5fss0-0_freertos"
+        ],
+        "mainCategories": [
+            [
+                "Examples",
+                "Development Tools"
+            ]
+        ]
+    },
+    {
+        "resourceType": "project.ccs",
+        "resourceClass": [
+            "example"
+        ],
+        "resourceSubClass": [
+            "example.general"
+        ],
+        "description": "A dhrystone benchmark example CPU is R5FSS0-0 running FREERTOS.",
+        "name": "dhrystone_benchmark",
+        "location": "../../examples/kernel/freertos/dhrystone_benchmark/am275x-evm/r5fss0-0_freertos/ti-arm-clang/example.projectspec",
+        "devtools": [
+            "AM275x_EVM"
+        ],
+        "kernel": [
+            "freertos"
+        ],
+        "compiler": [
+            "ticlang"
+        ],
+        "subCategories": [
+            "kernel",
+            "freertos",
+            "dhrystone_benchmark",
+            "r5fss0-0_freertos"
+        ],
+        "mainCategories": [
+            [
+                "Examples",
+                "Development Tools"
+            ]
+        ]
+    },
+    {
+        "resourceType": "project.ccs",
+        "resourceClass": [
+            "example"
+        ],
+        "resourceSubClass": [
+            "example.general"
+        ],
+        "description": "A Posix Demo example. CPU is R5FSS0-0 running FREERTOS.",
+        "name": "posix_demo",
+        "location": "../../examples/kernel/freertos/posix_demo/am275x-evm/r5fss0-0_freertos/ti-arm-clang/example.projectspec",
+        "devtools": [
+            "AM275x_EVM"
+        ],
+        "kernel": [
+            "freertos"
+        ],
+        "compiler": [
+            "ticlang"
+        ],
+        "subCategories": [
+            "kernel",
+            "freertos",
+            "posix_demo",
+            "r5fss0-0_freertos"
+        ],
+        "mainCategories": [
+            [
+                "Examples",
+                "Development Tools"
+            ]
+        ]
+    },
+    {
+        "resourceType": "project.ccs",
+        "resourceClass": [
+            "example"
+        ],
+        "resourceSubClass": [
+            "example.gettingstarted"
+        ],
+        "description": "A Task Switch example. CPU is R5FSS0-0 running FREERTOS.",
+        "name": "task_switch_main",
+        "location": "../../examples/kernel/freertos/task_switch/am275x-evm/r5fss0-0_freertos/ti-arm-clang/example.projectspec",
+        "devtools": [
+            "AM275x_EVM"
+        ],
+        "kernel": [
+            "freertos"
+        ],
+        "compiler": [
+            "ticlang"
+        ],
+        "subCategories": [
+            "kernel",
+            "freertos",
+            "task_switch",
+            "r5fss0-0_freertos"
+        ],
+        "mainCategories": [
+            [
+                "Examples",
+                "Development Tools"
+            ]
+        ]
+    },
+    {
+        "resourceType": "project.ccs",
+        "resourceClass": [
+            "example"
+        ],
+        "resourceSubClass": [
+            "example.gettingstarted"
+        ],
+        "description": "A Task Switch example. CPU is WKUP-R5FSS0-0 running FREERTOS.",
+        "name": "task_switch_main",
+        "location": "../../examples/kernel/freertos/task_switch/am275x-evm/wkup-r5fss0-0_freertos/ti-arm-clang/example.projectspec",
+        "devtools": [
+            "AM275x_EVM"
+        ],
+        "kernel": [
+            "freertos"
+        ],
+        "compiler": [
+            "ticlang"
+        ],
+        "subCategories": [
+            "kernel",
+            "freertos",
+            "task_switch",
+            "wkup-r5fss0-0_freertos"
+        ],
+        "mainCategories": [
+            [
+                "Examples",
+                "Development Tools"
+            ]
+        ]
+    },
+    {
+        "resourceType": "project.ccs",
+        "resourceClass": [
+            "example"
+        ],
+        "resourceSubClass": [
+            "example.gettingstarted"
+        ],
+        "description": "A Task Switch example. CPU is C75SS0-0 running FREERTOS.",
+        "name": "task_switch_main",
+        "location": "../../examples/kernel/freertos/task_switch/am275x-evm/c75ss0-0_freertos/ti-c7000/example.projectspec",
+        "devtools": [
+            "AM275x_EVM"
+        ],
+        "kernel": [
+            "freertos"
+        ],
+        "compiler": [
+            "ccs"
+        ],
+        "subCategories": [
+            "kernel",
+            "freertos",
+            "task_switch",
+            "c75ss0-0_freertos"
+        ],
+        "mainCategories": [
+            [
+                "Examples",
+                "Development Tools"
+            ]
+        ]
+    },
+    {
+        "resourceType": "project.ccs",
+        "resourceClass": [
+            "example"
+        ],
+        "resourceSubClass": [
+            "example.gettingstarted"
+        ],
         "description": "An Empty Example. This example is intended to be a starting point for new development System project.",
         "name": "empty",
         "location": "../../examples/empty/am275x-evm/system_freertos/system.projectspec",
