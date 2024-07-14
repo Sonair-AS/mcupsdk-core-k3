@@ -30,6 +30,11 @@ const device_defines = {
 const example_file_list = [
     "examples/empty/.project/project_nortos.js",
     "examples/empty/.project/project_freertos.js",
+    "examples/drivers/i2c/i2c_read/.project/project.js",
+    "examples/drivers/i2c/i2c_temperature/.project/project.js",
+    "examples/drivers/mcspi/mcspi_loopback/.project/project.js",
+    "examples/drivers/mcspi/mcspi_performance_8bit/.project/project.js",
+    "examples/drivers/mcspi/mcspi_performance_32bit/.project/project.js",
     "examples/drivers/sciclient/sciclient_get_version/.project/project.js",
     "examples/drivers/uart/uart_echo/.project/project.js",
     "examples/drivers/uart/uart_echo_callback/.project/project.js",
@@ -43,6 +48,8 @@ const example_file_list = [
     "examples/kernel/freertos/task_switch/.project/project.js",
 
     // Tests
+    "test/drivers/i2c/.project/project.js",
+    "test/drivers/mcspi/mcspi/.project/project.js",
     "test/drivers/sciclient/sciclient_get_version/.project/project.js",
     "test/drivers/uart/.project/project.js",
     "test/kernel/dpl/.project/project.js",

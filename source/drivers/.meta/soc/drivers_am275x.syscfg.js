@@ -54,16 +54,21 @@ const driverVer = {
 };
 
 const topModules_wkup = [
+    "/drivers/i2c/i2c",
     "/drivers/uart/uart",
     "/drivers/udma/udma",
 ];
 
 const topModules_main = [
+    "/drivers/i2c/i2c",
+    "/drivers/mcspi/mcspi",
     "/drivers/uart/uart",
     "/drivers/udma/udma",
 ];
 
 const topModules_c75 = [
+    "/drivers/i2c/i2c",
+    "/drivers/mcspi/mcspi",
     "/drivers/uart/uart",
     "/drivers/udma/udma",
 ];

@@ -40,16 +40,23 @@ extern "C"
 
 /* IP versions */
 #define IP_VERSION_BCDMA_V0
+#define IP_VERSION_I2C_V0
 #define IP_VERSION_INTAGGR_V0
 #define IP_VERSION_INTR_ROUTER_V0
 #define IP_VERSION_LCDMA_RINGACC_V0
+#define IP_VERSION_MCSPI_V0
 #define IP_VERSION_PKTDMA_V0
 #define IP_VERSION_RINGACC_V0
 #define IP_VERSION_DRU_V2
 #define IP_VERSION_UART_V0
 
 /* Driver versions */
+#define DRV_VERSION_I2C_V0
+#define DRV_VERSION_MCSPI_V0
 #define DRV_VERSION_UART_V0
+
+/* Driver DMA integration */
+#define DMA_VERSION_MCSPI_UDMA
 
 #ifdef __cplusplus
 }

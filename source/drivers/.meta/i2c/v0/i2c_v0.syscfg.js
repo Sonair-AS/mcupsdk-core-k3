@@ -152,7 +152,6 @@ let i2c_module = {
             hidden: true,
             description: "Transfer callback function when callback mode is selected",
         },
-        common.getUseMcuDomainPeripheralsConfig(),
         {
             name: "advanced",
             displayName: "Show Advanced Config",
@@ -255,6 +254,11 @@ if(isWakeupDomainSupported)
     {
         i2c_module.config.push(common.getUseWakeupDomainPeripheralsConfig());
     }
+}
+
+if(common.isMcuDomainSupported())
+{
+    i2c_module.config.push(common.getUseMcuDomainPeripheralsConfig());
 }
 
 function validate(instance, report) {

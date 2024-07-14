@@ -55,6 +55,9 @@
 #if defined (SOC_AM62DX)
 #include <drivers/i2c/v0/soc/am62dx/i2c_soc.h>
 #endif
+#if defined (SOC_AM275X)
+#include <drivers/i2c/v0/soc/am275x/i2c_soc.h>
+#endif
 
 #ifdef __cplusplus
 extern "C"
