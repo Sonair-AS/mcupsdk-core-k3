@@ -30,6 +30,11 @@ const device_defines = {
 const example_file_list = [
     "examples/empty/.project/project_nortos.js",
     "examples/empty/.project/project_freertos.js",
+    "examples/drivers/sciclient/sciclient_get_version/.project/project.js",
+    "examples/drivers/uart/uart_echo/.project/project.js",
+    "examples/drivers/uart/uart_echo_callback/.project/project.js",
+    "examples/drivers/uart/uart_echo_low_latency_interrupt/.project/project.js",
+    "examples/drivers/uart/uart_echo_low_latency_polling/.project/project.js",
     "examples/hello_world/.project/project.js",
     "examples/kernel/dpl/dpl_demo/.project/project.js",
     "examples/kernel/freertos/dhrystone_benchmark/.project/project.js",
@@ -38,6 +43,8 @@ const example_file_list = [
     "examples/kernel/freertos/task_switch/.project/project.js",
 
     // Tests
+    "test/drivers/sciclient/sciclient_get_version/.project/project.js",
+    "test/drivers/uart/.project/project.js",
     "test/kernel/dpl/.project/project.js",
     "test/kernel/freertos/.project/project.js",
 ];

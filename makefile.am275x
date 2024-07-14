@@ -64,6 +64,14 @@ help:
 	@echo  .
 	@echo  Example build targets,
 	@echo  ======================
+	@echo  $(MAKE) -s -C examples/drivers/sciclient/sciclient_get_version/am275x-evm/r5fss0-0_nortos/ti-arm-clang [all clean syscfg-gui syscfg]
+	@echo  $(MAKE) -s -C examples/drivers/sciclient/sciclient_get_version/am275x-evm/c75ss0-0_freertos/ti-c7000 [all clean syscfg-gui syscfg]
+	@echo  $(MAKE) -s -C examples/drivers/uart/uart_echo/am275x-evm/r5fss0-0_nortos/ti-arm-clang [all clean syscfg-gui syscfg]
+	@echo  $(MAKE) -s -C examples/drivers/uart/uart_echo/am275x-evm/r5fss0-0_freertos/ti-arm-clang [all clean syscfg-gui syscfg]
+	@echo  $(MAKE) -s -C examples/drivers/uart/uart_echo_callback/am275x-evm/r5fss0-0_nortos/ti-arm-clang [all clean syscfg-gui syscfg]
+	@echo  $(MAKE) -s -C examples/drivers/uart/uart_echo_callback/am275x-evm/r5fss0-0_freertos/ti-arm-clang [all clean syscfg-gui syscfg]
+	@echo  $(MAKE) -s -C examples/drivers/uart/uart_echo_low_latency_interrupt/am275x-evm/r5fss0-0_nortos/ti-arm-clang [all clean syscfg-gui syscfg]
+	@echo  $(MAKE) -s -C examples/drivers/uart/uart_echo_low_latency_polling/am275x-evm/r5fss0-0_nortos/ti-arm-clang [all clean syscfg-gui syscfg]
 	@echo  $(MAKE) -s -C examples/hello_world/am275x-evm/r5fss0-0_nortos/ti-arm-clang [all clean syscfg-gui syscfg]
 	@echo  $(MAKE) -s -C examples/hello_world/am275x-evm/r5fss0-0_freertos/ti-arm-clang [all clean syscfg-gui syscfg]
 	@echo  $(MAKE) -s -C examples/hello_world/am275x-evm/wkup-r5fss0-0_freertos/ti-arm-clang [all clean syscfg-gui syscfg]
@@ -291,6 +299,14 @@ $(BUILD_COMBO_SCRUB_rm_pm_hal_sbl):
 
 BUILD_COMBO_EXAMPLE_ALL =
 # Various Example Targets
+BUILD_COMBO_EXAMPLE_ALL += sciclient_get_version_am275x-evm_r5fss0-0_nortos_ti-arm-clang
+BUILD_COMBO_EXAMPLE_ALL += sciclient_get_version_am275x-evm_c75ss0-0_freertos_ti-c7000
+BUILD_COMBO_EXAMPLE_ALL += uart_echo_am275x-evm_r5fss0-0_nortos_ti-arm-clang
+BUILD_COMBO_EXAMPLE_ALL += uart_echo_am275x-evm_r5fss0-0_freertos_ti-arm-clang
+BUILD_COMBO_EXAMPLE_ALL += uart_echo_callback_am275x-evm_r5fss0-0_nortos_ti-arm-clang
+BUILD_COMBO_EXAMPLE_ALL += uart_echo_callback_am275x-evm_r5fss0-0_freertos_ti-arm-clang
+BUILD_COMBO_EXAMPLE_ALL += uart_echo_low_latency_interrupt_am275x-evm_r5fss0-0_nortos_ti-arm-clang
+BUILD_COMBO_EXAMPLE_ALL += uart_echo_low_latency_polling_am275x-evm_r5fss0-0_nortos_ti-arm-clang
 BUILD_COMBO_EXAMPLE_ALL += hello_world_am275x-evm_r5fss0-0_nortos_ti-arm-clang
 BUILD_COMBO_EXAMPLE_ALL += hello_world_am275x-evm_r5fss0-0_freertos_ti-arm-clang
 BUILD_COMBO_EXAMPLE_ALL += hello_world_am275x-evm_wkup-r5fss0-0_freertos_ti-arm-clang
@@ -317,6 +333,30 @@ BUILD_COMBO_EXAMPLE_PRIVATE_ALL =
 examples: $(BUILD_COMBO_EXAMPLE_ALL)
 
 examples-private: $(BUILD_COMBO_EXAMPLE_PRIVATE_ALL)
+
+ sciclient_get_version_am275x-evm_r5fss0-0_nortos_ti-arm-clang:
+	$(MAKE) -C examples/drivers/sciclient/sciclient_get_version/am275x-evm/r5fss0-0_nortos/ti-arm-clang -f makefile all
+
+ sciclient_get_version_am275x-evm_c75ss0-0_freertos_ti-c7000:
+	$(MAKE) -C examples/drivers/sciclient/sciclient_get_version/am275x-evm/c75ss0-0_freertos/ti-c7000 -f makefile all
+
+ uart_echo_am275x-evm_r5fss0-0_nortos_ti-arm-clang:
+	$(MAKE) -C examples/drivers/uart/uart_echo/am275x-evm/r5fss0-0_nortos/ti-arm-clang -f makefile all
+
+ uart_echo_am275x-evm_r5fss0-0_freertos_ti-arm-clang:
+	$(MAKE) -C examples/drivers/uart/uart_echo/am275x-evm/r5fss0-0_freertos/ti-arm-clang -f makefile all
+
+ uart_echo_callback_am275x-evm_r5fss0-0_nortos_ti-arm-clang:
+	$(MAKE) -C examples/drivers/uart/uart_echo_callback/am275x-evm/r5fss0-0_nortos/ti-arm-clang -f makefile all
+
+ uart_echo_callback_am275x-evm_r5fss0-0_freertos_ti-arm-clang:
+	$(MAKE) -C examples/drivers/uart/uart_echo_callback/am275x-evm/r5fss0-0_freertos/ti-arm-clang -f makefile all
+
+ uart_echo_low_latency_interrupt_am275x-evm_r5fss0-0_nortos_ti-arm-clang:
+	$(MAKE) -C examples/drivers/uart/uart_echo_low_latency_interrupt/am275x-evm/r5fss0-0_nortos/ti-arm-clang -f makefile all
+
+ uart_echo_low_latency_polling_am275x-evm_r5fss0-0_nortos_ti-arm-clang:
+	$(MAKE) -C examples/drivers/uart/uart_echo_low_latency_polling/am275x-evm/r5fss0-0_nortos/ti-arm-clang -f makefile all
 
  hello_world_am275x-evm_r5fss0-0_nortos_ti-arm-clang:
 	$(MAKE) -C examples/hello_world/am275x-evm/r5fss0-0_nortos/ti-arm-clang -f makefile all
@@ -372,6 +412,14 @@ examples-private: $(BUILD_COMBO_EXAMPLE_PRIVATE_ALL)
 
 BUILD_COMBO_EXAMPLE_CLEAN_ALL =
 # Various Example Clean Targets
+BUILD_COMBO_EXAMPLE_CLEAN_ALL += sciclient_get_version_am275x-evm_r5fss0-0_nortos_ti-arm-clang_clean
+BUILD_COMBO_EXAMPLE_CLEAN_ALL += sciclient_get_version_am275x-evm_c75ss0-0_freertos_ti-c7000_clean
+BUILD_COMBO_EXAMPLE_CLEAN_ALL += uart_echo_am275x-evm_r5fss0-0_nortos_ti-arm-clang_clean
+BUILD_COMBO_EXAMPLE_CLEAN_ALL += uart_echo_am275x-evm_r5fss0-0_freertos_ti-arm-clang_clean
+BUILD_COMBO_EXAMPLE_CLEAN_ALL += uart_echo_callback_am275x-evm_r5fss0-0_nortos_ti-arm-clang_clean
+BUILD_COMBO_EXAMPLE_CLEAN_ALL += uart_echo_callback_am275x-evm_r5fss0-0_freertos_ti-arm-clang_clean
+BUILD_COMBO_EXAMPLE_CLEAN_ALL += uart_echo_low_latency_interrupt_am275x-evm_r5fss0-0_nortos_ti-arm-clang_clean
+BUILD_COMBO_EXAMPLE_CLEAN_ALL += uart_echo_low_latency_polling_am275x-evm_r5fss0-0_nortos_ti-arm-clang_clean
 BUILD_COMBO_EXAMPLE_CLEAN_ALL += hello_world_am275x-evm_r5fss0-0_nortos_ti-arm-clang_clean
 BUILD_COMBO_EXAMPLE_CLEAN_ALL += hello_world_am275x-evm_r5fss0-0_freertos_ti-arm-clang_clean
 BUILD_COMBO_EXAMPLE_CLEAN_ALL += hello_world_am275x-evm_wkup-r5fss0-0_freertos_ti-arm-clang_clean
@@ -398,6 +446,30 @@ BUILD_COMBO_EXAMPLE_PRIVATE_CLEAN_ALL =
 examples-clean: $(BUILD_COMBO_EXAMPLE_CLEAN_ALL)
 
 examples-private-clean: $(BUILD_COMBO_EXAMPLE_PRIVATE_CLEAN_ALL)
+
+ sciclient_get_version_am275x-evm_r5fss0-0_nortos_ti-arm-clang_clean:
+	$(MAKE) -C examples/drivers/sciclient/sciclient_get_version/am275x-evm/r5fss0-0_nortos/ti-arm-clang -f makefile clean
+
+ sciclient_get_version_am275x-evm_c75ss0-0_freertos_ti-c7000_clean:
+	$(MAKE) -C examples/drivers/sciclient/sciclient_get_version/am275x-evm/c75ss0-0_freertos/ti-c7000 -f makefile clean
+
+ uart_echo_am275x-evm_r5fss0-0_nortos_ti-arm-clang_clean:
+	$(MAKE) -C examples/drivers/uart/uart_echo/am275x-evm/r5fss0-0_nortos/ti-arm-clang -f makefile clean
+
+ uart_echo_am275x-evm_r5fss0-0_freertos_ti-arm-clang_clean:
+	$(MAKE) -C examples/drivers/uart/uart_echo/am275x-evm/r5fss0-0_freertos/ti-arm-clang -f makefile clean
+
+ uart_echo_callback_am275x-evm_r5fss0-0_nortos_ti-arm-clang_clean:
+	$(MAKE) -C examples/drivers/uart/uart_echo_callback/am275x-evm/r5fss0-0_nortos/ti-arm-clang -f makefile clean
+
+ uart_echo_callback_am275x-evm_r5fss0-0_freertos_ti-arm-clang_clean:
+	$(MAKE) -C examples/drivers/uart/uart_echo_callback/am275x-evm/r5fss0-0_freertos/ti-arm-clang -f makefile clean
+
+ uart_echo_low_latency_interrupt_am275x-evm_r5fss0-0_nortos_ti-arm-clang_clean:
+	$(MAKE) -C examples/drivers/uart/uart_echo_low_latency_interrupt/am275x-evm/r5fss0-0_nortos/ti-arm-clang -f makefile clean
+
+ uart_echo_low_latency_polling_am275x-evm_r5fss0-0_nortos_ti-arm-clang_clean:
+	$(MAKE) -C examples/drivers/uart/uart_echo_low_latency_polling/am275x-evm/r5fss0-0_nortos/ti-arm-clang -f makefile clean
 
  hello_world_am275x-evm_r5fss0-0_nortos_ti-arm-clang_clean:
 	$(MAKE) -C examples/hello_world/am275x-evm/r5fss0-0_nortos/ti-arm-clang -f makefile clean
@@ -453,6 +525,14 @@ examples-private-clean: $(BUILD_COMBO_EXAMPLE_PRIVATE_CLEAN_ALL)
 
 BUILD_COMBO_EXAMPLE_SCRUB_ALL =
 # Various Example Scrub Targets
+BUILD_COMBO_EXAMPLE_SCRUB_ALL += sciclient_get_version_am275x-evm_r5fss0-0_nortos_ti-arm-clang_scrub
+BUILD_COMBO_EXAMPLE_SCRUB_ALL += sciclient_get_version_am275x-evm_c75ss0-0_freertos_ti-c7000_scrub
+BUILD_COMBO_EXAMPLE_SCRUB_ALL += uart_echo_am275x-evm_r5fss0-0_nortos_ti-arm-clang_scrub
+BUILD_COMBO_EXAMPLE_SCRUB_ALL += uart_echo_am275x-evm_r5fss0-0_freertos_ti-arm-clang_scrub
+BUILD_COMBO_EXAMPLE_SCRUB_ALL += uart_echo_callback_am275x-evm_r5fss0-0_nortos_ti-arm-clang_scrub
+BUILD_COMBO_EXAMPLE_SCRUB_ALL += uart_echo_callback_am275x-evm_r5fss0-0_freertos_ti-arm-clang_scrub
+BUILD_COMBO_EXAMPLE_SCRUB_ALL += uart_echo_low_latency_interrupt_am275x-evm_r5fss0-0_nortos_ti-arm-clang_scrub
+BUILD_COMBO_EXAMPLE_SCRUB_ALL += uart_echo_low_latency_polling_am275x-evm_r5fss0-0_nortos_ti-arm-clang_scrub
 BUILD_COMBO_EXAMPLE_SCRUB_ALL += hello_world_am275x-evm_r5fss0-0_nortos_ti-arm-clang_scrub
 BUILD_COMBO_EXAMPLE_SCRUB_ALL += hello_world_am275x-evm_r5fss0-0_freertos_ti-arm-clang_scrub
 BUILD_COMBO_EXAMPLE_SCRUB_ALL += hello_world_am275x-evm_wkup-r5fss0-0_freertos_ti-arm-clang_scrub
@@ -479,6 +559,30 @@ BUILD_COMBO_EXAMPLE_PRIVATE_SCRUB_ALL =
 examples-scrub: $(BUILD_COMBO_EXAMPLE_SCRUB_ALL)
 
 examples-scrub-private: $(BUILD_COMBO_EXAMPLE_PRIVATE_SCRUB_ALL)
+
+ sciclient_get_version_am275x-evm_r5fss0-0_nortos_ti-arm-clang_scrub:
+	$(MAKE) -C examples/drivers/sciclient/sciclient_get_version/am275x-evm/r5fss0-0_nortos/ti-arm-clang -f makefile scrub
+
+ sciclient_get_version_am275x-evm_c75ss0-0_freertos_ti-c7000_scrub:
+	$(MAKE) -C examples/drivers/sciclient/sciclient_get_version/am275x-evm/c75ss0-0_freertos/ti-c7000 -f makefile scrub
+
+ uart_echo_am275x-evm_r5fss0-0_nortos_ti-arm-clang_scrub:
+	$(MAKE) -C examples/drivers/uart/uart_echo/am275x-evm/r5fss0-0_nortos/ti-arm-clang -f makefile scrub
+
+ uart_echo_am275x-evm_r5fss0-0_freertos_ti-arm-clang_scrub:
+	$(MAKE) -C examples/drivers/uart/uart_echo/am275x-evm/r5fss0-0_freertos/ti-arm-clang -f makefile scrub
+
+ uart_echo_callback_am275x-evm_r5fss0-0_nortos_ti-arm-clang_scrub:
+	$(MAKE) -C examples/drivers/uart/uart_echo_callback/am275x-evm/r5fss0-0_nortos/ti-arm-clang -f makefile scrub
+
+ uart_echo_callback_am275x-evm_r5fss0-0_freertos_ti-arm-clang_scrub:
+	$(MAKE) -C examples/drivers/uart/uart_echo_callback/am275x-evm/r5fss0-0_freertos/ti-arm-clang -f makefile scrub
+
+ uart_echo_low_latency_interrupt_am275x-evm_r5fss0-0_nortos_ti-arm-clang_scrub:
+	$(MAKE) -C examples/drivers/uart/uart_echo_low_latency_interrupt/am275x-evm/r5fss0-0_nortos/ti-arm-clang -f makefile scrub
+
+ uart_echo_low_latency_polling_am275x-evm_r5fss0-0_nortos_ti-arm-clang_scrub:
+	$(MAKE) -C examples/drivers/uart/uart_echo_low_latency_polling/am275x-evm/r5fss0-0_nortos/ti-arm-clang -f makefile scrub
 
  hello_world_am275x-evm_r5fss0-0_nortos_ti-arm-clang_scrub:
 	$(MAKE) -C examples/hello_world/am275x-evm/r5fss0-0_nortos/ti-arm-clang -f makefile scrub
