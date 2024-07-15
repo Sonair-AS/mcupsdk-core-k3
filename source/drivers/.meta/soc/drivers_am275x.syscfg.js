@@ -71,6 +71,7 @@ const topModules_main = [
     "/drivers/gpio/gpio",
     "/drivers/gtc/gtc",
     "/drivers/i2c/i2c",
+    "/drivers/mcan/mcan",
     "/drivers/mcspi/mcspi",
     "/drivers/uart/uart",
     "/drivers/udma/udma",

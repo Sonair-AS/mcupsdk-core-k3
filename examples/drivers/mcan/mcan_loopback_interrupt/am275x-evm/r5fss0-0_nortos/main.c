@@ -1,5 +1,5 @@
 /*
- *  Copyright (C) 2024 Texas Instruments Incorporated
+ *  Copyright (C) 2018-2024 Texas Instruments Incorporated
  *
  *  Redistribution and use in source and binary forms, with or without
  *  modification, are permitted provided that the following conditions
@@ -28,53 +28,38 @@
  *  THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
  *  (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
  *  OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
- *
  */
-#ifndef SOC_CONFIG_IN_H_
-#define SOC_CONFIG_IN_H_
 
-#ifdef __cplusplus
-extern "C"
+#include <stdlib.h>
+#include "ti_drivers_config.h"
+#include "ti_board_config.h"
+#include "ti_drivers_open_close.h"
+#include "ti_board_open_close.h"
+
+void mcan_loopback_interrupt_main(void *args);
+
+int main()
 {
-#endif
+    int32_t status = SystemP_SUCCESS;
 
-/* IP versions */
-#define IP_VERSION_BCDMA_V0
-#define IP_VERSION_ECAP_V0
-#define IP_VERSION_EPWM_V0
-#define IP_VERSION_GPIO_V0
-#define IP_VERSION_GTC_V0
-#define IP_VERSION_I2C_V0
-#define IP_VERSION_INTAGGR_V0
-#define IP_VERSION_INTR_ROUTER_V0
-#define IP_VERSION_LCDMA_RINGACC_V0
-#define IP_VERSION_MCAN_V0
-#define IP_VERSION_MCSPI_V0
-#define IP_VERSION_OSPI_V0
-#define IP_VERSION_PKTDMA_V0
-#define IP_VERSION_RINGACC_V0
-#define IP_VERSION_DRU_V2
-#define IP_VERSION_UART_V0
-#define IP_VERSION_WATCHDOG_V1
+    System_init();
+    Board_init();
 
-/* Driver versions */
-#define DRV_VERSION_ECAP_V0
-#define DRV_VERSION_EPWM_V0
-#define DRV_VERSION_GPIO_V0
-#define DRV_VERSION_GTC_V0
-#define DRV_VERSION_I2C_V0
-#define DRV_VERSION_MCAN_V0
-#define DRV_VERSION_MCSPI_V0
-#define DRV_VERSION_OSPI_V0
-#define DRV_VERSION_SERIAL_FLASH_V0 /* OSPI NOR/NAND */
-#define DRV_VERSION_UART_V0
-#define DRV_VERSION_WATCHDOG_V1
+    /* Open drivers */
+    Drivers_open();
+    /* Open flash and board drivers */
+    status = Board_driversOpen();
+    DebugP_assert(status==SystemP_SUCCESS);
 
-/* Driver DMA integration */
-#define DMA_VERSION_MCSPI_UDMA
+    mcan_loopback_interrupt_main(NULL);
 
-#ifdef __cplusplus
+    /* Close board and flash drivers */
+    Board_driversClose();
+    /* Close drivers */
+    Drivers_close();
+
+    Board_deinit();
+    System_deinit();
+
+    return 0;
 }
-#endif
-
-#endif

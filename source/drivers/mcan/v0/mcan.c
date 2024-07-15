@@ -361,6 +361,18 @@ static const MCAN_OffsetAddr gMainMcanOffsetAddr =
      ((CSL_MCU_MCAN0_CFG_BASE  - CSL_MCU_MCAN0_MSGMEM_RAM_BASE) != (CSL_MCU_MCAN1_CFG_BASE - CSL_MCU_MCAN1_MSGMEM_RAM_BASE)))
      #error Offsets assumed do not match for MCAN
 #endif
+#elif defined (SOC_AM275X)
+static const MCAN_OffsetAddr gMcanOffsetAddr =
+{
+    .mcanSsOffset       = ((int32_t) CSL_MCAN0_SS_BASE         - (int32_t) CSL_MCAN0_MSGMEM_RAM_BASE),
+    .mcanCfgOffset      = ((int32_t) CSL_MCAN0_CFG_BASE        - (int32_t) CSL_MCAN0_MSGMEM_RAM_BASE),
+};
+
+/* Offsets are same for all main domain instances MCAN0 and MCAN1 */
+#if (((CSL_MCAN0_SS_BASE   - CSL_MCAN0_MSGMEM_RAM_BASE) != (CSL_MCAN1_SS_BASE  - CSL_MCAN1_MSGMEM_RAM_BASE))  || \
+     ((CSL_MCAN0_CFG_BASE  - CSL_MCAN0_MSGMEM_RAM_BASE) != (CSL_MCAN1_CFG_BASE - CSL_MCAN1_MSGMEM_RAM_BASE)))
+     #error Offsets assumed do not match for MCAN
+#endif
 #else
 static const MCAN_OffsetAddr gMcanOffsetAddr =
 {
@@ -2205,6 +2217,22 @@ static uint32_t MCAN_getECCRegionAddr(uint32_t baseAddr)
          * Address traslation is required for AM62X MCU M4.
          * Comparing the MSG_RAM adrress is done after te switch case for AM62x
          */
+#elif defined (SOC_AM275X) 
+        case CSL_MCAN0_MSGMEM_RAM_BASE:
+            eccAggrBase = CSL_MCAN0_ECC_AGGR_BASE;
+            break;
+        case CSL_MCAN1_MSGMEM_RAM_BASE:
+            eccAggrBase = CSL_MCAN1_ECC_AGGR_BASE;
+            break;
+        case CSL_MCAN2_MSGMEM_RAM_BASE:
+            eccAggrBase = CSL_MCAN2_ECC_AGGR_BASE;
+            break;
+        case CSL_MCAN3_MSGMEM_RAM_BASE:
+            eccAggrBase = CSL_MCAN3_ECC_AGGR_BASE;
+            break;
+        case CSL_MCAN4_MSGMEM_RAM_BASE:
+            eccAggrBase = CSL_MCAN4_ECC_AGGR_BASE;
+            break;
 #else
         case CSL_MCAN0_MSGMEM_RAM_BASE:
             eccAggrBase = CSL_MCAN0_ECC_AGGR_BASE;
@@ -2258,6 +2286,14 @@ static const MCAN_OffsetAddr* MCAN_getOffsetAddr(uint32_t baseAddr)
          * Address traslation is required for AM62X MCU M4.
          * Comparing the MSG_RAM adrress is done after te switch case for AM62x
          */
+#elif defined (SOC_AM275X)
+        case CSL_MCAN0_MSGMEM_RAM_BASE:
+        case CSL_MCAN1_MSGMEM_RAM_BASE:
+        case CSL_MCAN2_MSGMEM_RAM_BASE:
+        case CSL_MCAN3_MSGMEM_RAM_BASE:
+        case CSL_MCAN4_MSGMEM_RAM_BASE:
+            offsetAddr = &gMcanOffsetAddr;
+            break;
 #else
         case CSL_MCAN0_MSGMEM_RAM_BASE:
         case CSL_MCAN1_MSGMEM_RAM_BASE:
