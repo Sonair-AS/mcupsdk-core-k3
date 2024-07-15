@@ -61,6 +61,8 @@ const topModules_wkup = [
 ];
 
 const topModules_main = [
+    "/drivers/ecap/ecap",
+    "/drivers/epwm/epwm",
     "/drivers/gpio/gpio",
     "/drivers/i2c/i2c",
     "/drivers/mcspi/mcspi",
@@ -69,6 +71,8 @@ const topModules_main = [
 ];
 
 const topModules_c75 = [
+    "/drivers/ecap/ecap",
+    "/drivers/epwm/epwm",
     "/drivers/gpio/gpio",
     "/drivers/i2c/i2c",
     "/drivers/mcspi/mcspi",

@@ -9,6 +9,8 @@ const files_r5f = {
         "csl_intaggr.c",
         "csl_lcdma_ringacc.c",
         "csl_pktdma.c",
+        "ecap.c",
+        "epwm.c",
         "gpio.c",
         "i2c_v0.c",
         "i2c_v0_lld.c",
@@ -82,6 +84,8 @@ const files_wkup_r5f = {
 const files_c75 = {
     common: [
         "csl_sec_proxy.c",
+        "ecap.c",
+        "epwm.c",
         "gpio.c",
         "i2c_v0.c",
         "i2c_v0_lld.c",
@@ -108,6 +112,8 @@ const files_c75 = {
 
 const filedirs = {
     common: [
+        "ecap/v0",
+        "epwm/v0",
         "gpio/v0",
         "hw_include/dru/v2/",
         "hw_include/ringacc/V0/priv/",

@@ -31,6 +31,10 @@ const example_file_list = [
     "examples/board/eeprom/eeprom_read_write/.project/project.js",
     "examples/empty/.project/project_nortos.js",
     "examples/empty/.project/project_freertos.js",
+    "examples/drivers/ecap/ecap_apwm_mode/.project/project.js",
+    "examples/drivers/ecap/ecap_epwm_loopback/.project/project.js",
+    "examples/drivers/epwm/epwm_duty_cycle/.project/project.js",
+    "examples/drivers/epwm/epwm_duty_cycle_sync/.project/project.js",
     "examples/drivers/gpio/gpio_input_interrupt/.project/project.js",
     "examples/drivers/gpio/gpio_led_blink/.project/project.js",
     "examples/drivers/i2c/i2c_read/.project/project.js",
@@ -53,6 +57,8 @@ const example_file_list = [
 
     // Tests
     "test/board/eeprom/.project/project.js",
+    "test/drivers/epwm/.project/project.js",
+    "test/drivers/ecap/.project/project.js",
     "test/drivers/gpio/.project/project.js",
     "test/drivers/i2c/.project/project.js",
     "test/drivers/mcspi/mcspi/.project/project.js",

@@ -17,6 +17,8 @@ LIBNAME:=drivers.am275x.c75x.ti-c7000.$(PROFILE).lib
 
 FILES_common := \
     csl_sec_proxy.c \
+    ecap.c \
+    epwm.c \
     gpio.c \
     i2c_v0.c \
     i2c_v0_lld.c \
@@ -40,6 +42,8 @@ FILES_common := \
     utils.c \
 
 FILES_PATH_common = \
+    ecap/v0 \
+    epwm/v0 \
     gpio/v0 \
     hw_include/dru/v2/ \
     hw_include/ringacc/V0/priv/ \
