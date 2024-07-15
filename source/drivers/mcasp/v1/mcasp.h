@@ -81,6 +81,10 @@
 #include <drivers/mcasp/v1/soc/am62x/mcasp_soc.h>
 #endif
 
+#if defined (SOC_AM275X)
+#include <drivers/mcasp/v1/soc/am275x/mcasp_soc.h>
+#endif
+
 #ifdef __cplusplus
 extern "C" {
 #endif

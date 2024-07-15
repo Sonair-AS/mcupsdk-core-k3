@@ -85,6 +85,7 @@ const topModules_c75 = [
     "/drivers/gpio/gpio",
     "/drivers/gtc/gtc",
     "/drivers/i2c/i2c",
+    "/drivers/mcasp/mcasp",
     "/drivers/mcspi/mcspi",
     "/drivers/mmcsd/mmcsd",
     "/drivers/ospi/ospi",

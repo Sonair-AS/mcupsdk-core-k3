@@ -16,6 +16,7 @@ ConfigName:=$(PROFILE)
 LIBNAME:=drivers.am275x.c75x.ti-c7000.$(PROFILE).lib
 
 FILES_common := \
+    csl_dru.c \
     csl_sec_proxy.c \
     ecap.c \
     epwm.c \
@@ -25,6 +26,9 @@ FILES_common := \
     i2c_v0.c \
     i2c_v0_lld.c \
     i2c_soc.c \
+    mcasp.c \
+    mcasp_dma.c \
+    mcasp_soc.c \
     mcspi_v0.c \
     mcspi_dma.c \
     mcspi_dma_udma.c \
@@ -57,6 +61,9 @@ FILES_PATH_common = \
     i2c/v0/lld \
     i2c/v0/soc/am275x \
     mcan/v0 \
+    mcasp/v1 \
+    mcasp/v1/dma_priv \
+    mcasp/v1/soc/am275x \
     mcspi/v0 \
     mcspi/v0/dma \
     mcspi/v0/dma/udma \

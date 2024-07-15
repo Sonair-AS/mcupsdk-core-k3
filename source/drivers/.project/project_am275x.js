@@ -4,6 +4,7 @@ let device = "am275x";
 
 const files_r5f = {
     common: [
+        "csl_dru.c",
         "csl_sec_proxy.c",
         "csl_bcdma.c",
         "csl_intaggr.c",
@@ -53,6 +54,7 @@ const files_r5f = {
 
 const files_wkup_r5f = {
     common: [
+        "csl_dru.c",
         "csl_sec_proxy.c",
         "csl_bcdma.c",
         "csl_intaggr.c",
@@ -98,6 +100,7 @@ const files_wkup_r5f = {
 
 const files_c75 = {
     common: [
+        "csl_dru.c",
         "csl_sec_proxy.c",
         "ecap.c",
         "epwm.c",
@@ -107,6 +110,9 @@ const files_c75 = {
         "i2c_v0.c",
         "i2c_v0_lld.c",
         "i2c_soc.c",
+        "mcasp.c",
+        "mcasp_dma.c",
+        "mcasp_soc.c",
         "mcspi_v0.c",
         "mcspi_dma.c",
         "mcspi_dma_udma.c",
@@ -142,6 +148,9 @@ const filedirs = {
         "i2c/v0/lld",
         "i2c/v0/soc/am275x",
         "mcan/v0",
+        "mcasp/v1",
+        "mcasp/v1/dma_priv",
+        "mcasp/v1/soc/am275x",
         "mcspi/v0",
         "mcspi/v0/dma",
         "mcspi/v0/dma/udma",
