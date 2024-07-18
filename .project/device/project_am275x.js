@@ -9,6 +9,7 @@ const component_file_list = [
     "source/drivers/device_manager/sciserver/.project/project.js",
     "source/drivers/device_manager/self_reset/.project/project.js",
     "source/dhrystone_benchmark/.project/project.js",
+    "source/fs/freertos_fat/.project/project.js",
     "source/kernel/nortos/.project/project.js",
     "source/kernel/freertos/.project/project.js",
     "test/unity/.project/project.js",
