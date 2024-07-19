@@ -37,29 +37,41 @@ function moduleInstances(inst) {
 
     let modInstances = new Array();
 
-    switch(inst.media) {
-    	case "SD":
-    		modInstances.push({
-    		    name: "peripheralDriver",
-    		    displayName: "MMCSD Configuration",
-    		    moduleName: '/drivers/mmcsd/mmcsd',
-    		    useArray: false,
-    		    requiredArgs: {
-    		        moduleSelect: "MMC1",
-    		    },
-    		});
-    		break;
-    	case "EMMC":
-    		modInstances.push({
-    		    name: "peripheralDriver",
-    		    displayName: "MMCSD Configuration",
-    		    moduleName: '/drivers/mmcsd/mmcsd',
-    		    useArray: false,
-    		    requiredArgs: {
-    		        moduleSelect: "MMC0",
-    		    },
-    		});
-    		break;
+    if(system.deviceData.device !== "AM275x"){
+        switch(inst.media) {
+            case "SD":
+                modInstances.push({
+                    name: "peripheralDriver",
+                    displayName: "MMCSD Configuration",
+                    moduleName: '/drivers/mmcsd/mmcsd',
+                    useArray: false,
+                    requiredArgs: {
+                        moduleSelect: "MMC1",
+                    },
+                });
+                break;
+            case "EMMC":
+                modInstances.push({
+                    name: "peripheralDriver",
+                    displayName: "MMCSD Configuration",
+                    moduleName: '/drivers/mmcsd/mmcsd',
+                    useArray: false,
+                    requiredArgs: {
+                        moduleSelect: "MMC0",
+                    },
+                });
+                break;
+        }
+    } else{
+        modInstances.push({
+            name: "peripheralDriver",
+            displayName: "MMCSD Configuration",
+            moduleName: '/drivers/mmcsd/mmcsd',
+            useArray: false,
+            requiredArgs: {
+                moduleSelect: "MMC",
+            },
+        });
     }
 
     return (modInstances);

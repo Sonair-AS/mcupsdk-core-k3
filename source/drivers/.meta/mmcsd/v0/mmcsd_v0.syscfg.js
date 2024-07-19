@@ -298,6 +298,33 @@ function getConfigurables()
         config.push(common.getDMWithBootConfig());
     }
 
+    if(system.deviceData.device === "AM275x"){
+        config = config.filter((ele) => ele.name !== "moduleSelect")
+        config.push(
+            {
+                name: "moduleSelect",
+                displayName: "Select MMCSD Module",
+                default: "MMC",
+                options: [
+                    { name: "MMC" },
+                ],
+                onChange: function (inst, ui) {
+                    if(inst.moduleSelect == "MMC") {
+                        inst.cardType = "EMMC";
+                        inst.phyType = "HW_PHY";
+                        ui.modeSelectEMMC.hidden = false;
+                        ui.modeSelectSD.hidden = true;
+                    } else {
+                        inst.cardType = "SD";
+                        inst.phyType = "SW_PHY";
+                        ui.modeSelectSD.hidden = false;
+                        ui.modeSelectEMMC.hidden = true;
+                    }
+                },
+            },
+        )
+    }
+
     return config;
 }
 

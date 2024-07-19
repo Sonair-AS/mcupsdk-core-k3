@@ -2,7 +2,7 @@ let common = system.getScript("/common");
 
 let mmcsd_input_clk_freq = 200000000;
 
-const mmcsd_config_r5f = [
+const mmcsd_config_wkup_r5f = [
 	{
 		name              : "MMC0",
 		ctrlBaseAddr      : "CSL_MMCSD0_CTL_CFG_BASE",
@@ -71,9 +71,9 @@ function getDefaultOperatingModeSD() {
 }
 
 function getDefaultConfig() {
-    if(common.getSelfSysCfgCoreName().includes("r5f"))
+    if(common.getSelfSysCfgCoreName().includes("wkup-r5f"))
     {
-        return mmcsd_config_r5f[0];
+        return mmcsd_config_wkup_r5f[0];
     }
 
     if(common.getSelfSysCfgCoreName().includes("c75"))
@@ -83,9 +83,9 @@ function getDefaultConfig() {
 }
 
 function getConfigArr() {
-    if(common.getSelfSysCfgCoreName().includes("r5f"))
+    if(common.getSelfSysCfgCoreName().includes("wkup-r5f"))
     {
-        return mmcsd_config_r5f;
+        return mmcsd_config_wkup_r5f;
     }
     if(common.getSelfSysCfgCoreName().includes("c75"))
     {
