@@ -10,7 +10,7 @@ const mcan_config_r5fss = [
         clockIds        : [ "TISCI_DEV_MCAN0" ],
         clockFrequencies: [
             {
-                moduleId: "TISCI_DEV_MCU_MCAN0",
+                moduleId: "TISCI_DEV_MCAN0",
                 clkId   : "TISCI_DEV_MCAN0_MCANSS_CCLK_CLK",
                 clkRate : mcan_func_clk,
             },

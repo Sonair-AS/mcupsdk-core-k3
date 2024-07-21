@@ -43,7 +43,7 @@
 /* ========================================================================== */
 
 #include <drivers/udma/udma_priv.h>
-
+#include <drivers/hw_include/cslr_soc.h>
 /* ========================================================================== */
 /*                           Macros & Typedefs                                */
 /* ========================================================================== */
@@ -383,17 +383,29 @@ static uint32_t Udma_getCoreSciDevId(void)
 
     devId = Sciclient_getSelfDevIdCore();
 
+#if defined (TISCI_DEV_A53SS0_CORE_0)
     if (devId == TISCI_DEV_A53SS0_CORE_0)
     {
         /* Return device ID for GIC as interrupts to A53 core is routed through GIC */
         devId = TISCI_DEV_GICSS0;
     }
+#endif 
+
 #if defined(BUILD_C7X)
     if (devId == TISCI_DEV_C7X256V0_C7XV_CORE_0)
     {
         /* Return device ID for CLEC as interrupts to C7x core is routed through CLEC */
         devId = TISCI_DEV_C7X256V0_CLEC;
     }
+
+#if (CSL_C7X256V_CORE0_MAIN_CNT > 1U)
+    if (devId == TISCI_DEV_C7X256V0_C7XV_CORE_0)
+    {
+        /* Return device ID for CLEC as interrupts to C7x core is routed through CLEC */
+        devId = TISCI_DEV_C7X256V1_CLEC;
+    }
+#endif
+    
 #endif
     return devId;
 }

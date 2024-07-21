@@ -80,7 +80,7 @@
 %}
 
 /** \brief bank interrupt source index base */
-% if ( args.project.cpu == "mcu-r5fss0-0" ) {
+% if ( args.project.cpu == "wkup-r5fss0-0" ) {
 #define SRC_IDX_BASE_GPIO_BANK   (CSLR_WKUP_MCU_GPIOMUX_INTROUTER0_IN_MCU_GPIO0_GPIO_BANK_0)
 % } else if ( args.project.cpu == "c75ss0-0" ) {
     %if (args.project.device == "am275x") {
@@ -93,12 +93,12 @@
 %}
 
 /* This is based on TISCI device config and core */
-% if ( args.project.cpu == "mcu-r5fss0-0" ) {
-#define GPIO_MUX_INTROUTER_ID      (TISCI_DEV_WKUP_MCU_GPIOMUX_INTROUTER0)
+% if ( args.project.cpu == "wkup-r5fss0-0" ) {
+#define GPIO_MUX_INTROUTER_ID      (TISCI_DEV_MCU_MCU_GPIO_INTROUTER0)
 % } else if ( args.project.cpu == "c75ss0-0" ) {
-#define GPIO_MUX_INTROUTER_ID      (TISCI_DEV_MAIN_GPIOMUX_INTROUTER0)
+#define GPIO_MUX_INTROUTER_ID      (TISCI_DEV_MAIN_GPIO_INTROUTER0)
 % } else {
-#define GPIO_MUX_INTROUTER_ID      (TISCI_DEV_MAIN_GPIOMUX_INTROUTER0)
+#define GPIO_MUX_INTROUTER_ID      (TISCI_DEV_MAIN_GPIO_INTROUTER0)
 % }
 
 /* GPIO mux introuter output number */

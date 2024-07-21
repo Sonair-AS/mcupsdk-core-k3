@@ -12,25 +12,25 @@ const ospi_config_r5fss = [
         baudRateDiv         : 4,
         intrNum             : 171,
         phaseDelayElement   : 3,
-        clockIds            : [ "TISCI_DEV_FSS0", "TISCI_DEV_FSS0_FSAS_0", "TISCI_DEV_FSS0_OSPI_0" ],
+        clockIds            : [ "TISCI_DEV_FSS1", "TISCI_DEV_FSS1_FSAS_0", "TISCI_DEV_FSS1_OSPI_0" ],
         clockFrequencies    : [
             {
-                moduleId: "TISCI_DEV_FSS0_OSPI_0",
-                clkId   : "TISCI_DEV_FSS0_OSPI_0_OSPI_RCLK_CLK",
+                moduleId: "TISCI_DEV_FSS1_OSPI_0",
+                clkId   : "TISCI_DEV_FSS1_OSPI_0_OSPI_RCLK_CLK",
                 clkRate : ospi_input_clk_freq,
             },
         ],
     },
     {
         name                : "OSPI1",
-        baseAddr            : "CSL_FSS0_OSPI1_CTRL_BASE",
+        baseAddr            : "CSL_FSS1_OSPI1_CTRL_BASE",
         dataBaseAddr        : "CSL_FSS1_DAT_REG1_BASE",
         inputClkFreq        : ospi_input_clk_freq,
         dacEnable           : false,
         baudRateDiv         : 4,
         intrNum             : 171,
         phaseDelayElement   : 3,
-        clockIds            : [ "TISCI_DEV_FSS0", "TISCI_DEV_FSS0_FSAS_0", "TISCI_DEV_FSS0_OSPI_1" ],
+        clockIds            : [ "TISCI_DEV_FSS1", "TISCI_DEV_FSS1_FSAS_0", "TISCI_DEV_FSS1_OSPI_1" ],
         clockFrequencies    : [
             {
                 moduleId: "TISCI_DEV_FSS0_OSPI_1",

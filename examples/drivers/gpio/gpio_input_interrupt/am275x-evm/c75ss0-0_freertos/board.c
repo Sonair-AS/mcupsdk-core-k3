@@ -49,7 +49,7 @@
 #define SRC_IDX_BASE_GPIO_BANK  (CSLR_MAIN_GPIO_INTROUTER0_IN_GPIO1_GPIO_BANK_1)
 
 /* This is based on TISCI device config and core */
-#define GPIO_MUX_INTROUTER_ID      (TISCI_DEV_MAIN_GPIOMUX_INTROUTER0)
+#define GPIO_MUX_INTROUTER_ID      (TISCI_DEV_MAIN_GPIO_INTROUTER0)
 
 /* GPIO mux introuter output number */
 #define GPIOMUX_INTROUTER_OUTP (15U)

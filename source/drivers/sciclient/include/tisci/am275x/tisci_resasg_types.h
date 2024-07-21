@@ -82,8 +82,8 @@ extern "C"
  */
 
 #define TISCI_RESASG_UTYPE(type, subtype) \
-    (((type << TISCI_RESASG_TYPE_SHIFT) & TISCI_RESASG_TYPE_MASK) | \
-     ((subtype << TISCI_RESASG_SUBTYPE_SHIFT) & TISCI_RESASG_SUBTYPE_MASK))
+	(((type << RESASG_TYPE_SHIFT) & RESASG_TYPE_MASK) | \
+	 ((subtype << RESASG_SUBTYPE_SHIFT) & RESASG_SUBTYPE_MASK))
 
 /**
  * IA subtypes definitions
@@ -165,12 +165,12 @@ extern "C"
 /**
  * Total number of unique resource types for SoC
  */
-#define TISCI_RESASG_UTYPE_CNT 73U
+#define TISCI_RESASG_UTYPE_CNT 58U
 
 /**
  * Total number of resource entries allowed for SoC
  */
-#define TISCI_RESASG_ENTRIES_MAX (TISCI_RESASG_UTYPE_CNT * 5U)
+#define TISCI_RESASG_ENTRIES_MAX (RESASG_UTYPE_CNT * 5U)
 
 
 #ifdef __cplusplus

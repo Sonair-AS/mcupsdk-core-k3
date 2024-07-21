@@ -73,16 +73,6 @@ extern "C"
 #define TISCI_HOST_ID_MAIN_0_R5_0 (37U)
 /** MAIN_0_R5_1(Non Secure): Cortex R5_0 context 1 on MAIN domain */
 #define TISCI_HOST_ID_MAIN_0_R5_1 (38U)
-/** A53_0(Secure): Cortex A53 context 0 on MAIN domain */
-#define TISCI_HOST_ID_A53_0 (10U)
-/** A53_1(Secure): Cortex A53 context 1 on MAIN domain */
-#define TISCI_HOST_ID_A53_1 (11U)
-/** A53_2(Non Secure): Cortex A53 context 2 on MAIN domain */
-#define TISCI_HOST_ID_A53_2 (12U)
-/** A53_3(Non Secure): Cortex A53 context 3 on MAIN domain */
-#define TISCI_HOST_ID_A53_3 (13U)
-/** A53_4(Non Secure): Cortex A53 context 4 on MAIN domain */
-#define TISCI_HOST_ID_A53_4 (14U)
 /** MCU_0_R5_0(Non Secure): MCU R5 */
 #define TISCI_HOST_ID_MCU_0_R5_0 (30U)
 /** C7X_0_0(Non Secure): C7x_0 context 0 on MAIN domain */
@@ -107,7 +97,7 @@ extern "C"
 #define TISCI_HOST_ID_ALL (128U)
 
 /** Number of unique hosts on the SoC */
-#define TISCI_HOST_ID_CNT (19U)
+#define TISCI_HOST_ID_CNT (14U)
 
 
 #ifdef __cplusplus

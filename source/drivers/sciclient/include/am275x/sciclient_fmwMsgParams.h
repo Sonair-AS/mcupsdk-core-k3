@@ -87,39 +87,30 @@ extern "C" {
  *  @{
  *  Context IDs for Sciclient_ConfigPrms_t .
  */
-/** r5(Secure): Cortex WKUP R5 Context 0 */
+
+/** WKUP_0_R5_0(Secure): Cortex WKUP R5 Context 0 */
 #define SCICLIENT_CONTEXT_WKUP_R5_SEC_0                 (0U)
-/** r5(Non Secure): Cortex WKUP R5 Context 1 */
+/** WKUP_0_R5_1(Non-Secure): Cortex WKUP R5 Context 1 */
 #define SCICLIENT_CONTEXT_WKUP_R5_NONSEC_0              (1U)
-/** r5(Secure): Cortex MAIN R5 Context 0 */
+/** MAIN_0_R5_0(Secure): Cortex R5_0 context 0 on MAIN domain */
 #define SCICLIENT_CONTEXT_MAIN_R5_SEC_0                 (2U)
-/** r5(Non Secure): Cortex MAIN R5 Context 1 */
+/** MAIN_0_R5_1(Non Secure): Cortex R5_0 context 1 on MAIN domain */
 #define SCICLIENT_CONTEXT_MAIN_R5_NONSEC_0              (3U)
-/** a53(Secure): Cortex A53 context 0 */
-#define SCICLIENT_CONTEXT_A53_SEC_0                     (4U)
-/** a53(Secure): Cortex A53 context 1 */
-#define SCICLIENT_CONTEXT_A53_SEC_1                     (5U)
-/** a53(Non Secure): Cortex A53 context 2 */
-#define SCICLIENT_CONTEXT_A53_NONSEC_0                  (6U)
-/** a53(Non Secure): Cortex A53 context 3 */
-#define SCICLIENT_CONTEXT_A53_NONSEC_1                  (7U)
-/** a53(Non Secure): Cortex A53 context 4 */
-#define SCICLIENT_CONTEXT_A53_NONSEC_2                  (8U)
-/** MCU R5 (Non Secure): Cortex MCU R5 context 0 */
-#define SCICLIENT_CONTEXT_MCU_R5_0_NONSEC_0             (9U)
-/** C7x(Non Secure): C7x_0 context 0*/
-#define SCICLIENT_CONTEXT_C7X_NONSEC_0                  (10U)
-/** C7x(Non Secure): C7x_1 context 0*/
-#define SCICLIENT_CONTEXT_C7X_NONSEC_1                  (11U)
-/** GPU_0(Non Secure): GPU context 0 */
-#define SCICLIENT_CONTEXT_GPU_NONSEC_0                  (12U)
-/** GPU_1(Non Secure): GPU context 1 */
-#define SCICLIENT_CONTEXT_GPU_NONSEC_1                  (13U)
+/** MCU_0_R5_0(Non Secure): MCU R5 */
+#define SCICLIENT_CONTEXT_MCU_R5_NONSEC_0               (4U)
+/** C7X_0_0(Non Secure): C7x_0 context 0 on MAIN domain */
+#define SCICLIENT_CONTEXT_C7X_NONSEC_0                  (5U)
+/** C7X_1_0(Non Secure): C7x_1 context 0 on MAIN domain */
+#define SCICLIENT_CONTEXT_C7X_NONSEC_1                  (6U)
+/** GPU_0(Non Secure): GPU context 0 on MAIN domain */
+#define SCICLIENT_CONTEXT_GPU_NONSEC_0                  (7U)
+/** GPU_1(Non Secure): GPU context 1 on MAIN domain */
+#define SCICLIENT_CONTEXT_GPU_NONSEC_1                  (8U)
 /** DM2TIFS(Non Secure): DM to TIFS Message forwarding */
-#define SCICLIENT_CONTEXT_DM2TIFS                       (14U)
+#define SCICLIENT_CONTEXT_DM2TIFS                       (9U)
 
 /** Total number of possible contexts for application. */
-#define SCICLIENT_CONTEXT_MAX_NUM                       (15U)
+#define SCICLIENT_CONTEXT_MAX_NUM                       (10U)
 /** @} */
 
 /**
@@ -128,60 +119,46 @@ extern "C" {
  *  @{
  *  Processor IDs for the Processor Boot Configuration APIs.
  */
-/**
- * AM67_MAIN_SEC_MMR_MAIN_0: (Cluster 9 Processor 0)
- */
-#define SCICLIENT_PROC_ID_A53SS0_CORE_0 (0x20U)
 
 /**
- * AM67_MAIN_SEC_MMR_MAIN_0: (Cluster 9 Processor 1)
+ * AM275_MAIN_SEC_MMR_MAIN_0: (Cluster 13 Processor 0)
  */
-#define SCICLIENT_PROC_ID_A53SS0_CORE_1 (0x21U)
+#define SCICLIENT_PROC_ID_C7X256V0_C7XV_CORE_0 (0x03U)
 
 /**
- * AM67_MAIN_SEC_MMR_MAIN_0: (Cluster 9 Processor 2)
+ * AM275_MAIN_SEC_MMR_MAIN_0: (Cluster 14 Processor 0)
  */
-#define SCICLIENT_PROC_ID_A53SS0_CORE_2 (0x22U)
+#define SCICLIENT_PROC_ID_C7X256V1_C7XV_CORE_0 (0x04U)
 
 /**
- * AM67_MAIN_SEC_MMR_MAIN_0: (Cluster 9 Processor 3)
+ * AM275_MAIN_SEC_MMR_MAIN_0: (Cluster 0 Processor 0)
  */
-#define SCICLIENT_PROC_ID_A53SS0_CORE_3 (0x23U)
+#define SCICLIENT_PROC_ID_R5FSS0_CORE0 (0x06U)
 
 /**
- * AM67_MAIN_SEC_MMR_MAIN_0: (Cluster 13 Processor 0)
+ * AM275_MAIN_SEC_MMR_MAIN_0: (Cluster 0 Processor 1)
  */
-#define SCICLIENT_PROC_ID_C7X256V0_C7XV_CORE_0 (0x30U)
+#define SCICLIENT_PROC_ID_R5FSS0_CORE1 (0x07U)
 
 /**
- * AM67_MAIN_SEC_MMR_MAIN_0: (Cluster 14 Processor 0)
+ * AM275_MAIN_SEC_MMR_MAIN_0: (Cluster 1 Processor 0)
  */
-#define SCICLIENT_PROC_ID_C7X256V1_C7XV_CORE_0 (0x31U)
+#define SCICLIENT_PROC_ID_R5FSS1_CORE0 (0x08U)
 
 /**
- * SMS_MAIN_0_SECCTRL_0: (Cluster 0 Processor 1)
+ * AM275_MAIN_SEC_MMR_MAIN_0: (Cluster 1 Processor 1)
  */
-#define SCICLIENT_PROC_ID_HSM_M4FSS0_CORE0 (0x80U)
+#define SCICLIENT_PROC_ID_R5FSS1_CORE1 (0x09U)
 
 /**
- * AM67_MCU_SEC_MMR_MCU_0: (Cluster 0 Processor 0)
- */
-#define SCICLIENT_PROC_ID_MCU_R5FSS0_CORE0 (0x03U)
-
-/**
- * AM67_MAIN_SEC_MMR_MAIN_0: (Cluster 0 Processor 0)
- */
-#define SCICLIENT_PROC_ID_R5FSS0_CORE0 (0x04U)
-
-/**
- * AM67_WKUP_SEC_MMR_WKUP_0: (Cluster 28 Processor 0)
+ * AM275_WKUP_SEC_MMR_WKUP_0: (Cluster 28 Processor 0)
  */
 #define SCICLIENT_PROC_ID_WKUP_R5FSS0_CORE0 (0x01U)
 
 /**
  * Total Number of processors in AM275X
  */
-#define SCICLIENT_SOC_NUM_PROCESSORS (0x0AU)
+#define SCICLIENT_SOC_NUM_PROCESSORS (0x07U)
 
 /** @} */
 
