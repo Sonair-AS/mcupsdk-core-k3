@@ -47,7 +47,6 @@ const libdirs_freertos_r5 = {
         "${MCU_PLUS_SDK_PATH}/source/drivers/device_manager/rm_pm_hal/lib",
         "${MCU_PLUS_SDK_PATH}/source/drivers/device_manager/sciclient_direct/lib",
         "${MCU_PLUS_SDK_PATH}/source/drivers/device_manager/self_reset/lib",
-        "${MCU_PLUS_SDK_PATH}/source/drivers/device_manager/dm_stub/lib",
         "${MCU_PLUS_SDK_PATH}/source/kernel/freertos/lib",
         "${MCU_PLUS_SDK_PATH}/source/drivers/lib",
         "${MCU_PLUS_SDK_PATH}/source/board/lib",
@@ -57,10 +56,10 @@ const libdirs_freertos_r5 = {
 
 const libs_freertos_wkup_r5f = {
     common: [
-        "sciserver.am275x.r5f.ti-arm-clang.${ConfigName}.lib",
-        "rm_pm_hal.am275x.r5f.ti-arm-clang.${ConfigName}.lib",
-        "sciclient_direct.am275x.r5f.ti-arm-clang.${ConfigName}.lib",
-        "self_reset.am275x.r5f.ti-arm-clang.${ConfigName}.lib",
+        "sciserver.am275x.wkup-r5f.ti-arm-clang.${ConfigName}.lib",
+        "rm_pm_hal.am275x.wkup-r5f.ti-arm-clang.${ConfigName}.lib",
+        "sciclient_direct.am275x.wkup-r5f.ti-arm-clang.${ConfigName}.lib",
+        "self_reset.am275x.wkup-r5f.ti-arm-clang.${ConfigName}.lib",
         "freertos.am275x.r5f.ti-arm-clang.${ConfigName}.lib",
         "drivers.am275x.wkup-r5f.ti-arm-clang.${ConfigName}.lib",
         "board.am275x.r5f.ti-arm-clang.${ConfigName}.lib",

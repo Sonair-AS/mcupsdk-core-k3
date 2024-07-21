@@ -37,8 +37,11 @@
 #include "ti_board_open_close.h"
 
 #define APP_MMCSD_START_BLK (0x800000U) /* @1.5GB */
+#if defined(SOC_AM275X)
+#define APP_MMCSD_DATA_SIZE (0x1000)
+#else
 #define APP_MMCSD_DATA_SIZE (0x400000)
-
+#endif
 uint8_t gMmcsdTxBuf[APP_MMCSD_DATA_SIZE] __attribute__((aligned(128U)));
 uint8_t gMmcsdRxBuf[APP_MMCSD_DATA_SIZE] __attribute__((aligned(128U)));
 

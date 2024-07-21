@@ -98,7 +98,6 @@ LIBS_PATH_common = \
 	-Wl,-i${MCU_PLUS_SDK_PATH}/source/drivers/device_manager/rm_pm_hal/lib \
 	-Wl,-i${MCU_PLUS_SDK_PATH}/source/drivers/device_manager/sciclient_direct/lib \
 	-Wl,-i${MCU_PLUS_SDK_PATH}/source/drivers/device_manager/self_reset/lib \
-	-Wl,-i${MCU_PLUS_SDK_PATH}/source/drivers/device_manager/dm_stub/lib \
 	-Wl,-i${MCU_PLUS_SDK_PATH}/source/kernel/freertos/lib \
 	-Wl,-i${MCU_PLUS_SDK_PATH}/source/drivers/lib \
 	-Wl,-i${MCU_PLUS_SDK_PATH}/source/board/lib \
@@ -106,10 +105,10 @@ LIBS_PATH_common = \
 	-Wl,-i${CG_TOOL_ROOT}/lib \
 
 LIBS_common = \
-	-lsciserver.am275x.r5f.ti-arm-clang.${ConfigName}.lib \
-	-lrm_pm_hal.am275x.r5f.ti-arm-clang.${ConfigName}.lib \
-	-lsciclient_direct.am275x.r5f.ti-arm-clang.${ConfigName}.lib \
-	-lself_reset.am275x.r5f.ti-arm-clang.${ConfigName}.lib \
+	-lsciserver.am275x.wkup-r5f.ti-arm-clang.${ConfigName}.lib \
+	-lrm_pm_hal.am275x.wkup-r5f.ti-arm-clang.${ConfigName}.lib \
+	-lsciclient_direct.am275x.wkup-r5f.ti-arm-clang.${ConfigName}.lib \
+	-lself_reset.am275x.wkup-r5f.ti-arm-clang.${ConfigName}.lib \
 	-lfreertos.am275x.r5f.ti-arm-clang.${ConfigName}.lib \
 	-ldrivers.am275x.wkup-r5f.ti-arm-clang.${ConfigName}.lib \
 	-lboard.am275x.r5f.ti-arm-clang.${ConfigName}.lib \
@@ -125,10 +124,10 @@ LFLAGS_common = \
 
 
 LIBS_NAME = \
-	sciserver.am275x.r5f.ti-arm-clang.${ConfigName}.lib \
-	rm_pm_hal.am275x.r5f.ti-arm-clang.${ConfigName}.lib \
-	sciclient_direct.am275x.r5f.ti-arm-clang.${ConfigName}.lib \
-	self_reset.am275x.r5f.ti-arm-clang.${ConfigName}.lib \
+	sciserver.am275x.wkup-r5f.ti-arm-clang.${ConfigName}.lib \
+	rm_pm_hal.am275x.wkup-r5f.ti-arm-clang.${ConfigName}.lib \
+	sciclient_direct.am275x.wkup-r5f.ti-arm-clang.${ConfigName}.lib \
+	self_reset.am275x.wkup-r5f.ti-arm-clang.${ConfigName}.lib \
 	freertos.am275x.r5f.ti-arm-clang.${ConfigName}.lib \
 	drivers.am275x.wkup-r5f.ti-arm-clang.${ConfigName}.lib \
 	board.am275x.r5f.ti-arm-clang.${ConfigName}.lib \
@@ -141,7 +140,6 @@ LIBS_PATH_NAME = \
 	${MCU_PLUS_SDK_PATH}/source/drivers/device_manager/rm_pm_hal/lib \
 	${MCU_PLUS_SDK_PATH}/source/drivers/device_manager/sciclient_direct/lib \
 	${MCU_PLUS_SDK_PATH}/source/drivers/device_manager/self_reset/lib \
-	${MCU_PLUS_SDK_PATH}/source/drivers/device_manager/dm_stub/lib \
 	${MCU_PLUS_SDK_PATH}/source/kernel/freertos/lib \
 	${MCU_PLUS_SDK_PATH}/source/drivers/lib \
 	${MCU_PLUS_SDK_PATH}/source/board/lib \

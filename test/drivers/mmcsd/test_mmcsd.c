@@ -80,6 +80,13 @@ uint32_t modes[] =
     MMCSD_SUPPORT_MMC_DS | MMCSD_SUPPORT_MMC_HS200,
     MMCSD_SUPPORT_MMC_DS | MMCSD_SUPPORT_MMC_HS400,
 };
+#elif defined (SOC_AM275X)
+uint32_t modes[] =
+{
+    MMCSD_SUPPORT_MMC_DS | MMCSD_SUPPORT_MMC_HS_SDR,
+    MMCSD_SUPPORT_MMC_DS | MMCSD_SUPPORT_MMC_HS_DDR,
+    MMCSD_SUPPORT_MMC_DS | MMCSD_SUPPORT_MMC_HS200,
+};
 #endif
 
 /* ========================================================================== */

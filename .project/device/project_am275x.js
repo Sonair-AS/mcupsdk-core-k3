@@ -19,7 +19,7 @@ const component_file_list = [
 // List of components where makefile is not generated.
 const component_file_list_with_makefile = [
     "source/drivers/device_manager/rm_pm_hal/.project/project.js",
-    "source/drivers/device_manager/rm_pm_hal/sbl/.project/project.js",
+    // "source/drivers/device_manager/rm_pm_hal/sbl/.project/project.js",
 ];
 
 const device_defines = {
@@ -47,7 +47,7 @@ const example_file_list = [
     "examples/drivers/mcspi/mcspi_loopback/.project/project.js",
     "examples/drivers/mcspi/mcspi_performance_8bit/.project/project.js",
     "examples/drivers/mcspi/mcspi_performance_32bit/.project/project.js",
-    // "examples/drivers/mmcsd/mmcsd_raw_io/.project/project.js",
+    "examples/drivers/mmcsd/mmcsd_raw_io/.project/project.js",
     "examples/drivers/ospi/ospi_flash_io/.project/project.js",
     "examples/drivers/sciclient/sciclient_get_version/.project/project.js",
     "examples/drivers/uart/uart_echo/.project/project.js",
