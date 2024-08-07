@@ -40,6 +40,7 @@ extern "C"
 
 #include <drivers/hw_include/am275x/csl_psilcfg_thread_map.h>
 #include <drivers/hw_include/am275x/csl_soc_psc.h>
+#include <drivers/hw_include/am275x/csl_soc_firewalls.h>
 #include <drivers/hw_include/am275x/cslr_dmss_defines.h>
 #include <drivers/hw_include/am275x/cslr_intr_c7x256v0_clec.h>
 #include <drivers/hw_include/am275x/cslr_intr_c7x256v1_clec.h>
@@ -53,6 +54,8 @@ extern "C"
 #include <drivers/hw_include/am275x/cslr_soc_ctrl_mmr.h>
 #include <drivers/hw_include/am275x/cslr_soc_baseaddress.h>
 #include <drivers/hw_include/am275x/cslr_soc_defines.h>
+#include <drivers/hw_include/am275x/cslr_wkup_r5fss0_baseaddress.h>
+#include <drivers/hw_include/am275x/cslr_r5fss0_baseaddress.h>
 
 #ifdef __cplusplus
 }
