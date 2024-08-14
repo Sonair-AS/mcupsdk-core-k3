@@ -198,42 +198,6 @@ const Sciclient_MapStruct_t gSciclientMap[SCICLIENT_CONTEXT_MAX_NUM] =
         0U
 
     },
-
-    {
-        /** Context **/
-        SCICLIENT_NON_SECURE_CONTEXT,
-
-        /** Host ID of the GPU */
-        TISCI_HOST_ID_GPU_0,
-
-        /** Thread ID of the low priority thread(write) allowed for the GPU */
-        TISCI_SEC_PROXY_GPU_0_WRITE_LOW_PRIORITY_THREAD_ID,
-
-        /** Thread ID of the response thread(read) available for the GPU */
-        TISCI_SEC_PROXY_GPU_0_READ_RESPONSE_THREAD_ID,
-
-        /** Notification Interrupt Number.**/
-        0U
-
-    },
-
-    {
-        /** Context **/
-        SCICLIENT_NON_SECURE_CONTEXT,
-
-        /** Host ID of the GPU */
-        TISCI_HOST_ID_GPU_1,
-
-        /** Thread ID of the low priority thread(write) allowed for the GPU */
-        TISCI_SEC_PROXY_GPU_1_WRITE_LOW_PRIORITY_THREAD_ID,
-
-        /** Thread ID of the response thread(read) available for the GPU */
-        TISCI_SEC_PROXY_GPU_1_READ_RESPONSE_THREAD_ID,
-
-        /** Notification Interrupt Number.**/
-        0U
-
-    },
     {
         /** Context **/
         SCICLIENT_SECURE_CONTEXT,

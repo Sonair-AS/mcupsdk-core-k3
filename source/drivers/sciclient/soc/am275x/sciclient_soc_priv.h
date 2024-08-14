@@ -1,5 +1,5 @@
 /*
- *  Copyright (C) 2023 Texas Instruments Incorporated
+ *  Copyright (C) 2024 Texas Instruments Incorporated
  *
  *  Redistribution and use in source and binary forms, with or without
  *  modification, are permitted provided that the following conditions
@@ -57,21 +57,9 @@
 #define SCICLIENT_CONTEXT_NONSEC    (SCICLIENT_CONTEXT_WKUP_R5_NONSEC_0)
 #define SCICLIENT_CONTEXT_SEC       (SCICLIENT_CONTEXT_WKUP_R5_SEC_0)
 #endif
-#if defined (BUILD_MCU2_0)
-#define SCICLIENT_CONTEXT_NONSEC    (SCICLIENT_CONTEXT_MCU_R5_0_NONSEC_0)
-#define SCICLIENT_CONTEXT_SEC       (SCICLIENT_CONTEXT_MCU_R5_0_NONSEC_0)
-#endif
 #if defined (BUILD_MCU3_0)
 #define SCICLIENT_CONTEXT_NONSEC    (SCICLIENT_CONTEXT_MAIN_R5_NONSEC_0)
 #define SCICLIENT_CONTEXT_SEC       (SCICLIENT_CONTEXT_MAIN_R5_SEC_0)
-#endif
-#if defined (BUILD_MPU1_0)
-#define SCICLIENT_CONTEXT_NONSEC    (SCICLIENT_CONTEXT_A53_NONSEC_0)
-#define SCICLIENT_CONTEXT_SEC       (SCICLIENT_CONTEXT_A53_SEC_0)
-#endif
-#if defined (BUILD_MPU1_1)
-#define SCICLIENT_CONTEXT_NONSEC    (SCICLIENT_CONTEXT_A53_NONSEC_1)
-#define SCICLIENT_CONTEXT_SEC       (SCICLIENT_CONTEXT_A53_SEC_1)
 #endif
 #if defined (BUILD_C75X_1)
 #define SCICLIENT_CONTEXT_NONSEC    (SCICLIENT_CONTEXT_C7X_NONSEC_0)
@@ -97,4 +85,4 @@
 
 /** @} */
 
-#endif /* ifndef SCICLIENT_SOC_PRIV_J722S_H_ */
+#endif /* ifndef SCICLIENT_SOC_PRIV_AM275X_H_ */

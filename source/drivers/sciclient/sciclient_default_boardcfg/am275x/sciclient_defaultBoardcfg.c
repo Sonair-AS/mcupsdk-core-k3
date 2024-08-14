@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2023, Texas Instruments Incorporated
+ * Copyright (c) 2024, Texas Instruments Incorporated
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -111,7 +111,7 @@ __attribute__((aligned(128))) =
          * be given in steps of 4, which makes the size of cache to be
          * configured in steps on X/8 MB.
          */
-		.msmc_cache_size = 0x0,
+		.msmc_cache_size = 0x10,
 	},
 
 	/* boardcfg_dbg_cfg */

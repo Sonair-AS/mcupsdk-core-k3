@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2023, Texas Instruments Incorporated
+ * Copyright (c) 2024, Texas Instruments Incorporated
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -83,39 +83,136 @@ __attribute__(( aligned(128), section(".boardcfg_data") )) =
         .write_host_id = TISCI_HOST_ID_WKUP_0_R5_0,
         /* This is an array with 32 entries */
         .otp_entry =  {
-            {TISCI_HOST_ID_ALL, 0x2U},
-            {TISCI_HOST_ID_ALL, 0x2U},
-            {TISCI_HOST_ID_ALL, 0x2U},
-            {TISCI_HOST_ID_ALL, 0x2U},
-            {TISCI_HOST_ID_ALL, 0x2U},
-            {TISCI_HOST_ID_ALL, 0x2U},
-            {TISCI_HOST_ID_ALL, 0x2U},
-            {TISCI_HOST_ID_ALL, 0x2U},
-            {TISCI_HOST_ID_ALL, 0x2U},
-            {TISCI_HOST_ID_ALL, 0x2U},
-            {TISCI_HOST_ID_ALL, 0x2U},
-            {TISCI_HOST_ID_ALL, 0x2U},
-            {TISCI_HOST_ID_ALL, 0x2U},
-            {TISCI_HOST_ID_ALL, 0x2U},
-            {TISCI_HOST_ID_ALL, 0x2U},
-            {TISCI_HOST_ID_ALL, 0x2U},
-            {TISCI_HOST_ID_ALL, 0x2U},
-            {TISCI_HOST_ID_ALL, 0x2U},
-            {TISCI_HOST_ID_ALL, 0x2U},
-            {TISCI_HOST_ID_ALL, 0x2U},
-            {TISCI_HOST_ID_ALL, 0x2U},
-            {TISCI_HOST_ID_ALL, 0x2U},
-            {TISCI_HOST_ID_ALL, 0x2U},
-            {TISCI_HOST_ID_ALL, 0x2U},
-            {TISCI_HOST_ID_ALL, 0x2U},
-            {TISCI_HOST_ID_ALL, 0x2U},
-            {TISCI_HOST_ID_ALL, 0x2U},
-            {TISCI_HOST_ID_ALL, 0x2U},
-            {TISCI_HOST_ID_ALL, 0x2U},
-            {TISCI_HOST_ID_ALL, 0x2U},
-            {TISCI_HOST_ID_ALL, 0x2U},
-            {TISCI_HOST_ID_ALL, 0x2U},
-        }
+				{
+					.host_id = TISCI_HOST_ID_ALL,
+					.host_perms = 0x2,
+				},
+				{
+					.host_id = TISCI_HOST_ID_ALL,
+					.host_perms = 0x2,
+				},
+				{
+					.host_id = TISCI_HOST_ID_ALL,
+					.host_perms = 0x2,
+				},
+				{
+					.host_id = TISCI_HOST_ID_ALL,
+					.host_perms = 0x2,
+				},
+				{
+					.host_id = TISCI_HOST_ID_ALL,
+					.host_perms = 0x2,
+				},
+				{
+					.host_id = TISCI_HOST_ID_ALL,
+					.host_perms = 0x2,
+				},
+				{
+					.host_id = TISCI_HOST_ID_ALL,
+					.host_perms = 0x2,
+				},
+				{
+					.host_id = TISCI_HOST_ID_ALL,
+					.host_perms = 0x2,
+				},
+				{
+					.host_id = TISCI_HOST_ID_ALL,
+					.host_perms = 0x2,
+				},
+				{
+					.host_id = TISCI_HOST_ID_ALL,
+					.host_perms = 0x2,
+				},
+				{
+					.host_id = TISCI_HOST_ID_ALL,
+					.host_perms = 0x2,
+				},
+				{
+					.host_id = TISCI_HOST_ID_ALL,
+					.host_perms = 0x2,
+				},
+				{
+					.host_id = TISCI_HOST_ID_ALL,
+					.host_perms = 0x2,
+				},
+				{
+					.host_id = TISCI_HOST_ID_ALL,
+					.host_perms = 0x2,
+				},
+				{
+					.host_id = TISCI_HOST_ID_ALL,
+					.host_perms = 0x2,
+				},
+				{
+					.host_id = TISCI_HOST_ID_ALL,
+					.host_perms = 0x2,
+				},
+				{
+					.host_id = TISCI_HOST_ID_ALL,
+					.host_perms = 0x2,
+				},
+				{
+					.host_id = TISCI_HOST_ID_ALL,
+					.host_perms = 0x2,
+				},
+				{
+					.host_id = TISCI_HOST_ID_ALL,
+					.host_perms = 0x2,
+				},
+				{
+					.host_id = TISCI_HOST_ID_ALL,
+					.host_perms = 0x2,
+				},
+				{
+					.host_id = TISCI_HOST_ID_ALL,
+					.host_perms = 0x2,
+				},
+				{
+					.host_id = TISCI_HOST_ID_ALL,
+					.host_perms = 0x2,
+				},
+				{
+					.host_id = TISCI_HOST_ID_ALL,
+					.host_perms = 0x2,
+				},
+				{
+					.host_id = TISCI_HOST_ID_ALL,
+					.host_perms = 0x2,
+				},
+				{
+					.host_id = TISCI_HOST_ID_ALL,
+					.host_perms = 0x2,
+				},
+				{
+					.host_id = TISCI_HOST_ID_ALL,
+					.host_perms = 0x2,
+				},
+				{
+					.host_id = TISCI_HOST_ID_ALL,
+					.host_perms = 0x2,
+				},
+				{
+					.host_id = TISCI_HOST_ID_ALL,
+					.host_perms = 0x2,
+				},
+				{
+					.host_id = TISCI_HOST_ID_ALL,
+					.host_perms = 0x2,
+				},
+				{
+					.host_id = TISCI_HOST_ID_ALL,
+					.host_perms = 0x2,
+				},
+				{
+					.host_id = TISCI_HOST_ID_ALL,
+					.host_perms = 0x2,
+				},
+				{
+					.host_id = TISCI_HOST_ID_ALL,
+					.host_perms = 0x2,
+				},
+
+		},
     },
     /* DKEK configuration */
     .dkek_config = {
