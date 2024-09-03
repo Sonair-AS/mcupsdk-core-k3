@@ -71,7 +71,7 @@ struct Sciclient_rmIaInst gRmIaInstances[SCICLIENT_RM_IA_NUM_INST] =
 struct Sciclient_rmIrInst gRmIrInstances[SCICLIENT_RM_IR_NUM_INST] =
 {
     {
-        .dev_id         = TISCI_DEV_MAIN_GPIO_INTROUTER0,
+        .dev_id         = TISCI_DEV_MAIN_GPIOMUX_INTROUTER0,
         .cfg            = 0xa00000,
         .n_inp          = 232u,
         .n_outp         = 80u,
@@ -80,7 +80,7 @@ struct Sciclient_rmIrInst gRmIrInstances[SCICLIENT_RM_IR_NUM_INST] =
         .n_rom_usage    = 0U,
     },
     {
-        .dev_id         = TISCI_DEV_MCU_MCU_GPIO_INTROUTER0,
+        .dev_id         = TISCI_DEV_MCU_MCU_GPIOMUX_INTROUTER0,
         .cfg            = 0x4210000,
         .n_inp          = 32u,
         .n_outp         = 32u,
@@ -89,7 +89,7 @@ struct Sciclient_rmIrInst gRmIrInstances[SCICLIENT_RM_IR_NUM_INST] =
         .n_rom_usage    = 0U,
     },
     {
-        .dev_id         = TISCI_DEV_TIMESYNC_INTROUTER0,
+        .dev_id         = TISCI_DEV_TIMESYNC_EVENT_INTROUTER0,
         .cfg            = 0xa40000,
         .n_inp          = 24u,
         .n_outp         = 32u,
@@ -161,7 +161,7 @@ const struct Sciclient_rmIrqIf * const tisci_if_MAIN_GPIO_INTROUTER0[] = {
 	&MAIN_GPIO_INTROUTER0_outp_48_57_to_DMASS0_INTAGGR_0_intaggr_levi_pend_16_25,
 };
 static const struct Sciclient_rmIrqNode tisci_irq_MAIN_GPIO_INTROUTER0 = {
-	.id = TISCI_DEV_MAIN_GPIO_INTROUTER0,
+	.id = TISCI_DEV_MAIN_GPIOMUX_INTROUTER0,
 	.n_if = 8,
 	.p_if = &tisci_if_MAIN_GPIO_INTROUTER0[0],
 };
@@ -247,7 +247,7 @@ const struct Sciclient_rmIrqIf * const tisci_if_MCU_MCU_GPIO_INTROUTER0[] = {
 	&MCU_MCU_GPIO_INTROUTER0_outp_24_31_to_R5FSS1_CORE1_intr_100_107,
 };
 static const struct Sciclient_rmIrqNode tisci_irq_MCU_MCU_GPIO_INTROUTER0 = {
-	.id = TISCI_DEV_MCU_MCU_GPIO_INTROUTER0,
+	.id = TISCI_DEV_MCU_MCU_GPIOMUX_INTROUTER0,
 	.n_if = 11,
 	.p_if = &tisci_if_MCU_MCU_GPIO_INTROUTER0[0],
 };
@@ -319,7 +319,7 @@ const struct Sciclient_rmIrqIf * const tisci_if_TIMESYNC_INTROUTER0[] = {
 	&TIMESYNC_INTROUTER0_outl_15_15_to_CPSW0_cpts_hw8_push_7_7,
 };
 static const struct Sciclient_rmIrqNode tisci_irq_TIMESYNC_INTROUTER0 = {
-	.id = TISCI_DEV_TIMESYNC_INTROUTER0,
+	.id = TISCI_DEV_TIMESYNC_EVENT_INTROUTER0,
 	.n_if = 9,
 	.p_if = &tisci_if_TIMESYNC_INTROUTER0[0],
 };
@@ -334,19 +334,19 @@ const struct Sciclient_rmIrqIf CPSW0_cpts_comp_0_0_to_DMASS0_INTAGGR_0_intaggr_l
 const struct Sciclient_rmIrqIf CPSW0_cpts_genf0_1_1_to_TIMESYNC_INTROUTER0_in_16_16 = {
 	.lbase = 1,
 	.len = 1,
-	.rid = TISCI_DEV_TIMESYNC_INTROUTER0,
+	.rid = TISCI_DEV_TIMESYNC_EVENT_INTROUTER0,
 	.rbase = 16,
 };
 const struct Sciclient_rmIrqIf CPSW0_cpts_genf1_2_2_to_TIMESYNC_INTROUTER0_in_17_17 = {
 	.lbase = 2,
 	.len = 1,
-	.rid = TISCI_DEV_TIMESYNC_INTROUTER0,
+	.rid = TISCI_DEV_TIMESYNC_EVENT_INTROUTER0,
 	.rbase = 17,
 };
 const struct Sciclient_rmIrqIf CPSW0_cpts_sync_3_3_to_TIMESYNC_INTROUTER0_in_18_18 = {
 	.lbase = 3,
 	.len = 1,
-	.rid = TISCI_DEV_TIMESYNC_INTROUTER0,
+	.rid = TISCI_DEV_TIMESYNC_EVENT_INTROUTER0,
 	.rbase = 18,
 };
 const struct Sciclient_rmIrqIf * const tisci_if_CPSW0[] = {
@@ -500,13 +500,13 @@ static const struct Sciclient_rmIrqNode tisci_irq_DMASS0_INTAGGR_0 = {
 const struct Sciclient_rmIrqIf TIMER0_timer_pwm_0_0_to_MAIN_GPIO_INTROUTER0_in_216_216 = {
 	.lbase = 0,
 	.len = 1,
-	.rid = TISCI_DEV_MAIN_GPIO_INTROUTER0,
+	.rid = TISCI_DEV_MAIN_GPIOMUX_INTROUTER0,
 	.rbase = 216,
 };
 const struct Sciclient_rmIrqIf TIMER0_timer_pwm_0_0_to_TIMESYNC_INTROUTER0_in_0_0 = {
 	.lbase = 0,
 	.len = 1,
-	.rid = TISCI_DEV_TIMESYNC_INTROUTER0,
+	.rid = TISCI_DEV_TIMESYNC_EVENT_INTROUTER0,
 	.rbase = 0,
 };
 const struct Sciclient_rmIrqIf * const tisci_if_TIMER0[] = {
@@ -523,13 +523,13 @@ static const struct Sciclient_rmIrqNode tisci_irq_TIMER0 = {
 const struct Sciclient_rmIrqIf TIMER1_timer_pwm_0_0_to_MAIN_GPIO_INTROUTER0_in_217_217 = {
 	.lbase = 0,
 	.len = 1,
-	.rid = TISCI_DEV_MAIN_GPIO_INTROUTER0,
+	.rid = TISCI_DEV_MAIN_GPIOMUX_INTROUTER0,
 	.rbase = 217,
 };
 const struct Sciclient_rmIrqIf TIMER1_timer_pwm_0_0_to_TIMESYNC_INTROUTER0_in_1_1 = {
 	.lbase = 0,
 	.len = 1,
-	.rid = TISCI_DEV_TIMESYNC_INTROUTER0,
+	.rid = TISCI_DEV_TIMESYNC_EVENT_INTROUTER0,
 	.rbase = 1,
 };
 const struct Sciclient_rmIrqIf * const tisci_if_TIMER1[] = {
@@ -546,13 +546,13 @@ static const struct Sciclient_rmIrqNode tisci_irq_TIMER1 = {
 const struct Sciclient_rmIrqIf TIMER2_timer_pwm_0_0_to_MAIN_GPIO_INTROUTER0_in_218_218 = {
 	.lbase = 0,
 	.len = 1,
-	.rid = TISCI_DEV_MAIN_GPIO_INTROUTER0,
+	.rid = TISCI_DEV_MAIN_GPIOMUX_INTROUTER0,
 	.rbase = 218,
 };
 const struct Sciclient_rmIrqIf TIMER2_timer_pwm_0_0_to_TIMESYNC_INTROUTER0_in_2_2 = {
 	.lbase = 0,
 	.len = 1,
-	.rid = TISCI_DEV_TIMESYNC_INTROUTER0,
+	.rid = TISCI_DEV_TIMESYNC_EVENT_INTROUTER0,
 	.rbase = 2,
 };
 const struct Sciclient_rmIrqIf * const tisci_if_TIMER2[] = {
@@ -569,13 +569,13 @@ static const struct Sciclient_rmIrqNode tisci_irq_TIMER2 = {
 const struct Sciclient_rmIrqIf TIMER3_timer_pwm_0_0_to_MAIN_GPIO_INTROUTER0_in_219_219 = {
 	.lbase = 0,
 	.len = 1,
-	.rid = TISCI_DEV_MAIN_GPIO_INTROUTER0,
+	.rid = TISCI_DEV_MAIN_GPIOMUX_INTROUTER0,
 	.rbase = 219,
 };
 const struct Sciclient_rmIrqIf TIMER3_timer_pwm_0_0_to_TIMESYNC_INTROUTER0_in_3_3 = {
 	.lbase = 0,
 	.len = 1,
-	.rid = TISCI_DEV_TIMESYNC_INTROUTER0,
+	.rid = TISCI_DEV_TIMESYNC_EVENT_INTROUTER0,
 	.rbase = 3,
 };
 const struct Sciclient_rmIrqIf * const tisci_if_TIMER3[] = {
@@ -592,13 +592,13 @@ static const struct Sciclient_rmIrqNode tisci_irq_TIMER3 = {
 const struct Sciclient_rmIrqIf TIMER4_timer_pwm_0_0_to_MAIN_GPIO_INTROUTER0_in_220_220 = {
 	.lbase = 0,
 	.len = 1,
-	.rid = TISCI_DEV_MAIN_GPIO_INTROUTER0,
+	.rid = TISCI_DEV_MAIN_GPIOMUX_INTROUTER0,
 	.rbase = 220,
 };
 const struct Sciclient_rmIrqIf TIMER4_timer_pwm_0_0_to_TIMESYNC_INTROUTER0_in_4_4 = {
 	.lbase = 0,
 	.len = 1,
-	.rid = TISCI_DEV_TIMESYNC_INTROUTER0,
+	.rid = TISCI_DEV_TIMESYNC_EVENT_INTROUTER0,
 	.rbase = 4,
 };
 const struct Sciclient_rmIrqIf * const tisci_if_TIMER4[] = {
@@ -615,13 +615,13 @@ static const struct Sciclient_rmIrqNode tisci_irq_TIMER4 = {
 const struct Sciclient_rmIrqIf TIMER5_timer_pwm_0_0_to_MAIN_GPIO_INTROUTER0_in_221_221 = {
 	.lbase = 0,
 	.len = 1,
-	.rid = TISCI_DEV_MAIN_GPIO_INTROUTER0,
+	.rid = TISCI_DEV_MAIN_GPIOMUX_INTROUTER0,
 	.rbase = 221,
 };
 const struct Sciclient_rmIrqIf TIMER5_timer_pwm_0_0_to_TIMESYNC_INTROUTER0_in_5_5 = {
 	.lbase = 0,
 	.len = 1,
-	.rid = TISCI_DEV_TIMESYNC_INTROUTER0,
+	.rid = TISCI_DEV_TIMESYNC_EVENT_INTROUTER0,
 	.rbase = 5,
 };
 const struct Sciclient_rmIrqIf * const tisci_if_TIMER5[] = {
@@ -638,13 +638,13 @@ static const struct Sciclient_rmIrqNode tisci_irq_TIMER5 = {
 const struct Sciclient_rmIrqIf TIMER6_timer_pwm_0_0_to_MAIN_GPIO_INTROUTER0_in_222_222 = {
 	.lbase = 0,
 	.len = 1,
-	.rid = TISCI_DEV_MAIN_GPIO_INTROUTER0,
+	.rid = TISCI_DEV_MAIN_GPIOMUX_INTROUTER0,
 	.rbase = 222,
 };
 const struct Sciclient_rmIrqIf TIMER6_timer_pwm_0_0_to_TIMESYNC_INTROUTER0_in_6_6 = {
 	.lbase = 0,
 	.len = 1,
-	.rid = TISCI_DEV_TIMESYNC_INTROUTER0,
+	.rid = TISCI_DEV_TIMESYNC_EVENT_INTROUTER0,
 	.rbase = 6,
 };
 const struct Sciclient_rmIrqIf * const tisci_if_TIMER6[] = {
@@ -661,13 +661,13 @@ static const struct Sciclient_rmIrqNode tisci_irq_TIMER6 = {
 const struct Sciclient_rmIrqIf TIMER7_timer_pwm_0_0_to_MAIN_GPIO_INTROUTER0_in_223_223 = {
 	.lbase = 0,
 	.len = 1,
-	.rid = TISCI_DEV_MAIN_GPIO_INTROUTER0,
+	.rid = TISCI_DEV_MAIN_GPIOMUX_INTROUTER0,
 	.rbase = 223,
 };
 const struct Sciclient_rmIrqIf TIMER7_timer_pwm_0_0_to_TIMESYNC_INTROUTER0_in_7_7 = {
 	.lbase = 0,
 	.len = 1,
-	.rid = TISCI_DEV_TIMESYNC_INTROUTER0,
+	.rid = TISCI_DEV_TIMESYNC_EVENT_INTROUTER0,
 	.rbase = 7,
 };
 const struct Sciclient_rmIrqIf * const tisci_if_TIMER7[] = {
@@ -684,13 +684,13 @@ static const struct Sciclient_rmIrqNode tisci_irq_TIMER7 = {
 const struct Sciclient_rmIrqIf TIMER8_timer_pwm_0_0_to_MAIN_GPIO_INTROUTER0_in_224_224 = {
 	.lbase = 0,
 	.len = 1,
-	.rid = TISCI_DEV_MAIN_GPIO_INTROUTER0,
+	.rid = TISCI_DEV_MAIN_GPIOMUX_INTROUTER0,
 	.rbase = 224,
 };
 const struct Sciclient_rmIrqIf TIMER8_timer_pwm_0_0_to_TIMESYNC_INTROUTER0_in_8_8 = {
 	.lbase = 0,
 	.len = 1,
-	.rid = TISCI_DEV_TIMESYNC_INTROUTER0,
+	.rid = TISCI_DEV_TIMESYNC_EVENT_INTROUTER0,
 	.rbase = 8,
 };
 const struct Sciclient_rmIrqIf * const tisci_if_TIMER8[] = {
@@ -707,7 +707,7 @@ static const struct Sciclient_rmIrqNode tisci_irq_TIMER8 = {
 const struct Sciclient_rmIrqIf TIMER9_timer_pwm_0_0_to_MAIN_GPIO_INTROUTER0_in_225_225 = {
 	.lbase = 0,
 	.len = 1,
-	.rid = TISCI_DEV_MAIN_GPIO_INTROUTER0,
+	.rid = TISCI_DEV_MAIN_GPIOMUX_INTROUTER0,
 	.rbase = 225,
 };
 const struct Sciclient_rmIrqIf * const tisci_if_TIMER9[] = {
@@ -723,7 +723,7 @@ static const struct Sciclient_rmIrqNode tisci_irq_TIMER9 = {
 const struct Sciclient_rmIrqIf TIMER10_timer_pwm_0_0_to_MAIN_GPIO_INTROUTER0_in_226_226 = {
 	.lbase = 0,
 	.len = 1,
-	.rid = TISCI_DEV_MAIN_GPIO_INTROUTER0,
+	.rid = TISCI_DEV_MAIN_GPIOMUX_INTROUTER0,
 	.rbase = 226,
 };
 const struct Sciclient_rmIrqIf * const tisci_if_TIMER10[] = {
@@ -739,7 +739,7 @@ static const struct Sciclient_rmIrqNode tisci_irq_TIMER10 = {
 const struct Sciclient_rmIrqIf TIMER11_timer_pwm_0_0_to_MAIN_GPIO_INTROUTER0_in_227_227 = {
 	.lbase = 0,
 	.len = 1,
-	.rid = TISCI_DEV_MAIN_GPIO_INTROUTER0,
+	.rid = TISCI_DEV_MAIN_GPIOMUX_INTROUTER0,
 	.rbase = 227,
 };
 const struct Sciclient_rmIrqIf * const tisci_if_TIMER11[] = {
@@ -755,7 +755,7 @@ static const struct Sciclient_rmIrqNode tisci_irq_TIMER11 = {
 const struct Sciclient_rmIrqIf WKUP_GTC0_gtc_push_event_0_0_to_TIMESYNC_INTROUTER0_in_11_11 = {
 	.lbase = 0,
 	.len = 1,
-	.rid = TISCI_DEV_TIMESYNC_INTROUTER0,
+	.rid = TISCI_DEV_TIMESYNC_EVENT_INTROUTER0,
 	.rbase = 11,
 };
 const struct Sciclient_rmIrqIf * const tisci_if_WKUP_GTC0[] = {
@@ -771,25 +771,25 @@ static const struct Sciclient_rmIrqNode tisci_irq_WKUP_GTC0 = {
 const struct Sciclient_rmIrqIf GPIO0_gpio_0_52_to_MAIN_GPIO_INTROUTER0_in_0_52 = {
 	.lbase = 0,
 	.len = 53,
-	.rid = TISCI_DEV_MAIN_GPIO_INTROUTER0,
+	.rid = TISCI_DEV_MAIN_GPIOMUX_INTROUTER0,
 	.rbase = 0,
 };
 const struct Sciclient_rmIrqIf GPIO0_gpio_55_59_to_MAIN_GPIO_INTROUTER0_in_55_59 = {
 	.lbase = 55,
 	.len = 5,
-	.rid = TISCI_DEV_MAIN_GPIO_INTROUTER0,
+	.rid = TISCI_DEV_MAIN_GPIOMUX_INTROUTER0,
 	.rbase = 55,
 };
 const struct Sciclient_rmIrqIf GPIO0_gpio_62_92_to_MAIN_GPIO_INTROUTER0_in_62_92 = {
 	.lbase = 62,
 	.len = 31,
-	.rid = TISCI_DEV_MAIN_GPIO_INTROUTER0,
+	.rid = TISCI_DEV_MAIN_GPIOMUX_INTROUTER0,
 	.rbase = 62,
 };
 const struct Sciclient_rmIrqIf GPIO0_gpio_bank_93_98_to_MAIN_GPIO_INTROUTER0_in_192_197 = {
 	.lbase = 93,
 	.len = 6,
-	.rid = TISCI_DEV_MAIN_GPIO_INTROUTER0,
+	.rid = TISCI_DEV_MAIN_GPIOMUX_INTROUTER0,
 	.rbase = 192,
 };
 const struct Sciclient_rmIrqIf * const tisci_if_GPIO0[] = {
@@ -808,25 +808,25 @@ static const struct Sciclient_rmIrqNode tisci_irq_GPIO0 = {
 const struct Sciclient_rmIrqIf GPIO1_gpio_0_50_to_MAIN_GPIO_INTROUTER0_in_96_146 = {
 	.lbase = 0,
 	.len = 51,
-	.rid = TISCI_DEV_MAIN_GPIO_INTROUTER0,
+	.rid = TISCI_DEV_MAIN_GPIOMUX_INTROUTER0,
 	.rbase = 96,
 };
 const struct Sciclient_rmIrqIf GPIO1_gpio_72_72_to_MAIN_GPIO_INTROUTER0_in_168_168 = {
 	.lbase = 72,
 	.len = 1,
-	.rid = TISCI_DEV_MAIN_GPIO_INTROUTER0,
+	.rid = TISCI_DEV_MAIN_GPIOMUX_INTROUTER0,
 	.rbase = 168,
 };
 const struct Sciclient_rmIrqIf GPIO1_gpio_74_85_to_MAIN_GPIO_INTROUTER0_in_170_181 = {
 	.lbase = 74,
 	.len = 12,
-	.rid = TISCI_DEV_MAIN_GPIO_INTROUTER0,
+	.rid = TISCI_DEV_MAIN_GPIOMUX_INTROUTER0,
 	.rbase = 170,
 };
 const struct Sciclient_rmIrqIf GPIO1_gpio_bank_86_91_to_MAIN_GPIO_INTROUTER0_in_200_205 = {
 	.lbase = 86,
 	.len = 6,
-	.rid = TISCI_DEV_MAIN_GPIO_INTROUTER0,
+	.rid = TISCI_DEV_MAIN_GPIOMUX_INTROUTER0,
 	.rbase = 200,
 };
 const struct Sciclient_rmIrqIf * const tisci_if_GPIO1[] = {
@@ -845,19 +845,19 @@ static const struct Sciclient_rmIrqNode tisci_irq_GPIO1 = {
 const struct Sciclient_rmIrqIf MCU_GPIO0_gpio_0_16_to_MCU_MCU_GPIO_INTROUTER0_in_0_16 = {
 	.lbase = 0,
 	.len = 17,
-	.rid = TISCI_DEV_MCU_MCU_GPIO_INTROUTER0,
+	.rid = TISCI_DEV_MCU_MCU_GPIOMUX_INTROUTER0,
 	.rbase = 0,
 };
 const struct Sciclient_rmIrqIf MCU_GPIO0_gpio_19_25_to_MCU_MCU_GPIO_INTROUTER0_in_19_25 = {
 	.lbase = 19,
 	.len = 7,
-	.rid = TISCI_DEV_MCU_MCU_GPIO_INTROUTER0,
+	.rid = TISCI_DEV_MCU_MCU_GPIOMUX_INTROUTER0,
 	.rbase = 19,
 };
 const struct Sciclient_rmIrqIf MCU_GPIO0_gpio_bank_26_27_to_MCU_MCU_GPIO_INTROUTER0_in_30_31 = {
 	.lbase = 26,
 	.len = 2,
-	.rid = TISCI_DEV_MCU_MCU_GPIO_INTROUTER0,
+	.rid = TISCI_DEV_MCU_MCU_GPIOMUX_INTROUTER0,
 	.rbase = 30,
 };
 const struct Sciclient_rmIrqIf * const tisci_if_MCU_GPIO0[] = {
@@ -875,7 +875,7 @@ static const struct Sciclient_rmIrqNode tisci_irq_MCU_GPIO0 = {
 const struct Sciclient_rmIrqIf EPWM0_epwm_synco_o_0_0_to_TIMESYNC_INTROUTER0_in_9_9 = {
 	.lbase = 0,
 	.len = 1,
-	.rid = TISCI_DEV_TIMESYNC_INTROUTER0,
+	.rid = TISCI_DEV_TIMESYNC_EVENT_INTROUTER0,
 	.rbase = 9,
 };
 const struct Sciclient_rmIrqIf * const tisci_if_EPWM0[] = {
@@ -891,7 +891,7 @@ static const struct Sciclient_rmIrqNode tisci_irq_EPWM0 = {
 const struct Sciclient_rmIrqIf WKUP_TIMER0_timer_pwm_0_0_to_MAIN_GPIO_INTROUTER0_in_214_214 = {
 	.lbase = 0,
 	.len = 1,
-	.rid = TISCI_DEV_MAIN_GPIO_INTROUTER0,
+	.rid = TISCI_DEV_MAIN_GPIOMUX_INTROUTER0,
 	.rbase = 214,
 };
 const struct Sciclient_rmIrqIf * const tisci_if_WKUP_TIMER0[] = {
@@ -907,7 +907,7 @@ static const struct Sciclient_rmIrqNode tisci_irq_WKUP_TIMER0 = {
 const struct Sciclient_rmIrqIf WKUP_TIMER1_timer_pwm_0_0_to_MAIN_GPIO_INTROUTER0_in_215_215 = {
 	.lbase = 0,
 	.len = 1,
-	.rid = TISCI_DEV_MAIN_GPIO_INTROUTER0,
+	.rid = TISCI_DEV_MAIN_GPIOMUX_INTROUTER0,
 	.rbase = 215,
 };
 const struct Sciclient_rmIrqIf * const tisci_if_WKUP_TIMER1[] = {
@@ -1042,7 +1042,7 @@ static const struct Sciclient_rmIrqNode tisci_irq_MCASP4 = {
 const struct Sciclient_rmIrqIf TIMER12_timer_pwm_0_0_to_MAIN_GPIO_INTROUTER0_in_228_228 = {
 	.lbase = 0,
 	.len = 1,
-	.rid = TISCI_DEV_MAIN_GPIO_INTROUTER0,
+	.rid = TISCI_DEV_MAIN_GPIOMUX_INTROUTER0,
 	.rbase = 228,
 };
 const struct Sciclient_rmIrqIf * const tisci_if_TIMER12[] = {
@@ -1058,7 +1058,7 @@ static const struct Sciclient_rmIrqNode tisci_irq_TIMER12 = {
 const struct Sciclient_rmIrqIf TIMER13_timer_pwm_0_0_to_MAIN_GPIO_INTROUTER0_in_229_229 = {
 	.lbase = 0,
 	.len = 1,
-	.rid = TISCI_DEV_MAIN_GPIO_INTROUTER0,
+	.rid = TISCI_DEV_MAIN_GPIOMUX_INTROUTER0,
 	.rbase = 229,
 };
 const struct Sciclient_rmIrqIf * const tisci_if_TIMER13[] = {
@@ -1074,7 +1074,7 @@ static const struct Sciclient_rmIrqNode tisci_irq_TIMER13 = {
 const struct Sciclient_rmIrqIf TIMER14_timer_pwm_0_0_to_MAIN_GPIO_INTROUTER0_in_230_230 = {
 	.lbase = 0,
 	.len = 1,
-	.rid = TISCI_DEV_MAIN_GPIO_INTROUTER0,
+	.rid = TISCI_DEV_MAIN_GPIOMUX_INTROUTER0,
 	.rbase = 230,
 };
 const struct Sciclient_rmIrqIf * const tisci_if_TIMER14[] = {
@@ -1090,7 +1090,7 @@ static const struct Sciclient_rmIrqNode tisci_irq_TIMER14 = {
 const struct Sciclient_rmIrqIf TIMER15_timer_pwm_0_0_to_MAIN_GPIO_INTROUTER0_in_231_231 = {
 	.lbase = 0,
 	.len = 1,
-	.rid = TISCI_DEV_MAIN_GPIO_INTROUTER0,
+	.rid = TISCI_DEV_MAIN_GPIOMUX_INTROUTER0,
 	.rbase = 231,
 };
 const struct Sciclient_rmIrqIf * const tisci_if_TIMER15[] = {
@@ -1103,7 +1103,7 @@ static const struct Sciclient_rmIrqNode tisci_irq_TIMER15 = {
 };
 
 
-const struct Sciclient_rmIrqNode * const gRmIrqTree[] = {
+const struct Sciclient_rmIrqNode * const gRmIrqTree[RM_IRQ_TREE_MAX] = {
 	&tisci_irq_MAIN_GPIO_INTROUTER0,
 	&tisci_irq_MCU_MCU_GPIO_INTROUTER0,
 	&tisci_irq_TIMESYNC_INTROUTER0,

@@ -37,8 +37,8 @@
  *  \brief Private AM275X specific SOC file
  */
 
-#ifndef SCICLIENT_SOC_PRIV_J722S_H_
-#define SCICLIENT_SOC_PRIV_J722S_H_
+#ifndef SCICLIENT_SOC_PRIV_AM275X_H_
+#define SCICLIENT_SOC_PRIV_AM275X_H_
 
 
 #if defined (BUILD_HS)

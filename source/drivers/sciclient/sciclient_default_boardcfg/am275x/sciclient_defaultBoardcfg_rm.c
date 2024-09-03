@@ -153,19 +153,19 @@ __attribute__(( aligned(128), section(".boardcfg_data") )) =
         },
         {
             .num_resource = 4,
-            .type = TISCI_RESASG_UTYPE (TISCI_DEV_WKUP_MCU_GPIOMUX_INTROUTER0, TISCI_RESASG_SUBTYPE_IR_OUTPUT),
+            .type = TISCI_RESASG_UTYPE (TISCI_DEV_MCU_MCU_GPIOMUX_INTROUTER0, TISCI_RESASG_SUBTYPE_IR_OUTPUT),
             .start_resource = 0,
             .host_id = TISCI_HOST_ID_A53_2,
         },
         {
             .num_resource = 4,
-            .type = TISCI_RESASG_UTYPE (TISCI_DEV_WKUP_MCU_GPIOMUX_INTROUTER0, TISCI_RESASG_SUBTYPE_IR_OUTPUT),
+            .type = TISCI_RESASG_UTYPE (TISCI_DEV_MCU_MCU_GPIOMUX_INTROUTER0, TISCI_RESASG_SUBTYPE_IR_OUTPUT),
             .start_resource = 4,
             .host_id = TISCI_HOST_ID_MCU_0_R5_0,
         },
         {
             .num_resource = 4,
-            .type = TISCI_RESASG_UTYPE (TISCI_DEV_WKUP_MCU_GPIOMUX_INTROUTER0, TISCI_RESASG_SUBTYPE_IR_OUTPUT),
+            .type = TISCI_RESASG_UTYPE (TISCI_DEV_MCU_MCU_GPIOMUX_INTROUTER0, TISCI_RESASG_SUBTYPE_IR_OUTPUT),
             .start_resource = 12,
             .host_id = TISCI_HOST_ID_MAIN_0_R5_1,
         },

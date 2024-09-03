@@ -94,11 +94,11 @@
 
 /* This is based on TISCI device config and core */
 % if ( args.project.cpu == "wkup-r5fss0-0" ) {
-#define GPIO_MUX_INTROUTER_ID      (TISCI_DEV_MCU_MCU_GPIO_INTROUTER0)
+#define GPIO_MUX_INTROUTER_ID      (TISCI_DEV_MCU_MCU_GPIOMUX_INTROUTER0)
 % } else if ( args.project.cpu == "c75ss0-0" ) {
-#define GPIO_MUX_INTROUTER_ID      (TISCI_DEV_MAIN_GPIO_INTROUTER0)
+#define GPIO_MUX_INTROUTER_ID      (TISCI_DEV_MAIN_GPIOMUX_INTROUTER0)
 % } else {
-#define GPIO_MUX_INTROUTER_ID      (TISCI_DEV_MAIN_GPIO_INTROUTER0)
+#define GPIO_MUX_INTROUTER_ID      (TISCI_DEV_MAIN_GPIOMUX_INTROUTER0)
 % }
 
 /* GPIO mux introuter output number */

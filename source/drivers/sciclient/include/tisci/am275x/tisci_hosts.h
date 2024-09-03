@@ -1,5 +1,5 @@
 /*
- *  Copyright (C) 2017-2024 Texas Instruments Incorporated
+ *  Copyright (C) 2024 Texas Instruments Incorporated
  *
  *  Redistribution and use in source and binary forms, with or without
  *  modification, are permitted provided that the following conditions
@@ -49,7 +49,7 @@
  *
  * Host IDs for AM275X device
  *
- * Data version: 240122_143513
+ * Data version: 240820_133528
  *
  */
 #ifndef TISCI_HOSTS_H
@@ -70,19 +70,25 @@ extern "C"
 /** WKUP_0_R5_1(Non Secure): Cortex R5_0 context 1 on WKUP domain */
 #define TISCI_HOST_ID_WKUP_0_R5_1 (36U)
 /** MAIN_0_R5_0(Secure): Cortex R5_0 context 0 on MAIN domain */
-#define TISCI_HOST_ID_MAIN_0_R5_0 (37U)
+#define TISCI_HOST_ID_MAIN_0_R5_0 (40U)
 /** MAIN_0_R5_1(Non Secure): Cortex R5_0 context 1 on MAIN domain */
-#define TISCI_HOST_ID_MAIN_0_R5_1 (38U)
-/** MCU_0_R5_0(Non Secure): MCU R5 */
-#define TISCI_HOST_ID_MCU_0_R5_0 (30U)
+#define TISCI_HOST_ID_MAIN_0_R5_1 (41U)
+/** MAIN_0_R5_2(Secure): Cortex R5_0 context 2 on MAIN domain */
+#define TISCI_HOST_ID_MAIN_0_R5_2 (42U)
+/** MAIN_0_R5_3(Non Secure): Cortex R5_0 context 3 on MAIN domain */
+#define TISCI_HOST_ID_MAIN_0_R5_3 (43U)
+/** MAIN_1_R5_0(Secure): Cortex R5_1 context 0 on MAIN domain */
+#define TISCI_HOST_ID_MAIN_1_R5_0 (45U)
+/** MAIN_1_R5_1(Non Secure): Cortex R5_1 context 1 on MAIN domain */
+#define TISCI_HOST_ID_MAIN_1_R5_1 (46U)
+/** MAIN_1_R5_2(Secure): Cortex R5_1 context 2 on MAIN domain */
+#define TISCI_HOST_ID_MAIN_1_R5_2 (47U)
+/** MAIN_1_R5_3(Non Secure): Cortex R5_1 context 3 on MAIN domain */
+#define TISCI_HOST_ID_MAIN_1_R5_3 (48U)
 /** C7X_0_0(Non Secure): C7x_0 context 0 on MAIN domain */
 #define TISCI_HOST_ID_C7X_0_0 (20U)
 /** C7X_1_0(Non Secure): C7x_1 context 0 on MAIN domain */
 #define TISCI_HOST_ID_C7X_1_0 (22U)
-/** GPU_0(Non Secure): GPU context 0 on MAIN domain */
-#define TISCI_HOST_ID_GPU_0 (31U)
-/** GPU_1(Non Secure): GPU context 1 on MAIN domain */
-#define TISCI_HOST_ID_GPU_1 (32U)
 /** DM2TIFS(Secure): DM to TIFS communication */
 #define TISCI_HOST_ID_DM2TIFS (250U)
 /** TIFS2DM(Non Secure): TIFS to DM communication */
@@ -97,7 +103,7 @@ extern "C"
 #define TISCI_HOST_ID_ALL (128U)
 
 /** Number of unique hosts on the SoC */
-#define TISCI_HOST_ID_CNT (14U)
+#define TISCI_HOST_ID_CNT (17U)
 
 
 #ifdef __cplusplus

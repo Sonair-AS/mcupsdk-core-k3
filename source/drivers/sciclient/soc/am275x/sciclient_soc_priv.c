@@ -88,11 +88,11 @@ uint32_t Sciclient_getContext(uint32_t contextType, uint32_t coreId)
         /* MAIN R5 */
         if(contextType == SCICLIENT_SECURE_CONTEXT)
         {
-            retVal = SCICLIENT_CONTEXT_MAIN_R5_SEC_0;
+            retVal = SCICLIENT_CONTEXT_MAIN_0_R5_0_SEC_0;
         }
         else
         {
-            retVal = SCICLIENT_CONTEXT_MAIN_R5_NONSEC_0;
+            retVal = SCICLIENT_CONTEXT_MAIN_0_R5_0_NONSEC_0;
         }
         break;
 
@@ -100,11 +100,11 @@ uint32_t Sciclient_getContext(uint32_t contextType, uint32_t coreId)
         /* MAIN R5 */
         if(contextType == SCICLIENT_SECURE_CONTEXT)
         {
-            retVal = SCICLIENT_CONTEXT_MAIN_R5_SEC_0;
+            retVal = SCICLIENT_CONTEXT_MAIN_0_R5_1_SEC_0;
         }
         else
         {
-            retVal = SCICLIENT_CONTEXT_MAIN_R5_NONSEC_0;
+            retVal = SCICLIENT_CONTEXT_MAIN_0_R5_1_NONSEC_0;
         }
         break;
 
@@ -112,11 +112,11 @@ uint32_t Sciclient_getContext(uint32_t contextType, uint32_t coreId)
         /* MAIN R5 */
         if(contextType == SCICLIENT_SECURE_CONTEXT)
         {
-            retVal = SCICLIENT_CONTEXT_MAIN_R5_SEC_0;
+            retVal = SCICLIENT_CONTEXT_MAIN_1_R5_0_SEC_0;
         }
         else
         {
-            retVal = SCICLIENT_CONTEXT_MAIN_R5_NONSEC_0;
+            retVal = SCICLIENT_CONTEXT_MAIN_1_R5_1_NONSEC_0;
         }
         break;
 
@@ -124,11 +124,11 @@ uint32_t Sciclient_getContext(uint32_t contextType, uint32_t coreId)
         /* MAIN R5 */
         if(contextType == SCICLIENT_SECURE_CONTEXT)
         {
-            retVal = SCICLIENT_CONTEXT_MAIN_R5_SEC_0;
+            retVal = SCICLIENT_CONTEXT_MAIN_1_R5_1_SEC_0;
         }
         else
         {
-            retVal = SCICLIENT_CONTEXT_MAIN_R5_NONSEC_0;
+            retVal = SCICLIENT_CONTEXT_MAIN_1_R5_0_NONSEC_0;
         }
         break;
 
@@ -164,23 +164,23 @@ uint32_t Sciclient_getDevId(uint32_t coreId)
         break;
 
     case CSL_CORE_ID_R5FSS0_1:
-        retVal = TISCI_DEV_R5FSS0_CORE0;
+        retVal = TISCI_DEV_R5FSS0_CORE1;
         break;
 
     case CSL_CORE_ID_R5FSS1_0:
-        retVal = TISCI_DEV_R5FSS0_CORE0;
+        retVal = TISCI_DEV_R5FSS1_CORE0;
         break;
 
     case CSL_CORE_ID_R5FSS1_1:
-        retVal = TISCI_DEV_R5FSS0_CORE0;
+        retVal = TISCI_DEV_R5FSS1_CORE1;
         break;
 
     case CSL_CORE_ID_C75SS0_0:
-        retVal = TISCI_DEV_C7X256V0_CLEC;
+        retVal = TISCI_DEV_C7X256V0_C7XV_CORE_0;
         break;
 
     case CSL_CORE_ID_C75SS1_0:
-        retVal = TISCI_DEV_C7X256V1_CLEC;
+        retVal = TISCI_DEV_C7X256V1_C7XV_CORE_0;
         break;
 
     default:

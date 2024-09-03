@@ -1,5 +1,5 @@
 /*
- *  Copyright (C) 2017-2024 Texas Instruments Incorporated
+ *  Copyright (C) 2024 Texas Instruments Incorporated
  *
  *  Redistribution and use in source and binary forms, with or without
  *  modification, are permitted provided that the following conditions
@@ -49,7 +49,7 @@
  *
  * Resource Assignment Subtype definitions
  *
- * Data version: 240122_143513
+ * Data version: 240820_133528
  *
  */
 #ifndef TISCI_RESASG_TYPES_H
@@ -82,8 +82,8 @@ extern "C"
  */
 
 #define TISCI_RESASG_UTYPE(type, subtype) \
-	(((type << RESASG_TYPE_SHIFT) & RESASG_TYPE_MASK) | \
-	 ((subtype << RESASG_SUBTYPE_SHIFT) & RESASG_SUBTYPE_MASK))
+    (((type << TISCI_RESASG_TYPE_SHIFT) & TISCI_RESASG_TYPE_MASK) | \
+     ((subtype << TISCI_RESASG_SUBTYPE_SHIFT) & TISCI_RESASG_SUBTYPE_MASK))
 
 /**
  * IA subtypes definitions
@@ -170,7 +170,7 @@ extern "C"
 /**
  * Total number of resource entries allowed for SoC
  */
-#define TISCI_RESASG_ENTRIES_MAX (RESASG_UTYPE_CNT * 5U)
+#define TISCI_RESASG_ENTRIES_MAX (TISCI_RESASG_UTYPE_CNT * 5U)
 
 
 #ifdef __cplusplus

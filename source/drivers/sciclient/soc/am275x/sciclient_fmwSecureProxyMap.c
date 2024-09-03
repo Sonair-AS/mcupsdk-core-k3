@@ -78,7 +78,7 @@ const Sciclient_MapStruct_t gSciclientMap[SCICLIENT_CONTEXT_MAX_NUM] =
         /** Context **/
         SCICLIENT_SECURE_CONTEXT,
 
-        /** Host ID of the A53/A72/R5F/DSP */
+        /** Host ID of the WKUP-R5(secure) */
         TISCI_HOST_ID_WKUP_0_R5_0,
 
         /** Thread ID of the low priority thread(write) allowed for the CPU */
@@ -96,7 +96,7 @@ const Sciclient_MapStruct_t gSciclientMap[SCICLIENT_CONTEXT_MAX_NUM] =
         /** Context **/
         SCICLIENT_NON_SECURE_CONTEXT,
 
-        /** Host ID of the A53/A72/R5F/DSP */
+        /** Host ID of the WKUP-R5(non-secure) */
         TISCI_HOST_ID_WKUP_0_R5_1,
 
         /** Thread ID of the low priority thread(write) allowed for the CPU */
@@ -109,11 +109,12 @@ const Sciclient_MapStruct_t gSciclientMap[SCICLIENT_CONTEXT_MAX_NUM] =
         0
 
     },
+
     {
         /** Context **/
         SCICLIENT_SECURE_CONTEXT,
 
-        /** Host ID of the A53/A72/R5F/DSP */
+        /** Host ID of the MAIN-R5_0_0(secure) */
         TISCI_HOST_ID_MAIN_0_R5_0,
 
         /** Thread ID of the low priority thread(write) allowed for the CPU */
@@ -131,7 +132,7 @@ const Sciclient_MapStruct_t gSciclientMap[SCICLIENT_CONTEXT_MAX_NUM] =
         /** Context **/
         SCICLIENT_NON_SECURE_CONTEXT,
 
-        /** Host ID of the A53/A72/R5F/DSP */
+        /** Host ID of the MAIN-R5_0_0(non-secure) */
         TISCI_HOST_ID_MAIN_0_R5_1,
 
         /** Thread ID of the low priority thread(write) allowed for the CPU */
@@ -147,16 +148,16 @@ const Sciclient_MapStruct_t gSciclientMap[SCICLIENT_CONTEXT_MAX_NUM] =
 
     {
         /** Context **/
-        SCICLIENT_NON_SECURE_CONTEXT,
+        SCICLIENT_SECURE_CONTEXT,
 
-        /** Host ID of the MCU R5*/
-        TISCI_HOST_ID_MCU_0_R5_0,
+        /** Host ID of the MAIN-R5_0_1(secure) */
+        TISCI_HOST_ID_MAIN_0_R5_2,
 
         /** Thread ID of the low priority thread(write) allowed for the CPU */
-        TISCI_SEC_PROXY_MCU_0_R5_0_WRITE_LOW_PRIORITY_THREAD_ID,
+        TISCI_SEC_PROXY_MAIN_0_R5_2_WRITE_LOW_PRIORITY_THREAD_ID,
 
         /** Thread ID of the response thread(read) available for the CPU */
-        TISCI_SEC_PROXY_MCU_0_R5_0_READ_RESPONSE_THREAD_ID,
+        TISCI_SEC_PROXY_MAIN_0_R5_2_READ_RESPONSE_THREAD_ID,
 
         /** Notification Interrupt Number */
         0
@@ -167,7 +168,97 @@ const Sciclient_MapStruct_t gSciclientMap[SCICLIENT_CONTEXT_MAX_NUM] =
         /** Context **/
         SCICLIENT_NON_SECURE_CONTEXT,
 
-        /** Host ID of the C7x */
+        /** Host ID of the MAIN-R5_0_1(non-secure) */
+        TISCI_HOST_ID_MAIN_0_R5_3,
+
+        /** Thread ID of the low priority thread(write) allowed for the CPU */
+        TISCI_SEC_PROXY_MAIN_0_R5_3_WRITE_LOW_PRIORITY_THREAD_ID,
+
+        /** Thread ID of the response thread(read) available for the CPU */
+        TISCI_SEC_PROXY_MAIN_0_R5_3_READ_RESPONSE_THREAD_ID,
+
+        /** Notification Interrupt Number */
+        0
+
+    },
+
+    {
+        /** Context **/
+        SCICLIENT_SECURE_CONTEXT,
+
+        /** Host ID of the MAIN-R5_1_0(secure) */
+        TISCI_HOST_ID_MAIN_1_R5_0,
+
+        /** Thread ID of the low priority thread(write) allowed for the CPU */
+        TISCI_SEC_PROXY_MAIN_1_R5_0_WRITE_LOW_PRIORITY_THREAD_ID,
+
+        /** Thread ID of the response thread(read) available for the CPU */
+        TISCI_SEC_PROXY_MAIN_1_R5_0_READ_RESPONSE_THREAD_ID,
+
+        /** Notification Interrupt Number */
+        0
+
+    },
+
+    {
+        /** Context **/
+        SCICLIENT_NON_SECURE_CONTEXT,
+
+        /** Host ID of the MAIN-R5_1_0(non-secure) */
+        TISCI_HOST_ID_MAIN_1_R5_1,
+
+        /** Thread ID of the low priority thread(write) allowed for the CPU */
+        TISCI_SEC_PROXY_MAIN_1_R5_1_WRITE_LOW_PRIORITY_THREAD_ID,
+
+        /** Thread ID of the response thread(read) available for the CPU */
+        TISCI_SEC_PROXY_MAIN_1_R5_1_READ_RESPONSE_THREAD_ID,
+
+        /** Notification Interrupt Number */
+        0
+
+    },
+
+    {
+        /** Context **/
+        SCICLIENT_SECURE_CONTEXT,
+
+        /** Host ID of the MAIN-R5_1_1(secure) */
+        TISCI_HOST_ID_MAIN_1_R5_2,
+
+        /** Thread ID of the low priority thread(write) allowed for the CPU */
+        TISCI_SEC_PROXY_MAIN_1_R5_2_WRITE_LOW_PRIORITY_THREAD_ID,
+
+        /** Thread ID of the response thread(read) available for the CPU */
+        TISCI_SEC_PROXY_MAIN_1_R5_2_READ_RESPONSE_THREAD_ID,
+
+        /** Notification Interrupt Number */
+        0
+
+    },
+
+    {
+        /** Context **/
+        SCICLIENT_NON_SECURE_CONTEXT,
+
+        /** Host ID of the MAIN-R5_1_1(non-secure) */
+        TISCI_HOST_ID_MAIN_1_R5_3,
+
+        /** Thread ID of the low priority thread(write) allowed for the CPU */
+        TISCI_SEC_PROXY_MAIN_1_R5_3_WRITE_LOW_PRIORITY_THREAD_ID,
+
+        /** Thread ID of the response thread(read) available for the CPU */
+        TISCI_SEC_PROXY_MAIN_1_R5_3_READ_RESPONSE_THREAD_ID,
+
+        /** Notification Interrupt Number */
+        0
+
+    },
+
+    {
+        /** Context **/
+        SCICLIENT_NON_SECURE_CONTEXT,
+
+        /** Host ID of the C7x_0_0(non-secure) */
         TISCI_HOST_ID_C7X_0_0,
 
         /** Thread ID of the low priority thread(write) allowed for the CPU */
@@ -185,7 +276,7 @@ const Sciclient_MapStruct_t gSciclientMap[SCICLIENT_CONTEXT_MAX_NUM] =
         /** Context **/
         SCICLIENT_NON_SECURE_CONTEXT,
 
-        /** Host ID of the C7x */
+        /** Host ID of the C7x_1_0(non-secure) */
         TISCI_HOST_ID_C7X_1_0,
 
         /** Thread ID of the low priority thread(write) allowed for the CPU */
@@ -198,6 +289,7 @@ const Sciclient_MapStruct_t gSciclientMap[SCICLIENT_CONTEXT_MAX_NUM] =
         0U
 
     },
+
     {
         /** Context **/
         SCICLIENT_SECURE_CONTEXT,
