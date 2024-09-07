@@ -64,6 +64,7 @@ help:
 	@echo  .
 	@echo  Example build targets,
 	@echo  ======================
+	@echo  $(MAKE) -s -C examples/drivers/boot/sbl_null/am275x-evm/wkup-r5fss0-0_freertos/ti-arm-clang [all clean syscfg-gui syscfg]
 	@echo  $(MAKE) -s -C examples/board/eeprom/eeprom_read_write/am275x-evm/r5fss0-0_freertos/ti-arm-clang [all clean syscfg-gui syscfg]
 	@echo  $(MAKE) -s -C examples/drivers/gpio/gpio_input_interrupt/am275x-evm/r5fss0-0_nortos/ti-arm-clang [all clean syscfg-gui syscfg]
 	@echo  $(MAKE) -s -C examples/drivers/gpio/gpio_input_interrupt/am275x-evm/c75ss0-0_freertos/ti-c7000 [all clean syscfg-gui syscfg]
@@ -378,6 +379,9 @@ examples: $(BUILD_COMBO_EXAMPLE_ALL)
 
 examples-private: $(BUILD_COMBO_EXAMPLE_PRIVATE_ALL)
 
+ sbl_null_am275x-evm_wkup-r5fss0-0_freertos_ti-arm-clang:
+	$(MAKE) -C examples/drivers/boot/sbl_null/am275x-evm/wkup-r5fss0-0_freertos/ti-arm-clang -f makefile all
+
  eeprom_read_write_am275x-evm_r5fss0-0_freertos_ti-arm-clang:
 	$(MAKE) -C examples/board/eeprom/eeprom_read_write/am275x-evm/r5fss0-0_freertos/ti-arm-clang -f makefile all
 
@@ -578,6 +582,9 @@ BUILD_COMBO_EXAMPLE_PRIVATE_CLEAN_ALL =
 examples-clean: $(BUILD_COMBO_EXAMPLE_CLEAN_ALL)
 
 examples-private-clean: $(BUILD_COMBO_EXAMPLE_PRIVATE_CLEAN_ALL)
+
+ sbl_null_am275x-evm_wkup-r5fss0-0_freertos_ti-arm-clang_clean:
+	$(MAKE) -C examples/drivers/boot/sbl_null/am275x-evm/wkup-r5fss0-0_freertos/ti-arm-clang -f makefile clean
 
  eeprom_read_write_am275x-evm_r5fss0-0_freertos_ti-arm-clang_clean:
 	$(MAKE) -C examples/board/eeprom/eeprom_read_write/am275x-evm/r5fss0-0_freertos/ti-arm-clang -f makefile clean
@@ -780,6 +787,9 @@ examples-scrub: $(BUILD_COMBO_EXAMPLE_SCRUB_ALL)
 
 examples-scrub-private: $(BUILD_COMBO_EXAMPLE_PRIVATE_SCRUB_ALL)
 
+ sbl_null_am275x-evm_wkup-r5fss0-0_freertos_ti-arm-clang_scrub:
+	$(MAKE) -C examples/drivers/boot/sbl_null/am275x-evm/wkup-r5fss0-0_freertos/ti-arm-clang -f makefile scrub
+
  eeprom_read_write_am275x-evm_r5fss0-0_freertos_ti-arm-clang_scrub:
 	$(MAKE) -C examples/board/eeprom/eeprom_read_write/am275x-evm/r5fss0-0_freertos/ti-arm-clang -f makefile scrub
 
@@ -923,10 +933,13 @@ examples-scrub-private: $(BUILD_COMBO_EXAMPLE_PRIVATE_SCRUB_ALL)
 
 
 sbl: libs
+	$(MAKE) -C examples/drivers/boot/sbl_null/am275x-evm/wkup-r5fss0-0_freertos/ti-arm-clang -f makefile all
 
 sbl-clean:
+	$(MAKE) -C examples/drivers/boot/sbl_null/am275x-evm/wkup-r5fss0-0_freertos/ti-arm-clang -f makefile clean
 
 sbl-scrub:
+	$(MAKE) -C examples/drivers/boot/sbl_null/am275x-evm/wkup-r5fss0-0_freertos/ti-arm-clang -f makefile scrub
 
 
 

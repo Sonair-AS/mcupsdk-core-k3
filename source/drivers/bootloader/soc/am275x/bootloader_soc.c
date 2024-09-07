@@ -92,7 +92,7 @@ Bootloader_CoreBootInfo gCoreBootInfo[] =
 {
 
     {
-        .tisciProcId    = SCICLIENT_PROC_ID_WKUP_R5FSS0_CORE0,
+        .tisciProcId    = PROC_ID_WKUP_R5FSS0_CORE0,
         .tisciDevId     = TISCI_DEV_WKUP_R5FSS0_CORE0,
         .tisciClockId   = TISCI_DEV_WKUP_R5FSS0_CORE0_CPU_CLK,
         .defaultClockHz = (uint32_t)(800*1000000),
@@ -100,7 +100,7 @@ Bootloader_CoreBootInfo gCoreBootInfo[] =
     },
 
     {
-        .tisciProcId    = SCICLIENT_PROC_ID_R5FSS0_CORE0,
+        .tisciProcId    = PROC_ID_R5FSS0_CORE0,
         .tisciDevId     = TISCI_DEV_R5FSS0_CORE0,
         .tisciClockId   = TISCI_DEV_R5FSS0_CORE0_CPU_CLK,
         .defaultClockHz = (uint32_t)(800*1000000),
@@ -108,7 +108,7 @@ Bootloader_CoreBootInfo gCoreBootInfo[] =
     },
 
     {
-        .tisciProcId    = SCICLIENT_PROC_ID_R5FSS0_CORE1,
+        .tisciProcId    = PROC_ID_R5FSS0_CORE1,
         .tisciDevId     = TISCI_DEV_R5FSS0_CORE1,
         .tisciClockId   = TISCI_DEV_R5FSS0_CORE1_CPU_CLK,
         .defaultClockHz = (uint32_t)(800*1000000),
@@ -116,7 +116,7 @@ Bootloader_CoreBootInfo gCoreBootInfo[] =
     },
 
     {
-        .tisciProcId    = SCICLIENT_PROC_ID_R5FSS1_CORE0,
+        .tisciProcId    = PROC_ID_R5FSS1_CORE0,
         .tisciDevId     = TISCI_DEV_R5FSS1_CORE0,
         .tisciClockId   = TISCI_DEV_R5FSS1_CORE0_CPU_CLK,
         .defaultClockHz = (uint32_t)(800*1000000),
@@ -124,7 +124,7 @@ Bootloader_CoreBootInfo gCoreBootInfo[] =
     },
 
     {
-        .tisciProcId    = SCICLIENT_PROC_ID_R5FSS1_CORE1,
+        .tisciProcId    = PROC_ID_R5FSS1_CORE1,
         .tisciDevId     = TISCI_DEV_R5FSS1_CORE1,
         .tisciClockId   = TISCI_DEV_R5FSS1_CORE1_CPU_CLK,
         .defaultClockHz = (uint32_t)(800*1000000),
@@ -132,7 +132,7 @@ Bootloader_CoreBootInfo gCoreBootInfo[] =
     },
 
     {
-        .tisciProcId    = SCICLIENT_PROC_ID_C7X256V0_C7XV_CORE_0,
+        .tisciProcId    = PROC_ID_C7X256V0_C7XV_CORE_0,
         .tisciDevId     = TISCI_DEV_C7X256V0_C7XV_CORE_0,
         .tisciClockId   = TISCI_DEV_C7X256V0_C7XV_CORE_0_C7XV_CLK,
         .defaultClockHz = (uint32_t)(850*1000000),
@@ -140,7 +140,7 @@ Bootloader_CoreBootInfo gCoreBootInfo[] =
     },
 
     {
-        .tisciProcId    = SCICLIENT_PROC_ID_C7X256V1_C7XV_CORE_0,
+        .tisciProcId    = PROC_ID_C7X256V1_C7XV_CORE_0,
         .tisciDevId     = TISCI_DEV_C7X256V1_C7XV_CORE_0,
         .tisciClockId   = TISCI_DEV_C7X256V1_C7XV_CORE_0_C7XV_CLK,
         .defaultClockHz = (uint32_t)(850*1000000),
@@ -1166,12 +1166,13 @@ int32_t Bootloader_socAuthImage(uint32_t certLoadAddr)
     int32_t status = SystemP_FAILURE;
 
     struct tisci_msg_proc_auth_boot_req authReq;
+    struct tisci_msg_proc_auth_boot_resp authResp = {0};
 
     /* Request TIFS (SYSFW) to authenticate (and decrypt if mentioned in the x509 cert) the image */
     authReq.certificate_address_hi = 0U;
     authReq.certificate_address_lo = certLoadAddr;
 
-    status = Sciclient_procBootAuthAndStart(&authReq, SystemP_WAIT_FOREVER);
+    status = Sciclient_procBootAuthAndStart(&authReq, &authResp, SystemP_WAIT_FOREVER);
 
     return status;
 }
