@@ -54,6 +54,15 @@ const files_r5f = {
 
 const files_wkup_r5f = {
     common: [
+        "bootloader.c",
+        "bootloader_dma.c",
+        "bootloader_flash.c",
+        "bootloader_mem.c",
+        "bootloader_mmcsd_raw.c",
+        "bootloader_soc.c",
+        "bootloader_xmodem.c",
+        "bootloader_uniflash.c",
+        "bootloader_profile.c",
         "csl_dru.c",
         "csl_sec_proxy.c",
         "csl_bcdma.c",
@@ -135,8 +144,52 @@ const files_c75 = {
     ],
 };
 
-const filedirs = {
+const filedirs_common = {
     common: [
+        "ecap/v0",
+        "epwm/v0",
+        "gpio/v0",
+        "gtc/v0",
+        'gtc/v0/soc/am275x',
+        "hw_include/dru/v2/",
+        "hw_include/ringacc/V0/priv/",
+        "i2c/v0",
+        "i2c/v0/lld",
+        "i2c/v0/soc/am275x",
+        "mcan/v0",
+        "mcasp/v1",
+        "mcasp/v1/dma_priv",
+        "mcasp/v1/soc/am275x",
+        "mcspi/v0",
+        "mcspi/v0/dma",
+        "mcspi/v0/dma/udma",
+        "mmcsd",
+        "mmcsd/v1",
+        "ospi",
+        "ospi/v0",
+        "ospi/v0/dma",
+        "ospi/v0/dma/udma",
+        "pinmux/am275x",
+        "sciclient",
+        "sciclient/soc/am275x",
+        "soc/am275x",
+        "uart/v0",
+        "uart/v0/dma",
+        "uart/v0/dma/udma",
+        "udma",
+        "udma/hw_include",
+        "udma/soc",
+        "udma/soc/am275x",
+        "utils",
+        "watchdog/v1",
+        `watchdog/v1/soc/am275x`,
+    ],
+};
+
+const filedirs_wkup_r5f = {
+    common: [
+        "bootloader/soc/am275x",
+        "bootloader",
         "ecap/v0",
         "epwm/v0",
         "gpio/v0",
@@ -212,9 +265,10 @@ function getComponentProperty() {
 function getComponentBuildProperty(buildOption) {
     let build_property = {};
 
-    build_property.filedirs = filedirs;
+    build_property.filedirs = filedirs_common;
 
     if(buildOption.cpu.match(/wkup-r5f*/)) {
+        build_property.filedirs = filedirs_wkup_r5f;
         build_property.files = files_wkup_r5f;
         build_property.defines = defines_wkup_r5;
     }else if(buildOption.cpu.match(/r5f*/)) {

@@ -16,6 +16,15 @@ ConfigName:=$(PROFILE)
 LIBNAME:=drivers.am275x.wkup-r5f.ti-arm-clang.$(PROFILE).lib
 
 FILES_common := \
+    bootloader.c \
+    bootloader_dma.c \
+    bootloader_flash.c \
+    bootloader_mem.c \
+    bootloader_mmcsd_raw.c \
+    bootloader_soc.c \
+    bootloader_xmodem.c \
+    bootloader_uniflash.c \
+    bootloader_profile.c \
     csl_dru.c \
     csl_sec_proxy.c \
     csl_bcdma.c \
@@ -59,6 +68,8 @@ FILES_common := \
     vtm.c \
 
 FILES_PATH_common = \
+    bootloader/soc/am275x \
+    bootloader \
     ecap/v0 \
     epwm/v0 \
     gpio/v0 \

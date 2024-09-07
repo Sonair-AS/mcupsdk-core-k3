@@ -722,8 +722,9 @@ int32_t Bootloader_verifyMulticoreImage(Bootloader_Handle handle)
 int32_t Bootloader_parseMultiCoreAppImage(Bootloader_Handle handle, Bootloader_BootImageInfo *bootImageInfo)
 {
     int32_t status = SystemP_SUCCESS;
+    #if !(SOC_AM275X)
     uint32_t rprcCoreId;
-
+    #endif
     Bootloader_Config *config = (Bootloader_Config *)handle;
 
     if(config)
@@ -785,6 +786,7 @@ int32_t Bootloader_parseMultiCoreAppImage(Bootloader_Handle handle, Bootloader_B
                         /* Parse individual rprc files */
                         for(i=0U; i<mHdrStr.numFiles; i++)
                         {
+                            #if !(SOC_AM275X)
                             /* Load the load only linux images */
                             rprcCoreId = mHdrCore[i].coreId;
                             if(mHdrCore[i].coreId == RPRC_LINUX_LOAD_ONLY_IMAGE_ID)
@@ -803,7 +805,7 @@ int32_t Bootloader_parseMultiCoreAppImage(Bootloader_Handle handle, Bootloader_B
 
                                 continue;
                             }
-
+                            #endif
                             if(mHdrCore[i].coreId != (0xFFFFFFFFU))
                             {
                                 uint32_t cslCoreId = Bootloader_socRprcToCslCoreId(mHdrCore[i].coreId);
@@ -819,6 +821,7 @@ int32_t Bootloader_parseMultiCoreAppImage(Bootloader_Handle handle, Bootloader_B
                             }
 
                         }
+                        #if !(SOC_AM275X)
                         if(Bootloader_socIsSmpEnable(rprcCoreId) == true)
                         {
                             for( i = CSL_CORE_ID_A53SS0_1; i < FREERTOS_SMP_CSL_CORE_ID_MAX; i ++)
@@ -829,7 +832,7 @@ int32_t Bootloader_parseMultiCoreAppImage(Bootloader_Handle handle, Bootloader_B
                                 cpuInfo->cpuId      = i;
                             }
                         }
-
+                        #endif
                     }
                 }
                 else{/* do nothing */}
