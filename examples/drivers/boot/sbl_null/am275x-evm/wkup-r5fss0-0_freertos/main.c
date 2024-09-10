@@ -185,8 +185,6 @@ void main_thread(void *args)
 
     reset_cores_to_wfi();
 
-    loop_forever();
-
     /* Close board and flash drivers */
     Board_driversClose();
     /* Close drivers */
