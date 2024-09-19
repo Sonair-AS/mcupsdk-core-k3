@@ -10,6 +10,9 @@
 # - CCS_INSTALL_DIR
 # - CCS_IDE_MODE
 
+%%{
+    imageFormat = args.common.getImageFormat(args.project.device);
+%%}
 CCS_PATH=$(CCS_INSTALL_DIR)
 include $(MCU_PLUS_SDK_PATH)/imports.mak
 % if ((args.project.device == "am64x") || (args.project.device == "am243x") || (args.project.device == "am62x") || (args.project.device == "am62ax") || (args.project.device == "am62dx")|| (args.project.device == "am62px") || (args.project.device == "j722s") || (args.project.device == "am275x")){
@@ -59,6 +62,11 @@ BOOTIMAGE_NAME:=$(BOOTIMAGE_PATH)/$(OUTNAME).tiimage
 % }
 BOOTIMAGE_BIN_NAME:=$(BOOTIMAGE_PATH)/$(OUTNAME).bin
 % } else {
+% if (imageFormat == "mcelf") {
+BOOTIMAGE_NAME:=$(BOOTIMAGE_PATH)/$(OUTNAME).mcelf
+BOOTIMAGE_NAME_XIP:=$(BOOTIMAGE_PATH)/$(OUTNAME).mcelf_xip
+BOOTIMAGE_NAME_SIGNED:=$(BOOTIMAGE_PATH)/$(OUTNAME).mcelf.signed
+% } else {
 BOOTIMAGE_NAME:=$(BOOTIMAGE_PATH)/$(OUTNAME).appimage
 BOOTIMAGE_NAME_XIP:=$(BOOTIMAGE_PATH)/$(OUTNAME).appimage_xip
 % if (args.project.device == "awr294x") {
@@ -68,6 +76,7 @@ BOOTIMAGE_NAME_SIGNED:=$(BOOTIMAGE_PATH)/$(OUTNAME).appimage.signed
 BOOTIMAGE_RPRC_NAME:=$(BOOTIMAGE_PATH)/$(OUTNAME).rprc
 BOOTIMAGE_RPRC_NAME_XIP:=$(BOOTIMAGE_PATH)/$(OUTNAME).rprc_xip
 BOOTIMAGE_RPRC_NAME_TMP:=$(BOOTIMAGE_PATH)/$(OUTNAME).rprc_tmp
+% }
 % }
 % if ((args.project.device == "j722s") && (args.project.cpu != "wkup-r5fss0-0")) {
 SCISERVER_IMAGE_PATH:=$(MCU_PLUS_SDK_PATH)/tools/sysfw/sciserver_binary/j722s
@@ -389,8 +398,13 @@ SBL_RUN_ADDRESS=0x72000000
 SBL_DEV_ID=55
 % }
 
+% if (imageFormat == "mcelf") {
+MCELF_IMAGE_GEN = $(MCU_PLUS_SDK_PATH)/tools/boot/multicoreELFImageGen/genimage.py
+% }
+% else {
 MULTI_CORE_IMAGE_GEN = $(CCS_NODE) $(MCU_PLUS_SDK_PATH)/tools/boot/multicoreImageGen/multicoreImageGen.js
 OUTRPRC_CMD = $(CCS_NODE) $(MCU_PLUS_SDK_PATH)/tools/boot/out2rprc/elf2rprc.js
+% }
 % if ((args.project.device == "am243x") || (args.project.device == "am64x") || (args.project.device == "am62x") || (args.project.device == "am62ax") || (args.project.device == "am62dx") || (args.project.device == "am62px") || (args.project.device == "j722s") || (args.project.device == "am275x")) {
 APP_IMAGE_SIGN_CMD = $(MCU_PLUS_SDK_PATH)/tools/boot/signing/appimage_x509_cert_gen.py
 % }
@@ -401,6 +415,10 @@ else
   XIPGEN_CMD=$(MCU_PLUS_SDK_PATH)/tools/boot/xipGen/xipGen.out
 endif
 
+% if (imageFormat == "mcelf") {
+MULTI_CORE_IMAGE_PARAMS = \
+	$(BOOTIMAGE_CORE_ID_`args.project.cpu`):$(OUTNAME) \
+% } else {
 % if (atf_build == true) {
 ifeq ($(ATF_INTEGRATED_BOOT), yes)
 MULTI_CORE_IMAGE_PARAMS = \
@@ -457,6 +475,7 @@ MULTI_CORE_IMAGE_PARAMS_XIP = \
 % else {
 	$(BOOTIMAGE_RPRC_NAME_XIP)@$(BOOTIMAGE_CORE_ID_`args.project.cpu`)  \
 % }
+% }
 
 % if (args.project.device == "awr294x") {
 MULTI_CORE_IMAGE_PARAMS_QSPI = $(MULTI_CORE_IMAGE_PARAMS) $(R4_RPRC_PATH)@$(BOOTIMAGE_CORE_ID_r4)
@@ -466,6 +485,11 @@ all:
 ifeq ($(CCS_IDE_MODE),cloud)
 #	No post build steps
 else
+% if (imageFormat == "mcelf") {
+	@echo  Boot image: `args.project.device`:`args.project.cpu`:`args.project.os`:`args.project.cgt` $(BOOTIMAGE_NAME)  ...
+	$(PYTHON) $(MCELF_IMAGE_GEN) --core-img=$(MULTI_CORE_IMAGE_PARAMS) --output=$(BOOTIMAGE_NAME)
+% }
+% else {
 	@echo  Boot image: `args.project.device`:`args.project.cpu`:`args.project.os`:`args.project.cgt` $(BOOTIMAGE_NAME)  ...
 % if (atf_build == true) {
 ifeq ($(ATF_INTEGRATED_BOOT), yes)
@@ -480,6 +504,7 @@ endif
 	$(XIPGEN_CMD) -i $(BOOTIMAGE_RPRC_NAME_TMP) -o $(BOOTIMAGE_RPRC_NAME) -x $(BOOTIMAGE_RPRC_NAME_XIP) --flash-start-addr 0x`args.flashAddr.toString(16)` -v > $(BOOTIMAGE_TEMP_OUT_FILE)
 	$(MULTI_CORE_IMAGE_GEN) --devID $(SBL_DEV_ID) --out $(BOOTIMAGE_NAME) $(MULTI_CORE_IMAGE_PARAMS) >> $(BOOTIMAGE_TEMP_OUT_FILE)
 	$(MULTI_CORE_IMAGE_GEN) --devID $(SBL_DEV_ID) --out $(BOOTIMAGE_NAME_XIP) $(MULTI_CORE_IMAGE_PARAMS_XIP) >> $(BOOTIMAGE_TEMP_OUT_FILE)
+% }
 % if (args.project.device == "awr294x") {
 	$(MULTI_CORE_IMAGE_GEN) --devID $(SBL_DEV_ID) --out $(BOOTIMAGE_NAME_QSPI) $(MULTI_CORE_IMAGE_PARAMS_QSPI) >> $(BOOTIMAGE_TEMP_OUT_FILE)
 % }
@@ -506,7 +531,9 @@ ifeq ($(ATF_INTEGRATED_BOOT), yes)
 	$(RM) $(ATF_RPRC_NAME)
 endif
 % }
+% if (imageFormat != "mcelf") {
 	$(RM) $(BOOTIMAGE_RPRC_NAME_TMP)
+% }
 % if ((args.project.isLinuxFwGen) && (!args.project.cpu.match(/a53*/))) {
 	$(RM) $(PROFILE)/`args.project.name`.`args.linuxFwName`.strip.out
 	$(STRIP) -o=$(PROFILE)/`args.project.name`.`args.linuxFwName`.strip.out $(OUTFILE)

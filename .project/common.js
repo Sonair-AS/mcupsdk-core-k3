@@ -184,6 +184,14 @@ function setInstrumentationMode(mode)
     genInstrumentationMode = mode;
 }
 
+function getImageFormat(device)
+{
+    if (device == "am275x")
+        return "mcelf";
+    else
+        return "rprc";
+}
+
 module.exports = {
     genBuildfiles,
     isDevelopmentMode,
@@ -200,4 +208,5 @@ module.exports = {
     deleteFile,
     getDefaultProjectDescription,
     getDefaultSystemProjectDescription,
+    getImageFormat,
 };

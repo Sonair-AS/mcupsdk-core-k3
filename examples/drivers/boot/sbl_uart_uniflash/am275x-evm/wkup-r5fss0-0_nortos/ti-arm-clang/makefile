@@ -194,15 +194,13 @@ scrub:
 ifeq ($(OS),Windows_NT)
 	$(RM) \*.out
 	$(RM) \*.map
-	$(RM) \*.appimage*
-	$(RM) \*.rprc*
+	$(RM) \*.mcelf*
 	$(RM) \*.tiimage*
 	$(RM) \*.bin
 else
 	$(RM) *.out
 	$(RM) *.map
-	$(RM) *.appimage*
-	$(RM) *.rprc*
+	$(RM) *.mcelf*
 	$(RM) *.tiimage*
 	$(RM) *.bin
 endif

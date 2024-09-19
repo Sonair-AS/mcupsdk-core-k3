@@ -24,14 +24,11 @@ ConfigName:=$(PROFILE)
 OUTNAME:=i2c_temperature.$(PROFILE).out
 
 BOOTIMAGE_PATH=$(abspath .)
-BOOTIMAGE_NAME:=i2c_temperature.$(PROFILE).appimage
-BOOTIMAGE_NAME_XIP:=i2c_temperature.$(PROFILE).appimage_xip
-BOOTIMAGE_NAME_SIGNED:=i2c_temperature.$(PROFILE).appimage.signed
-BOOTIMAGE_RPRC_NAME:=i2c_temperature.$(PROFILE).rprc
-BOOTIMAGE_RPRC_NAME_XIP:=i2c_temperature.$(PROFILE).rprc_xip
-BOOTIMAGE_RPRC_NAME_TMP:=i2c_temperature.$(PROFILE).rprc_tmp
-BOOTIMAGE_NAME_HS:=i2c_temperature.$(PROFILE).appimage.hs
-BOOTIMAGE_NAME_HS_FS:=i2c_temperature.$(PROFILE).appimage.hs_fs
+BOOTIMAGE_NAME:=i2c_temperature.$(PROFILE).mcelf
+BOOTIMAGE_NAME_XIP:=i2c_temperature.$(PROFILE).mcelf_xip
+BOOTIMAGE_NAME_SIGNED:=i2c_temperature.$(PROFILE).mcelf.signed
+BOOTIMAGE_NAME_HS:=i2c_temperature.$(PROFILE).mcelf.hs
+BOOTIMAGE_NAME_HS_FS:=i2c_temperature.$(PROFILE).mcelf.hs_fs
 TARGETS := $(BOOTIMAGE_NAME)
 ifeq ($(DEVICE_TYPE), HS)
    TARGETS += $(BOOTIMAGE_NAME_HS)
@@ -191,8 +188,6 @@ clean:
 	$(RM) $(BOOTIMAGE_NAME_SIGNED)
 	$(RM) $(BOOTIMAGE_NAME_HS)
 	$(RM) $(BOOTIMAGE_NAME_HS_FS)
-	$(RM) $(BOOTIMAGE_RPRC_NAME)
-	$(RM) $(BOOTIMAGE_RPRC_NAME_XIP)
 	$(RMDIR) generated/
 
 scrub:
@@ -201,15 +196,13 @@ scrub:
 ifeq ($(OS),Windows_NT)
 	$(RM) \*.out
 	$(RM) \*.map
-	$(RM) \*.appimage*
-	$(RM) \*.rprc*
+	$(RM) \*.mcelf*
 	$(RM) \*.tiimage*
 	$(RM) \*.bin
 else
 	$(RM) *.out
 	$(RM) *.map
-	$(RM) *.appimage*
-	$(RM) *.rprc*
+	$(RM) *.mcelf*
 	$(RM) *.tiimage*
 	$(RM) *.bin
 endif
@@ -258,8 +251,7 @@ BOOTIMAGE_CORE_ID_hsm-m4fss0-0  = 7
 SBL_RUN_ADDRESS=0x72000000
 SBL_DEV_ID=55
 
-MULTI_CORE_IMAGE_GEN = $(SYSCFG_NODE) $(MCU_PLUS_SDK_PATH)/tools/boot/multicoreImageGen/multicoreImageGen.js
-OUTRPRC_CMD = $(SYSCFG_NODE) $(MCU_PLUS_SDK_PATH)/tools/boot/out2rprc/elf2rprc.js
+MCELF_IMAGE_GEN = $(MCU_PLUS_SDK_PATH)/tools/boot/multicoreELFImageGen/genimage.py
 APP_IMAGE_SIGN_CMD = $(MCU_PLUS_SDK_PATH)/tools/boot/signing/appimage_x509_cert_gen.py
 
 ifeq ($(OS),Windows_NT)
@@ -269,29 +261,19 @@ else
 endif
 
 MULTI_CORE_IMAGE_PARAMS = \
-	$(BOOTIMAGE_RPRC_NAME)@$(BOOTIMAGE_CORE_ID_c75ss0-0) \
-
-MULTI_CORE_IMAGE_PARAMS_XIP = \
-	$(BOOTIMAGE_RPRC_NAME_XIP)@$(BOOTIMAGE_CORE_ID_c75ss0-0) \
+    $(BOOTIMAGE_CORE_ID_c75ss0-0):$(OUTNAME) \
 
 $(BOOTIMAGE_NAME): $(OUTNAME)
 	@echo  Boot image: am275x:c75ss0-0:freertos:ti-c7000 $(BOOTIMAGE_PATH)/$@ ...
 ifneq ($(OS),Windows_NT)
 	$(CHMOD) a+x $(XIPGEN_CMD)
 endif
-	$(OUTRPRC_CMD) $(OUTNAME) $(SW_VERSION)>> $(BOOTIMAGE_TEMP_OUT_FILE)
-	$(COPY) $(BOOTIMAGE_RPRC_NAME) $(BOOTIMAGE_RPRC_NAME_TMP)
-	$(RM) $(BOOTIMAGE_RPRC_NAME)
-	$(XIPGEN_CMD) -i $(BOOTIMAGE_RPRC_NAME_TMP) -o $(BOOTIMAGE_RPRC_NAME) -x $(BOOTIMAGE_RPRC_NAME_XIP) --flash-start-addr 0x60000000 -v > $(BOOTIMAGE_TEMP_OUT_FILE)
-	$(MULTI_CORE_IMAGE_GEN) --devID $(SBL_DEV_ID) --out $(BOOTIMAGE_NAME) $(MULTI_CORE_IMAGE_PARAMS) >> $(BOOTIMAGE_TEMP_OUT_FILE)
-	$(MULTI_CORE_IMAGE_GEN) --devID $(SBL_DEV_ID) --out $(BOOTIMAGE_NAME_XIP) $(MULTI_CORE_IMAGE_PARAMS_XIP) >> $(BOOTIMAGE_TEMP_OUT_FILE)
+	$(PYTHON) $(MCELF_IMAGE_GEN) --core-img=$(MULTI_CORE_IMAGE_PARAMS) --output=$(BOOTIMAGE_NAME)
 # Sign the appimage for HS-FS using appimage signing script
     #
     #   Authentication type 0 with load address 0x84000000
     #
 	$(PYTHON) $(APP_IMAGE_SIGN_CMD) --bin $(BOOTIMAGE_NAME) --authtype 0  --loadaddr 84000000 --key $(APP_SIGNING_KEY) --output $(BOOTIMAGE_NAME_HS_FS) --keyversion $(VERSION)
-	$(RM) $(BOOTIMAGE_RPRC_NAME_TMP)
-	$(RM) $(BOOTIMAGE_TEMP_OUT_FILE)
 	@echo  Boot image: am275x:c75ss0-0:freertos:ti-c7000 $(BOOTIMAGE_PATH)/$@ Done !!!
 	@echo  .
 	@echo  Boot image: am275x:c75ss0-0:freertos:ti-c7000 $(BOOTIMAGE_PATH)/$(BOOTIMAGE_NAME_HS_FS) Done !!!

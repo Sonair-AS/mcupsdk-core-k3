@@ -259,6 +259,7 @@ function genProjectSpecExample(device) {
                 relPath: common.path.relative(project.dirPath, "."),
                 project: project,
                 utils: utils,
+                common: common,
                 cgtOptions: require(`./cgt/cgt_${project.cgt}`).getCgtOptions(buildOption.cpu),
                 linuxFwName: require(`./device/project_${device}`).getLinuxFwName(buildOption.cpu),
                 syscfg: {

@@ -23,6 +23,10 @@ docs/datasheet*
 *.bin
 *.tiimage
 *.tiimage.hs
+*.mcelf
+*.mcelf.signed
+*.mcelf.hs
+*.mcelf.hs_fs
 *-fw
 *.img
 *.vscode/
@@ -71,3 +75,4 @@ source/mathlib*
 tools/sysfw/boardcfg/k3-resource-partitioning
 source/safety_checkers
 source/board/pmic/pmic_lld
+tools/boot/multicoreELFImageGen

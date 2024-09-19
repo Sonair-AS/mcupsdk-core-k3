@@ -265,6 +265,7 @@ function genMakefileExample(example_file_list, device) {
                 sdkPath: "MCU_PLUS_SDK_PATH",
                 relPath: common.path.relative(project.dirPath, "."),
                 project: project,
+                common: common,
                 cgtOptions: require(`./cgt/cgt_${project.cgt}`).getCgtOptions(buildOption.cpu),
                 syscfg: {
                     device: require(`./device/project_${device}.js`).getSysCfgDevice(buildOption.board),
