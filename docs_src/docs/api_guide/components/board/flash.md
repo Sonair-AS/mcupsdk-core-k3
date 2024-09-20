@@ -51,7 +51,7 @@ the application need not take care of the programming intricacies.
     - W35N01JW
 \endcond
 
-\cond SOC_AM62DX
+\cond SOC_AM62DX || SOC_AM275X
 - Supported flash devices
     - S28HS512T
 \endcond

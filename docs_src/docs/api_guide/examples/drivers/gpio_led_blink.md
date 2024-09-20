@@ -15,7 +15,7 @@ Make the following connections for this example to work on the SK-AM62.
 For A53 example the User LED on the board will blink for 10 seconds and exits.
 \endcond
 
-\cond SOC_AM62X || SOC_AM62AX || SOC_AM62DX || SOC_AM62PX
+\cond SOC_AM62X || SOC_AM62AX || SOC_AM62DX || SOC_AM62PX || SOC_AM275X
 To modify the example to use main domain GPIO, refer \ref MAIN_DOMAIN_PERIPHERAL_FROM_MCU
 \endcond
 # Supported Combinations {#EXAMPLES_DRIVERS_GPIO_LED_BLINK_COMBOS}
@@ -97,6 +97,19 @@ To modify the example to use main domain GPIO, refer \ref MAIN_DOMAIN_PERIPHERAL
  CPU + OS       | mcu-r5fss0-0 nortos
  ^              | wkup-r5fss0-0 freertos
  Toolchain      | ti-arm-clang
+ Board          | @VAR_BOARD_NAME_LOWER
+ Example folder | examples/drivers/gpio/gpio_led_blink/
+
+\endcond
+
+\cond SOC_AM275X
+
+ Parameter      | Value
+ ---------------|-----------
+ CPU + OS       | r5fss0-0 freertos
+ ^              | c75ss0-0 freertos
+ Toolchain      | ti-arm-clang
+ ^              | ti-c7000
  Board          | @VAR_BOARD_NAME_LOWER
  Example folder | examples/drivers/gpio/gpio_led_blink/
 

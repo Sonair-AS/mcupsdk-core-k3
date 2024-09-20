@@ -115,6 +115,18 @@ The application ends when the user types 8 characters.
 
 \endcond
 
+\cond SOC_AM275X
+
+ Parameter      | Value
+ ---------------|-----------
+ CPU + OS       | r5fss0-0 nortos
+                | r5fss0-0 freertos
+ Toolchain      | ti-arm-clang
+ Board          | @VAR_BOARD_NAME_LOWER
+ Example folder | examples/drivers/uart/uart_echo_callback
+
+\endcond
+
 \cond SOC_AM62PX
 
  Parameter      | Value

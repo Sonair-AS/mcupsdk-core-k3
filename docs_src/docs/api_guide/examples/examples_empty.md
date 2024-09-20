@@ -144,6 +144,25 @@ For all other cores, CCS prints are used.
 
 \endcond
 
+\cond SOC_AM275X
+
+ Parameter      | Value
+ ---------------|-----------
+ CPU + OS       | r5fss0-0 nortos
+ ^              | r5fss0-0 freertos
+ ^              | r5fss0-1 freertos
+ ^              | r5fss1-0 freertos
+ ^              | r5fss1-1 freertos
+ ^              | c75ss0-0 freertos
+ ^              | c75ss1-0 freertos
+ ^              | wkup-r5fss0-0 freertos
+ Toolchain      | ti-arm-clang
+ ^              | ti-c7000
+ Board          | @VAR_BOARD_NAME_LOWER
+ Example folder | examples/empty/
+
+\endcond
+
 # Steps to Run the Example
 
 - **When using CCS projects to build**, import the CCS project for the required combination

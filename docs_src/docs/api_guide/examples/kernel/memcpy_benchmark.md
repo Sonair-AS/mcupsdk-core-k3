@@ -38,6 +38,18 @@ This application, internally called as AUTOSAR benchmarking application is used 
 
 \endcond
 
+\cond SOC_AM275X
+
+ Parameter      | Value
+ ---------------|-----------
+ CPU + OS       | r5fss0-0 freertos
+ ^              | wkup-r5fss0-0 freertos
+ Toolchain      | ti-arm-clang
+ Boards         | @VAR_BOARD_NAME_LOWER
+ Example folder | examples/kernel/freertos/memcpy_benchmark/
+
+\endcond
+
 \cond SOC_AM62PX
 
  Parameter      | Value
@@ -487,7 +499,7 @@ DataCacheMiss/sec : 175550
 All tests have passed!!
 
 \endcode
-\elseif SOC_AM62AX
+\elseif SOC_AM62AX || SOC_AM275X
 
 **mcu r5f core:**
 \code

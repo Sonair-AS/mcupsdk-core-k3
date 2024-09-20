@@ -67,7 +67,7 @@ Shown below is a block diagram of the SW modules involved in IPC,
 \image html ipc_block_diagram_am62.png "IPC SW Block Diagram"
 \endcond
 
-\cond SOC_AM62AX
+\cond SOC_AM62AX || SOC_AM275X
 \imageStyle{ipc_block_diagram_am62a.png,width:60%}
 \image html ipc_block_diagram_am62a.png "IPC SW Block Diagram"
 \endcond
@@ -207,11 +207,12 @@ read through the instructions below.
   \image html ipc_enable_am273.png "IPC SysConfig"
 \endcond
 
-\cond SOC_AM62X || SOC_AM62AX || SOC_AM62PX || SOC_AM62DX
+\cond SOC_AM62X || SOC_AM62AX || SOC_AM62PX || SOC_AM62DX || SOC_AM275X
   \imageStyle{ipc_enable_am62.png,width:70%}
   \image html ipc_enable_am62.png "IPC SysConfig"
-
+\cond !SOC_AM275X
 - As only the IPC between A53 running Linux and MCU M4F is  supported now, `Linux A53 IPC RP Message` is enabled by default after adding the IPC. This can not be disabled.
+\endcond
 \endcond
 
 - In the center pane, Select `IPC Notify + IPC RPMessage` or `IPC Notify` or `All IPC Disabled` for each CPU that the current CPU

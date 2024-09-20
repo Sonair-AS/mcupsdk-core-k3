@@ -85,6 +85,20 @@ The example does the below
 
 \endcond
 
+\cond SOC_AM275X
+
+ Parameter      | Value
+ ---------------|-----------
+ CPU + OS       | wkup-r5fss0-0 freertos
+ ^              | r5fss0-0 freertos
+ ^              | c75ss0-0 freertos
+ Toolchain      | ti-arm-clang
+ ^              | ti-c7000
+ Boards         | @VAR_BOARD_NAME_LOWER
+ Example folder | examples/kernel/freertos/task_switch
+
+\endcond
+
 \cond SOC_AM62PX
 
  Parameter      | Value

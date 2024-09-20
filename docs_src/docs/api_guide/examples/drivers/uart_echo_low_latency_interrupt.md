@@ -113,6 +113,18 @@ UART TX (echo).
  Example folder | examples/drivers/uart/uart_echo_low_latency_interrupt
 
 \endcond
+
+\cond SOC_AM275X
+
+ Parameter      | Value
+ ---------------|-----------
+ CPU + OS       | r5fss0-0 nortos
+ Toolchain      | ti-arm-clang
+ Board          | @VAR_BOARD_NAME_LOWER
+ Example folder | examples/drivers/uart/uart_echo_low_latency_interrupt
+
+\endcond
+
 # Steps to Run the Example
 
 - **When using CCS projects to build**, import the CCS project for the required combination

@@ -16,7 +16,7 @@ TX Enable as well as RX input pin in the SYSCFG.
 When transfer is completed, TX and RX buffer data are compared.
 If data is matched, test result is passed otherwise failed.
 
-\cond SOC_AM62X || SOC_AM62AX || SOC_AM62DX || SOC_AM62PX
+\cond SOC_AM62X || SOC_AM62AX || SOC_AM62DX || SOC_AM62PX || SOC_AM275X
 To modify the example to use main domain SPI, refer \ref MAIN_DOMAIN_PERIPHERAL_FROM_MCU
 \endcond
 
@@ -48,7 +48,7 @@ To modify the example to use main domain SPI, refer \ref MAIN_DOMAIN_PERIPHERAL_
 
 \endcond
 
-\cond SOC_AM62AX
+\cond SOC_AM62AX || SOC_AM62DX || SOC_AM275X
 
  Parameter      | Value
  ---------------|-----------
@@ -128,6 +128,18 @@ To modify the example to use main domain SPI, refer \ref MAIN_DOMAIN_PERIPHERAL_
  ^              | mcu-r5fss0-0 nortos
  Toolchain      | arm.gnu.aarch64-none
  ^              | ti-arm-clang
+ Board          | @VAR_BOARD_NAME_LOWER
+ Example folder | examples/drivers/mcspi/mcspi_loopback
+
+\endcond
+
+\cond SOC_AM275X
+
+ Parameter      | Value
+ ---------------|-----------
+ CPU + OS       | r5fss0-0 freertos
+ ^              | r5fss0-0 nortos
+ Toolchain      | ti-arm-clang
  Board          | @VAR_BOARD_NAME_LOWER
  Example folder | examples/drivers/mcspi/mcspi_loopback
 

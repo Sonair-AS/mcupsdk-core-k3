@@ -100,6 +100,21 @@ const files_am62dx = {
     ],
 };
 
+const files_am275x = {
+    common: [
+        "AddrTranslateP_sample.c",
+        "ClockP_sample.c",
+        "CycleCounterP_sample.c",
+        "DebugP_sample.c",
+        "HeapP_sample.c",
+        "HwiP_m4_sample.c",
+        "QueueP_sample.c",
+        "SemaphoreP_sample.c",
+        "TaskP_sample.c",
+        "MpuP_arm_v7_sample.c",
+    ],
+};
+
 
 const files_am62px = {
     common: [
@@ -197,6 +212,10 @@ function getComponentBuildProperty(buildOption) {
     if(buildOption.device=="am62ax")
     {
         build_property.files = files_am62ax;
+    }
+    if(buildOption.device=="am275x")
+    {
+        build_property.files = files_am275x;
     }
     if(buildOption.device=="am62px")
     {

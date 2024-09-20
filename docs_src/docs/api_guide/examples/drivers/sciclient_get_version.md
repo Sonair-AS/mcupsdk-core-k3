@@ -4,11 +4,11 @@
 
 # Introduction
 
-\cond !SOC_AM62X && !SOC_AM62AX || SOC_AM62DX && !SOC_AM62PX
+\cond !SOC_AM62X && !SOC_AM62AX || SOC_AM62DX && !SOC_AM62PX && !SOC_AM275X
 This example demonstrates how to check the version of SYSFW running on the Cortex M3 at run time. Since this is frequently done by bootloaders as a sanity check, there is an API included in the Sciclient driver for checking the SYSFW version.
 \endcond
 
-\cond SOC_AM62X || SOC_AM62AX || SOC_AM62DX || SOC_AM62PX
+\cond SOC_AM62X || SOC_AM62AX || SOC_AM62DX || SOC_AM62PX || SOC_AM275X
 This example demonstrates how to check the version of SYSFW running on the Cortex R5 (DM R5) at run time. Since this is frequently done by bootloaders as a sanity check, there is an API included in the Sciclient driver for checking the SYSFW version.
 \endcond
 
@@ -120,6 +120,20 @@ We also fetch the clock frequency of the current CPU using Sciclient and print t
  Example folder | examples/drivers/sciclient/sciclient_get_version
 
 \endcond
+
+\cond SOC_AM275X
+
+ Parameter      | Value
+ ---------------|-----------
+ CPU + OS       | r5fss0-0 freertos
+ ^              | c75ss0-0 freertos
+ Toolchain      | ti-arm-clang
+ ^              | ti-c7000
+ Board          | @VAR_BOARD_NAME_LOWER
+ Example folder | examples/drivers/sciclient/sciclient_get_version
+
+\endcond
+
 # Steps to Run the Example
 
 - **When using CCS projects to build**, import the CCS project for the required combination
@@ -142,7 +156,7 @@ We also fetch the clock frequency of the current CPU using Sciclient and print t
 
 Shown below is a sample output when the application is run,
 
-\cond !SOC_AM62X && !SOC_AM62AX || SOC_AM62DX
+\cond !SOC_AM62X && !SOC_AM62AX || SOC_AM62DX || SOC_AM275X
 \code
 DMSC Firmware Version 21.1.1--v2021.01a (Terrific Lla
 Firmware revision 0x15
@@ -161,7 +175,7 @@ ABI revision 3.1
 All tests have passed!!
 \endcode
 \endcond
-\cond SOC_AM62AX || SOC_AM62DX
+\cond SOC_AM62AX || SOC_AM62DX || SOC_AM275X
 \code
 SYSFW Version 9.0.4--v09.00.04 (Kool Koala)
 Firmware revision 0x9

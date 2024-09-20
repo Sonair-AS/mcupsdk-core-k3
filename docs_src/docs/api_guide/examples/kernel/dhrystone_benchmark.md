@@ -13,7 +13,7 @@ The application runs the the dhrystone benchmarking demo using the given number 
 The application runs with thread number equal to 1, 2, 5 and 10, with iteration number 10000000.
 \endcode
 
-\elseif SOC_AM62AX
+\elseif SOC_AM62AX || SOC_AM275X
 \code
 The application runs with thread number equal to 1, 2, 5 and 10, with iteration number 30000000.
 \endcode
@@ -34,6 +34,17 @@ The application runs with thread number equal to 1, 2, 5 and 10, with iteration 
  ^              | mcu-r5fss0-0 freertos
  Toolchain      | arm.gnu.aarch64-none
  ^              | ti-arm-clang
+ Boards         | @VAR_BOARD_NAME_LOWER
+ Example folder | examples/kernel/freertos/dhrystone_benchmark/
+
+\endcond
+
+\cond SOC_AM275X
+
+ Parameter      | Value
+ ---------------|-----------
+ CPU + OS       | r5fss0-0 freertos
+ Toolchain      | ti-arm-clang
  Boards         | @VAR_BOARD_NAME_LOWER
  Example folder | examples/kernel/freertos/dhrystone_benchmark/
 
@@ -85,6 +96,8 @@ The application runs with thread number equal to 1, 2, 5 and 10, with iteration 
 - Launch a CCS debug session and run the executable, see \ref CCS_LAUNCH_PAGE
 \elseif SOC_AM62X
 - Launch a CCS debug session and run the executable, see \ref CCS_LAUNCH_PAGE
+\elseif SOC_AM275X
+- Launch a CCS debug session and run the executable, see \ref CCS_LAUNCH_PAGE
 \else
 - Launch a CCS debug session and run the executable, see \ref CCS_LAUNCH_PAGE and \ref SMP_FREERTOS_GUIDE
 \endif
@@ -117,7 +130,7 @@ Shown below is a sample output when the benchmark application is run,
 All tests have passed!!
 \endcode
 
-\elseif SOC_AM62AX
+\elseif SOC_AM62AX || SOC_AM275X
 
 **a53 core:**
 \code

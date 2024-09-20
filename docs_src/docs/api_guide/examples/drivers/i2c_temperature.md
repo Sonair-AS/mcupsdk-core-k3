@@ -97,6 +97,17 @@ Application reads 20 samples from the sensor and exits.
 
 \endcond
 
+\cond SOC_AM275X
+
+ Parameter      | Value
+ ---------------|-----------
+ CPU + OS       | r5fss0-0 freertos
+ Toolchain      | ti-arm-clang
+ Boards         | @VAR_BOARD_NAME_LOWER
+ Example folder | examples/drivers/i2c/i2c_temperature
+
+\endcond
+
 \cond SOC_AM62PX
 
  Parameter      | Value

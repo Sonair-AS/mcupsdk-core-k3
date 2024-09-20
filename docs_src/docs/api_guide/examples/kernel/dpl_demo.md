@@ -105,6 +105,22 @@ The example does the below
 
 \endcond
 
+\cond SOC_AM275X
+
+ Parameter      | Value
+ ---------------|-----------
+ CPU + OS       | r5fss0-0 nortos
+ ^              | r5fss0-0 freertos
+ ^              | c75ss0-0 freertos
+ ^              | c75ss1-0 freertos
+ ^              | wkup-r5fss0-0 freertos
+ Toolchain      | ti-arm-clang
+ ^              | ti-c7000
+ Board          | @VAR_BOARD_NAME_LOWER
+ Example folder | examples/kernel/dpl/dpl_demo/
+
+\endcond
+
 \cond SOC_AM62PX
 
  Parameter      | Value

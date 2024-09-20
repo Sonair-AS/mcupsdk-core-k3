@@ -113,6 +113,18 @@ with the transmitted one, then the example is completed.
 
 \endcond
 
+\cond SOC_AM275X
+
+ Parameter      | Value
+ ---------------|-----------
+ CPU + OS       | r5fss0-0 freertos
+ ^              | r5fss0-0 nortos
+ Toolchain      | ti-arm-clang
+ Boards         | @VAR_BOARD_NAME_LOWER
+ Example folder | examples/drivers/mcan/mcan_loopback_polling
+
+\endcond
+
 \cond SOC_AM62PX
 
  Parameter      | Value

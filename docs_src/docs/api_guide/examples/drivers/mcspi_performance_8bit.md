@@ -14,7 +14,7 @@ data transfer in master mode with performance measurment.
 - Data is transmitted on D0 pin.
 - Data transmission is in polled mode.
 
-\cond SOC_AM62X || SOC_AM62AX || SOC_AM62DX || SOC_AM62PX
+\cond SOC_AM62X || SOC_AM62AX || SOC_AM62DX || SOC_AM62PX || SOC_AM275X
 To modify the example to use main domain SPI, refer \ref MAIN_DOMAIN_PERIPHERAL_FROM_MCU
 \endcond
 
@@ -46,7 +46,7 @@ To modify the example to use main domain SPI, refer \ref MAIN_DOMAIN_PERIPHERAL_
 
 \endcond
 
-\cond SOC_AM62AX
+\cond SOC_AM62AX || SOC_AM62DX || SOC_AM275X
 
  Parameter      | Value
  ---------------|-----------
@@ -116,6 +116,32 @@ To modify the example to use main domain SPI, refer \ref MAIN_DOMAIN_PERIPHERAL_
 
 \endcond
 
+\cond SOC_AM62AX || SOC_AM62DX
+
+ Parameter      | Value
+ ---------------|-----------
+ CPU + OS       | a53ss0-0 nortos
+ ^              | mcu-r5fss0-0 freertos
+ ^              | mcu-r5fss0-0 nortos
+ Toolchain      | arm.gnu.aarch64-none
+ ^              | ti-arm-clang
+ Board          | @VAR_BOARD_NAME_LOWER
+ Example folder | examples/drivers/mcspi/mcspi_performance_8bit
+
+\endcond
+
+\cond SOC_AM275X
+
+ Parameter      | Value
+ ---------------|-----------
+ CPU + OS       | r5fss0-0 freertos
+ ^              | r5fss0-0 nortos
+ Toolchain      | ti-arm-clang
+ Board          | @VAR_BOARD_NAME_LOWER
+ Example folder | examples/drivers/mcspi/mcspi_performance_8bit
+
+\endcond
+
 # Steps to Run the Example
 
 - **When using CCS projects to build**, import the CCS project for the required combination
@@ -137,7 +163,7 @@ To modify the example to use main domain SPI, refer \ref MAIN_DOMAIN_PERIPHERAL_
 
 Shown below is a sample output when the application is run,
 
-\cond !SOC_AM62X && !SOC_AM62AX || SOC_AM62DX && !SOC_AM62PX
+\cond !SOC_AM62X && !SOC_AM62AX || SOC_AM62DX && !SOC_AM62PX && !SOC_AM275X
 r5fss0-0_nortos app log:
 \code
 [MCSPI] Performance Example Started...
@@ -198,7 +224,7 @@ All tests have passed!!
 
 \endcode
 \endcond
-\cond !SOC_AM62AX || SOC_AM62DX && !SOC_AM62PX
+\cond !SOC_AM62AX || SOC_AM62DX && !SOC_AM62PX && !SOC_AM275X
 m4fss0-0_nortos app log:
 \code
 [BLAZAR_Cortex_M4F_0] [MCSPI] Performance Example Started...
@@ -215,7 +241,7 @@ Data Width      Data Length     Transfer Time (micro sec)
 All tests have passed!!
 \endcode
 \endcond
-\cond SOC_AM62AX || SOC_AM62DX || SOC_AM62PX
+\cond SOC_AM62AX || SOC_AM62DX || SOC_AM62PX || SOC_AM275X
 \code
 [MCSPI] Performance Example Started...
 

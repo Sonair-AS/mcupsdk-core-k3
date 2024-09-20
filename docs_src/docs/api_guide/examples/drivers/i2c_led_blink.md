@@ -111,6 +111,17 @@ Application exits after 10 iterations..
 
 \endcond
 
+\cond SOC_AM275X
+
+ Parameter      | Value
+ ---------------|-----------
+ CPU + OS       | r5fss0-0 freertos
+ Toolchain      | ti-arm-clang
+ Boards         | @VAR_BOARD_NAME_LOWER
+ Example folder | examples/drivers/i2c/i2c_led_blink
+
+\endcond
+
 \cond SOC_AM263X
 ## AM263X-CC
 - Watch out for LEDs LD2, LD3, LD4, LD5, LD6, LD7, LD8, LD9, LD10, LD11 on the CC to blink which is controlled by I2C2.
@@ -128,7 +139,7 @@ Application exits after 10 iterations..
 \endcond
 
 
-\cond SOC_AM62AX || SOC_AM62DX
+\cond SOC_AM62AX || SOC_AM62DX || SOC_AM275X
 ## AM62X-SK
 - Watch out for LED LD5 to blink which is controlled by I2C1.
 

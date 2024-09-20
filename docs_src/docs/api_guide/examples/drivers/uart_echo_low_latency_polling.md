@@ -13,7 +13,7 @@ In the main context, the application checks any data from the UART
 FIFO and if so, write to the RX buffer and sets the RX buffer count.
 Application then copies the data to TX buffer and initiate the UART TX (echo).
 
-\cond SOC_AM62X || SOC_AM62AX || SOC_AM62DX
+\cond SOC_AM62X || SOC_AM62AX || SOC_AM62DX || SOC_AM275X
 To modify the example to use main domain UART, refer \ref MAIN_DOMAIN_PERIPHERAL_FROM_MCU
 \endcond
 
@@ -113,6 +113,18 @@ To modify the example to use main domain UART, refer \ref MAIN_DOMAIN_PERIPHERAL
  Example folder | examples/drivers/uart/uart_echo_low_latency_polling
 
 \endcond
+
+\cond SOC_AM275X
+
+ Parameter      | Value
+ ---------------|-----------
+ CPU + OS       | r5fss0-0 nortos
+ Toolchain      | ti-arm-clang
+ Board          | @VAR_BOARD_NAME_LOWER
+ Example folder | examples/drivers/uart/uart_echo_low_latency_polling
+
+\endcond
+
 # Steps to Run the Example
 
 - **When using CCS projects to build**, import the CCS project for the required combination

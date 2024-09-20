@@ -11,6 +11,7 @@ This is a bootloader which does SOC initializations and put all the cores in WFI
 in the sysconfig if required. Refer \ref ENABLE_DDR_INLINE_ECC for more details
 \endcond
 
+\cond !SOC_AM275X
 \attention
 Migration steps to 09.02 SDK
 \attention
@@ -22,6 +23,7 @@ ddr1.eccEnd2       = 0x5FFFF;
 \endcode
 If you are using older sysconfig file but driver from 09.02 SDK, please change the ECC end address
 to match all the conditions. Refer \ref ENABLE_DDR_INLINE_ECC_IN_SYSCONFIG
+\endcond
 
 # Supported Combinations {#EXAMPLES_DRIVERS_SBL_NULL_COMBOS}
 
@@ -85,6 +87,17 @@ to match all the conditions. Refer \ref ENABLE_DDR_INLINE_ECC_IN_SYSCONFIG
  Parameter      | Value
  ---------------|-----------
  CPU + OS       | r5fss0-0 nortos
+ Toolchain      | ti-arm-clang
+ Boards         | @VAR_BOARD_NAME_LOWER
+ Example folder | examples/drivers/boot/sbl_null
+
+\endcond
+
+\cond SOC_AM275X
+
+ Parameter      | Value
+ ---------------|-----------
+ CPU + OS       | wkup-r5fss0-0 freertos
  Toolchain      | ti-arm-clang
  Boards         | @VAR_BOARD_NAME_LOWER
  Example folder | examples/drivers/boot/sbl_null
@@ -183,7 +196,7 @@ INFO: Bootloader_JumpSelfCpu:226: All done, jumping self ...
 \endcode
 \endcond
 
-\cond SOC_AM62AX || SOC_AM62DX
+\cond SOC_AM62AX || SOC_AM62DX || SOC_AM275X
 \code
 Starting NULL Bootloader ...
 

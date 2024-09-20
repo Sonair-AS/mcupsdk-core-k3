@@ -50,6 +50,19 @@ MCU_I2C0 can be connected to Board ID EEPROM through making the following jumper
 
 \endcond
 
+\cond SOC_AM275X
+\attention For @VAR_BOARD_NAME, Board ID EEPROM address is 0x51u.
+
+SCL and SDA pins of MCU_I2C0 are available at the MCU_HEADER in the board.
+MCU_I2C0 can be connected to Board ID EEPROM through making the following jumper connections as shown in the image.
+ - Connect Pin 21 of J9 (MCU_I2C0_SDA) to Pin 27 of J3.
+ - Connect Pin 24 of J9 (MCU_I2C0_SCL) to Pin 28 of J3.
+
+  \imageStyle{i2c_read_am275x.png,width:30%}
+  \image html i2c_read_am275x.png "JUMPER CONNECTIONS FOR I2C"
+
+\endcond
+
 \cond SOC_AM62PX
 \attention For @VAR_BOARD_NAME, Board ID EEPROM address is 0x51u.
 
@@ -63,7 +76,7 @@ MCU_I2C0 can be connected to Board ID EEPROM through making the following jumper
 
 \endcond
 
-\cond SOC_AM62X || SOC_AM62AX || SOC_AM62DX || SOC_AM62PX
+\cond SOC_AM62X || SOC_AM62AX || SOC_AM62DX || SOC_AM62PX || SOC_AM275X
 To modify the example to use main/wakeup domain I2C, refer \ref MAIN_DOMAIN_PERIPHERAL_FROM_MCU
 \endcond
 # Supported Combinations {#EXAMPLES_DRIVERS_I2C_READ_COMBOS}
@@ -174,6 +187,18 @@ To modify the example to use main/wakeup domain I2C, refer \ref MAIN_DOMAIN_PERI
  Example folder | examples/drivers/i2c/i2c_read
 
 \endcond
+
+\cond SOC_AM275X
+
+ Parameter      | Value
+ ---------------|-----------
+ CPU + OS       | r5fss0-0 freertos
+ Toolchain      | ti-arm-clang
+ Boards         | @VAR_BOARD_NAME_LOWER
+ Example folder | examples/drivers/i2c/i2c_read
+
+\endcond
+
 # Steps to Run the Example
 
 - **When using CCS projects to build**, import the CCS project for the required combination

@@ -9,7 +9,7 @@ interrupt mode of operation.
 This example receives 8 characters and echos back the same.
 The application ends when the user types 8 characters.
 
-\cond SOC_AM62X || SOC_AM62AX || SOC_AM62DX
+\cond SOC_AM62X || SOC_AM62AX || SOC_AM62DX || SOC_AM275X
 To modify the example to use main domain UART, refer \ref MAIN_DOMAIN_PERIPHERAL_FROM_MCU
 \endcond
 
@@ -115,6 +115,18 @@ To modify the example to use main domain UART, refer \ref MAIN_DOMAIN_PERIPHERAL
  Toolchain      | ti-arm-clang
  ^              | arm.gnu.aarch64-none
  ^              | ti-c7000
+ Board          | @VAR_BOARD_NAME_LOWER
+ Example folder | examples/drivers/uart/uart_echo
+
+\endcond
+
+\cond SOC_AM275X
+
+ Parameter      | Value
+ ---------------|-----------
+ CPU + OS       | r5fss0-0 nortos
+                | r5fss0-0 freertos
+ Toolchain      | ti-arm-clang
  Board          | @VAR_BOARD_NAME_LOWER
  Example folder | examples/drivers/uart/uart_echo
 

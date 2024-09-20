@@ -62,6 +62,17 @@ This example demonstrates the McASP in loopback mode operation.
 
 \endcond
 
+\cond SOC_AM275X
+
+ Parameter      | Value
+ ---------------|-----------
+ CPU + OS       | c75ss0-0 freertos
+ Toolchain      | ti-c7000
+ Board          | @VAR_BOARD_NAME_LOWER
+ Example folder | examples/drivers/mcasp/mcasp_loopback
+
+\endcond
+
 # Steps to Run the Example
 
 - **When using CCS projects to build**, import the CCS project for the required combination
@@ -77,7 +88,7 @@ This example demonstrates the McASP in loopback mode operation.
 # Sample Output
 
 Shown below is a sample output when the application is run,
-\if SOC_AM62AX || SOC_AM62DX
+\if SOC_AM62AX || SOC_AM62DX || SOC_AM275X
 \code
 [MCASP] Loopback example started. Testing 2560 bytes ...
 All bytes match!!

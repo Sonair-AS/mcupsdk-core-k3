@@ -44,8 +44,10 @@ make -s -C tools/sysfw/boardcfg configure SOC=am62dx
 ```
 \endcond
 
+\cond !SOC_AM275X
 \imageStyle{respart_tool_main.png,width:50%}
 \image html respart_tool_main.png "Resource Partitioning Tool"
+\endcond
 
 - Any changes required for any of the resources can be changed using the GUI and doing a File->Save (Ctrl-S) saves it to a *.syscfg file
   inside the tool.
@@ -310,13 +312,16 @@ Refer \htmllink{https://software-dl.ti.com/tisci/esd/latest/5_soc_doc/am62px/hos
 - Resources can be shared between hosts, but at most 2 hosts can have the same resource.
   To share a resource, a resource sharing entry needs to be added in the GUI tool.
 
+\cond !SOC_AM275X
 \imageStyle{respart_tool_sharing_start.png,width:50%}
 \image html respart_tool_sharing_start.png "Resource Allocation Entry"
-
+\endcond
 - After the resource is shared, it will show up as an info under the resource.
 
+\cond !SOC_AM275X
 \imageStyle{respart_tool_sharing.png,width:50%}
 \image html respart_tool_sharing.png "Resource Allocation Info"
+\endcond
 
 - To generate the actual C file from this config file, run the following from the
   SDK root directory once you have saved the config in GUI:

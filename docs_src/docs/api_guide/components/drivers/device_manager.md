@@ -47,7 +47,7 @@ During low power mode, the DM R5 will suspend its sciclient services, stop the s
 During low power mode, DDR is kept in self refresh, which means DM R5 cannot run from DDR. As a result, DM R5 run from the TCM memory instead. However, if users want to use the TCM memory for a user application, low power mode can be disabled, and then the TCM memory will be available for the user application. To do so, follow the steps below:
 
   - Update the  line '-CONFIG_LPM_DM=y' in  source/drivers/device_manager/rm_pm_hal/BuildConfiguration`@VAR_SOC_NAME`.mk to '-CONFIG_LPM_DM=n'.
-\cond SOC_AM62X || SOC_AM62AX || SOC_AM62DX
+\cond SOC_AM62X || SOC_AM62AX || SOC_AM62DX || SOC_AM275X
   - Remove the  line '-DCONFIG_LPM_DM \' from  source/drivers/device_manager/sciclient_direct/makefile.`@VAR_SOC_NAME_LOWER`.r5f.ti-arm-clang'.
   - Remove the  line '-DCONFIG_LPM_DM \' from  source/drivers/device_manager/sciserver/makefile.`@VAR_SOC_NAME_LOWER`.r5f.ti-arm-clang.
   - Remove the  line '-DCONFIG_LPM_DM \' from  source/drivers/device_manager/self_reset/makefile.`@VAR_SOC_NAME_LOWER`.r5f.ti-arm-clang.

@@ -13,6 +13,7 @@ const component_file_list = [
     "source/kernel/nortos/.project/project.js",
     "source/kernel/freertos/.project/project.js",
     "test/unity/.project/project.js",
+    "docs_src/docs/api_guide/doxy_samples/.project/project.js",
 ];
 
 
@@ -32,10 +33,6 @@ const example_file_list = [
     "examples/board/eeprom/eeprom_read_write/.project/project.js",
     "examples/empty/.project/project_nortos.js",
     "examples/empty/.project/project_freertos.js",
-    // "examples/drivers/ecap/ecap_apwm_mode/.project/project.js",
-    // "examples/drivers/ecap/ecap_epwm_loopback/.project/project.js",
-    // "examples/drivers/epwm/epwm_duty_cycle/.project/project.js",
-    // "examples/drivers/epwm/epwm_duty_cycle_sync/.project/project.js",
     "examples/drivers/gpio/gpio_input_interrupt/.project/project.js",
     "examples/drivers/gpio/gpio_led_blink/.project/project.js",
     "examples/drivers/i2c/i2c_read/.project/project.js",
@@ -58,7 +55,6 @@ const example_file_list = [
     "examples/hello_world/.project/project.js",
     "examples/kernel/dpl/dpl_demo/.project/project.js",
     "examples/kernel/freertos/dhrystone_benchmark/.project/project.js",
-    //"examples/kernel/freertos/memcpy_benchmark/.project/project.js",
     "examples/kernel/freertos/posix_demo/.project/project.js",
     "examples/kernel/freertos/task_switch/.project/project.js",
 
