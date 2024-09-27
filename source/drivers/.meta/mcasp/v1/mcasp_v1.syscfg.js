@@ -55,12 +55,7 @@ function pinmuxRequirements(inst) {
         resources: resources,
     };
 
-    let systemPinmux = {
-        name: "SYSTEM",
-        displayName: "System",
-        interfaceName: "SYSTEM",
-        resources: systemResources
-    };
+    let systemPinmux = soc.getSystemPinmux(systemResources);
 
     return [mcasp, systemPinmux];
 }

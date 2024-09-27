@@ -11,28 +11,18 @@ function getInterfaceName(inst) {
 function getInstanceString(moduleInstance) {
     let interfaceName = getInterfaceName(moduleInstance);
     let peripheralName = interfaceName;
-    // if( interfaceName == "GPIO")
-    //     peripheralName = "GPIO_n"
     let solution = moduleInstance[peripheralName].$solution
 
-    // if ( peripheralName == "GPIO_n" ){
-        let splitStrings = (solution.peripheralPinName === null ) ? "": solution.peripheralPinName.split("_");
-        let gpioBank = splitStrings[0];
-        return gpioBank
-    // }
-    // else {
-    //     return solution.peripheralName;
-    // }
+    let splitStrings = (solution.peripheralPinName === null ) ? "": solution.peripheralPinName.split("_");
+    let gpioBank = splitStrings[0];
+    return gpioBank
 }
 
 function getPinIndex(moduleInstance) {
     let interfaceName = getInterfaceName(moduleInstance);
     let peripheralPinName;
 
-    // if( interfaceName == "GPIO")
-        peripheralPinName = moduleInstance[interfaceName].$solution.peripheralPinName;
-    // else
-    //     peripheralPinName = moduleInstance[interfaceName].gpioPin.$solution.peripheralPinName;
+    peripheralPinName = moduleInstance[interfaceName].$solution.peripheralPinName;
 
     if(! peripheralPinName)
         return "INVALID";
@@ -40,7 +30,6 @@ function getPinIndex(moduleInstance) {
     let splitStrings = peripheralPinName.split("_");
 
     /* The last split is the GPIO number */
-
     return splitStrings[splitStrings.length-1];
 }
 

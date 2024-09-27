@@ -37,7 +37,7 @@ const driverVer = {
         version: "v0",
     },
     "mmcsd": {
-        version: "v0", //version check!
+        version: "v1",
     },
     "ospi": {
         version: "v0",
@@ -57,8 +57,6 @@ const driverVer = {
 };
 
 const topModules_wkup = [
-    "/drivers/gpio/gpio",
-    "/drivers/gtc/gtc",
     "/drivers/i2c/i2c",
     "/drivers/mmcsd/mmcsd",
     "/drivers/ospi/ospi",
@@ -73,7 +71,10 @@ const topModules_main = [
     "/drivers/gtc/gtc",
     "/drivers/i2c/i2c",
     "/drivers/mcan/mcan",
+    "/drivers/mcasp/mcasp",
     "/drivers/mcspi/mcspi",
+    "/drivers/mmcsd/mmcsd",
+    "/drivers/ospi/ospi",
     "/drivers/uart/uart",
     "/drivers/udma/udma",
     "/drivers/watchdog/watchdog",
@@ -91,9 +92,10 @@ const topModules_c75 = [
     "/drivers/ospi/ospi",
     "/drivers/uart/uart",
     "/drivers/udma/udma",
+    "/drivers/watchdog/watchdog",
 ];
 
-function getCpuID() { // Work needed
+function getCpuID() {
     let corename_map = {
         "wkup-r5fss0-0" : "CSL_CORE_ID_WKUP_R5FSS0_0",
         "r5fss0-0" : "CSL_CORE_ID_R5FSS0_0",

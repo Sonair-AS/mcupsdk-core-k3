@@ -600,9 +600,9 @@ extern "C" {
 /** @} */
 
 /* Start of C7x events associated to CLEC that UDMA Driver will manage */
-#define UDMA_C7X_CORE_INTR_OFFSET               (32U)
+#define UDMA_C7X_CORE_INTR_OFFSET               (52U)
 /* Number of C7x Events available for UDMA */
-#define UDMA_C7X_CORE_NUM_INTR                  (16)
+#define UDMA_C7X_CORE_NUM_INTR                  (10U)
 
 /* CLEC offset for VINT */
 #define UDMA_VINT_CLEC_OFFSET                   (256U)

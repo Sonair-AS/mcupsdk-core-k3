@@ -418,10 +418,10 @@ int32_t OSPI_phyReadAttackVector(OSPI_Handle handle, uint32_t offset)
     volatile uint32_t *src = (volatile uint32_t *)(flashDataBaseAddr + offset);
     volatile uint32_t *dst = (volatile uint32_t *)gReadBuf;
     uint32_t *compBuf = (uint32_t *)gOspiFlashAttackVector;
-
+    uint32_t count = 0U;
     OSPI_enableDacMode(handle);
 
-    for(uint32_t count = 0U; count < OSPI_FLASH_ATTACK_VECTOR_SIZE/sizeof(uint32_t); count++)
+    for(count = 0U; count < OSPI_FLASH_ATTACK_VECTOR_SIZE/sizeof(uint32_t); count++)
     {
         dst[count] = src[count];
         if(dst[count] != compBuf[count])

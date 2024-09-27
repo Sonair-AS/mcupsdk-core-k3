@@ -19,6 +19,8 @@ const topModules_wkup_r5 = [
 ];
 
 const topModules_c75x = [
+    "/board/flash/flash",
+    "/board/led/led",
 ];
 
 exports = {

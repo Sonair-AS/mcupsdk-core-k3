@@ -22,6 +22,12 @@ const files_r5f={
 const files_c75x = {
     common: [
         "ioexp_tca6424.c",
+        "led.c",
+        "led_ioexp.c",
+        "flash.c",
+        "flash_nand_ospi.c",
+        "flash_nor_ospi.c",
+        "nor_spi_sfdp.c",
     ],
 };
 

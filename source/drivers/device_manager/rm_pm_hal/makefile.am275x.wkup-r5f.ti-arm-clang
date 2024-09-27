@@ -27,7 +27,7 @@ Final_FILES_common = $(foreach var,$(SRCS_COMMON), $(lastword $(subst /, ,$(var)
 FInd_dir = $(shell find . -maxdepth 5 -type d -not -name "*j7*" -not -name "*am65*" \
     -not -name "*am62x*" -not -name "*am64*")
 CFGG += ../priv/osal/
-DEFINES += -DSOC_am275x -DMCU_PLUS_SDK
+DEFINES += -DSOC_AM275X -DMCU_PLUS_SDK
 CFLAGS_LOCAL_COMMON_NEW += \
     -I../priv/ \
     -I../priv/trace/ \

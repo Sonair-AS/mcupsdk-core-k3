@@ -548,32 +548,6 @@ static int32_t Flash_norOspiSetModeDummy(Flash_Config *config, void *ospiHandle)
     return status;
 }
 
-static int32_t Flash_norOspiSetDTR(Flash_Config *config, void *ospiHandle)
-{
-    int32_t status = SystemP_SUCCESS;
-
-    if((config == NULL) || (NULL == ospiHandle))
-    {
-        status = SystemP_FAILURE;
-    }
-    else
-    {
-        Flash_DevConfig *devCfg = config->devConfig;
-        Flash_NorOspiObject *obj = (Flash_NorOspiObject *)(config->object);
-        FlashCfg_RegConfig *dtrCfg = &(devCfg->protocolCfg.strDtrCfg);
-
-        /* Check if STR/DTR is configured with addressed registers */
-        status = Flash_norOspiSetRegCfg(config, dtrCfg);
-        if(devCfg->protocolCfg.protocol == FLASH_CFG_PROTO_8D_8D_8D)
-        {
-            obj->currentProtocol = FLASH_CFG_PROTO_8D_8D_8D;
-        }
-        status = Flash_norOspiWaitReady(config, devCfg->flashBusyTimeout);
-    }
-
-    return status;
-}
-
 static int32_t Flash_set444mode(Flash_Config *config, uint8_t seq)
 {
     int32_t status = SystemP_SUCCESS;
@@ -1225,7 +1199,7 @@ static int32_t Flash_norOspiOpen(Flash_Config *config, Flash_Params *params)
                 OSPI_setRdDataCaptureDelay(obj->ospiHandle, readDataCapDelay, TRUE);
                 attackVectorStatus = OSPI_phyReadAttackVector(obj->ospiHandle, phyTuningOffset);
             }
-            
+
             if(SystemP_SUCCESS == attackVectorStatus)
             {
                 obj->phyEnable = TRUE;

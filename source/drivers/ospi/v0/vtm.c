@@ -220,7 +220,8 @@ int32_t VTM_getAverageTemperature(float *temperature)
 
         sensorCount = VTM_getSensorCount(config1);
 
-        for(uint32_t count = 0U; count < sensorCount; count++)
+        uint32_t count;
+        for(count = 0U; count < sensorCount; count++)
         {
             VTM_setContinousMode(&config2->TMPSENS[count], \
                                  VTM_TEMPERATURE_SENSOR_CONTINUOUS_MODE_SET);
@@ -249,7 +250,8 @@ void VTM_reset()
 
     sensorCount = VTM_getSensorCount(config1);
 
-    for(uint32_t count = 0U; count < sensorCount; count++)
+    uint32_t count;
+    for(count = 0U; count < sensorCount; count++)
     {
         VTM_resetSensorSetup(&config2->TMPSENS[count], \
                              VTM_TEMPERATURE_SENSOR_CONTINUOUS_MODE_RESET);

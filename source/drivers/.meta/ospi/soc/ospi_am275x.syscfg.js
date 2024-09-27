@@ -10,7 +10,7 @@ const ospi_config_r5fss = [
         inputClkFreq        : ospi_input_clk_freq,
         dacEnable           : false,
         baudRateDiv         : 4,
-        intrNum             : 171,
+        intrNum             : 178,
         phaseDelayElement   : 3,
         clockIds            : [ "TISCI_DEV_FSS1", "TISCI_DEV_FSS1_FSAS_0", "TISCI_DEV_FSS1_OSPI_0" ],
         clockFrequencies    : [
@@ -28,7 +28,48 @@ const ospi_config_r5fss = [
         inputClkFreq        : ospi_input_clk_freq,
         dacEnable           : false,
         baudRateDiv         : 4,
-        intrNum             : 171,
+        intrNum             : 0, //interrupt is not routed
+        phaseDelayElement   : 3,
+        clockIds            : [ "TISCI_DEV_FSS1", "TISCI_DEV_FSS1_FSAS_0", "TISCI_DEV_FSS1_OSPI_1" ],
+        clockFrequencies    : [
+            {
+                moduleId: "TISCI_DEV_FSS0_OSPI_1",
+                clkId   : "TISCI_DEV_FSS0_OSPI_1_OSPI_RCLK_CLK",
+                clkRate : ospi_input_clk_freq,
+            },
+        ],
+    },
+];
+
+const ospi_config_c7x = [
+    {
+        name                : "OSPI0",
+        baseAddr            : "CSL_FSS0_OSPI0_CTRL_BASE",
+        dataBaseAddr        : "CSL_FSS0_DAT_REG1_BASE",
+        inputClkFreq        : ospi_input_clk_freq,
+        dacEnable           : false,
+        baudRateDiv         : 4,
+        eventId             : 178 + 256,
+        intrNum             : 13,
+        phaseDelayElement   : 3,
+        clockIds            : [ "TISCI_DEV_FSS1", "TISCI_DEV_FSS1_FSAS_0", "TISCI_DEV_FSS1_OSPI_0" ],
+        clockFrequencies    : [
+            {
+                moduleId: "TISCI_DEV_FSS1_OSPI_0",
+                clkId   : "TISCI_DEV_FSS1_OSPI_0_OSPI_RCLK_CLK",
+                clkRate : ospi_input_clk_freq,
+            },
+        ],
+    },
+    {
+        name                : "OSPI1",
+        baseAddr            : "CSL_FSS1_OSPI1_CTRL_BASE",
+        dataBaseAddr        : "CSL_FSS1_DAT_REG1_BASE",
+        inputClkFreq        : ospi_input_clk_freq,
+        dacEnable           : false,
+        baudRateDiv         : 7,
+        eventId             : 0 + 256, //interrupt is not routed
+        intrNum             : 0,      //interrupt is not routed
         phaseDelayElement   : 3,
         clockIds            : [ "TISCI_DEV_FSS1", "TISCI_DEV_FSS1_FSAS_0", "TISCI_DEV_FSS1_OSPI_1" ],
         clockFrequencies    : [
@@ -152,12 +193,29 @@ const ospi_fast_phyTuning_sdr_config =
 
 function getDefaultConfig()
 {
-    return ospi_config_r5fss[0];
+    if(common.getSelfSysCfgCoreName().includes("r5f"))
+    {
+            return ospi_config_r5fss[0];
+    }
+    else if(common.getSelfSysCfgCoreName().match(/c7x*/))
+    {
+            return ospi_config_c7x[0];
+    }
 }
 
 function getConfigArr() {
+    let cpu = common.getSelfSysCfgCoreName();
+    let ospi_config;
+    if(cpu.includes("r5f"))
+    {
+        ospi_config = ospi_config_r5fss;
+    }
+    else if (cpu.match(/c75*/))
+    {
+        ospi_config = ospi_config_c7x;
+    }
 
-    return ospi_config_r5fss;
+    return ospi_config;
 }
 
 function getDmaRestrictedRegions() {

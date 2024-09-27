@@ -53,9 +53,9 @@ function getDefaultInstance() {
     let defaultInstanceMap = {
         "wkup-r5fss0-0": 0,
         "r5fss0-0": 0,
-        "r5fss0-1": 0,
-        "r5fss1-0": 0,
-        "r5fss1-1": 0,
+        "r5fss0-1": 1,
+        "r5fss1-0": 2,
+        "r5fss1-1": 3,
         "c75ss0-0": 0,
         "c75ss1-0": 0,
     }
@@ -74,7 +74,7 @@ function getStaticConfigArr() {
                 {
                     name: `WKUP_TIMER${i}`,
                     timerBaseAddr: 0x2B100000+ i*0x10000,
-                    timerHwiIntNum: 138 + i,
+                    timerHwiIntNum: 28 + i,
                     timerInputPreScaler: 1,
                     clkSelMuxAddr: 0x430081B0 + 4*i,
                     disableClkSourceConfig: false,
@@ -88,34 +88,56 @@ function getStaticConfigArr() {
     else if(cpu.match(/r5fss/)) {
         let staticConfig_r5f = [];
 
-        for(let i=0; i<1; i++)
+        for(let i=0; i<4; i++)
         {
             staticConfig_r5f.push(
                 {
                     name: `TIMER${i}`,
-                    timerBaseAddr: 0x04800000 + i*0x10000,
-                    timerHwiIntNum: 28 + i,
+                    timerBaseAddr: 0x02400000 + i*0x10000,
+                    timerHwiIntNum: 24 + i,
                     timerInputPreScaler: 1,
-                    clkSelMuxAddr: 0x04508060 + 4*i,
+                    clkSelMuxAddr: 0x001081B0 + 4*i,
                     disableClkSourceConfig: false,
-                    lockUnlockDomain: "SOC_DOMAIN_ID_MCU",
+                    lockUnlockDomain: "SOC_DOMAIN_ID_MAIN",
                     lockUnlockPartition: 2,
                 }
             )
         }
         staticConfigArr = staticConfig_r5f;
     }
-    else if(cpu.match(/c75ss/)){
+    else if(cpu.match(/c75ss0-0/)){
         let staticConfig_c75x = [];
 
-        for(let i=2; i<4; i++)
+        for(let i=4; i<5; i++)
         {
             staticConfig_c75x.push(
                 {
                     name: `TIMER${i}`,
-                    timerBaseAddr: 0x02400000+ i*0x10000,
-                    timerHwiIntNum: 8 + i,
-                    eventId: 120 + 256+  i, /* (256 - GIC SPI Intr start, ref: clec_spec am275_soc_event_out_mapping)*/
+                    timerBaseAddr: 0x02400000 + i*0x10000,
+                    timerHwiIntNum: 2 + i - 4,
+                    eventId: 152 + 256 +  i, /* (256 - GIC SPI Intr start, ref: clec_spec am275_soc_event_out_mapping)*/
+                    timerInputPreScaler: 1,
+                    clkSelMuxAddr: 0x001081B0 + 4*i,
+                    disableClkSourceConfig: false,
+                    lockUnlockDomain: "SOC_DOMAIN_ID_MAIN",
+                    lockUnlockPartition: 2,
+                }
+            )
+        }
+        staticConfigArr = staticConfig_c75x;
+
+    }
+    else if(cpu.match(/c75ss1-0/)){
+        let staticConfig_c75x = [];
+
+        for(let i=5; i<6; i++)
+        {
+            staticConfig_c75x.push(
+                {
+                    name: `TIMER${i}`,
+                    timerBaseAddr: 0x02400000 + i*0x10000,
+                    timerHwiIntNum: 2 + i - 5,
+                    eventId: 152 + 256 +  i, /* (256 - GIC SPI Intr start, ref: clec_spec am275_soc_event_out_mapping)*/
                     timerInputPreScaler: 1,
                     clkSelMuxAddr: 0x001081B0 + 4*i,
                     disableClkSourceConfig: false,

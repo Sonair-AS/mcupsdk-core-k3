@@ -152,6 +152,17 @@ function getPinmuxReq(txHclkSourceMux, rxHclkSourceMux)
     return systemResources;
 }
 
+function getSystemPinmux(systemResources)
+{
+    let systemPinmux = {
+        name: "SYSTEM",
+        displayName: "System",
+        interfaceName: "SYSTEM",
+        resources: systemResources
+    };
+
+    return systemPinmux;
+}
 
 exports = {
     getConfigArr,
@@ -160,4 +171,5 @@ exports = {
     getExtTxHclkSrc,
     getExtClkPins,
     getPinmuxReq,
+    getSystemPinmux,
 };

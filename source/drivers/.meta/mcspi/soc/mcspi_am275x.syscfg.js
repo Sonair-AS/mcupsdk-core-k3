@@ -20,7 +20,7 @@ const mcspi_config_r5fss = [
             },
             {
                 txCh    : "UDMA_PDMA_CH_MAIN0_MCSPI0_CH2_TX",
-                rxCh    : "UDMA_PDMA_CH_MAIN0_MCSPI1_CH2_RX",
+                rxCh    : "UDMA_PDMA_CH_MAIN0_MCSPI0_CH2_RX",
             },
             {
                 txCh    : "UDMA_PDMA_CH_MAIN0_MCSPI0_CH3_TX",
@@ -136,8 +136,8 @@ const mcspi_config_c7x = [
         name            : "SPI0",
         baseAddr        : "CSL_MCSPI0_CFG_BASE",
         inputClkFreq    : mcspi_input_clk_freq,
-        intrNum         : 16,
-        eventId         : 204 + 256,
+        intrNum         : 20,
+        eventId         : 204,
         clockIds        : [ "TISCI_DEV_MCSPI0" ],
         udmaPdmaChannels: [
             {
@@ -162,8 +162,8 @@ const mcspi_config_c7x = [
         name            : "SPI1",
         baseAddr        : "CSL_MCSPI1_CFG_BASE",
         inputClkFreq    : mcspi_input_clk_freq,
-        intrNum         : 17,
-        eventId         : 205 + 256,
+        intrNum         : 21,
+        eventId         : 205,
         clockIds        : [ "TISCI_DEV_MCSPI1" ],
         udmaPdmaChannels: [
             {
@@ -188,8 +188,8 @@ const mcspi_config_c7x = [
         name            : "SPI2",
         baseAddr        : "CSL_MCSPI2_CFG_BASE",
         inputClkFreq    : mcspi_input_clk_freq,
-        intrNum         : 18,
-        eventId         : 206 + 256,
+        intrNum         : 22,
+        eventId         : 206,
         clockIds        : [ "TISCI_DEV_MCSPI0" ],
         udmaPdmaChannels: [
             {
@@ -214,8 +214,8 @@ const mcspi_config_c7x = [
         name            : "SPI3",
         baseAddr        : "CSL_MCSPI3_CFG_BASE",
         inputClkFreq    : mcspi_input_clk_freq,
-        intrNum         : 19,
-        eventId         : 207 + 256,
+        intrNum         : 23,
+        eventId         : 207,
         clockIds        : [ "TISCI_DEV_MCSPI3" ],
         udmaPdmaChannels: [
             {
@@ -240,7 +240,7 @@ const mcspi_config_c7x = [
         name            : "SPI4",
         baseAddr        : "CSL_MCSPI4_CFG_BASE",
         inputClkFreq    : mcspi_input_clk_freq,
-        intrNum         : 20,
+        intrNum         : 24,
         eventId         : 108 + 256,
         clockIds        : [ "TISCI_DEV_MCSPI4" ],
         udmaPdmaChannels: [

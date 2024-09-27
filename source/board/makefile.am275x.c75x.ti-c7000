@@ -17,6 +17,12 @@ LIBNAME:=board.am275x.c75x.ti-c7000.$(PROFILE).lib
 
 FILES_common := \
     ioexp_tca6424.c \
+    led.c \
+    led_ioexp.c \
+    flash.c \
+    flash_nand_ospi.c \
+    flash_nor_ospi.c \
+    nor_spi_sfdp.c \
 
 FILES_PATH_common = \
     flash \

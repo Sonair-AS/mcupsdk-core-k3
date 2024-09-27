@@ -30,10 +30,20 @@ FILES_common := \
     i2c_v0.c \
     i2c_v0_lld.c \
     i2c_soc.c \
+    mcasp.c \
+    mcasp_dma.c \
+    mcasp_soc.c \
     mcan.c \
+    mmcsd_v1.c \
+    mmcsd_priv.c \
     mcspi_v0.c \
     mcspi_dma.c \
     mcspi_dma_udma.c \
+    ospi_v0.c \
+    ospi_dma.c \
+    ospi_dma_udma.c \
+    ospi_nor_flash.c \
+    ospi_phy.c \
     pinmux.c \
     sciclient.c \
     sciclient_pm.c \
@@ -44,9 +54,11 @@ FILES_common := \
     sciclient_irq_rm.c \
     sciclient_fmwSecureProxyMap.c \
     sciclient_soc_priv.c \
+    spinlock.c \
     soc.c \
     uart_v0.c \
     uart_dma.c \
+    uart_dma_udma.c \
     udma.c \
     udma_ch.c \
     udma_event.c \
@@ -59,6 +71,7 @@ FILES_common := \
     udma_rmcfg.c \
     udma_soc.c \
     utils.c \
+    vtm.c \
     watchdog_rti.c \
     watchdog_soc.c \
 
@@ -89,6 +102,7 @@ FILES_PATH_common = \
     pinmux/am275x \
     sciclient \
     sciclient/soc/am275x \
+    spinlock/v0 \
     soc/am275x \
     uart/v0 \
     uart/v0/dma \

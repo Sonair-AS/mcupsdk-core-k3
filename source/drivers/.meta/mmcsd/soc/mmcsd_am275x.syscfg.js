@@ -2,7 +2,7 @@ let common = system.getScript("/common");
 
 let mmcsd_input_clk_freq = 200000000;
 
-const mmcsd_config_wkup_r5f = [
+const mmcsd_config_r5f = [
 	{
 		name              : "MMC0",
 		ctrlBaseAddr      : "CSL_MMCSD0_CTL_CFG_BASE",
@@ -22,14 +22,14 @@ const mmcsd_config_wkup_r5f = [
 	},
 ];
 
-
-const mmcsd_config_c75 = [
+const mmcsd_config_c7x = [
 	{
 		name              : "MMC0",
 		ctrlBaseAddr      : "CSL_MMCSD0_CTL_CFG_BASE",
 		ssBaseAddr        : "CSL_MMCSD0_SS_CFG_BASE",
 		inputClkFreq      : mmcsd_input_clk_freq,
-		intrNum           : 165 + 256,
+		intrNum           : 14,
+        eventId           : 161 + 256,
 		busWidth          : "MMCSD_BUS_WIDTH_8BIT",
 		tuningType        : "MMCSD_PHY_TUNING_TYPE_AUTO", /* Make this configurable later */
 		clockIds          : [ "TISCI_DEV_MMCSD0" ],
@@ -42,7 +42,6 @@ const mmcsd_config_c75 = [
 		],
 	},
 ];
-
 
 const operating_modes_sd = [
     { name : "HS", displayName : "HS"},
@@ -71,27 +70,26 @@ function getDefaultOperatingModeSD() {
 }
 
 function getDefaultConfig() {
-    if(common.getSelfSysCfgCoreName().includes("wkup-r5f"))
+    if(common.getSelfSysCfgCoreName().includes("r5f"))
     {
-        return mmcsd_config_wkup_r5f[0];
+        return mmcsd_config_r5f[0];
+    }
+    else if(common.getSelfSysCfgCoreName().includes("c75"))
+    {
+        return mmcsd_config_c7x[0];
     }
 
-    if(common.getSelfSysCfgCoreName().includes("c75"))
-    {
-        return mmcsd_config_c75[0];
-    }
 }
 
 function getConfigArr() {
-    if(common.getSelfSysCfgCoreName().includes("wkup-r5f"))
+    if(common.getSelfSysCfgCoreName().includes("r5f"))
     {
-        return mmcsd_config_wkup_r5f;
+        return mmcsd_config_r5f;
     }
-    if(common.getSelfSysCfgCoreName().includes("c75"))
+    else if(common.getSelfSysCfgCoreName().includes("c75"))
     {
-        return mmcsd_config_c75;
+        return mmcsd_config_c7x;
     }
-
 
 }
 

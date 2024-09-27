@@ -1443,6 +1443,7 @@ int32_t OSPI_writeDirect(OSPI_Handle handle, OSPI_Transaction *trans)
     uint32_t wrWord;
     uint8_t wrByte;
     uint32_t size, remainingSize;
+    int i = 0;
     {
         offset = trans->addrOffset;
         dst = (uint8_t *)(attrs->dataBaseAddr + offset);
@@ -1450,14 +1451,14 @@ int32_t OSPI_writeDirect(OSPI_Handle handle, OSPI_Transaction *trans)
         remainingSize = trans->count & 3U;
         size = trans->count - remainingSize;
 
-        for(int i = 0; i < size; i+=4)
+        for(i = 0; i < size; i+=4)
         {
             wrWord = CSL_REG32_RD(src + i);
             CSL_REG32_WR(dst + i, wrWord);
             OSPI_waitIdle(handle, 1000u);
         }
 
-        for(int i = 0; i < remainingSize; i++)
+        for(i = 0; i < remainingSize; i++)
         {
             wrByte = CSL_REG8_RD(src + size + i);
             CSL_REG8_WR(dst + size + i, wrByte);
@@ -2169,3 +2170,4 @@ void OSPI_phyWriteTunedVal(OSPI_Handle handle)
 
     OSPI_phyResyncDLL(handle);
 }
+

@@ -171,7 +171,7 @@ const uart_config_c75 = [
         baseAddr        : "CSL_WKUP_UART0_BASE",
         inputClkFreq    : uart_input_clk_freq,
         intrNum         : 22,
-        eventId         : 186+256, /* (256 - GIC SPI Intr start, ref: clec_spec am62a_soc_event_out_mapping)*/
+        eventId         : 218 + 256, /* (256 - GIC SPI Intr start, ref: clec_spec am62a_soc_event_out_mapping)*/
         clockIds        : [ "TISCI_DEV_WKUP_UART0" ],
         clockFrequencies: [
             {
@@ -191,8 +191,8 @@ const uart_config_c75 = [
         name            : "UART0",
         baseAddr        : "CSL_UART0_BASE",
         inputClkFreq    : uart_input_clk_freq,
-        intrNum         : 24,
-        eventId         : 178+256, /* (256 - GIC SPI Intr start, ref: clec_spec am62a_soc_event_out_mapping)*/
+        intrNum         : 32,
+        eventId         : 210+256, /* (256 - GIC SPI Intr start, ref: clec_spec am62a_soc_event_out_mapping)*/
         clockIds        : [ "TISCI_DEV_UART0" ],
         clockFrequencies: [
             {
@@ -212,8 +212,8 @@ const uart_config_c75 = [
         name            : "UART1",
         baseAddr        : "CSL_UART1_BASE",
         inputClkFreq    : uart_input_clk_freq,
-        intrNum         : 25,
-        eventId         : 179+256, /* (256 - GIC SPI Intr start, ref: clec_spec am62a_soc_event_out_mapping)*/
+        intrNum         : 33,
+        eventId         : 211+256, /* (256 - GIC SPI Intr start, ref: clec_spec am62a_soc_event_out_mapping)*/
         clockIds        : [ "TISCI_DEV_UART1" ],
         clockFrequencies: [
             {
@@ -233,8 +233,8 @@ const uart_config_c75 = [
         name            : "UART2",
         baseAddr        : "CSL_UART2_BASE",
         inputClkFreq    : uart_input_clk_freq,
-        intrNum         : 26,
-        eventId         : 180+256, /* (256 - GIC SPI Intr start, ref: clec_spec am62a_soc_event_out_mapping)*/
+        intrNum         : 34,
+        eventId         : 212+256, /* (256 - GIC SPI Intr start, ref: clec_spec am62a_soc_event_out_mapping)*/
         clockIds        : [ "TISCI_DEV_UART2" ],
         clockFrequencies: [
             {
@@ -254,8 +254,8 @@ const uart_config_c75 = [
         name            : "UART3",
         baseAddr        : "CSL_UART3_BASE",
         inputClkFreq    : uart_input_clk_freq,
-        intrNum         : 27,
-        eventId         : 181+256, /* (256 - GIC SPI Intr start, ref: clec_spec am62a_soc_event_out_mapping)*/
+        intrNum         : 35,
+        eventId         : 213+256, /* (256 - GIC SPI Intr start, ref: clec_spec am62a_soc_event_out_mapping)*/
         clockIds        : [ "TISCI_DEV_UART3" ],
         clockFrequencies: [
             {
@@ -275,8 +275,8 @@ const uart_config_c75 = [
         name            : "UART4",
         baseAddr        : "CSL_UART4_BASE",
         inputClkFreq    : uart_input_clk_freq,
-        intrNum         : 28,
-        eventId         : 182+256, /* (256 - GIC SPI Intr start, ref: clec_spec am62a_soc_event_out_mapping)*/
+        intrNum         : 36,
+        eventId         : 214+256, /* (256 - GIC SPI Intr start, ref: clec_spec am62a_soc_event_out_mapping)*/
         clockIds        : [ "TISCI_DEV_UART4" ],
         clockFrequencies: [
             {
@@ -296,8 +296,8 @@ const uart_config_c75 = [
         name            : "UART5",
         baseAddr        : "CSL_UART5_BASE",
         inputClkFreq    : uart_input_clk_freq,
-        intrNum         : 29,
-        eventId         : 183+256, /* (256 - GIC SPI Intr start, ref: clec_spec am62a_soc_event_out_mapping)*/
+        intrNum         : 37,
+        eventId         : 215+256, /* (256 - GIC SPI Intr start, ref: clec_spec am62a_soc_event_out_mapping)*/
         clockIds        : [ "TISCI_DEV_UART5" ],
         clockFrequencies: [
             {
@@ -317,8 +317,8 @@ const uart_config_c75 = [
         name            : "UART6",
         baseAddr        : "CSL_UART6_BASE",
         inputClkFreq    : uart_input_clk_freq,
-        intrNum         : 30,
-        eventId         : 184+256, /* (256 - GIC SPI Intr start, ref: clec_spec am62a_soc_event_out_mapping)*/
+        intrNum         : 38,
+        eventId         : 216+256, /* (256 - GIC SPI Intr start, ref: clec_spec am62a_soc_event_out_mapping)*/
         clockIds        : [ "TISCI_DEV_UART6" ],
         clockFrequencies: [
             {
@@ -339,11 +339,11 @@ const uart_config_c75 = [
 function getConfigArr() {
     let uart_config;
 
-    if(common.getSelfSysCfgCoreName().includes("c75")) {
-        uart_config = uart_config_c75;
-    }
-    else {
+    if(common.getSelfSysCfgCoreName().match(/r5f*/)) {
         uart_config = uart_config_r5;
+    }
+    else if(common.getSelfSysCfgCoreName().match(/c75*/)) {
+        uart_config = uart_config_c75;
     }
 
     return uart_config;

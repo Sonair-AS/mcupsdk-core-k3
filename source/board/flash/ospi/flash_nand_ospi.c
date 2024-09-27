@@ -312,6 +312,7 @@ static int32_t Flash_nandOspiPageProgram(Flash_Config *config, uint32_t pageNum)
 {
     int32_t status = SystemP_SUCCESS;
     uint8_t cmd;
+    int timeOut = 0;
     Flash_NandOspiObject *obj = NULL;
     Flash_DevConfig *devCfg = NULL;
     Flash_Attrs *attrs = NULL;
@@ -349,7 +350,7 @@ static int32_t Flash_nandOspiPageProgram(Flash_Config *config, uint32_t pageNum)
 
     if(status == SystemP_SUCCESS)
     {
-        for(int timeOut = 10000U; timeOut > 0U; timeOut--)
+        for(timeOut = 10000U; timeOut > 0U; timeOut--)
         {
             status = Flash_nandOspiCheckProgStatus(config);
             if(status == SystemP_SUCCESS)
@@ -380,6 +381,7 @@ static int32_t Flash_nandOspiRead(Flash_Config *config, uint32_t offset, uint8_t
     uint32_t pageNum;
     uint32_t readAddr;
     uint32_t blkNum;
+    uint32_t i;
 
     if(config == NULL)
     {
@@ -418,7 +420,7 @@ static int32_t Flash_nandOspiRead(Flash_Config *config, uint32_t offset, uint8_t
         numPages = (len + (pageSize - 1) + offsetFromPage) / pageSize;
         readAddr = offset;
 
-        for(uint32_t i = 0; i < numPages; i++)
+        for(i = 0; i < numPages; i++)
         {
             status = Flash_nandOspiPageLoad(config, pageNum * pageSize);
 
@@ -431,7 +433,7 @@ static int32_t Flash_nandOspiRead(Flash_Config *config, uint32_t offset, uint8_t
                 }
 
                 OSPI_Transaction_init(&transaction);
-                transaction.buf = (void *)buf + readAddr - offset;
+                transaction.buf = (void *)(buf + readAddr - offset);
                 transaction.dmaCopyLowerLimit = OSPI_NAND_DMA_COPY_LOWER_LIMIT;
 
                 if(numPages == 1)
@@ -708,7 +710,8 @@ static int32_t Flash_nandOspiErase(Flash_Config *config, uint32_t blkNum)
 
             if(status == SystemP_SUCCESS)
             {
-                for(int timeOut = 10000; timeOut > 0; timeOut--)
+                int timeOut = 0;
+                for(timeOut = 10000; timeOut > 0; timeOut--)
                 {
                     status = Flash_nandOspiCheckEraseStatus(config);
                     if(status == SystemP_SUCCESS)

@@ -1,7 +1,6 @@
 let common = system.getScript("/common");
 let pinmux = system.getScript("/drivers/pinmux/pinmux");
 let soc    = system.getScript(`/drivers/mmcsd/soc/mmcsd_${common.getSocName()}`);
-//let socName = system.getScript("/common").getSocName();
 
 function getConfigArr() {
 	return soc.getConfigArr();
@@ -63,58 +62,110 @@ function pinmuxRequirements(instance) {
 	let resources = [];
     let pinResource = {};
 
-    if(interfaceName == "MMC0")
+    if (interfaceName == "MMC")
+    {
+        pinResource = pinmux.getPinRequirements(interfaceName, "MMC_CLK", "MMC0 CLK Pin");
+        pinmux.setConfigurableDefault(pinResource, "rx", true);
+        pinmux.setConfigurableDefault(pinResource, "pu_pd", "nopull");
+        resources.push(pinResource);
+
+        pinResource = pinmux.getPinRequirements(interfaceName, "MMC_CMD", "MMC0 CMD Pin");
+        pinmux.setConfigurableDefault(pinResource, "rx", true);
+        pinmux.setConfigurableDefault(pinResource, "pu_pd", "nopull");
+        resources.push(pinResource);
+
+        pinResource = pinmux.getPinRequirements(interfaceName, "MMC_DAT0", "MMC0 DAT0 Pin");
+        pinmux.setConfigurableDefault(pinResource, "rx", true);
+        pinmux.setConfigurableDefault(pinResource, "pu_pd", "nopull");
+        resources.push(pinResource);
+
+        pinResource = pinmux.getPinRequirements(interfaceName, "MMC_DAT1", "MMC0 DAT1 Pin");
+        pinmux.setConfigurableDefault(pinResource, "rx", true);
+        pinmux.setConfigurableDefault(pinResource, "pu_pd", "pu");
+        resources.push(pinResource);
+
+        pinResource = pinmux.getPinRequirements(interfaceName, "MMC_DAT2", "MMC0 DAT2 Pin");
+        pinmux.setConfigurableDefault(pinResource, "rx", true);
+        pinmux.setConfigurableDefault(pinResource, "pu_pd", "pu");
+        resources.push(pinResource);
+
+        pinResource = pinmux.getPinRequirements(interfaceName, "MMC_DAT3", "MMC0 DAT3 Pin");
+        pinmux.setConfigurableDefault(pinResource, "rx", true);
+        pinmux.setConfigurableDefault(pinResource, "pu_pd", "pu");
+        resources.push(pinResource);
+
+        pinResource = pinmux.getPinRequirements(interfaceName, "MMC_DAT4", "MMC0 DAT4 Pin");
+        pinmux.setConfigurableDefault(pinResource, "rx", true);
+        pinmux.setConfigurableDefault(pinResource, "pu_pd", "pu");
+        resources.push(pinResource);
+
+        pinResource = pinmux.getPinRequirements(interfaceName, "MMC_DAT5", "MMC0 DAT5 Pin");
+        pinmux.setConfigurableDefault(pinResource, "rx", true);
+        pinmux.setConfigurableDefault(pinResource, "pu_pd", "pu");
+        resources.push(pinResource);
+
+        pinResource = pinmux.getPinRequirements(interfaceName, "MMC_DAT6", "MMC0 DAT6 Pin");
+        pinmux.setConfigurableDefault(pinResource, "rx", true);
+        pinmux.setConfigurableDefault(pinResource, "pu_pd", "pu");
+        resources.push(pinResource);
+
+        pinResource = pinmux.getPinRequirements(interfaceName, "MMC_DAT7", "MMC0 DAT7 Pin");
+        pinmux.setConfigurableDefault(pinResource, "rx", true);
+        pinmux.setConfigurableDefault(pinResource, "pu_pd", "pu");
+        resources.push(pinResource);
+    }
+
+    if (interfaceName == "MMC0")
     {
         pinResource = pinmux.getPinRequirements(interfaceName, "CLK", "MMC0 CLK Pin");
-        pinmux.setConfigurableDefault( pinResource, "rx", true );
-        pinmux.setConfigurableDefault( pinResource, "pu_pd", "nopull" );
-        resources.push( pinResource);
+        pinmux.setConfigurableDefault(pinResource, "rx", true);
+        pinmux.setConfigurableDefault(pinResource, "pu_pd", "nopull");
+        resources.push(pinResource);
 
         pinResource = pinmux.getPinRequirements(interfaceName, "CMD", "MMC0 CMD Pin");
-        pinmux.setConfigurableDefault( pinResource, "rx", true );
-        pinmux.setConfigurableDefault( pinResource, "pu_pd", "nopull" );
-        resources.push( pinResource);
+        pinmux.setConfigurableDefault(pinResource, "rx", true);
+        pinmux.setConfigurableDefault(pinResource, "pu_pd", "nopull");
+        resources.push(pinResource);
 
         pinResource = pinmux.getPinRequirements(interfaceName, "DAT0", "MMC0 DAT0 Pin");
-        pinmux.setConfigurableDefault( pinResource, "rx", true );
-        pinmux.setConfigurableDefault( pinResource, "pu_pd", "nopull" );
-        resources.push( pinResource);
+        pinmux.setConfigurableDefault(pinResource, "rx", true);
+        pinmux.setConfigurableDefault(pinResource, "pu_pd", "nopull");
+        resources.push(pinResource);
 
         pinResource = pinmux.getPinRequirements(interfaceName, "DAT1", "MMC0 DAT1 Pin");
-        pinmux.setConfigurableDefault( pinResource, "rx", true );
-        pinmux.setConfigurableDefault( pinResource, "pu_pd", "pu" );
-        resources.push( pinResource);
+        pinmux.setConfigurableDefault(pinResource, "rx", true);
+        pinmux.setConfigurableDefault(pinResource, "pu_pd", "pu");
+        resources.push(pinResource);
 
         pinResource = pinmux.getPinRequirements(interfaceName, "DAT2", "MMC0 DAT2 Pin");
-        pinmux.setConfigurableDefault( pinResource, "rx", true );
-        pinmux.setConfigurableDefault( pinResource, "pu_pd", "pu" );
-        resources.push( pinResource);
+        pinmux.setConfigurableDefault(pinResource, "rx", true);
+        pinmux.setConfigurableDefault(pinResource, "pu_pd", "pu");
+        resources.push(pinResource);
 
         pinResource = pinmux.getPinRequirements(interfaceName, "DAT3", "MMC0 DAT3 Pin");
-        pinmux.setConfigurableDefault( pinResource, "rx", true );
-        pinmux.setConfigurableDefault( pinResource, "pu_pd", "pu" );
-        resources.push( pinResource);
+        pinmux.setConfigurableDefault(pinResource, "rx", true);
+        pinmux.setConfigurableDefault(pinResource, "pu_pd", "pu");
+        resources.push(pinResource);
 
         pinResource = pinmux.getPinRequirements(interfaceName, "DAT4", "MMC0 DAT4 Pin");
-        pinmux.setConfigurableDefault( pinResource, "rx", true );
-        pinmux.setConfigurableDefault( pinResource, "pu_pd", "pu" );
-        resources.push( pinResource);
-
+        pinmux.setConfigurableDefault(pinResource, "rx", true);
+        pinmux.setConfigurableDefault(pinResource, "pu_pd", "pu");
+        resources.push(pinResource);
 
         pinResource = pinmux.getPinRequirements(interfaceName, "DAT5", "MMC0 DAT5 Pin");
-        pinmux.setConfigurableDefault( pinResource, "rx", true );
-        pinmux.setConfigurableDefault( pinResource, "pu_pd", "pu" );
-        resources.push( pinResource);
+        pinmux.setConfigurableDefault(pinResource, "rx", true);
+        pinmux.setConfigurableDefault(pinResource, "pu_pd", "pu");
+        resources.push(pinResource);
 
         pinResource = pinmux.getPinRequirements(interfaceName, "DAT6", "MMC0 DAT6 Pin");
-        pinmux.setConfigurableDefault( pinResource, "rx", true );
-        pinmux.setConfigurableDefault( pinResource, "pu_pd", "pu" );
-        resources.push( pinResource);
+        pinmux.setConfigurableDefault(pinResource, "rx", true);
+        pinmux.setConfigurableDefault(pinResource, "pu_pd", "pu");
+        resources.push(pinResource);
 
         pinResource = pinmux.getPinRequirements(interfaceName, "DAT7", "MMC0 DAT7 Pin");
-        pinmux.setConfigurableDefault( pinResource, "rx", true );
-        pinmux.setConfigurableDefault( pinResource, "pu_pd", "pu" );
-        resources.push( pinResource);
+        pinmux.setConfigurableDefault(pinResource, "rx", true);
+        pinmux.setConfigurableDefault(pinResource, "pu_pd", "pu");
+        resources.push(pinResource);
 
     }
 
@@ -174,6 +225,10 @@ function getPeripheralPinNames(inst) {
 
     if(getInterfaceName(inst) == "MMC0") {
 		return ["CLK", "CMD", "DAT0", "DAT1", "DAT2", "DAT3", "DAT4", "DAT5", "DAT6", "DAT7"];
+	}
+
+    if(getInterfaceName(inst) == "MMC") {
+		return ["MMC_CLK", "MMC_CMD", "MMC_DAT0", "MMC_DAT1", "MMC_DAT2", "MMC_DAT3", "MMC_DAT4", "MMC_DAT5", "MMC_DAT6", "MMC_DAT7"];
 	}
 
     return [ ];
@@ -319,22 +374,22 @@ function getConfigurables()
             options: soc.getOperatingModesSD(),
             hidden: true,
         },
-		{
-			name: "inputClkFreq",
-			displayName: "Input Clock Frequency (Hz)",
-			default: soc.getDefaultConfig().inputClkFreq,
-		},
-		{
-			name: "cardType",
-			displayName: "Card Type",
-			default: "EMMC",
+        {
+            name: "inputClkFreq",
+            displayName: "Input Clock Frequency (Hz)",
+            default: soc.getDefaultConfig().inputClkFreq,
+        },
+        {
+            name: "cardType",
+            displayName: "Card Type",
+            default: "EMMC",
             options: [
                 { name: "EMMC" },
                 { name: "SD" },
                 { name: "NO_DEVICE" },
             ],
-		},
-		{
+        },
+        {
             name: "intrEnable",
             displayName: "Interrupt Mode Enable",
             description: "NOT tested, DO NOT USE",
@@ -348,9 +403,9 @@ function getConfigurables()
             hidden: true,
         },
         {
-			name: "phyType",
-			displayName: "PHY Type",
-			options: [
+            name: "phyType",
+            displayName: "PHY Type",
+            options: [
                 { name: "HW_PHY" },
                 { name: "SW_PHY" },
                 { name: "NO_PHY" },
@@ -370,6 +425,8 @@ function getConfigurables()
 
 function validate(inst, report) {
 
+    return config;
 }
+
 
 exports = mmcsd_module;

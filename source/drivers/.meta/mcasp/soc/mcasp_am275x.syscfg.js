@@ -10,12 +10,12 @@ const mcasp_config = [
         dataRegBaseAddr             : "CSL_MCASP0_DMA_BASE",
         numSerializers              : 16,
         inputClkFreq                : mcasp_input_clk_freq,
-        r5RxIntr                    : 120,
-        r5TxIntr                    : 121,
+        wkupR5RxIntr                : 120,
+        wkupR5TxIntr                : 121,
         c7xRxIntr                   : 267,
         c7xTxIntr                   : 268,
-        c7xRxEvent                  : 235,
-        c7xTxEvent                  : 236,
+        c7xRxEvent                  : 39,
+        c7xTxEvent                  : 40,
         clockIds                    : ["TISCI_DEV_MCASP0"],
         clockFrequencies            : [
             {
@@ -37,12 +37,12 @@ const mcasp_config = [
         dataRegBaseAddr             : "CSL_MCASP1_DMA_BASE",
         numSerializers              : 16,
         inputClkFreq                : mcasp_input_clk_freq,
-        r5RxIntr                    : 122,
-        r5TxIntr                    : 123,
+        wkupR5RxIntr                : 122,
+        wkupR5TxIntr                : 123,
         c7xRxIntr                   : 269,
         c7xTxIntr                   : 270,
-        c7xRxEvent                  : 237,
-        c7xTxEvent                  : 238,
+        c7xRxEvent                  : 41,
+        c7xTxEvent                  : 42,
         clockIds                    : ["TISCI_DEV_MCASP1"],
         clockFrequencies            : [
             {
@@ -64,12 +64,12 @@ const mcasp_config = [
         dataRegBaseAddr             : "CSL_MCASP2_DMA_BASE",
         numSerializers              : 16,
         inputClkFreq                : mcasp_input_clk_freq,
-        r5RxIntr                    : 124,
-        r5TxIntr                    : 125,
+        wkupR5RxIntr                : 124,
+        wkupR5TxIntr                : 125,
         c7xRxIntr                   : 271,
         c7xTxIntr                   : 272,
-        c7xRxEvent                  : 239,
-        c7xTxEvent                  : 240,
+        c7xRxEvent                  : 43,
+        c7xTxEvent                  : 44,
         clockIds                    : ["TISCI_DEV_MCASP2"],
         clockFrequencies            : [
             {
@@ -91,12 +91,12 @@ const mcasp_config = [
         dataRegBaseAddr             : "CSL_MCASP3_DMA_BASE",
         numSerializers              : 16,
         inputClkFreq                : mcasp_input_clk_freq,
-        r5RxIntr                    : 126,
-        r5TxIntr                    : 127,
+        wkupR5RxIntr                : 126,
+        wkupR5TxIntr                : 127,
         c7xRxIntr                   : 273,
         c7xTxIntr                   : 274,
-        c7xRxEvent                  : 239,
-        c7xTxEvent                  : 240,
+        c7xRxEvent                  : 45,
+        c7xTxEvent                  : 46,
         clockIds                    : ["TISCI_DEV_MCASP2"],
         clockFrequencies            : [
             {
@@ -118,12 +118,12 @@ const mcasp_config = [
         dataRegBaseAddr             : "CSL_MCASP4_DMA_BASE",
         numSerializers              : 16,
         inputClkFreq                : mcasp_input_clk_freq,
-        r5RxIntr                    : 130,
-        r5TxIntr                    : 131,
+        wkupR5RxIntr                : 130,
+        wkupR5TxIntr                : 131,
         c7xRxIntr                   : 275,
         c7xTxIntr                   : 276,
-        c7xRxEvent                  : 239,
-        c7xTxEvent                  : 240,
+        c7xRxEvent                  : 47,
+        c7xTxEvent                  : 48,
         clockIds                    : ["TISCI_DEV_MCASP2"],
         clockFrequencies            : [
             {
@@ -184,30 +184,42 @@ function getPinmuxReq(txHclkSourceMux, rxHclkSourceMux)
 
     if(txHclkSourceMux == 0 || rxHclkSourceMux == 0)
     {
-        pinResource = pinmux.getPinRequirements("SYSTEM", "EXT_REFCLK1", "External ref clk 1");
+        pinResource = pinmux.getPinRequirements("CLOCKING", "EXT_REFCLK1", "External ref clk 1");
         pinmux.setConfigurableDefault( pinResource, "rx", true );
         systemResources.push(pinResource);
     }
     if(txHclkSourceMux == 1 || rxHclkSourceMux == 1)
     {
-        pinResource = pinmux.getPinRequirements("SYSTEM", "CLKOUT0", "High Frequency Oscillator clk out 0");
+        pinResource = pinmux.getPinRequirements("CLOCKING", "CLKOUT0", "High Frequency Oscillator clk out 0");
         pinmux.setConfigurableDefault( pinResource, "rx", true );
         systemResources.push(pinResource);
     }
     if(txHclkSourceMux == 2 || rxHclkSourceMux == 2)
     {
-        pinResource = pinmux.getPinRequirements("SYSTEM", "AUDIO_EXT_REFCLK0", "Audio external ref clk 0");
+        pinResource = pinmux.getPinRequirements("CLOCKING", "AUDIO_EXT_REFCLK0", "Audio external ref clk 0");
         pinmux.setConfigurableDefault( pinResource, "rx", true );
         systemResources.push(pinResource);
     }
     if(txHclkSourceMux == 3 || rxHclkSourceMux == 3)
     {
-        pinResource = pinmux.getPinRequirements("SYSTEM", "AUDIO_EXT_REFCLK1", "Audio external ref clk 1");
+        pinResource = pinmux.getPinRequirements("CLOCKING", "AUDIO_EXT_REFCLK1", "Audio external ref clk 1");
         pinmux.setConfigurableDefault( pinResource, "rx", true );
         systemResources.push(pinResource);
     }
 
     return systemResources;
+}
+
+function getSystemPinmux(systemResources)
+{
+    let clockingPinmux = {
+        name: "CLOCKING",
+        displayName: "Clocking",
+        interfaceName: "CLOCKING",
+        resources: systemResources
+    };
+
+    return clockingPinmux;
 }
 
 exports = {
@@ -217,4 +229,5 @@ exports = {
     getExtTxHclkSrc,
     getExtClkPins,
     getPinmuxReq,
+    getSystemPinmux,
 };

@@ -78,12 +78,12 @@ extern "C"
 typedef void  *Flash_Handle;
 
 /**
- * \brief Forward declaration of \ref Flash_Config
+ * \brief Forward declaration of \ref Flash_Config_s
  */
 typedef struct Flash_Config_s Flash_Config;
 
 /**
- * \brief Forward declaration of \ref Flash_Params
+ * \brief Forward declaration of \ref Flash_Params_s
  */
 typedef struct Flash_Params_s Flash_Params;
 
@@ -300,12 +300,12 @@ typedef int32_t (*Flash_custProtocolFxn)(Flash_Config *config);
 /**
  * \brief Parameters passed during Flash_open()
  */
-typedef struct Flash_Params_s {
+struct Flash_Params_s {
 
     Flash_quirksFxn quirksFxn;
     Flash_custProtocolFxn custProtoFxn;
 
-} Flash_Params;
+};
 
 /**
  * \brief Driver implementation callbacks
@@ -348,7 +348,7 @@ typedef struct Flash_Attrs_s {
 /**
  * \brief Flash driver configuration, these are filled by SysCfg based on the flash device that is selected.
  */
-typedef struct Flash_Config_s
+struct Flash_Config_s
 {
     Flash_Attrs                *attrs;          /**< Flash device attributes */
     Flash_Fxns                 *fxns;           /**< Flash device implementation functions */
@@ -356,7 +356,7 @@ typedef struct Flash_Config_s
     void                       *object;         /**< Flash driver object, used to maintain driver implementation state */
     SemaphoreP_Object          lockSem;         /**< Semaphore to protect the flash layer calls per instance. */
 
-} Flash_Config;
+};
 
 /* Flash specific includes */
 #if defined (DRV_VERSION_SERIAL_FLASH_V0)
@@ -373,7 +373,7 @@ typedef struct Flash_Config_s
 #endif
 
 /**
- * \brief Set default parameters in the \ref Flash_Params structure
+ * \brief Set default parameters in the \ref Flash_Params_s structure
  *
  * Call this API to set defaults and then override the fields as needed before calling  \ref Flash_open.
  *
