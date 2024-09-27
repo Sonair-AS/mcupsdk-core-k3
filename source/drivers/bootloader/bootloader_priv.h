@@ -48,7 +48,7 @@ extern "C"
 #define BOOTLOADER_META_HDR_MAGIC_STR 0x5254534D /* MSTR in ascii */
 #define BOOTLOADER_META_HDR_MAGIC_END 0x444E454D /* MEND in ascii */
 
-#define BOOTLOADER_MAX_ADDR_REGIONS 2
+#define BOOTLOADER_MAX_ADDR_REGIONS 3
 
 /* Maximum number of reserved memory sections across all SOCs */
 #define BOOTLOADER_MAX_RESERVED_SECTIONS 2

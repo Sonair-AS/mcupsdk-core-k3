@@ -49,6 +49,14 @@
 #define BOOTLOADER_SYS_STATUS_DEV_TYPE_TEST    (0x05U)
 #define BOOTLOADER_SYS_STATUS_DEV_SUBTYPE_FS   (0x00000A00U)
 
+#define BOOTLOADER_SOC_SRAM_BASE_ADDR          (0x72000000U)
+
+#define BOOTLOADER_C7X0_0_SRAM_ALIAS           (0x80000000U)
+#define BOOTLOADER_C7X0_0_SRAM_ALIAS_SIZE      (0x600000U)
+
+#define BOOTLOADER_C7X1_0_SRAM_ALIAS           (0x80000000U)
+#define BOOTLOADER_C7X1_0_SRAM_ALIAS_SIZE      (0x600000U)
+
 /* 512KB in OCMC Ram reserved for SBL */
 Bootloader_resMemSections gResMemSection =
 {
@@ -243,7 +251,7 @@ Bootloader_CoreAddrTranslateInfo gAddrTranslateInfo[] =
 
     /* CSL_CORE_ID_C75SS0_0 */
     {
-        .numRegions = 2,
+        .numRegions = 3,
         .addrRegionInfo =
         {
             {
@@ -256,12 +264,17 @@ Bootloader_CoreAddrTranslateInfo gAddrTranslateInfo[] =
                 .socAddr      = CSL_C7X256V_0_0_UMC_MEM_AUX_BASE,
                 .regionSize   = CSL_C7X256V_0_0_UMC_MEM_AUX_SIZE,
             },
+            {
+                .cpuLocalAddr = BOOTLOADER_C7X0_0_SRAM_ALIAS,
+                .socAddr      = BOOTLOADER_SOC_SRAM_BASE_ADDR,
+                .regionSize   = BOOTLOADER_C7X0_0_SRAM_ALIAS_SIZE,
+            }
         },
     },
 
-    /* CSL_CORE_ID_C75SS0_0 */
+    /* CSL_CORE_ID_C75SS1_0 */
     {
-        .numRegions = 2,
+        .numRegions = 3,
         .addrRegionInfo =
         {
             {
@@ -274,6 +287,11 @@ Bootloader_CoreAddrTranslateInfo gAddrTranslateInfo[] =
                 .socAddr      = CSL_C7X256V_1_1_UMC_MEM_AUX_BASE,
                 .regionSize   = CSL_C7X256V_1_1_UMC_MEM_AUX_SIZE,
             },
+            {
+                .cpuLocalAddr = BOOTLOADER_C7X1_0_SRAM_ALIAS,
+                .socAddr      = BOOTLOADER_SOC_SRAM_BASE_ADDR,
+                .regionSize   = BOOTLOADER_C7X1_0_SRAM_ALIAS_SIZE,
+            }
         },
     },
 };
