@@ -126,5 +126,6 @@ MEMORY
     C75_0_OCRAM   (RWIX)         : ORIGIN = 0x72200000 LENGTH = 0x00080000 // 512 KB for c75ss0-0 core
     C75_1_OCRAM   (RWIX)         : ORIGIN = 0x72400000 LENGTH = 0x00080000 // 512 KB for c75ss1-0 core
 
+    LOG_SHM_MEM                  : ORIGIN = 0x72380000, LENGTH = 0x40000
 
 }

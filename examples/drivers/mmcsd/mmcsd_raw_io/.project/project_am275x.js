@@ -39,6 +39,14 @@ const libdirs_freertos_r5 = {
     ],
 };
 
+const libdirs_freertos = {
+    common: [
+        "${MCU_PLUS_SDK_PATH}/source/kernel/freertos/lib",
+        "${MCU_PLUS_SDK_PATH}/source/drivers/lib",
+        "${MCU_PLUS_SDK_PATH}/source/board/lib",
+    ],
+};
+
 const libs_freertos_wkup_r5f = {
     common: [
         "rm_pm_hal.am275x.wkup-r5f.ti-arm-clang.${ConfigName}.lib",
@@ -63,11 +71,34 @@ const defines_wkup_r5f = {
     ]
 }
 
+const libs_freertos_r5f = {
+    common: [
+        "freertos.am275x.r5f.ti-arm-clang.${ConfigName}.lib",
+        "drivers.am275x.r5f.ti-arm-clang.${ConfigName}.lib",
+        "board.am275x.r5f.ti-arm-clang.${ConfigName}.lib",
+    ],
+};
+
+const includes_freertos_c75 = {
+    common: [
+        "${MCU_PLUS_SDK_PATH}/source/kernel/freertos/FreeRTOS-Kernel/include",
+        "${MCU_PLUS_SDK_PATH}/source/kernel/freertos/portable/TI_CGT/DSP_C75X",
+        "${MCU_PLUS_SDK_PATH}/source/kernel/freertos/config/am275x/c75x",
+    ],
+};
+
+const libs_freertos_c75 = {
+    common: [
+        "freertos.am275x.c75x.ti-c7000.${ConfigName}.lib",
+        "drivers.am275x.c75x.ti-c7000.${ConfigName}.lib",
+    ],
+};
+
 const syscfgfile = "../example.syscfg"
 
 const readmeDoxygenPageTag = "EXAMPLES_DRIVERS_MMCSD_RAW_IO";
 
-const templates_freertos_r5f =
+const templates_freertos_wkup =
 [
     {
         input: ".project/templates/am275x/common/linker_wkup-r5f.cmd.xdt",
@@ -92,9 +123,41 @@ const templates_freertos_r5f =
     }
 ];
 
+const templates_freertos_r5f =
+[
+    {
+        input: ".project/templates/am275x/common/linker_main-r5f.cmd.xdt",
+        output: "linker.cmd",
+    },
+    {
+        input: ".project/templates/am275x/freertos/main_freertos.c.xdt",
+        output: "../main.c",
+        options: {
+            entryFunction: "mmcsd_raw_io_main",
+        },
+    }
+];
+
+const templates_freertos_c75 =
+[
+    {
+        input: ".project/templates/am275x/common/linker_c75ss0.cmd.xdt",
+        output: "linker.cmd",
+    },
+    {
+        input: ".project/templates/am275x/freertos/main_freertos.c.xdt",
+        output: "../main.c",
+        options: {
+            entryFunction: "mmcsd_raw_io_main",
+            stackSize: 64*1024,
+        },
+    }
+];
 
 const buildOptionCombos = [
     { device: device, cpu: "wkup-r5fss0-0", cgt: "ti-arm-clang", board: "am275x-evm", os: "freertos"},
+    { device: device, cpu: "r5fss0-0", cgt: "ti-arm-clang", board: "am275x-evm", os: "freertos"},
+    { device: device, cpu: "c75ss0-0", cgt: "ti-c7000",    board: "am275x-evm", os: "freertos"},
 ];
 
 function getComponentProperty() {
@@ -118,12 +181,31 @@ function getComponentBuildProperty(buildOption) {
     build_property.syscfgfile = syscfgfile;
     build_property.readmeDoxygenPageTag = readmeDoxygenPageTag;
 
-    if(buildOption.cpu.match(/r5f*/)) {
+    if(buildOption.cpu.match(/wkup-r5f*/)) {
         build_property.includes = includes_freertos_r5f;
         build_property.libdirs = libdirs_freertos_r5;
         build_property.libs = libs_freertos_wkup_r5f;
-        build_property.templates = templates_freertos_r5f;
+        build_property.templates = templates_freertos_wkup;
         build_property.defines = defines_wkup_r5f;
+    }
+
+    else if(buildOption.cpu.match(/r5f*/)) {
+        if(buildOption.os.match(/freertos*/) )
+        {
+            build_property.includes = includes_freertos_r5f;
+            build_property.libdirs = libdirs_freertos;
+            build_property.libs = libs_freertos_r5f;
+            build_property.templates = templates_freertos_r5f;
+        }
+    }
+
+    else if(buildOption.cpu.match(/c75*/)) {
+        if(buildOption.os.match(/freertos*/)) {
+            build_property.includes = includes_freertos_c75;
+            build_property.libdirs = libdirs_freertos;
+            build_property.libs = libs_freertos_c75;
+            build_property.templates = templates_freertos_c75;
+        }
     }
 
     return build_property;

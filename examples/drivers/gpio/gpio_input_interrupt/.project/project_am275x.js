@@ -36,6 +36,14 @@ const libdirs_freertos = {
     ],
 };
 
+const includes_freertos_r5f = {
+    common: [
+        "${MCU_PLUS_SDK_PATH}/source/kernel/freertos/FreeRTOS-Kernel/include",
+        "${MCU_PLUS_SDK_PATH}/source/kernel/freertos/portable/TI_ARM_CLANG/ARM_CR5F",
+        "${MCU_PLUS_SDK_PATH}/source/kernel/freertos/config/am275x/r5f",
+    ],
+};
+
 const includes_freertos_c75 = {
     common: [
         "${MCU_PLUS_SDK_PATH}/source/kernel/freertos/FreeRTOS-Kernel/include",
@@ -53,9 +61,17 @@ const libdirs_nortos = {
     ],
 };
 
-const libs = {
+const libs_nortos = {
     common: [
         "nortos.am275x.r5f.ti-arm-clang.${ConfigName}.lib",
+        "drivers.am275x.r5f.ti-arm-clang.${ConfigName}.lib",
+        "board.am275x.r5f.ti-arm-clang.${ConfigName}.lib",
+    ],
+};
+
+const libs_freertos_r5f = {
+    common: [
+        "freertos.am275x.r5f.ti-arm-clang.${ConfigName}.lib",
         "drivers.am275x.r5f.ti-arm-clang.${ConfigName}.lib",
         "board.am275x.r5f.ti-arm-clang.${ConfigName}.lib",
     ],
@@ -100,6 +116,28 @@ const templates_nortos_r5f =
     }
 ];
 
+const templates_freertos_r5f =
+[
+    {
+        input: ".project/templates/am275x/common/linker_main-r5f.cmd.xdt",
+        output: "linker.cmd",
+    },
+    {
+        input: ".project/templates/am275x/freertos/main_freertos.c.xdt",
+        output: "../main.c",
+        options: {
+            entryFunction: "gpio_input_interrupt_main",
+        },
+    },
+    {
+        input: ".project/templates/am275x/gpio/board_gpio.c.xdt",
+        output: "../board.c",
+        options: {
+            exampleType: "input_interrupt",
+        },
+    }
+];
+
 const templates_freertos_c75 =
 [
     {
@@ -125,6 +163,7 @@ const templates_freertos_c75 =
 
 const buildOptionCombos = [
     { device: "am275x", cpu: "r5fss0-0", cgt: "ti-arm-clang", board: "am275x-evm", os: "nortos"},
+    { device: "am275x", cpu: "r5fss0-0", cgt: "ti-arm-clang", board: "am275x-evm", os: "freertos"},
     { device: device, cpu: "c75ss0-0", cgt: "ti-c7000",    board: "am275x-evm", os: "freertos"},
 ];
 
@@ -136,6 +175,7 @@ function getComponentProperty() {
     property.name = "gpio_input_interrupt";
     property.isInternal = false;
     property.buildOptionCombos = buildOptionCombos;
+    property.isLogSHM = true;
 
     return property;
 }
@@ -145,12 +185,25 @@ function getComponentBuildProperty(buildOption) {
 
     build_property.files = files;
     build_property.filedirs = filedirs;
-    build_property.libdirs = libdirs;
     build_property.lnkfiles = lnkfiles;
-    build_property.libs = libs;
     build_property.syscfgfile = syscfgfile;
     build_property.readmeDoxygenPageTag = readmeDoxygenPageTag;
-    build_property.templates = templates_nortos_r5f;
+
+    if(buildOption.cpu.match(/r5f*/)) {
+        if(buildOption.os.match(/nortos/))
+        {
+            build_property.libdirs = libdirs_nortos;
+            build_property.libs = libs_nortos;
+            build_property.templates = templates_nortos_r5f;
+        }
+        else if(buildOption.os.match(/freertos/))
+        {
+            build_property.includes = includes_freertos_r5f;
+            build_property.libdirs = libdirs_freertos;
+            build_property.libs = libs_freertos_r5f;
+            build_property.templates = templates_freertos_r5f;
+        }
+    }
 
     if(buildOption.cpu.match(/c75*/)) {
         build_property.includes = includes_freertos_c75;

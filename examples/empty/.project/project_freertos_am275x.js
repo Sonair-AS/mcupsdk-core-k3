@@ -191,6 +191,7 @@ function getComponentProperty() {
     property.tirexResourceSubClass = [ "example.gettingstarted" ];
     property.description = "An Empty Example. This example is intended to be a starting point for new development"
     property.buildOptionCombos = buildOptionCombos;
+    property.isLogSHM = true;
 
     return property;
 }

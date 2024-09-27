@@ -323,6 +323,39 @@
         "resourceSubClass": [
             "example.general"
         ],
+        "description": "A Gpio Input Interrupt Example. CPU is R5FSS0-0 running FREERTOS.",
+        "name": "gpio_input_interrupt",
+        "location": "../../examples/drivers/gpio/gpio_input_interrupt/am275x-evm/r5fss0-0_freertos/ti-arm-clang/example.projectspec",
+        "devtools": [
+            "AM275x_EVM"
+        ],
+        "kernel": [
+            "freertos"
+        ],
+        "compiler": [
+            "ticlang"
+        ],
+        "subCategories": [
+            "drivers",
+            "gpio",
+            "gpio_input_interrupt",
+            "r5fss0-0_freertos"
+        ],
+        "mainCategories": [
+            [
+                "Examples",
+                "Development Tools"
+            ]
+        ]
+    },
+    {
+        "resourceType": "project.ccs",
+        "resourceClass": [
+            "example"
+        ],
+        "resourceSubClass": [
+            "example.general"
+        ],
         "description": "A Gpio Input Interrupt Example. CPU is C75SS0-0 running FREERTOS.",
         "name": "gpio_input_interrupt",
         "location": "../../examples/drivers/gpio/gpio_input_interrupt/am275x-evm/c75ss0-0_freertos/ti-c7000/example.projectspec",
@@ -373,6 +406,39 @@
             "gpio",
             "gpio_led_blink",
             "r5fss0-0_nortos"
+        ],
+        "mainCategories": [
+            [
+                "Examples",
+                "Development Tools"
+            ]
+        ]
+    },
+    {
+        "resourceType": "project.ccs",
+        "resourceClass": [
+            "example"
+        ],
+        "resourceSubClass": [
+            "example.gettingstarted"
+        ],
+        "description": "A GPIO LED Blink Example. This example blinks a EVM LED for few seconds. CPU is R5FSS0-0 running FREERTOS.",
+        "name": "gpio_led_blink",
+        "location": "../../examples/drivers/gpio/gpio_led_blink/am275x-evm/r5fss0-0_freertos/ti-arm-clang/example.projectspec",
+        "devtools": [
+            "AM275x_EVM"
+        ],
+        "kernel": [
+            "freertos"
+        ],
+        "compiler": [
+            "ticlang"
+        ],
+        "subCategories": [
+            "drivers",
+            "gpio",
+            "gpio_led_blink",
+            "r5fss0-0_freertos"
         ],
         "mainCategories": [
             [
@@ -455,6 +521,72 @@
         "resourceSubClass": [
             "example.general"
         ],
+        "description": "A I2C read example. Read from EEPROM in the am275x-evm board CPU is R5FSS0-0 running FREERTOS.",
+        "name": "i2c_read",
+        "location": "../../examples/drivers/i2c/i2c_read/am275x-evm/r5fss0-0_freertos/ti-arm-clang/example.projectspec",
+        "devtools": [
+            "AM275x_EVM"
+        ],
+        "kernel": [
+            "freertos"
+        ],
+        "compiler": [
+            "ticlang"
+        ],
+        "subCategories": [
+            "drivers",
+            "i2c",
+            "i2c_read",
+            "r5fss0-0_freertos"
+        ],
+        "mainCategories": [
+            [
+                "Examples",
+                "Development Tools"
+            ]
+        ]
+    },
+    {
+        "resourceType": "project.ccs",
+        "resourceClass": [
+            "example"
+        ],
+        "resourceSubClass": [
+            "example.general"
+        ],
+        "description": "A I2C read example. Read from EEPROM in the am275x-evm board CPU is C75SS0-0 running FREERTOS.",
+        "name": "i2c_read",
+        "location": "../../examples/drivers/i2c/i2c_read/am275x-evm/c75ss0-0_freertos/ti-c7000/example.projectspec",
+        "devtools": [
+            "AM275x_EVM"
+        ],
+        "kernel": [
+            "freertos"
+        ],
+        "compiler": [
+            "ccs"
+        ],
+        "subCategories": [
+            "drivers",
+            "i2c",
+            "i2c_read",
+            "c75ss0-0_freertos"
+        ],
+        "mainCategories": [
+            [
+                "Examples",
+                "Development Tools"
+            ]
+        ]
+    },
+    {
+        "resourceType": "project.ccs",
+        "resourceClass": [
+            "example"
+        ],
+        "resourceSubClass": [
+            "example.general"
+        ],
         "description": "A I2C LED blink example. This example blinks a EVM LED for few seconds. CPU is R5FSS0-0 running NORTOS.",
         "name": "i2c_led_blink",
         "location": "../../examples/drivers/i2c/i2c_led_blink/am275x-evm/r5fss0-0_nortos/ti-arm-clang/example.projectspec",
@@ -488,6 +620,171 @@
         "resourceSubClass": [
             "example.general"
         ],
+        "description": "A I2C LED blink example. This example blinks a EVM LED for few seconds. CPU is R5FSS0-0 running FREERTOS.",
+        "name": "i2c_led_blink",
+        "location": "../../examples/drivers/i2c/i2c_led_blink/am275x-evm/r5fss0-0_freertos/ti-arm-clang/example.projectspec",
+        "devtools": [
+            "AM275x_EVM"
+        ],
+        "kernel": [
+            "freertos"
+        ],
+        "compiler": [
+            "ticlang"
+        ],
+        "subCategories": [
+            "drivers",
+            "i2c",
+            "i2c_led_blink",
+            "r5fss0-0_freertos"
+        ],
+        "mainCategories": [
+            [
+                "Examples",
+                "Development Tools"
+            ]
+        ]
+    },
+    {
+        "resourceType": "project.ccs",
+        "resourceClass": [
+            "example"
+        ],
+        "resourceSubClass": [
+            "example.general"
+        ],
+        "description": "A I2C LED blink example. This example blinks a EVM LED for few seconds. CPU is C75SS0-0 running FREERTOS.",
+        "name": "i2c_led_blink",
+        "location": "../../examples/drivers/i2c/i2c_led_blink/am275x-evm/c75ss0-0_freertos/ti-c7000/example.projectspec",
+        "devtools": [
+            "AM275x_EVM"
+        ],
+        "kernel": [
+            "freertos"
+        ],
+        "compiler": [
+            "ccs"
+        ],
+        "subCategories": [
+            "drivers",
+            "i2c",
+            "i2c_led_blink",
+            "c75ss0-0_freertos"
+        ],
+        "mainCategories": [
+            [
+                "Examples",
+                "Development Tools"
+            ]
+        ]
+    },
+    {
+        "resourceType": "project.ccs",
+        "resourceClass": [
+            "example"
+        ],
+        "resourceSubClass": [
+            "example.general"
+        ],
+        "description": "A I2C Memory read example. Write and Read from particular EEPROM memory in the AM62DX-EVM board. CPU is R5FSS0-0 running NORTOS.",
+        "name": "i2c_memory_read",
+        "location": "../../examples/drivers/i2c/i2c_memory_read/am275x-evm/r5fss0-0_nortos/ti-arm-clang/example.projectspec",
+        "devtools": [
+            "AM275x_EVM"
+        ],
+        "kernel": [
+            "nortos"
+        ],
+        "compiler": [
+            "ticlang"
+        ],
+        "subCategories": [
+            "drivers",
+            "i2c",
+            "i2c_memory_read",
+            "r5fss0-0_nortos"
+        ],
+        "mainCategories": [
+            [
+                "Examples",
+                "Development Tools"
+            ]
+        ]
+    },
+    {
+        "resourceType": "project.ccs",
+        "resourceClass": [
+            "example"
+        ],
+        "resourceSubClass": [
+            "example.general"
+        ],
+        "description": "A I2C Memory read example. Write and Read from particular EEPROM memory in the AM62DX-EVM board. CPU is R5FSS0-0 running FREERTOS.",
+        "name": "i2c_memory_read",
+        "location": "../../examples/drivers/i2c/i2c_memory_read/am275x-evm/r5fss0-0_freertos/ti-arm-clang/example.projectspec",
+        "devtools": [
+            "AM275x_EVM"
+        ],
+        "kernel": [
+            "freertos"
+        ],
+        "compiler": [
+            "ticlang"
+        ],
+        "subCategories": [
+            "drivers",
+            "i2c",
+            "i2c_memory_read",
+            "r5fss0-0_freertos"
+        ],
+        "mainCategories": [
+            [
+                "Examples",
+                "Development Tools"
+            ]
+        ]
+    },
+    {
+        "resourceType": "project.ccs",
+        "resourceClass": [
+            "example"
+        ],
+        "resourceSubClass": [
+            "example.general"
+        ],
+        "description": "A I2C Memory read example. Write and Read from particular EEPROM memory in the AM62DX-EVM board. CPU is C75SS0-0 running FREERTOS.",
+        "name": "i2c_memory_read",
+        "location": "../../examples/drivers/i2c/i2c_memory_read/am275x-evm/c75ss0-0_freertos/ti-c7000/example.projectspec",
+        "devtools": [
+            "AM275x_EVM"
+        ],
+        "kernel": [
+            "freertos"
+        ],
+        "compiler": [
+            "ccs"
+        ],
+        "subCategories": [
+            "drivers",
+            "i2c",
+            "i2c_memory_read",
+            "c75ss0-0_freertos"
+        ],
+        "mainCategories": [
+            [
+                "Examples",
+                "Development Tools"
+            ]
+        ]
+    },
+    {
+        "resourceType": "project.ccs",
+        "resourceClass": [
+            "example"
+        ],
+        "resourceSubClass": [
+            "example.general"
+        ],
         "description": "A I2C temperature example. Read temperature from the temperature sensor in the evm board. CPU is R5FSS0-0 running NORTOS.",
         "name": "i2c_temperature",
         "location": "../../examples/drivers/i2c/i2c_temperature/am275x-evm/r5fss0-0_nortos/ti-arm-clang/example.projectspec",
@@ -505,6 +802,72 @@
             "i2c",
             "i2c_temperature",
             "r5fss0-0_nortos"
+        ],
+        "mainCategories": [
+            [
+                "Examples",
+                "Development Tools"
+            ]
+        ]
+    },
+    {
+        "resourceType": "project.ccs",
+        "resourceClass": [
+            "example"
+        ],
+        "resourceSubClass": [
+            "example.general"
+        ],
+        "description": "A I2C temperature example. Read temperature from the temperature sensor in the evm board. CPU is R5FSS0-0 running FREERTOS.",
+        "name": "i2c_temperature",
+        "location": "../../examples/drivers/i2c/i2c_temperature/am275x-evm/r5fss0-0_freertos/ti-arm-clang/example.projectspec",
+        "devtools": [
+            "AM275x_EVM"
+        ],
+        "kernel": [
+            "freertos"
+        ],
+        "compiler": [
+            "ticlang"
+        ],
+        "subCategories": [
+            "drivers",
+            "i2c",
+            "i2c_temperature",
+            "r5fss0-0_freertos"
+        ],
+        "mainCategories": [
+            [
+                "Examples",
+                "Development Tools"
+            ]
+        ]
+    },
+    {
+        "resourceType": "project.ccs",
+        "resourceClass": [
+            "example"
+        ],
+        "resourceSubClass": [
+            "example.general"
+        ],
+        "description": "A I2C temperature example. Read temperature from the temperature sensor in the evm board. CPU is C75SS0-0 running FREERTOS.",
+        "name": "i2c_temperature",
+        "location": "../../examples/drivers/i2c/i2c_temperature/am275x-evm/c75ss0-0_freertos/ti-c7000/example.projectspec",
+        "devtools": [
+            "AM275x_EVM"
+        ],
+        "kernel": [
+            "freertos"
+        ],
+        "compiler": [
+            "ccs"
+        ],
+        "subCategories": [
+            "drivers",
+            "i2c",
+            "i2c_temperature",
+            "c75ss0-0_freertos"
         ],
         "mainCategories": [
             [
@@ -684,6 +1047,171 @@
             "example"
         ],
         "resourceSubClass": [
+            "example.gettingstarted"
+        ],
+        "description": "This example verifies MCASP loopback mode of operation CPU is R5FSS0-0 running FREERTOS.",
+        "name": "mcasp_loopback",
+        "location": "../../examples/drivers/mcasp/mcasp_loopback/am275x-evm/r5fss0-0_freertos/ti-arm-clang/example.projectspec",
+        "devtools": [
+            "AM275x_EVM"
+        ],
+        "kernel": [
+            "freertos"
+        ],
+        "compiler": [
+            "ticlang"
+        ],
+        "subCategories": [
+            "drivers",
+            "mcasp",
+            "mcasp_loopback",
+            "r5fss0-0_freertos"
+        ],
+        "mainCategories": [
+            [
+                "Examples",
+                "Development Tools"
+            ]
+        ]
+    },
+    {
+        "resourceType": "project.ccs",
+        "resourceClass": [
+            "example"
+        ],
+        "resourceSubClass": [
+            "example.gettingstarted"
+        ],
+        "description": "This example verifies MCASP multichannel playback CPU is C75SS0-0 running FREERTOS.",
+        "name": "mcasp_multichannel_playback",
+        "location": "../../examples/drivers/mcasp/mcasp_multichannel_playback/am275x-evm/c75ss0-0_freertos/ti-c7000/example.projectspec",
+        "devtools": [
+            "AM275x_EVM"
+        ],
+        "kernel": [
+            "freertos"
+        ],
+        "compiler": [
+            "ccs"
+        ],
+        "subCategories": [
+            "drivers",
+            "mcasp",
+            "mcasp_multichannel_playback",
+            "c75ss0-0_freertos"
+        ],
+        "mainCategories": [
+            [
+                "Examples",
+                "Development Tools"
+            ]
+        ]
+    },
+    {
+        "resourceType": "project.ccs",
+        "resourceClass": [
+            "example"
+        ],
+        "resourceSubClass": [
+            "example.gettingstarted"
+        ],
+        "description": "This example verifies MCASP multichannel playback CPU is R5FSS0-0 running FREERTOS.",
+        "name": "mcasp_multichannel_playback",
+        "location": "../../examples/drivers/mcasp/mcasp_multichannel_playback/am275x-evm/r5fss0-0_freertos/ti-arm-clang/example.projectspec",
+        "devtools": [
+            "AM275x_EVM"
+        ],
+        "kernel": [
+            "freertos"
+        ],
+        "compiler": [
+            "ticlang"
+        ],
+        "subCategories": [
+            "drivers",
+            "mcasp",
+            "mcasp_multichannel_playback",
+            "r5fss0-0_freertos"
+        ],
+        "mainCategories": [
+            [
+                "Examples",
+                "Development Tools"
+            ]
+        ]
+    },
+    {
+        "resourceType": "project.ccs",
+        "resourceClass": [
+            "example"
+        ],
+        "resourceSubClass": [
+            "example.gettingstarted"
+        ],
+        "description": "This example verifies MCASP stereo playback CPU is C75SS0-0 running FREERTOS.",
+        "name": "mcasp_stereo_playback",
+        "location": "../../examples/drivers/mcasp/mcasp_stereo_playback/am275x-evm/c75ss0-0_freertos/ti-c7000/example.projectspec",
+        "devtools": [
+            "AM275x_EVM"
+        ],
+        "kernel": [
+            "freertos"
+        ],
+        "compiler": [
+            "ccs"
+        ],
+        "subCategories": [
+            "drivers",
+            "mcasp",
+            "mcasp_stereo_playback",
+            "c75ss0-0_freertos"
+        ],
+        "mainCategories": [
+            [
+                "Examples",
+                "Development Tools"
+            ]
+        ]
+    },
+    {
+        "resourceType": "project.ccs",
+        "resourceClass": [
+            "example"
+        ],
+        "resourceSubClass": [
+            "example.gettingstarted"
+        ],
+        "description": "This example verifies MCASP stereo playback CPU is R5FSS0-0 running FREERTOS.",
+        "name": "mcasp_stereo_playback",
+        "location": "../../examples/drivers/mcasp/mcasp_stereo_playback/am275x-evm/r5fss0-0_freertos/ti-arm-clang/example.projectspec",
+        "devtools": [
+            "AM275x_EVM"
+        ],
+        "kernel": [
+            "freertos"
+        ],
+        "compiler": [
+            "ticlang"
+        ],
+        "subCategories": [
+            "drivers",
+            "mcasp",
+            "mcasp_stereo_playback",
+            "r5fss0-0_freertos"
+        ],
+        "mainCategories": [
+            [
+                "Examples",
+                "Development Tools"
+            ]
+        ]
+    },
+    {
+        "resourceType": "project.ccs",
+        "resourceClass": [
+            "example"
+        ],
+        "resourceSubClass": [
             "example.general"
         ],
         "description": "A Mcspi Loopback Example. CPU is R5FSS0-0 running NORTOS.",
@@ -736,6 +1264,171 @@
             "mcspi",
             "mcspi_loopback",
             "r5fss0-0_freertos"
+        ],
+        "mainCategories": [
+            [
+                "Examples",
+                "Development Tools"
+            ]
+        ]
+    },
+    {
+        "resourceType": "project.ccs",
+        "resourceClass": [
+            "example"
+        ],
+        "resourceSubClass": [
+            "example.general"
+        ],
+        "description": "A Mcspi Loopback Example. CPU is C75SS0-0 running FREERTOS.",
+        "name": "mcspi_loopback",
+        "location": "../../examples/drivers/mcspi/mcspi_loopback/am275x-evm/c75ss0-0_freertos/ti-c7000/example.projectspec",
+        "devtools": [
+            "AM275x_EVM"
+        ],
+        "kernel": [
+            "freertos"
+        ],
+        "compiler": [
+            "ccs"
+        ],
+        "subCategories": [
+            "drivers",
+            "mcspi",
+            "mcspi_loopback",
+            "c75ss0-0_freertos"
+        ],
+        "mainCategories": [
+            [
+                "Examples",
+                "Development Tools"
+            ]
+        ]
+    },
+    {
+        "resourceType": "project.ccs",
+        "resourceClass": [
+            "example"
+        ],
+        "resourceSubClass": [
+            "example.general"
+        ],
+        "description": "A Mcspi Loopback Dma Example. CPU is R5FSS0-0 running FREERTOS.",
+        "name": "mcspi_loopback_dma",
+        "location": "../../examples/drivers/mcspi/mcspi_loopback_dma/am275x-evm/r5fss0-0_freertos/ti-arm-clang/example.projectspec",
+        "devtools": [
+            "AM275x_EVM"
+        ],
+        "kernel": [
+            "freertos"
+        ],
+        "compiler": [
+            "ticlang"
+        ],
+        "subCategories": [
+            "drivers",
+            "mcspi",
+            "mcspi_loopback_dma",
+            "r5fss0-0_freertos"
+        ],
+        "mainCategories": [
+            [
+                "Examples",
+                "Development Tools"
+            ]
+        ]
+    },
+    {
+        "resourceType": "project.ccs",
+        "resourceClass": [
+            "example"
+        ],
+        "resourceSubClass": [
+            "example.general"
+        ],
+        "description": "A Mcspi Loopback Dma Example. CPU is C75SS0-0 running FREERTOS.",
+        "name": "mcspi_loopback_dma",
+        "location": "../../examples/drivers/mcspi/mcspi_loopback_dma/am275x-evm/c75ss0-0_freertos/ti-c7000/example.projectspec",
+        "devtools": [
+            "AM275x_EVM"
+        ],
+        "kernel": [
+            "freertos"
+        ],
+        "compiler": [
+            "ccs"
+        ],
+        "subCategories": [
+            "drivers",
+            "mcspi",
+            "mcspi_loopback_dma",
+            "c75ss0-0_freertos"
+        ],
+        "mainCategories": [
+            [
+                "Examples",
+                "Development Tools"
+            ]
+        ]
+    },
+    {
+        "resourceType": "project.ccs",
+        "resourceClass": [
+            "example"
+        ],
+        "resourceSubClass": [
+            "example.general"
+        ],
+        "description": "A Mcspi Loopback Turbo Mode Example. CPU is R5FSS0-0 running FREERTOS.",
+        "name": "mcspi_loopback_turbo_mode",
+        "location": "../../examples/drivers/mcspi/mcspi_loopback_turbo_mode/am275x-evm/r5fss0-0_freertos/ti-arm-clang/example.projectspec",
+        "devtools": [
+            "AM275x_EVM"
+        ],
+        "kernel": [
+            "freertos"
+        ],
+        "compiler": [
+            "ticlang"
+        ],
+        "subCategories": [
+            "drivers",
+            "mcspi",
+            "mcspi_loopback_turbo_mode",
+            "r5fss0-0_freertos"
+        ],
+        "mainCategories": [
+            [
+                "Examples",
+                "Development Tools"
+            ]
+        ]
+    },
+    {
+        "resourceType": "project.ccs",
+        "resourceClass": [
+            "example"
+        ],
+        "resourceSubClass": [
+            "example.general"
+        ],
+        "description": "A Mcspi Loopback Turbo Mode Example. CPU is C75SS0-0 running FREERTOS.",
+        "name": "mcspi_loopback_turbo_mode",
+        "location": "../../examples/drivers/mcspi/mcspi_loopback_turbo_mode/am275x-evm/c75ss0-0_freertos/ti-c7000/example.projectspec",
+        "devtools": [
+            "AM275x_EVM"
+        ],
+        "kernel": [
+            "freertos"
+        ],
+        "compiler": [
+            "ccs"
+        ],
+        "subCategories": [
+            "drivers",
+            "mcspi",
+            "mcspi_loopback_turbo_mode",
+            "c75ss0-0_freertos"
         ],
         "mainCategories": [
             [
@@ -818,6 +1511,39 @@
         "resourceSubClass": [
             "example.general"
         ],
+        "description": "A Mcspi Performance 8bit Example. CPU is C75SS0-0 running FREERTOS.",
+        "name": "mcspi_performance_8bit",
+        "location": "../../examples/drivers/mcspi/mcspi_performance_8bit/am275x-evm/c75ss0-0_freertos/ti-c7000/example.projectspec",
+        "devtools": [
+            "AM275x_EVM"
+        ],
+        "kernel": [
+            "freertos"
+        ],
+        "compiler": [
+            "ccs"
+        ],
+        "subCategories": [
+            "drivers",
+            "mcspi",
+            "mcspi_performance_8bit",
+            "c75ss0-0_freertos"
+        ],
+        "mainCategories": [
+            [
+                "Examples",
+                "Development Tools"
+            ]
+        ]
+    },
+    {
+        "resourceType": "project.ccs",
+        "resourceClass": [
+            "example"
+        ],
+        "resourceSubClass": [
+            "example.general"
+        ],
         "description": "A Mcspi Performance 32bit Example. CPU is R5FSS0-0 running NORTOS.",
         "name": "mcspi_performance_32bit",
         "location": "../../examples/drivers/mcspi/mcspi_performance_32bit/am275x-evm/r5fss0-0_nortos/ti-arm-clang/example.projectspec",
@@ -884,6 +1610,138 @@
         "resourceSubClass": [
             "example.general"
         ],
+        "description": "A Mcspi Performance 32bit Example. CPU is C75SS0-0 running FREERTOS.",
+        "name": "mcspi_performance_32bit",
+        "location": "../../examples/drivers/mcspi/mcspi_performance_32bit/am275x-evm/c75ss0-0_freertos/ti-c7000/example.projectspec",
+        "devtools": [
+            "AM275x_EVM"
+        ],
+        "kernel": [
+            "freertos"
+        ],
+        "compiler": [
+            "ccs"
+        ],
+        "subCategories": [
+            "drivers",
+            "mcspi",
+            "mcspi_performance_32bit",
+            "c75ss0-0_freertos"
+        ],
+        "mainCategories": [
+            [
+                "Examples",
+                "Development Tools"
+            ]
+        ]
+    },
+    {
+        "resourceType": "project.ccs",
+        "resourceClass": [
+            "example"
+        ],
+        "resourceSubClass": [
+            "example.general"
+        ],
+        "description": "A Mmcsd File Io Example. CPU is C75SS0-0 running FREERTOS.",
+        "name": "mmcsd_file_io",
+        "location": "../../examples/drivers/mmcsd/mmcsd_file_io/am275x-evm/c75ss0-0_freertos/ti-c7000/example.projectspec",
+        "devtools": [
+            "AM275x_EVM"
+        ],
+        "kernel": [
+            "freertos"
+        ],
+        "compiler": [
+            "ccs"
+        ],
+        "subCategories": [
+            "drivers",
+            "mmcsd",
+            "mmcsd_file_io",
+            "c75ss0-0_freertos"
+        ],
+        "mainCategories": [
+            [
+                "Examples",
+                "Development Tools"
+            ]
+        ]
+    },
+    {
+        "resourceType": "project.ccs",
+        "resourceClass": [
+            "example"
+        ],
+        "resourceSubClass": [
+            "example.general"
+        ],
+        "description": "A Mmcsd File Io Example. CPU is R5FSS0-0 running FREERTOS.",
+        "name": "mmcsd_file_io",
+        "location": "../../examples/drivers/mmcsd/mmcsd_file_io/am275x-evm/r5fss0-0_freertos/ti-arm-clang/example.projectspec",
+        "devtools": [
+            "AM275x_EVM"
+        ],
+        "kernel": [
+            "freertos"
+        ],
+        "compiler": [
+            "ticlang"
+        ],
+        "subCategories": [
+            "drivers",
+            "mmcsd",
+            "mmcsd_file_io",
+            "r5fss0-0_freertos"
+        ],
+        "mainCategories": [
+            [
+                "Examples",
+                "Development Tools"
+            ]
+        ]
+    },
+    {
+        "resourceType": "project.ccs",
+        "resourceClass": [
+            "example"
+        ],
+        "resourceSubClass": [
+            "example.general"
+        ],
+        "description": "A Mmcsd File Io Example. CPU is WKUP-R5FSS0-0 running FREERTOS.",
+        "name": "mmcsd_file_io",
+        "location": "../../examples/drivers/mmcsd/mmcsd_file_io/am275x-evm/wkup-r5fss0-0_freertos/ti-arm-clang/example.projectspec",
+        "devtools": [
+            "AM275x_EVM"
+        ],
+        "kernel": [
+            "freertos"
+        ],
+        "compiler": [
+            "ticlang"
+        ],
+        "subCategories": [
+            "drivers",
+            "mmcsd",
+            "mmcsd_file_io",
+            "wkup-r5fss0-0_freertos"
+        ],
+        "mainCategories": [
+            [
+                "Examples",
+                "Development Tools"
+            ]
+        ]
+    },
+    {
+        "resourceType": "project.ccs",
+        "resourceClass": [
+            "example"
+        ],
+        "resourceSubClass": [
+            "example.general"
+        ],
         "description": "A Mmcsd Raw Io Example. CPU is WKUP-R5FSS0-0 running FREERTOS.",
         "name": "mmcsd_raw_io",
         "location": "../../examples/drivers/mmcsd/mmcsd_raw_io/am275x-evm/wkup-r5fss0-0_freertos/ti-arm-clang/example.projectspec",
@@ -917,6 +1775,72 @@
         "resourceSubClass": [
             "example.general"
         ],
+        "description": "A Mmcsd Raw Io Example. CPU is R5FSS0-0 running FREERTOS.",
+        "name": "mmcsd_raw_io",
+        "location": "../../examples/drivers/mmcsd/mmcsd_raw_io/am275x-evm/r5fss0-0_freertos/ti-arm-clang/example.projectspec",
+        "devtools": [
+            "AM275x_EVM"
+        ],
+        "kernel": [
+            "freertos"
+        ],
+        "compiler": [
+            "ticlang"
+        ],
+        "subCategories": [
+            "drivers",
+            "mmcsd",
+            "mmcsd_raw_io",
+            "r5fss0-0_freertos"
+        ],
+        "mainCategories": [
+            [
+                "Examples",
+                "Development Tools"
+            ]
+        ]
+    },
+    {
+        "resourceType": "project.ccs",
+        "resourceClass": [
+            "example"
+        ],
+        "resourceSubClass": [
+            "example.general"
+        ],
+        "description": "A Mmcsd Raw Io Example. CPU is C75SS0-0 running FREERTOS.",
+        "name": "mmcsd_raw_io",
+        "location": "../../examples/drivers/mmcsd/mmcsd_raw_io/am275x-evm/c75ss0-0_freertos/ti-c7000/example.projectspec",
+        "devtools": [
+            "AM275x_EVM"
+        ],
+        "kernel": [
+            "freertos"
+        ],
+        "compiler": [
+            "ccs"
+        ],
+        "subCategories": [
+            "drivers",
+            "mmcsd",
+            "mmcsd_raw_io",
+            "c75ss0-0_freertos"
+        ],
+        "mainCategories": [
+            [
+                "Examples",
+                "Development Tools"
+            ]
+        ]
+    },
+    {
+        "resourceType": "project.ccs",
+        "resourceClass": [
+            "example"
+        ],
+        "resourceSubClass": [
+            "example.general"
+        ],
         "description": "A Ospi Flash Io Example. CPU is WKUP-R5FSS0-0 running FREERTOS.",
         "name": "ospi_flash_io",
         "location": "../../examples/drivers/ospi/ospi_flash_io/am275x-evm/wkup-r5fss0-0_freertos/ti-arm-clang/example.projectspec",
@@ -934,6 +1858,138 @@
             "ospi",
             "ospi_flash_io",
             "wkup-r5fss0-0_freertos"
+        ],
+        "mainCategories": [
+            [
+                "Examples",
+                "Development Tools"
+            ]
+        ]
+    },
+    {
+        "resourceType": "project.ccs",
+        "resourceClass": [
+            "example"
+        ],
+        "resourceSubClass": [
+            "example.general"
+        ],
+        "description": "A Ospi Flash Io Example. CPU is R5FSS0-0 running FREERTOS.",
+        "name": "ospi_flash_io",
+        "location": "../../examples/drivers/ospi/ospi_flash_io/am275x-evm/r5fss0-0_freertos/ti-arm-clang/example.projectspec",
+        "devtools": [
+            "AM275x_EVM"
+        ],
+        "kernel": [
+            "freertos"
+        ],
+        "compiler": [
+            "ticlang"
+        ],
+        "subCategories": [
+            "drivers",
+            "ospi",
+            "ospi_flash_io",
+            "r5fss0-0_freertos"
+        ],
+        "mainCategories": [
+            [
+                "Examples",
+                "Development Tools"
+            ]
+        ]
+    },
+    {
+        "resourceType": "project.ccs",
+        "resourceClass": [
+            "example"
+        ],
+        "resourceSubClass": [
+            "example.general"
+        ],
+        "description": "A Ospi Flash Io Example. CPU is C75SS0-0 running FREERTOS.",
+        "name": "ospi_flash_io",
+        "location": "../../examples/drivers/ospi/ospi_flash_io/am275x-evm/c75ss0-0_freertos/ti-c7000/example.projectspec",
+        "devtools": [
+            "AM275x_EVM"
+        ],
+        "kernel": [
+            "freertos"
+        ],
+        "compiler": [
+            "ccs"
+        ],
+        "subCategories": [
+            "drivers",
+            "ospi",
+            "ospi_flash_io",
+            "c75ss0-0_freertos"
+        ],
+        "mainCategories": [
+            [
+                "Examples",
+                "Development Tools"
+            ]
+        ]
+    },
+    {
+        "resourceType": "project.ccs",
+        "resourceClass": [
+            "example"
+        ],
+        "resourceSubClass": [
+            "example.general"
+        ],
+        "description": "A Sciclient Get Version example. CPU is WKUP-R5FSS0-0 running FREERTOS.",
+        "name": "sciclient_get_version",
+        "location": "../../examples/drivers/sciclient/sciclient_get_version/am275x-evm/wkup-r5fss0-0_freertos/ti-arm-clang/example.projectspec",
+        "devtools": [
+            "AM275x_EVM"
+        ],
+        "kernel": [
+            "freertos"
+        ],
+        "compiler": [
+            "ticlang"
+        ],
+        "subCategories": [
+            "drivers",
+            "sciclient",
+            "sciclient_get_version",
+            "wkup-r5fss0-0_freertos"
+        ],
+        "mainCategories": [
+            [
+                "Examples",
+                "Development Tools"
+            ]
+        ]
+    },
+    {
+        "resourceType": "project.ccs",
+        "resourceClass": [
+            "example"
+        ],
+        "resourceSubClass": [
+            "example.general"
+        ],
+        "description": "A Sciclient Get Version example. CPU is R5FSS0-0 running FREERTOS.",
+        "name": "sciclient_get_version",
+        "location": "../../examples/drivers/sciclient/sciclient_get_version/am275x-evm/r5fss0-0_freertos/ti-arm-clang/example.projectspec",
+        "devtools": [
+            "AM275x_EVM"
+        ],
+        "kernel": [
+            "freertos"
+        ],
+        "compiler": [
+            "ticlang"
+        ],
+        "subCategories": [
+            "drivers",
+            "sciclient",
+            "sciclient_get_version",
+            "r5fss0-0_freertos"
         ],
         "mainCategories": [
             [
@@ -999,6 +2055,72 @@
             "drivers",
             "sciclient",
             "sciclient_get_version",
+            "c75ss0-0_freertos"
+        ],
+        "mainCategories": [
+            [
+                "Examples",
+                "Development Tools"
+            ]
+        ]
+    },
+    {
+        "resourceType": "project.ccs",
+        "resourceClass": [
+            "example"
+        ],
+        "resourceSubClass": [
+            "example.gettingstarted"
+        ],
+        "description": "An example to demonstrate the working of spinlock CPU is R5FSS0-0 running FREERTOS.",
+        "name": "spinlock_example",
+        "location": "../../examples/drivers/spinlock/spinlock_example/am275x-evm/r5fss0-0_freertos/ti-arm-clang/example.projectspec",
+        "devtools": [
+            "AM275x_EVM"
+        ],
+        "kernel": [
+            "freertos"
+        ],
+        "compiler": [
+            "ticlang"
+        ],
+        "subCategories": [
+            "drivers",
+            "spinlock",
+            "spinlock_example",
+            "r5fss0-0_freertos"
+        ],
+        "mainCategories": [
+            [
+                "Examples",
+                "Development Tools"
+            ]
+        ]
+    },
+    {
+        "resourceType": "project.ccs",
+        "resourceClass": [
+            "example"
+        ],
+        "resourceSubClass": [
+            "example.gettingstarted"
+        ],
+        "description": "An example to demonstrate the working of spinlock CPU is C75SS0-0 running FREERTOS.",
+        "name": "spinlock_example",
+        "location": "../../examples/drivers/spinlock/spinlock_example/am275x-evm/c75ss0-0_freertos/ti-c7000/example.projectspec",
+        "devtools": [
+            "AM275x_EVM"
+        ],
+        "kernel": [
+            "freertos"
+        ],
+        "compiler": [
+            "ccs"
+        ],
+        "subCategories": [
+            "drivers",
+            "spinlock",
+            "spinlock_example",
             "c75ss0-0_freertos"
         ],
         "mainCategories": [
@@ -1082,6 +2204,39 @@
         "resourceSubClass": [
             "example.general"
         ],
+        "description": "A Uart Echo Example. CPU is C75SS0-0 running FREERTOS.",
+        "name": "uart_echo",
+        "location": "../../examples/drivers/uart/uart_echo/am275x-evm/c75ss0-0_freertos/ti-c7000/example.projectspec",
+        "devtools": [
+            "AM275x_EVM"
+        ],
+        "kernel": [
+            "freertos"
+        ],
+        "compiler": [
+            "ccs"
+        ],
+        "subCategories": [
+            "drivers",
+            "uart",
+            "uart_echo",
+            "c75ss0-0_freertos"
+        ],
+        "mainCategories": [
+            [
+                "Examples",
+                "Development Tools"
+            ]
+        ]
+    },
+    {
+        "resourceType": "project.ccs",
+        "resourceClass": [
+            "example"
+        ],
+        "resourceSubClass": [
+            "example.general"
+        ],
         "description": "A Uart Echo Callback Example. CPU is R5FSS0-0 running NORTOS.",
         "name": "uart_echo_callback",
         "location": "../../examples/drivers/uart/uart_echo_callback/am275x-evm/r5fss0-0_nortos/ti-arm-clang/example.projectspec",
@@ -1148,6 +2303,105 @@
         "resourceSubClass": [
             "example.general"
         ],
+        "description": "A Uart Echo Callback Example. CPU is C75SS0-0 running FREERTOS.",
+        "name": "uart_echo_callback",
+        "location": "../../examples/drivers/uart/uart_echo_callback/am275x-evm/c75ss0-0_freertos/ti-c7000/example.projectspec",
+        "devtools": [
+            "AM275x_EVM"
+        ],
+        "kernel": [
+            "freertos"
+        ],
+        "compiler": [
+            "ccs"
+        ],
+        "subCategories": [
+            "drivers",
+            "uart",
+            "uart_echo_callback",
+            "c75ss0-0_freertos"
+        ],
+        "mainCategories": [
+            [
+                "Examples",
+                "Development Tools"
+            ]
+        ]
+    },
+    {
+        "resourceType": "project.ccs",
+        "resourceClass": [
+            "example"
+        ],
+        "resourceSubClass": [
+            "example.general"
+        ],
+        "description": "A Uart Echo Dma Example. CPU is R5FSS0-0 running FREERTOS.",
+        "name": "uart_echo_dma",
+        "location": "../../examples/drivers/uart/uart_echo_dma/am275x-evm/r5fss0-0_freertos/ti-arm-clang/example.projectspec",
+        "devtools": [
+            "AM275x_EVM"
+        ],
+        "kernel": [
+            "freertos"
+        ],
+        "compiler": [
+            "ticlang"
+        ],
+        "subCategories": [
+            "drivers",
+            "uart",
+            "uart_echo_dma",
+            "r5fss0-0_freertos"
+        ],
+        "mainCategories": [
+            [
+                "Examples",
+                "Development Tools"
+            ]
+        ]
+    },
+    {
+        "resourceType": "project.ccs",
+        "resourceClass": [
+            "example"
+        ],
+        "resourceSubClass": [
+            "example.general"
+        ],
+        "description": "A Uart Echo Dma Example. CPU is C75SS0-0 running FREERTOS.",
+        "name": "uart_echo_dma",
+        "location": "../../examples/drivers/uart/uart_echo_dma/am275x-evm/c75ss0-0_freertos/ti-c7000/example.projectspec",
+        "devtools": [
+            "AM275x_EVM"
+        ],
+        "kernel": [
+            "freertos"
+        ],
+        "compiler": [
+            "ccs"
+        ],
+        "subCategories": [
+            "drivers",
+            "uart",
+            "uart_echo_dma",
+            "c75ss0-0_freertos"
+        ],
+        "mainCategories": [
+            [
+                "Examples",
+                "Development Tools"
+            ]
+        ]
+    },
+    {
+        "resourceType": "project.ccs",
+        "resourceClass": [
+            "example"
+        ],
+        "resourceSubClass": [
+            "example.general"
+        ],
         "description": "A Uart Echo Low Latency Interrupt Example. CPU is R5FSS0-0 running NORTOS.",
         "name": "uart_echo_low_latency_interrupt",
         "location": "../../examples/drivers/uart/uart_echo_low_latency_interrupt/am275x-evm/r5fss0-0_nortos/ti-arm-clang/example.projectspec",
@@ -1165,6 +2419,72 @@
             "uart",
             "uart_echo_low_latency_interrupt",
             "r5fss0-0_nortos"
+        ],
+        "mainCategories": [
+            [
+                "Examples",
+                "Development Tools"
+            ]
+        ]
+    },
+    {
+        "resourceType": "project.ccs",
+        "resourceClass": [
+            "example"
+        ],
+        "resourceSubClass": [
+            "example.general"
+        ],
+        "description": "A Uart Echo Low Latency Interrupt Example. CPU is R5FSS0-0 running FREERTOS.",
+        "name": "uart_echo_low_latency_interrupt",
+        "location": "../../examples/drivers/uart/uart_echo_low_latency_interrupt/am275x-evm/r5fss0-0_freertos/ti-arm-clang/example.projectspec",
+        "devtools": [
+            "AM275x_EVM"
+        ],
+        "kernel": [
+            "freertos"
+        ],
+        "compiler": [
+            "ticlang"
+        ],
+        "subCategories": [
+            "drivers",
+            "uart",
+            "uart_echo_low_latency_interrupt",
+            "r5fss0-0_freertos"
+        ],
+        "mainCategories": [
+            [
+                "Examples",
+                "Development Tools"
+            ]
+        ]
+    },
+    {
+        "resourceType": "project.ccs",
+        "resourceClass": [
+            "example"
+        ],
+        "resourceSubClass": [
+            "example.general"
+        ],
+        "description": "A Uart Echo Low Latency Interrupt Example. CPU is C75SS0-0 running FREERTOS.",
+        "name": "uart_echo_low_latency_interrupt",
+        "location": "../../examples/drivers/uart/uart_echo_low_latency_interrupt/am275x-evm/c75ss0-0_freertos/ti-c7000/example.projectspec",
+        "devtools": [
+            "AM275x_EVM"
+        ],
+        "kernel": [
+            "freertos"
+        ],
+        "compiler": [
+            "ccs"
+        ],
+        "subCategories": [
+            "drivers",
+            "uart",
+            "uart_echo_low_latency_interrupt",
+            "c75ss0-0_freertos"
         ],
         "mainCategories": [
             [
@@ -1214,6 +2534,336 @@
         "resourceSubClass": [
             "example.general"
         ],
+        "description": "A Uart Echo Low Latency Polling Example. CPU is R5FSS0-0 running FREERTOS.",
+        "name": "uart_echo_low_latency_polling",
+        "location": "../../examples/drivers/uart/uart_echo_low_latency_polling/am275x-evm/r5fss0-0_freertos/ti-arm-clang/example.projectspec",
+        "devtools": [
+            "AM275x_EVM"
+        ],
+        "kernel": [
+            "freertos"
+        ],
+        "compiler": [
+            "ticlang"
+        ],
+        "subCategories": [
+            "drivers",
+            "uart",
+            "uart_echo_low_latency_polling",
+            "r5fss0-0_freertos"
+        ],
+        "mainCategories": [
+            [
+                "Examples",
+                "Development Tools"
+            ]
+        ]
+    },
+    {
+        "resourceType": "project.ccs",
+        "resourceClass": [
+            "example"
+        ],
+        "resourceSubClass": [
+            "example.general"
+        ],
+        "description": "A Uart Echo Low Latency Polling Example. CPU is C75SS0-0 running FREERTOS.",
+        "name": "uart_echo_low_latency_polling",
+        "location": "../../examples/drivers/uart/uart_echo_low_latency_polling/am275x-evm/c75ss0-0_freertos/ti-c7000/example.projectspec",
+        "devtools": [
+            "AM275x_EVM"
+        ],
+        "kernel": [
+            "freertos"
+        ],
+        "compiler": [
+            "ccs"
+        ],
+        "subCategories": [
+            "drivers",
+            "uart",
+            "uart_echo_low_latency_polling",
+            "c75ss0-0_freertos"
+        ],
+        "mainCategories": [
+            [
+                "Examples",
+                "Development Tools"
+            ]
+        ]
+    },
+    {
+        "resourceType": "project.ccs",
+        "resourceClass": [
+            "example"
+        ],
+        "resourceSubClass": [
+            "example.general"
+        ],
+        "description": "A Udma Chaining Example. CPU is R5FSS0-0 running FREERTOS.",
+        "name": "udma_chaining",
+        "location": "../../examples/drivers/udma/udma_chaining/am275x-evm/r5fss0-0_freertos/ti-arm-clang/example.projectspec",
+        "devtools": [
+            "AM275x_EVM"
+        ],
+        "kernel": [
+            "freertos"
+        ],
+        "compiler": [
+            "ticlang"
+        ],
+        "subCategories": [
+            "drivers",
+            "udma",
+            "udma_chaining",
+            "r5fss0-0_freertos"
+        ],
+        "mainCategories": [
+            [
+                "Examples",
+                "Development Tools"
+            ]
+        ]
+    },
+    {
+        "resourceType": "project.ccs",
+        "resourceClass": [
+            "example"
+        ],
+        "resourceSubClass": [
+            "example.general"
+        ],
+        "description": "A Udma Chaining Example. CPU is C75SS0-0 running FREERTOS.",
+        "name": "udma_chaining",
+        "location": "../../examples/drivers/udma/udma_chaining/am275x-evm/c75ss0-0_freertos/ti-c7000/example.projectspec",
+        "devtools": [
+            "AM275x_EVM"
+        ],
+        "kernel": [
+            "freertos"
+        ],
+        "compiler": [
+            "ccs"
+        ],
+        "subCategories": [
+            "drivers",
+            "udma",
+            "udma_chaining",
+            "c75ss0-0_freertos"
+        ],
+        "mainCategories": [
+            [
+                "Examples",
+                "Development Tools"
+            ]
+        ]
+    },
+    {
+        "resourceType": "project.ccs",
+        "resourceClass": [
+            "example"
+        ],
+        "resourceSubClass": [
+            "example.general"
+        ],
+        "description": "A Udma Memcpy Interrupt Example. CPU is R5FSS0-0 running FREERTOS.",
+        "name": "udma_memcpy_interrupt",
+        "location": "../../examples/drivers/udma/udma_memcpy_interrupt/am275x-evm/r5fss0-0_freertos/ti-arm-clang/example.projectspec",
+        "devtools": [
+            "AM275x_EVM"
+        ],
+        "kernel": [
+            "freertos"
+        ],
+        "compiler": [
+            "ticlang"
+        ],
+        "subCategories": [
+            "drivers",
+            "udma",
+            "udma_memcpy_interrupt",
+            "r5fss0-0_freertos"
+        ],
+        "mainCategories": [
+            [
+                "Examples",
+                "Development Tools"
+            ]
+        ]
+    },
+    {
+        "resourceType": "project.ccs",
+        "resourceClass": [
+            "example"
+        ],
+        "resourceSubClass": [
+            "example.general"
+        ],
+        "description": "A Udma Memcpy Interrupt Example. CPU is C75SS0-0 running FREERTOS.",
+        "name": "udma_memcpy_interrupt",
+        "location": "../../examples/drivers/udma/udma_memcpy_interrupt/am275x-evm/c75ss0-0_freertos/ti-c7000/example.projectspec",
+        "devtools": [
+            "AM275x_EVM"
+        ],
+        "kernel": [
+            "freertos"
+        ],
+        "compiler": [
+            "ccs"
+        ],
+        "subCategories": [
+            "drivers",
+            "udma",
+            "udma_memcpy_interrupt",
+            "c75ss0-0_freertos"
+        ],
+        "mainCategories": [
+            [
+                "Examples",
+                "Development Tools"
+            ]
+        ]
+    },
+    {
+        "resourceType": "project.ccs",
+        "resourceClass": [
+            "example"
+        ],
+        "resourceSubClass": [
+            "example.general"
+        ],
+        "description": "A Udma Memcpy Polling Example. CPU is R5FSS0-0 running FREERTOS.",
+        "name": "udma_memcpy_polling",
+        "location": "../../examples/drivers/udma/udma_memcpy_polling/am275x-evm/r5fss0-0_freertos/ti-arm-clang/example.projectspec",
+        "devtools": [
+            "AM275x_EVM"
+        ],
+        "kernel": [
+            "freertos"
+        ],
+        "compiler": [
+            "ticlang"
+        ],
+        "subCategories": [
+            "drivers",
+            "udma",
+            "udma_memcpy_polling",
+            "r5fss0-0_freertos"
+        ],
+        "mainCategories": [
+            [
+                "Examples",
+                "Development Tools"
+            ]
+        ]
+    },
+    {
+        "resourceType": "project.ccs",
+        "resourceClass": [
+            "example"
+        ],
+        "resourceSubClass": [
+            "example.general"
+        ],
+        "description": "A Udma Memcpy Polling Example. CPU is C75SS0-0 running FREERTOS.",
+        "name": "udma_memcpy_polling",
+        "location": "../../examples/drivers/udma/udma_memcpy_polling/am275x-evm/c75ss0-0_freertos/ti-c7000/example.projectspec",
+        "devtools": [
+            "AM275x_EVM"
+        ],
+        "kernel": [
+            "freertos"
+        ],
+        "compiler": [
+            "ccs"
+        ],
+        "subCategories": [
+            "drivers",
+            "udma",
+            "udma_memcpy_polling",
+            "c75ss0-0_freertos"
+        ],
+        "mainCategories": [
+            [
+                "Examples",
+                "Development Tools"
+            ]
+        ]
+    },
+    {
+        "resourceType": "project.ccs",
+        "resourceClass": [
+            "example"
+        ],
+        "resourceSubClass": [
+            "example.general"
+        ],
+        "description": "A Udma Sw Trigger Example. CPU is R5FSS0-0 running FREERTOS.",
+        "name": "udma_sw_trigger",
+        "location": "../../examples/drivers/udma/udma_sw_trigger/am275x-evm/r5fss0-0_freertos/ti-arm-clang/example.projectspec",
+        "devtools": [
+            "AM275x_EVM"
+        ],
+        "kernel": [
+            "freertos"
+        ],
+        "compiler": [
+            "ticlang"
+        ],
+        "subCategories": [
+            "drivers",
+            "udma",
+            "udma_sw_trigger",
+            "r5fss0-0_freertos"
+        ],
+        "mainCategories": [
+            [
+                "Examples",
+                "Development Tools"
+            ]
+        ]
+    },
+    {
+        "resourceType": "project.ccs",
+        "resourceClass": [
+            "example"
+        ],
+        "resourceSubClass": [
+            "example.general"
+        ],
+        "description": "A Udma Sw Trigger Example. CPU is C75SS0-0 running FREERTOS.",
+        "name": "udma_sw_trigger",
+        "location": "../../examples/drivers/udma/udma_sw_trigger/am275x-evm/c75ss0-0_freertos/ti-c7000/example.projectspec",
+        "devtools": [
+            "AM275x_EVM"
+        ],
+        "kernel": [
+            "freertos"
+        ],
+        "compiler": [
+            "ccs"
+        ],
+        "subCategories": [
+            "drivers",
+            "udma",
+            "udma_sw_trigger",
+            "c75ss0-0_freertos"
+        ],
+        "mainCategories": [
+            [
+                "Examples",
+                "Development Tools"
+            ]
+        ]
+    },
+    {
+        "resourceType": "project.ccs",
+        "resourceClass": [
+            "example"
+        ],
+        "resourceSubClass": [
+            "example.general"
+        ],
         "description": "A Watchdog non reset mode example. This example generates NMI. CPU is R5FSS0-0 running FREERTOS.",
         "name": "watchdog_interrupt",
         "location": "../../examples/drivers/watchdog/watchdog_interrupt/am275x-evm/r5fss0-0_freertos/ti-arm-clang/example.projectspec",
@@ -1231,6 +2881,39 @@
             "watchdog",
             "watchdog_interrupt",
             "r5fss0-0_freertos"
+        ],
+        "mainCategories": [
+            [
+                "Examples",
+                "Development Tools"
+            ]
+        ]
+    },
+    {
+        "resourceType": "project.ccs",
+        "resourceClass": [
+            "example"
+        ],
+        "resourceSubClass": [
+            "example.general"
+        ],
+        "description": "A Watchdog non reset mode example. This example generates NMI. CPU is C75SS0-0 running FREERTOS.",
+        "name": "watchdog_interrupt",
+        "location": "../../examples/drivers/watchdog/watchdog_interrupt/am275x-evm/c75ss0-0_freertos/ti-c7000/example.projectspec",
+        "devtools": [
+            "AM275x_EVM"
+        ],
+        "kernel": [
+            "freertos"
+        ],
+        "compiler": [
+            "ccs"
+        ],
+        "subCategories": [
+            "drivers",
+            "watchdog",
+            "watchdog_interrupt",
+            "c75ss0-0_freertos"
         ],
         "mainCategories": [
             [

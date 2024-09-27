@@ -203,6 +203,7 @@ function getComponentProperty() {
     property.tirexResourceSubClass = [ "example.gettingstarted" ];
     property.description = "A simple \"Hello, World\" example. "
     property.buildOptionCombos = buildOptionCombos;
+    property.isLogSHM = true;
 
     return property;
 }

@@ -55,6 +55,21 @@ const libs_freertos_r5f = {
     ],
 };
 
+const includes_freertos_c75 = {
+    common: [
+        "${MCU_PLUS_SDK_PATH}/source/kernel/freertos/FreeRTOS-Kernel/include",
+        "${MCU_PLUS_SDK_PATH}/source/kernel/freertos/portable/TI_CGT/DSP_C75X",
+        "${MCU_PLUS_SDK_PATH}/source/kernel/freertos/config/am275x/c75x",
+    ],
+};
+
+const libs_freertos_c75 = {
+    common: [
+        "freertos.am275x.c75x.ti-c7000.${ConfigName}.lib",
+        "drivers.am275x.c75x.ti-c7000.${ConfigName}.lib",
+    ],
+};
+
 const lnkfiles = {
     common: [
         "linker.cmd",
@@ -95,8 +110,26 @@ const templates_freertos_r5f =
     }
 ];
 
+const templates_freertos_c75 =
+[
+    {
+        input: ".project/templates/am275x/common/linker_c75ss0.cmd.xdt",
+        output: "linker.cmd",
+    },
+    {
+        input: ".project/templates/am275x/freertos/main_freertos.c.xdt",
+        output: "../main.c",
+        options: {
+            entryFunction: "uart_echo_low_latency_polling",
+            stackSize: 64*1024,
+        },
+    }
+];
+
 const buildOptionCombos = [
     { device: device, cpu: "r5fss0-0", cgt: "ti-arm-clang", board: "am275x-evm", os: "nortos"},
+    { device: device, cpu: "r5fss0-0", cgt: "ti-arm-clang", board: "am275x-evm", os: "freertos"},
+    { device: device, cpu: "c75ss0-0", cgt: "ti-c7000",     board: "am275x-evm", os: "freertos"},
 ];
 
 function getComponentProperty() {
@@ -133,6 +166,16 @@ function getComponentBuildProperty(buildOption) {
             build_property.libdirs = libdirs_nortos;
             build_property.libs = libs_nortos_r5f;
             build_property.templates = templates_nortos_r5f;
+        }
+    }
+
+    if(buildOption.cpu.match(/c75*/)) {
+        if(buildOption.os.match(/freertos*/))
+        {
+            build_property.includes = includes_freertos_c75;
+            build_property.libdirs = libdirs_freertos;
+            build_property.libs = libs_freertos_c75;
+            build_property.templates = templates_freertos_c75;
         }
     }
 

@@ -44,6 +44,14 @@ const includes_freertos_r5f = {
     ],
 };
 
+const includes_freertos_c75 = {
+    common: [
+        "${MCU_PLUS_SDK_PATH}/source/kernel/freertos/FreeRTOS-Kernel/include",
+        "${MCU_PLUS_SDK_PATH}/source/kernel/freertos/portable/TI_CGT/DSP_C75X",
+        "${MCU_PLUS_SDK_PATH}/source/kernel/freertos/config/am275x/c75x",
+    ],
+};
+
 const libs_nortos_r5f = {
     common: [
         "nortos.am275x.r5f.ti-arm-clang.${ConfigName}.lib",
@@ -57,6 +65,15 @@ const libs_freertos_r5f = {
         "freertos.am275x.r5f.ti-arm-clang.${ConfigName}.lib",
         "drivers.am275x.r5f.ti-arm-clang.${ConfigName}.lib",
         "board.am275x.r5f.ti-arm-clang.${ConfigName}.lib",
+    ],
+};
+
+const libs_freertos_c75 = {
+    common: [
+        "freertos.am275x.c75x.ti-c7000.${ConfigName}.lib",
+        "drivers.am275x.c75x.ti-c7000.${ConfigName}.lib",
+        "board.am275x.c75x.ti-c7000.${ConfigName}.lib"
+
     ],
 };
 
@@ -92,7 +109,7 @@ const templates_nortos_r5f =
 const templates_freertos_r5f =
 [
     {
-        input: ".project/templates/am275x/common/linker_main.cmd.xdt",
+        input: ".project/templates/am275x/common/linker_main-r5f.cmd.xdt",
         output: "linker.cmd",
     },
     {
@@ -108,8 +125,30 @@ const templates_freertos_r5f =
     }
 ];
 
+const templates_freertos_c75 =
+[
+    {
+        input: ".project/templates/am275x/common/linker_c75ss0.cmd.xdt",
+        output: "linker.cmd",
+    },
+    {
+        input: ".project/templates/am275x/freertos/main_freertos.c.xdt",
+        output: "../main.c",
+        options: {
+            entryFunction: "i2c_led_blink_main",
+            stackSize: 64*1024,
+        },
+    },
+    {
+        input: ".project/templates/am275x/i2c/board_i2c.c.xdt",
+        output: "../board.c",
+    }
+];
+
 const buildOptionCombos = [
     { device: device, cpu: "r5fss0-0", cgt: "ti-arm-clang", board: "am275x-evm", os: "nortos"},
+    { device: device, cpu: "r5fss0-0", cgt: "ti-arm-clang", board: "am275x-evm", os: "freertos"},
+    { device: device, cpu: "c75ss0-0", cgt: "ti-c7000",     board: "am275x-evm", os: "freertos"},
 ];
 
 function getComponentProperty(device) {
@@ -145,9 +184,16 @@ function getComponentBuildProperty(buildOption) {
         }
         else
         {
+            build_property.libdirs = libdirs_nortos;
             build_property.libs = libs_nortos_r5f;
             build_property.templates = templates_nortos_r5f;
         }
+    }
+    else if(buildOption.cpu.match(/c75*/)) {
+        build_property.includes = includes_freertos_c75;
+        build_property.libdirs = libdirs_freertos;
+        build_property.libs = libs_freertos_c75;
+        build_property.templates = templates_freertos_c75;
     }
 
     return build_property;
