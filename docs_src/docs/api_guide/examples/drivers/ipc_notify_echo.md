@@ -111,6 +111,23 @@ In this example,
 
 \endcond
 
+\cond SOC_AM275X
+
+ Parameter      | Value
+ ---------------|-----------
+ CPU + OS       | r5fss0-0 freertos
+ ^              | r5fss0-1 freertos
+ ^              | r5fss1-0 freertos
+ ^              | r5fss1-1 freertos
+ ^              | c75ss0-0 freertos
+ ^              | c75ss1-0 freertos
+ ^              | wkup-r5fss0-0 freertos
+ Toolchain      | ti-arm-clang
+ Board          | @VAR_BOARD_NAME_LOWER
+ Example folder | examples/drivers/ipc/ipc_notify_echo
+
+\endcond
+
 \cond SOC_AM62AX || SOC_AM62DX
 # Note
 There are two examples for A53 cores, a53ss0-0_freertos-smp and a53ss0-0_nortos.
@@ -130,7 +147,7 @@ For single core application use a53ss0-0_nortos and for smp application use a53s
 \else
 - Launch a CCS debug session and run the executables, see \ref CCS_LAUNCH_PAGE
 \endif
-\cond SOC_AM62X
+\cond SOC_AM62X || SOC_AM62AX || SOC_AM62DX || SOC_AM62PX || SOC_AM275X
 \attention As the wake-up R5 is the device manager, it needs to be started by the SBL. So it can not be loaded through CCS. It should be flashed and booted through SBL.
 
 - Refer \ref GETTING_STARTED_FLASH for flashing the application.
