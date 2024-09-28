@@ -58,6 +58,7 @@ const driverVer = {
 
 const topModules_wkup = [
     "/drivers/i2c/i2c",
+    "/drivers/ipc/ipc",
     "/drivers/mmcsd/mmcsd",
     "/drivers/ospi/ospi",
     "/drivers/uart/uart",
@@ -70,6 +71,7 @@ const topModules_main = [
     "/drivers/gpio/gpio",
     "/drivers/gtc/gtc",
     "/drivers/i2c/i2c",
+    "/drivers/ipc/ipc",
     "/drivers/mcan/mcan",
     "/drivers/mcasp/mcasp",
     "/drivers/mcspi/mcspi",
@@ -86,6 +88,7 @@ const topModules_c75 = [
     "/drivers/gpio/gpio",
     "/drivers/gtc/gtc",
     "/drivers/i2c/i2c",
+    "/drivers/ipc/ipc",
     "/drivers/mcasp/mcasp",
     "/drivers/mcspi/mcspi",
     "/drivers/mmcsd/mmcsd",
