@@ -166,6 +166,8 @@ help:
 	@echo  =============================
 	@echo  $(MAKE) -s -C examples/empty/am275x-evm/system_nortos [all clean syscfg-gui syscfg]
 	@echo  $(MAKE) -s -C examples/empty/am275x-evm/system_freertos [all clean syscfg-gui syscfg]
+	@echo  $(MAKE) -s -C examples/drivers/ipc/ipc_notify_echo/am275x-evm/system_freertos [all clean syscfg-gui syscfg]
+	@echo  $(MAKE) -s -C examples/drivers/ipc/ipc_rpmsg_echo/am275x-evm/system_freertos [all clean syscfg-gui syscfg]
 	@echo  .
 
 # Various Component Targets
@@ -472,6 +474,8 @@ BUILD_COMBO_EXAMPLE_ALL += task_switch_main_am275x-evm_c75ss0-0_freertos_ti-c700
 # Various System Example Targets
 BUILD_COMBO_EXAMPLE_ALL += empty_am275x-evm_system_nortos
 BUILD_COMBO_EXAMPLE_ALL += empty_am275x-evm_system_freertos
+BUILD_COMBO_EXAMPLE_ALL += ipc_notify_echo_am275x-evm_system_freertos
+BUILD_COMBO_EXAMPLE_ALL += ipc_rpmsg_echo_am275x-evm_system_freertos
 
 BUILD_COMBO_EXAMPLE_PRIVATE_ALL =
 # Various Private Example Targets
@@ -778,6 +782,12 @@ examples-private: $(BUILD_COMBO_EXAMPLE_PRIVATE_ALL)
  empty_am275x-evm_system_freertos:
 	$(MAKE) -C examples/empty/am275x-evm/system_freertos -f makefile all
 
+ ipc_notify_echo_am275x-evm_system_freertos:
+	$(MAKE) -C examples/drivers/ipc/ipc_notify_echo/am275x-evm/system_freertos -f makefile all
+
+ ipc_rpmsg_echo_am275x-evm_system_freertos:
+	$(MAKE) -C examples/drivers/ipc/ipc_rpmsg_echo/am275x-evm/system_freertos -f makefile all
+
 
 BUILD_COMBO_EXAMPLE_CLEAN_ALL =
 # Various Example Clean Targets
@@ -880,6 +890,8 @@ BUILD_COMBO_EXAMPLE_CLEAN_ALL += task_switch_main_am275x-evm_c75ss0-0_freertos_t
 # Various System Example Clean Targets
 BUILD_COMBO_EXAMPLE_CLEAN_ALL += empty_am275x-evm_system_nortos_clean
 BUILD_COMBO_EXAMPLE_CLEAN_ALL += empty_am275x-evm_system_freertos_clean
+BUILD_COMBO_EXAMPLE_CLEAN_ALL += ipc_notify_echo_am275x-evm_system_freertos_clean
+BUILD_COMBO_EXAMPLE_CLEAN_ALL += ipc_rpmsg_echo_am275x-evm_system_freertos_clean
 
 BUILD_COMBO_EXAMPLE_PRIVATE_CLEAN_ALL =
 # Various Private Example Targets
@@ -1186,6 +1198,12 @@ examples-private-clean: $(BUILD_COMBO_EXAMPLE_PRIVATE_CLEAN_ALL)
  empty_am275x-evm_system_freertos_clean:
 	$(MAKE) -C examples/empty/am275x-evm/system_freertos -f makefile clean
 
+ ipc_notify_echo_am275x-evm_system_freertos_clean:
+	$(MAKE) -C examples/drivers/ipc/ipc_notify_echo/am275x-evm/system_freertos -f makefile clean
+
+ ipc_rpmsg_echo_am275x-evm_system_freertos_clean:
+	$(MAKE) -C examples/drivers/ipc/ipc_rpmsg_echo/am275x-evm/system_freertos -f makefile clean
+
 
 BUILD_COMBO_EXAMPLE_SCRUB_ALL =
 # Various Example Scrub Targets
@@ -1288,6 +1306,8 @@ BUILD_COMBO_EXAMPLE_SCRUB_ALL += task_switch_main_am275x-evm_c75ss0-0_freertos_t
 # Various System Example Scrub Targets
 BUILD_COMBO_EXAMPLE_SCRUB_ALL += empty_am275x-evm_system_nortos_scrub
 BUILD_COMBO_EXAMPLE_SCRUB_ALL += empty_am275x-evm_system_freertos_scrub
+BUILD_COMBO_EXAMPLE_SCRUB_ALL += ipc_notify_echo_am275x-evm_system_freertos_scrub
+BUILD_COMBO_EXAMPLE_SCRUB_ALL += ipc_rpmsg_echo_am275x-evm_system_freertos_scrub
 
 BUILD_COMBO_EXAMPLE_PRIVATE_SCRUB_ALL =
 # Various Private Example Targets
@@ -1593,6 +1613,12 @@ examples-scrub-private: $(BUILD_COMBO_EXAMPLE_PRIVATE_SCRUB_ALL)
 
  empty_am275x-evm_system_freertos_scrub:
 	$(MAKE) -C examples/empty/am275x-evm/system_freertos -f makefile scrub
+
+ ipc_notify_echo_am275x-evm_system_freertos_scrub:
+	$(MAKE) -C examples/drivers/ipc/ipc_notify_echo/am275x-evm/system_freertos -f makefile scrub
+
+ ipc_rpmsg_echo_am275x-evm_system_freertos_scrub:
+	$(MAKE) -C examples/drivers/ipc/ipc_rpmsg_echo/am275x-evm/system_freertos -f makefile scrub
 
 
 sbl: libs

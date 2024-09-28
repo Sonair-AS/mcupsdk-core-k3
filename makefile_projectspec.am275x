@@ -104,6 +104,8 @@ BUILD_COMBO_EXAMPLE_PROJECTSPEC_BUILD_ALL += task_switch_main_am275x-evm_c75ss0-
 # Various System Example Projectspec Build Targets
 BUILD_COMBO_EXAMPLE_PROJECTSPEC_BUILD_ALL += empty_am275x-evm_system_nortos_build
 BUILD_COMBO_EXAMPLE_PROJECTSPEC_BUILD_ALL += empty_am275x-evm_system_freertos_build
+BUILD_COMBO_EXAMPLE_PROJECTSPEC_BUILD_ALL += ipc_notify_echo_am275x-evm_system_freertos_build
+BUILD_COMBO_EXAMPLE_PROJECTSPEC_BUILD_ALL += ipc_rpmsg_echo_am275x-evm_system_freertos_build
 
 BUILD_COMBO_EXAMPLE_PROJECTSPEC_BUILD_PRIVATE_ALL =
 # Various Private Example Projectspec Build Targets
@@ -410,6 +412,12 @@ all-private: $(BUILD_COMBO_EXAMPLE_PROJECTSPEC_BUILD_PRIVATE_ALL)
  empty_am275x-evm_system_freertos_build:
 	$(MAKE) -C examples/empty/am275x-evm/system_freertos -f makefile_projectspec all
 
+ ipc_notify_echo_am275x-evm_system_freertos_build:
+	$(MAKE) -C examples/drivers/ipc/ipc_notify_echo/am275x-evm/system_freertos -f makefile_projectspec all
+
+ ipc_rpmsg_echo_am275x-evm_system_freertos_build:
+	$(MAKE) -C examples/drivers/ipc/ipc_rpmsg_echo/am275x-evm/system_freertos -f makefile_projectspec all
+
 
 
 BUILD_COMBO_EXAMPLE_PROJECTSPEC_CLEAN_ALL =
@@ -514,6 +522,8 @@ BUILD_COMBO_EXAMPLE_PROJECTSPEC_CLEAN_ALL += task_switch_main_am275x-evm_c75ss0-
 # Various System Example Projectspec Clean Targets
 BUILD_COMBO_EXAMPLE_PROJECTSPEC_CLEAN_ALL += empty_am275x-evm_system_nortos_clean
 BUILD_COMBO_EXAMPLE_PROJECTSPEC_CLEAN_ALL += empty_am275x-evm_system_freertos_clean
+BUILD_COMBO_EXAMPLE_PROJECTSPEC_CLEAN_ALL += ipc_notify_echo_am275x-evm_system_freertos_clean
+BUILD_COMBO_EXAMPLE_PROJECTSPEC_CLEAN_ALL += ipc_rpmsg_echo_am275x-evm_system_freertos_clean
 
 BUILD_COMBO_EXAMPLE_PROJECTSPEC_CLEAN_PRIVATE_ALL =
 # Various Private Example Projectspec Clean Targets
@@ -820,6 +830,12 @@ clean-private: $(BUILD_COMBO_EXAMPLE_PROJECTSPEC_CLEAN_PRIVATE_ALL)
  empty_am275x-evm_system_freertos_clean:
 	$(MAKE) -C examples/empty/am275x-evm/system_freertos -f makefile_projectspec clean
 
+ ipc_notify_echo_am275x-evm_system_freertos_clean:
+	$(MAKE) -C examples/drivers/ipc/ipc_notify_echo/am275x-evm/system_freertos -f makefile_projectspec clean
+
+ ipc_rpmsg_echo_am275x-evm_system_freertos_clean:
+	$(MAKE) -C examples/drivers/ipc/ipc_rpmsg_echo/am275x-evm/system_freertos -f makefile_projectspec clean
+
 
 
 BUILD_COMBO_EXAMPLE_PROJECTSPEC_EXPORT_ALL =
@@ -924,6 +940,8 @@ BUILD_COMBO_EXAMPLE_PROJECTSPEC_EXPORT_ALL += task_switch_main_am275x-evm_c75ss0
 # Various System Example Projectspec Export Targets
 BUILD_COMBO_EXAMPLE_PROJECTSPEC_EXPORT_ALL += empty_am275x-evm_system_nortos_export
 BUILD_COMBO_EXAMPLE_PROJECTSPEC_EXPORT_ALL += empty_am275x-evm_system_freertos_export
+BUILD_COMBO_EXAMPLE_PROJECTSPEC_EXPORT_ALL += ipc_notify_echo_am275x-evm_system_freertos_export
+BUILD_COMBO_EXAMPLE_PROJECTSPEC_EXPORT_ALL += ipc_rpmsg_echo_am275x-evm_system_freertos_export
 
 BUILD_COMBO_EXAMPLE_PROJECTSPEC_EXPORT_PRIVATE_ALL =
 # Various Private Example Projectspec Export Targets
@@ -1230,6 +1248,12 @@ export-private: $(BUILD_COMBO_EXAMPLE_PROJECTSPEC_EXPORT_PRIVATE_ALL)
  empty_am275x-evm_system_freertos_export:
 	$(MAKE) -C examples/empty/am275x-evm/system_freertos -f makefile_projectspec export
 
+ ipc_notify_echo_am275x-evm_system_freertos_export:
+	$(MAKE) -C examples/drivers/ipc/ipc_notify_echo/am275x-evm/system_freertos -f makefile_projectspec export
+
+ ipc_rpmsg_echo_am275x-evm_system_freertos_export:
+	$(MAKE) -C examples/drivers/ipc/ipc_rpmsg_echo/am275x-evm/system_freertos -f makefile_projectspec export
+
 
 
 help:
@@ -1352,6 +1376,8 @@ help:
 	@echo  =========================================
 	@echo  $(MAKE) -s -C examples/empty/am275x-evm/system_nortos -f makefile_projectspec [export all clean]
 	@echo  $(MAKE) -s -C examples/empty/am275x-evm/system_freertos -f makefile_projectspec [export all clean]
+	@echo  $(MAKE) -s -C examples/drivers/ipc/ipc_notify_echo/am275x-evm/system_freertos -f makefile_projectspec [export all clean]
+	@echo  $(MAKE) -s -C examples/drivers/ipc/ipc_rpmsg_echo/am275x-evm/system_freertos -f makefile_projectspec [export all clean]
 	@echo  .
 
 .PHONY: all all-private
