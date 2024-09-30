@@ -207,8 +207,8 @@ const I2CLLD_Message I2C_lld_defaultMessage = {
     0,                                          /* targetAddress */
     NULL,                                       /* arg */
     I2C_WAIT_FOREVER,                           /* timeout */
-    true,                                       /* controllerMode */
-    false                                       /* expandSA */
+    (bool) true,                                       /* controllerMode */
+    (bool) false                                       /* expandSA */
 };
 
 /* ========================================================================== */
@@ -649,7 +649,7 @@ int32_t I2C_lld_mem_write(  I2CLLD_Handle handle,
             buffer_len += mem_extendedParams->memAddrSize;
             buffer_len += mem_extendedParams->extendedParams.size;
 
-            object->memTxnActive = true;
+            object->memTxnActive = (bool) true;
             object->memAddrSize = mem_extendedParams->memAddrSize;
             object->dataArray = &(mem_extendedParams->extendedParams.buffer[0]);
 
@@ -691,7 +691,7 @@ int32_t I2C_lld_mem_write(  I2CLLD_Handle handle,
                 status = I2C_lld_primeTransferPoll(handle);
             }
 
-            object->memTxnActive = false;
+            object->memTxnActive = (bool) false;
         }
         else
         {
@@ -727,7 +727,7 @@ int32_t I2C_lld_mem_writeIntr(  I2CLLD_Handle handle,
             buffer_len += mem_extendedParams->memAddrSize;
             buffer_len += mem_extendedParams->extendedParams.size;
 
-            object->memTxnActive = true;
+            object->memTxnActive = (bool) true;
             object->memAddrSize = mem_extendedParams->memAddrSize;
             object->dataArray = &(mem_extendedParams->extendedParams.buffer[0]);
 
@@ -803,7 +803,7 @@ int32_t I2C_lld_mem_read(   I2CLLD_Handle handle,
 
             buffer_len += mem_extendedParams->memAddrSize;
 
-            object->memTxnActive = true;
+            object->memTxnActive = (bool) true;
 
             if(mem_extendedParams->memAddrSize == I2C_MEM_ADDR_SIZE_8_BITS)
             {
@@ -844,7 +844,7 @@ int32_t I2C_lld_mem_read(   I2CLLD_Handle handle,
 
                 status = I2C_lld_primeTransferPoll(handle);
             }
-            object->memTxnActive = false;
+            object->memTxnActive = (bool) false;
         }
         else
         {
@@ -876,7 +876,7 @@ int32_t I2C_lld_mem_readIntr(   I2CLLD_Handle handle,
             /* TODO: This should happen automically. */
             object->state = I2C_STATE_BUSY;
 
-            object->memTxnActive = true;
+            object->memTxnActive = (bool) true;
             object->memAddrSize = mem_extendedParams->memAddrSize;
 
             if(mem_extendedParams->memAddrSize == I2C_MEM_ADDR_SIZE_8_BITS)
