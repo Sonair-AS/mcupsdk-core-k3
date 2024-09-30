@@ -1,8 +1,9 @@
 /**
  * These arguments were used when this file was generated. They will be automatically applied on subsequent loads
  * via the GUI or CLI. Run CLI with '--help' for additional information on how to override these arguments.
- * @cliArgs --device "AM275x" --package "ANJ" --part "AM2754" --context "c75ss0-0" --product "MCU_PLUS_SDK@07.03.01"
- * @versions {"tool":"1.20.0+3587"}
+ * @cliArgs --device "AM275x" --part "AM2754" --package "ANJ" --context "c75ss0-0" --product "MCU_PLUS_SDK@07.03.01"
+ * @v2CliArgs --device "AM2754" --package "FCCSP (ANJ)" --context "c75ss0-0" --product "MCU_PLUS_SDK@07.03.01"
+ * @versions {"tool":"1.21.0+3721"}
  */
 
 /**
@@ -35,6 +36,7 @@ mcasp1.rxActiveSlotMask                        = 0x3;
 mcasp1.txCallbackFxn                           = "mcasp_loopback_txcb";
 mcasp1.rxCallbackFxn                           = "mcasp_loopback_rxcb";
 mcasp1.MCASP.$assignAllowConflicts             = "MCASP1";
+mcasp1.CLOCKING.$assign                        = "CLOCKING";
 mcasp1.mcaspSer.create(2);
 mcasp1.mcaspSer[0].$name                       = "CONFIG_MCASP_SER0";
 mcasp1.mcaspSer[0].MCASP.$assignAllowConflicts = "MCASP1";
@@ -125,7 +127,6 @@ mcasp1.MCASP.AFSX.$suggestSolution             = "MCASP1_AFSX";
 mcasp1.MCASP.ACLKX.$suggestSolution            = "MCASP1_ACLKX";
 mcasp1.MCASP.AFSR.$suggestSolution             = "MCASP0_AXR15";
 mcasp1.MCASP.ACLKR.$suggestSolution            = "MCASP0_AXR14";
-mcasp1.SYSTEM.$suggestSolution                 = "SYSTEM";
 mcasp1.mcaspSer[0].MCASP.AXR0.$suggestSolution = "MCASP1_AXR0";
 mcasp1.mcaspSer[1].MCASP.AXR1.$suggestSolution = "MCASP1_AXR1";
 debug_log.uartLog.UART.$suggestSolution        = "UART0";

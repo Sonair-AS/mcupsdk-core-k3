@@ -1,8 +1,9 @@
 /**
  * These arguments were used when this file was generated. They will be automatically applied on subsequent loads
  * via the GUI or CLI. Run CLI with '--help' for additional information on how to override these arguments.
- * @cliArgs --device "AM275x" --package "ANJ" --part "AM2754" --context "c75ss0-0" --product "MCU_PLUS_SDK@07.03.01"
- * @versions {"tool":"1.20.0+3587"}
+ * @cliArgs --device "AM275x" --part "AM2754" --package "ANJ" --context "c75ss0-0" --product "MCU_PLUS_SDK@07.03.01"
+ * @v2CliArgs --device "AM2754" --package "FCCSP (ANJ)" --context "c75ss0-0" --product "MCU_PLUS_SDK@07.03.01"
+ * @versions {"tool":"1.21.0+3721"}
  */
 
 /**
@@ -83,6 +84,7 @@ mmu_armv810.$name     = "CCS_DEBUG_LOG_MEM";
 
 timer1.$name         = "CONFIG_TIMER0";
 timer1.timerCallback = "test_timerIsr";
+timer1.TIMER.$assign = "TIMER6";
 
 /**
  * Pinmux solution for unlocked pins/peripherals. This ensures that minor changes to the automatic solver in a future
@@ -92,4 +94,3 @@ timer1.timerCallback = "test_timerIsr";
 debug_log.uartLog.UART.$suggestSolution     = "UART0";
 debug_log.uartLog.UART.RXD.$suggestSolution = "MCASP4_AXR0";
 debug_log.uartLog.UART.TXD.$suggestSolution = "MLB0_MLBCLK";
-timer1.TIMER.$suggestSolution               = "TIMER1";
