@@ -159,7 +159,14 @@ function moduleInstances(instance){
 
     if(instance.bootMedia == "EMMC") {
         let requiredArgs = {};
-        requiredArgs.moduleSelect = "MMC0";
+        if(system.deviceData.device === "AM275x")
+        {
+            requiredArgs.moduleSelect = "MMC";
+        }
+        else
+        {
+            requiredArgs.moduleSelect = "MMC0";
+        }
         if(common.isDMWithBootSupported())
         {
             requiredArgs.addedByBootloader = true;

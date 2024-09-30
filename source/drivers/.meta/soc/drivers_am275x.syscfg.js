@@ -57,6 +57,9 @@ const driverVer = {
 };
 
 const topModules_wkup = [
+    "/drivers/bootloader/bootloader",
+    "/drivers/gpio/gpio",
+    "/drivers/gtc/gtc",
     "/drivers/i2c/i2c",
     "/drivers/ipc/ipc",
     "/drivers/mmcsd/mmcsd",

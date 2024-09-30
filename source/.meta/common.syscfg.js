@@ -43,6 +43,7 @@ function getSelfSysCfgCoreName() {
 function isDMWithBootSupported() {
     switch(getSocName()) {
         case "am62px":
+        case "am275x":
                 if (getSelfSysCfgCoreName().includes("wkup-r5f"))
                     return true;
                 else
