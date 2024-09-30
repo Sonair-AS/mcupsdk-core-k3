@@ -2186,18 +2186,15 @@ static int32_t I2C_waitForBb(I2CLLD_Handle handle, uint32_t timeout)
             bbtimeout = bbtimeout - 1U;
         }
 
-        if (timeout > 0U)
+        if (bbtimeout == 0U)
         {
-            if (bbtimeout == 0U)
-            {
-                /* Timeout happened */
-                retVal = I2C_STS_ERR_TIMEOUT;
-            }
-            else
-            {
-                /* Bus is free before timeout could happen */
-                /* No Code */
-            }
+            /* Timeout happened */
+            retVal = I2C_STS_ERR_TIMEOUT;
+        }
+        else
+        {
+            /* Bus is free before timeout could happen */
+            /* No Code */
         }
 
         /* Clear all interrupts (delayed stuff) */
