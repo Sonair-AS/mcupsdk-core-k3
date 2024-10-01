@@ -49,7 +49,7 @@
  *
  * Host IDs for AM275X device
  *
- * Data version: 240820_133528
+ * Data version: 240923_081333
  *
  */
 #ifndef TISCI_HOSTS_H
