@@ -1,5 +1,5 @@
 /*
- *  Copyright (C) 2021-2024 Texas Instruments Incorporated
+ *  Copyright (C) 2024 Texas Instruments Incorporated
  *
  *  Redistribution and use in source and binary forms, with or without
  *  modification, are permitted provided that the following conditions
@@ -30,8 +30,8 @@
  *  OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-#ifndef BOOTLOADER_TOP_H_
-#define BOOTLOADER_TOP_H_
+#ifndef _BOOTLOADER_ELF_H_
+#define _BOOTLOADER_ELF_H_
 
 #ifdef __cplusplus
 extern "C"
@@ -42,27 +42,129 @@ extern "C"
 /*                             Include Files                                  */
 /* ========================================================================== */
 
-#include <drivers/hw_include/soc_config.h>
-
-#if defined (DRV_BOOTLOADER_FORMAT_RPRC)
-#include <drivers/bootloader/bootloader_rprc.h>
-#endif
-
-#if defined (DRV_BOOTLOADER_FORMAT_MCELF)
-#include <drivers/bootloader/bootloader_mcelf.h>
-#endif
+#include <stdint.h>
 
 /* ========================================================================== */
 /*                             Macros & Typedefs                              */
 /* ========================================================================== */
 
-/* None */
+#define E_IDENT 16
+
+/* Segment types */
+#define PT_NULL       (0)
+#define PT_LOAD       (1)
+#define PT_DYNAMIC    (2)
+#define PT_INTERP     (3)
+#define PT_NOTE       (4)
+#define PT_SHLIB      (5)
+#define PT_PHDR       (6)
+
+#define ELFCLASS_IDX              (4U)
+#define ELFCLASS_32               (1U)
+#define ELFCLASS_64               (2U)
+
+#define ELF_NOTE_NAMESZ_SIZE      (4U)
+#define ELF_NOTE_DESCSZ_SIZE      (4U)
+#define ELF_NOTE_TYPE_SIZE        (4U)
+
+#define ELF_HEADER_32_SIZE        (52U)
+#define ELF_HEADER_64_SIZE        (64U)
+#define ELF_P_HEADER_32_SIZE      (32U)
+#define ELF_P_HEADER_64_SIZE      (56U)
+
+#define ELF_HEADER_MAX_SIZE       (ELF_HEADER_64_SIZE)
+#define ELF_MAX_SEGMENTS          (64U)
+#define ELF_P_HEADER_MAX_SIZE     (ELF_P_HEADER_64_SIZE)
+#define ELF_NOTE_SEGMENT_MAX_SIZE (512U)
 
 /* ========================================================================== */
 /*                         Structure Declarations                             */
 /* ========================================================================== */
 
-/* None */
+typedef struct Bootloader_ELFH32_s
+{
+    uint8_t  eIdent[E_IDENT];
+    uint16_t eType;
+    uint16_t eMachine;
+    uint32_t eVersion;
+    uint32_t eEntry;
+    uint32_t ePhoff;
+    uint32_t eShoff;
+    uint32_t eFlags;
+    uint16_t eEhsize;
+    uint16_t ePhentsize;
+    uint16_t ePhnum;
+    uint16_t eShentsize;
+    uint16_t eShnum;
+    uint16_t eShstrndx;
+
+} Bootloader_ELFH32; /* 52 bytes */
+
+typedef struct Bootloader_ELFH64_s
+{
+    uint8_t  eIdent[E_IDENT];
+    uint16_t eType;
+    uint16_t eMachine;
+    uint32_t eVersion;
+    uint64_t eEntry;
+    uint64_t ePhoff;
+    uint64_t eShoff;
+    uint32_t eFlags;
+    uint16_t eEhsize;
+    uint16_t ePhentsize;
+    uint16_t ePhnum;
+    uint16_t eShentsize;
+    uint16_t eShnum;
+    uint16_t eShstrndx;
+
+} Bootloader_ELFH64; /* 64 bytes */
+
+typedef struct Bootloader_ELFPH32_s
+{
+	uint32_t type;
+    uint32_t offset;
+    uint32_t vaddr;
+    uint32_t paddr;
+    uint32_t filesz;
+    uint32_t memsz;
+    uint32_t flags;
+    uint32_t align;
+
+} Bootloader_ELFPH32; /* 32 bytes */
+
+typedef struct Bootloader_ELFPH64_s
+{
+	uint32_t type;
+    uint32_t flags;
+    uint64_t offset;
+    uint64_t vaddr;
+    uint64_t paddr;
+    uint64_t filesz;
+    uint64_t memsz;
+    uint64_t align;
+
+} Bootloader_ELFPH64; /* 56 bytes */
+
+typedef struct Bootloader_ELFNote_s
+{
+    uint32_t namesz;
+    uint32_t descsz;
+    uint32_t type;
+} Bootloader_ELFNote;
+
+typedef struct Bootloader_EntryPoint32_s
+{
+    uint32_t coreId;
+    uint32_t entryPoint;
+
+} Bootloader_EntryPoint32;
+
+typedef struct Bootloader_EntryPoint64_s
+{
+    uint32_t coreId;
+    uint64_t entryPoint;
+
+} Bootloader_EntryPoint64;
 
 /* ========================================================================== */
 /*                          Function Declarations                             */
@@ -74,4 +176,4 @@ extern "C"
 }
 #endif
 
-#endif /* #ifndef BOOTLOADER_TOP_H_ */
+#endif /* _BOOTLOADER_ELF_H_ */

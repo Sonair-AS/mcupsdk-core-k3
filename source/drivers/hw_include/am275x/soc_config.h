@@ -79,6 +79,9 @@ extern "C"
 /* Driver DMA integration */
 #define DMA_VERSION_MCSPI_UDMA
 
+/* Driver bootloader format */
+#define DRV_BOOTLOADER_FORMAT_MCELF
+
 #ifdef __cplusplus
 }
 #endif

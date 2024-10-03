@@ -35,7 +35,7 @@
 
 #include <drivers/hw_include/cslr_soc.h>
 
-#define FREERTOS_SMP_RPRC_CORE_ID           (100)
+#define FREERTOS_SMP_ELF_CORE_ID           (100)
 #define FREERTOS_SMP_NO_OF_CORES            (0)
 #define FREERTOS_SMP_CSL_CORE_ID_MAX        (FREERTOS_SMP_NO_OF_CORES + CSL_CORE_ID_A53SS0_0)
 
@@ -186,22 +186,22 @@ int32_t  Bootloader_socCpuSetEntryPoint(uint32_t cpuId, uintptr_t entryPoint);
 uint32_t Bootloader_socTranslateSectionAddr(uint32_t cslCoreId, uint32_t addr);
 
 /**
- * \brief Obtain the CSL core ID of a CPU from its RPRC core ID
+ * \brief Obtain the CSL core ID of a CPU from its MCELF core ID
  *
- * \param rprcCoreId [in] The RPRC ID of the core
+ * \param elfCoreId [in] The ELF ID of the core
  *
  * \return CSL core ID of a CPU
  */
-uint32_t Bootloader_socRprcToCslCoreId(uint32_t rprcCoreId);
+uint32_t Bootloader_socElfToCslCoreId(uint32_t elfCoreId);
 
 /**
  * \brief Check whether the smp is enabled or not for the soc
  *
- * \param rprcCoreId [in] The RPRC ID of the core
+ * \param elfCoreId [in] The ELF ID of the core
  *
  * \return true if smp is enabled otherwise false
  */
-bool Bootloader_socIsSmpEnable(uint32_t rprcCoreId);
+bool Bootloader_socIsSmpEnable(uint32_t elfCoreId);
 
 /**
  * \brief Get the list of self cpus in the SOC.

@@ -350,19 +350,19 @@ static int32_t Bootloader_socOpenFirewallRegion(uint16_t fwl, uint16_t region, u
     return status;
 }
 
-uint32_t Bootloader_socRprcToCslCoreId(uint32_t rprcCoreId)
+uint32_t Bootloader_socElfToCslCoreId(uint32_t elfCoreId)
 {
     uint32_t cslCoreId = CSL_CORE_ID_MAX;
     uint32_t i;
 
-    uint32_t rprcCoreIds[CSL_CORE_ID_MAX] =
+    uint32_t elfCoreIds[CSL_CORE_ID_MAX] =
     {
         0U, 1U, 2U, 3U, 4U, 5U, 6U, 7U
     };
 
     for(i = 0U; i < CSL_CORE_ID_MAX; i++)
     {
-        if(rprcCoreId == rprcCoreIds[i])
+        if(elfCoreId == elfCoreIds[i])
         {
             cslCoreId = i;
             break;
@@ -372,7 +372,7 @@ uint32_t Bootloader_socRprcToCslCoreId(uint32_t rprcCoreId)
     return cslCoreId;
 }
 
-bool Bootloader_socIsSmpEnable(uint32_t rprcCoreId)
+bool Bootloader_socIsSmpEnable(uint32_t elfCoreId)
 {
     bool smpEnable = false;
 

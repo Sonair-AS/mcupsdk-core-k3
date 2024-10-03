@@ -90,8 +90,13 @@ extern "C"
 #define DRV_VERSION_DSS_V0
 #define DRV_VERSION_WATCHDOG_V1
 #define DRV_VERSION_SPINLOCK_V0
+
 /* Driver DMA integration */
 #define DMA_VERSION_MCSPI_UDMA
+
+/* Driver bootloader format */
+#define DRV_BOOTLOADER_FORMAT_RPRC
+
 
 
 #ifdef __cplusplus

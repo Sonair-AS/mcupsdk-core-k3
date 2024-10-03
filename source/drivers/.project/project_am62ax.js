@@ -71,6 +71,7 @@ const files_r5f = {
         "bootloader_flash.c",
         "bootloader_mem.c",
         "bootloader_mmcsd_raw.c",
+        "bootloader_rprc.c",
         "bootloader_soc.c",
         "bootloader_xmodem.c",
         "bootloader_uniflash.c",

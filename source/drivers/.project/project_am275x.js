@@ -74,6 +74,7 @@ const files_wkup_r5f = {
         "bootloader.c",
         "bootloader_dma.c",
         "bootloader_flash.c",
+        "bootloader_mcelf.c",
         "bootloader_mem.c",
         "bootloader_mmcsd_raw.c",
         "bootloader_soc.c",
