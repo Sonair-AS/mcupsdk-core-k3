@@ -239,7 +239,7 @@ int32_t HwiP_configClec(uint16_t eventId, uint32_t intNum, uint8_t isPulse)
         CSL_ClecEventConfig   cfgClec;
 #if (CSL_C7X256V_CLEC_MAIN_CNT == 1U)
         CSL_CLEC_EVTRegs     *clecBaseAddr = (CSL_CLEC_EVTRegs*)CSL_C7X256V0_CLEC_BASE;
-#elif (CSL_C7X256V_CLEC_MAIN_CNT > 1U)             
+#elif (CSL_C7X256V_CLEC_MAIN_CNT > 1U)
         CSL_CLEC_EVTRegs     *clecBaseAddr = Hwip_getClecBaseAddr();
         if (clecBaseAddr == (CSL_CLEC_EVTRegs*) NULL)
         {
@@ -257,9 +257,9 @@ int32_t HwiP_configClec(uint16_t eventId, uint32_t intNum, uint8_t isPulse)
             CSL_clecClearEvent(clecBaseAddr, eventId);
             CSL_clecConfigEventLevel(clecBaseAddr, eventId, !(isPulse)); /* configure interrupt as pulse/level */
             status = CSL_clecConfigEvent(clecBaseAddr, eventId, &cfgClec);
-#if (CSL_C7X256V_CLEC_MAIN_CNT > 1U)             
+#if (CSL_C7X256V_CLEC_MAIN_CNT > 1U)
         }
-#endif        
+#endif
     }
 
     return status;
@@ -285,7 +285,7 @@ void HwiP_configClecAccessCtrl()
     }
 }
 
-/* 
+/*
  * Returns the C7x clec base address for the current C7x cluster
 */
 static CSL_CLEC_EVTRegs* Hwip_getClecBaseAddr()
@@ -311,8 +311,8 @@ static CSL_CLEC_EVTRegs* Hwip_getClecBaseAddr()
     {
         clecBaseAddr = (CSL_CLEC_EVTRegs*) NULL;
     }
-#else 
+#else
 #error "Invalid CLEC Count"
 #endif
     return clecBaseAddr;
-} 
+}

@@ -5,7 +5,7 @@ let ospi_input_clk_freq = 166666666;
 const ospi_config_r5fss = [
     {
         name                : "OSPI0",
-        baseAddr            : "CSL_FSS0_OSPI0_CTRL_BASE",
+        baseAddr            : "CSL_FSS0_OSPI0_OSPI_CFG_VBUSP_VBP2APB_WRAP_OSPI_CFG_VBP_OSPI_FLASH_APB_BASE",
         dataBaseAddr        : "CSL_FSS0_DAT_REG1_BASE",
         inputClkFreq        : ospi_input_clk_freq,
         dacEnable           : false,
@@ -44,7 +44,7 @@ const ospi_config_r5fss = [
 const ospi_config_c7x = [
     {
         name                : "OSPI0",
-        baseAddr            : "CSL_FSS0_OSPI0_CTRL_BASE",
+        baseAddr            : "CSL_FSS0_OSPI0_OSPI_CFG_VBUSP_VBP2APB_WRAP_OSPI_CFG_VBP_OSPI_FLASH_APB_BASE",
         dataBaseAddr        : "CSL_FSS0_DAT_REG1_BASE",
         inputClkFreq        : ospi_input_clk_freq,
         dacEnable           : false,

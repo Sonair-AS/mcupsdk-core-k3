@@ -255,14 +255,14 @@ Bootloader_CoreAddrTranslateInfo gAddrTranslateInfo[] =
         .addrRegionInfo =
         {
             {
-                .cpuLocalAddr = CSL_C7X256V_0_0_UMC_MEM_MAIN_BASE,
-                .socAddr      = CSL_C7X256V_0_0_UMC_MEM_MAIN_BASE,
-                .regionSize   = CSL_C7X256V_0_0_UMC_MEM_MAIN_SIZE,
+                .cpuLocalAddr = CSL_C7X256V0_UMC_MEM_MAIN_BASE,
+                .socAddr      = CSL_C7X256V0_UMC_MEM_MAIN_BASE,
+                .regionSize   = CSL_C7X256V0_UMC_MEM_MAIN_SIZE,
             },
             {
-                .cpuLocalAddr = CSL_C7X256V_0_0_UMC_MEM_AUX_BASE,
-                .socAddr      = CSL_C7X256V_0_0_UMC_MEM_AUX_BASE,
-                .regionSize   = CSL_C7X256V_0_0_UMC_MEM_AUX_SIZE,
+                .cpuLocalAddr = CSL_C7X256V0_UMC_MEM_AUX_BASE,
+                .socAddr      = CSL_C7X256V0_UMC_MEM_AUX_BASE,
+                .regionSize   = CSL_C7X256V0_UMC_MEM_AUX_SIZE,
             },
             {
                 .cpuLocalAddr = BOOTLOADER_C7X0_0_SRAM_ALIAS,
@@ -278,14 +278,14 @@ Bootloader_CoreAddrTranslateInfo gAddrTranslateInfo[] =
         .addrRegionInfo =
         {
             {
-                .cpuLocalAddr = CSL_C7X256V_1_1_UMC_MEM_MAIN_BASE,
-                .socAddr      = CSL_C7X256V_1_1_UMC_MEM_MAIN_BASE,
-                .regionSize   = CSL_C7X256V_1_1_UMC_MEM_MAIN_SIZE,
+                .cpuLocalAddr = CSL_C7X256V1_UMC_MEM_MAIN_BASE,
+                .socAddr      = CSL_C7X256V1_UMC_MEM_MAIN_BASE,
+                .regionSize   = CSL_C7X256V1_UMC_MEM_MAIN_SIZE,
             },
             {
-                .cpuLocalAddr = CSL_C7X256V_1_1_UMC_MEM_AUX_BASE,
-                .socAddr      = CSL_C7X256V_1_1_UMC_MEM_AUX_BASE,
-                .regionSize   = CSL_C7X256V_1_1_UMC_MEM_AUX_SIZE,
+                .cpuLocalAddr = CSL_C7X256V1_UMC_MEM_AUX_BASE,
+                .socAddr      = CSL_C7X256V1_UMC_MEM_AUX_BASE,
+                .regionSize   = CSL_C7X256V1_UMC_MEM_AUX_SIZE,
             },
             {
                 .cpuLocalAddr = BOOTLOADER_C7X1_0_SRAM_ALIAS,
@@ -552,11 +552,11 @@ void Bootloader_socInitC7xL2Sram(uint32_t cpuId)
 
     if(cpuId == CSL_CORE_ID_C75SS0_0)
     {
-        c75_l2sram_base_addr = CSL_C7X256V_0_0_UMC_MEM_MAIN_BASE;
+        c75_l2sram_base_addr = CSL_C7X256V0_UMC_MEM_MAIN_BASE;
     }
     else if(cpuId == CSL_CORE_ID_C75SS1_0)
     {
-        c75_l2sram_base_addr = CSL_C7X256V_1_1_UMC_MEM_MAIN_BASE;
+        c75_l2sram_base_addr = CSL_C7X256V1_UMC_MEM_MAIN_BASE;
     }
 
     *(volatile uint32_t *)(c75_l2sram_base_addr + 0) = 0x0000084E;  /* NOP instruction */
@@ -959,11 +959,11 @@ int32_t Bootloader_socCpuResetRelease(uint32_t cpuId, uintptr_t entryPoint)
                     /* Set entry point to C7x L2RAM */
                     if(cpuId == CSL_CORE_ID_C75SS0_0)
                     {
-                        entryPoint = (uintptr_t)CSL_C7X256V_0_0_UMC_MEM_MAIN_BASE;
+                        entryPoint = (uintptr_t)CSL_C7X256V0_UMC_MEM_MAIN_BASE;
                     }
                     else
                     {
-                        entryPoint = (uintptr_t)CSL_C7X256V_1_1_UMC_MEM_MAIN_BASE;
+                        entryPoint = (uintptr_t)CSL_C7X256V1_UMC_MEM_MAIN_BASE;
                     }
                 }
                 proc_set_config.processor_id = sciclientCpuProcId;
