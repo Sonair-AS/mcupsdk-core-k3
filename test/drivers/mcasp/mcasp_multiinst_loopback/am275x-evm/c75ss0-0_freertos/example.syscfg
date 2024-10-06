@@ -24,6 +24,7 @@ const mmu_armv88  = mmu_armv8.addInstance();
 const mmu_armv89  = mmu_armv8.addInstance();
 const mmu_armv810 = mmu_armv8.addInstance();
 const mmu_armv811 = mmu_armv8.addInstance();
+const mmu_armv812 = mmu_armv8.addInstance();
 
 /**
  * Write custom configuration values to the imported modules.
@@ -61,17 +62,17 @@ debug_log.enableUartLog = true;
 debug_log.uartLog.$name = "CONFIG_UART0";
 
 mmu_armv81.size  = 0x20000000;
-mmu_armv81.$name = "REGISTER_REGION_0";
+mmu_armv81.$name = "REGISTER_REGION0";
 
 mmu_armv82.vAddr = 0x20000000;
 mmu_armv82.pAddr = 0x20000000;
 mmu_armv82.size  = 0x20000000;
-mmu_armv82.$name = "REGISTER_REGION_1";
+mmu_armv82.$name = "REGISTER_REGION1";
 
 mmu_armv83.vAddr = 0x40000000;
 mmu_armv83.pAddr = 0x40000000;
 mmu_armv83.size  = 0x20000000;
-mmu_armv83.$name = "REGISTER_REGION_2";
+mmu_armv83.$name = "REGISTER_REGION2";
 
 mmu_armv84.vAddr = 0x60000000;
 mmu_armv84.pAddr = 0x60000000;
@@ -86,37 +87,43 @@ mmu_armv85.size  = 0x100000;
 mmu_armv86.$name = "DRU";
 mmu_armv86.vAddr = 0x7C400000;
 mmu_armv86.pAddr = 0x7C400000;
-mmu_armv86.size  = 0x100000;
+mmu_armv86.size  = 0x300000;
 
-mmu_armv87.vAddr     = 0x80000000;
-mmu_armv87.pAddr     = 0x80000000;
-mmu_armv87.size      = 0x20000000;
-mmu_armv87.attribute = "MAIR7";
-mmu_armv87.$name     = "DDR_0";
+mmu_armv87.$name       = "MCASP";
+mmu_armv87.vAddr       = 0x2B10000;
+mmu_armv87.pAddr       = 0x2B10000;
+mmu_armv87.size        = 0x2000000;
+mmu_armv87.privExecute = false;
 
-mmu_armv88.vAddr     = 0xA0000000;
-mmu_armv88.pAddr     = 0xA0000000;
-mmu_armv88.size      = 0x20000000;
+mmu_armv88.$name     = "L2SRAM";
+mmu_armv88.vAddr     = 0x7E000000;
+mmu_armv88.pAddr     = 0x7E000000;
 mmu_armv88.attribute = "MAIR7";
-mmu_armv88.$name     = "DDR_1";
+mmu_armv88.size      = 0x200000;
 
-mmu_armv89.vAddr     = 0xAA000000;
-mmu_armv89.pAddr     = 0xAA000000;
-mmu_armv89.size      = 0x2000000;
-mmu_armv89.attribute = "MAIR4";
-mmu_armv89.$name     = "DDR_2";
+mmu_armv89.$name     = "L2SRAM_AUX";
+mmu_armv89.vAddr     = 0x7E200000;
+mmu_armv89.pAddr     = 0x7E200000;
+mmu_armv89.size      = 0x40000;
+mmu_armv89.attribute = "MAIR7";
 
-mmu_armv810.$name       = "MCASP";
-mmu_armv810.vAddr       = 0x2B10000;
-mmu_armv810.pAddr       = 0x2B10000;
-mmu_armv810.size        = 0x2000000;
-mmu_armv810.privExecute = false;
+mmu_armv810.$name     = "MSRAM_BANK0_TO_BANK3";
+mmu_armv810.vAddr     = 0x80000000;
+mmu_armv810.pAddr     = 0x80000000;
+mmu_armv810.size      = 0x400000;
+mmu_armv810.attribute = "MAIR7";
 
-mmu_armv811.$name     = "CSS_DEBUG_LOG_MEM";
-mmu_armv811.vAddr     = 0x99C10000;
-mmu_armv811.pAddr     = 0x99C10000;
-mmu_armv811.size      = 0x1000;
-mmu_armv811.attribute = "MAIR4";
+mmu_armv811.$name     = "MSRAM_BANK4_TO_BANK5";
+mmu_armv811.size      = 0x200000;
+mmu_armv811.vAddr     = 0x80400000;
+mmu_armv811.pAddr     = 0x80400000;
+mmu_armv811.attribute = "MAIR7";
+
+mmu_armv812.$name     = "CCS_DEBUG_LOG_MEM";
+mmu_armv812.vAddr     = 0x8027F000;
+mmu_armv812.pAddr     = 0x8027F000;
+mmu_armv812.size      = 0x1000;
+mmu_armv812.attribute = "MAIR4";
 
 /**
  * Pinmux solution for unlocked pins/peripherals. This ensures that minor changes to the automatic solver in a future

@@ -1,8 +1,9 @@
 /**
  * These arguments were used when this file was generated. They will be automatically applied on subsequent loads
  * via the GUI or CLI. Run CLI with '--help' for additional information on how to override these arguments.
- * @cliArgs --device "AM62Ax" --package "AMB" --part "Default" --context "c75ss0-0" --product "MCU_PLUS_SDK@07.03.01"
- * @versions {"tool":"1.19.0+3426"}
+ * @cliArgs --device "AM275x" --part "AM2754" --package "ANJ" --context "c75ss0-0" --product "MCU_PLUS_SDK@07.03.01"
+ * @v2CliArgs --device "AM2754" --package "FCCSP (ANJ)" --context "c75ss0-0" --product "MCU_PLUS_SDK@07.03.01"
+ * @versions {"tool":"1.21.0+3721"}
  */
 
 /**
@@ -26,29 +27,29 @@ const mmu_armv810 = mmu_armv8.addInstance();
 /**
  * Write custom configuration values to the imported modules.
  */
-gpio1.pinDir               = "OUTPUT";
-gpio1.$name                = "GPIO_LED";
+gpio1.pinDir = "OUTPUT";
+gpio1.$name  = "GPIO_LED";
 
-debug_log.enableUartLog                   = true;
-debug_log.uartLog.$name                   = "CONFIG_UART0";
+debug_log.enableUartLog = true;
+debug_log.uartLog.$name = "CONFIG_UART0";
 
 mmu_armv81.size  = 0x20000000;
-mmu_armv81.$name = "REGISTER_REGION_0";
+mmu_armv81.$name = "REG_SPACE0";
 
 mmu_armv82.vAddr = 0x20000000;
 mmu_armv82.pAddr = 0x20000000;
 mmu_armv82.size  = 0x20000000;
-mmu_armv82.$name = "REGISTER_REGION_1";
+mmu_armv82.$name = "REG_SPACE1";
 
 mmu_armv83.vAddr = 0x40000000;
 mmu_armv83.pAddr = 0x40000000;
 mmu_armv83.size  = 0x20000000;
-mmu_armv83.$name = "REGISTER_REGION_2";
+mmu_armv83.$name = "REG_SPACE2";
 
 mmu_armv84.vAddr = 0x60000000;
 mmu_armv84.pAddr = 0x60000000;
 mmu_armv84.size  = 0x10000000;
-mmu_armv84.$name = "FSS0_DAT_REGION";
+mmu_armv84.$name = "REG_SPACE3";
 
 mmu_armv85.vAddr = 0x7C200000;
 mmu_armv85.pAddr = 0x7C200000;
@@ -60,32 +61,36 @@ mmu_armv86.vAddr = 0x7C400000;
 mmu_armv86.pAddr = 0x7C400000;
 mmu_armv86.size  = 0x100000;
 
-mmu_armv87.vAddr     = 0x80000000;
-mmu_armv87.pAddr     = 0x80000000;
-mmu_armv87.size      = 0x20000000;
-mmu_armv87.attribute = "MAIR7";
-mmu_armv87.$name     = "DDR_0";
+mmu_armv87.$name     = "CCS_DEBUG_LOG_MEM";
+mmu_armv87.size      = 0x1000;
+mmu_armv87.attribute = "MAIR4";
+mmu_armv87.vAddr     = 0x8027F000;
+mmu_armv87.pAddr     = 0x8027F000;
 
-mmu_armv88.vAddr     = 0xA0000000;
-mmu_armv88.pAddr     = 0xA0000000;
-mmu_armv88.size      = 0x20000000;
+mmu_armv88.$name     = "SRAM";
+mmu_armv88.vAddr     = 0x80200000;
+mmu_armv88.pAddr     = 0x80200000;
+mmu_armv88.size      = 0x80000;
 mmu_armv88.attribute = "MAIR7";
-mmu_armv88.$name     = "DDR_1";
 
-mmu_armv89.vAddr     = 0xAA000000;
-mmu_armv89.pAddr     = 0xAA000000;
-mmu_armv89.size      = 0x2000000;
-mmu_armv89.attribute = "MAIR4";
-mmu_armv89.$name     = "DDR_2";
+mmu_armv89.vAddr     = 0x7E000000;
+mmu_armv89.pAddr     = 0x7E000000;
+mmu_armv89.attribute = "MAIR7";
+mmu_armv89.$name     = "L2SRAM";
+mmu_armv89.size      = 0x200000;
 
-mmu_armv810.$name     = "CCS_DEBUG_LOG_MEM";
-mmu_armv810.vAddr     = 0x99C10000;
-mmu_armv810.pAddr     = 0x99C10000;
-mmu_armv810.size      = 0x1000;
-mmu_armv810.attribute = "MAIR4";
+mmu_armv810.$name     = "L2SRAM_AUX";
+mmu_armv810.vAddr     = 0x7E200000;
+mmu_armv810.pAddr     = 0x7E200000;
+mmu_armv810.size      = 0x40000;
+mmu_armv810.attribute = "MAIR7";
 
 /**
  * Pinmux solution for unlocked pins/peripherals. This ensures that minor changes to the automatic solver in a future
  * version of the tool will not impact the pinmux you originally saw.  These lines can be completely deleted in order to
  * re-solve from scratch.
  */
+gpio1.GPIO.$suggestSolution                 = "OSPI0_CLK";
+debug_log.uartLog.UART.$suggestSolution     = "UART1";
+debug_log.uartLog.UART.RXD.$suggestSolution = "I2C1_SCL";
+debug_log.uartLog.UART.TXD.$suggestSolution = "I2C1_SDA";
