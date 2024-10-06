@@ -90,8 +90,8 @@
  *
  */
 
-#define TCSP_SIZE  0x2000
-#define TCSP_ALIGN 0x2000
+#define TCSP_SIZE  0
+#define TCSP_ALIGN 0
 
 
 void * TaskSupport_setupTaskStack(StackType_t * pxStackArrayEndAddress, StackType_t * pxStackArrayStartAddress, Task_FuncPtr fxn, TaskSupport_FuncPtr exit, TaskSupport_FuncPtr enter, TaskFunction_t pxCode, void * pvParameters , bool privileged)
@@ -160,7 +160,7 @@ const size_t TaskSupport_defaultStackSize = (size_t)(configMINIMAL_STACK_SIZE);
 
 /* stackAlignment__C */
 #pragma DATA_SECTION(TaskSupport_stackAlignment, ".const:TaskSupport_stackAlignment");
-const unsigned int TaskSupport_stackAlignment = (unsigned int)0x2000U;
+const unsigned int TaskSupport_stackAlignment = (unsigned int)0x100U;
 
 #pragma DATA_SECTION(OS_mpeEnabled, ".const:OS_mpeEnabled");
 const uint32_t OS_mpeEnabled = 0;
