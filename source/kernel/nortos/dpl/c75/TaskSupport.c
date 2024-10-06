@@ -155,7 +155,7 @@ unsigned int TaskSupport_getStackAlignment()
 }
 
 #pragma DATA_SECTION(TaskSupport_defaultStackSize, ".const:TaskSupport_defaultStackSize");
-const size_t TaskSupport_defaultStackSize = (size_t)(16 * 1024);
+const size_t TaskSupport_defaultStackSize = (size_t)(configMINIMAL_STACK_SIZE);
 
 
 /* stackAlignment__C */

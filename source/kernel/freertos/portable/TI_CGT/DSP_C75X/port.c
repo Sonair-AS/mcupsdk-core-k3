@@ -396,7 +396,7 @@ void vApplicationGetIdleTaskMemory( StaticTask_t ** ppxIdleTaskTCBBuffer,
  * the stack and so not exists after this function exits.
  */
 static StaticTask_t xIdleTaskTCB;
-static StackType_t uxIdleTaskStack[ (32 * 1024) ];
+static StackType_t uxIdleTaskStack[ configMINIMAL_STACK_SIZE ];
 
     /* Pass out a pointer to the StaticTask_t structure in which the Idle task’s
      * state will be stored.
@@ -426,7 +426,7 @@ void vApplicationGetTimerTaskMemory( StaticTask_t ** ppxTimerTaskTCBBuffer,
  * the stack and so not exists after this function exits.
  */
 static StaticTask_t xTimerTaskTCB;
-static StackType_t uxTimerTaskStack[ (32 * 1024) ];
+static StackType_t uxTimerTaskStack[ configMINIMAL_STACK_SIZE ];
 
     /* Pass out a pointer to the StaticTask_t structure in which the Timer
      * task's state will be stored.
