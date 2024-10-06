@@ -33,8 +33,8 @@ MEMORY
 
     C75_1_OCRAM   (RWIX)         : ORIGIN = 0x80400000 LENGTH = 0x00080000          /* 512 KB for c75ss1-0 core */
 
-    LOG_SHM_MEM                  : ORIGIN = 0x72380000, LENGTH = 0x40000
-    IPC_VRING_RTOS               : ORIGIN = 0x723C0000, LENGTH = 0xC000   /* IPC VRING for RTOS/NoRTOS */
+    LOG_SHM_MEM                  : ORIGIN = 0x80380000, LENGTH = 0x40000
+    IPC_VRING_RTOS               : ORIGIN = 0x803C0000, LENGTH = 0xC000   /* IPC VRING for RTOS/NoRTOS */
 
 }
 

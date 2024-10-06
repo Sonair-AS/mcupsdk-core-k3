@@ -111,10 +111,26 @@ const templates_freertos_r5f =
     }
 ];
 
-const templates_freertos_c75 =
+const templates_freertos_c75_0 =
 [
     {
         input: ".project/templates/am275x/common/linker_c75ss0.cmd.xdt",
+        output: "linker.cmd",
+    },
+    {
+        input: ".project/templates/am275x/freertos/main_freertos.c.xdt",
+        output: "../main.c",
+        options: {
+            entryFunction: "ipc_rpmsg_echo_main",
+            stackSize: 64*1024,
+        },
+    }
+];
+
+const templates_freertos_c75_1 =
+[
+    {
+        input: ".project/templates/am275x/common/linker_c75ss1.cmd.xdt",
         output: "linker.cmd",
     },
     {
@@ -224,7 +240,15 @@ function getComponentBuildProperty(buildOption) {
         build_property.includes = includes_freertos_c75;
         build_property.libdirs = libdirs_freertos;
         build_property.libs = libs_freertos_c75;
-        build_property.templates = templates_freertos_c75;
+
+        if(buildOption.cpu.match("c75ss0-0"))
+        {
+            build_property.templates = templates_freertos_c75_0;
+        }
+        else if (buildOption.cpu.match("c75ss1-0"))
+        {
+            build_property.templates = templates_freertos_c75_1;
+        }
     }
     return build_property;
 }
