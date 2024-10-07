@@ -25,6 +25,7 @@ FILES_common := \
     bootloader_xmodem.c \
     bootloader_uniflash.c \
     bootloader_profile.c \
+    crc16.c \
     csl_dru.c \
     csl_sec_proxy.c \
     csl_bcdma.c \
@@ -70,6 +71,7 @@ FILES_common := \
     udma_soc.c \
     utils.c \
     vtm.c \
+    xmodem.c \
 
 FILES_PATH_common = \
     bootloader/soc/am275x \

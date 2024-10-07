@@ -80,6 +80,7 @@ const files_wkup_r5f = {
         "bootloader_xmodem.c",
         "bootloader_uniflash.c",
         "bootloader_profile.c",
+        "crc16.c",
         "csl_dru.c",
         "csl_sec_proxy.c",
         "csl_bcdma.c",
@@ -125,6 +126,7 @@ const files_wkup_r5f = {
         "udma_soc.c",
         "utils.c",
         "vtm.c",
+        "xmodem.c",
     ]
 };
 
