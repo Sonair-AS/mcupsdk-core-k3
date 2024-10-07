@@ -2510,7 +2510,7 @@ static int32_t I2C_lld_primeTransferPoll(I2CLLD_Handle handle)
                     {
                         /* No Error happened; Write executed successfully */
                         /* Wait for stop to happen */
-                        status = I2C_waitForPin(handle,
+                        (void)I2C_waitForPin(handle,
                                                 I2C_INT_STOP_CONDITION,
                                                 &(object->currentMsg->timeout));
 
