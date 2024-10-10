@@ -23,6 +23,9 @@ else ifeq ($(SOC),$(filter $(SOC), am62dx))
 else ifeq ($(SOC),$(filter $(SOC), am62px))
   SOC_FOLDER=am62px
   SOC_RES=am62p
+else ifeq ($(SOC),$(filter $(SOC), am275x))
+  SOC_FOLDER=am275x
+  SOC_RES=am275
 endif
 
 K3_RESPART_REPO=$(THIS_PATH)/k3-resource-partitioning
@@ -110,6 +113,9 @@ ifeq ($(SOC),$(filter $(SOC), am62dx))
 endif
 ifeq ($(SOC),$(filter $(SOC), am62px))
   CFLAGS_BOARDCFG=-DSOC_AM62PX
+endif
+ifeq ($(SOC),$(filter $(SOC), am275x))
+  CFLAGS_BOARDCFG=-DSOC_AM275X
 endif
 CFLAGS_BOARDCFG+= \
     -Wno-gnu-variable-sized-type-not-at-end \
