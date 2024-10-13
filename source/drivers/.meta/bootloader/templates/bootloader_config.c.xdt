@@ -115,6 +115,9 @@ Bootloader_`common.camelSentence(instance.bootMedia)`Args gBootloader`i`Args =
     .drvIdx         = 0,
     .tempBuf        = 0,
     % }
+    % else if (instance.bootMedia == "SD") {
+    .filePtr = NULL,
+    %}
 };
 % }
 
