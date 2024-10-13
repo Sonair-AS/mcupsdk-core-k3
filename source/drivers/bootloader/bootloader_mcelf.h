@@ -114,6 +114,9 @@ typedef struct Bootloader_Params_s
     uint32_t bufIoTempBufSize;
     /* Size of the temporary buffer to be used if the boot media is a buffered IO */
 
+    char* fileName;
+    /*Pointer to the C string that hold name of file to be opened if the boot media is SD*/
+
     uint32_t bufIoDeviceIndex;
     /* Instance index of the IO device driver (UART) */
 

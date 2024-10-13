@@ -4,12 +4,12 @@ let device = "am275x";
 
 const files_r5f = {
     common: [
-        "csl_dru.c",
-        "csl_sec_proxy.c",
         "csl_bcdma.c",
+        "csl_dru.c",
         "csl_intaggr.c",
         "csl_lcdma_ringacc.c",
         "csl_pktdma.c",
+        "csl_sec_proxy.c",
         "ecap.c",
         "epwm.c",
         "gpio.c",
@@ -77,17 +77,18 @@ const files_wkup_r5f = {
         "bootloader_mcelf.c",
         "bootloader_mem.c",
         "bootloader_mmcsd_raw.c",
-        "bootloader_soc.c",
-        "bootloader_xmodem.c",
-        "bootloader_uniflash.c",
         "bootloader_profile.c",
+        "bootloader_sd.c",
+        "bootloader_soc.c",
+        "bootloader_uniflash.c",
+        "bootloader_xmodem.c",
         "crc16.c",
-        "csl_dru.c",
-        "csl_sec_proxy.c",
         "csl_bcdma.c",
+        "csl_dru.c",
         "csl_intaggr.c",
         "csl_lcdma_ringacc.c",
         "csl_pktdma.c",
+        "csl_sec_proxy.c",
         "gpio.c",
         "gtc.c",
         "gtc_soc.c",
@@ -332,7 +333,14 @@ const defines_r5 = {
     ],
 };
 
-
+const includes_wkup_r5f = {
+    common: [
+        "${MCU_PLUS_SDK_PATH}/source/fs/freertos_fat/FreeRTOS-FAT/include",
+        "${MCU_PLUS_SDK_PATH}/source/fs/freertos_fat/portable",
+        "${MCU_PLUS_SDK_PATH}/source/fs/freertos_fat/portable/nortos",
+        "${MCU_PLUS_SDK_PATH}/source/fs/freertos_fat/config",
+    ],
+};
 
 const buildOptionCombos = [
     { device: device, cpu: "r5f", cgt: "ti-arm-clang"},
@@ -360,6 +368,7 @@ function getComponentBuildProperty(buildOption) {
     if(buildOption.cpu.match(/wkup-r5f*/)) {
         build_property.filedirs = filedirs_wkup_r5f;
         build_property.files = files_wkup_r5f;
+        build_property.includes = includes_wkup_r5f;
         build_property.defines = defines_wkup_r5;
     }else if(buildOption.cpu.match(/r5f*/)) {
         build_property.files = files_r5f;

@@ -22,17 +22,18 @@ FILES_common := \
     bootloader_mcelf.c \
     bootloader_mem.c \
     bootloader_mmcsd_raw.c \
-    bootloader_soc.c \
-    bootloader_xmodem.c \
-    bootloader_uniflash.c \
     bootloader_profile.c \
+    bootloader_sd.c \
+    bootloader_soc.c \
+    bootloader_uniflash.c \
+    bootloader_xmodem.c \
     crc16.c \
-    csl_dru.c \
-    csl_sec_proxy.c \
     csl_bcdma.c \
+    csl_dru.c \
     csl_intaggr.c \
     csl_lcdma_ringacc.c \
     csl_pktdma.c \
+    csl_sec_proxy.c \
     gpio.c \
     gtc.c \
     gtc_soc.c \
@@ -121,6 +122,10 @@ FILES_PATH_common = \
 INCLUDES_common := \
     -I${CG_TOOL_ROOT}/include/c \
     -I${MCU_PLUS_SDK_PATH}/source \
+    -I${MCU_PLUS_SDK_PATH}/source/fs/freertos_fat/FreeRTOS-FAT/include \
+    -I${MCU_PLUS_SDK_PATH}/source/fs/freertos_fat/portable \
+    -I${MCU_PLUS_SDK_PATH}/source/fs/freertos_fat/portable/nortos \
+    -I${MCU_PLUS_SDK_PATH}/source/fs/freertos_fat/config \
 
 DEFINES_common := \
     -DSOC_AM275X \

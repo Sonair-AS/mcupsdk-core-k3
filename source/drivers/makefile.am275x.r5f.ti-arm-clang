@@ -16,12 +16,12 @@ ConfigName:=$(PROFILE)
 LIBNAME:=drivers.am275x.r5f.ti-arm-clang.$(PROFILE).lib
 
 FILES_common := \
-    csl_dru.c \
-    csl_sec_proxy.c \
     csl_bcdma.c \
+    csl_dru.c \
     csl_intaggr.c \
     csl_lcdma_ringacc.c \
     csl_pktdma.c \
+    csl_sec_proxy.c \
     ecap.c \
     epwm.c \
     gpio.c \
