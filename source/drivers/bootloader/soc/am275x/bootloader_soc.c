@@ -65,6 +65,60 @@ Bootloader_resMemSections gResMemSection =
     .memSection[0].memEnd     = 0x72080000,
 };
 
+/* SOC view address regions restricted for DMA. We should use CPU memcpy in these cases */
+Bootloader_memSection gDmaRestrictRegions[] =
+{
+    {
+        .memStart = CSL_WKUP_R5FSS0_CORE0_ATCM_BASE,
+        .memEnd   = CSL_WKUP_R5FSS0_CORE0_ATCM_SIZE,
+    },
+    {
+        .memStart = CSL_WKUP_R5FSS0_CORE0_BTCM_BASE,
+        .memEnd   = CSL_WKUP_R5FSS0_CORE0_BTCM_SIZE,
+    },
+
+    {
+        .memStart = CSL_R5FSS0_CORE0_ATCM_BASE,
+        .memEnd   = CSL_R5FSS0_CORE0_ATCM_SIZE,
+    },
+    {
+        .memStart = CSL_R5FSS0_CORE0_BTCM_BASE,
+        .memEnd   = CSL_R5FSS0_CORE0_BTCM_SIZE,
+    },
+
+    {
+        .memStart = CSL_R5FSS0_CORE1_ATCM_BASE,
+        .memEnd   = CSL_R5FSS0_CORE1_ATCM_SIZE,
+    },
+    {
+        .memStart = CSL_R5FSS0_CORE1_BTCM_BASE,
+        .memEnd   = CSL_R5FSS0_CORE1_BTCM_SIZE,
+    },
+
+    {
+        .memStart = CSL_R5FSS1_CORE0_ATCM_BASE,
+        .memEnd   = CSL_R5FSS1_CORE0_ATCM_SIZE,
+    },
+    {
+        .memStart = CSL_R5FSS1_CORE0_BTCM_BASE,
+        .memEnd   = CSL_R5FSS1_CORE0_BTCM_SIZE,
+    },
+
+    {
+        .memStart = CSL_R5FSS1_CORE1_ATCM_BASE,
+        .memEnd   = CSL_R5FSS1_CORE1_ATCM_SIZE,
+    },
+    {
+        .memStart = CSL_R5FSS1_CORE1_BTCM_BASE,
+        .memEnd   = CSL_R5FSS1_CORE1_BTCM_SIZE,
+    },
+
+    {
+        .memStart = 0xFFFFFFFFU,
+        .memEnd   = 0U,
+    }
+};
+
 #undef BOOTLOADER_SOC_ATCM_FILL
 #undef BOOTLOADER_SOC_BTCM_FILL
 
@@ -1251,4 +1305,29 @@ void Bootloader_socCpuPowerOff(uint32_t cpuId)
             break;
     }
 
+}
+
+int32_t Bootloader_socIsDmaRestrictedRegion(uint32_t addr)
+{
+    int32_t isRestricted = FALSE;
+
+    const Bootloader_memSection *addrRegions = gDmaRestrictRegions;
+    uint32_t i = 0;
+    uint32_t start;
+    uint32_t size;
+
+    while(addrRegions[i].memStart != 0xFFFFFFFF)
+    {
+        start = addrRegions[i].memStart;
+        size = addrRegions[i].memEnd;
+
+        if((addr >= start) && (addr < (start + size)))
+        {
+            isRestricted = TRUE;
+            break;
+        }
+        i++;
+    }
+
+    return isRestricted;
 }

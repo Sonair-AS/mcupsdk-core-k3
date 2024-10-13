@@ -64,6 +64,9 @@
 #define ENTRY_POINTS_NOTE_TYPE                (0xCCCC9999)
 #define VENDOR_ID_NOTE_TYPE                   (0xAAAA5555)
 
+#define X509CERT_HEADER_SIZE                  (4U)
+#define SCRATCH_BUFFER_SIZE                   ((uint32_t)(0x1000))
+
 #define BOOTLOADER_MCELF_META_DATA_SIZE_MAX   (ELF_HEADER_MAX_SIZE + \
                                                (ELF_MAX_SEGMENTS * ELF_P_HEADER_MAX_SIZE) \
                                                + ELF_NOTE_SEGMENT_MAX_SIZE)
@@ -109,6 +112,9 @@ static int32_t Bootloader_authInit(uint32_t certLoadAddr);
 static int32_t Bootloader_authUpdate(uint32_t segAddr, uint32_t segSize, bool final_pkt, uint64_t dst);
 static int32_t Bootloader_authFinish();
 
+/* Function to copy DMA restricted regions */
+static void Bootloader_restrictedRegionCopy(Bootloader_Handle handle, uint32_t segmentSize, uint32_t loadAddr);
+
 /* ========================================================================== */
 /*                             Function Definitions                           */
 /* ========================================================================== */
@@ -116,13 +122,7 @@ static int32_t Bootloader_authFinish();
 int32_t Bootloader_parseAndLoadMultiCoreELF(Bootloader_Handle handle, Bootloader_BootImageInfo *bootImageInfo)
 {
     int32_t status = SystemP_SUCCESS;
-
     uint32_t numSegments = 0U;
-
-    uint8_t x509Header[4U];
-    uint32_t certLoadAddr = 0xFFFFFFFFU;
-    uint32_t certLen = 0U;
-
     uint8_t elfClass = ELFCLASS_32;
 
     Bootloader_ELFH32 *elfPtr32 = NULL;
@@ -151,11 +151,18 @@ int32_t Bootloader_parseAndLoadMultiCoreELF(Bootloader_Handle handle, Bootloader
 
     if(status == SystemP_SUCCESS)
     {
+
+
+#if !defined (SKIP_AUTH_FLOW)
+
+        uint8_t x509Header[4U];
+        uint32_t certLoadAddr = 0xFFFFFFFFU;
+        uint32_t certLen = 0U;
+
         /* Read the x509 certificate header */
         config->fxns->imgReadFxn(x509Header, 4U, config->args);
         certLen = Bootloader_getX509CertLen(x509Header);
 
-#if !defined (SKIP_AUTH_FLOW)
         if(Bootloader_socIsAuthRequired() == (uint32_t)1U)
         {
             if(config->bootMedia == BOOTLOADER_MEDIA_FLASH)
@@ -169,6 +176,12 @@ int32_t Bootloader_parseAndLoadMultiCoreELF(Bootloader_Handle handle, Bootloader
                     flashArgs->enablePhyPipeline = TRUE;
                     status = config->fxns->imgCustomFxn(config->args);
                 }
+            }
+            else if(config->bootMedia == BOOTLOADER_MEDIA_SD  || config->bootMedia == BOOTLOADER_MEDIA_EMMC)
+            {
+                    memcpy(config->scratchMemPtr, x509Header, X509CERT_HEADER_SIZE);
+                    config->fxns->imgReadFxn((config->scratchMemPtr+X509CERT_HEADER_SIZE), (certLen-X509CERT_HEADER_SIZE), config->args);
+                    certLoadAddr = (uint32_t)(config->scratchMemPtr);
             }
 
             /* Check if the certificate length is within valid range */
@@ -293,6 +306,7 @@ int32_t Bootloader_parseAndLoadMultiCoreELF(Bootloader_Handle handle, Bootloader
                                 if(elfPhdrPtr32[i].filesz != 0U && elfPhdrPtr32[i].type == PT_LOAD)
                                 {
                                     uint32_t addr = Bootloader_socTranslateSectionAddr(cslCoreId, elfPhdrPtr32[i].vaddr);
+                                    uint32_t loadAddr = addr;
 
                                     /* Add check for SBL reserved memory */
                                     Bootloader_resMemSections *resMem;
@@ -316,12 +330,43 @@ int32_t Bootloader_parseAndLoadMultiCoreELF(Bootloader_Handle handle, Bootloader
                                         {
                                             isFinalPkt = TRUE;
                                         }
-                                        status = Bootloader_authUpdate( imgAddr + elfPhdrPtr32[i].offset, \
-                                                                (uint32_t) elfPhdrPtr32[i].filesz, \
-                                                                isFinalPkt, \
-                                                                (uint64_t) addr);
+                                        if(config->bootMedia == BOOTLOADER_MEDIA_FLASH)
+                                        {
+                                            status = Bootloader_authUpdate( imgAddr + elfPhdrPtr32[i].offset, \
+                                                                    (uint32_t) elfPhdrPtr32[i].filesz, \
+                                                                    isFinalPkt, \
+                                                                    (uint64_t) addr);
 
-                                        ((Bootloader_Config *)handle)->bootImageSize += elfPhdrPtr32[i].filesz;
+                                            ((Bootloader_Config *)handle)->bootImageSize += elfPhdrPtr32[i].filesz;
+                                        }
+                                        else if(config->bootMedia == BOOTLOADER_MEDIA_SD || config->bootMedia == BOOTLOADER_MEDIA_EMMC)
+                                        {
+                                            /* Move current read position to start of Program segment */
+                                            config->fxns->imgSeekFxn(((uint32_t) elfPhdrPtr32[i].offset + certLen), config->args);
+
+                                            if(Bootloader_socIsDmaRestrictedRegion(addr))
+                                            {
+                                                if(cslCoreId == CSL_CORE_ID_WKUP_R5FSS0_0)
+                                                {
+                                                    loadAddr = elfPhdrPtr32[i].paddr;
+                                                }
+                                                Bootloader_restrictedRegionCopy(handle, (uint32_t) elfPhdrPtr32[i].filesz, loadAddr);
+                                            }
+                                            else
+                                            {
+                                                config->fxns->imgReadFxn((void *)(loadAddr), (uint32_t)elfPhdrPtr32[i].filesz, config->args);
+                                            }
+
+                                            config->coresPresentMap |= (0x1 << cslCoreId);
+
+                                            /* Do auth init from the load address */
+                                            status = Bootloader_authUpdate( addr, \
+                                                                    (uint32_t) elfPhdrPtr32[i].filesz, \
+                                                                    isFinalPkt, \
+                                                                    (uint64_t) addr);
+
+                                            ((Bootloader_Config *)handle)->bootImageSize += elfPhdrPtr32[i].filesz;
+                                        }
                                     }
                                 }
                                 else
@@ -363,6 +408,7 @@ int32_t Bootloader_parseAndLoadMultiCoreELF(Bootloader_Handle handle, Bootloader
                             if(elfPhdrPtr64[i].filesz != 0U && elfPhdrPtr64[i].type == PT_LOAD)
                             {
                                 uint32_t addr = Bootloader_socTranslateSectionAddr(cslCoreId, elfPhdrPtr64[i].vaddr);
+                                uint32_t loadAddr = addr;
 
                                 /* Add check for SBL reserved memory */
                                 Bootloader_resMemSections *resMem;
@@ -386,11 +432,43 @@ int32_t Bootloader_parseAndLoadMultiCoreELF(Bootloader_Handle handle, Bootloader
                                     {
                                         isFinalPkt = TRUE;
                                     }
-                                    status = Bootloader_authUpdate( imgAddr + elfPhdrPtr64[i].offset, \
-                                                            (uint32_t) elfPhdrPtr64[i].filesz, \
-                                                            isFinalPkt, \
-                                                            (uint64_t) addr);
-                                    ((Bootloader_Config *)handle)->bootImageSize += elfPhdrPtr64[i].filesz;
+
+                                    if(config->bootMedia == BOOTLOADER_MEDIA_FLASH)
+                                    {
+                                        status = Bootloader_authUpdate( imgAddr + elfPhdrPtr64[i].offset, \
+                                                                (uint32_t) elfPhdrPtr64[i].filesz, \
+                                                                isFinalPkt, \
+                                                                (uint64_t) addr);
+                                        ((Bootloader_Config *)handle)->bootImageSize += elfPhdrPtr64[i].filesz;
+                                    }
+                                    else if(config->bootMedia == BOOTLOADER_MEDIA_SD || config->bootMedia == BOOTLOADER_MEDIA_EMMC)
+                                    {
+                                        /* Move current read position to start of Program segment */
+                                        config->fxns->imgSeekFxn(((uint32_t) elfPhdrPtr64[i].offset + certLen), config->args);
+
+                                        if(Bootloader_socIsDmaRestrictedRegion(addr))
+                                        {
+                                            if(cslCoreId == CSL_CORE_ID_WKUP_R5FSS0_0)
+                                            {
+                                                loadAddr = elfPhdrPtr64[i].paddr;
+                                            }
+                                            Bootloader_restrictedRegionCopy(handle, (uint32_t) elfPhdrPtr64[i].filesz, loadAddr);
+                                        }
+                                        else
+                                        {
+                                            config->fxns->imgReadFxn((void *)(addr), (uint32_t) elfPhdrPtr64[i].filesz, config->args);
+                                        }
+
+                                        config->coresPresentMap |= (0x1 << cslCoreId);
+
+                                        /* Do auth init from the load address */
+                                        status = Bootloader_authUpdate( addr, \
+                                                                (uint32_t) elfPhdrPtr64[i].filesz, \
+                                                                isFinalPkt, \
+                                                                (uint64_t) addr);
+
+                                        ((Bootloader_Config *)handle)->bootImageSize += elfPhdrPtr64[i].filesz;
+                                    }
                                 }
                             }
                             else
@@ -414,7 +492,231 @@ int32_t Bootloader_parseAndLoadMultiCoreELF(Bootloader_Handle handle, Bootloader
 
         }
 #else
-        /* Add for GP device */
+        if(status == SystemP_SUCCESS)
+        {
+            /* Read the ELF metadata from the bootmedia */
+            status = config->fxns->imgReadFxn(gElfBuffer, BOOTLOADER_MCELF_META_DATA_SIZE_MAX, config->args);
+
+            char ELFSTR[] = { 0x7F, 'E', 'L', 'F' };
+            if(memcmp(ELFSTR, gElfBuffer, 4U) != 0)
+            {
+                status = SystemP_FAILURE;
+            }
+            else
+            {
+                elfClass = gElfBuffer[ELFCLASS_IDX];
+                if(elfClass == ELFCLASS_64)
+                {
+                    elfPtr64 = (Bootloader_ELFH64 *)gElfBuffer;
+                    numSegments = elfPtr64->e_phnum;
+
+                    /* Check if number of PHT entries are <= MAX */
+                    if (numSegments > ELF_MAX_SEGMENTS)
+                    {
+                        status = SystemP_FAILURE;
+                    }
+
+                    if(status == SystemP_SUCCESS)
+                    {
+                        elfPhdrPtr64 = (Bootloader_ELFPH64*) &gElfBuffer[elfPtr64->e_phoff];
+
+                        /* Note segment is always first */
+                        noteSegInfo.noteSegmentSz = elfPhdrPtr64[0].filesz;
+                        noteSegInfo.noteSegmentPtr = (Bootloader_ELFNote *) &gElfBuffer[elfPhdrPtr64[0].offset];
+                        noteSegInfo.noteSegmentOffset = elfPhdrPtr64[0].offset;
+                    }
+                }
+                else if(elfClass == ELFCLASS_32)
+                {
+                    elfPtr32 = (Bootloader_ELFH32 *)gElfBuffer;
+                    numSegments = elfPtr32->e_phnum;
+
+                    /* Check if number of PHT entries are <= MAX */
+                    if (numSegments > ELF_MAX_SEGMENTS)
+                    {
+                        status = SystemP_FAILURE;
+                    }
+
+                    if(status == SystemP_SUCCESS)
+                    {
+                        elfPhdrPtr32 = (Bootloader_ELFPH32 *) &gElfBuffer[elfPtr32->e_phoff];
+
+                        /* Note segment is always first */
+                        noteSegInfo.noteSegmentSz = elfPhdrPtr32[0].filesz;
+                        noteSegInfo.noteSegmentPtr = (Bootloader_ELFNote *) &gElfBuffer[elfPhdrPtr32[0].offset];
+                        noteSegInfo.noteSegmentOffset = elfPhdrPtr32[0].offset;
+                    }
+                }
+                else
+                {
+                    status = SystemP_FAILURE;
+                }
+
+                if(status == SystemP_SUCCESS)
+                {
+                    /* Parse the note segment */
+                    status = Bootloader_parseNoteSegment(handle, bootImageInfo, &noteSegInfo, elfClass);
+                }
+            }
+        }
+
+        if(status == SystemP_SUCCESS)
+        {
+            uint32_t i = 1U, cslCoreId = 0U, mcelfCoreId = 0;
+
+            if(config->bootMedia == BOOTLOADER_MEDIA_FLASH)
+            {
+                Bootloader_FlashArgs *flashArgs = (Bootloader_FlashArgs *)(config->args);
+                /* Enable OSPI Phy if configured to do so */
+                flashArgs->enablePhyPipeline = TRUE;
+                status = config->fxns->imgCustomFxn(config->args);
+            }
+
+            if(elfClass == ELFCLASS_32)
+            {
+                if(status == SystemP_SUCCESS)
+                {
+                    for(i = 1U; i < elfPtr32->e_phnum; i++)
+                    {
+                        mcelfCoreId = *(noteSegInfo.noteSegmentMapPtr+ (i-1));
+                        cslCoreId = Bootloader_socElfToCslCoreId(mcelfCoreId);
+
+                        if(!initCpuDone[cslCoreId])
+                        {
+                            status = Bootloader_initCpu(handle, &bootImageInfo->cpuInfo[cslCoreId]);
+                            initCpuDone[cslCoreId] = 1;
+                        }
+
+                        if (status == SystemP_SUCCESS)
+                        {
+                            if(elfPhdrPtr32[i].filesz != 0 && elfPhdrPtr32[i].type == PT_LOAD)
+                            {
+                                uint32_t addr = Bootloader_socTranslateSectionAddr(cslCoreId, elfPhdrPtr32[i].vaddr);
+                                uint32_t loadAddr = addr;
+
+                                /* Add check for SBL reserved memory */
+                                Bootloader_resMemSections *resMem;
+                                uint32_t resSectionCnt, start, end;
+                                resMem = Bootloader_socGetSBLMem();
+                                for (resSectionCnt = 0; resSectionCnt < resMem->numSections; resSectionCnt++)
+                                {
+                                    start = resMem->memSection[resSectionCnt].memStart;
+                                    end = resMem->memSection[resSectionCnt].memEnd;
+                                    if((addr > start) && (addr < end))
+                                    {
+                                        status = SystemP_FAILURE;
+                                        DebugP_log("Application image has a load address (0x%08X) in the SBL reserved memory range!!\r\n", addr);
+                                        break;
+                                    }
+                                }
+
+                                if (status == SystemP_SUCCESS)
+                                {
+                                    /* Move current read position to start of Program segment */
+                                    config->fxns->imgSeekFxn(elfPhdrPtr32[i].offset, config->args);
+
+                                    if(Bootloader_socIsDmaRestrictedRegion(addr))
+                                    {
+                                        if(cslCoreId == CSL_CORE_ID_WKUP_R5FSS0_0)
+                                        {
+                                            loadAddr = elfPhdrPtr32[i].paddr;
+                                        }
+                                        Bootloader_restrictedRegionCopy(handle, (uint32_t) elfPhdrPtr32[i].filesz, loadAddr);
+                                    }
+                                    else
+                                    {
+                                        config->fxns->imgReadFxn((void *)(loadAddr), (uint32_t)elfPhdrPtr32[i].filesz, config->args);
+                                    }
+
+                                    config->coresPresentMap |= (0x1 << cslCoreId);
+                                    ((Bootloader_Config *)handle)->bootImageSize += elfPhdrPtr32[i].filesz;
+                                }
+                            }
+                            else
+                            {
+                                /* NO LOAD segment, do nothing */
+                            }
+                        }
+
+                        if (status != SystemP_SUCCESS)
+                        {
+                            break;
+                        }
+                    }
+                }
+            }
+            else if(elfClass == ELFCLASS_64)
+            {
+                if(status == SystemP_SUCCESS)
+                {
+                    for(i = 1; i < elfPtr64->e_phnum; i++)
+                    {
+                        mcelfCoreId = *(noteSegInfo.noteSegmentMapPtr + (i - 1));
+                        cslCoreId = Bootloader_socElfToCslCoreId(mcelfCoreId);
+
+                        if(!initCpuDone[cslCoreId])
+                        {
+                            status = Bootloader_initCpu(handle, &bootImageInfo->cpuInfo[cslCoreId]);
+                            initCpuDone[cslCoreId] = 1;
+                        }
+
+                        if(elfPhdrPtr64[i].filesz != 0 && elfPhdrPtr64[i].type == PT_LOAD)
+                        {
+                            uint32_t addr = Bootloader_socTranslateSectionAddr(cslCoreId, elfPhdrPtr64[i].vaddr);
+                            uint32_t loadAddr = addr;
+
+                            /* Add check for SBL reserved memory */
+                            Bootloader_resMemSections *resMem;
+                            uint32_t resSectionCnt, start, end;
+                            resMem = Bootloader_socGetSBLMem();
+                            for (resSectionCnt = 0; resSectionCnt < resMem->numSections; resSectionCnt++)
+                            {
+                                start = resMem->memSection[resSectionCnt].memStart;
+                                end = resMem->memSection[resSectionCnt].memEnd;
+                                if((addr > start) && (addr < end))
+                                {
+                                    status = SystemP_FAILURE;
+                                    DebugP_log("Application image has a load address (0x%08X) in the SBL reserved memory range!!\r\n", addr);
+                                    break;
+                                }
+                            }
+
+                            if (status == SystemP_SUCCESS)
+                            {
+                                /* Move current read position to start of Program segment */
+                                config->fxns->imgSeekFxn(((uint32_t) elfPhdrPtr64[i].offset), config->args);
+
+                                if(Bootloader_socIsDmaRestrictedRegion(addr))
+                                {
+                                    if(cslCoreId == CSL_CORE_ID_WKUP_R5FSS0_0)
+                                    {
+                                        loadAddr = elfPhdrPtr64[i].paddr;
+                                    }
+                                    Bootloader_restrictedRegionCopy(handle, (uint32_t) elfPhdrPtr64[i].filesz, loadAddr);
+                                }
+                                else
+                                {
+                                    config->fxns->imgReadFxn((void *)(addr), (uint32_t) elfPhdrPtr64[i].filesz, config->args);
+                                }
+
+                                config->coresPresentMap |= (0x1 << cslCoreId);
+                                ((Bootloader_Config *)handle)->bootImageSize += elfPhdrPtr64[i].filesz;
+                            }
+                        }
+                        else
+                        {
+                            /* NO LOAD segment, do nothing */
+                        }
+
+                        if (status != SystemP_SUCCESS)
+                        {
+                            break;
+                        }
+                    }
+                }
+            }
+        }
+
 #endif
     }
     return status;
@@ -783,3 +1085,27 @@ static int32_t Bootloader_authFinish()
     return status;
 }
 
+static void Bootloader_restrictedRegionCopy(Bootloader_Handle handle, uint32_t segmentSize, uint32_t loadAddr)
+{
+    Bootloader_Config *config = (Bootloader_Config *)handle;
+    uint32_t bytesRead = 0U;
+    uint32_t bytesToRead = 0U;
+
+    while(bytesRead < segmentSize)
+    {
+        if((segmentSize - bytesRead) > SCRATCH_BUFFER_SIZE)
+        {
+            bytesToRead = SCRATCH_BUFFER_SIZE;
+        }
+        else
+        {
+            bytesToRead = segmentSize - bytesRead;
+        }
+
+        config->fxns->imgReadFxn((void *)(config->scratchMemPtr), bytesToRead, config->args);
+        memcpy((void *)loadAddr,(void *)(config->scratchMemPtr), bytesToRead);
+        CacheP_wb((void *)loadAddr, bytesToRead, CacheP_TYPE_ALL);
+        bytesRead += bytesToRead;
+        loadAddr += bytesToRead;
+    }
+}

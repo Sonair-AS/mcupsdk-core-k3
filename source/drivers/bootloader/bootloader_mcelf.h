@@ -240,6 +240,7 @@ typedef struct Bootloader_Config_s
 #include <drivers/bootloader/bootloader_flash.h>
 #include <drivers/bootloader/bootloader_mem.h>
 #include <drivers/bootloader/bootloader_buf_io.h>
+#include <drivers/bootloader/bootloader_sd.h>
 
 /**
  * \brief Data structure containing information related to a particular CPU, required for MCELF loading

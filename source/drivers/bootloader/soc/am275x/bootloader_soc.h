@@ -298,4 +298,14 @@ uint32_t Bootloader_socIsMCUResetIsoEnabled();
  *
  */
 void Bootloader_socCpuPowerOff(uint32_t cpuId);
+
+/**
+ * \brief Check if the address belongs to restricted region
+ *
+ * \param addr [in] Address to be validated
+ *
+ * \return TRUE (1U) if address belongs to restricted region
+ */
+int32_t Bootloader_socIsDmaRestrictedRegion(uint32_t addr);
+
 #endif /* BOOTLOADER_SOC_AM275X_H_ */
