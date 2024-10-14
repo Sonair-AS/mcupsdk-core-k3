@@ -839,7 +839,7 @@ endif
 	$(RM) $(BOOTIMAGE_TEMP_OUT_FILE)
 % }
 	@echo  Boot image: `args.project.device`:`args.project.cpu`:`args.project.os`:`args.project.cgt` $(BOOTIMAGE_PATH)/$@ Done !!!
-% if ((args.project.device == "am64x") || (args.project.device == "am243x") || (args.project.device == "am62x") || (args.project.device == "am62ax") || (args.project.device == "am62dx") || (args.project.device == "am62px")) {
+% if ((args.project.device == "am64x") || (args.project.device == "am243x") || (args.project.device == "am62x") || (args.project.device == "am62ax") || (args.project.device == "am62dx") || (args.project.device == "am62px") || (args.project.device == "am275x")) {
 ifeq ($(DEVICE_TYPE),GP)
 	$(COPY) $(BOOTIMAGE_PATH)/$(BOOTIMAGE_NAME_HS_FS) $(SBL_PREBUILT_PATH)/
 	@echo  Boot image: `args.project.device`:`args.project.cpu`:`args.project.os`:`args.project.cgt` $(BOOTIMAGE_PATH)/$(BOOTIMAGE_NAME_HS_FS) Done !!!
