@@ -35,6 +35,7 @@ const example_file_list = [
     "examples/drivers/boot/sbl_null/.project/project.js",
     "examples/drivers/boot/sbl_ospi/.project/project.js",
     "examples/drivers/boot/sbl_uart_uniflash/.project/project.js",
+    "examples/drivers/boot/sbl_sd/.project/project.js",
     /* Examples */
     "examples/board/eeprom/eeprom_read_write/.project/project.js",
     "examples/empty/.project/project_nortos.js",

@@ -106,6 +106,39 @@
         "resourceSubClass": [
             "example.general"
         ],
+        "description": "A SBL SD example. CPU is WKUP-R5FSS0-0 running FREERTOS.",
+        "name": "sbl_sd",
+        "location": "../../examples/drivers/boot/sbl_sd/am275x-evm/wkup-r5fss0-0_freertos/ti-arm-clang/example.projectspec",
+        "devtools": [
+            "AM275x_EVM"
+        ],
+        "kernel": [
+            "freertos"
+        ],
+        "compiler": [
+            "ticlang"
+        ],
+        "subCategories": [
+            "drivers",
+            "boot",
+            "sbl_sd",
+            "wkup-r5fss0-0_freertos"
+        ],
+        "mainCategories": [
+            [
+                "Examples",
+                "Development Tools"
+            ]
+        ]
+    },
+    {
+        "resourceType": "project.ccs",
+        "resourceClass": [
+            "example"
+        ],
+        "resourceSubClass": [
+            "example.general"
+        ],
         "description": "A EEPROM write and read example. CPU is R5FSS0-0 running FREERTOS.",
         "name": "eeprom_read_write",
         "location": "../../examples/board/eeprom/eeprom_read_write/am275x-evm/r5fss0-0_freertos/ti-arm-clang/example.projectspec",
