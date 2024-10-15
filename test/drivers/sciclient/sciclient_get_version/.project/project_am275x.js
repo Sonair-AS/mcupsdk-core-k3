@@ -74,7 +74,7 @@ const libs_wkup_r5f = {
         "self_reset.am275x.wkup-r5f.ti-arm-clang.${ConfigName}.lib",
         "sciserver.am275x.wkup-r5f.ti-arm-clang.${ConfigName}.lib",
         "freertos.am275x.r5f.ti-arm-clang.${ConfigName}.lib",
-        "drivers.am275x.r5f.ti-arm-clang.${ConfigName}.lib",
+        "drivers.am275x.wkup-r5f.ti-arm-clang.${ConfigName}.lib",
         "unity.am275x.r5f.ti-arm-clang.${ConfigName}.lib",
     ],
 };
@@ -129,6 +129,9 @@ const templates_wkup_r5f =
 
 const buildOptionCombos = [
     { device: device, cpu: "r5fss0-0", cgt: "ti-arm-clang", board: "am275x-evm", os: "nortos"},
+];
+
+const buildOptionCombosWkup = [
     { device: device, cpu: "wkup-r5fss0-0", cgt: "ti-arm-clang", board: "am275x-evm", os: "freertos"},
 ];
 
@@ -141,6 +144,20 @@ function getComponentProperty() {
     property.isInternal = true;
     property.evmipProjectSpec = true;
     property.buildOptionCombos = buildOptionCombos;
+
+    return property;
+}
+
+function getComponentPropertyWkup() {
+    let property = {};
+
+    property.dirPath = path.resolve(__dirname, "..");
+    property.type = "executable";
+    property.name = "test_sciclient";
+    property.isInternal = true;
+    property.evmipProjectSpec = true;
+    property.buildOptionCombos = buildOptionCombosWkup;
+    property.isBootLoader = true;
 
     return property;
 }
@@ -173,4 +190,5 @@ function getComponentBuildProperty(buildOption) {
 module.exports = {
     getComponentProperty,
     getComponentBuildProperty,
+    getComponentPropertyWkup,
 };

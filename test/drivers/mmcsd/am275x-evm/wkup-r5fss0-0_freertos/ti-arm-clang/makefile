@@ -24,12 +24,16 @@ ConfigName:=$(PROFILE)
 OUTNAME:=test_mmcsd.$(PROFILE).out
 
 BOOTIMAGE_PATH=$(abspath .)
-BOOTIMAGE_NAME:=test_mmcsd.$(PROFILE).appimage
-BOOTIMAGE_NAME_XIP:=test_mmcsd.$(PROFILE).appimage_xip
-BOOTIMAGE_NAME_SIGNED:=test_mmcsd.$(PROFILE).appimage.signed
-BOOTIMAGE_RPRC_NAME:=test_mmcsd.$(PROFILE).rprc
-BOOTIMAGE_RPRC_NAME_XIP:=test_mmcsd.$(PROFILE).rprc_xip
-BOOTIMAGE_RPRC_NAME_TMP:=test_mmcsd.$(PROFILE).rprc_tmp
+BOOTIMAGE_NAME_GP:=test_mmcsd.$(PROFILE).tiimage
+BOOTIMAGE_NAME_HS:=test_mmcsd.$(PROFILE).hs.tiimage
+BOOTIMAGE_NAME_HS_FS:=test_mmcsd.$(PROFILE).hs_fs.tiimage
+BOOTIMAGE_BIN_NAME:=test_mmcsd.$(PROFILE).bin
+
+ifeq ($(DEVICE_TYPE),HS)
+	BOOTIMAGE_NAME=$(BOOTIMAGE_NAME_HS)
+else
+	BOOTIMAGE_NAME=$(BOOTIMAGE_NAME_GP)
+endif
 
 FILES_common := \
 	test_mmcsd.c \
@@ -198,10 +202,7 @@ clean:
 	$(RMDIR) $(OBJDIR)
 	$(RM) $(OUTNAME)
 	$(RM) $(BOOTIMAGE_NAME)
-	$(RM) $(BOOTIMAGE_NAME_XIP)
-	$(RM) $(BOOTIMAGE_NAME_SIGNED)
-	$(RM) $(BOOTIMAGE_RPRC_NAME)
-	$(RM) $(BOOTIMAGE_RPRC_NAME_XIP)
+	$(RM) $(BOOTIMAGE_BIN_NAME)
 	$(RMDIR) generated/
 
 scrub:
@@ -210,15 +211,13 @@ scrub:
 ifeq ($(OS),Windows_NT)
 	$(RM) \*.out
 	$(RM) \*.map
-	$(RM) \*.appimage*
-	$(RM) \*.rprc*
+	$(RM) \*.mcelf*
 	$(RM) \*.tiimage*
 	$(RM) \*.bin
 else
 	$(RM) *.out
 	$(RM) *.map
-	$(RM) *.appimage*
-	$(RM) *.rprc*
+	$(RM) *.mcelf*
 	$(RM) *.tiimage*
 	$(RM) *.bin
 endif
@@ -242,7 +241,7 @@ syscfg-gui:
 	$(SYSCFG_NWJS) $(SYSCFG_PATH) --product $(SYSCFG_SDKPRODUCT) --device AM275x --context wkup-r5fss0-0 --part AM2754 --package ANJ --output generated/  ../example.syscfg
 
 #
-# Generation of boot image which can be loaded by Secondary Boot Loader (SBL)
+# Generation of boot image which can be loaded by ROM Boot Loader (RBL)
 #
 ifeq ($(OS),Windows_NT)
 EXE_EXT=.exe
@@ -255,46 +254,47 @@ endif
 BOOTIMAGE_TEMP_OUT_FILE=temp_stdout_$(PROFILE).txt
 
 
-BOOTIMAGE_CORE_ID_wkup-r5fss0-0 = 0
-BOOTIMAGE_CORE_ID_r5fss0-0      = 1
-BOOTIMAGE_CORE_ID_r5fss0-1      = 2
-BOOTIMAGE_CORE_ID_r5fss1-0      = 3
-BOOTIMAGE_CORE_ID_r5fss1-1      = 4
-BOOTIMAGE_CORE_ID_c75ss0-0      = 5
-BOOTIMAGE_CORE_ID_c75ss1-0      = 6
-BOOTIMAGE_CORE_ID_hsm-m4fss0-0  = 7
-SBL_RUN_ADDRESS=0x43C00000
-SBL_DEV_ID=55
 
-MULTI_CORE_IMAGE_GEN = $(SYSCFG_NODE) $(MCU_PLUS_SDK_PATH)/tools/boot/multicoreImageGen/multicoreImageGen.js
-OUTRPRC_CMD = $(SYSCFG_NODE) $(MCU_PLUS_SDK_PATH)/tools/boot/out2rprc/elf2rprc.js
-
-ifeq ($(OS),Windows_NT)
-  XIPGEN_CMD=$(MCU_PLUS_SDK_PATH)/tools/boot/xipGen/xipGen.exe
+ifeq ($(DEVICE_TYPE),HS)
+BOOTIMAGE_CERT_KEY=$(APP_SIGNING_KEY)
 else
-  XIPGEN_CMD=$(MCU_PLUS_SDK_PATH)/tools/boot/xipGen/xipGen.out
+BOOTIMAGE_CERT_KEY=$(ROM_DEGENERATE_KEY)
 endif
+BOOTIMAGE_CERT_GEN_CMD=$(PYTHON) $(MCU_PLUS_SDK_PATH)/tools/boot/signing/rom_image_gen.py
+SYSFW_PATH=$(MCU_PLUS_SDK_PATH)/source/drivers/sciclient/soc/am275x
+SYSFW_LOAD_ADDR=0x40000
+BOARDCFG_LOAD_ADDR=0x67000
+BOARDCFG_SBLDATA_LOAD_ADDR=0x720fc800
+BOARDCFG_BLOB=$(MCU_PLUS_SDK_PATH)/source/drivers/sciclient/sciclient_default_boardcfg/am275x/boardcfg_blob.bin
+BOARDCFG_SBLDATA_BLOB=$(MCU_PLUS_SDK_PATH)/source/drivers/sciclient/sciclient_default_boardcfg/am275x/boardcfg_sbldata_blob.bin
+ENABLE_SBLDATA=yes
 
-MULTI_CORE_IMAGE_PARAMS = \
-	$(BOOTIMAGE_RPRC_NAME)@$(BOOTIMAGE_CORE_ID_wkup-r5fss0-0) \
+SBL_RUN_ADDRESS=0x72000000
 
-MULTI_CORE_IMAGE_PARAMS_XIP = \
-	$(BOOTIMAGE_RPRC_NAME_XIP)@$(BOOTIMAGE_CORE_ID_wkup-r5fss0-0) \
+SBL_PREBUILT_PATH=$(MCU_PLUS_SDK_PATH)/tools/boot/sbl_prebuilt/am275x-evm
 
-$(BOOTIMAGE_NAME): $(OUTNAME)
+$(BOOTIMAGE_BIN_NAME): $(OUTNAME)
+	$(OBJCOPY) --strip-sections -O binary $(OUTNAME) $(BOOTIMAGE_BIN_NAME)
+
+$(BOOTIMAGE_NAME): $(BOOTIMAGE_BIN_NAME)
 	@echo  Boot image: am275x:wkup-r5fss0-0:freertos:ti-arm-clang $(BOOTIMAGE_PATH)/$@ ...
-ifneq ($(OS),Windows_NT)
-	$(CHMOD) a+x $(XIPGEN_CMD)
+ifeq ($(DEVICE_TYPE),HS)
+ifeq ($(ENC_SBL_ENABLED),yes)
+	$(BOOTIMAGE_CERT_GEN_CMD) --swrv 1 --sbl-enc --enc-key $(APP_ENCRYPTION_KEY) --sbl-bin $(BOOTIMAGE_PATH)/$(BOOTIMAGE_BIN_NAME) --sysfw-bin $(SYSFW_PATH)/sysfw-hs-enc.bin --sysfw-inner-cert $(SYSFW_PATH)/sysfw-hs-enc-cert.bin --boardcfg-blob $(BOARDCFG_BLOB) --boardcfg-sbldata-blob $(BOARDCFG_SBLDATA_BLOB) --sbl-loadaddr $(SBL_RUN_ADDRESS) --sysfw-loadaddr $(SYSFW_LOAD_ADDR) --bcfg-loadaddr $(BOARDCFG_LOAD_ADDR) --bcfg-sbldata-loadaddr $(BOARDCFG_SBLDATA_LOAD_ADDR) --key $(BOOTIMAGE_CERT_KEY) --rom-image $(BOOTIMAGE_PATH)/$(BOOTIMAGE_NAME) --enable-sbldata $(ENABLE_SBLDATA)
+else
+	$(BOOTIMAGE_CERT_GEN_CMD) --swrv 1 --sbl-bin $(BOOTIMAGE_PATH)/$(BOOTIMAGE_BIN_NAME) --sysfw-bin $(SYSFW_PATH)/sysfw-hs-enc.bin --sysfw-inner-cert $(SYSFW_PATH)/sysfw-hs-enc-cert.bin --boardcfg-blob $(BOARDCFG_BLOB) --boardcfg-sbldata-blob $(BOARDCFG_SBLDATA_BLOB) --sbl-loadaddr $(SBL_RUN_ADDRESS) --sysfw-loadaddr $(SYSFW_LOAD_ADDR) --bcfg-loadaddr $(BOARDCFG_LOAD_ADDR) --bcfg-sbldata-loadaddr $(BOARDCFG_SBLDATA_LOAD_ADDR) --key $(BOOTIMAGE_CERT_KEY) --rom-image $(BOOTIMAGE_PATH)/$(BOOTIMAGE_NAME) --enable-sbldata $(ENABLE_SBLDATA)
 endif
-	$(OUTRPRC_CMD) $(OUTNAME) >> $(BOOTIMAGE_TEMP_OUT_FILE)
-	$(COPY) $(BOOTIMAGE_RPRC_NAME) $(BOOTIMAGE_RPRC_NAME_TMP)
-	$(RM) $(BOOTIMAGE_RPRC_NAME)
-	$(XIPGEN_CMD) -i $(BOOTIMAGE_RPRC_NAME_TMP) -o $(BOOTIMAGE_RPRC_NAME) -x $(BOOTIMAGE_RPRC_NAME_XIP) --flash-start-addr 0x60000000 -v > $(BOOTIMAGE_TEMP_OUT_FILE)
-	$(MULTI_CORE_IMAGE_GEN) --devID $(SBL_DEV_ID) --out $(BOOTIMAGE_NAME) $(MULTI_CORE_IMAGE_PARAMS) >> $(BOOTIMAGE_TEMP_OUT_FILE)
-	$(MULTI_CORE_IMAGE_GEN) --devID $(SBL_DEV_ID) --out $(BOOTIMAGE_NAME_XIP) $(MULTI_CORE_IMAGE_PARAMS_XIP) >> $(BOOTIMAGE_TEMP_OUT_FILE)
-	$(RM) $(BOOTIMAGE_RPRC_NAME_TMP)
+	$(COPY) $(BOOTIMAGE_NAME_HS) $(BOOTIMAGE_PATH)/tiboot3.bin
+else
+	$(BOOTIMAGE_CERT_GEN_CMD) --swrv 1 --sbl-bin $(BOOTIMAGE_PATH)/$(BOOTIMAGE_BIN_NAME) --sysfw-bin $(SYSFW_PATH)/sysfw.bin --boardcfg-blob $(BOARDCFG_BLOB) --boardcfg-sbldata-blob $(BOARDCFG_SBLDATA_BLOB) --sbl-loadaddr $(SBL_RUN_ADDRESS) --sysfw-loadaddr $(SYSFW_LOAD_ADDR) --bcfg-loadaddr $(BOARDCFG_LOAD_ADDR) --bcfg-sbldata-loadaddr $(BOARDCFG_SBLDATA_LOAD_ADDR) --key $(BOOTIMAGE_CERT_KEY) --rom-image $(BOOTIMAGE_PATH)/$(BOOTIMAGE_NAME) --enable-sbldata $(ENABLE_SBLDATA)
+	$(BOOTIMAGE_CERT_GEN_CMD) --swrv 1 --sbl-bin $(BOOTIMAGE_PATH)/$(BOOTIMAGE_BIN_NAME) --sysfw-bin $(SYSFW_PATH)/sysfw-hs-fs-enc.bin --sysfw-inner-cert $(SYSFW_PATH)/sysfw-hs-fs-enc-cert.bin --boardcfg-blob $(BOARDCFG_BLOB) --boardcfg-sbldata-blob $(BOARDCFG_SBLDATA_BLOB) --sbl-loadaddr $(SBL_RUN_ADDRESS) --sysfw-loadaddr $(SYSFW_LOAD_ADDR) --bcfg-loadaddr $(BOARDCFG_LOAD_ADDR) --bcfg-sbldata-loadaddr $(BOARDCFG_SBLDATA_LOAD_ADDR) --key $(BOOTIMAGE_CERT_KEY) --rom-image $(BOOTIMAGE_PATH)/$(BOOTIMAGE_NAME_HS_FS) --enable-sbldata $(ENABLE_SBLDATA)
+	$(COPY) $(BOOTIMAGE_NAME_HS_FS) $(BOOTIMAGE_PATH)/tiboot3.bin
+endif
+	$(COPY) $(BOOTIMAGE_PATH)/$(BOOTIMAGE_NAME) $(SBL_PREBUILT_PATH)/
+
 	$(RM) $(BOOTIMAGE_TEMP_OUT_FILE)
 	@echo  Boot image: am275x:wkup-r5fss0-0:freertos:ti-arm-clang $(BOOTIMAGE_PATH)/$@ Done !!!
+
 	@echo  .
 
 -include $(addprefix $(OBJDIR)/, $(DEPS))

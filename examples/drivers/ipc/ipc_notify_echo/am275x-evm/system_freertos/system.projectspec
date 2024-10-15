@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <projectSpec>
-    <import spec="../wkup-r5fss0-0_freertos/ti-arm-clang/example.projectspec"/>
     <import spec="../c75ss0-0_freertos/ti-c7000/example.projectspec"/>
     <import spec="../c75ss1-0_freertos/ti-c7000/example.projectspec"/>
     <import spec="../r5fss0-0_freertos/ti-arm-clang/example.projectspec"/>

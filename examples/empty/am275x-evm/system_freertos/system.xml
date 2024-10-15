@@ -1,26 +1,23 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <system>
-    <project configuration="@match" id="project_0" name="empty_am275x-evm_wkup-r5fss0-0_freertos_ti-arm-clang">
+    <project configuration="@match" id="project_0" name="empty_am275x-evm_c75ss0-0_freertos_ti-c7000">
     </project>
     <core id="" project="project_0"/>
-    <project configuration="@match" id="project_1" name="empty_am275x-evm_c75ss0-0_freertos_ti-c7000">
+    <project configuration="@match" id="project_1" name="empty_am275x-evm_c75ss1-0_freertos_ti-c7000">
     </project>
     <core id="" project="project_1"/>
-    <project configuration="@match" id="project_2" name="empty_am275x-evm_c75ss1-0_freertos_ti-c7000">
+    <project configuration="@match" id="project_2" name="empty_am275x-evm_r5fss0-0_freertos_ti-arm-clang">
     </project>
     <core id="" project="project_2"/>
-    <project configuration="@match" id="project_3" name="empty_am275x-evm_r5fss0-0_freertos_ti-arm-clang">
+    <project configuration="@match" id="project_3" name="empty_am275x-evm_r5fss0-1_freertos_ti-arm-clang">
     </project>
     <core id="" project="project_3"/>
-    <project configuration="@match" id="project_4" name="empty_am275x-evm_r5fss0-1_freertos_ti-arm-clang">
+    <project configuration="@match" id="project_4" name="empty_am275x-evm_r5fss1-0_freertos_ti-arm-clang">
     </project>
     <core id="" project="project_4"/>
-    <project configuration="@match" id="project_5" name="empty_am275x-evm_r5fss1-0_freertos_ti-arm-clang">
+    <project configuration="@match" id="project_5" name="empty_am275x-evm_r5fss1-1_freertos_ti-arm-clang">
     </project>
     <core id="" project="project_5"/>
-    <project configuration="@match" id="project_6" name="empty_am275x-evm_r5fss1-1_freertos_ti-arm-clang">
-    </project>
-    <core id="" project="project_6"/>
 	<preBuildSteps>
 	</preBuildSteps>
     <postBuildSteps>

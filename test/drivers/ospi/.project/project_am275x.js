@@ -103,6 +103,7 @@ function getComponentProperty() {
     property.isInternal = true;
     property.evmipProjectSpec = true;
     property.buildOptionCombos = buildOptionCombos;
+    property.isBootLoader = true;
 
     return property;
 }

@@ -169,13 +169,16 @@ const templates_freertos_wkup_r5f =
 ];
 
 const buildOptionCombos = [
-    { device: device, cpu: "wkup-r5fss0-0", cgt: "ti-arm-clang", board: "am275x-evm", os: "freertos", isPartOfSystemProject: true},
     { device: device, cpu: "c75ss0-0", cgt: "ti-c7000", board: "am275x-evm", os: "freertos", isPartOfSystemProject: true},
     { device: device, cpu: "c75ss1-0", cgt: "ti-c7000", board: "am275x-evm", os: "freertos", isPartOfSystemProject: true},
     { device: device, cpu: "r5fss0-0", cgt: "ti-arm-clang", board: "am275x-evm", os: "freertos", isPartOfSystemProject: true},
     { device: device, cpu: "r5fss0-1", cgt: "ti-arm-clang", board: "am275x-evm", os: "freertos", isPartOfSystemProject: true},
     { device: device, cpu: "r5fss1-0", cgt: "ti-arm-clang", board: "am275x-evm", os: "freertos", isPartOfSystemProject: true},
     { device: device, cpu: "r5fss1-1", cgt: "ti-arm-clang", board: "am275x-evm", os: "freertos", isPartOfSystemProject: true},
+];
+
+const buildOptionCombosWkup = [
+    { device: device, cpu: "wkup-r5fss0-0", cgt: "ti-arm-clang", board: "am275x-evm", os: "freertos"},
 ];
 
 const systemProjects =[
@@ -186,7 +189,6 @@ const systemProjects =[
         readmeDoxygenPageTag: readmeDoxygenPageTag,
         board: "am275x-evm",
         projects: [
-            { device: device, cpu: "wkup-r5fss0-0", cgt: "ti-arm-clang", board: "am275x-evm", os: "freertos", isPartOfSystemProject: true},
             { device: device, cpu: "c75ss0-0",     cgt: "ti-c7000",     board: "am275x-evm", os: "freertos", isPartOfSystemProject: true},
             { device: device, cpu: "c75ss1-0",     cgt: "ti-c7000",     board: "am275x-evm", os: "freertos", isPartOfSystemProject: true},
             { device: device, cpu: "r5fss0-0",     cgt: "ti-arm-clang", board: "am275x-evm", os: "freertos", isPartOfSystemProject: true},
@@ -208,6 +210,22 @@ function getComponentProperty() {
     property.buildOptionCombos = buildOptionCombos;
     property.ipcVringRTOS = true;
     property.isLogSHM = true;
+
+    return property;
+}
+
+function getComponentPropertyWkup() {
+    let property = {};
+
+    property.dirPath = path.resolve(__dirname, "..");
+    property.type = "executable";
+    property.name = "ipc_rpmsg_echo";
+    property.isInternal = false;
+    property.description ="A IPC rpmsg echo example"
+    property.buildOptionCombos = buildOptionCombosWkup;
+    property.ipcVringRTOS = true;
+    property.isLogSHM = true;
+    property.isBootLoader = true;
 
     return property;
 }
@@ -262,4 +280,5 @@ module.exports = {
     getComponentProperty,
     getComponentBuildProperty,
     getSystemProjects,
+    getComponentPropertyWkup,
 };

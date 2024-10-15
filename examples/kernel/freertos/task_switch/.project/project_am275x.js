@@ -165,8 +165,11 @@ const templates_freertos_wkup_r5f =
 
 const buildOptionCombos = [
     { device: device, cpu: "r5fss0-0", cgt: "ti-arm-clang", board: "am275x-evm", os: "freertos"},
-    { device: device, cpu: "wkup-r5fss0-0",     cgt: "ti-arm-clang", board: "am275x-evm", os: "freertos"},
     { device: device, cpu: "c75ss0-0",     cgt: "ti-c7000",     board: "am275x-evm", os: "freertos"},
+];
+
+const buildOptionCombosWkup = [
+    { device: device, cpu: "wkup-r5fss0-0",     cgt: "ti-arm-clang", board: "am275x-evm", os: "freertos"},
 ];
 
 function getComponentProperty() {
@@ -180,6 +183,22 @@ function getComponentProperty() {
     property.isInternal = false;
     property.description = "A Task Switch example."
     property.buildOptionCombos = buildOptionCombos;
+
+    return property;
+}
+
+function getComponentPropertyWkup() {
+    let property = {};
+
+    property.dirPath = path.resolve(__dirname, "..");
+    property.type = "executable";
+    property.name = "task_switch_main";
+    property.isInternal = false;
+    property.tirexResourceSubClass = [ "example.gettingstarted" ];
+    property.isInternal = false;
+    property.description = "A Task Switch example."
+    property.buildOptionCombos = buildOptionCombosWkup;
+    property.isBootLoader = true;
 
     return property;
 }
@@ -219,4 +238,5 @@ function getComponentBuildProperty(buildOption) {
 module.exports = {
     getComponentProperty,
     getComponentBuildProperty,
+    getComponentPropertyWkup
 };

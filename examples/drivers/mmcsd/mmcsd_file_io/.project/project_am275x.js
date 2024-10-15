@@ -189,9 +189,11 @@ const templates_freertos_r5f =
 ];
 
 const buildOptionCombos = [
-
     { device: device, cpu: "c75ss0-0", cgt: "ti-c7000",  board: "am275x-evm", os: "freertos"},
     { device: device, cpu: "r5fss0-0", cgt: "ti-arm-clang", board: "am275x-evm", os: "freertos"},
+];
+
+const buildOptionCombosWkup = [
     { device: device, cpu: "wkup-r5fss0-0", cgt: "ti-arm-clang", board: "am275x-evm", os: "freertos"},
 ];
 
@@ -203,6 +205,19 @@ function getComponentProperty() {
     property.name = "mmcsd_file_io";
     property.isInternal = false;
     property.buildOptionCombos = buildOptionCombos;
+
+    return property;
+}
+
+function getComponentPropertyWkup() {
+    let property = {};
+
+    property.dirPath = path.resolve(__dirname, "..");
+    property.type = "executable";
+    property.name = "mmcsd_file_io";
+    property.isInternal = false;
+    property.buildOptionCombos = buildOptionCombosWkup;
+    property.isBootLoader = true;
 
     return property;
 }
@@ -249,4 +264,5 @@ function getComponentBuildProperty(buildOption) {
 module.exports = {
     getComponentProperty,
     getComponentBuildProperty,
+    getComponentPropertyWkup,
 };

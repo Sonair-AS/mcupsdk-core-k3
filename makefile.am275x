@@ -70,6 +70,7 @@ help:
 	@echo  $(MAKE) -s -C examples/drivers/boot/sbl_sd/am275x-evm/wkup-r5fss0-0_freertos/ti-arm-clang [all clean syscfg-gui syscfg]
 	@echo  $(MAKE) -s -C examples/drivers/boot/sbl_uart_uniflash/am275x-evm/wkup-r5fss0-0_nortos/ti-arm-clang [all clean syscfg-gui syscfg]
 	@echo  $(MAKE) -s -C examples/board/eeprom/eeprom_read_write/am275x-evm/r5fss0-0_freertos/ti-arm-clang [all clean syscfg-gui syscfg]
+	@echo  $(MAKE) -s -C examples/empty/am275x-evm/wkup-r5fss0-0_freertos/ti-arm-clang [all clean syscfg-gui syscfg]
 	@echo  $(MAKE) -s -C examples/drivers/gpio/gpio_input_interrupt/am275x-evm/r5fss0-0_nortos/ti-arm-clang [all clean syscfg-gui syscfg]
 	@echo  $(MAKE) -s -C examples/drivers/gpio/gpio_input_interrupt/am275x-evm/r5fss0-0_freertos/ti-arm-clang [all clean syscfg-gui syscfg]
 	@echo  $(MAKE) -s -C examples/drivers/gpio/gpio_input_interrupt/am275x-evm/c75ss0-0_freertos/ti-c7000 [all clean syscfg-gui syscfg]
@@ -88,6 +89,8 @@ help:
 	@echo  $(MAKE) -s -C examples/drivers/i2c/i2c_temperature/am275x-evm/r5fss0-0_nortos/ti-arm-clang [all clean syscfg-gui syscfg]
 	@echo  $(MAKE) -s -C examples/drivers/i2c/i2c_temperature/am275x-evm/r5fss0-0_freertos/ti-arm-clang [all clean syscfg-gui syscfg]
 	@echo  $(MAKE) -s -C examples/drivers/i2c/i2c_temperature/am275x-evm/c75ss0-0_freertos/ti-c7000 [all clean syscfg-gui syscfg]
+	@echo  $(MAKE) -s -C examples/drivers/ipc/ipc_notify_echo/am275x-evm/wkup-r5fss0-0_freertos/ti-arm-clang [all clean syscfg-gui syscfg]
+	@echo  $(MAKE) -s -C examples/drivers/ipc/ipc_rpmsg_echo/am275x-evm/wkup-r5fss0-0_freertos/ti-arm-clang [all clean syscfg-gui syscfg]
 	@echo  $(MAKE) -s -C examples/drivers/mcan/mcan_loopback_polling/am275x-evm/r5fss0-0_nortos/ti-arm-clang [all clean syscfg-gui syscfg]
 	@echo  $(MAKE) -s -C examples/drivers/mcan/mcan_loopback_polling/am275x-evm/r5fss0-0_freertos/ti-arm-clang [all clean syscfg-gui syscfg]
 	@echo  $(MAKE) -s -C examples/drivers/mcan/mcan_loopback_interrupt/am275x-evm/r5fss0-0_nortos/ti-arm-clang [all clean syscfg-gui syscfg]
@@ -111,9 +114,9 @@ help:
 	@echo  $(MAKE) -s -C examples/drivers/mcspi/mcspi_performance_32bit/am275x-evm/r5fss0-0_nortos/ti-arm-clang [all clean syscfg-gui syscfg]
 	@echo  $(MAKE) -s -C examples/drivers/mcspi/mcspi_performance_32bit/am275x-evm/r5fss0-0_freertos/ti-arm-clang [all clean syscfg-gui syscfg]
 	@echo  $(MAKE) -s -C examples/drivers/mcspi/mcspi_performance_32bit/am275x-evm/c75ss0-0_freertos/ti-c7000 [all clean syscfg-gui syscfg]
+	@echo  $(MAKE) -s -C examples/drivers/mmcsd/mmcsd_file_io/am275x-evm/wkup-r5fss0-0_freertos/ti-arm-clang [all clean syscfg-gui syscfg]
 	@echo  $(MAKE) -s -C examples/drivers/mmcsd/mmcsd_file_io/am275x-evm/c75ss0-0_freertos/ti-c7000 [all clean syscfg-gui syscfg]
 	@echo  $(MAKE) -s -C examples/drivers/mmcsd/mmcsd_file_io/am275x-evm/r5fss0-0_freertos/ti-arm-clang [all clean syscfg-gui syscfg]
-	@echo  $(MAKE) -s -C examples/drivers/mmcsd/mmcsd_file_io/am275x-evm/wkup-r5fss0-0_freertos/ti-arm-clang [all clean syscfg-gui syscfg]
 	@echo  $(MAKE) -s -C examples/drivers/mmcsd/mmcsd_raw_io/am275x-evm/wkup-r5fss0-0_freertos/ti-arm-clang [all clean syscfg-gui syscfg]
 	@echo  $(MAKE) -s -C examples/drivers/mmcsd/mmcsd_raw_io/am275x-evm/r5fss0-0_freertos/ti-arm-clang [all clean syscfg-gui syscfg]
 	@echo  $(MAKE) -s -C examples/drivers/mmcsd/mmcsd_raw_io/am275x-evm/c75ss0-0_freertos/ti-c7000 [all clean syscfg-gui syscfg]
@@ -150,20 +153,20 @@ help:
 	@echo  $(MAKE) -s -C examples/drivers/udma/udma_sw_trigger/am275x-evm/c75ss0-0_freertos/ti-c7000 [all clean syscfg-gui syscfg]
 	@echo  $(MAKE) -s -C examples/drivers/watchdog/watchdog_interrupt/am275x-evm/r5fss0-0_freertos/ti-arm-clang [all clean syscfg-gui syscfg]
 	@echo  $(MAKE) -s -C examples/drivers/watchdog/watchdog_interrupt/am275x-evm/c75ss0-0_freertos/ti-c7000 [all clean syscfg-gui syscfg]
+	@echo  $(MAKE) -s -C examples/hello_world/am275x-evm/wkup-r5fss0-0_freertos/ti-arm-clang [all clean syscfg-gui syscfg]
 	@echo  $(MAKE) -s -C examples/hello_world/am275x-evm/r5fss0-0_nortos/ti-arm-clang [all clean syscfg-gui syscfg]
 	@echo  $(MAKE) -s -C examples/hello_world/am275x-evm/r5fss0-0_freertos/ti-arm-clang [all clean syscfg-gui syscfg]
-	@echo  $(MAKE) -s -C examples/hello_world/am275x-evm/wkup-r5fss0-0_freertos/ti-arm-clang [all clean syscfg-gui syscfg]
 	@echo  $(MAKE) -s -C examples/hello_world/am275x-evm/c75ss0-0_freertos/ti-c7000 [all clean syscfg-gui syscfg]
 	@echo  $(MAKE) -s -C examples/hello_world/am275x-evm/c75ss1-0_freertos/ti-c7000 [all clean syscfg-gui syscfg]
+	@echo  $(MAKE) -s -C examples/kernel/dpl/dpl_demo/am275x-evm/wkup-r5fss0-0_freertos/ti-arm-clang [all clean syscfg-gui syscfg]
 	@echo  $(MAKE) -s -C examples/kernel/dpl/dpl_demo/am275x-evm/r5fss0-0_nortos/ti-arm-clang [all clean syscfg-gui syscfg]
 	@echo  $(MAKE) -s -C examples/kernel/dpl/dpl_demo/am275x-evm/r5fss0-0_freertos/ti-arm-clang [all clean syscfg-gui syscfg]
 	@echo  $(MAKE) -s -C examples/kernel/dpl/dpl_demo/am275x-evm/c75ss0-0_freertos/ti-c7000 [all clean syscfg-gui syscfg]
 	@echo  $(MAKE) -s -C examples/kernel/dpl/dpl_demo/am275x-evm/c75ss1-0_freertos/ti-c7000 [all clean syscfg-gui syscfg]
-	@echo  $(MAKE) -s -C examples/kernel/dpl/dpl_demo/am275x-evm/wkup-r5fss0-0_freertos/ti-arm-clang [all clean syscfg-gui syscfg]
 	@echo  $(MAKE) -s -C examples/kernel/freertos/dhrystone_benchmark/am275x-evm/r5fss0-0_freertos/ti-arm-clang [all clean syscfg-gui syscfg]
 	@echo  $(MAKE) -s -C examples/kernel/freertos/posix_demo/am275x-evm/r5fss0-0_freertos/ti-arm-clang [all clean syscfg-gui syscfg]
-	@echo  $(MAKE) -s -C examples/kernel/freertos/task_switch/am275x-evm/r5fss0-0_freertos/ti-arm-clang [all clean syscfg-gui syscfg]
 	@echo  $(MAKE) -s -C examples/kernel/freertos/task_switch/am275x-evm/wkup-r5fss0-0_freertos/ti-arm-clang [all clean syscfg-gui syscfg]
+	@echo  $(MAKE) -s -C examples/kernel/freertos/task_switch/am275x-evm/r5fss0-0_freertos/ti-arm-clang [all clean syscfg-gui syscfg]
 	@echo  $(MAKE) -s -C examples/kernel/freertos/task_switch/am275x-evm/c75ss0-0_freertos/ti-c7000 [all clean syscfg-gui syscfg]
 	@echo  .
 	@echo  System Example build targets,
@@ -423,14 +426,10 @@ BUILD_COMBO_EXAMPLE_ALL += mcspi_performance_32bit_am275x-evm_r5fss0-0_freertos_
 BUILD_COMBO_EXAMPLE_ALL += mcspi_performance_32bit_am275x-evm_c75ss0-0_freertos_ti-c7000
 BUILD_COMBO_EXAMPLE_ALL += mmcsd_file_io_am275x-evm_c75ss0-0_freertos_ti-c7000
 BUILD_COMBO_EXAMPLE_ALL += mmcsd_file_io_am275x-evm_r5fss0-0_freertos_ti-arm-clang
-BUILD_COMBO_EXAMPLE_ALL += mmcsd_file_io_am275x-evm_wkup-r5fss0-0_freertos_ti-arm-clang
-BUILD_COMBO_EXAMPLE_ALL += mmcsd_raw_io_am275x-evm_wkup-r5fss0-0_freertos_ti-arm-clang
 BUILD_COMBO_EXAMPLE_ALL += mmcsd_raw_io_am275x-evm_r5fss0-0_freertos_ti-arm-clang
 BUILD_COMBO_EXAMPLE_ALL += mmcsd_raw_io_am275x-evm_c75ss0-0_freertos_ti-c7000
-BUILD_COMBO_EXAMPLE_ALL += ospi_flash_io_am275x-evm_wkup-r5fss0-0_freertos_ti-arm-clang
 BUILD_COMBO_EXAMPLE_ALL += ospi_flash_io_am275x-evm_r5fss0-0_freertos_ti-arm-clang
 BUILD_COMBO_EXAMPLE_ALL += ospi_flash_io_am275x-evm_c75ss0-0_freertos_ti-c7000
-BUILD_COMBO_EXAMPLE_ALL += sciclient_get_version_am275x-evm_wkup-r5fss0-0_freertos_ti-arm-clang
 BUILD_COMBO_EXAMPLE_ALL += sciclient_get_version_am275x-evm_r5fss0-0_freertos_ti-arm-clang
 BUILD_COMBO_EXAMPLE_ALL += sciclient_get_version_am275x-evm_r5fss0-0_nortos_ti-arm-clang
 BUILD_COMBO_EXAMPLE_ALL += sciclient_get_version_am275x-evm_c75ss0-0_freertos_ti-c7000
@@ -462,18 +461,15 @@ BUILD_COMBO_EXAMPLE_ALL += watchdog_interrupt_am275x-evm_r5fss0-0_freertos_ti-ar
 BUILD_COMBO_EXAMPLE_ALL += watchdog_interrupt_am275x-evm_c75ss0-0_freertos_ti-c7000
 BUILD_COMBO_EXAMPLE_ALL += hello_world_am275x-evm_r5fss0-0_nortos_ti-arm-clang
 BUILD_COMBO_EXAMPLE_ALL += hello_world_am275x-evm_r5fss0-0_freertos_ti-arm-clang
-BUILD_COMBO_EXAMPLE_ALL += hello_world_am275x-evm_wkup-r5fss0-0_freertos_ti-arm-clang
 BUILD_COMBO_EXAMPLE_ALL += hello_world_am275x-evm_c75ss0-0_freertos_ti-c7000
 BUILD_COMBO_EXAMPLE_ALL += hello_world_am275x-evm_c75ss1-0_freertos_ti-c7000
 BUILD_COMBO_EXAMPLE_ALL += dpl_demo_am275x-evm_r5fss0-0_nortos_ti-arm-clang
 BUILD_COMBO_EXAMPLE_ALL += dpl_demo_am275x-evm_r5fss0-0_freertos_ti-arm-clang
 BUILD_COMBO_EXAMPLE_ALL += dpl_demo_am275x-evm_c75ss0-0_freertos_ti-c7000
 BUILD_COMBO_EXAMPLE_ALL += dpl_demo_am275x-evm_c75ss1-0_freertos_ti-c7000
-BUILD_COMBO_EXAMPLE_ALL += dpl_demo_am275x-evm_wkup-r5fss0-0_freertos_ti-arm-clang
 BUILD_COMBO_EXAMPLE_ALL += dhrystone_benchmark_am275x-evm_r5fss0-0_freertos_ti-arm-clang
 BUILD_COMBO_EXAMPLE_ALL += posix_demo_am275x-evm_r5fss0-0_freertos_ti-arm-clang
 BUILD_COMBO_EXAMPLE_ALL += task_switch_main_am275x-evm_r5fss0-0_freertos_ti-arm-clang
-BUILD_COMBO_EXAMPLE_ALL += task_switch_main_am275x-evm_wkup-r5fss0-0_freertos_ti-arm-clang
 BUILD_COMBO_EXAMPLE_ALL += task_switch_main_am275x-evm_c75ss0-0_freertos_ti-c7000
 # Various System Example Targets
 BUILD_COMBO_EXAMPLE_ALL += empty_am275x-evm_system_nortos
@@ -506,6 +502,9 @@ examples-private: $(BUILD_COMBO_EXAMPLE_PRIVATE_ALL)
 
  eeprom_read_write_am275x-evm_r5fss0-0_freertos_ti-arm-clang:
 	$(MAKE) -C examples/board/eeprom/eeprom_read_write/am275x-evm/r5fss0-0_freertos/ti-arm-clang -f makefile all
+
+ empty_am275x-evm_wkup-r5fss0-0_freertos_ti-arm-clang:
+	$(MAKE) -C examples/empty/am275x-evm/wkup-r5fss0-0_freertos/ti-arm-clang -f makefile all
 
  gpio_input_interrupt_am275x-evm_r5fss0-0_nortos_ti-arm-clang:
 	$(MAKE) -C examples/drivers/gpio/gpio_input_interrupt/am275x-evm/r5fss0-0_nortos/ti-arm-clang -f makefile all
@@ -560,6 +559,12 @@ examples-private: $(BUILD_COMBO_EXAMPLE_PRIVATE_ALL)
 
  i2c_temperature_am275x-evm_c75ss0-0_freertos_ti-c7000:
 	$(MAKE) -C examples/drivers/i2c/i2c_temperature/am275x-evm/c75ss0-0_freertos/ti-c7000 -f makefile all
+
+ ipc_notify_echo_am275x-evm_wkup-r5fss0-0_freertos_ti-arm-clang:
+	$(MAKE) -C examples/drivers/ipc/ipc_notify_echo/am275x-evm/wkup-r5fss0-0_freertos/ti-arm-clang -f makefile all
+
+ ipc_rpmsg_echo_am275x-evm_wkup-r5fss0-0_freertos_ti-arm-clang:
+	$(MAKE) -C examples/drivers/ipc/ipc_rpmsg_echo/am275x-evm/wkup-r5fss0-0_freertos/ti-arm-clang -f makefile all
 
  mcan_loopback_polling_am275x-evm_r5fss0-0_nortos_ti-arm-clang:
 	$(MAKE) -C examples/drivers/mcan/mcan_loopback_polling/am275x-evm/r5fss0-0_nortos/ti-arm-clang -f makefile all
@@ -630,14 +635,14 @@ examples-private: $(BUILD_COMBO_EXAMPLE_PRIVATE_ALL)
  mcspi_performance_32bit_am275x-evm_c75ss0-0_freertos_ti-c7000:
 	$(MAKE) -C examples/drivers/mcspi/mcspi_performance_32bit/am275x-evm/c75ss0-0_freertos/ti-c7000 -f makefile all
 
+ mmcsd_file_io_am275x-evm_wkup-r5fss0-0_freertos_ti-arm-clang:
+	$(MAKE) -C examples/drivers/mmcsd/mmcsd_file_io/am275x-evm/wkup-r5fss0-0_freertos/ti-arm-clang -f makefile all
+
  mmcsd_file_io_am275x-evm_c75ss0-0_freertos_ti-c7000:
 	$(MAKE) -C examples/drivers/mmcsd/mmcsd_file_io/am275x-evm/c75ss0-0_freertos/ti-c7000 -f makefile all
 
  mmcsd_file_io_am275x-evm_r5fss0-0_freertos_ti-arm-clang:
 	$(MAKE) -C examples/drivers/mmcsd/mmcsd_file_io/am275x-evm/r5fss0-0_freertos/ti-arm-clang -f makefile all
-
- mmcsd_file_io_am275x-evm_wkup-r5fss0-0_freertos_ti-arm-clang:
-	$(MAKE) -C examples/drivers/mmcsd/mmcsd_file_io/am275x-evm/wkup-r5fss0-0_freertos/ti-arm-clang -f makefile all
 
  mmcsd_raw_io_am275x-evm_wkup-r5fss0-0_freertos_ti-arm-clang:
 	$(MAKE) -C examples/drivers/mmcsd/mmcsd_raw_io/am275x-evm/wkup-r5fss0-0_freertos/ti-arm-clang -f makefile all
@@ -747,20 +752,23 @@ examples-private: $(BUILD_COMBO_EXAMPLE_PRIVATE_ALL)
  watchdog_interrupt_am275x-evm_c75ss0-0_freertos_ti-c7000:
 	$(MAKE) -C examples/drivers/watchdog/watchdog_interrupt/am275x-evm/c75ss0-0_freertos/ti-c7000 -f makefile all
 
+ hello_world_am275x-evm_wkup-r5fss0-0_freertos_ti-arm-clang:
+	$(MAKE) -C examples/hello_world/am275x-evm/wkup-r5fss0-0_freertos/ti-arm-clang -f makefile all
+
  hello_world_am275x-evm_r5fss0-0_nortos_ti-arm-clang:
 	$(MAKE) -C examples/hello_world/am275x-evm/r5fss0-0_nortos/ti-arm-clang -f makefile all
 
  hello_world_am275x-evm_r5fss0-0_freertos_ti-arm-clang:
 	$(MAKE) -C examples/hello_world/am275x-evm/r5fss0-0_freertos/ti-arm-clang -f makefile all
 
- hello_world_am275x-evm_wkup-r5fss0-0_freertos_ti-arm-clang:
-	$(MAKE) -C examples/hello_world/am275x-evm/wkup-r5fss0-0_freertos/ti-arm-clang -f makefile all
-
  hello_world_am275x-evm_c75ss0-0_freertos_ti-c7000:
 	$(MAKE) -C examples/hello_world/am275x-evm/c75ss0-0_freertos/ti-c7000 -f makefile all
 
  hello_world_am275x-evm_c75ss1-0_freertos_ti-c7000:
 	$(MAKE) -C examples/hello_world/am275x-evm/c75ss1-0_freertos/ti-c7000 -f makefile all
+
+ dpl_demo_am275x-evm_wkup-r5fss0-0_freertos_ti-arm-clang:
+	$(MAKE) -C examples/kernel/dpl/dpl_demo/am275x-evm/wkup-r5fss0-0_freertos/ti-arm-clang -f makefile all
 
  dpl_demo_am275x-evm_r5fss0-0_nortos_ti-arm-clang:
 	$(MAKE) -C examples/kernel/dpl/dpl_demo/am275x-evm/r5fss0-0_nortos/ti-arm-clang -f makefile all
@@ -774,20 +782,17 @@ examples-private: $(BUILD_COMBO_EXAMPLE_PRIVATE_ALL)
  dpl_demo_am275x-evm_c75ss1-0_freertos_ti-c7000:
 	$(MAKE) -C examples/kernel/dpl/dpl_demo/am275x-evm/c75ss1-0_freertos/ti-c7000 -f makefile all
 
- dpl_demo_am275x-evm_wkup-r5fss0-0_freertos_ti-arm-clang:
-	$(MAKE) -C examples/kernel/dpl/dpl_demo/am275x-evm/wkup-r5fss0-0_freertos/ti-arm-clang -f makefile all
-
  dhrystone_benchmark_am275x-evm_r5fss0-0_freertos_ti-arm-clang:
 	$(MAKE) -C examples/kernel/freertos/dhrystone_benchmark/am275x-evm/r5fss0-0_freertos/ti-arm-clang -f makefile all
 
  posix_demo_am275x-evm_r5fss0-0_freertos_ti-arm-clang:
 	$(MAKE) -C examples/kernel/freertos/posix_demo/am275x-evm/r5fss0-0_freertos/ti-arm-clang -f makefile all
 
- task_switch_main_am275x-evm_r5fss0-0_freertos_ti-arm-clang:
-	$(MAKE) -C examples/kernel/freertos/task_switch/am275x-evm/r5fss0-0_freertos/ti-arm-clang -f makefile all
-
  task_switch_main_am275x-evm_wkup-r5fss0-0_freertos_ti-arm-clang:
 	$(MAKE) -C examples/kernel/freertos/task_switch/am275x-evm/wkup-r5fss0-0_freertos/ti-arm-clang -f makefile all
+
+ task_switch_main_am275x-evm_r5fss0-0_freertos_ti-arm-clang:
+	$(MAKE) -C examples/kernel/freertos/task_switch/am275x-evm/r5fss0-0_freertos/ti-arm-clang -f makefile all
 
  task_switch_main_am275x-evm_c75ss0-0_freertos_ti-c7000:
 	$(MAKE) -C examples/kernel/freertos/task_switch/am275x-evm/c75ss0-0_freertos/ti-c7000 -f makefile all
@@ -851,14 +856,10 @@ BUILD_COMBO_EXAMPLE_CLEAN_ALL += mcspi_performance_32bit_am275x-evm_r5fss0-0_fre
 BUILD_COMBO_EXAMPLE_CLEAN_ALL += mcspi_performance_32bit_am275x-evm_c75ss0-0_freertos_ti-c7000_clean
 BUILD_COMBO_EXAMPLE_CLEAN_ALL += mmcsd_file_io_am275x-evm_c75ss0-0_freertos_ti-c7000_clean
 BUILD_COMBO_EXAMPLE_CLEAN_ALL += mmcsd_file_io_am275x-evm_r5fss0-0_freertos_ti-arm-clang_clean
-BUILD_COMBO_EXAMPLE_CLEAN_ALL += mmcsd_file_io_am275x-evm_wkup-r5fss0-0_freertos_ti-arm-clang_clean
-BUILD_COMBO_EXAMPLE_CLEAN_ALL += mmcsd_raw_io_am275x-evm_wkup-r5fss0-0_freertos_ti-arm-clang_clean
 BUILD_COMBO_EXAMPLE_CLEAN_ALL += mmcsd_raw_io_am275x-evm_r5fss0-0_freertos_ti-arm-clang_clean
 BUILD_COMBO_EXAMPLE_CLEAN_ALL += mmcsd_raw_io_am275x-evm_c75ss0-0_freertos_ti-c7000_clean
-BUILD_COMBO_EXAMPLE_CLEAN_ALL += ospi_flash_io_am275x-evm_wkup-r5fss0-0_freertos_ti-arm-clang_clean
 BUILD_COMBO_EXAMPLE_CLEAN_ALL += ospi_flash_io_am275x-evm_r5fss0-0_freertos_ti-arm-clang_clean
 BUILD_COMBO_EXAMPLE_CLEAN_ALL += ospi_flash_io_am275x-evm_c75ss0-0_freertos_ti-c7000_clean
-BUILD_COMBO_EXAMPLE_CLEAN_ALL += sciclient_get_version_am275x-evm_wkup-r5fss0-0_freertos_ti-arm-clang_clean
 BUILD_COMBO_EXAMPLE_CLEAN_ALL += sciclient_get_version_am275x-evm_r5fss0-0_freertos_ti-arm-clang_clean
 BUILD_COMBO_EXAMPLE_CLEAN_ALL += sciclient_get_version_am275x-evm_r5fss0-0_nortos_ti-arm-clang_clean
 BUILD_COMBO_EXAMPLE_CLEAN_ALL += sciclient_get_version_am275x-evm_c75ss0-0_freertos_ti-c7000_clean
@@ -890,18 +891,15 @@ BUILD_COMBO_EXAMPLE_CLEAN_ALL += watchdog_interrupt_am275x-evm_r5fss0-0_freertos
 BUILD_COMBO_EXAMPLE_CLEAN_ALL += watchdog_interrupt_am275x-evm_c75ss0-0_freertos_ti-c7000_clean
 BUILD_COMBO_EXAMPLE_CLEAN_ALL += hello_world_am275x-evm_r5fss0-0_nortos_ti-arm-clang_clean
 BUILD_COMBO_EXAMPLE_CLEAN_ALL += hello_world_am275x-evm_r5fss0-0_freertos_ti-arm-clang_clean
-BUILD_COMBO_EXAMPLE_CLEAN_ALL += hello_world_am275x-evm_wkup-r5fss0-0_freertos_ti-arm-clang_clean
 BUILD_COMBO_EXAMPLE_CLEAN_ALL += hello_world_am275x-evm_c75ss0-0_freertos_ti-c7000_clean
 BUILD_COMBO_EXAMPLE_CLEAN_ALL += hello_world_am275x-evm_c75ss1-0_freertos_ti-c7000_clean
 BUILD_COMBO_EXAMPLE_CLEAN_ALL += dpl_demo_am275x-evm_r5fss0-0_nortos_ti-arm-clang_clean
 BUILD_COMBO_EXAMPLE_CLEAN_ALL += dpl_demo_am275x-evm_r5fss0-0_freertos_ti-arm-clang_clean
 BUILD_COMBO_EXAMPLE_CLEAN_ALL += dpl_demo_am275x-evm_c75ss0-0_freertos_ti-c7000_clean
 BUILD_COMBO_EXAMPLE_CLEAN_ALL += dpl_demo_am275x-evm_c75ss1-0_freertos_ti-c7000_clean
-BUILD_COMBO_EXAMPLE_CLEAN_ALL += dpl_demo_am275x-evm_wkup-r5fss0-0_freertos_ti-arm-clang_clean
 BUILD_COMBO_EXAMPLE_CLEAN_ALL += dhrystone_benchmark_am275x-evm_r5fss0-0_freertos_ti-arm-clang_clean
 BUILD_COMBO_EXAMPLE_CLEAN_ALL += posix_demo_am275x-evm_r5fss0-0_freertos_ti-arm-clang_clean
 BUILD_COMBO_EXAMPLE_CLEAN_ALL += task_switch_main_am275x-evm_r5fss0-0_freertos_ti-arm-clang_clean
-BUILD_COMBO_EXAMPLE_CLEAN_ALL += task_switch_main_am275x-evm_wkup-r5fss0-0_freertos_ti-arm-clang_clean
 BUILD_COMBO_EXAMPLE_CLEAN_ALL += task_switch_main_am275x-evm_c75ss0-0_freertos_ti-c7000_clean
 # Various System Example Clean Targets
 BUILD_COMBO_EXAMPLE_CLEAN_ALL += empty_am275x-evm_system_nortos_clean
@@ -934,6 +932,9 @@ examples-private-clean: $(BUILD_COMBO_EXAMPLE_PRIVATE_CLEAN_ALL)
 
  eeprom_read_write_am275x-evm_r5fss0-0_freertos_ti-arm-clang_clean:
 	$(MAKE) -C examples/board/eeprom/eeprom_read_write/am275x-evm/r5fss0-0_freertos/ti-arm-clang -f makefile clean
+
+ empty_am275x-evm_wkup-r5fss0-0_freertos_ti-arm-clang_clean:
+	$(MAKE) -C examples/empty/am275x-evm/wkup-r5fss0-0_freertos/ti-arm-clang -f makefile clean
 
  gpio_input_interrupt_am275x-evm_r5fss0-0_nortos_ti-arm-clang_clean:
 	$(MAKE) -C examples/drivers/gpio/gpio_input_interrupt/am275x-evm/r5fss0-0_nortos/ti-arm-clang -f makefile clean
@@ -988,6 +989,12 @@ examples-private-clean: $(BUILD_COMBO_EXAMPLE_PRIVATE_CLEAN_ALL)
 
  i2c_temperature_am275x-evm_c75ss0-0_freertos_ti-c7000_clean:
 	$(MAKE) -C examples/drivers/i2c/i2c_temperature/am275x-evm/c75ss0-0_freertos/ti-c7000 -f makefile clean
+
+ ipc_notify_echo_am275x-evm_wkup-r5fss0-0_freertos_ti-arm-clang_clean:
+	$(MAKE) -C examples/drivers/ipc/ipc_notify_echo/am275x-evm/wkup-r5fss0-0_freertos/ti-arm-clang -f makefile clean
+
+ ipc_rpmsg_echo_am275x-evm_wkup-r5fss0-0_freertos_ti-arm-clang_clean:
+	$(MAKE) -C examples/drivers/ipc/ipc_rpmsg_echo/am275x-evm/wkup-r5fss0-0_freertos/ti-arm-clang -f makefile clean
 
  mcan_loopback_polling_am275x-evm_r5fss0-0_nortos_ti-arm-clang_clean:
 	$(MAKE) -C examples/drivers/mcan/mcan_loopback_polling/am275x-evm/r5fss0-0_nortos/ti-arm-clang -f makefile clean
@@ -1058,14 +1065,14 @@ examples-private-clean: $(BUILD_COMBO_EXAMPLE_PRIVATE_CLEAN_ALL)
  mcspi_performance_32bit_am275x-evm_c75ss0-0_freertos_ti-c7000_clean:
 	$(MAKE) -C examples/drivers/mcspi/mcspi_performance_32bit/am275x-evm/c75ss0-0_freertos/ti-c7000 -f makefile clean
 
+ mmcsd_file_io_am275x-evm_wkup-r5fss0-0_freertos_ti-arm-clang_clean:
+	$(MAKE) -C examples/drivers/mmcsd/mmcsd_file_io/am275x-evm/wkup-r5fss0-0_freertos/ti-arm-clang -f makefile clean
+
  mmcsd_file_io_am275x-evm_c75ss0-0_freertos_ti-c7000_clean:
 	$(MAKE) -C examples/drivers/mmcsd/mmcsd_file_io/am275x-evm/c75ss0-0_freertos/ti-c7000 -f makefile clean
 
  mmcsd_file_io_am275x-evm_r5fss0-0_freertos_ti-arm-clang_clean:
 	$(MAKE) -C examples/drivers/mmcsd/mmcsd_file_io/am275x-evm/r5fss0-0_freertos/ti-arm-clang -f makefile clean
-
- mmcsd_file_io_am275x-evm_wkup-r5fss0-0_freertos_ti-arm-clang_clean:
-	$(MAKE) -C examples/drivers/mmcsd/mmcsd_file_io/am275x-evm/wkup-r5fss0-0_freertos/ti-arm-clang -f makefile clean
 
  mmcsd_raw_io_am275x-evm_wkup-r5fss0-0_freertos_ti-arm-clang_clean:
 	$(MAKE) -C examples/drivers/mmcsd/mmcsd_raw_io/am275x-evm/wkup-r5fss0-0_freertos/ti-arm-clang -f makefile clean
@@ -1175,20 +1182,23 @@ examples-private-clean: $(BUILD_COMBO_EXAMPLE_PRIVATE_CLEAN_ALL)
  watchdog_interrupt_am275x-evm_c75ss0-0_freertos_ti-c7000_clean:
 	$(MAKE) -C examples/drivers/watchdog/watchdog_interrupt/am275x-evm/c75ss0-0_freertos/ti-c7000 -f makefile clean
 
+ hello_world_am275x-evm_wkup-r5fss0-0_freertos_ti-arm-clang_clean:
+	$(MAKE) -C examples/hello_world/am275x-evm/wkup-r5fss0-0_freertos/ti-arm-clang -f makefile clean
+
  hello_world_am275x-evm_r5fss0-0_nortos_ti-arm-clang_clean:
 	$(MAKE) -C examples/hello_world/am275x-evm/r5fss0-0_nortos/ti-arm-clang -f makefile clean
 
  hello_world_am275x-evm_r5fss0-0_freertos_ti-arm-clang_clean:
 	$(MAKE) -C examples/hello_world/am275x-evm/r5fss0-0_freertos/ti-arm-clang -f makefile clean
 
- hello_world_am275x-evm_wkup-r5fss0-0_freertos_ti-arm-clang_clean:
-	$(MAKE) -C examples/hello_world/am275x-evm/wkup-r5fss0-0_freertos/ti-arm-clang -f makefile clean
-
  hello_world_am275x-evm_c75ss0-0_freertos_ti-c7000_clean:
 	$(MAKE) -C examples/hello_world/am275x-evm/c75ss0-0_freertos/ti-c7000 -f makefile clean
 
  hello_world_am275x-evm_c75ss1-0_freertos_ti-c7000_clean:
 	$(MAKE) -C examples/hello_world/am275x-evm/c75ss1-0_freertos/ti-c7000 -f makefile clean
+
+ dpl_demo_am275x-evm_wkup-r5fss0-0_freertos_ti-arm-clang_clean:
+	$(MAKE) -C examples/kernel/dpl/dpl_demo/am275x-evm/wkup-r5fss0-0_freertos/ti-arm-clang -f makefile clean
 
  dpl_demo_am275x-evm_r5fss0-0_nortos_ti-arm-clang_clean:
 	$(MAKE) -C examples/kernel/dpl/dpl_demo/am275x-evm/r5fss0-0_nortos/ti-arm-clang -f makefile clean
@@ -1202,20 +1212,17 @@ examples-private-clean: $(BUILD_COMBO_EXAMPLE_PRIVATE_CLEAN_ALL)
  dpl_demo_am275x-evm_c75ss1-0_freertos_ti-c7000_clean:
 	$(MAKE) -C examples/kernel/dpl/dpl_demo/am275x-evm/c75ss1-0_freertos/ti-c7000 -f makefile clean
 
- dpl_demo_am275x-evm_wkup-r5fss0-0_freertos_ti-arm-clang_clean:
-	$(MAKE) -C examples/kernel/dpl/dpl_demo/am275x-evm/wkup-r5fss0-0_freertos/ti-arm-clang -f makefile clean
-
  dhrystone_benchmark_am275x-evm_r5fss0-0_freertos_ti-arm-clang_clean:
 	$(MAKE) -C examples/kernel/freertos/dhrystone_benchmark/am275x-evm/r5fss0-0_freertos/ti-arm-clang -f makefile clean
 
  posix_demo_am275x-evm_r5fss0-0_freertos_ti-arm-clang_clean:
 	$(MAKE) -C examples/kernel/freertos/posix_demo/am275x-evm/r5fss0-0_freertos/ti-arm-clang -f makefile clean
 
- task_switch_main_am275x-evm_r5fss0-0_freertos_ti-arm-clang_clean:
-	$(MAKE) -C examples/kernel/freertos/task_switch/am275x-evm/r5fss0-0_freertos/ti-arm-clang -f makefile clean
-
  task_switch_main_am275x-evm_wkup-r5fss0-0_freertos_ti-arm-clang_clean:
 	$(MAKE) -C examples/kernel/freertos/task_switch/am275x-evm/wkup-r5fss0-0_freertos/ti-arm-clang -f makefile clean
+
+ task_switch_main_am275x-evm_r5fss0-0_freertos_ti-arm-clang_clean:
+	$(MAKE) -C examples/kernel/freertos/task_switch/am275x-evm/r5fss0-0_freertos/ti-arm-clang -f makefile clean
 
  task_switch_main_am275x-evm_c75ss0-0_freertos_ti-c7000_clean:
 	$(MAKE) -C examples/kernel/freertos/task_switch/am275x-evm/c75ss0-0_freertos/ti-c7000 -f makefile clean
@@ -1279,14 +1286,10 @@ BUILD_COMBO_EXAMPLE_SCRUB_ALL += mcspi_performance_32bit_am275x-evm_r5fss0-0_fre
 BUILD_COMBO_EXAMPLE_SCRUB_ALL += mcspi_performance_32bit_am275x-evm_c75ss0-0_freertos_ti-c7000_scrub
 BUILD_COMBO_EXAMPLE_SCRUB_ALL += mmcsd_file_io_am275x-evm_c75ss0-0_freertos_ti-c7000_scrub
 BUILD_COMBO_EXAMPLE_SCRUB_ALL += mmcsd_file_io_am275x-evm_r5fss0-0_freertos_ti-arm-clang_scrub
-BUILD_COMBO_EXAMPLE_SCRUB_ALL += mmcsd_file_io_am275x-evm_wkup-r5fss0-0_freertos_ti-arm-clang_scrub
-BUILD_COMBO_EXAMPLE_SCRUB_ALL += mmcsd_raw_io_am275x-evm_wkup-r5fss0-0_freertos_ti-arm-clang_scrub
 BUILD_COMBO_EXAMPLE_SCRUB_ALL += mmcsd_raw_io_am275x-evm_r5fss0-0_freertos_ti-arm-clang_scrub
 BUILD_COMBO_EXAMPLE_SCRUB_ALL += mmcsd_raw_io_am275x-evm_c75ss0-0_freertos_ti-c7000_scrub
-BUILD_COMBO_EXAMPLE_SCRUB_ALL += ospi_flash_io_am275x-evm_wkup-r5fss0-0_freertos_ti-arm-clang_scrub
 BUILD_COMBO_EXAMPLE_SCRUB_ALL += ospi_flash_io_am275x-evm_r5fss0-0_freertos_ti-arm-clang_scrub
 BUILD_COMBO_EXAMPLE_SCRUB_ALL += ospi_flash_io_am275x-evm_c75ss0-0_freertos_ti-c7000_scrub
-BUILD_COMBO_EXAMPLE_SCRUB_ALL += sciclient_get_version_am275x-evm_wkup-r5fss0-0_freertos_ti-arm-clang_scrub
 BUILD_COMBO_EXAMPLE_SCRUB_ALL += sciclient_get_version_am275x-evm_r5fss0-0_freertos_ti-arm-clang_scrub
 BUILD_COMBO_EXAMPLE_SCRUB_ALL += sciclient_get_version_am275x-evm_r5fss0-0_nortos_ti-arm-clang_scrub
 BUILD_COMBO_EXAMPLE_SCRUB_ALL += sciclient_get_version_am275x-evm_c75ss0-0_freertos_ti-c7000_scrub
@@ -1318,18 +1321,15 @@ BUILD_COMBO_EXAMPLE_SCRUB_ALL += watchdog_interrupt_am275x-evm_r5fss0-0_freertos
 BUILD_COMBO_EXAMPLE_SCRUB_ALL += watchdog_interrupt_am275x-evm_c75ss0-0_freertos_ti-c7000_scrub
 BUILD_COMBO_EXAMPLE_SCRUB_ALL += hello_world_am275x-evm_r5fss0-0_nortos_ti-arm-clang_scrub
 BUILD_COMBO_EXAMPLE_SCRUB_ALL += hello_world_am275x-evm_r5fss0-0_freertos_ti-arm-clang_scrub
-BUILD_COMBO_EXAMPLE_SCRUB_ALL += hello_world_am275x-evm_wkup-r5fss0-0_freertos_ti-arm-clang_scrub
 BUILD_COMBO_EXAMPLE_SCRUB_ALL += hello_world_am275x-evm_c75ss0-0_freertos_ti-c7000_scrub
 BUILD_COMBO_EXAMPLE_SCRUB_ALL += hello_world_am275x-evm_c75ss1-0_freertos_ti-c7000_scrub
 BUILD_COMBO_EXAMPLE_SCRUB_ALL += dpl_demo_am275x-evm_r5fss0-0_nortos_ti-arm-clang_scrub
 BUILD_COMBO_EXAMPLE_SCRUB_ALL += dpl_demo_am275x-evm_r5fss0-0_freertos_ti-arm-clang_scrub
 BUILD_COMBO_EXAMPLE_SCRUB_ALL += dpl_demo_am275x-evm_c75ss0-0_freertos_ti-c7000_scrub
 BUILD_COMBO_EXAMPLE_SCRUB_ALL += dpl_demo_am275x-evm_c75ss1-0_freertos_ti-c7000_scrub
-BUILD_COMBO_EXAMPLE_SCRUB_ALL += dpl_demo_am275x-evm_wkup-r5fss0-0_freertos_ti-arm-clang_scrub
 BUILD_COMBO_EXAMPLE_SCRUB_ALL += dhrystone_benchmark_am275x-evm_r5fss0-0_freertos_ti-arm-clang_scrub
 BUILD_COMBO_EXAMPLE_SCRUB_ALL += posix_demo_am275x-evm_r5fss0-0_freertos_ti-arm-clang_scrub
 BUILD_COMBO_EXAMPLE_SCRUB_ALL += task_switch_main_am275x-evm_r5fss0-0_freertos_ti-arm-clang_scrub
-BUILD_COMBO_EXAMPLE_SCRUB_ALL += task_switch_main_am275x-evm_wkup-r5fss0-0_freertos_ti-arm-clang_scrub
 BUILD_COMBO_EXAMPLE_SCRUB_ALL += task_switch_main_am275x-evm_c75ss0-0_freertos_ti-c7000_scrub
 # Various System Example Scrub Targets
 BUILD_COMBO_EXAMPLE_SCRUB_ALL += empty_am275x-evm_system_nortos_scrub
@@ -1362,6 +1362,9 @@ examples-scrub-private: $(BUILD_COMBO_EXAMPLE_PRIVATE_SCRUB_ALL)
 
  eeprom_read_write_am275x-evm_r5fss0-0_freertos_ti-arm-clang_scrub:
 	$(MAKE) -C examples/board/eeprom/eeprom_read_write/am275x-evm/r5fss0-0_freertos/ti-arm-clang -f makefile scrub
+
+ empty_am275x-evm_wkup-r5fss0-0_freertos_ti-arm-clang_scrub:
+	$(MAKE) -C examples/empty/am275x-evm/wkup-r5fss0-0_freertos/ti-arm-clang -f makefile scrub
 
  gpio_input_interrupt_am275x-evm_r5fss0-0_nortos_ti-arm-clang_scrub:
 	$(MAKE) -C examples/drivers/gpio/gpio_input_interrupt/am275x-evm/r5fss0-0_nortos/ti-arm-clang -f makefile scrub
@@ -1416,6 +1419,12 @@ examples-scrub-private: $(BUILD_COMBO_EXAMPLE_PRIVATE_SCRUB_ALL)
 
  i2c_temperature_am275x-evm_c75ss0-0_freertos_ti-c7000_scrub:
 	$(MAKE) -C examples/drivers/i2c/i2c_temperature/am275x-evm/c75ss0-0_freertos/ti-c7000 -f makefile scrub
+
+ ipc_notify_echo_am275x-evm_wkup-r5fss0-0_freertos_ti-arm-clang_scrub:
+	$(MAKE) -C examples/drivers/ipc/ipc_notify_echo/am275x-evm/wkup-r5fss0-0_freertos/ti-arm-clang -f makefile scrub
+
+ ipc_rpmsg_echo_am275x-evm_wkup-r5fss0-0_freertos_ti-arm-clang_scrub:
+	$(MAKE) -C examples/drivers/ipc/ipc_rpmsg_echo/am275x-evm/wkup-r5fss0-0_freertos/ti-arm-clang -f makefile scrub
 
  mcan_loopback_polling_am275x-evm_r5fss0-0_nortos_ti-arm-clang_scrub:
 	$(MAKE) -C examples/drivers/mcan/mcan_loopback_polling/am275x-evm/r5fss0-0_nortos/ti-arm-clang -f makefile scrub
@@ -1486,14 +1495,14 @@ examples-scrub-private: $(BUILD_COMBO_EXAMPLE_PRIVATE_SCRUB_ALL)
  mcspi_performance_32bit_am275x-evm_c75ss0-0_freertos_ti-c7000_scrub:
 	$(MAKE) -C examples/drivers/mcspi/mcspi_performance_32bit/am275x-evm/c75ss0-0_freertos/ti-c7000 -f makefile scrub
 
+ mmcsd_file_io_am275x-evm_wkup-r5fss0-0_freertos_ti-arm-clang_scrub:
+	$(MAKE) -C examples/drivers/mmcsd/mmcsd_file_io/am275x-evm/wkup-r5fss0-0_freertos/ti-arm-clang -f makefile scrub
+
  mmcsd_file_io_am275x-evm_c75ss0-0_freertos_ti-c7000_scrub:
 	$(MAKE) -C examples/drivers/mmcsd/mmcsd_file_io/am275x-evm/c75ss0-0_freertos/ti-c7000 -f makefile scrub
 
  mmcsd_file_io_am275x-evm_r5fss0-0_freertos_ti-arm-clang_scrub:
 	$(MAKE) -C examples/drivers/mmcsd/mmcsd_file_io/am275x-evm/r5fss0-0_freertos/ti-arm-clang -f makefile scrub
-
- mmcsd_file_io_am275x-evm_wkup-r5fss0-0_freertos_ti-arm-clang_scrub:
-	$(MAKE) -C examples/drivers/mmcsd/mmcsd_file_io/am275x-evm/wkup-r5fss0-0_freertos/ti-arm-clang -f makefile scrub
 
  mmcsd_raw_io_am275x-evm_wkup-r5fss0-0_freertos_ti-arm-clang_scrub:
 	$(MAKE) -C examples/drivers/mmcsd/mmcsd_raw_io/am275x-evm/wkup-r5fss0-0_freertos/ti-arm-clang -f makefile scrub
@@ -1603,20 +1612,23 @@ examples-scrub-private: $(BUILD_COMBO_EXAMPLE_PRIVATE_SCRUB_ALL)
  watchdog_interrupt_am275x-evm_c75ss0-0_freertos_ti-c7000_scrub:
 	$(MAKE) -C examples/drivers/watchdog/watchdog_interrupt/am275x-evm/c75ss0-0_freertos/ti-c7000 -f makefile scrub
 
+ hello_world_am275x-evm_wkup-r5fss0-0_freertos_ti-arm-clang_scrub:
+	$(MAKE) -C examples/hello_world/am275x-evm/wkup-r5fss0-0_freertos/ti-arm-clang -f makefile scrub
+
  hello_world_am275x-evm_r5fss0-0_nortos_ti-arm-clang_scrub:
 	$(MAKE) -C examples/hello_world/am275x-evm/r5fss0-0_nortos/ti-arm-clang -f makefile scrub
 
  hello_world_am275x-evm_r5fss0-0_freertos_ti-arm-clang_scrub:
 	$(MAKE) -C examples/hello_world/am275x-evm/r5fss0-0_freertos/ti-arm-clang -f makefile scrub
 
- hello_world_am275x-evm_wkup-r5fss0-0_freertos_ti-arm-clang_scrub:
-	$(MAKE) -C examples/hello_world/am275x-evm/wkup-r5fss0-0_freertos/ti-arm-clang -f makefile scrub
-
  hello_world_am275x-evm_c75ss0-0_freertos_ti-c7000_scrub:
 	$(MAKE) -C examples/hello_world/am275x-evm/c75ss0-0_freertos/ti-c7000 -f makefile scrub
 
  hello_world_am275x-evm_c75ss1-0_freertos_ti-c7000_scrub:
 	$(MAKE) -C examples/hello_world/am275x-evm/c75ss1-0_freertos/ti-c7000 -f makefile scrub
+
+ dpl_demo_am275x-evm_wkup-r5fss0-0_freertos_ti-arm-clang_scrub:
+	$(MAKE) -C examples/kernel/dpl/dpl_demo/am275x-evm/wkup-r5fss0-0_freertos/ti-arm-clang -f makefile scrub
 
  dpl_demo_am275x-evm_r5fss0-0_nortos_ti-arm-clang_scrub:
 	$(MAKE) -C examples/kernel/dpl/dpl_demo/am275x-evm/r5fss0-0_nortos/ti-arm-clang -f makefile scrub
@@ -1630,20 +1642,17 @@ examples-scrub-private: $(BUILD_COMBO_EXAMPLE_PRIVATE_SCRUB_ALL)
  dpl_demo_am275x-evm_c75ss1-0_freertos_ti-c7000_scrub:
 	$(MAKE) -C examples/kernel/dpl/dpl_demo/am275x-evm/c75ss1-0_freertos/ti-c7000 -f makefile scrub
 
- dpl_demo_am275x-evm_wkup-r5fss0-0_freertos_ti-arm-clang_scrub:
-	$(MAKE) -C examples/kernel/dpl/dpl_demo/am275x-evm/wkup-r5fss0-0_freertos/ti-arm-clang -f makefile scrub
-
  dhrystone_benchmark_am275x-evm_r5fss0-0_freertos_ti-arm-clang_scrub:
 	$(MAKE) -C examples/kernel/freertos/dhrystone_benchmark/am275x-evm/r5fss0-0_freertos/ti-arm-clang -f makefile scrub
 
  posix_demo_am275x-evm_r5fss0-0_freertos_ti-arm-clang_scrub:
 	$(MAKE) -C examples/kernel/freertos/posix_demo/am275x-evm/r5fss0-0_freertos/ti-arm-clang -f makefile scrub
 
- task_switch_main_am275x-evm_r5fss0-0_freertos_ti-arm-clang_scrub:
-	$(MAKE) -C examples/kernel/freertos/task_switch/am275x-evm/r5fss0-0_freertos/ti-arm-clang -f makefile scrub
-
  task_switch_main_am275x-evm_wkup-r5fss0-0_freertos_ti-arm-clang_scrub:
 	$(MAKE) -C examples/kernel/freertos/task_switch/am275x-evm/wkup-r5fss0-0_freertos/ti-arm-clang -f makefile scrub
+
+ task_switch_main_am275x-evm_r5fss0-0_freertos_ti-arm-clang_scrub:
+	$(MAKE) -C examples/kernel/freertos/task_switch/am275x-evm/r5fss0-0_freertos/ti-arm-clang -f makefile scrub
 
  task_switch_main_am275x-evm_c75ss0-0_freertos_ti-c7000_scrub:
 	$(MAKE) -C examples/kernel/freertos/task_switch/am275x-evm/c75ss0-0_freertos/ti-c7000 -f makefile scrub
@@ -1667,6 +1676,16 @@ sbl: libs
 	$(MAKE) -C examples/drivers/boot/sbl_ospi/am275x-evm/wkup-r5fss0-0_freertos/ti-arm-clang -f makefile all
 	$(MAKE) -C examples/drivers/boot/sbl_sd/am275x-evm/wkup-r5fss0-0_freertos/ti-arm-clang -f makefile all
 	$(MAKE) -C examples/drivers/boot/sbl_uart_uniflash/am275x-evm/wkup-r5fss0-0_nortos/ti-arm-clang -f makefile all
+	$(MAKE) -C examples/empty/am275x-evm/wkup-r5fss0-0_freertos/ti-arm-clang -f makefile all
+	$(MAKE) -C examples/drivers/ipc/ipc_notify_echo/am275x-evm/wkup-r5fss0-0_freertos/ti-arm-clang -f makefile all
+	$(MAKE) -C examples/drivers/ipc/ipc_rpmsg_echo/am275x-evm/wkup-r5fss0-0_freertos/ti-arm-clang -f makefile all
+	$(MAKE) -C examples/drivers/mmcsd/mmcsd_file_io/am275x-evm/wkup-r5fss0-0_freertos/ti-arm-clang -f makefile all
+	$(MAKE) -C examples/drivers/mmcsd/mmcsd_raw_io/am275x-evm/wkup-r5fss0-0_freertos/ti-arm-clang -f makefile all
+	$(MAKE) -C examples/drivers/ospi/ospi_flash_io/am275x-evm/wkup-r5fss0-0_freertos/ti-arm-clang -f makefile all
+	$(MAKE) -C examples/drivers/sciclient/sciclient_get_version/am275x-evm/wkup-r5fss0-0_freertos/ti-arm-clang -f makefile all
+	$(MAKE) -C examples/hello_world/am275x-evm/wkup-r5fss0-0_freertos/ti-arm-clang -f makefile all
+	$(MAKE) -C examples/kernel/dpl/dpl_demo/am275x-evm/wkup-r5fss0-0_freertos/ti-arm-clang -f makefile all
+	$(MAKE) -C examples/kernel/freertos/task_switch/am275x-evm/wkup-r5fss0-0_freertos/ti-arm-clang -f makefile all
 
 sbl-clean:
 	$(MAKE) -C examples/drivers/boot/sbl_emmc/am275x-evm/wkup-r5fss0-0_freertos/ti-arm-clang -f makefile clean
@@ -1674,6 +1693,16 @@ sbl-clean:
 	$(MAKE) -C examples/drivers/boot/sbl_ospi/am275x-evm/wkup-r5fss0-0_freertos/ti-arm-clang -f makefile clean
 	$(MAKE) -C examples/drivers/boot/sbl_sd/am275x-evm/wkup-r5fss0-0_freertos/ti-arm-clang -f makefile clean
 	$(MAKE) -C examples/drivers/boot/sbl_uart_uniflash/am275x-evm/wkup-r5fss0-0_nortos/ti-arm-clang -f makefile clean
+	$(MAKE) -C examples/empty/am275x-evm/wkup-r5fss0-0_freertos/ti-arm-clang -f makefile clean
+	$(MAKE) -C examples/drivers/ipc/ipc_notify_echo/am275x-evm/wkup-r5fss0-0_freertos/ti-arm-clang -f makefile clean
+	$(MAKE) -C examples/drivers/ipc/ipc_rpmsg_echo/am275x-evm/wkup-r5fss0-0_freertos/ti-arm-clang -f makefile clean
+	$(MAKE) -C examples/drivers/mmcsd/mmcsd_file_io/am275x-evm/wkup-r5fss0-0_freertos/ti-arm-clang -f makefile clean
+	$(MAKE) -C examples/drivers/mmcsd/mmcsd_raw_io/am275x-evm/wkup-r5fss0-0_freertos/ti-arm-clang -f makefile clean
+	$(MAKE) -C examples/drivers/ospi/ospi_flash_io/am275x-evm/wkup-r5fss0-0_freertos/ti-arm-clang -f makefile clean
+	$(MAKE) -C examples/drivers/sciclient/sciclient_get_version/am275x-evm/wkup-r5fss0-0_freertos/ti-arm-clang -f makefile clean
+	$(MAKE) -C examples/hello_world/am275x-evm/wkup-r5fss0-0_freertos/ti-arm-clang -f makefile clean
+	$(MAKE) -C examples/kernel/dpl/dpl_demo/am275x-evm/wkup-r5fss0-0_freertos/ti-arm-clang -f makefile clean
+	$(MAKE) -C examples/kernel/freertos/task_switch/am275x-evm/wkup-r5fss0-0_freertos/ti-arm-clang -f makefile clean
 
 sbl-scrub:
 	$(MAKE) -C examples/drivers/boot/sbl_emmc/am275x-evm/wkup-r5fss0-0_freertos/ti-arm-clang -f makefile scrub
@@ -1681,6 +1710,16 @@ sbl-scrub:
 	$(MAKE) -C examples/drivers/boot/sbl_ospi/am275x-evm/wkup-r5fss0-0_freertos/ti-arm-clang -f makefile scrub
 	$(MAKE) -C examples/drivers/boot/sbl_sd/am275x-evm/wkup-r5fss0-0_freertos/ti-arm-clang -f makefile scrub
 	$(MAKE) -C examples/drivers/boot/sbl_uart_uniflash/am275x-evm/wkup-r5fss0-0_nortos/ti-arm-clang -f makefile scrub
+	$(MAKE) -C examples/empty/am275x-evm/wkup-r5fss0-0_freertos/ti-arm-clang -f makefile scrub
+	$(MAKE) -C examples/drivers/ipc/ipc_notify_echo/am275x-evm/wkup-r5fss0-0_freertos/ti-arm-clang -f makefile scrub
+	$(MAKE) -C examples/drivers/ipc/ipc_rpmsg_echo/am275x-evm/wkup-r5fss0-0_freertos/ti-arm-clang -f makefile scrub
+	$(MAKE) -C examples/drivers/mmcsd/mmcsd_file_io/am275x-evm/wkup-r5fss0-0_freertos/ti-arm-clang -f makefile scrub
+	$(MAKE) -C examples/drivers/mmcsd/mmcsd_raw_io/am275x-evm/wkup-r5fss0-0_freertos/ti-arm-clang -f makefile scrub
+	$(MAKE) -C examples/drivers/ospi/ospi_flash_io/am275x-evm/wkup-r5fss0-0_freertos/ti-arm-clang -f makefile scrub
+	$(MAKE) -C examples/drivers/sciclient/sciclient_get_version/am275x-evm/wkup-r5fss0-0_freertos/ti-arm-clang -f makefile scrub
+	$(MAKE) -C examples/hello_world/am275x-evm/wkup-r5fss0-0_freertos/ti-arm-clang -f makefile scrub
+	$(MAKE) -C examples/kernel/dpl/dpl_demo/am275x-evm/wkup-r5fss0-0_freertos/ti-arm-clang -f makefile scrub
+	$(MAKE) -C examples/kernel/freertos/task_switch/am275x-evm/wkup-r5fss0-0_freertos/ti-arm-clang -f makefile scrub
 
 
 
