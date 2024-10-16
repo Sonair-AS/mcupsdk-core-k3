@@ -59,9 +59,6 @@ extern "C"
 {
 #endif
 
-
-#include <stdbool.h>
-
 /**
  * \brief Request for physical processor control request
  *
@@ -160,98 +157,6 @@ struct tisci_msg_proc_handover_req {
  */
 struct tisci_msg_proc_handover_resp {
     struct tisci_header hdr;
-} __attribute__((__packed__));
-
-/**
- * \brief Request to validate the certificate prior to streaming authentication
- *
- * \param hdr Generic TISCI message header.
- * \param certificate_address_lo Lower 32bit (Little Endian) of certificate
- * \param certificate_address_hi Higher 32bit (Little Endian) of certificate
- */
-struct tisci_security_mesg_mcelf_init_req {
-	struct tisci_header	hdr;
-	uint32_t			certificate_address_lo;
-	uint32_t			certificate_address_hi;
-} __attribute__((__packed__));
-
-/**
- * \brief Response to validation of the x509 certificate
- *
- * \param hdr Generic TISCI message header.
- *
- * ACK Response: Requested certificate authentication is successful.
- *
- * NAK Response: Certificate authentication was unsuccessful or the operation failed.
- *
- * IMPORTANT: Reason for failure is NOT provided to prevent security attacks
- * by scan. If permitted, System firmware logs shall provide relevant failure
- * information.
- */
-struct tisci_security_mesg_mcelf_init_resp {
-	struct tisci_header hdr;
-} __attribute__((__packed__));
-
-/**
- * \brief Request to streaming hash authentication operation
- *
- * \param hdr Generic TISCI message header.
- * \param address_lo - Lower 32bit (Little Endian)
- * \param address_hi - Higher 32bit (Little Endian)
- * \param segment_size - Size of the segment in bytes
- * \param final_pkt - Boolean value to denote final packet
- * \param dest_address - Destination address to write the segment
- */
-struct tisci_security_mesg_mcelf_update_req {
-	struct tisci_header	hdr;
-	uint32_t			address_lo;
-	uint32_t			address_hi;
-	uint32_t			segment_size;
-	uint8_t			    final_pkt;
-	uint64_t			dest_address;
-} __attribute__((__packed__));
-
-/**
- * \brief Response to streaming hash authentication service
- *
- * \param hdr Generic TISCI message header.
- *
- * ACK Response: Requested streaming hash operation is successful.
- *
- * NAK Response: Streaming hash operation was unsuccessful or the operation failed.
- *
- * IMPORTANT: Reason for failure is NOT provided to prevent security attacks
- * by scan. If permitted, System firmware logs shall provide relevant failure
- * information.
- */
-struct tisci_security_mesg_mcelf_update_resp {
-	struct tisci_header hdr;
-} __attribute__((__packed__));
-
-/**
- * \brief Request to streaming authentication validation and optional streaming decryption
- *
- * \param hdr Common TI-SCI header
- */
-struct tisci_security_mesg_mcelf_finish_req {
-	struct tisci_header hdr;
-} __attribute__((__packed__));
-
-/**
- * \brief Response to mcelf hash validation and optional streaming decryptionn
- *
- * \param hdr Generic TISCI message header.
- *
- * ACK Response: Requested streaming authentication validation operation and optional streaming decryption is successful.
- *
- * NAK Response: Streaming authentication validation operation or optional streaming decryption was unsuccessful or the operation failed.
- *
- * IMPORTANT: Reason for failure is NOT provided to prevent security attacks
- * by scan. If permitted, System firmware logs shall provide relevant failure
- * information.
- */
-struct tisci_security_mesg_mcelf_finish_resp {
-	struct tisci_header hdr;
 } __attribute__((__packed__));
 
 /* A53 Config Flags */
@@ -477,6 +382,98 @@ struct tisci_msg_proc_auth_boot_resp {
     uint32_t            image_address_lo;
     uint32_t            image_address_hi;
     uint32_t            image_size;
+} __attribute__((__packed__));
+
+/**
+ * \brief Request to validate the certificate prior to streaming authentication
+ *
+ * \param hdr Generic TISCI message header.
+ * \param certificate_address_lo Lower 32bit (Little Endian) of certificate
+ * \param certificate_address_hi Higher 32bit (Little Endian) of certificate
+ */
+struct hs_tisci_security_mesg_mcelf_init_req {
+    struct tisci_header    hdr;
+    uint32_t            certificate_address_lo;
+    uint32_t            certificate_address_hi;
+} __attribute__((__packed__));
+
+/**
+ * \brief Response to validation of the x509 certificate
+ *
+ * \param hdr Generic TISCI message header.
+ *
+ * ACK Response: Requested certificate authentication is successful.
+ *
+ * NAK Response: Certificate authentication was unsuccessful or the operation failed.
+ *
+ * IMPORTANT: Reason for failure is NOT provided to prevent security attacks
+ * by scan. If permitted, System firmware logs shall provide relevant failure
+ * information.
+ */
+struct hs_tisci_security_mesg_mcelf_init_resp {
+    struct tisci_header hdr;
+} __attribute__((__packed__));
+
+/**
+ * \brief Request to streaming hash authentication operation
+ *
+ * \param hdr Generic TISCI message header.
+ * \param address_lo - Lower 32bit (Little Endian)
+ * \param address_hi - Higher 32bit (Little Endian)
+ * \param segment_size - Size of the segment in bytes
+ * \param final_pkt - Boolean value to denote final packet
+ * \param dest_address - Destination address to write the segment
+ */
+struct hs_tisci_security_mesg_mcelf_update_req {
+    struct tisci_header    hdr;
+    uint32_t            address_lo;
+    uint32_t            address_hi;
+    uint32_t            segment_size;
+    uint8_t            final_pkt;
+    uint64_t            dest_address;
+};
+
+/**
+ * \brief Response to streaming hash authentication service
+ *
+ * \param hdr Generic TISCI message header.
+ *
+ * ACK Response: Requested streaming hash operation is successful.
+ *
+ * NAK Response: Streaming hash operation was unsuccessful or the operation failed.
+ *
+ * IMPORTANT: Reason for failure is NOT provided to prevent security attacks
+ * by scan. If permitted, System firmware logs shall provide relevant failure
+ * information.
+ */
+struct hs_tisci_security_mesg_mcelf_update_resp {
+    struct tisci_header hdr;
+} __attribute__((__packed__));
+
+/**
+ * \brief Request to streaming authentication validation and optional streaming decryption
+ *
+ * \param hdr Common TI-SCI header
+ */
+struct hs_tisci_security_mesg_mcelf_finish_req {
+    struct tisci_header hdr;
+};
+
+/**
+ * \brief Response to mcelf hash validation and optional streaming decryptionn
+ *
+ * \param hdr Generic TISCI message header.
+ *
+ * ACK Response: Requested streaming authentication validation operation and optional streaming decryption is successful.
+ *
+ * NAK Response: Streaming authentication validation operation or optional streaming decryption was unsuccessful or the operation failed.
+ *
+ * IMPORTANT: Reason for failure is NOT provided to prevent security attacks
+ * by scan. If permitted, System firmware logs shall provide relevant failure
+ * information.
+ */
+struct hs_tisci_security_mesg_mcelf_finish_resp {
+    struct tisci_header hdr;
 } __attribute__((__packed__));
 
 /**

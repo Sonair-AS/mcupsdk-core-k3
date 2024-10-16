@@ -60,7 +60,6 @@ extern "C"
 #endif
 
 
-
 /**
  * This flag is reserved and not to be used.
  */
@@ -349,13 +348,14 @@ struct tisci_sec_header {
 /** Message to do authenticated boot configuration of a processor */
 #define TISCI_MSG_PROC_AUTH_BOOT        (0xC120U)
 
-#define TISCI_MSG_MMELF_PROC_AUTH_BOOT_INIT        (0xC122U)
+/** Message to authenticate x509 certificate prior to streaming authentication */
+#define TISCI_MSG_MCELF_PROC_AUTH_BOOT_INIT        (0xC122U)
 
-/** Message to do streaming hash service */
-#define TISCI_MSG_MMELF_PROC_AUTH_BOOT_UPDATE        (0xC123U)
+/** Message to do streaming hash authentication operation */
+#define TISCI_MSG_MCELF_PROC_AUTH_BOOT_UPDATE        (0xC123U)
 
-/** Message to do authenticate and decrypt the mmelf image */
-#define TISCI_MSG_MMELF_PROC_AUTH_BOOT_FINISH        (0xC124U)
+/** Message to validate streaming authentication, optional streaming decryption and authenticated boot configuration of a processor */
+#define TISCI_MSG_MCELF_PROC_AUTH_BOOT_FINISH        (0xC124U)
 
 /* RM IDs */
 

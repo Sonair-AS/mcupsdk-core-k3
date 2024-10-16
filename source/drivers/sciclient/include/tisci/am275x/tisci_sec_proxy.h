@@ -49,7 +49,7 @@
  *
  * Secure Proxy indices for AM275X device
  *
- * Data version: 240923_081333
+ * Data version: 241011_182130
  *
  */
 #ifndef AM275X_TISCI_SEC_PROXY_H

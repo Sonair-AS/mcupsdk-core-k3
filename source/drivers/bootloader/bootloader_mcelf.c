@@ -669,19 +669,19 @@ static int32_t Bootloader_parseNoteSegment(Bootloader_Handle handle,
 static int32_t Bootloader_authInit(uint32_t certLoadAddr)
 {
     int32_t status, authStatus = SystemP_FAILURE;
-    struct tisci_security_mesg_mcelf_init_req request;
-    struct tisci_security_mesg_mcelf_init_resp response;
+    struct hs_tisci_security_mesg_mcelf_init_req request;
+    struct hs_tisci_security_mesg_mcelf_init_resp response;
 
     Sciclient_ReqPrm_t  reqParam = {0U};
     Sciclient_RespPrm_t respParam = {0U};
 
-    request.hdr.type = TISCI_MSG_MMELF_PROC_AUTH_BOOT_INIT;
+    request.hdr.type = TISCI_MSG_MCELF_PROC_AUTH_BOOT_INIT;
     request.hdr.seq = 0U;
     request.hdr.flags = TISCI_MSG_FLAG_AOP;
     request.certificate_address_hi = 0U ;
     request.certificate_address_lo = certLoadAddr;
 
-    reqParam.messageType    = (uint16_t) TISCI_MSG_MMELF_PROC_AUTH_BOOT_INIT;
+    reqParam.messageType    = (uint16_t) TISCI_MSG_MCELF_PROC_AUTH_BOOT_INIT;
     reqParam.flags          = (uint32_t) TISCI_MSG_FLAG_AOP;
     reqParam.pReqPayload    = (const uint8_t *) &request;
     reqParam.reqPayloadSize = (uint32_t) sizeof (request);
@@ -707,13 +707,13 @@ static int32_t Bootloader_authInit(uint32_t certLoadAddr)
 static int32_t Bootloader_authUpdate(uint32_t segAddr, uint32_t segSize, bool final_pkt, uint64_t dst)
 {
     int32_t status;
-    struct tisci_security_mesg_mcelf_update_req request;
-    struct tisci_security_mesg_mcelf_update_resp response;
+    struct hs_tisci_security_mesg_mcelf_update_req request;
+    struct hs_tisci_security_mesg_mcelf_update_resp response;
 
     Sciclient_ReqPrm_t  reqParam = {0U};
     Sciclient_RespPrm_t respParam = {0U};
 
-    request.hdr.type = TISCI_MSG_MMELF_PROC_AUTH_BOOT_UPDATE;
+    request.hdr.type = TISCI_MSG_MCELF_PROC_AUTH_BOOT_UPDATE;
     request.hdr.seq = 0U;
     request.hdr.flags = TISCI_MSG_FLAG_AOP;
     request.address_hi = 0U;
@@ -722,7 +722,7 @@ static int32_t Bootloader_authUpdate(uint32_t segAddr, uint32_t segSize, bool fi
     request.final_pkt = final_pkt;
     request.dest_address = dst;
 
-    reqParam.messageType = (uint16_t)TISCI_MSG_MMELF_PROC_AUTH_BOOT_UPDATE;
+    reqParam.messageType = (uint16_t)TISCI_MSG_MCELF_PROC_AUTH_BOOT_UPDATE;
     reqParam.flags = (uint32_t)TISCI_MSG_FLAG_AOP;
     reqParam.pReqPayload = (const uint8_t *)&request;
     reqParam.reqPayloadSize = (uint32_t)sizeof(request);
@@ -750,17 +750,17 @@ static int32_t Bootloader_authUpdate(uint32_t segAddr, uint32_t segSize, bool fi
 static int32_t Bootloader_authFinish()
 {
     int32_t status;
-    struct tisci_security_mesg_mcelf_finish_req request;
-    struct tisci_security_mesg_mcelf_finish_resp response;
+    struct hs_tisci_security_mesg_mcelf_finish_req request;
+    struct hs_tisci_security_mesg_mcelf_finish_resp response;
 
     Sciclient_ReqPrm_t  reqParam = {0U};
     Sciclient_RespPrm_t respParam = {0U};
 
-    request.hdr.type = TISCI_MSG_MMELF_PROC_AUTH_BOOT_FINISH;
+    request.hdr.type = TISCI_MSG_MCELF_PROC_AUTH_BOOT_FINISH;
     request.hdr.seq = 0U;
     request.hdr.flags = TISCI_MSG_FLAG_AOP;
 
-    reqParam.messageType    = (uint16_t) TISCI_MSG_MMELF_PROC_AUTH_BOOT_FINISH;
+    reqParam.messageType    = (uint16_t) TISCI_MSG_MCELF_PROC_AUTH_BOOT_FINISH;
     reqParam.flags          = (uint32_t) TISCI_MSG_FLAG_AOP;
     reqParam.pReqPayload    = (const uint8_t *) &request;
     reqParam.reqPayloadSize = (uint32_t) sizeof (request);
