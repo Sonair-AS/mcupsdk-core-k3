@@ -58,6 +58,7 @@ This page lists all the examples related to secondary bootloader and bootloader 
    -# \subpage EXAMPLES_DRIVERS_SBL_NULL
    -# \subpage EXAMPLES_DRIVERS_SBL_OSPI
    -# \subpage EXAMPLES_DRIVERS_SBL_SD
+   -# \subpage EXAMPLES_DRIVERS_SBL_EMMC
    -# \subpage EXAMPLES_DRIVERS_SBL_UART_UNIFLASH
 \endcond
 
