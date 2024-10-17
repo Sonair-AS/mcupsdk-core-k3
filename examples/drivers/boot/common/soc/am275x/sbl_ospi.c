@@ -47,7 +47,7 @@
 /*                           Macros & Typedefs                                */
 /* ========================================================================== */
 
-/* None */
+#define SCRATCH_BUFFER_SIZE                             (0x1000U)
 
 /* ========================================================================== */
 /*                         Structure Declarations                             */
@@ -67,7 +67,7 @@ int32_t App_runCpus(Bootloader_LoadImageParams *bootLoadParams);
 /*                            Global Variables                                */
 /* ========================================================================== */
 
-/* None */
+uint8_t gScratchBuffer[SCRATCH_BUFFER_SIZE];
 
 /* ========================================================================== */
 /*                          Function Definitions                              */
@@ -172,6 +172,7 @@ void App_bootMultipleCoreFlash()
 
             if(bootArray[inst].bootHandle != NULL)
             {
+                ((Bootloader_Config *)bootArray[inst].bootHandle)->scratchMemPtr = gScratchBuffer;
 		    	status = App_loadImages(&bootArray[inst]);
             }
 
