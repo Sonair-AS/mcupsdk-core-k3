@@ -74,7 +74,7 @@ function getStaticConfigArr() {
                 {
                     name: `WKUP_TIMER${i}`,
                     timerBaseAddr: 0x2B100000+ i*0x10000,
-                    timerHwiIntNum: 28 + i,
+                    timerHwiIntNum: 138 + i,
                     timerInputPreScaler: 1,
                     clkSelMuxAddr: 0x430081B0 + 4*i,
                     disableClkSourceConfig: false,
