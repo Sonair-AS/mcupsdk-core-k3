@@ -234,16 +234,16 @@ int32_t SOC_moduleSetClockFrequency(uint32_t moduleId, uint32_t clkId, uint64_t 
 const char *SOC_getCoreName(uint16_t coreId)
 {
     static char *coreIdNames[CSL_CORE_ID_MAX+1] = {
-        "mcu-r5f0-0",
+        "wkup-r5f0-0",
         "r5f0-0",
-        "a530-0",
-        "a530-1",
-        "a531-0",
-        "a531-1",
+        "r5f0-1",
+        "r5f1-0",
+        "r5f1-1",
+        "c75ss0-0",
+        "c75ss1-0",
         "hsm-m4f0-0",
-        "c75ss0",
         "unknown"
-    };
+    };      
     const char *name;
 
     if(coreId < CSL_CORE_ID_MAX)
