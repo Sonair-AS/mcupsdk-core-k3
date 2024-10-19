@@ -25,7 +25,7 @@ const mpu_armv76 = mpu_armv7.addInstance();
  */
 gpio1.$name        = "GPIO_LED";
 gpio1.pinDir       = "OUTPUT";
-gpio1.GPIO.$assign = "GPIO1_49";
+gpio1.GPIO.$assign = "MCASP1_AXR3";
 
 debug_log.enableUartLog        = true;
 debug_log.uartLog.$name        = "CONFIG_UART0";
