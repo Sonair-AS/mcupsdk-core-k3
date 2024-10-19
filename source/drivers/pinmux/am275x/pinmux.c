@@ -93,7 +93,14 @@ void Pinmux_config(const Pinmux_PerCfg_t *pinmuxCfg, uint32_t domainId)
 
     if(NULL != pinmuxCfg)
     {
-        baseAddr = CSL_PADCFG_CTRL0_CFG0_BASE + PADCFG_PMUX_OFFSET;
+        if(PINMUX_DOMAIN_ID_MAIN == domainId)
+        {
+            baseAddr = CSL_PADCFG_CTRL0_CFG0_BASE + PADCFG_PMUX_OFFSET;
+        }
+        else
+        {
+            baseAddr =  CSL_MCU_PADCFG_CTRL0_CFG0_BASE + PADCFG_PMUX_OFFSET;
+        }
         baseAddr = (uint32_t) AddrTranslateP_getLocalAddr(baseAddr);
 
         Pinmux_unlockMMR(domainId);
@@ -178,8 +185,7 @@ void Pinmux_unlockMMR(uint32_t domainId)
 
     if(PINMUX_DOMAIN_ID_MCU == domainId)
     {
-        // baseAddr = (uint32_t) AddrTranslateP_getLocalAddr(CSL_WKUP_PADCFG_CTRL0_CFG0_BASE);
-        baseAddr = (uint32_t) AddrTranslateP_getLocalAddr(CSL_PADCFG_CTRL0_CFG0_BASE);
+        baseAddr = (uint32_t) AddrTranslateP_getLocalAddr(CSL_MCU_PADCFG_CTRL0_CFG0_BASE);
         /* Lock 0 */
         kickAddr = (volatile uint32_t *) (baseAddr + CSL_MCU_PADCONFIG_LOCK0_KICK0_OFFSET);
         CSL_REG32_WR(kickAddr, KICK0_UNLOCK_VAL);   /* KICK 0 */
