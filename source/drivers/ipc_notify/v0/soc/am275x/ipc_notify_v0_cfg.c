@@ -58,30 +58,30 @@ uint32_t gIpcNotifyMailboxBaseAddr[IPC_NOTIFY_MAILBOX_MAX_INSTANCES + 1U] = {
  * - 1st indexed by source core ID
  * - then indexed by destination core ID
  *
- * 
+ *
  * The following table shows the interrrupt connectivity of clusters to all the cores
  * --------------------------------------------------------------------------------------------------------------
- *   Core          | Mailbox 0 | Mailbox 1 | Mailbox 2 | Mailbox 3 | Mailbox 4 | Mailbox 5 | Mailbox 6 | Mailbox 7 
+ *   Core          | Mailbox 0 | Mailbox 1 | Mailbox 2 | Mailbox 3 | Mailbox 4 | Mailbox 5 | Mailbox 6 | Mailbox 7
  * --------------------------------------------------------------------------------------------------------------
- *   WKUP R5       |           |           |           |           |           |     0     |     0     |    0     
- * -------------------------------------------------------------------------------------------------------------- 
- *   R5SS0 Core 0  |     0     |     0     |           |     0     |           |     1     |           |        
+ *   WKUP R5       |           |           |           |           |           |     0     |     0     |    0
  * --------------------------------------------------------------------------------------------------------------
- *   R5SS0 Core 1  |     1     |           |     0     |     1     |           |           |     1     |        
+ *   R5SS0 Core 0  |     0     |     0     |           |     0     |           |     1     |           |
  * --------------------------------------------------------------------------------------------------------------
- *   R5SS1 Core 0  |     2     |     1     |           |           |     0     |           |     2     |        
+ *   R5SS0 Core 1  |     1     |           |     0     |     1     |           |           |     1     |
  * --------------------------------------------------------------------------------------------------------------
- *   R5SS1 Core 1  |     3     |           |     1     |           |     1     |     2     |           |        
+ *   R5SS1 Core 0  |     2     |     1     |           |           |     0     |           |     2     |
  * --------------------------------------------------------------------------------------------------------------
- *   C7xv 0        |           |     2     |     2     |     2     |     2     |           |           |     1   
+ *   R5SS1 Core 1  |     3     |           |     1     |           |     1     |     2     |           |
  * --------------------------------------------------------------------------------------------------------------
- *   C7xv 1        |           |     3     |     3     |     3     |     3     |           |           |     2   
+ *   C7xv 0        |           |     2     |     2     |     2     |     2     |           |           |     1
  * --------------------------------------------------------------------------------------------------------------
- *   HSM M4F       |           |           |           |           |           |     3     |     3     |     3   
+ *   C7xv 1        |           |     3     |     3     |     3     |     3     |           |           |     2
  * --------------------------------------------------------------------------------------------------------------
- * 
- * 
- * 
+ *   HSM M4F       |           |           |           |           |           |     3     |     3     |     3
+ * --------------------------------------------------------------------------------------------------------------
+ *
+ *
+ *
  * The table below shows the cluster and FIFO usage
  * ---------------------------------------------
  *  Cluster | FIFO | UserID |        IPC
@@ -401,7 +401,7 @@ IpcNotify_InterruptConfig gIpcNotifyInterruptConfig_wkup_r5fss0_0[IPC_NOFTIY_INT
             CSL_CORE_ID_INVALID,
             CSL_CORE_ID_INVALID,
             CSL_CORE_ID_INVALID,
-            CSL_CORE_ID_INVALID            
+            CSL_CORE_ID_INVALID
         },
     }
 };
@@ -411,7 +411,7 @@ uint32_t gIpcNotifyInterruptConfigNum_wkup_r5fss0_0 = IPC_NOFTIY_INTERRUPT_CONFI
 #define IPC_NOFTIY_INTERRUPT_CONFIG_R5FSS0_0_NUM   (4u)
 IpcNotify_InterruptConfig gIpcNotifyInterruptConfig_r5fss0_0[IPC_NOFTIY_INTERRUPT_CONFIG_R5FSS0_0_NUM] = {
     {
-        .intNum = CSLR_R5FSS0_CORE0_INTR_MAILBOX0_MAILBOX_CLUSTER_0_MAILBOX_CLUSTER_PEND_0,   
+        .intNum = CSLR_R5FSS0_CORE0_INTR_MAILBOX0_MAILBOX_CLUSTER_0_MAILBOX_CLUSTER_PEND_0,
         .eventId = 0U,    /* not used */
         .numCores = 2U,   /* number of cores that send messages which tied to this interrupt line */
         .coreIdList = {   /* core ID's tied to this interrupt line */
@@ -426,7 +426,7 @@ IpcNotify_InterruptConfig gIpcNotifyInterruptConfig_r5fss0_0[IPC_NOFTIY_INTERRUP
         },
     },
     {
-        .intNum = CSLR_R5FSS0_CORE0_INTR_MAILBOX0_MAILBOX_CLUSTER_1_MAILBOX_CLUSTER_PEND_0,   
+        .intNum = CSLR_R5FSS0_CORE0_INTR_MAILBOX0_MAILBOX_CLUSTER_1_MAILBOX_CLUSTER_PEND_0,
         .eventId = 0U,    /* not used */
         .numCores = 2U,   /* number of cores that send messages which tied to this interrupt line */
         .coreIdList = {   /* core ID's tied to this interrupt line */
@@ -441,7 +441,7 @@ IpcNotify_InterruptConfig gIpcNotifyInterruptConfig_r5fss0_0[IPC_NOFTIY_INTERRUP
         },
     },
     {
-        .intNum = CSLR_R5FSS0_CORE0_INTR_MAILBOX0_MAILBOX_CLUSTER_3_MAILBOX_CLUSTER_PEND_0,   
+        .intNum = CSLR_R5FSS0_CORE0_INTR_MAILBOX0_MAILBOX_CLUSTER_3_MAILBOX_CLUSTER_PEND_0,
         .eventId = 0U,    /* not used */
         .numCores = 1U,   /* number of cores that send messages which tied to this interrupt line */
         .coreIdList = {   /* core ID's tied to this interrupt line */
@@ -456,7 +456,7 @@ IpcNotify_InterruptConfig gIpcNotifyInterruptConfig_r5fss0_0[IPC_NOFTIY_INTERRUP
         },
     },
     {
-        .intNum = CSLR_R5FSS0_CORE0_INTR_MAILBOX0_MAILBOX_CLUSTER_5_MAILBOX_CLUSTER_PEND_1,   
+        .intNum = CSLR_R5FSS0_CORE0_INTR_MAILBOX0_MAILBOX_CLUSTER_5_MAILBOX_CLUSTER_PEND_1,
         .eventId = 0U,    /* not used */
         .numCores = 1U,   /* number of cores that send messages which tied to this interrupt line */
         .coreIdList = {   /* core ID's tied to this interrupt line */
@@ -477,7 +477,7 @@ uint32_t gIpcNotifyInterruptConfigNum_r5fss0_0 = IPC_NOFTIY_INTERRUPT_CONFIG_R5F
 #define IPC_NOFTIY_INTERRUPT_CONFIG_R5FSS0_1_NUM   (4u)
 IpcNotify_InterruptConfig gIpcNotifyInterruptConfig_r5fss0_1[IPC_NOFTIY_INTERRUPT_CONFIG_R5FSS0_1_NUM] = {
     {
-        .intNum = CSLR_R5FSS0_CORE1_INTR_MAILBOX0_MAILBOX_CLUSTER_0_MAILBOX_CLUSTER_PEND_1,   
+        .intNum = CSLR_R5FSS0_CORE1_INTR_MAILBOX0_MAILBOX_CLUSTER_0_MAILBOX_CLUSTER_PEND_1,
         .eventId = 0U,    /* not used */
         .numCores = 2U,   /* number of cores that send messages which tied to this interrupt line */
         .coreIdList = {   /* core ID's tied to this interrupt line */
@@ -492,7 +492,7 @@ IpcNotify_InterruptConfig gIpcNotifyInterruptConfig_r5fss0_1[IPC_NOFTIY_INTERRUP
         },
     },
     {
-        .intNum = CSLR_R5FSS0_CORE1_INTR_MAILBOX0_MAILBOX_CLUSTER_2_MAILBOX_CLUSTER_PEND_0,   
+        .intNum = CSLR_R5FSS0_CORE1_INTR_MAILBOX0_MAILBOX_CLUSTER_2_MAILBOX_CLUSTER_PEND_0,
         .eventId = 0U,    /* not used */
         .numCores = 2U,   /* number of cores that send messages which tied to this interrupt line */
         .coreIdList = {   /* core ID's tied to this interrupt line */
@@ -507,7 +507,7 @@ IpcNotify_InterruptConfig gIpcNotifyInterruptConfig_r5fss0_1[IPC_NOFTIY_INTERRUP
         },
     },
     {
-        .intNum = CSLR_R5FSS0_CORE1_INTR_MAILBOX0_MAILBOX_CLUSTER_3_MAILBOX_CLUSTER_PEND_1,   
+        .intNum = CSLR_R5FSS0_CORE1_INTR_MAILBOX0_MAILBOX_CLUSTER_3_MAILBOX_CLUSTER_PEND_1,
         .eventId = 0U,    /* not used */
         .numCores = 1U,   /* number of cores that send messages which tied to this interrupt line */
         .coreIdList = {   /* core ID's tied to this interrupt line */
@@ -522,7 +522,7 @@ IpcNotify_InterruptConfig gIpcNotifyInterruptConfig_r5fss0_1[IPC_NOFTIY_INTERRUP
         },
     },
     {
-        .intNum = CSLR_R5FSS0_CORE1_INTR_MAILBOX0_MAILBOX_CLUSTER_6_MAILBOX_CLUSTER_PEND_1,  
+        .intNum = CSLR_R5FSS0_CORE1_INTR_MAILBOX0_MAILBOX_CLUSTER_6_MAILBOX_CLUSTER_PEND_1,
         .eventId = 0U,    /* not used */
         .numCores = 1U,   /* number of cores that send messages which tied to this interrupt line */
         .coreIdList = {   /* core ID's tied to this interrupt line */
@@ -543,7 +543,7 @@ uint32_t gIpcNotifyInterruptConfigNum_r5fss0_1 = IPC_NOFTIY_INTERRUPT_CONFIG_R5F
 #define IPC_NOFTIY_INTERRUPT_CONFIG_R5FSS1_0_NUM   (4u)
 IpcNotify_InterruptConfig gIpcNotifyInterruptConfig_r5fss1_0[IPC_NOFTIY_INTERRUPT_CONFIG_R5FSS1_0_NUM] = {
     {
-        .intNum = CSLR_R5FSS1_CORE0_INTR_MAILBOX0_MAILBOX_CLUSTER_0_MAILBOX_CLUSTER_PEND_2,   
+        .intNum = CSLR_R5FSS1_CORE0_INTR_MAILBOX0_MAILBOX_CLUSTER_0_MAILBOX_CLUSTER_PEND_2,
         .eventId = 0U,    /* not used */
         .numCores = 2U,   /* number of cores that send messages which tied to this interrupt line */
         .coreIdList = {   /* core ID's tied to this interrupt line */
@@ -558,7 +558,7 @@ IpcNotify_InterruptConfig gIpcNotifyInterruptConfig_r5fss1_0[IPC_NOFTIY_INTERRUP
         },
     },
     {
-        .intNum = CSLR_R5FSS1_CORE0_INTR_MAILBOX0_MAILBOX_CLUSTER_1_MAILBOX_CLUSTER_PEND_1,   
+        .intNum = CSLR_R5FSS1_CORE0_INTR_MAILBOX0_MAILBOX_CLUSTER_1_MAILBOX_CLUSTER_PEND_1,
         .eventId = 0U,    /* not used */
         .numCores = 2U,   /* number of cores that send messages which tied to this interrupt line */
         .coreIdList = {   /* core ID's tied to this interrupt line */
@@ -573,7 +573,7 @@ IpcNotify_InterruptConfig gIpcNotifyInterruptConfig_r5fss1_0[IPC_NOFTIY_INTERRUP
         },
     },
     {
-        .intNum = CSLR_R5FSS1_CORE0_INTR_MAILBOX0_MAILBOX_CLUSTER_4_MAILBOX_CLUSTER_PEND_0,   
+        .intNum = CSLR_R5FSS1_CORE0_INTR_MAILBOX0_MAILBOX_CLUSTER_4_MAILBOX_CLUSTER_PEND_0,
         .eventId = 0U,    /* not used */
         .numCores = 1U,   /* number of cores that send messages which tied to this interrupt line */
         .coreIdList = {   /* core ID's tied to this interrupt line */
@@ -588,7 +588,7 @@ IpcNotify_InterruptConfig gIpcNotifyInterruptConfig_r5fss1_0[IPC_NOFTIY_INTERRUP
         },
     },
     {
-        .intNum = CSLR_R5FSS1_CORE0_INTR_MAILBOX0_MAILBOX_CLUSTER_6_MAILBOX_CLUSTER_PEND_2,  
+        .intNum = CSLR_R5FSS1_CORE0_INTR_MAILBOX0_MAILBOX_CLUSTER_6_MAILBOX_CLUSTER_PEND_2,
         .eventId = 0U,    /* not used */
         .numCores = 1U,   /* number of cores that send messages which tied to this interrupt line */
         .coreIdList = {   /* core ID's tied to this interrupt line */
@@ -610,7 +610,7 @@ uint32_t gIpcNotifyInterruptConfigNum_r5fss1_0 = IPC_NOFTIY_INTERRUPT_CONFIG_R5F
 #define IPC_NOFTIY_INTERRUPT_CONFIG_R5FSS1_1_NUM   (4u)
 IpcNotify_InterruptConfig gIpcNotifyInterruptConfig_r5fss1_1[IPC_NOFTIY_INTERRUPT_CONFIG_R5FSS1_1_NUM] = {
     {
-        .intNum = CSLR_R5FSS1_CORE1_INTR_MAILBOX0_MAILBOX_CLUSTER_0_MAILBOX_CLUSTER_PEND_3,   
+        .intNum = CSLR_R5FSS1_CORE1_INTR_MAILBOX0_MAILBOX_CLUSTER_0_MAILBOX_CLUSTER_PEND_3,
         .eventId = 0U,    /* not used */
         .numCores = 2U,   /* number of cores that send messages which tied to this interrupt line */
         .coreIdList = {   /* core ID's tied to this interrupt line */
@@ -625,7 +625,7 @@ IpcNotify_InterruptConfig gIpcNotifyInterruptConfig_r5fss1_1[IPC_NOFTIY_INTERRUP
         },
     },
     {
-        .intNum = CSLR_R5FSS1_CORE1_INTR_MAILBOX0_MAILBOX_CLUSTER_2_MAILBOX_CLUSTER_PEND_1,   
+        .intNum = CSLR_R5FSS1_CORE1_INTR_MAILBOX0_MAILBOX_CLUSTER_2_MAILBOX_CLUSTER_PEND_1,
         .eventId = 0U,    /* not used */
         .numCores = 2U,   /* number of cores that send messages which tied to this interrupt line */
         .coreIdList = {   /* core ID's tied to this interrupt line */
@@ -640,7 +640,7 @@ IpcNotify_InterruptConfig gIpcNotifyInterruptConfig_r5fss1_1[IPC_NOFTIY_INTERRUP
         },
     },
     {
-        .intNum = CSLR_R5FSS1_CORE1_INTR_MAILBOX0_MAILBOX_CLUSTER_4_MAILBOX_CLUSTER_PEND_1,   
+        .intNum = CSLR_R5FSS1_CORE1_INTR_MAILBOX0_MAILBOX_CLUSTER_4_MAILBOX_CLUSTER_PEND_1,
         .eventId = 0U,    /* not used */
         .numCores = 1U,   /* number of cores that send messages which tied to this interrupt line */
         .coreIdList = {   /* core ID's tied to this interrupt line */
@@ -655,7 +655,7 @@ IpcNotify_InterruptConfig gIpcNotifyInterruptConfig_r5fss1_1[IPC_NOFTIY_INTERRUP
         },
     },
     {
-        .intNum = CSLR_R5FSS1_CORE1_INTR_MAILBOX0_MAILBOX_CLUSTER_5_MAILBOX_CLUSTER_PEND_2,  
+        .intNum = CSLR_R5FSS1_CORE1_INTR_MAILBOX0_MAILBOX_CLUSTER_5_MAILBOX_CLUSTER_PEND_2,
         .eventId = 0U,    /* not used */
         .numCores = 1U,   /* number of cores that send messages which tied to this interrupt line */
         .coreIdList = {   /* core ID's tied to this interrupt line */
@@ -677,8 +677,8 @@ uint32_t gIpcNotifyInterruptConfigNum_r5fss1_1 = IPC_NOFTIY_INTERRUPT_CONFIG_R5F
 #define CLEC_SOC_INT_START                         (192u)   /* (192 - soc interrupt start) */
 IpcNotify_InterruptConfig gIpcNotifyInterruptConfig_c75ss0_0[IPC_NOFTIY_INTERRUPT_CONFIG_C75SS0_0_NUM] = {
     {
-        .intNum = 7,   
-        .eventId = CLEC_SOC_INT_START + 
+        .intNum = 7,
+        .eventId = CLEC_SOC_INT_START +
                    CSLR_C7X256V0_CLEC_SOC_EVENTS_IN_MAILBOX0_MAILBOX_CLUSTER_1_MAILBOX_CLUSTER_PEND_2,
         .numCores = 1U,   /* number of cores that send messages which tied to this interrupt line */
         .coreIdList = {   /* core ID's tied to this interrupt line */
@@ -693,8 +693,8 @@ IpcNotify_InterruptConfig gIpcNotifyInterruptConfig_c75ss0_0[IPC_NOFTIY_INTERRUP
         },
     },
     {
-        .intNum = 8,   
-        .eventId = CLEC_SOC_INT_START + 
+        .intNum = 8,
+        .eventId = CLEC_SOC_INT_START +
                    CSLR_C7X256V0_CLEC_SOC_EVENTS_IN_MAILBOX0_MAILBOX_CLUSTER_2_MAILBOX_CLUSTER_PEND_2,
         .numCores = 1U,   /* number of cores that send messages which tied to this interrupt line */
         .coreIdList = {   /* core ID's tied to this interrupt line */
@@ -709,8 +709,8 @@ IpcNotify_InterruptConfig gIpcNotifyInterruptConfig_c75ss0_0[IPC_NOFTIY_INTERRUP
         },
     },
     {
-        .intNum = 9,   
-        .eventId = CLEC_SOC_INT_START + 
+        .intNum = 9,
+        .eventId = CLEC_SOC_INT_START +
                    CSLR_C7X256V0_CLEC_SOC_EVENTS_IN_MAILBOX0_MAILBOX_CLUSTER_3_MAILBOX_CLUSTER_PEND_2,
         .numCores = 1U,   /* number of cores that send messages which tied to this interrupt line */
         .coreIdList = {   /* core ID's tied to this interrupt line */
@@ -725,8 +725,8 @@ IpcNotify_InterruptConfig gIpcNotifyInterruptConfig_c75ss0_0[IPC_NOFTIY_INTERRUP
         },
     },
     {
-        .intNum = 10,   
-        .eventId = CLEC_SOC_INT_START + 
+        .intNum = 10,
+        .eventId = CLEC_SOC_INT_START +
                    CSLR_C7X256V0_CLEC_SOC_EVENTS_IN_MAILBOX0_MAILBOX_CLUSTER_4_MAILBOX_CLUSTER_PEND_2,
         .numCores = 2U,   /* number of cores that send messages which tied to this interrupt line */
         .coreIdList = {   /* core ID's tied to this interrupt line */
@@ -741,12 +741,12 @@ IpcNotify_InterruptConfig gIpcNotifyInterruptConfig_c75ss0_0[IPC_NOFTIY_INTERRUP
         },
     },
     {
-        .intNum = 11,   
-        .eventId = CLEC_SOC_INT_START + 
+        .intNum = 11,
+        .eventId = CLEC_SOC_INT_START +
                    CSLR_C7X256V0_CLEC_SOC_EVENTS_IN_MAILBOX0_MAILBOX_CLUSTER_7_MAILBOX_CLUSTER_PEND_1,
         .numCores = 1U,   /* number of cores that send messages which tied to this interrupt line */
         .coreIdList = {   /* core ID's tied to this interrupt line */
-            CSL_CORE_ID_C75SS0_0,
+            CSL_CORE_ID_C75SS1_0,
             CSL_CORE_ID_INVALID,
             CSL_CORE_ID_INVALID,
             CSL_CORE_ID_INVALID,
@@ -755,7 +755,7 @@ IpcNotify_InterruptConfig gIpcNotifyInterruptConfig_c75ss0_0[IPC_NOFTIY_INTERRUP
             CSL_CORE_ID_INVALID,
             CSL_CORE_ID_INVALID
         },
-    },    
+    },
 };
 uint32_t gIpcNotifyInterruptConfigNum_c75ss0_0 = IPC_NOFTIY_INTERRUPT_CONFIG_C75SS0_0_NUM;
 
@@ -763,8 +763,8 @@ uint32_t gIpcNotifyInterruptConfigNum_c75ss0_0 = IPC_NOFTIY_INTERRUPT_CONFIG_C75
 #define IPC_NOFTIY_INTERRUPT_CONFIG_C75SS1_0_NUM   (5u)
 IpcNotify_InterruptConfig gIpcNotifyInterruptConfig_c75ss1_0[IPC_NOFTIY_INTERRUPT_CONFIG_C75SS1_0_NUM] = {
     {
-        .intNum = 7,   
-        .eventId = CLEC_SOC_INT_START + 
+        .intNum = 7,
+        .eventId = CLEC_SOC_INT_START +
                    CSLR_C7X256V1_CLEC_SOC_EVENTS_IN_MAILBOX0_MAILBOX_CLUSTER_1_MAILBOX_CLUSTER_PEND_3,
         .numCores = 1U,   /* number of cores that send messages which tied to this interrupt line */
         .coreIdList = {   /* core ID's tied to this interrupt line */
@@ -779,8 +779,8 @@ IpcNotify_InterruptConfig gIpcNotifyInterruptConfig_c75ss1_0[IPC_NOFTIY_INTERRUP
         },
     },
     {
-        .intNum = 8,   
-        .eventId = CLEC_SOC_INT_START + 
+        .intNum = 8,
+        .eventId = CLEC_SOC_INT_START +
                    CSLR_C7X256V1_CLEC_SOC_EVENTS_IN_MAILBOX0_MAILBOX_CLUSTER_2_MAILBOX_CLUSTER_PEND_3,
         .numCores = 1U,   /* number of cores that send messages which tied to this interrupt line */
         .coreIdList = {   /* core ID's tied to this interrupt line */
@@ -795,8 +795,8 @@ IpcNotify_InterruptConfig gIpcNotifyInterruptConfig_c75ss1_0[IPC_NOFTIY_INTERRUP
         },
     },
     {
-        .intNum = 9,   
-        .eventId = CLEC_SOC_INT_START + 
+        .intNum = 9,
+        .eventId = CLEC_SOC_INT_START +
                    CSLR_C7X256V1_CLEC_SOC_EVENTS_IN_MAILBOX0_MAILBOX_CLUSTER_3_MAILBOX_CLUSTER_PEND_3,
         .numCores = 1U,   /* number of cores that send messages which tied to this interrupt line */
         .coreIdList = {   /* core ID's tied to this interrupt line */
@@ -811,8 +811,8 @@ IpcNotify_InterruptConfig gIpcNotifyInterruptConfig_c75ss1_0[IPC_NOFTIY_INTERRUP
         },
     },
     {
-        .intNum = 10,   
-        .eventId = CLEC_SOC_INT_START + 
+        .intNum = 10,
+        .eventId = CLEC_SOC_INT_START +
                    CSLR_C7X256V1_CLEC_SOC_EVENTS_IN_MAILBOX0_MAILBOX_CLUSTER_4_MAILBOX_CLUSTER_PEND_3,
         .numCores = 2U,   /* number of cores that send messages which tied to this interrupt line */
         .coreIdList = {   /* core ID's tied to this interrupt line */
@@ -827,12 +827,12 @@ IpcNotify_InterruptConfig gIpcNotifyInterruptConfig_c75ss1_0[IPC_NOFTIY_INTERRUP
         },
     },
     {
-        .intNum = 11,   
-        .eventId = CLEC_SOC_INT_START + 
+        .intNum = 11,
+        .eventId = CLEC_SOC_INT_START +
                    CSLR_C7X256V1_CLEC_SOC_EVENTS_IN_MAILBOX0_MAILBOX_CLUSTER_7_MAILBOX_CLUSTER_PEND_2,
         .numCores = 1U,   /* number of cores that send messages which tied to this interrupt line */
         .coreIdList = {   /* core ID's tied to this interrupt line */
-            CSL_CORE_ID_C75SS1_0,
+            CSL_CORE_ID_C75SS0_0,
             CSL_CORE_ID_INVALID,
             CSL_CORE_ID_INVALID,
             CSL_CORE_ID_INVALID,
@@ -841,6 +841,6 @@ IpcNotify_InterruptConfig gIpcNotifyInterruptConfig_c75ss1_0[IPC_NOFTIY_INTERRUP
             CSL_CORE_ID_INVALID,
             CSL_CORE_ID_INVALID
         },
-    },    
+    },
 };
 uint32_t gIpcNotifyInterruptConfigNum_c75ss1_0 = IPC_NOFTIY_INTERRUPT_CONFIG_C75SS1_0_NUM;
