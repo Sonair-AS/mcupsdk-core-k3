@@ -69,6 +69,8 @@ int main()
     Bootloader_UniflashConfig uniflashConfig;
     Bootloader_UniflashResponseHeader respHeader;
 
+    Bootloader_socWaitForFWBoot();
+
     System_init();
     Board_init();
 

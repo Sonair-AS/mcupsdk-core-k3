@@ -37,16 +37,13 @@ bootloader1.bootMedia = "MEM";
 
 mmcsd1.$name = "CONFIG_MMCSD0";
 
-debug_log.enableUartLog             = true;
-debug_log.enableCssLog              = false;
-debug_log.uartLog.$name             = "CONFIG_UART0";
-debug_log.uartLog.hwFlowControl     = true;
-debug_log.uartLog.intrEnable        = "DISABLE";
-debug_log.uartLog.UART.$assign      = "UART0";
-debug_log.uartLog.UART.RXD.$assign  = "UART0_RXD";
-debug_log.uartLog.UART.TXD.$assign  = "UART0_TXD";
-debug_log.uartLog.UART.RTSn.$assign = "UART0_RTSn";
-debug_log.uartLog.UART.CTSn.$assign = "UART0_CTSn";
+debug_log.enableUartLog            = true;
+debug_log.enableCssLog             = false;
+debug_log.uartLog.$name            = "CONFIG_UART0";
+debug_log.uartLog.intrEnable       = "DISABLE";
+debug_log.uartLog.UART.$assign     = "UART0";
+debug_log.uartLog.UART.RXD.$assign = "UART0_RXD";
+debug_log.uartLog.UART.TXD.$assign = "UART0_TXD";
 
 mpu_armv71.size         = 31;
 mpu_armv71.attributes   = "Device";
