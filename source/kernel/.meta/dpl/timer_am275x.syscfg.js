@@ -288,7 +288,7 @@ function getStaticConfigArr() {
                     timerName: `TIMER${i}`,
                     timerBaseAddr: 0x02400000+ i*0x10000,
                     timerHwiIntNum: 3 + i - 6,
-                    eventId: 152 + 256 +  i, /* (256 - GIC SPI Intr start, ref: clec_spec am275_soc_event_out_mapping)*/
+                    eventId: 120 + 256 +  i, /* (256 - GIC SPI Intr start, ref: clec_spec am275_soc_event_out_mapping)*/
                     timerInputPreScaler: 1,
                     clkSelMuxAddr: 0x001081B0 + 4*i,
                     disableClkSourceConfig: false,
@@ -304,7 +304,7 @@ function getStaticConfigArr() {
                     timerName: `TIMER${i}`,
                     timerBaseAddr: 0x02400000+ i*0x10000,
                     timerHwiIntNum: 5 + i - 8,
-                    eventId: 64 + 256 +  i - 8, /* (256 - GIC SPI Intr start, ref: clec_spec am275_soc_event_out_mapping)*/
+                    eventId: 32 + 256 +  i - 8, /* (256 - GIC SPI Intr start, ref: clec_spec am275_soc_event_out_mapping)*/
                     timerInputPreScaler: 1,
                     clkSelMuxAddr: 0x001081B0 + 4*i,
                     disableClkSourceConfig: false,
@@ -324,7 +324,7 @@ function getStaticConfigArr() {
                         timerName: `TIMER${i}`,
                         timerBaseAddr: 0x02400000+ i*0x10000,
                         timerHwiIntNum: 3 + i - 10,
-                        eventId: 66 + 256 +  i, /* (256 - GIC SPI Intr start, ref: clec_spec am275_soc_event_out_mapping)*/
+                        eventId: 34 + 256 +  i, /* (256 - GIC SPI Intr start, ref: clec_spec am275_soc_event_out_mapping)*/
                         timerInputPreScaler: 1,
                         clkSelMuxAddr: 0x001081B0 + 4*i,
                         disableClkSourceConfig: false,
