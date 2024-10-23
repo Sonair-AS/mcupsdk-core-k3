@@ -66,6 +66,7 @@ const example_file_list = [
     "examples/drivers/mmcsd/mmcsd_file_io/.project/project.js",
     "examples/drivers/mmcsd/mmcsd_raw_io/.project/project_am275x_wkupr5.js",
     "examples/drivers/mmcsd/mmcsd_raw_io/.project/project.js",
+    "examples/drivers/ospi/ospi_flash_diag/.project/project.js",
     "examples/drivers/ospi/ospi_flash_io/.project/project_am275x_wkupr5.js",
     "examples/drivers/ospi/ospi_flash_io/.project/project.js",
     "examples/drivers/sciclient/sciclient_get_version/.project/project_am275x_wkupr5.js",
