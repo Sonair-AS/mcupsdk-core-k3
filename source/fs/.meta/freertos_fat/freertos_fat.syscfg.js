@@ -18,7 +18,15 @@ let freertos_fat_module = {
 	    },
 	},
 	defaultInstanceName: "CONFIG_FREERTOS_FAT",
-	config: [
+    config:getConfigurables(),
+	moduleInstances: moduleInstances,
+};
+
+function getConfigurables()
+{
+    let config = [];
+
+	config.push(
 		{
 			name: "media",
 			displayName: "Select Media",
@@ -29,13 +37,19 @@ let freertos_fat_module = {
                 { name: "EMMC" },
 			]
 		},
-	],
-	moduleInstances: moduleInstances,
-};
+	)
+
+    if(common.isDMWithBootSupported())
+    {
+        config.push(common.getDMWithBootConfig());
+    }
+    return config;
+}
 
 function moduleInstances(inst) {
 
     let modInstances = new Array();
+    let requiredArgs = {};
 
     if(system.deviceData.device !== "AM275x"){
         switch(inst.media) {
@@ -63,14 +77,20 @@ function moduleInstances(inst) {
                 break;
         }
     } else{
+        if(common.isDMWithBootSupported())
+        {
+            requiredArgs.addedByBootloader = inst.addedByBootloader;
+            requiredArgs.moduleSelect = "MMC";
+        }
+        else{
+            requiredArgs.moduleSelect = "MMC";
+        }
         modInstances.push({
             name: "peripheralDriver",
             displayName: "MMCSD Configuration",
             moduleName: '/drivers/mmcsd/mmcsd',
             useArray: false,
-            requiredArgs: {
-                moduleSelect: "MMC",
-            },
+            requiredArgs:requiredArgs
         });
     }
 

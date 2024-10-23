@@ -35,10 +35,14 @@ uart1.$name             = "CONFIG_UART_SBL";
 uart1.intrEnable        = "DISABLE";
 uart1.addedByBootloader = true;
 uart1.UART.$assign      = "UART0";
+uart1.UART.RXD.$assign  = "UART0_RXD";
+uart1.UART.TXD.$assign  = "UART0_TXD";
 
-freertos_fat1.$name                              = "CONFIG_FREERTOS_FAT0";
-freertos_fat1.peripheralDriver.addedByBootloader = true;
-freertos_fat1.peripheralDriver.$name             = "CONFIG_MMCSD_SBL";
+freertos_fat1.addedByBootloader             = true;
+freertos_fat1.$name                         = "CONFIG_FREERTOS_FAT_SBL";
+freertos_fat1.peripheralDriver.moduleSelect = scripting.forceWrite("MMC");
+freertos_fat1.peripheralDriver.$name        = "CONFIG_MMCSD_SBL";
+freertos_fat1.peripheralDriver.cardType     = "SD";
 
 debug_log.enableUartLog                      = true;
 debug_log.uartTrace                          = true;
@@ -85,8 +89,6 @@ mpu_armv77.allowExecute = false;
  * version of the tool will not impact the pinmux you originally saw.  These lines can be completely deleted in order to
  * re-solve from scratch.
  */
-uart1.UART.RXD.$suggestSolution                              = "MCASP4_AXR0";
-uart1.UART.TXD.$suggestSolution                              = "MLB0_MLBCLK";
 freertos_fat1.peripheralDriver.MMC.$suggestSolution          = "MMC0";
 freertos_fat1.peripheralDriver.MMC.MMC_CLK.$suggestSolution  = "MMC0_CLK";
 freertos_fat1.peripheralDriver.MMC.MMC_CMD.$suggestSolution  = "MMC0_CMD";

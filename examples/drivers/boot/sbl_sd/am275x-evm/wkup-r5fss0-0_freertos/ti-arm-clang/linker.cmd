@@ -19,7 +19,7 @@
 /* This is the heap size for malloc() API in NORTOS and FreeRTOS
  * This is also the heap used by pvPortMalloc in FreeRTOS
  */
---heap_size=0x100
+--heap_size=0x2000
 -e_vectors /* for SBL make sure to set entry point to _vectors_sbl */
 
 

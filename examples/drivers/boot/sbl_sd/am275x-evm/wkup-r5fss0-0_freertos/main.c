@@ -168,6 +168,8 @@ int main()
                                   &gBootTaskObj ); /* pointer to statically allocated task object memory */
     configASSERT(gBootTask != NULL);
 
+    Bootloader_profileAddProfilePoint("FreeRtosTask Create");
+
     /* Start the scheduler to start the tasks executing. */
     vTaskStartScheduler();
 

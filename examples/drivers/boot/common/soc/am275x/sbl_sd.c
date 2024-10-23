@@ -95,6 +95,9 @@ void loop_forever()
 
 void App_driversOpen()
 {
+    FF_Disk_t *diskStatus;
+
+    /* Open MMCSD */
     gMmcsdHandle[CONFIG_MMCSD_SBL] = NULL;
 
     gMmcsdHandle[CONFIG_MMCSD_SBL] = MMCSD_open(CONFIG_MMCSD_SBL, &gMmcsdParams[CONFIG_MMCSD_SBL]);
@@ -103,12 +106,23 @@ void App_driversOpen()
         DebugP_logError("MMCSD open failed for instance %d !!!\r\n", CONFIG_MMCSD_SBL);
     }
 
+    /* Open UART */
     gUartHandle[CONFIG_UART_SBL] = NULL;
 
     gUartHandle[CONFIG_UART_SBL] = UART_open(CONFIG_UART_SBL, &gUartParams[CONFIG_UART_SBL]);
     if(NULL == gUartHandle[CONFIG_UART_SBL])
     {
         DebugP_logError("UART open failed for instance %d !!!\r\n", CONFIG_UART_SBL);
+    }
+
+   /* Init the MMCSD disk driver */
+    diskStatus = FF_MMCSDDiskInit(gFFPartitionIds[CONFIG_FREERTOS_FAT_SBL].partitionName,
+                                &gFFDisks[CONFIG_FREERTOS_FAT_SBL],
+                                &gFFMmcsdConfig[CONFIG_FREERTOS_FAT_SBL],
+                                gFFPartitionIds[CONFIG_FREERTOS_FAT_SBL].partitionNumber);
+    if(NULL == diskStatus)
+    {
+        DebugP_logError("FF Disk Init failed for instance %d !!!\r\n", CONFIG_FREERTOS_FAT_SBL);
     }
 }
 
@@ -119,6 +133,8 @@ void App_driversClose()
 
     UART_close(gUartHandle[CONFIG_UART_SBL]);
     gUartHandle[CONFIG_UART_SBL] = NULL;
+
+    FF_MMCSDDiskDelete(&gFFDisks[CONFIG_FREERTOS_FAT_SBL]);
 }
 
 int32_t App_runCpus(Bootloader_Handle bootHandle,Bootloader_BootImageInfo *bootImageInfo)
@@ -148,9 +164,7 @@ void App_bootMultipleCoreSD()
     int32_t status;
     uint32_t appImageSize = 0;
     uint8_t noOfFiles = 0;
-    Bootloader_profileReset();
 
-    Bootloader_socWaitForFWBoot();
     status = Bootloader_socOpenFirewalls();
 
     DebugP_log("\r\n");
@@ -168,8 +182,6 @@ void App_bootMultipleCoreSD()
 
     status = Sciclient_getVersionCheck(1);
     Bootloader_profileAddProfilePoint("Sciclient Get Version");
-
-    Bootloader_profileAddProfilePoint("File read from SD card");
 
     if(SystemP_SUCCESS == status)
     {
@@ -191,8 +203,8 @@ void App_bootMultipleCoreSD()
             {
                 ((Bootloader_Config *)bootHandle)->scratchMemPtr = gScratchBuffer;
 
-                appImageSize += Bootloader_getMulticoreImageSize(bootHandle);
                 status = Bootloader_parseAndLoadMultiCoreELF(bootHandle, &bootImageInfo);
+                appImageSize += Bootloader_getMulticoreImageSize(bootHandle);
 
                 if(status == SystemP_SUCCESS)
                 {
@@ -213,6 +225,7 @@ void App_bootMultipleCoreSD()
         }
         if(status == SystemP_SUCCESS)
         {
+            Bootloader_profileAddProfilePoint("File read from SD card");
             status = App_runCpus(bootHandle, &bootImageInfo);
         }
 
@@ -240,12 +253,6 @@ void App_bootMultipleCoreSD()
     {
         DebugP_log("Some tests have failed!!\r\n");
     }
-
-    MMCSD_deinit();
-
-    /* Call DPL deinit to close the tick timer and disable interrupts before jumping to DM*/
-    Dpl_deinit();
-    Bootloader_JumpSelfCpu();
 
     App_driversClose();
     Board_deinit();
