@@ -12,11 +12,11 @@ const ospi_config_r5fss = [
         baudRateDiv         : 4,
         intrNum             : 178,
         phaseDelayElement   : 3,
-        clockIds            : [ "TISCI_DEV_FSS1", "TISCI_DEV_FSS1_FSAS_0", "TISCI_DEV_FSS1_OSPI_0" ],
+        clockIds            : [ "TISCI_DEV_FSS0"],
         clockFrequencies    : [
             {
-                moduleId: "TISCI_DEV_FSS1_OSPI_0",
-                clkId   : "TISCI_DEV_FSS1_OSPI_0_OSPI_RCLK_CLK",
+                moduleId: "TISCI_DEV_FSS0",
+                clkId   : "TISCI_DEV_FSS0_OSPI0_RCLK_CLK",
                 clkRate : ospi_input_clk_freq,
             },
         ],
