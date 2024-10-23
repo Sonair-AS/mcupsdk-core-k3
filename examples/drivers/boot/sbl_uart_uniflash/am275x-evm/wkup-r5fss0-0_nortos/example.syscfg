@@ -9,20 +9,22 @@
 /**
  * Import the modules used in this configuration.
  */
-const flash       = scripting.addModule("/board/flash/flash", {}, false);
-const flash1      = flash.addInstance();
-const bootloader  = scripting.addModule("/drivers/bootloader/bootloader", {}, false);
-const bootloader1 = bootloader.addInstance();
-const mmcsd       = scripting.addModule("/drivers/mmcsd/mmcsd", {}, false);
-const mmcsd1      = mmcsd.addInstance();
-const debug_log   = scripting.addModule("/kernel/dpl/debug_log");
-const mpu_armv7   = scripting.addModule("/kernel/dpl/mpu_armv7", {}, false);
-const mpu_armv71  = mpu_armv7.addInstance();
-const mpu_armv72  = mpu_armv7.addInstance();
-const mpu_armv73  = mpu_armv7.addInstance();
-const mpu_armv74  = mpu_armv7.addInstance();
-const mpu_armv75  = mpu_armv7.addInstance();
-const mpu_armv76  = mpu_armv7.addInstance();
+const flash           = scripting.addModule("/board/flash/flash", {}, false);
+const flash1          = flash.addInstance();
+const bootloader      = scripting.addModule("/drivers/bootloader/bootloader", {}, false);
+const bootloader1     = bootloader.addInstance();
+const mmcsd           = scripting.addModule("/drivers/mmcsd/mmcsd", {}, false);
+const mmcsd1          = mmcsd.addInstance();
+const addr_translate  = scripting.addModule("/kernel/dpl/addr_translate", {}, false);
+const addr_translate1 = addr_translate.addInstance();
+const debug_log       = scripting.addModule("/kernel/dpl/debug_log");
+const mpu_armv7       = scripting.addModule("/kernel/dpl/mpu_armv7", {}, false);
+const mpu_armv71      = mpu_armv7.addInstance();
+const mpu_armv72      = mpu_armv7.addInstance();
+const mpu_armv73      = mpu_armv7.addInstance();
+const mpu_armv74      = mpu_armv7.addInstance();
+const mpu_armv75      = mpu_armv7.addInstance();
+const mpu_armv76      = mpu_armv7.addInstance();
 
 /**
  * Write custom configuration values to the imported modules.
@@ -36,6 +38,11 @@ bootloader1.$name     = "CONFIG_BOOTLOADER0";
 bootloader1.bootMedia = "MEM";
 
 mmcsd1.$name = "CONFIG_MMCSD0";
+
+addr_translate1.$name      = "CONFIG_ADDR_TRANSLATE_REGION0";
+addr_translate1.localAddr  = 0x60000000;
+addr_translate1.systemAddr = 0x500000000;
+addr_translate1.size       = 26;
 
 debug_log.enableUartLog            = true;
 debug_log.enableCssLog             = false;
