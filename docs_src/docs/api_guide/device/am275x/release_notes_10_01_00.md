@@ -21,6 +21,10 @@ Feature                                                                         
 -----------------------------------------------------------------------------------------|-----------------------------------
 TBD                                                                                      | TBD
 
+OSPI FLASH DIAG EXAMPLE                                                                        | OSPI
+-                                                                                              |-
+
+
 ### Experimental Features {#EXPERIMENTAL_FEATURES}
 
 \attention Features listed below are early versions and should be considered as "experimental".
