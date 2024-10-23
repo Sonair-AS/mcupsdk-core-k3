@@ -111,14 +111,6 @@ void App_driversOpen()
     {
         DebugP_logError("OSPI open failed for instance %d !!!\r\n", CONFIG_OSPI_SBL);
     }
-
-    gUartHandle[CONFIG_UART_SBL] = NULL;
-
-    gUartHandle[CONFIG_UART_SBL] = UART_open(CONFIG_UART_SBL, &gUartParams[CONFIG_UART_SBL]);
-    if(NULL == gUartHandle[CONFIG_UART_SBL])
-    {
-        DebugP_logError("UART open failed for instance %d !!!\r\n", CONFIG_UART_SBL);
-    }
 }
 
 void App_boardDriversClose()
@@ -131,9 +123,6 @@ void App_driversClose()
 {
     OSPI_close(gOspiHandle[CONFIG_OSPI_SBL]);
     gOspiHandle[CONFIG_OSPI_SBL] = NULL;
-
-    UART_close(gUartHandle[CONFIG_UART_SBL]);
-    gUartHandle[CONFIG_UART_SBL] = NULL;
 }
 
 void App_bootMultipleCoreFlash()
@@ -192,17 +181,10 @@ void App_bootMultipleCoreFlash()
 
         if(SystemP_SUCCESS == status)
 		{
-            /* Use CONFIG_UART_SBL (UART0) for SBL logs */
-            DebugP_uartSetDrvIndex(CONFIG_UART_SBL);
-
-			/* Print SBL log as Linux prints log to the same UART port */
 			Bootloader_profilePrintProfileLog();
-			DebugP_log("Image loading done, switching to application ...\r\n");
-			DebugP_log("Starting linux and RTOS/Baremetal applications\r\n");
-			UART_flushTxFifo(gUartHandle[CONFIG_UART_SBL]);
-
-            /* Restore CONFIG_UART_APP (WKUP_UART) for application logs */
-            DebugP_uartSetDrvIndex(CONFIG_UART_APP);
+			DebugP_log("Image loading done...\r\n");
+			DebugP_log("Starting RTOS/Baremetal applications\r\n");
+			UART_flushTxFifo(gUartHandle[CONFIG_UART0]);
 		}
 
          /* Deinitialise the flash and driver peripherial used by bootloader before starting other cores,
@@ -227,23 +209,7 @@ void App_bootMultipleCoreFlash()
 
     if(status != SystemP_SUCCESS )
     {
-        /* Use CONFIG_UART_SBL (UART0) for SBL logs */
-        DebugP_uartSetDrvIndex(CONFIG_UART_SBL);
-
-        /* Open UART to print failure log */
-        gUartHandle[CONFIG_UART_SBL] = UART_open(CONFIG_UART_SBL, &gUartParams[CONFIG_UART_SBL]);
-        if(NULL == gUartHandle[CONFIG_UART_SBL])
-        {
-            DebugP_logError("UART open failed for instance %d !!!\r\n", CONFIG_UART_SBL);
-        }
-
         DebugP_log("SBL booting cores failed!!\r\n");
-
-        UART_close(gUartHandle[CONFIG_UART_SBL]);
-        gUartHandle[CONFIG_UART_SBL] = NULL;
-
-        /* Restore CONFIG_UART_APP (WKUP_UART) for application logs */
-        DebugP_uartSetDrvIndex(CONFIG_UART_APP);
     }
 }
 
