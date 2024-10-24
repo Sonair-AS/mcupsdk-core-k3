@@ -137,7 +137,7 @@ const mcspi_config_c7x = [
         baseAddr        : "CSL_MCSPI0_CFG_BASE",
         inputClkFreq    : mcspi_input_clk_freq,
         intrNum         : 20,
-        eventId         : 204,
+        eventId         : 172,
         clockIds        : [ "TISCI_DEV_MCSPI0" ],
         udmaPdmaChannels: [
             {
@@ -163,7 +163,7 @@ const mcspi_config_c7x = [
         baseAddr        : "CSL_MCSPI1_CFG_BASE",
         inputClkFreq    : mcspi_input_clk_freq,
         intrNum         : 21,
-        eventId         : 205,
+        eventId         : 173,
         clockIds        : [ "TISCI_DEV_MCSPI1" ],
         udmaPdmaChannels: [
             {
@@ -189,7 +189,7 @@ const mcspi_config_c7x = [
         baseAddr        : "CSL_MCSPI2_CFG_BASE",
         inputClkFreq    : mcspi_input_clk_freq,
         intrNum         : 22,
-        eventId         : 206,
+        eventId         : 174,
         clockIds        : [ "TISCI_DEV_MCSPI0" ],
         udmaPdmaChannels: [
             {
@@ -215,7 +215,7 @@ const mcspi_config_c7x = [
         baseAddr        : "CSL_MCSPI3_CFG_BASE",
         inputClkFreq    : mcspi_input_clk_freq,
         intrNum         : 23,
-        eventId         : 207,
+        eventId         : 175,
         clockIds        : [ "TISCI_DEV_MCSPI3" ],
         udmaPdmaChannels: [
             {
@@ -241,7 +241,7 @@ const mcspi_config_c7x = [
         baseAddr        : "CSL_MCSPI4_CFG_BASE",
         inputClkFreq    : mcspi_input_clk_freq,
         intrNum         : 24,
-        eventId         : 108 + 256,
+        eventId         : 176,
         clockIds        : [ "TISCI_DEV_MCSPI4" ],
         udmaPdmaChannels: [
             {
