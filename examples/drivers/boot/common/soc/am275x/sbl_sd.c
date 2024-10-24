@@ -165,11 +165,7 @@ void App_bootMultipleCoreSD()
     uint32_t appImageSize = 0;
     uint8_t noOfFiles = 0;
 
-    status = Bootloader_socOpenFirewalls();
-
     DebugP_log("\r\n");
-    DebugP_assertNoLog(status == SystemP_SUCCESS);
-
     DebugP_log("Starting SD Bootloader ... \r\n");
 
     Module_clockSBLEnable();
@@ -177,8 +173,6 @@ void App_bootMultipleCoreSD()
 
     App_driversOpen();
     Bootloader_profileAddProfilePoint("SBL Drivers_open");
-
-    DebugP_assertNoLog(status == SystemP_SUCCESS);
 
     status = Sciclient_getVersionCheck(1);
     Bootloader_profileAddProfilePoint("Sciclient Get Version");

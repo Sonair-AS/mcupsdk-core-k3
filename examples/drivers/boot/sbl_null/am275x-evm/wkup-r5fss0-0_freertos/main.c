@@ -195,9 +195,14 @@ void main_thread(void *args)
 
 int main()
 {
+    int32_t status = SystemP_SUCCESS;
+
     Bootloader_profileReset();
 
     Bootloader_socWaitForFWBoot();
+    status = Bootloader_socOpenFirewalls();
+    DebugP_assertNoLog(status == SystemP_SUCCESS);
+
     Bootloader_profileAddProfilePoint("TIFS init");
 
     /* init SOC specific modules */
