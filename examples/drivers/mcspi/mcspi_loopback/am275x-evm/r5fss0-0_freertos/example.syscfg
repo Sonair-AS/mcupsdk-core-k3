@@ -26,13 +26,16 @@ const mpu_armv76 = mpu_armv7.addInstance();
 mcspi1.$name                 = "CONFIG_MCSPI0";
 mcspi1.pinMode               = 3;
 mcspi1.intrEnable            = "POLLED";
-mcspi1.SPI.D0.rx             = false;
+mcspi1.inputSelect           = "0";
+mcspi1.SPI.D1.rx             = false;
 mcspi1.mcspiChannel[0].$name = "CONFIG_MCSPI_CH0";
 
 debug_log.enableUartLog            = true;
 debug_log.enableSharedMemLogReader = true;
 debug_log.uartLog.$name            = "CONFIG_UART0";
 debug_log.uartLog.UART.$assign     = "UART0";
+debug_log.uartLog.UART.RXD.$assign = "UART0_RXD";
+debug_log.uartLog.UART.TXD.$assign = "UART0_TXD";
 
 mpu_armv71.size              = 31;
 mpu_armv71.attributes        = "Device";
@@ -67,9 +70,7 @@ mpu_armv76.size     = 21;
  * version of the tool will not impact the pinmux you originally saw.  These lines can be completely deleted in order to
  * re-solve from scratch.
  */
-mcspi1.SPI.$suggestSolution                 = "SPI1";
-mcspi1.SPI.CLK.$suggestSolution             = "OSPI0_D5";
-mcspi1.SPI.D0.$suggestSolution              = "OSPI0_D6";
-mcspi1.SPI.D1.$suggestSolution              = "OSPI0_D7";
-debug_log.uartLog.UART.RXD.$suggestSolution = "MCASP4_AXR0";
-debug_log.uartLog.UART.TXD.$suggestSolution = "MLB0_MLBCLK";
+mcspi1.SPI.$suggestSolution     = "SPI1";
+mcspi1.SPI.CLK.$suggestSolution = "OSPI0_D5";
+mcspi1.SPI.D0.$suggestSolution  = "OSPI0_D6";
+mcspi1.SPI.D1.$suggestSolution  = "OSPI0_D7";
