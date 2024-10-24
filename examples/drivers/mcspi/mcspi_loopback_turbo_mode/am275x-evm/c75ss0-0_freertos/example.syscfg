@@ -11,6 +11,8 @@
  */
 const mcspi       = scripting.addModule("/drivers/mcspi/mcspi", {}, false);
 const mcspi1      = mcspi.addInstance();
+const uart        = scripting.addModule("/drivers/uart/uart", {}, false);
+const uart1       = uart.addInstance();
 const debug_log   = scripting.addModule("/kernel/dpl/debug_log");
 const mmu_armv8   = scripting.addModule("/kernel/dpl/mmu_armv8", {}, false);
 const mmu_armv81  = mmu_armv8.addInstance();
@@ -30,11 +32,11 @@ const mmu_armv811 = mmu_armv8.addInstance();
  */
 mcspi1.$name                 = "CONFIG_MCSPI0";
 mcspi1.inputSelect           = "0";
+mcspi1.advanced              = true;
+mcspi1.initDelay             = "4";
 mcspi1.mcspiChannel[0].$name = "CONFIG_MCSPI_CH0";
 
-debug_log.enableUartLog        = true;
-debug_log.uartLog.$name        = "CONFIG_UART0";
-debug_log.uartLog.UART.$assign = "UART3";
+uart1.$name = "CONFIG_UART0";
 
 mmu_armv81.size  = 0x20000000;
 mmu_armv81.$name = "REGISTERS_REGION0";
@@ -64,35 +66,35 @@ mmu_armv86.vAddr = 0x7C400000;
 mmu_armv86.pAddr = 0x7C400000;
 mmu_armv86.size  = 0x300000;
 
-mmu_armv87.$name     = "CCS_DEBUG_LOG_MEM";
-mmu_armv87.size      = 0x1000;
-mmu_armv87.attribute = "MAIR4";
-mmu_armv87.pAddr     = 0x8027F000;
-mmu_armv87.vAddr     = 0x8027F000;
+mmu_armv87.$name     = "L2SRAM";
+mmu_armv87.vAddr     = 0x7E000000;
+mmu_armv87.pAddr     = 0x7E000000;
+mmu_armv87.attribute = "MAIR7";
+mmu_armv87.size      = 0x200000;
 
-mmu_armv88.$name     = "L2SRAM";
-mmu_armv88.vAddr     = 0x7E000000;
-mmu_armv88.pAddr     = 0x7E000000;
+mmu_armv88.$name     = "L2SRAM_AUX";
+mmu_armv88.vAddr     = 0x7E200000;
+mmu_armv88.pAddr     = 0x7E200000;
+mmu_armv88.size      = 0x40000;
 mmu_armv88.attribute = "MAIR7";
-mmu_armv88.size      = 0x200000;
 
-mmu_armv89.$name     = "L2SRAM_AUX";
-mmu_armv89.vAddr     = 0x7E200000;
-mmu_armv89.pAddr     = 0x7E200000;
-mmu_armv89.size      = 0x40000;
 mmu_armv89.attribute = "MAIR7";
+mmu_armv89.$name     = "MSRAM_BANK0_TO_BANK3";
+mmu_armv89.vAddr     = 0x80000000;
+mmu_armv89.pAddr     = 0x80000000;
+mmu_armv89.size      = 0x400000;
 
+mmu_armv810.$name     = "MSRAM_BANK4_TO_BANK5";
+mmu_armv810.size      = 0x200000;
 mmu_armv810.attribute = "MAIR7";
-mmu_armv810.$name     = "MSRAM_BANK0_TO_BANK3";
-mmu_armv810.vAddr     = 0x80000000;
-mmu_armv810.pAddr     = 0x80000000;
-mmu_armv810.size      = 0x400000;
+mmu_armv810.vAddr     = 0x80400000;
+mmu_armv810.pAddr     = 0x80400000;
 
-mmu_armv811.$name     = "MSRAM_BANK4_TO_BANK5";
-mmu_armv811.size      = 0x200000;
-mmu_armv811.attribute = "MAIR7";
-mmu_armv811.vAddr     = 0x80400000;
-mmu_armv811.pAddr     = 0x80400000;
+mmu_armv811.vAddr     = 0x8027F000;
+mmu_armv811.pAddr     = 0x8027F000;
+mmu_armv811.size      = 0x1000;
+mmu_armv811.attribute = "MAIR4";
+mmu_armv811.$name     = "CCS_DEBUG_LOG_MEM";
 
 /**
  * Pinmux solution for unlocked pins/peripherals. This ensures that minor changes to the automatic solver in a future
@@ -104,5 +106,6 @@ mcspi1.SPI.CLK.$suggestSolution             = "OSPI0_D5";
 mcspi1.SPI.D0.$suggestSolution              = "OSPI0_D6";
 mcspi1.SPI.D1.$suggestSolution              = "OSPI0_D7";
 mcspi1.mcspiChannel[0].CSn.$suggestSolution = "OSPI0_D4";
-debug_log.uartLog.UART.RXD.$suggestSolution = "MCASP0_AXR8";
-debug_log.uartLog.UART.TXD.$suggestSolution = "GPIO1_47";
+uart1.UART.$suggestSolution                 = "UART0";
+uart1.UART.RXD.$suggestSolution             = "MCASP4_AXR0";
+uart1.UART.TXD.$suggestSolution             = "MLB0_MLBCLK";

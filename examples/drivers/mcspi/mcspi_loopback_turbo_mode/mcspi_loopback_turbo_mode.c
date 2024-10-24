@@ -63,7 +63,7 @@ uint8_t gMcspiRxBuffer[APP_MCSPI_MSGSIZE];
 void *mcspi_loopback_turbo_mode_main(void *args)
 {
     int32_t             status = SystemP_SUCCESS;
-    uint32_t            i;
+    volatile uint32_t            i;
     int32_t             transferOK;
     MCSPI_Transaction   spiTransaction;
     uint64_t            startTimeInUSec, elapsedTimeInUsecs;
