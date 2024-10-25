@@ -51,13 +51,13 @@
  *
  *  @{
  */
-#define CSL_DMSS_BCDMA_NUM_BC_CHANS                                     ((uint32_t) 32U)    /* Number of block-copy channels (includes HC and UC channel counts) */
-#define CSL_DMSS_BCDMA_NUM_BC_HC_CHANS                                  ((uint32_t) 4U)     /* Number of block-copy high capacity (HC) channels (includes UC channel count) */
+#define CSL_DMSS_BCDMA_NUM_BC_CHANS                                     ((uint32_t) 24U)    /* Number of block-copy channels (includes HC and UC channel counts) */
+#define CSL_DMSS_BCDMA_NUM_BC_HC_CHANS                                  ((uint32_t) 0U)     /* Number of block-copy high capacity (HC) channels (includes UC channel count) */
 #define CSL_DMSS_BCDMA_NUM_BC_UC_CHANS                                  ((uint32_t) 0U)     /* Number of block-copy ultra high capacity (UC) channels */
-#define CSL_DMSS_BCDMA_NUM_TX_CHANS                                     ((uint32_t) 25U)    /* Number of split-tx channels (includes HC and UC channel counts) */
+#define CSL_DMSS_BCDMA_NUM_TX_CHANS                                     ((uint32_t) 48U)    /* Number of split-tx channels (includes HC and UC channel counts) */
 #define CSL_DMSS_BCDMA_NUM_TX_HC_CHANS                                  ((uint32_t) 0U)     /* Number of split-tx high capacity (HC) channels (includes UC channel count) */
 #define CSL_DMSS_BCDMA_NUM_TX_UC_CHANS                                  ((uint32_t) 0U)     /* Number of split-tx ultra high capacity (UC) channels */
-#define CSL_DMSS_BCDMA_NUM_RX_CHANS                                     ((uint32_t) 25U)    /* Number of split-rx channels (includes HC and UC channel counts) */
+#define CSL_DMSS_BCDMA_NUM_RX_CHANS                                     ((uint32_t) 50U)    /* Number of split-rx channels (includes HC and UC channel counts) */
 #define CSL_DMSS_BCDMA_NUM_RX_HC_CHANS                                  ((uint32_t) 0U)     /* Number of split-rx high capacity (HC) channels (includes UC channel count) */
 #define CSL_DMSS_BCDMA_NUM_RX_UC_CHANS                                  ((uint32_t) 0U)     /* Number of split-rx ultra high capacity (UC) channels */
 #define CSL_DMSS_BCDMA_NUM_EXT_CHANS                                    ((uint32_t) 0U)
@@ -83,63 +83,63 @@
  *
  *  @{
  */
-#define CSL_DMSS_PKTDMA_NUM_TX_CHANS                                    ((uint32_t) 29U)    /* Number of tx channels */
-#define CSL_DMSS_PKTDMA_NUM_RX_CHANS                                    ((uint32_t) 24U)    /* Number of rx channels */
+#define CSL_DMSS_PKTDMA_NUM_TX_CHANS                                    ((uint32_t) 37U)    /* Number of tx channels */
+#define CSL_DMSS_PKTDMA_NUM_RX_CHANS                                    ((uint32_t) 32U)    /* Number of rx channels */
 #define CSL_DMSS_PKTDMA_NUM_TX_HC_CHANS                                 ((uint32_t) 0U)
 #define CSL_DMSS_PKTDMA_NUM_RX_HC_CHANS                                 ((uint32_t) 0U)
 #define CSL_DMSS_PKTDMA_NUM_TX_UC_CHANS                                 ((uint32_t) 0U)
 #define CSL_DMSS_PKTDMA_NUM_RX_UC_CHANS                                 ((uint32_t) 0U)
 #define CSL_DMSS_PKTDMA_NUM_EXT_CHANS                                   ((uint32_t) 0U)
 #define CSL_DMSS_PKTDMA_NUM_SECURE_CHANS                                ((uint32_t) 0U)
-#define CSL_DMSS_PKTDMA_NUM_RX_FLOWS                                    ((uint32_t) 51U)
-#define CSL_DMSS_PKTDMA_NUM_TX_FLOWS                                    ((uint32_t) 99U)
+#define CSL_DMSS_PKTDMA_NUM_RX_FLOWS                                    ((uint32_t) 58U)
+#define CSL_DMSS_PKTDMA_NUM_TX_FLOWS                                    ((uint32_t) 106U)
 
 #define CSL_DMSS_PKTDMA_TX_CHANS_FDEPTH                                 ((uint32_t) 192U)
 #define CSL_DMSS_PKTDMA_TX_HC_CHANS_FDEPTH                              ((uint32_t) 0U)
 #define CSL_DMSS_PKTDMA_TX_UHC_CHANS_FDEPTH                             ((uint32_t) 0U)
 
 #define CSL_DMSS_PKTDMA_TX_CHANS_UNMAPPED_START                         ((uint32_t) 0U)
-#define CSL_DMSS_PKTDMA_TX_CHANS_UNMAPPED_CNT                           ((uint32_t) 19U)
-#define CSL_DMSS_PKTDMA_TX_CHANS_CPSW_START                             ((uint32_t) 19U)
+#define CSL_DMSS_PKTDMA_TX_CHANS_UNMAPPED_CNT                           ((uint32_t) 27U)
+#define CSL_DMSS_PKTDMA_TX_CHANS_CPSW_START                             ((uint32_t) 27U)
 #define CSL_DMSS_PKTDMA_TX_CHANS_CPSW_CNT                               ((uint32_t) 8U)
-#define CSL_DMSS_PKTDMA_TX_CHANS_SAUL0_START                            ((uint32_t) 27U)
+#define CSL_DMSS_PKTDMA_TX_CHANS_SAUL0_START                            ((uint32_t) 35U)
 #define CSL_DMSS_PKTDMA_TX_CHANS_SAUL0_CNT                              ((uint32_t) 1U)
-#define CSL_DMSS_PKTDMA_TX_CHANS_SAUL1_START                            ((uint32_t) 28U)
+#define CSL_DMSS_PKTDMA_TX_CHANS_SAUL1_START                            ((uint32_t) 36U)
 #define CSL_DMSS_PKTDMA_TX_CHANS_SAUL1_CNT                              ((uint32_t) 1U)
 
 #define CSL_DMSS_PKTDMA_RX_CHANS_UNMAPPED_START                         ((uint32_t) 0U)
-#define CSL_DMSS_PKTDMA_RX_CHANS_UNMAPPED_CNT                           ((uint32_t) 19U)
-#define CSL_DMSS_PKTDMA_RX_CHANS_CPSW_START                             ((uint32_t) 19U)
+#define CSL_DMSS_PKTDMA_RX_CHANS_UNMAPPED_CNT                           ((uint32_t) 27U)
+#define CSL_DMSS_PKTDMA_RX_CHANS_CPSW_START                             ((uint32_t) 27U)
 #define CSL_DMSS_PKTDMA_RX_CHANS_CPSW_CNT                               ((uint32_t) 1U)
-#define CSL_DMSS_PKTDMA_RX_CHANS_SAUL0_START                            ((uint32_t) 20U)
+#define CSL_DMSS_PKTDMA_RX_CHANS_SAUL0_START                            ((uint32_t) 28U)
 #define CSL_DMSS_PKTDMA_RX_CHANS_SAUL0_CNT                              ((uint32_t) 1U)
-#define CSL_DMSS_PKTDMA_RX_CHANS_SAUL1_START                            ((uint32_t) 21U)
+#define CSL_DMSS_PKTDMA_RX_CHANS_SAUL1_START                            ((uint32_t) 29U)
 #define CSL_DMSS_PKTDMA_RX_CHANS_SAUL1_CNT                              ((uint32_t) 1U)
-#define CSL_DMSS_PKTDMA_RX_CHANS_SAUL2_START                            ((uint32_t) 22U)
+#define CSL_DMSS_PKTDMA_RX_CHANS_SAUL2_START                            ((uint32_t) 30U)
 #define CSL_DMSS_PKTDMA_RX_CHANS_SAUL2_CNT                              ((uint32_t) 1U)
-#define CSL_DMSS_PKTDMA_RX_CHANS_SAUL3_START                            ((uint32_t) 23U)
+#define CSL_DMSS_PKTDMA_RX_CHANS_SAUL3_START                            ((uint32_t) 31U)
 #define CSL_DMSS_PKTDMA_RX_CHANS_SAUL3_CNT                              ((uint32_t) 1U)
 
 #define CSL_DMSS_PKTDMA_TX_FLOWS_UNMAPPED_START                         ((uint32_t) 0U)
-#define CSL_DMSS_PKTDMA_TX_FLOWS_UNMAPPED_CNT                           ((uint32_t) 19U)
-#define CSL_DMSS_PKTDMA_TX_FLOWS_CPSW_START                             ((uint32_t) 19U)
+#define CSL_DMSS_PKTDMA_TX_FLOWS_UNMAPPED_CNT                           ((uint32_t) 27U)
+#define CSL_DMSS_PKTDMA_TX_FLOWS_CPSW_START                             ((uint32_t) 27U)
 #define CSL_DMSS_PKTDMA_TX_FLOWS_CPSW_CNT                               ((uint32_t) 64U)
-#define CSL_DMSS_PKTDMA_TX_FLOWS_SAUL0_START                            ((uint32_t) 83U)
+#define CSL_DMSS_PKTDMA_TX_FLOWS_SAUL0_START                            ((uint32_t) 91U)
 #define CSL_DMSS_PKTDMA_TX_FLOWS_SAUL0_CNT                              ((uint32_t) 8U)
-#define CSL_DMSS_PKTDMA_TX_FLOWS_SAUL1_START                            ((uint32_t) 91U)
+#define CSL_DMSS_PKTDMA_TX_FLOWS_SAUL1_START                            ((uint32_t) 99U)
 #define CSL_DMSS_PKTDMA_TX_FLOWS_SAUL1_CNT                              ((uint32_t) 8U)
 
-#define CSL_DMSS_PKTDMA_RX_FLOWS_UNMAPPED_START                         ((uint32_t) 99U)
-#define CSL_DMSS_PKTDMA_RX_FLOWS_UNMAPPED_CNT                           ((uint32_t) 19U)
-#define CSL_DMSS_PKTDMA_RX_FLOWS_CPSW_START                             ((uint32_t) 118U)
+#define CSL_DMSS_PKTDMA_RX_FLOWS_UNMAPPED_START                         ((uint32_t) 107U)
+#define CSL_DMSS_PKTDMA_RX_FLOWS_UNMAPPED_CNT                           ((uint32_t) 27U)
+#define CSL_DMSS_PKTDMA_RX_FLOWS_CPSW_START                             ((uint32_t) 134U)
 #define CSL_DMSS_PKTDMA_RX_FLOWS_CPSW_CNT                               ((uint32_t) 16U)
-#define CSL_DMSS_PKTDMA_RX_FLOWS_SAUL0_START                            ((uint32_t) 134U)
+#define CSL_DMSS_PKTDMA_RX_FLOWS_SAUL0_START                            ((uint32_t) 150U)
 #define CSL_DMSS_PKTDMA_RX_FLOWS_SAUL0_CNT                              ((uint32_t) 8U)
-#define CSL_DMSS_PKTDMA_RX_FLOWS_SAUL1_START                            ((uint32_t) 134U)   /* SAUL1 RX flows are shared with SAUL0 */
+#define CSL_DMSS_PKTDMA_RX_FLOWS_SAUL1_START                            ((uint32_t) 150U)   /* SAUL1 RX flows are shared with SAUL0 */
 #define CSL_DMSS_PKTDMA_RX_FLOWS_SAUL1_CNT                              ((uint32_t) 8U)
-#define CSL_DMSS_PKTDMA_RX_FLOWS_SAUL2_START                            ((uint32_t) 142U)
+#define CSL_DMSS_PKTDMA_RX_FLOWS_SAUL2_START                            ((uint32_t) 158U)
 #define CSL_DMSS_PKTDMA_RX_FLOWS_SAUL2_CNT                              ((uint32_t) 8U)
-#define CSL_DMSS_PKTDMA_RX_FLOWS_SAUL3_START                            ((uint32_t) 142U)   /* SAUL3 RX flows are shared with SAUL2 */
+#define CSL_DMSS_PKTDMA_RX_FLOWS_SAUL3_START                            ((uint32_t) 158U)   /* SAUL3 RX flows are shared with SAUL2 */
 #define CSL_DMSS_PKTDMA_RX_FLOWS_SAUL3_CNT                              ((uint32_t) 8U)
 
 /* @} */

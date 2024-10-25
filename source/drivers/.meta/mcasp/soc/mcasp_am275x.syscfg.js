@@ -1,7 +1,7 @@
 let common = system.getScript("/common");
 let pinmux = system.getScript("/drivers/pinmux/pinmux");
 
-let mcasp_input_clk_freq = 48000000;
+let mcasp_input_clk_freq = 49152000;
 
 const mcasp_config = [
     {
@@ -19,10 +19,15 @@ const mcasp_config = [
         clockIds                    : ["TISCI_DEV_MCASP0"],
         clockFrequencies            : [
             {
+                moduleId: "TISCI_DEV_MCASP0_LOCAL_AUXCLK_SEL_DEV_VD ",
+                clkId   : "TISCI_DEV_DEV_MCASP0_LOCAL_AUXCLK_SEL_DEV_VD_CLK",
+                clkRate : mcasp_input_clk_freq,
+            },
+            {
                 moduleId: "TISCI_DEV_MCASP0",
                 clkId   : "TISCI_DEV_MCASP0_AUX_CLK",
                 clkRate : mcasp_input_clk_freq,
-            }
+            },
         ],
         udmaPdmaChannels            : [
             {
@@ -45,6 +50,11 @@ const mcasp_config = [
         c7xTxEvent                  : 42,
         clockIds                    : ["TISCI_DEV_MCASP1"],
         clockFrequencies            : [
+            {
+                moduleId: "TISCI_DEV_MCASP1_LOCAL_AUXCLK_SEL_DEV_VD ",
+                clkId   : "TISCI_DEV_MCASP1_LOCAL_AUXCLK_SEL_DEV_VD_CLK",
+                clkRate : mcasp_input_clk_freq,
+            },
             {
                 moduleId: "TISCI_DEV_MCASP1",
                 clkId   : "TISCI_DEV_MCASP1_AUX_CLK",
@@ -73,6 +83,11 @@ const mcasp_config = [
         clockIds                    : ["TISCI_DEV_MCASP2"],
         clockFrequencies            : [
             {
+                moduleId: "TISCI_DEV_MCASP2_LOCAL_AUXCLK_SEL_DEV_VD ",
+                clkId   : "TISCI_DEV_MCASP2_LOCAL_AUXCLK_SEL_DEV_VD_CLK",
+                clkRate : mcasp_input_clk_freq,
+            },
+            {
                 moduleId: "TISCI_DEV_MCASP2",
                 clkId   : "TISCI_DEV_MCASP2_AUX_CLK",
                 clkRate : mcasp_input_clk_freq,
@@ -97,8 +112,13 @@ const mcasp_config = [
         c7xTxIntr                   : 274,
         c7xRxEvent                  : 45,
         c7xTxEvent                  : 46,
-        clockIds                    : ["TISCI_DEV_MCASP2"],
+        clockIds                    : ["TISCI_DEV_MCASP3"],
         clockFrequencies            : [
+            {
+                moduleId: "TISCI_DEV_MCASP3_LOCAL_AUXCLK_SEL_DEV_VD ",
+                clkId   : "TISCI_DEV_MCASP3_LOCAL_AUXCLK_SEL_DEV_VD_CLK",
+                clkRate : mcasp_input_clk_freq,
+            },
             {
                 moduleId: "TISCI_DEV_MCASP3",
                 clkId   : "TISCI_DEV_MCASP3_AUX_CLK",
@@ -124,8 +144,13 @@ const mcasp_config = [
         c7xTxIntr                   : 276,
         c7xRxEvent                  : 47,
         c7xTxEvent                  : 48,
-        clockIds                    : ["TISCI_DEV_MCASP2"],
+        clockIds                    : ["TISCI_DEV_MCASP4"],
         clockFrequencies            : [
+            {
+                moduleId: "TISCI_DEV_MCASP4_LOCAL_AUXCLK_SEL_DEV_VD ",
+                clkId   : "TISCI_DEV_MCASP4_LOCAL_AUXCLK_SEL_DEV_VD_CLK",
+                clkRate : mcasp_input_clk_freq,
+            },
             {
                 moduleId: "TISCI_DEV_MCASP4",
                 clkId   : "TISCI_DEV_MCASP4_AUX_CLK",
@@ -146,6 +171,14 @@ let mcasp_ext_rxhclk_src = [
     { name: 1, displayName: "HFOSC0_CLKOUT"},
     { name: 2, displayName: "AUDIO_EXT_REFCLK0"},
     { name: 3, displayName: "AUDIO_EXT_REFCLK1"},
+    { name: 4, displayName: "AUDIO_EXT_REFCLK2"},
+    { name: 6, displayName: "MLB_IO_CLK"},
+    { name: 8, displayName: "ATCLK0"},
+    { name: 9, displayName: "ATCLK1"},
+    { name: 10, displayName: "ATCLK2"},
+    { name: 11, displayName: "ATCLK3"},
+    { name: 12, displayName: "CPSW_CPTS_GENF0"},
+    { name: 13, displayName: "CPSW_CPTS_GENF1"},
     { name: 16, displayName: "Invalid Clock"},
 ];
 
@@ -154,6 +187,14 @@ let mcasp_ext_txhclk_src = [
     { name: 1, displayName: "HFOSC0_CLKOUT"},
     { name: 2, displayName: "AUDIO_EXT_REFCLK0"},
     { name: 3, displayName: "AUDIO_EXT_REFCLK1"},
+    { name: 4, displayName: "AUDIO_EXT_REFCLK2"},
+    { name: 6, displayName: "MLB_IO_CLK"},
+    { name: 8, displayName: "ATCLK0"},
+    { name: 9, displayName: "ATCLK1"},
+    { name: 10, displayName: "ATCLK2"},
+    { name: 11, displayName: "ATCLK3"},
+    { name: 12, displayName: "CPSW_CPTS_GENF0"},
+    { name: 13, displayName: "CPSW_CPTS_GENF1"},
     { name: 16, displayName: "Invalid Clock"},
 ];
 
@@ -162,7 +203,7 @@ function getConfigArr() {
 }
 
 let mcas_ext_hclk_src_list = [
-    "EXT_REFCLK1", "CLKOUT0", "AUDIO_EXT_REFCLK0", "AUDIO_EXT_REFCLK1"
+    "EXT_REFCLK1", "CLKOUT0", "AUDIO_EXT_REFCLK0", "AUDIO_EXT_REFCLK1", "AUDIO_EXT_REFCLK2"
 ];
 
 function getExtClkPins() {
@@ -203,6 +244,12 @@ function getPinmuxReq(txHclkSourceMux, rxHclkSourceMux)
     if(txHclkSourceMux == 3 || rxHclkSourceMux == 3)
     {
         pinResource = pinmux.getPinRequirements("CLOCKING", "AUDIO_EXT_REFCLK1", "Audio external ref clk 1");
+        pinmux.setConfigurableDefault( pinResource, "rx", true );
+        systemResources.push(pinResource);
+    }
+    if(txHclkSourceMux == 4 || rxHclkSourceMux == 4)
+    {
+        pinResource = pinmux.getPinRequirements("CLOCKING", "AUDIO_EXT_REFCLK2", "Audio external ref clk 1");
         pinmux.setConfigurableDefault( pinResource, "rx", true );
         systemResources.push(pinResource);
     }

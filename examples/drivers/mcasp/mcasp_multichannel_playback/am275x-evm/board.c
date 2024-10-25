@@ -137,16 +137,20 @@ Adc_RegCfg gPcm6240RegInst1[] =
     {0x75, 0xE0},
 };
 
-Dac_RegCfg gTad5212Reg[] =
+Dac_RegCfg gTad5212RegInst0[] =
 {
     /* Page select 0 */
     {0x00, 0x00},
     /* Disable sleep */
     {0x02, 0x01},
-    /* I2S, 32b mode */
-    {0x1A, 0x70},
+    /* TDM, 32b mode */
+    {0x1A, 0x30},
     /* 1b delay between FSYNC and data */
     {0x26, 0x01},
+    /* PASI CH1 is TDM slot 0 */
+    {0x28, 0x20},
+    /* PASI CH2 is TDM slot 4 */
+    {0x29, 0x24},
     /* CH1 - Input from DAC, Mono single ended output at OUT1P */
     {0x64, 0x28},
     /* CH1 - Headphone with 4ohm impedence, 0dB gain */
@@ -159,37 +163,113 @@ Dac_RegCfg gTad5212Reg[] =
     {0x6C, 0x60},
     /* CH2 - 0dB gain */
     {0x6E, 0xC9},
-    /* PASI channel2 input is right slot0 */
-    {0x29, 0x30},
     /* Enable output CH1 CH2 */
     {0x76, 0x0C},
-    /* Page select 1 */
-    {0x00, 0x01},
-    {0x0a, 0x10},
-    {0x1a, 0x40},
-    {0x24, 0x06},
-    {0x2d, 0x05},
-    {0x2f, 0x07},
-    {0x30, 0x07},
-    {0x47, 0x00},
-    {0x48, 0x00},
-    {0x4a, 0xb0},
-    {0x53, 0x80},
-    /* Page Select 3 */
-    {0x00, 0x03},
-    {0x38, 0x24},
-    {0x39, 0x28},
-    {0x3a, 0x26},
-    {0x3b, 0x20},
-    {0x3c, 0x00},
-    {0x3d, 0x00},
-    {0x3e, 0x09},
-    {0x48, 0x01},
-    {0x49, 0x01},
     /* Page Select 0 */
     {0x00, 0x00},
     {0x78, 0x40},
 
+};
+
+Dac_RegCfg gTad5212RegInst1[] =
+{
+    /* Page select 0 */
+    {0x00, 0x00},
+    /* Disable sleep */
+    {0x02, 0x01},
+    /* TDM, 32b mode */
+    {0x1A, 0x30},
+    /* 1b delay between FSYNC and data */
+    {0x26, 0x01},
+    /* PASI CH1 is TDM slot 1 */
+    {0x28, 0x21},
+    /* PASI CH2 is TDM slot 5 */
+    {0x29, 0x25},
+    /* CH1 - Input from DAC, Mono single ended output at OUT1P */
+    {0x64, 0x28},
+    /* CH1 - Headphone with 4ohm impedence, 0dB gain */
+    {0x65, 0x60},
+    /* CH1 - 0dB gain */
+    {0x67, 0xC9},
+    /* CH2 - Input from DAC, Mono single ended output at OUT2P */
+    {0x6B, 0x28},
+    /* CH2 - Headphone with 4ohm impedence, 0dB gain */
+    {0x6C, 0x60},
+    /* CH2 - 0dB gain */
+    {0x6E, 0xC9},
+    /* Enable output CH1 CH2 */
+    {0x76, 0x0C},
+    /* Page Select 0 */
+    {0x00, 0x00},
+    {0x78, 0x40},
+
+};
+
+Dac_RegCfg gTad5212RegInst2[] =
+{
+    /* Page select 0 */
+    {0x00, 0x00},
+    /* Disable sleep */
+    {0x02, 0x01},
+    /* TDM, 32b mode */
+    {0x1A, 0x30},
+    /* 1b delay between FSYNC and data */
+    {0x26, 0x01},
+    /* PASI CH1 is TDM slot 2 */
+    {0x28, 0x22},
+    /* PASI CH1 is TDM slot 6 */
+    {0x29, 0x26},
+    /* CH1 - Input from DAC, Mono single ended output at OUT1P */
+    {0x64, 0x28},
+    /* CH1 - Headphone with 4ohm impedence, 0dB gain */
+    {0x65, 0x60},
+    /* CH1 - 0dB gain */
+    {0x67, 0xC9},
+    /* CH2 - Input from DAC, Mono single ended output at OUT2P */
+    {0x6B, 0x28},
+    /* CH2 - Headphone with 4ohm impedence, 0dB gain */
+    {0x6C, 0x60},
+    /* CH2 - 0dB gain */
+    {0x6E, 0xC9},
+    /* Enable output CH1 CH2 */
+    {0x76, 0x0C},
+    /* Page Select 0 */
+    {0x00, 0x00},
+    {0x78, 0x40},
+
+};
+
+Dac_RegCfg gTad5212RegInst3[] =
+{
+    /* Page select 0 */
+    {0x00, 0x00},
+    /* Disable sleep */
+    {0x02, 0x01},
+    /* TDM, 32b mode */
+    {0x1A, 0x30},
+    /* 1b delay between FSYNC and data */
+    {0x26, 0x01},
+    /* PASI CH1 is TDM slot 3 */
+    {0x28, 0x23},
+    /* PASI CH1 is TDM slot 7 */
+    {0x29, 0x27},
+    /* CH1 - Input from DAC, Mono single ended output at OUT1P */
+    {0x64, 0x28},
+    /* CH1 - Headphone with 4ohm impedence, 0dB gain */
+    {0x65, 0x60},
+    /* CH1 - 0dB gain */
+    {0x67, 0xC9},
+    /* CH2 - Input from DAC, Mono single ended output at OUT2P */
+    {0x6B, 0x28},
+    /* CH2 - Headphone with 4ohm impedence, 0dB gain */
+    {0x6C, 0x60},
+    /* CH2 - 0dB gain */
+    {0x6E, 0xC9},
+    /* Enable output CH1 CH2 */
+    {0x76, 0x0C},
+    /* Page Select 0 */
+    {0x00, 0x00},
+    {0x78, 0x40},
 };
 
 Clockgen_RegCfg gCdce6214Reg[] = {
@@ -334,7 +414,7 @@ int32_t Board_codecConfig(void)
 int32_t Board_dacConfig(I2C_Handle handle, uint8_t devAddr)
 {
     int32_t status = SystemP_SUCCESS;
-    uint32_t count = sizeof(gTad5212Reg)/sizeof(Adc_RegCfg);
+    uint32_t count = 0;
     uint32_t i = 0;
     I2C_Transaction i2cTransaction;
     uint8_t txBuffer[2];
@@ -344,14 +424,50 @@ int32_t Board_dacConfig(I2C_Handle handle, uint8_t devAddr)
 
     ClockP_usleep(100);
 
+    if(devAddr == 0x50)
+    {
+        count = sizeof(gTad5212RegInst0)/sizeof(Dac_RegCfg);
+    }
+    if(devAddr == 0x51)
+    {
+        count = sizeof(gTad5212RegInst1)/sizeof(Dac_RegCfg);
+    }
+    if(devAddr == 0x52)
+    {
+        count = sizeof(gTad5212RegInst2)/sizeof(Dac_RegCfg);
+    }
+    if(devAddr == 0x53)
+    {
+        count = sizeof(gTad5212RegInst3)/sizeof(Dac_RegCfg);
+    }
+
     for(i = 0; i < count; i++)
     {
         I2C_Transaction_init(&i2cTransaction);
         i2cTransaction.writeBuf   = txBuffer;
         i2cTransaction.writeCount = 2;
         i2cTransaction.targetAddress = devAddr;
-        txBuffer[0] = gTad5212Reg[i].reg;
-        txBuffer[1] = gTad5212Reg[i].val;
+        if(devAddr == 0x50)
+        {
+            txBuffer[0] = gTad5212RegInst0[i].reg;
+            txBuffer[1] = gTad5212RegInst0[i].val;
+        }
+        if(devAddr == 0x51)
+        {
+            txBuffer[0] = gTad5212RegInst1[i].reg;
+            txBuffer[1] = gTad5212RegInst1[i].val;
+        }
+        if(devAddr == 0x52)
+        {
+            txBuffer[0] = gTad5212RegInst2[i].reg;
+            txBuffer[1] = gTad5212RegInst2[i].val;
+        }
+        if(devAddr == 0x53)
+        {
+            txBuffer[0] = gTad5212RegInst3[i].reg;
+            txBuffer[1] = gTad5212RegInst3[i].val;
+        }
+
         status = I2C_transfer(handle, &i2cTransaction);
 
         if(status != SystemP_SUCCESS)

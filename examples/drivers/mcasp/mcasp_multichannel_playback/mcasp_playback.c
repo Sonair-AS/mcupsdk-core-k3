@@ -38,6 +38,7 @@
 #include <drivers/gpio.h>
 #include <drivers/mcasp.h>
 #include <board/ioexp/ioexp_tca6424.h>
+#include <drivers/pinmux.h>
 #include "ti_drivers_config.h"
 #include "ti_drivers_open_close.h"
 #include "ti_board_open_close.h"
@@ -77,6 +78,31 @@ void mcasp_playback_main(void *args)
 
     I2C_Handle      i2cHandle;
     i2cHandle = gI2cHandle[CONFIG_I2C0];
+
+#if defined (SOC_AM275X)
+    Pinmux_PerCfg_t i2cPinmuxConfig[] =
+    {
+        /* I2C0 pin config */
+        /* I2C0_SCL -> I2C0_SCL (M3) */
+        {
+            PIN_I2C0_SCL,
+            ( PIN_MODE(0) | PIN_INPUT_ENABLE | PIN_PULL_DIRECTION  )
+        },
+                /* I2C0_SDA -> I2C0_SDA (N3) */
+        {
+            PIN_I2C0_SDA,
+            ( PIN_MODE(0) | PIN_INPUT_ENABLE | PIN_PULL_DIRECTION  )
+        },
+
+        {
+            PIN_GPIO1_72,
+            ( PIN_MODE(1) | PIN_INPUT_ENABLE | PIN_PULL_DIRECTION  )
+        },
+        {PINMUX_END, 0U}
+    };
+
+    Pinmux_config(i2cPinmuxConfig, PINMUX_DOMAIN_ID_MAIN);
+#endif
 
     /* Configure clock generator for getting the external HCLK */
     status = Board_clockgenConfig(i2cHandle, 0x68);

@@ -41,7 +41,7 @@
 /* ========================================================================== */
 /*                             Macro Definitions                              */
 /* ========================================================================== */
-#define MCASP_HCLK_MUX_MAX_VAL      (0x3U)
+#define MCASP_HCLK_MUX_MAX_VAL      (0xDU)
 
 /* ========================================================================== */
 /*                          Function Definitions                              */
@@ -106,6 +106,40 @@ int32_t MCASP_extHclkSrcConfig(uint32_t instNum, uint32_t source, uint32_t dir)
                 {
                     CSL_REG32_FINS(CSL_CTRL_MMR0_CFG0_BASE + CSL_MAIN_CTRL_MMR_CFG0_MCASP2_AHCLKSEL,
                                 MAIN_CTRL_MMR_CFG0_MCASP2_AHCLKSEL_AHCLKR_SEL, source);
+                }
+                else
+                {
+                    status = SystemP_FAILURE;
+                }
+                break;
+
+            case MCASP3:
+                if(dir == MCASP_DIR_OUT)
+                {
+                    CSL_REG32_FINS(CSL_CTRL_MMR0_CFG0_BASE + CSL_MAIN_CTRL_MMR_CFG0_MCASP3_AHCLKSEL,
+                                MAIN_CTRL_MMR_CFG0_MCASP3_AHCLKSEL_AHCLKX_SEL, source);
+                }
+                else if(dir == MCASP_DIR_IN)
+                {
+                    CSL_REG32_FINS(CSL_CTRL_MMR0_CFG0_BASE + CSL_MAIN_CTRL_MMR_CFG0_MCASP3_AHCLKSEL,
+                                MAIN_CTRL_MMR_CFG0_MCASP3_AHCLKSEL_AHCLKR_SEL, source);
+                }
+                else
+                {
+                    status = SystemP_FAILURE;
+                }
+                break;
+
+            case MCASP4:
+                if(dir == MCASP_DIR_OUT)
+                {
+                    CSL_REG32_FINS(CSL_CTRL_MMR0_CFG0_BASE + CSL_MAIN_CTRL_MMR_CFG0_MCASP4_AHCLKSEL,
+                                MAIN_CTRL_MMR_CFG0_MCASP4_AHCLKSEL_AHCLKX_SEL, source);
+                }
+                else if(dir == MCASP_DIR_IN)
+                {
+                    CSL_REG32_FINS(CSL_CTRL_MMR0_CFG0_BASE + CSL_MAIN_CTRL_MMR_CFG0_MCASP4_AHCLKSEL,
+                                MAIN_CTRL_MMR_CFG0_MCASP4_AHCLKSEL_AHCLKR_SEL, source);
                 }
                 else
                 {

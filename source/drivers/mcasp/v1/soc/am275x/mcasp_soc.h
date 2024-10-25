@@ -57,6 +57,9 @@ extern "C" {
 #define MCASP0                  (0U)
 #define MCASP1                  (1U)
 #define MCASP2                  (2U)
+#define MCASP3                  (3U)
+#define MCASP4                  (4U)
+
 
 /* CLEC offset for MCASP Interrupts */
 #define MCASP_IRQ_CLEC_OFFSET                   (256U)
