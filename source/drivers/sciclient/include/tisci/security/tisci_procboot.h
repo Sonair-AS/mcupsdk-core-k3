@@ -59,6 +59,8 @@ extern "C"
 {
 #endif
 
+
+
 /**
  * \brief Request for physical processor control request
  *
@@ -431,7 +433,7 @@ struct hs_tisci_security_mesg_mcelf_update_req {
     uint32_t            segment_size;
     uint8_t            final_pkt;
     uint64_t            dest_address;
-};
+} __attribute__((__packed__));
 
 /**
  * \brief Response to streaming hash authentication service
@@ -457,7 +459,7 @@ struct hs_tisci_security_mesg_mcelf_update_resp {
  */
 struct hs_tisci_security_mesg_mcelf_finish_req {
     struct tisci_header hdr;
-};
+} __attribute__((__packed__));
 
 /**
  * \brief Response to mcelf hash validation and optional streaming decryptionn
