@@ -19,7 +19,7 @@ Speakers needs to be connected to the 8 channel audio out on each card connected
 
 # Supported Combinations {#EXAMPLES_DRIVERS_MCASP_MULTICHANNEL_AEC_COMBOS}
 
-\cond SOC_AM62DX
+\cond SOC_AM62DX || SOC_AM275X
 
  Parameter      | Value
  ---------------|-----------

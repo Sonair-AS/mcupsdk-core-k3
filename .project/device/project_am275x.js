@@ -65,6 +65,7 @@ const example_file_list = [
     "examples/drivers/ipc/ipc_rpmsg_echo/.project/project.js",
     "examples/drivers/mcan/mcan_loopback_polling/.project/project.js",
     "examples/drivers/mcan/mcan_loopback_interrupt/.project/project.js",
+    "examples/drivers/mcasp/mcasp_aec_multichannel_playback/.project/project.js",
     "examples/drivers/mcasp/mcasp_loopback/.project/project.js",
     "examples/drivers/mcasp/mcasp_multichannel_playback/.project/project.js",
     "examples/drivers/mcasp/mcasp_stereo_playback/.project/project.js",

@@ -315,6 +315,7 @@ This page lists all the examples related to usage of SOC and board peripheral dr
    -# \subpage EXAMPLES_DRIVERS_MCAN_LOOPBACK_POLLING
 -# MCASP
    -# \subpage EXAMPLES_DRIVERS_MCASP_LOOPBACK
+   -# \subpage EXAMPLES_DRIVERS_MCASP_MULTICHANNEL_AEC
    -# \subpage EXAMPLES_DRIVERS_MCASP_MULTICHANNEL_PLAYBACK
    -# \subpage EXAMPLES_DRIVERS_MCASP_STEREO_PLAYBACK
 -# MCSPI

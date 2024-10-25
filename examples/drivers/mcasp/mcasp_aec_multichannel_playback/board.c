@@ -36,6 +36,7 @@
 
 #include <kernel/dpl/ClockP.h>
 #include "ti_drivers_open_close.h"
+#include <drivers/pinmux.h>
 
 /* ========================================================================== */
 /*                           Macros & Typedefs                                */
