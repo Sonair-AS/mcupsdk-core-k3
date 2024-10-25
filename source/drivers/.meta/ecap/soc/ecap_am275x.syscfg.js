@@ -93,7 +93,7 @@ const ecap_config_c75 = [
     {
         name: "ECAP0",
         baseAddr: "CSL_ECAP0_CTL_STS_BASE",
-        eventId: 145 + 256, /* (256 - GIC SPI Intr start, ref: clec_spec am275_soc_event_out_mapping)*/
+        eventId: 113 + 256, /* (256 - GIC SPI Intr start, ref: clec_spec am275_soc_event_out_mapping)*/
         intrNum: 25,
         funcClk: ecap_func_clk,
         clockIds: [ "TISCI_DEV_ECAP0" ],
@@ -108,7 +108,7 @@ const ecap_config_c75 = [
     {
         name: "ECAP1",
         baseAddr: "CSL_ECAP1_CTL_STS_BASE",
-        eventId: 146 + 256, /* (256 - GIC SPI Intr start, ref: clec_spec am275_soc_event_out_mapping)*/
+        eventId: 114 + 256, /* (256 - GIC SPI Intr start, ref: clec_spec am275_soc_event_out_mapping)*/
         intrNum: 26,
         funcClk: ecap_func_clk,
         clockIds: [ "TISCI_DEV_ECAP1" ],
@@ -123,7 +123,7 @@ const ecap_config_c75 = [
     {
         name: "ECAP2",
         baseAddr: "CSL_ECAP2_CTL_STS_BASE",
-        eventId: 147 + 256, /* (256 - GIC SPI Intr start, ref: clec_spec am275_soc_event_out_mapping)*/
+        eventId: 115 + 256, /* (256 - GIC SPI Intr start, ref: clec_spec am275_soc_event_out_mapping)*/
         intrNum: 27,
         funcClk: ecap_func_clk,
         clockIds: [ "TISCI_DEV_ECAP2" ],
@@ -138,7 +138,7 @@ const ecap_config_c75 = [
     {
         name: "ECAP3",
         baseAddr: "CSL_ECAP3_CTL_STS_BASE",
-        eventId: 148 + 256, /* (256 - GIC SPI Intr start, ref: clec_spec am275_soc_event_out_mapping)*/
+        eventId: 116 + 256, /* (256 - GIC SPI Intr start, ref: clec_spec am275_soc_event_out_mapping)*/
         intrNum: 28,
         funcClk: ecap_func_clk,
         clockIds: [ "TISCI_DEV_ECAP3" ],
@@ -153,7 +153,7 @@ const ecap_config_c75 = [
     {
         name: "ECAP4",
         baseAddr: "CSL_ECAP4_CTL_STS_BASE",
-        eventId: 149 + 256, /* (256 - GIC SPI Intr start, ref: clec_spec am275_soc_event_out_mapping)*/
+        eventId: 117 + 256, /* (256 - GIC SPI Intr start, ref: clec_spec am275_soc_event_out_mapping)*/
         intrNum: 29,
         funcClk: ecap_func_clk,
         clockIds: [ "TISCI_DEV_ECAP4" ],
@@ -168,7 +168,7 @@ const ecap_config_c75 = [
     {
         name: "ECAP5",
         baseAddr: "CSL_ECAP5_CTL_STS_BASE",
-        eventId: 150 + 256, /* (256 - GIC SPI Intr start, ref: clec_spec am275_soc_event_out_mapping)*/
+        eventId: 118 + 256, /* (256 - GIC SPI Intr start, ref: clec_spec am275_soc_event_out_mapping)*/
         intrNum: 30,
         funcClk: ecap_func_clk,
         clockIds: [ "TISCI_DEV_ECAP5" ],

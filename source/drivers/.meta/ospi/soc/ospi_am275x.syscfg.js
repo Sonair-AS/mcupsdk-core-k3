@@ -49,7 +49,7 @@ const ospi_config_c7x = [
         inputClkFreq        : ospi_input_clk_freq,
         dacEnable           : false,
         baudRateDiv         : 4,
-        eventId             : 178 + 256,
+        eventId             : 146 + 256,
         intrNum             : 13,
         phaseDelayElement   : 3,
         clockIds            : [ "TISCI_DEV_FSS1", "TISCI_DEV_FSS1_FSAS_0", "TISCI_DEV_FSS1_OSPI_0" ],

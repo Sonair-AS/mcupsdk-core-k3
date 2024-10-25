@@ -40,9 +40,9 @@ const epwm_config_c75 = [
     {
         name: "EPWM0",
         baseAddr: "CSL_EPWM0_EPWM_BASE",
-        eventId: 229 + 256, /* (256 - GIC SPI Intr start, ref: clec_spec am62a_soc_event_out_mapping)*/
+        eventId: 197 + 256, /* (256 - GIC SPI Intr start, ref: clec_spec am62a_soc_event_out_mapping)*/
         intrNum: 49,
-        tripIntrNum: 230,
+        tripIntrNum: 198,
         isSyncoPresent: true,
         isSynciPresent: true,
         funcClk: epwm_func_clk,
@@ -51,9 +51,9 @@ const epwm_config_c75 = [
     {
         name: "EPWM1",
         baseAddr: "CSL_EPWM1_EPWM_BASE",
-        eventId: 231 + 256, /* (256 - GIC SPI Intr start, ref: clec_spec am62a_soc_event_out_mapping)*/
+        eventId: 199 + 256, /* (256 - GIC SPI Intr start, ref: clec_spec am62a_soc_event_out_mapping)*/
         intrNum: 50,
-        tripIntrNum: 233,
+        tripIntrNum: 201,
         isSyncoPresent: false,
         isSynciPresent: false,
         funcClk: epwm_func_clk,
@@ -62,9 +62,9 @@ const epwm_config_c75 = [
     {
         name: "EPWM2",
         baseAddr: "CSL_EPWM2_EPWM_BASE",
-        eventId: 234 + 256, /* (256 - GIC SPI Intr start, ref: clec_spec am62a_soc_event_out_mapping)*/
+        eventId: 202 + 256, /* (256 - GIC SPI Intr start, ref: clec_spec am62a_soc_event_out_mapping)*/
         intrNum: 51,
-        tripIntrNum: 235,
+        tripIntrNum: 203,
         isSyncoPresent: false,
         isSynciPresent: false,
         funcClk: epwm_func_clk,

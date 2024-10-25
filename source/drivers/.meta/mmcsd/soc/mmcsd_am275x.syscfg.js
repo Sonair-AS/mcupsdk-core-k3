@@ -29,7 +29,7 @@ const mmcsd_config_c7x = [
 		ssBaseAddr        : "CSL_MMCSD0_SS_CFG_BASE",
 		inputClkFreq      : mmcsd_input_clk_freq,
 		intrNum           : 14,
-        eventId           : 161 + 256,
+        eventId           : 133 + 256,
 		busWidth          : "MMCSD_BUS_WIDTH_8BIT",
 		tuningType        : "MMCSD_PHY_TUNING_TYPE_AUTO", /* Make this configurable later */
 		clockIds          : [ "TISCI_DEV_MMCSD0" ],
