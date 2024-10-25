@@ -29,6 +29,7 @@ debug_log.enableUartLog                      = true;
 debug_log.enableCssLog                       = false;
 debug_log.uartLog.$name                      = "CONFIG_UART0";
 debug_log.uartLog.useWakeupDomainPeripherals = true;
+debug_log.uartLog.intrEnable                 = "DISABLE";
 
 mpu_armv71.size         = 31;
 mpu_armv71.attributes   = "Device";

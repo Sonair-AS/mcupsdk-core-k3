@@ -49,7 +49,7 @@ MEMORY
     LOG_SHM_MEM                  : ORIGIN = 0x80380000, LENGTH = 0x40000
     % }
     % if(args.project.ipcVringRTOS === true){
-    IPC_VRING_RTOS               : ORIGIN = 0x803C0000, LENGTH = 0xC000   /* IPC VRING for RTOS/NoRTOS */
+    IPC_VRING_RTOS               : ORIGIN = 0x723C0000, LENGTH = 0xC000   /* IPC VRING for RTOS/NoRTOS */
     % }
 
 }

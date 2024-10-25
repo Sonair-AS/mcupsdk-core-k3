@@ -32,14 +32,12 @@ mpu_armv71.attributes   = "Device";
 mpu_armv71.allowExecute = false;
 mpu_armv71.$name        = "REGISTERS";
 
-mpu_armv72.size       = 15;
-mpu_armv72.attributes = "NonCached";
-mpu_armv72.$name      = "TCMA";
+mpu_armv72.size  = 15;
+mpu_armv72.$name = "TCMA";
 
-mpu_armv73.baseAddr   = 0x41010000;
-mpu_armv73.size       = 15;
-mpu_armv73.attributes = "NonCached";
-mpu_armv73.$name      = "TCMB";
+mpu_armv73.baseAddr = 0x41010000;
+mpu_armv73.size     = 15;
+mpu_armv73.$name    = "TCMB";
 
 mpu_armv74.$name    = "MSRAM_BANK0_TO_BANK3";
 mpu_armv74.baseAddr = 0x72000000;
