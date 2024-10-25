@@ -25,9 +25,11 @@ const mmu_armv810 = mmu_armv8.addInstance();
 /**
  * Write custom configuration values to the imported modules.
  */
-debug_log.enableUartLog = true;
-debug_log.uartLog.$name = "CONFIG_UART0";
-
+debug_log.enableUartLog            = true;
+debug_log.uartLog.$name            = "CONFIG_UART0";
+debug_log.uartLog.intrEnable       = "DISABLE";
+debug_log.uartLog.UART.$assign     = "UART2";
+debug_log.uartLog.UART.TXD.$assign = "SPI1_CS1";
 
 mmu_armv81.size  = 0x20000000;
 mmu_armv81.$name = "REGISTERS_REGION0";
@@ -52,41 +54,39 @@ mmu_armv85.vAddr = 0x7C400000;
 mmu_armv85.pAddr = 0x7C400000;
 mmu_armv85.size  = 0x300000;
 
-mmu_armv86.$name     = "CCS_DEBUG_LOG_MEM";
-mmu_armv86.size      = 0x1000;
-mmu_armv86.attribute = "MAIR4";
-mmu_armv86.pAddr     = 0x8027F000;
-mmu_armv86.vAddr     = 0x8027F000;
+mmu_armv86.$name     = "L2SRAM";
+mmu_armv86.vAddr     = 0x7E000000;
+mmu_armv86.pAddr     = 0x7E000000;
+mmu_armv86.attribute = "MAIR7";
+mmu_armv86.size      = 0x200000;
 
-mmu_armv87.$name     = "L2SRAM";
-mmu_armv87.vAddr     = 0x7E000000;
-mmu_armv87.pAddr     = 0x7E000000;
+mmu_armv87.$name     = "L2SRAM_AUX";
+mmu_armv87.vAddr     = 0x7E200000;
+mmu_armv87.pAddr     = 0x7E200000;
+mmu_armv87.size      = 0x40000;
 mmu_armv87.attribute = "MAIR7";
-mmu_armv87.size      = 0x200000;
 
-mmu_armv88.$name     = "L2SRAM_AUX";
-mmu_armv88.vAddr     = 0x7E200000;
-mmu_armv88.pAddr     = 0x7E200000;
-mmu_armv88.size      = 0x40000;
 mmu_armv88.attribute = "MAIR7";
+mmu_armv88.$name     = "MSRAM_BANK0_TO_BANK3";
+mmu_armv88.vAddr     = 0x80000000;
+mmu_armv88.pAddr     = 0x80000000;
+mmu_armv88.size      = 0x400000;
 
+mmu_armv89.$name     = "MSRAM_BANK4_TO_BANK5";
+mmu_armv89.size      = 0x200000;
 mmu_armv89.attribute = "MAIR7";
-mmu_armv89.$name     = "MSRAM_BANK0_TO_BANK3";
-mmu_armv89.vAddr     = 0x80000000;
-mmu_armv89.pAddr     = 0x80000000;
-mmu_armv89.size      = 0x400000;
+mmu_armv89.vAddr     = 0x80400000;
+mmu_armv89.pAddr     = 0x80400000;
 
-mmu_armv810.$name     = "MSRAM_BANK4_TO_BANK5";
-mmu_armv810.size      = 0x200000;
-mmu_armv810.attribute = "MAIR7";
-mmu_armv810.vAddr     = 0x80400000;
-mmu_armv810.pAddr     = 0x80400000;
+mmu_armv810.size      = 0x1000;
+mmu_armv810.attribute = "MAIR4";
+mmu_armv810.$name     = "CCS_DEBUG_LOG_MEM";
+mmu_armv810.vAddr     = 0x8027F000;
+mmu_armv810.pAddr     = 0x8027F000;
 
 /**
  * Pinmux solution for unlocked pins/peripherals. This ensures that minor changes to the automatic solver in a future
  * version of the tool will not impact the pinmux you originally saw.  These lines can be completely deleted in order to
  * re-solve from scratch.
  */
-debug_log.uartLog.UART.$suggestSolution     = "UART1";
-debug_log.uartLog.UART.RXD.$suggestSolution = "I2C1_SCL";
-debug_log.uartLog.UART.TXD.$suggestSolution = "I2C1_SDA";
+debug_log.uartLog.UART.RXD.$suggestSolution = "MCASP0_AXR6";
