@@ -12,10 +12,10 @@ const mcasp_config = [
         inputClkFreq                : mcasp_input_clk_freq,
         wkupR5RxIntr                : 120,
         wkupR5TxIntr                : 121,
-        c7xRxIntr                   : 267,
-        c7xTxIntr                   : 268,
-        c7xRxEvent                  : 39,
-        c7xTxEvent                  : 40,
+        c7xRxIntr                   : 39,
+        c7xTxIntr                   : 40,
+        c7xRxEvent                  : 267,
+        c7xTxEvent                  : 268,
         clockIds                    : ["TISCI_DEV_MCASP0"],
         clockFrequencies            : [
             {
@@ -44,10 +44,10 @@ const mcasp_config = [
         inputClkFreq                : mcasp_input_clk_freq,
         wkupR5RxIntr                : 122,
         wkupR5TxIntr                : 123,
-        c7xRxIntr                   : 269,
-        c7xTxIntr                   : 270,
-        c7xRxEvent                  : 41,
-        c7xTxEvent                  : 42,
+        c7xRxIntr                   : 41,
+        c7xTxIntr                   : 42,
+        c7xRxEvent                  : 269,
+        c7xTxEvent                  : 270,
         clockIds                    : ["TISCI_DEV_MCASP1"],
         clockFrequencies            : [
             {

@@ -609,7 +609,7 @@ extern "C" {
 #define UDMA_C7X_CORE_NUM_INTR                  (10U)
 
 /* CLEC offset for VINT */
-#define UDMA_VINT_CLEC_OFFSET                   (256U)
+#define UDMA_VINT_CLEC_OFFSET                   (256U - 64)
 
 /** @} */
 

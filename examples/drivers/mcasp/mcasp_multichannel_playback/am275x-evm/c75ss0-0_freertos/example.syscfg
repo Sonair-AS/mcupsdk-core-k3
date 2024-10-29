@@ -56,13 +56,15 @@ mcasp1.txHclkSource                            = 0;
 mcasp1.txHclkSourceMux                         = 4;
 mcasp1.rxHclkSource                            = 0;
 mcasp1.rxHclkSourceMux                         = 4;
+mcasp1.rxFsPolarity                            = 0;
+mcasp1.rxBitClkPolarity                        = 0;
 mcasp1.MCASP.$assignAllowConflicts             = "MCASP1";
 mcasp1.CLOCKING.$assign                        = "CLOCKING";
 mcasp1.mcaspSer.create(2);
-mcasp1.mcaspSer[0].$name                       = "CONFIG_MCASP_SER0";
+mcasp1.mcaspSer[0].$name                       = "CONFIG_MCASP_SER1";
 mcasp1.mcaspSer[0].dataDir                     = "Receive";
 mcasp1.mcaspSer[0].MCASP.$assignAllowConflicts = "MCASP1";
-mcasp1.mcaspSer[1].$name                       = "CONFIG_MCASP_SER1";
+mcasp1.mcaspSer[1].$name                       = "CONFIG_MCASP_SER0";
 mcasp1.mcaspSer[1].serNum                      = 1;
 mcasp1.mcaspSer[1].MCASP.$assignAllowConflicts = "MCASP1";
 scripting.suppress("Resource conflict,MCASP1 is also in use by @@@.+?@@@, @@@.+?@@@", mcasp1.MCASP, "$assign");
@@ -79,6 +81,7 @@ udma2.$name         = "CONFIG_UDMA1";
 mcasp1.pktDmaDriver = udma2;
 
 debug_log.enableUartLog            = true;
+debug_log.enableCssLog             = false;
 debug_log.uartLog.$name            = "CONFIG_UART0";
 debug_log.uartLog.intrEnable       = "DISABLE";
 debug_log.uartLog.UART.$assign     = "UART0";
@@ -132,22 +135,22 @@ mmu_armv89.size      = 0x40000;
 mmu_armv89.attribute = "MAIR7";
 
 mmu_armv810.$name     = "MSRAM_BANK0_TO_BANK3";
-mmu_armv810.vAddr     = 0x80000000;
-mmu_armv810.pAddr     = 0x80000000;
 mmu_armv810.size      = 0x400000;
 mmu_armv810.attribute = "MAIR7";
+mmu_armv810.vAddr     = 0x80000000;
+mmu_armv810.pAddr     = 0x72000000;
 
 mmu_armv811.$name     = "MSRAM_BANK4_TO_BANK5";
 mmu_armv811.size      = 0x200000;
-mmu_armv811.vAddr     = 0x80400000;
-mmu_armv811.pAddr     = 0x80400000;
 mmu_armv811.attribute = "MAIR7";
+mmu_armv811.vAddr     = 0x80400000;
+mmu_armv811.pAddr     = 0x72400000;
 
 mmu_armv812.$name     = "CCS_DEBUG_LOG_MEM";
 mmu_armv812.size      = 0x1000;
 mmu_armv812.attribute = "MAIR4";
-mmu_armv812.vAddr     = 0x8027FF000;
 mmu_armv812.pAddr     = 0x8027FF000;
+mmu_armv812.vAddr     = 0x8027FF000;
 
 /**
  * Pinmux solution for unlocked pins/peripherals. This ensures that minor changes to the automatic solver in a future

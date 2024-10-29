@@ -74,6 +74,16 @@ static void MCASP_udmaTrInit(uint8_t *pTrpd, uint64_t pBuf, uint32_t bufSize);
 static void MCASP_udmaHpdInit(Udma_ChHandle chHandle, uint8_t *pHpdMem,
                               const void *destBuf, uint32_t length);
 
+
+extern uint64_t Udma_virtToPhyFxn(const void *virtAddr,
+                           Udma_DrvHandle drvHandle,
+                           Udma_ChHandle chHandle);
+
+extern void *Udma_phyToVirtFxn(uint64_t phyAddr,
+                        Udma_DrvHandle drvHandle,
+                        Udma_ChHandle chHandle);
+
+
 /* ========================================================================== */
 /*                          Function Definitions                              */
 /* ========================================================================== */
@@ -208,6 +218,7 @@ static int32_t MCASP_primeTxTrpd(MCASP_Config *config)
     CSL_UdmapTR3 *pTr = NULL;
     uint32_t i = 0;
     MCASP_Transaction **txCbParam;
+    Udma_DrvHandle drvHandle;
 
     if(config != NULL)
     {
@@ -224,6 +235,8 @@ static int32_t MCASP_primeTxTrpd(MCASP_Config *config)
             Udma_ChHandle txChHandle = obj->dmaChCfg->txChHandle;
 
             uint32_t cqRingNum = Udma_chGetCqRingNum(txChHandle);
+
+            drvHandle = obj->mcaspDmaHandle;
 
             memset(obj->dmaChCfg->txCbParams, 0, sizeof(MCASP_Transaction *)*MCASP_TX_DMA_RING_ELEM_CNT);
 
@@ -242,7 +255,7 @@ static int32_t MCASP_primeTxTrpd(MCASP_Config *config)
 
                 pTr->flags = CSL_FMK(UDMAP_TR_FLAGS_TYPE, CSL_UDMAP_TR_FLAGS_TYPE_4D_DATA_MOVE);
                 pTr->flags |= CSL_FMK(UDMAP_TR_FLAGS_EOP, 1U);
-                pTr->addr = (uint64_t)obj->XmtObj.txnLoopjob.buf;
+                pTr->addr = (uint64_t)Udma_virtToPhyFxn(obj->XmtObj.txnLoopjob.buf, drvHandle, txChHandle);
                 pTr->icnt0 = (uint16_t)(obj->XmtObj.txnLoopjob.count*sizeof(uint32_t));
                 pTr->icnt1 = 1;
                 pTr->icnt2 = 1;
@@ -260,7 +273,7 @@ static int32_t MCASP_primeTxTrpd(MCASP_Config *config)
             for(i = 0; i < MCASP_TX_DMA_RING_ELEM_CNT; i++)
             {
                 uint64_t *ringPtr = (uint64_t *)((uint8_t *)obj->dmaChCfg->txRingMem + (i*sizeof(uint64_t)));
-                *ringPtr = (uint64_t)((uint8_t *)obj->dmaChCfg->txTrpdMem + (MCASP_UDMA_TR3_TRPD_SIZE*i));
+                *ringPtr = (uint64_t)Udma_virtToPhyFxn((uint8_t *)obj->dmaChCfg->txTrpdMem + (MCASP_UDMA_TR3_TRPD_SIZE*i), drvHandle, txChHandle);
             }
 
             /* Writeback ring memory */
@@ -303,7 +316,7 @@ static int32_t MCASP_primeTxTrpd(MCASP_Config *config)
                         icnt[2] = (uint16_t)1U;
                         icnt[3] = (uint16_t)1U;
 
-                        pTr->addr = (uint64_t)txn->buf;
+                        pTr->addr = (uint64_t)Udma_virtToPhyFxn(txn->buf, drvHandle, txChHandle);
                         pTr->icnt0 = icnt[0];
                         pTr->icnt1 = icnt[1];
                         pTr->icnt2 = icnt[2];
@@ -323,7 +336,7 @@ static int32_t MCASP_primeTxTrpd(MCASP_Config *config)
 
                             pTr = UdmaUtils_getTrpdTr3Pointer(((uint8_t *)obj->dmaChCfg->txTrpdMem + (MCASP_UDMA_TR3_TRPD_SIZE*obj->lastFilled)), 0);
 
-                            pTr->addr = (uint64_t)((uint8_t *)txn->buf + (txCnt- remainder));
+                            pTr->addr = (uint64_t)Udma_virtToPhyFxn((uint8_t *)txn->buf + (txCnt- remainder), drvHandle, txChHandle);
                             pTr->icnt0 = (uint16_t)remainder;
                             pTr->icnt1 = (uint16_t)1U;
                             pTr->icnt2 = (uint16_t)1U;
@@ -593,6 +606,7 @@ static int32_t MCASP_primeRxHpd(MCASP_Config *config)
     MCASP_Object *obj = NULL;
     uint32_t i;
     MCASP_Transaction **rxCbParam = NULL;
+    Udma_DrvHandle drvHandle;
 
     if(config != NULL)
     {
@@ -607,6 +621,7 @@ static int32_t MCASP_primeRxHpd(MCASP_Config *config)
         if(status == SystemP_SUCCESS)
         {
             Udma_ChHandle rxChHandle = obj->dmaChCfg->rxChHandle;
+            drvHandle = obj->mcaspPktDmaHandle;
 
             memset(obj->dmaChCfg->rxCbParams, 0, sizeof(MCASP_Transaction *)*MCASP_RX_DMA_RING_ELEM_CNT);
 
@@ -615,7 +630,7 @@ static int32_t MCASP_primeRxHpd(MCASP_Config *config)
             {
                 MCASP_udmaHpdInit(rxChHandle,
                                 ((uint8_t *)obj->dmaChCfg->rxTrpdMem + (MCASP_UDMA_HPD_SIZE*i)),
-                                obj->RcvObj.txnLoopjob.buf,
+                                (void *)Udma_virtToPhyFxn(obj->RcvObj.txnLoopjob.buf, drvHandle, rxChHandle),
                                 obj->RcvObj.txnLoopjob.count*sizeof(uint32_t));
             }
 
@@ -623,7 +638,7 @@ static int32_t MCASP_primeRxHpd(MCASP_Config *config)
             for(i = 0; i < MCASP_RX_DMA_RING_ELEM_CNT; i++)
             {
                 uint64_t *ringPtr = (uint64_t *)((uint8_t *)obj->dmaChCfg->rxRingMem + (i*sizeof(uint64_t)));
-                *ringPtr = (uint64_t)((uint8_t *)obj->dmaChCfg->rxTrpdMem + (MCASP_UDMA_HPD_SIZE*i));
+                *ringPtr = (uint64_t)Udma_virtToPhyFxn((uint8_t *)obj->dmaChCfg->rxTrpdMem + (MCASP_UDMA_HPD_SIZE*i), drvHandle, rxChHandle);
             }
 
             CacheP_wb(obj->dmaChCfg->rxRingMem, MCASP_RX_DMA_RING_ELEM_CNT * MCASP_UDMA_RING_ENTRY_SIZE, CacheP_TYPE_ALLD);
@@ -642,7 +657,7 @@ static int32_t MCASP_primeRxHpd(MCASP_Config *config)
                         obj->lastRecQueued = (obj->lastRecQueued+1)%MCASP_RX_DMA_RING_ELEM_CNT;
                         MCASP_udmaHpdInit(rxChHandle,
                                 ((uint8_t *)obj->dmaChCfg->rxTrpdMem + (MCASP_UDMA_HPD_SIZE*obj->lastRecQueued)),
-                                txn->buf,
+                                (void *)Udma_virtToPhyFxn(txn->buf, drvHandle, rxChHandle),
                                 txn->count*sizeof(uint32_t));
 
                         rxCbParam = (MCASP_Transaction **)obj->dmaChCfg->rxCbParams + obj->lastRecQueued;
@@ -719,12 +734,14 @@ static void MCASP_udmaIsrTx(Udma_EventHandle eventHandle,
     uint64_t pDesc;
     MCASP_Object *object;
     Udma_ChHandle txChHandle;
+    Udma_DrvHandle drvHandle;
     MCASP_Transaction **txCbParam;
 
     object = ((MCASP_Config *)args)->object;
 
     MCASP_DmaChConfig *dmaChCfg = object->dmaChCfg;
     txChHandle = dmaChCfg->txChHandle;
+    drvHandle = (Udma_DrvHandle)object->mcaspDmaHandle;
 
     Udma_RingHandle ringHandle = Udma_chGetFqRingHandle(txChHandle);
 
@@ -737,10 +754,12 @@ static void MCASP_udmaIsrTx(Udma_EventHandle eventHandle,
         int32_t status = Udma_ringDequeueRaw(Udma_chGetCqRingHandle(txChHandle), &pDesc);
         DebugP_assert(SystemP_SUCCESS == status);
 
+        pDesc = (uint64_t)Udma_phyToVirtFxn(pDesc, drvHandle, ringHandle);
+
         /* Update current Processed TRPD with loopjob */
         {
-            CSL_UdmapTR3 *pTr = (CSL_UdmapTR3 *)UdmaUtils_getTrpdTr3Pointer((uint8_t *)pDesc, 0);
-            pTr->addr =(uint64_t)object->XmtObj.txnLoopjob.buf;
+            CSL_UdmapTR3 *pTr = (CSL_UdmapTR3 *)Udma_phyToVirtFxn((uint64_t)UdmaUtils_getTrpdTr3Pointer((uint8_t *)pDesc, 0), drvHandle, txChHandle);
+            pTr->addr =(uint64_t)Udma_virtToPhyFxn(object->XmtObj.txnLoopjob.buf, drvHandle, txChHandle);
             pTr->icnt0 = (uint16_t)(object->XmtObj.txnLoopjob.count * sizeof(uint32_t));
             pTr->icnt1 = 1;
             pTr->icnt2 = 1;
@@ -787,8 +806,10 @@ static void MCASP_udmaIsrTx(Udma_EventHandle eventHandle,
 
         pTr = UdmaUtils_getTrpdTr3Pointer(((uint8_t *)object->dmaChCfg->txTrpdMem + (MCASP_UDMA_TR3_TRPD_SIZE*nextCandidate)), 0);
 
+        pTr = (CSL_UdmapTR3 *)Udma_phyToVirtFxn((uint64_t)pTr, drvHandle, txChHandle);
+
         /* If nextCandidate has relevant buffer to send; continue, else fill up with next buffer */
-        if(pTr->addr == (uint64_t)object->XmtObj.txnLoopjob.buf)
+        if(pTr->addr == (uint64_t)Udma_virtToPhyFxn(object->XmtObj.txnLoopjob.buf, drvHandle, txChHandle))
         {
             txn = QueueP_get(object->reqQueueHandleTx);
 
@@ -799,7 +820,7 @@ static void MCASP_udmaIsrTx(Udma_EventHandle eventHandle,
                 if(txCnt < MCASP_DMA_L0_MAX_XFER_SIZE)
                 {
                     MCASP_udmaTrInit(((uint8_t *)object->dmaChCfg->txTrpdMem + (MCASP_UDMA_TR3_TRPD_SIZE*nextCandidate)),
-                                        (uint64_t)txn->buf, txCnt);
+                                        (uint64_t)Udma_virtToPhyFxn(txn->buf, drvHandle, txChHandle), txCnt);
 
                     object->lastFilled = nextCandidate;
 
@@ -814,7 +835,7 @@ static void MCASP_udmaIsrTx(Udma_EventHandle eventHandle,
                     if(txCnt % MCASP_DMA_UDMA_XFER_SIZE)
                     {
                         MCASP_udmaTrInit(((uint8_t *)object->dmaChCfg->txTrpdMem + (MCASP_UDMA_TR3_TRPD_SIZE*nextCandidate)),
-                                        (uint64_t)txn->buf, txCnt);
+                                        (uint64_t)Udma_virtToPhyFxn(txn->buf, drvHandle, txChHandle), txCnt);
 
                         object->lastFilled = nextCandidate;
 
@@ -824,7 +845,8 @@ static void MCASP_udmaIsrTx(Udma_EventHandle eventHandle,
                         object->lastFilled = nextCandidate;
 
                         MCASP_udmaTrInit(((uint8_t *)object->dmaChCfg->txTrpdMem + (MCASP_UDMA_TR3_TRPD_SIZE*nextCandidate)),
-                                        (uint64_t)((uint8_t *)txn->buf + (txCnt- (txCnt % MCASP_DMA_UDMA_XFER_SIZE))), txCnt % MCASP_DMA_UDMA_XFER_SIZE);
+                                        (uint64_t)Udma_virtToPhyFxn((uint8_t *)txn->buf + (txCnt- (txCnt % MCASP_DMA_UDMA_XFER_SIZE)), drvHandle, txChHandle),
+                                         txCnt % MCASP_DMA_UDMA_XFER_SIZE);
 
                         txCbParam = object->dmaChCfg->txCbParams;
                         txCbParam = txCbParam + (object->lastFilled);
@@ -835,7 +857,7 @@ static void MCASP_udmaIsrTx(Udma_EventHandle eventHandle,
                     else
                     {
                         MCASP_udmaTrInit(((uint8_t *)object->dmaChCfg->txTrpdMem + (MCASP_UDMA_TR3_TRPD_SIZE*nextCandidate)),
-                                        (uint64_t)txn->buf, txCnt);
+                                        (uint64_t)Udma_virtToPhyFxn(txn->buf, drvHandle, txChHandle), txCnt);
 
                         object->lastFilled = nextCandidate;
 
@@ -878,6 +900,7 @@ static void MCASP_udmaIsrRx(Udma_EventHandle eventHandle, uint32_t eventType, vo
     uint32_t txnPushed = 0;
     int32_t diff;
     MCASP_Transaction **rxCbParam = NULL;
+    Udma_DrvHandle drvHandle;
 
     if(args != NULL)
     {
@@ -886,6 +909,7 @@ static void MCASP_udmaIsrRx(Udma_EventHandle eventHandle, uint32_t eventType, vo
         rxChHandle = dmaChCfg->rxChHandle;
         ringHandle = Udma_chGetFqRingHandle(rxChHandle);
         xfrObj = &(object->RcvObj);
+        drvHandle = (Udma_DrvHandle)object->mcaspPktDmaHandle;
 
         status = SystemP_SUCCESS;
     }
@@ -909,8 +933,8 @@ static void MCASP_udmaIsrRx(Udma_EventHandle eventHandle, uint32_t eventType, vo
             /* Update current processed TRPD with loopjob */
             {
                 MCASP_udmaHpdInit(rxChHandle,
-                                (uint8_t *)pDesc,
-                                object->RcvObj.txnLoopjob.buf,
+                                (uint8_t *)Udma_phyToVirtFxn(pDesc, drvHandle, rxChHandle),
+                                (void *)Udma_virtToPhyFxn(object->RcvObj.txnLoopjob.buf, drvHandle, rxChHandle),
                                 object->RcvObj.txnLoopjob.count*sizeof(uint32_t));
             }
 
@@ -936,13 +960,13 @@ static void MCASP_udmaIsrRx(Udma_EventHandle eventHandle, uint32_t eventType, vo
 
             if(!QueueP_isEmpty(object->reqQueueHandleRx))
             {
-                if(CSL_udmapCppi5GetBufferAddr(pHpd) == (uint64_t)object->RcvObj.txnLoopjob.buf)
+                if(CSL_udmapCppi5GetBufferAddr(pHpd) == (uint64_t)Udma_phyToVirtFxn((uint64_t)object->RcvObj.txnLoopjob.buf, drvHandle, rxChHandle))
                 {
                     txn = QueueP_get(object->reqQueueHandleRx);
 
                     MCASP_udmaHpdInit(rxChHandle,
-                                (uint8_t *)pHpd,
-                                txn->buf,
+                                (uint8_t *)Udma_phyToVirtFxn((uint64_t)pHpd, drvHandle, rxChHandle),
+                                (void *)Udma_virtToPhyFxn(txn->buf, drvHandle, rxChHandle),
                                 txn->count *sizeof(uint32_t));
                     rxCbParam = (MCASP_Transaction **)object->dmaChCfg->rxCbParams + nextCandidate;
                     *rxCbParam = txn;
@@ -969,13 +993,13 @@ static void MCASP_udmaIsrRx(Udma_EventHandle eventHandle, uint32_t eventType, vo
 
             pHpd = (CSL_UdmapCppi5HMPD *)((uint8_t *)object->dmaChCfg->rxTrpdMem + (MCASP_UDMA_HPD_SIZE*nextCandidate));
 
-            if(CSL_udmapCppi5GetBufferAddr(pHpd) == (uint64_t)object->RcvObj.txnLoopjob.buf)
+            if(CSL_udmapCppi5GetBufferAddr(pHpd) == (uint64_t)Udma_virtToPhyFxn(object->RcvObj.txnLoopjob.buf, drvHandle, rxChHandle))
             {
                 txn = QueueP_get(object->reqQueueHandleRx);
 
                 MCASP_udmaHpdInit(rxChHandle,
-                                (uint8_t *)pHpd,
-                                txn->buf,
+                                (uint8_t *)Udma_phyToVirtFxn((uint64_t)pHpd, drvHandle, rxChHandle),
+                                (void *)Udma_virtToPhyFxn(txn->buf, drvHandle, rxChHandle),
                                 txn->count *sizeof(uint32_t));
                 rxCbParam = (MCASP_Transaction **)object->dmaChCfg->rxCbParams + nextCandidate;
                 *rxCbParam = txn;

@@ -247,21 +247,49 @@ uint64_t Udma_defaultVirtToPhyFxn(const void *virtAddr,
                                   uint32_t chNum,
                                   void *appData)
 {
+#if !defined(__arm__)
+    uint64_t addr = 0;
+    if((uint64_t)virtAddr > 0x80000000 && (uint64_t)virtAddr < 0x805FFFFF)
+    {
+        addr = (uint64_t)((uintptr_t)virtAddr - (uintptr_t)0xE000000);
+    }
+    else
+    {
+        addr = (uint64_t)virtAddr;
+    }
+    return addr;
+#else
     return ((uint64_t) virtAddr);
+#endif
 }
 
 void *Udma_defaultPhyToVirtFxn(uint64_t phyAddr,
                                uint32_t chNum,
                                void *appData)
 {
-#if defined (__aarch64__)
-    uint64_t temp = phyAddr;
-#else
+// #if defined (__aarch64__)
+//     uint64_t temp = phyAddr;
+// #else
     /* R5 is 32-bit machine, need to truncate to avoid void * typecast error */
-    uint32_t temp = (uint32_t) phyAddr;
-#endif
+    // uint32_t temp = (uint32_t) phyAddr;
+// #endif
 
+#if !defined(__arm__)
+    void* temp = 0;
+    if(phyAddr > 0x72000000 && phyAddr < 0x725FFFFF)
+    {
+        temp = (void*)((uintptr_t)phyAddr + (uintptr_t)0xE000000);
+    }
+    else
+    {
+        temp = (void *)phyAddr;
+    }
+
+    // return virtAddr;
     return ((void *) temp);
+#else
+    return (void*)phyAddr;
+#endif
 }
 
 int32_t UdmaUtils_mapLocaltoGlobalEvent(Udma_DrvHandle drvHandle, Udma_ChHandle chHandle, uint32_t localeventID, uint32_t eventMode)
