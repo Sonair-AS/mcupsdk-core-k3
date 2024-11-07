@@ -23,10 +23,12 @@ const mpu_armv76 = mpu_armv7.addInstance();
 /**
  * Write custom configuration values to the imported modules.
  */
-gpio1.$name        = "GPIO_PUSH_BUTTON";
-gpio1.trigType     = "RISE_EDGE";
-gpio1.pu_pd        = "pu";
-gpio1.GPIO.$assign = "UART0_CTSn";
+gpio1.$name                    = "GPIO_PUSH_BUTTON";
+gpio1.useMcuGpioPins           = true;
+gpio1.rx                       = true;
+gpio1.trigType                 = "RISE_EDGE";
+gpio1.MCU_GPIO.$assign         = "MCU_GPIO0_1";
+gpio1.MCU_GPIO.gpioPin.$assign = "WKUP_TIMER_IO1";
 
 debug_log.enableUartLog        = true;
 debug_log.uartLog.$name        = "CONFIG_UART0";

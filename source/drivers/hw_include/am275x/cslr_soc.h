@@ -45,6 +45,7 @@ extern "C"
 #include <drivers/hw_include/am275x/cslr_intr_c7x256v0_clec.h>
 #include <drivers/hw_include/am275x/cslr_intr_c7x256v1_clec.h>
 #include <drivers/hw_include/am275x/cslr_intr_main_gpio_introuter0.h>
+#include <drivers/hw_include/am275x/cslr_intr_mcu_gpio_introuter0.h>
 #include <drivers/hw_include/am275x/cslr_intr_r5fss0_core0.h>
 #include <drivers/hw_include/am275x/cslr_intr_r5fss0_core1.h>
 #include <drivers/hw_include/am275x/cslr_intr_r5fss1_core0.h>

@@ -7,8 +7,15 @@ let errorFlag = 0;
 let errorLog = '';
 
 function getInstanceConfig(moduleInstance) {
+    let addr = '';
+
+    if (common.getSocName().match(/am275x/))
+        addr =  `CSL_${soc.getInstanceString(moduleInstance).split(/_\d+/)[0]}_BASE`;
+    else
+        addr = `CSL_${soc.getInstanceString(moduleInstance)}_BASE`;
+
     let additionalConfig =  {
-        baseAddr: `CSL_${soc.getInstanceString(moduleInstance)}_BASE`,
+        baseAddr: addr,
         pinIndex: soc.getPinIndex(moduleInstance),
     }
 
@@ -152,6 +159,17 @@ function getConfigurables()
             description: "GPIO PIN Trigger Type",
         },
     )
+
+    if(common.getSocName().match(/am275x/))
+    {
+        config.push(
+            {
+                name: "useMcuGpioPins",
+                displayName: "Use MCU_GPIO Pins",
+                default: false,
+            },
+        )
+    }
 
     if(common.isMcuDomainSupported())
     {

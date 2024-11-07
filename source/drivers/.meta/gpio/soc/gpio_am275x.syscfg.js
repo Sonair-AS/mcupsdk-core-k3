@@ -2,7 +2,7 @@
 
 function getInterfaceName(inst) {
 
-    if(inst.useMcuDomainPeripherals)
+    if(inst.useMcuGpioPins)
         return "MCU_GPIO"
 
     return "GPIO";
@@ -13,16 +13,25 @@ function getInstanceString(moduleInstance) {
     let peripheralName = interfaceName;
     let solution = moduleInstance[peripheralName].$solution
 
-    let splitStrings = (solution.peripheralPinName === null ) ? "": solution.peripheralPinName.split("_");
-    let gpioBank = splitStrings[0];
-    return gpioBank
+    if ( peripheralName == "GPIO" ){
+        let splitStrings = (solution.peripheralPinName === null ) ? "": solution.peripheralPinName.split("_");
+        let gpioBank = splitStrings[0];
+        return gpioBank
+    }
+    else {
+        return solution.peripheralName;
+    }
+
 }
 
 function getPinIndex(moduleInstance) {
     let interfaceName = getInterfaceName(moduleInstance);
     let peripheralPinName;
 
-    peripheralPinName = moduleInstance[interfaceName].$solution.peripheralPinName;
+    if( interfaceName == "GPIO")
+        peripheralPinName = moduleInstance[interfaceName].$solution.peripheralPinName;
+    else
+        peripheralPinName = moduleInstance[interfaceName].gpioPin.$solution.peripheralPinName;
 
     if(! peripheralPinName)
         return "INVALID";

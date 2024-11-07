@@ -99,7 +99,7 @@ void gpio_input_interrupt_main(void *args)
     retVal = HwiP_construct(&gGpioHwiObject, &hwiPrms);
     DebugP_assert(retVal == SystemP_SUCCESS );
 
-#if defined (SOC_AM62DX)
+#if defined (SOC_AM62DX) || defined (SOC_AM275X)
     DebugP_log("Press pushbutton %s to trigger a GPIO interrupt\r\n",Board_getGpioButtonSwitchNum());
 #else
     DebugP_log("Connect the %s pin on EVM to ground and release to trigger GPIO interrupt ...\r\n", Board_getGpioButtonSwitchNum());

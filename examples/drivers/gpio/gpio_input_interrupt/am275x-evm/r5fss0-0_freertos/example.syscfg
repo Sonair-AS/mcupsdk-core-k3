@@ -23,10 +23,10 @@ const mpu_armv76 = mpu_armv7.addInstance();
 /**
  * Write custom configuration values to the imported modules.
  */
-gpio1.$name        = "GPIO_PUSH_BUTTON";
-gpio1.trigType     = "RISE_EDGE";
-gpio1.pu_pd        = "pu";
-gpio1.GPIO.$assign = "UART0_CTSn";
+gpio1.$name          = "GPIO_PUSH_BUTTON";
+gpio1.trigType       = "RISE_EDGE";
+gpio1.rx             = true;
+gpio1.useMcuGpioPins = true;
 
 debug_log.enableUartLog            = true;
 debug_log.enableSharedMemLogReader = true;
@@ -66,5 +66,7 @@ mpu_armv76.size     = 21;
  * version of the tool will not impact the pinmux you originally saw.  These lines can be completely deleted in order to
  * re-solve from scratch.
  */
+gpio1.MCU_GPIO.$suggestSolution             = "MCU_GPIO0_1";
+gpio1.MCU_GPIO.gpioPin.$suggestSolution     = "WKUP_TIMER_IO1";
 debug_log.uartLog.UART.RXD.$suggestSolution = "MCASP4_AXR0";
 debug_log.uartLog.UART.TXD.$suggestSolution = "MLB0_MLBCLK";
