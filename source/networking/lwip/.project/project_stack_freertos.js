@@ -366,6 +366,7 @@ const buildOptionCombos = [
     { device: "am62ax", cpu: "a53", cgt: "gcc-aarch64"},
     { device: "am62x", cpu: "a53", cgt: "gcc-aarch64"},
     { device: "am62px",  cpu: "wkup-r5f", cgt: "ti-arm-clang"},
+	{ device: "am62px",  cpu: "mcu-r5f", cgt: "ti-arm-clang"},
     { device: "am62dx",  cpu: "r5f", cgt: "ti-arm-clang"},
     { device: "am275x",  cpu: "r5f", cgt: "ti-arm-clang"},
 ];

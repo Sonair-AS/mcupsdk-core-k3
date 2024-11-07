@@ -14,6 +14,8 @@ const component_file_list = [
     "source/networking/enet/.project/project_cpsw.js",
     "source/networking/enet/.project/project_cpsw_lwipif_freertos.js",
     "source/networking/enet/.project/project_cpsw_lwipif_nortos.js",
+    "source/networking/enet/.project/project_cpsw_lwipif_ic_freertos.js",
+    "source/networking/ethfw/.project/project_ethfw.js",
     "source/networking/lwip/.project/project_contrib_freertos.js",
     "source/networking/lwip/.project/project_contrib_nortos.js",
     "source/networking/lwip/.project/project_stack_freertos.js",
@@ -206,8 +208,12 @@ const example_file_list = [
     // Safety checkers Examples
     "source/safety_checkers/examples/pm_checkers_app/.project/project.js",
     "source/safety_checkers/examples/pm_checkers_warm_reset/.project/project.js",
-	"source/safety_checkers/examples/rm_checkers_app/.project/project.js",
+    "source/safety_checkers/examples/rm_checkers_app/.project/project.js",
     "source/safety_checkers/examples/tifs_checkers_app/.project/project.js",
+
+    // Ethernet Firmware Examples
+    "source/networking/ethfw/apps/app_remoteswitchcfg_server/sitara/.project/project.js",
+    "source/networking/ethfw/apps/app_remoteswitchcfg_client/sitara/.project/project.js",
 ];
 
 function getProjectSpecCpu(cpu) {

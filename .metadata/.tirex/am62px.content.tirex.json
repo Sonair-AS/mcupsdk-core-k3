@@ -4876,6 +4876,80 @@
         "resourceSubClass": [
             "example.general"
         ],
+        "description": "A Ethfw Server Example. CPU is WKUP-R5FSS0-0 running FREERTOS.",
+        "name": "ethfw_server",
+        "location": "../../source/networking/ethfw/apps/app_remoteswitchcfg_server/sitara/am62px-sk/wkup-r5fss0-0_freertos/ti-arm-clang/example.projectspec",
+        "devtools": [
+            "SK-AM62P-LP"
+        ],
+        "kernel": [
+            "freertos"
+        ],
+        "compiler": [
+            "ticlang"
+        ],
+        "subCategories": [
+            "..",
+            "source",
+            "networking",
+            "ethfw",
+            "apps",
+            "app_remoteswitchcfg_server",
+            "sitara",
+            "wkup-r5fss0-0_freertos"
+        ],
+        "mainCategories": [
+            [
+                "Examples",
+                "Development Tools"
+            ]
+        ]
+    },
+    {
+        "resourceType": "project.ccs",
+        "resourceClass": [
+            "example"
+        ],
+        "resourceSubClass": [
+            "example.general"
+        ],
+        "description": "A Ethfw Client Example. CPU is MCU-R5FSS0-0 running FREERTOS.",
+        "name": "ethfw_client",
+        "location": "../../source/networking/ethfw/apps/app_remoteswitchcfg_client/sitara/am62px-sk/mcu-r5fss0-0_freertos/ti-arm-clang/example.projectspec",
+        "devtools": [
+            "SK-AM62P-LP"
+        ],
+        "kernel": [
+            "freertos"
+        ],
+        "compiler": [
+            "ticlang"
+        ],
+        "subCategories": [
+            "..",
+            "source",
+            "networking",
+            "ethfw",
+            "apps",
+            "app_remoteswitchcfg_client",
+            "sitara",
+            "mcu-r5fss0-0_freertos"
+        ],
+        "mainCategories": [
+            [
+                "Examples",
+                "Development Tools"
+            ]
+        ]
+    },
+    {
+        "resourceType": "project.ccs",
+        "resourceClass": [
+            "example"
+        ],
+        "resourceSubClass": [
+            "example.general"
+        ],
         "description": "A IPC Notify echo example System project.",
         "name": "ipc_notify_echo",
         "location": "../../examples/drivers/ipc/ipc_notify_echo/am62px-sk/system_freertos_nortos/system.projectspec",
