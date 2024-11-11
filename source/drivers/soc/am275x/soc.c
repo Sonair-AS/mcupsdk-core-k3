@@ -51,6 +51,10 @@
 /* PSC (Power Sleep Controller) Domain enable */
 #define PSC_MODSTATE_ENABLE         (0x3U)
 
+#define C7X0_0_SRAM_ALIAS       (0x80000000U)
+#define C7X0_0_SRAM_ALIAS_SIZE  (0x600000U)
+#define SOC_SRAM_BASE_ADDR      (0x72000000U)
+
 int32_t SOC_moduleClockEnable(uint32_t moduleId, uint32_t enable)
 {
     int32_t status = SystemP_SUCCESS;
@@ -650,4 +654,26 @@ void SOC_setFSSCtrlFlashBootSize(void)
     }
 
     SOC_controlModuleLockMMR(SOC_DOMAIN_ID_MAIN, 1U);
+}
+
+uint64_t Soc_getPhyAddr(uint64_t virtAddr)
+{
+    if(Sciclient_getSelfDevIdCore() == TISCI_DEV_C7X256V0_C7XV_CORE_0 || 
+        Sciclient_getSelfDevIdCore() == TISCI_DEV_C7X256V1_C7XV_CORE_0 )
+    {
+        uint64_t addr = 0;
+        if(virtAddr > C7X0_0_SRAM_ALIAS && virtAddr < (C7X0_0_SRAM_ALIAS + C7X0_0_SRAM_ALIAS_SIZE - 1U))
+        {
+            addr = (uint64_t)((uintptr_t)virtAddr - (uintptr_t)(C7X0_0_SRAM_ALIAS - SOC_SRAM_BASE_ADDR));
+        }
+        else
+        {
+            addr = virtAddr;
+        }
+        return addr;
+    }
+    else
+    {
+        return virtAddr;
+    }
 }

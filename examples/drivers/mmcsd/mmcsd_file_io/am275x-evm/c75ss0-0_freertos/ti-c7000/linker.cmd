@@ -1,6 +1,6 @@
 
 --ram_model
--heap  0x1000
+-heap  0x2000
 -stack 0x8000
 --args 0x1000
 --diag_suppress=10068 /* to suppress no matching section error */

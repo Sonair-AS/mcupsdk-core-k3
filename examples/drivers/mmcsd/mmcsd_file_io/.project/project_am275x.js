@@ -137,6 +137,10 @@ const templates_freertos_c75 =
     {
         input: ".project/templates/am275x/common/linker_c75ss0.cmd.xdt",
         output: "linker.cmd",
+        options: {
+            stackSize: 0x8000,
+            heapSize: 0x2000,
+        },
     },
     {
         input: ".project/templates/am275x/freertos/main_freertos.c.xdt",
