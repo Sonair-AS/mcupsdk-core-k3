@@ -52,6 +52,10 @@
 #define UDMA_C7X0_0_SRAM_ALIAS_SIZE  (0x600000U)
 #define UDMA_SRAM_BASE_ADDR          (0x72000000U)
 
+
+#define UDMA_SOC_TX_MAPPED_FLOW_ENTRY(base, index, size) {base+(size*index), \
+                                                    base+(size*index)+1, size-1}
+
 /* ========================================================================== */
 /*                         Structure Declarations                             */
 /* ========================================================================== */
@@ -71,26 +75,26 @@
 const Udma_MappedChRingAttributes gUdmaTxMappedChRingAttributes[CSL_DMSS_PKTDMA_NUM_TX_CHANS - CSL_DMSS_PKTDMA_TX_CHANS_UNMAPPED_CNT] =
 {
     /* defaultRing, startFreeRing, numFreeRing */
-    {19U, 20U, 7U}, /* Channel 19 - UDMA_MAPPED_TX_GROUP_CPSW Ch 0 */
-    {27U, 28U, 7U}, /* Channel 20 - UDMA_MAPPED_TX_GROUP_CPSW Ch 1 */
-    {35U, 34U, 7U}, /* Channel 21 - UDMA_MAPPED_TX_GROUP_CPSW Ch 2 */
-    {43U, 44U, 7U}, /* Channel 22 - UDMA_MAPPED_TX_GROUP_CPSW Ch 3 */
-    {51U, 52U, 7U}, /* Channel 23 - UDMA_MAPPED_TX_GROUP_CPSW Ch 4 */
-    {59U, 60U, 7U}, /* Channel 24 - UDMA_MAPPED_TX_GROUP_CPSW Ch 5 */
-    {67U, 68U, 7U}, /* Channel 25 - UDMA_MAPPED_TX_GROUP_CPSW Ch 6 */
-    {75U, 76U, 7U}, /* Channel 26 - UDMA_MAPPED_TX_GROUP_CPSW Ch 7 */
-    {83U, 84U, 6U}, /* Channel 27 - UDMA_MAPPED_TX_GROUP_SAUL Ch 0  */
-    {91U, 92U, 6U}, /* Channel 28 - UDMA_MAPPED_TX_GROUP_SAUL Ch 1 */
+    UDMA_SOC_TX_MAPPED_FLOW_ENTRY(CSL_DMSS_PKTDMA_TX_FLOWS_CPSW_START,  0, 8), /* Channel 27 - UDMA_MAPPED_TX_GROUP_CPSW Ch 0 */
+    UDMA_SOC_TX_MAPPED_FLOW_ENTRY(CSL_DMSS_PKTDMA_TX_FLOWS_CPSW_START,  1, 8), /* Channel 28 - UDMA_MAPPED_TX_GROUP_CPSW Ch 1 */
+    UDMA_SOC_TX_MAPPED_FLOW_ENTRY(CSL_DMSS_PKTDMA_TX_FLOWS_CPSW_START,  2, 8), /* Channel 29 - UDMA_MAPPED_TX_GROUP_CPSW Ch 2 */
+    UDMA_SOC_TX_MAPPED_FLOW_ENTRY(CSL_DMSS_PKTDMA_TX_FLOWS_CPSW_START,  3, 8), /* Channel 30 - UDMA_MAPPED_TX_GROUP_CPSW Ch 3 */
+    UDMA_SOC_TX_MAPPED_FLOW_ENTRY(CSL_DMSS_PKTDMA_TX_FLOWS_CPSW_START,  4, 8), /* Channel 31 - UDMA_MAPPED_TX_GROUP_CPSW Ch 4 */
+    UDMA_SOC_TX_MAPPED_FLOW_ENTRY(CSL_DMSS_PKTDMA_TX_FLOWS_CPSW_START,  5, 8), /* Channel 32 - UDMA_MAPPED_TX_GROUP_CPSW Ch 5 */
+    UDMA_SOC_TX_MAPPED_FLOW_ENTRY(CSL_DMSS_PKTDMA_TX_FLOWS_CPSW_START,  6, 8), /* Channel 33 - UDMA_MAPPED_TX_GROUP_CPSW Ch 6 */
+    UDMA_SOC_TX_MAPPED_FLOW_ENTRY(CSL_DMSS_PKTDMA_TX_FLOWS_CPSW_START,  7, 8), /* Channel 34 - UDMA_MAPPED_TX_GROUP_CPSW Ch 7 */
+    UDMA_SOC_TX_MAPPED_FLOW_ENTRY(CSL_DMSS_PKTDMA_TX_FLOWS_SAUL0_START, 0, 7), /* Channel 35 - UDMA_MAPPED_TX_GROUP_SAUL Ch 0 */
+    UDMA_SOC_TX_MAPPED_FLOW_ENTRY(CSL_DMSS_PKTDMA_TX_FLOWS_SAUL1_START, 0, 7)  /* Channel 36 - UDMA_MAPPED_TX_GROUP_SAUL Ch 1 */
 };
 
 const Udma_MappedChRingAttributes gUdmaRxMappedChRingAttributes[CSL_DMSS_PKTDMA_NUM_RX_CHANS - CSL_DMSS_PKTDMA_RX_CHANS_UNMAPPED_CNT] =
 {
     /* defaultRing, startFreeRing, numFreeRing */
-    {118U, 119U, 15U}, /* Channel 19 - UDMA_MAPPED_RX_GROUP_CPSW Ch 0 */
-    {134U, 136U, 6U}, /* Channel 20 - UDMA_MAPPED_RX_GROUP_SAUL Ch 0 */
-    {135U, 136U, 6U}, /* Channel 21 - UDMA_MAPPED_RX_GROUP_SAUL Ch 1 */
-    {142U, 144U, 6U}, /* Channel 22 - UDMA_MAPPED_RX_GROUP_SAUL Ch 2 */
-    {143U, 144U, 4U}, /* Channel 23 - UDMA_MAPPED_RX_GROUP_SAUL Ch 3 */
+    {134U, 135U, 15U}, /* Channel 27 - UDMA_MAPPED_RX_GROUP_CPSW Ch 0 */
+    {150U, 152U, 6U}, /* Channel 28 - UDMA_MAPPED_RX_GROUP_SAUL Ch 0 */
+    {151U, 152U, 6U}, /* Channel 29 - UDMA_MAPPED_RX_GROUP_SAUL Ch 1 */
+    {158U, 160U, 6U}, /* Channel 30 - UDMA_MAPPED_RX_GROUP_SAUL Ch 2 */
+    {159U, 160U, 4U}, /* Channel 31 - UDMA_MAPPED_RX_GROUP_SAUL Ch 3 */
 };
 
 /* ========================================================================== */
