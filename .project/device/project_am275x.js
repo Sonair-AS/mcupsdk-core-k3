@@ -20,6 +20,10 @@ const component_file_list = [
     "source/networking/lwip/.project/project_contrib_nortos.js",
     "source/networking/lwip/.project/project_stack_freertos.js",
     "source/networking/lwip/.project/project_stack_nortos.js",
+    "source/networking/tsn/.project/project_tsn_combase.js",
+    "source/networking/tsn/.project/project_tsn_gptp.js",
+    "source/networking/tsn/.project/project_tsn_uniconf.js",
+    "source/networking/tsn/.project/project_tsn_unibase.js",
     "test/unity/.project/project.js",
     "docs_src/docs/api_guide/doxy_samples/.project/project.js",
 ];

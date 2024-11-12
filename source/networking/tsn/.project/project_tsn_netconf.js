@@ -78,6 +78,10 @@ const deviceSpecificIncludes = {
         "${MCU_PLUS_SDK_PATH}/source/kernel/freertos/config/awr294x/r5f",
         "${MCU_PLUS_SDK_PATH}/source/networking/lwip/lwip-config/awr294x",
     ],
+    am275x : [
+        "${MCU_PLUS_SDK_PATH}/source/kernel/freertos/config/am275x/r5f",
+        "${MCU_PLUS_SDK_PATH}/source/networking/enet/soc/k3/am275x",
+    ],
 };
 
 const filedirs = {
@@ -116,6 +120,9 @@ const soc_defines = {
     ],
     awr294x : [
     ],
+    am275x : [
+        "SOC_AM275X",
+    ],
 };
 
 const cflags = {
@@ -141,6 +148,7 @@ const buildOptionCombos = [
     { device: "am62ax",  cpu: "r5f", cgt: "ti-arm-clang"},
     { device: "am62px",  cpu: "wkup-r5f", cgt: "ti-arm-clang"},
     { device: "am62dx",  cpu: "r5f", cgt: "ti-arm-clang"},
+    { device: "am275x",  cpu: "r5f", cgt: "ti-arm-clang"},
 ];
 
 function getComponentProperty(device) {
