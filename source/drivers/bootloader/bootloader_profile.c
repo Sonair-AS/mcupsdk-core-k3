@@ -170,6 +170,9 @@ void Bootloader_profilePrintProfileLog(void)
         case BOOTLOADER_MEDIA_SD:
             bootMediaName = "SD Card";
             break;
+        case BOOTLOADER_MEDIA_UART:
+            bootMediaName = "Uart";
+            break;
         default:
             bootMediaName = "undefined";
             break;

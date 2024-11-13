@@ -90,6 +90,7 @@ extern "C"
 #define BOOTLOADER_MEDIA_EMMC      ((uint32_t)0xB0070003)
 #define BOOTLOADER_MEDIA_SD        ((uint32_t)0xB0070004)
 #define BOOTLOADER_MEDIA_BUFIO     ((uint32_t)0xB0070005)
+#define BOOTLOADER_MEDIA_UART      ((uint32_t)0xB0070006)
 
 /**
  * \brief Handle to the Bootloader driver returned by Bootloader_open()
@@ -241,6 +242,7 @@ typedef struct Bootloader_Config_s
 #include <drivers/bootloader/bootloader_mem.h>
 #include <drivers/bootloader/bootloader_buf_io.h>
 #include <drivers/bootloader/bootloader_sd.h>
+#include <drivers/bootloader/bootloader_uart.h>
 
 /**
  * \brief Data structure containing information related to a particular CPU, required for MCELF loading
@@ -451,9 +453,9 @@ void Bootloader_ReservedMemInit(uint32_t startAddress, uint32_t regionlength);
 void Bootloader_powerOffCpu(Bootloader_Handle handle, Bootloader_CpuInfo *cpuInfo);
 
 /**
- * \brief API to parse and load a multicore ELF image
+ * \brief API to parse and load a multicore ELF image for Flash, eMMC & SD bootmedia
  *
- * When the booting is done through some boot media, unlike loading via CCS, the application binaries for each core
+ * When the booting is done through boot media like Flash, eMMC & SD, unlike loading via CCS, the application binaries for each core
  * applicable are converted into a file format '.elf' and combined together into a multicore elf(.mcelf) binary. The
  * bootloader needs to read this mcelf file, and load the binaries correctly into memories. This API helps in parsing
  * the multicore elf file and loads the application binaries for each core from the boot media to the SOC memory.
@@ -465,6 +467,24 @@ void Bootloader_powerOffCpu(Bootloader_Handle handle, Bootloader_CpuInfo *cpuInf
  * \return SystemP_SUCCESS on success, else failure
  */
 int32_t Bootloader_parseAndLoadMultiCoreELF(Bootloader_Handle handle, Bootloader_BootImageInfo *bootImageInfo);
+
+/**
+ * \brief API to parse and load a multicore ELF image for Uart bootmedia
+ *
+ * When the booting is done through boot media like Uart, unlike loading via CCS, the application binaries for each core
+ * applicable are converted into a file format '.elf' and combined together into a multicore elf(.mcelf) binary. The
+ * bootloader needs to read this mcelf file which is being sent in chunks from host side, and load the segments correctly into memories.
+ * This API helps in receiving the multicore elf file meta from host, parsing the multicore elf file meta, requests the program segments from host,
+ * receive and loads the segments for each core from the boot media to the SOC memory.
+ * It also fills the metadata in the bootImageInfo structure passed.
+ *
+ * \param handle        [in] Bootloader driver handle from \ref Bootloader_open
+ * \param bootImageInfo [in] Data structure of type Bootloader_BootImageInfo which will be filled
+ *
+ * \return SystemP_SUCCESS on success, else failure
+ */
+int32_t Bootloader_UartParseAndLoadMultiCoreELF(Bootloader_Handle handle, Bootloader_BootImageInfo *bootImageInfo);
+
 /** @} */
 
 #ifdef __cplusplus

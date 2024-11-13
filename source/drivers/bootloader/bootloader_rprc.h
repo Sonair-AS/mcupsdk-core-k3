@@ -89,6 +89,7 @@ extern "C"
 #define BOOTLOADER_MEDIA_EMMC      ((uint32_t)0xB0070003)
 #define BOOTLOADER_MEDIA_SD        ((uint32_t)0xB0070004)
 #define BOOTLOADER_MEDIA_BUFIO     ((uint32_t)0xB0070005)
+#define BOOTLOADER_MEDIA_UART      ((uint32_t)0xB0070006)
 
 /**
  * \brief Handle to the Bootloader driver returned by Bootloader_open()
