@@ -48,7 +48,9 @@
 /*                           Macros & Typedefs                                */
 /* ========================================================================== */
 
-/* None */
+#define UDMA_C7X0_0_SRAM_ALIAS       (0x80000000U)
+#define UDMA_C7X0_0_SRAM_ALIAS_SIZE  (0x600000U)
+#define UDMA_SRAM_BASE_ADDR          (0x72000000U)
 
 /* ========================================================================== */
 /*                         Structure Declarations                             */
@@ -114,10 +116,10 @@ void Udma_initDrvHandle(Udma_DrvHandleInt drvHandle)
         drvHandle->instType = UDMA_INST_TYPE_LCDMA_BCDMA;
         pBcdmaRegs = &drvHandle->bcdmaRegs;
         pBcdmaRegs->pGenCfgRegs     = ((CSL_bcdma_gcfgRegs *) CSL_DMASS0_BCDMA_GCFG_BASE);
-        // pBcdmaRegs->pBcChanCfgRegs  = ((CSL_bcdma_bccfgRegs *) CSL_DMASS0_BCDMA_BCHAN_BASE);
+        pBcdmaRegs->pBcChanCfgRegs  = ((CSL_bcdma_bccfgRegs *) CSL_DMASS0_BCDMA_BCHAN_BASE);
         pBcdmaRegs->pTxChanCfgRegs  = ((CSL_bcdma_txccfgRegs *) CSL_DMASS0_BCDMA_TCHAN_BASE);
         pBcdmaRegs->pRxChanCfgRegs  = ((CSL_bcdma_rxccfgRegs *) CSL_DMASS0_BCDMA_RCHAN_BASE);
-        // pBcdmaRegs->pBcChanRtRegs   = ((CSL_bcdma_bcrtRegs *) CSL_DMASS0_BCDMA_BCHANRT_BASE);
+        pBcdmaRegs->pBcChanRtRegs   = ((CSL_bcdma_bcrtRegs *) CSL_DMASS0_BCDMA_BCHANRT_BASE);
         pBcdmaRegs->pTxChanRtRegs   = ((CSL_bcdma_txcrtRegs *) CSL_DMASS0_BCDMA_TCHANRT_BASE);
         pBcdmaRegs->pRxChanRtRegs   = ((CSL_bcdma_rxcrtRegs *) CSL_DMASS0_BCDMA_RCHANRT_BASE);
         drvHandle->trigGemOffset    = CSL_DMSS_GEM_BCDMA_TRIGGER_OFFSET;
@@ -308,4 +310,37 @@ int32_t Udma_getMappedChRingAttributes(Udma_DrvHandleInt drvHandle,
     }
 
     return(retVal);
+}
+
+void *Udma_defaultPhyToVirtFxnC7x(uint64_t phyAddr,
+                               uint32_t chNum,
+                               void *appData)
+{
+    void* temp = 0;
+    if(phyAddr > UDMA_SRAM_BASE_ADDR && phyAddr < (UDMA_SRAM_BASE_ADDR + UDMA_C7X0_0_SRAM_ALIAS_SIZE - 1))
+    {
+        temp = (void*)((uintptr_t)phyAddr + (uintptr_t)(UDMA_C7X0_0_SRAM_ALIAS - UDMA_SRAM_BASE_ADDR));
+    }
+    else
+    {
+        temp = (void *)phyAddr;
+    }
+
+    return ((void *) temp);
+}
+
+uint64_t Udma_defaultVirtToPhyFxnC7x(const void *virtAddr,
+                                  uint32_t chNum,
+                                  void *appData)
+{
+    uint64_t addr = 0;
+    if((uint64_t)virtAddr > UDMA_C7X0_0_SRAM_ALIAS && (uint64_t)virtAddr < (UDMA_C7X0_0_SRAM_ALIAS + UDMA_C7X0_0_SRAM_ALIAS_SIZE -1))
+    {
+        addr = (uint64_t)((uintptr_t)virtAddr - (uintptr_t)(UDMA_C7X0_0_SRAM_ALIAS - UDMA_SRAM_BASE_ADDR));
+    }
+    else
+    {
+        addr = (uint64_t)virtAddr;
+    }
+    return addr;
 }

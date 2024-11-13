@@ -1,5 +1,7 @@
 
 let common = system.getScript("/common");
+let socName = common.getSocName();
+let cpuName = system.getScript('/common').getSelfSysCfgCoreName();
 
 function getConfigArr() {
     return system.getScript(`/drivers/udma/soc/udma_${common.getSocName()}`).getConfigArr();
@@ -14,6 +16,14 @@ function getInstanceConfig(moduleInstance) {
         ...moduleInstance,
     };
 };
+
+let defaultPhytoVirtFxn = "Udma_defaultPhyToVirtFxn";
+let defaultVirttoPhyFxn = "Udma_defaultVirtToPhyFxn";
+if (socName == "am275x"  && (cpuName == "c75ss0-0") || (cpuName == "c75ss1-0"))
+{
+    defaultPhytoVirtFxn = "Udma_defaultPhyToVirtFxnC7x";
+    defaultVirttoPhyFxn = "Udma_defaultVirtToPhyFxnC7x";
+}
 
 let udma_module = {
     displayName: "UDMA",
@@ -49,13 +59,13 @@ let udma_module = {
         {
                 name: "virtToPhyFxn",
                 displayName: "Virtual to Physical Callback",
-                default: "Udma_defaultVirtToPhyFxn",
+                default: defaultVirttoPhyFxn,
                 description: "If non default function is used, user should define this in the application to avoid linker error",
         },
         {
                 name: "phyToVirtFxn",
                 displayName: "Physical to Virtual Callback",
-                default: "Udma_defaultPhyToVirtFxn",
+                default: defaultPhytoVirtFxn,
                 description: "If non default function is used, user should define this in the application to avoid linker error",
         },
         {
