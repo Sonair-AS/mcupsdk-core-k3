@@ -80,6 +80,7 @@ const files_wkup_r5f = {
         "bootloader_profile.c",
         "bootloader_sd.c",
         "bootloader_soc.c",
+        "bootloader_uart.c",
         "bootloader_uniflash.c",
         "bootloader_xmodem.c",
         "crc16.c",
