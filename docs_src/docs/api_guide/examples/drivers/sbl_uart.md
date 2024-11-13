@@ -4,7 +4,18 @@
 
 # Introduction
 
+\cond !SOC_AM275X
+
 This bootloader does SOC initializations and attempts to boot a multicore appimage received over UART via XMODEM. The image file is sent using a python script (See \ref UART_BOOTLOADER_PYTHON_SCRIPT). Once image is received, the SBL then parses it, splits it into RPRCs for each core applicable. Each core is then initialized, RPRC image is loaded, entry points are set and the core is released from reset. For more on bootflow/bootloaders, please refer \ref BOOTFLOW_GUIDE
+
+\endcond
+
+\cond SOC_AM275X
+
+This bootloader does SOC initializations and attempts to boot a multicore elf image (mcelf) received over UART via XMODEM. The image file is sent using a python script (See \ref UART_BOOTLOADER_PYTHON_SCRIPT). The SBL first recieves the elf image meta data, once meta is received, the SBL parses it and requests the program segments applicable for each core and loads to respective load addresses. Each core is then initialized, entry points are set and the core is released from reset. For more on bootflow/bootloaders, please refer \ref BOOTFLOW_GUIDE
+
+\endcond
+
 
 # Supported Combinations {#EXAMPLES_DRIVERS_SBL_UART_COMBOS}
 
@@ -85,7 +96,22 @@ This bootloader does SOC initializations and attempts to boot a multicore appima
 
 \endcond
 
+\cond SOC_AM275X
+
+ Parameter      | Value
+ ---------------|-----------
+ CPU + OS       | wkup-r5fss0-0_freertos
+ Toolchain      | ti-arm-clang
+ Board          | @VAR_BOARD_NAME_LOWER
+ Example folder | examples/drivers/boot/sbl_uart
+
+\endcond
+
+\cond !SOC_AM275X
+
 Refer \ref ENABLE_DDR_INLINE_ECC enablig inline ECC
+
+\endcond
 
 # Steps to Run the Example
 ## Build the example
