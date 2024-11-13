@@ -12,6 +12,7 @@ const bootloader_bootmedia = [
     { name: "MEM", displayName: "SOC Memory" },
     { name: "EMMC", displayName: "EMMC"},
     { name: "SD", displayName: "SD"},
+    { name: "UART", displayName: "UART"},
 ];
 
 const dma_restrict_regions = [
