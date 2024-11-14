@@ -27,9 +27,10 @@ const mmu_armv810 = mmu_armv8.addInstance();
 /**
  * Write custom configuration values to the imported modules.
  */
-uart1.intrEnable   = "DISABLE";
-uart1.$name        = "CONFIG_UART_CONSOLE";
-uart1.UART.$assign = "UART3";
+uart1.intrEnable       = "DISABLE";
+uart1.$name            = "CONFIG_UART_CONSOLE";
+uart1.UART.$assign     = "UART2";
+uart1.UART.TXD.$assign = "SPI1_CS1";
 
 mmu_armv81.size  = 0x20000000;
 mmu_armv81.$name = "REGISTERS_REGION0";
@@ -89,5 +90,4 @@ mmu_armv810.pAddr     = 0x80400000;
  * version of the tool will not impact the pinmux you originally saw.  These lines can be completely deleted in order to
  * re-solve from scratch.
  */
-uart1.UART.RXD.$suggestSolution = "MCASP0_AXR8";
-uart1.UART.TXD.$suggestSolution = "GPIO1_47";
+uart1.UART.RXD.$suggestSolution = "MCASP0_AXR6";

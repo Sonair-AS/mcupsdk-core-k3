@@ -346,6 +346,7 @@ static void App_uartInit(UART_AppPrms *appPrms)
     /* Register interrupt */
     HwiP_Params_init(&hwiPrms);
     hwiPrms.intNum      = gUartParams[CONFIG_UART_CONSOLE].intrNum;
+    hwiPrms.eventId     = gUartParams[CONFIG_UART_CONSOLE].eventId;
     hwiPrms.priority    = gUartParams[CONFIG_UART_CONSOLE].intrPriority;
     hwiPrms.eventId      = gUartParams[CONFIG_UART_CONSOLE].eventId;
     hwiPrms.callback    = &App_uartUserISR;
