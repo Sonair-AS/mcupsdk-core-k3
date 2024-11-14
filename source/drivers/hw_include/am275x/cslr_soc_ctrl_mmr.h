@@ -40,8 +40,8 @@ extern "C"
 #endif
 
 #include <drivers/hw_include/am275x/cslr_main_ctrl_mmr.h>
+#include <drivers/hw_include/am275x/cslr_mcu_ctrl_mmr.h>
 #include <drivers/hw_include/am275x/cslr_wkup_ctrl_mmr.h>
-
 #ifdef __cplusplus
 }
 #endif
