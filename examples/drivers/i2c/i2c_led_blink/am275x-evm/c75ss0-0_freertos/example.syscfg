@@ -30,18 +30,20 @@ const mmu_armv811 = mmu_armv8.addInstance();
 /**
  * Write custom configuration values to the imported modules.
  */
-led1.$name   = "CONFIG_LED0";
-led1.name    = "Ioexp";
-led1.ioIndex = 23;
+led1.$name      = "CONFIG_LED0";
+led1.name       = "Ioexp";
+led1.i2cAddress = 0x20;
+led1.ioIndex    = 10;
 
 i2c1.$name            = "CONFIG_I2C0";
 led1.peripheralDriver = i2c1;
 i2c1.I2C.$assign      = "I2C0";
 i2c1.I2C_child.$name  = "drivers_i2c_v0_i2c_v0_template0";
 
-debug_log.enableUartLog        = true;
-debug_log.uartLog.$name        = "CONFIG_UART0";
-debug_log.uartLog.UART.$assign = "UART3";
+debug_log.enableUartLog            = true;
+debug_log.uartLog.$name            = "CONFIG_UART0";
+debug_log.uartLog.UART.$assign     = "UART2";
+debug_log.uartLog.UART.TXD.$assign = "SPI1_CS1";
 
 mmu_armv81.size  = 0x20000000;
 mmu_armv81.$name = "REGISTERS_REGION0";
@@ -108,5 +110,4 @@ mmu_armv811.pAddr     = 0x80400000;
  */
 i2c1.I2C.SCL.$suggestSolution               = "I2C0_SCL";
 i2c1.I2C.SDA.$suggestSolution               = "I2C0_SDA";
-debug_log.uartLog.UART.RXD.$suggestSolution = "MCASP0_AXR8";
-debug_log.uartLog.UART.TXD.$suggestSolution = "GPIO1_47";
+debug_log.uartLog.UART.RXD.$suggestSolution = "MCASP0_AXR6";

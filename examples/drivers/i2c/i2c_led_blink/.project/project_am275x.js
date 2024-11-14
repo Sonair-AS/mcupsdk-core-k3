@@ -94,13 +94,6 @@ const templates_nortos_r5f =
         output: "linker.cmd",
     },
     {
-        input: ".project/templates/am275x/nortos/main_nortos.c.xdt",
-        output: "../main.c",
-        options: {
-            entryFunction: "i2c_led_blink_main",
-        },
-    },
-    {
         input: ".project/templates/am275x/i2c/board_i2c.c.xdt",
         output: "../board.c",
     }
@@ -113,13 +106,6 @@ const templates_freertos_r5f =
         output: "linker.cmd",
     },
     {
-        input: ".project/templates/am275x/freertos/main_freertos.c.xdt",
-        output: "../main.c",
-        options: {
-            entryFunction: "i2c_led_blink_main",
-        },
-    },
-    {
         input: ".project/templates/am275x/i2c/board_i2c.c.xdt",
         output: "../board.c",
     }
@@ -130,14 +116,6 @@ const templates_freertos_c75 =
     {
         input: ".project/templates/am275x/common/linker_c75ss0.cmd.xdt",
         output: "linker.cmd",
-    },
-    {
-        input: ".project/templates/am275x/freertos/main_freertos.c.xdt",
-        output: "../main.c",
-        options: {
-            entryFunction: "i2c_led_blink_main",
-            stackSize: 64*1024,
-        },
     },
     {
         input: ".project/templates/am275x/i2c/board_i2c.c.xdt",

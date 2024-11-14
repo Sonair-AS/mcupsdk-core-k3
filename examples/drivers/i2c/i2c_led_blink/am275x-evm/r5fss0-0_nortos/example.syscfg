@@ -25,9 +25,10 @@ const mpu_armv75 = mpu_armv7.addInstance();
 /**
  * Write custom configuration values to the imported modules.
  */
-led1.$name   = "CONFIG_LED0";
-led1.name    = "Ioexp";
-led1.ioIndex = 16;
+led1.$name      = "CONFIG_LED0";
+led1.name       = "Ioexp";
+led1.i2cAddress = 0x20;
+led1.ioIndex    = 10;
 
 i2c1.$name            = "CONFIG_I2C0";
 led1.peripheralDriver = i2c1;

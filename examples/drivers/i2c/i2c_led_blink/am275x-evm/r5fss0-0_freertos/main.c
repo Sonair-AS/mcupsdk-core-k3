@@ -38,6 +38,7 @@
 #include "ti_board_open_close.h"
 #include "FreeRTOS.h"
 #include "task.h"
+#include <drivers/pinmux.h>
 
 #define MAIN_TASK_PRI  (configMAX_PRIORITIES-1)
 
@@ -52,6 +53,26 @@ void i2c_led_blink_main(void *args);
 void freertos_main(void *args)
 {
     int32_t status = SystemP_SUCCESS;
+
+#if defined (SOC_AM275X)
+    Pinmux_PerCfg_t i2cPinmuxConfig[] =
+    {
+        /* I2C0 pin config */
+        /* I2C0_SCL -> I2C0_SCL (M3) */
+        {
+            PIN_I2C0_SCL,
+            ( PIN_MODE(0) | PIN_INPUT_ENABLE | PIN_PULL_DIRECTION  )
+        },
+                /* I2C0_SDA -> I2C0_SDA (N3) */
+        {
+            PIN_I2C0_SDA,
+            ( PIN_MODE(0) | PIN_INPUT_ENABLE | PIN_PULL_DIRECTION  )
+        },
+        {PINMUX_END, 0U}
+    };
+
+    Pinmux_config(i2cPinmuxConfig, PINMUX_DOMAIN_ID_MAIN);
+#endif
 
     /* Open drivers */
     Drivers_open();
