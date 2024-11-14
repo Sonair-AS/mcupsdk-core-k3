@@ -10,35 +10,37 @@ const files_r5f={
         "flash.c",
         "flash_nand_ospi.c",
         "flash_nor_ospi.c",
+        "ioexp_tca6416.c",
+        "ioexp_tca6424.c",
         "led.c",
         "led_gpio.c",
         "led_tpic2810.c",
-        "led_ioexp.c",
-        "ioexp_tca6424.c",
+        "led_ioexp_am275x_evm.c",
         "nor_spi_sfdp.c",
     ],
 };
 
 const files_c75x = {
     common: [
-        "ioexp_tca6424.c",
-        "led.c",
-        "led_ioexp.c",
         "flash.c",
         "flash_nand_ospi.c",
         "flash_nor_ospi.c",
+        "ioexp_tca6424.c",
+        "ioexp_tca6416.c",
+        "led.c",
+        "led_ioexp_am275x_evm.c",
         "nor_spi_sfdp.c",
     ],
 };
 
 const filedirs = {
     common: [
+        "eeprom",
         "flash",
         "flash/ospi",
         "flash/sfdp",
         "ioexp",
         "led",
-        "eeprom",
     ],
 };
 
