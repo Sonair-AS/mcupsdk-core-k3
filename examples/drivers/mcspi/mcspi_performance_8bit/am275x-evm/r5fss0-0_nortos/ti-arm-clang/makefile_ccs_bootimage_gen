@@ -62,7 +62,7 @@ else
 endif
 
 MULTI_CORE_IMAGE_PARAMS = \
-	$(BOOTIMAGE_CORE_ID_r5fss0-0):$(OUTNAME) \
+	$(BOOTIMAGE_CORE_ID_r5fss0-0):$(OUTFILE) \
 
 all:
 ifeq ($(CCS_IDE_MODE),cloud)

@@ -417,7 +417,7 @@ endif
 
 % if (imageFormat == "mcelf") {
 MULTI_CORE_IMAGE_PARAMS = \
-	$(BOOTIMAGE_CORE_ID_`args.project.cpu`):$(OUTNAME) \
+	$(BOOTIMAGE_CORE_ID_`args.project.cpu`):$(OUTFILE) \
 % } else {
 % if (atf_build == true) {
 ifeq ($(ATF_INTEGRATED_BOOT), yes)
