@@ -24,6 +24,10 @@ There are 37 ECC aggregators on the device each supporting multiple memories and
 There are 49 ECC aggregators on the device each supporting multiple memories and interconnects.
 \endcond
 
+\cond SOC_AM275X
+There are 55 ECC aggregators on the device each supporting multiple memories and interconnects.
+\endcond
+
 ## SysConfig Features
 
 - None
@@ -257,6 +261,56 @@ static SDL_ECC_InitConfig_t ECC_Test_MCUMCAN1ECCInitConfig =
 };
 \endcode
 \endcond
+\cond SOC_AM275X
+Initialization structure for ESM instances
+
+\code{.c}
+SDL_ESM_config ECC_Test_esmInitConfig_MAIN =
+{
+    .esmErrorConfig = {1u, 8u}, /* Self test error config */
+    .enableBitmap = {0x00000000u, 0x30000000u, 0x00000000u, 0x00000000u,
+					 0x00000000u, 0x00000000u, 0x00000003u, 0x00000000u,
+					},
+     /**< All events enable: except timer and self test  events, and Main ESM output */
+    /* Temporarily disabling vim compare error as well*/
+    .priorityBitmap = {0x00000000u, 0x30000000u, 0x00000000u, 0x00000000u,
+					   0x00000000u, 0x00000000u, 0x00000003u, 0x00000000u,
+                        },
+    /**< All events high priority: except timer, selftest error events, and Main ESM output */
+    .errorpinBitmap = {0x00000000u, 0x30000000u, 0x00000000u, 0x00000000u,
+					   0x00000000u, 0x00000000u, 0x00000003u, 0x00000000u,
+                      },
+    /**< All events high priority: except timer, selftest error events, and Main ESM output */
+};
+
+\endcode
+
+To configure ECC for an instance and specified ram IDs:
+\code{.c}
+static SDL_ECC_MemSubType ECC_Test_MCAN1subMemTypeList[MCAN1_MAX_MEM_SECTIONS] =
+{
+    SDL_MCAN1_MCANSS_MSGMEM_WRAP_ECC_AGGR_MCANSS_MSGMEM_WRAP_MSGMEM_ECC_RAM_ID
+};
+static SDL_ECC_InitConfig_t ECC_Test_MCAN1ECCInitConfig =
+{
+    .numRams = MCAN1_MAX_MEM_SECTIONS,
+    /**< Number of Rams ECC is enabled  */
+    .pMemSubTypeList = &(ECC_Test_MCAN1subMemTypeList[0]),
+    /**< Sub type list  */
+};
+static SDL_ECC_MemSubType ECC_Test_C7X256V1subMemTypeList[C7X256V1_MAX_MEM_SECTIONS] =
+{
+    SDL_C7X256V1_ECC_AGGR_AC71_PMC_WRAP_PMC_PMC_MEMWRAP_EDC_CTRL_PARITY_0_RAM_ID
+};
+static SDL_ECC_InitConfig_t ECC_Test_C7X256V1ECCInitConfig =
+{
+    .numRams = C7X256V1_MAX_MEM_SECTIONS,
+    /**< Number of Rams ECC is enabled  */
+    .pMemSubTypeList = &(ECC_Test_C7X256V1subMemTypeList[0]),
+    /**< Sub type list  */
+};
+\endcode
+\endcond
 
 Initialization of ECC
 \cond SOC_AM62AX || SOC_AM62DX
@@ -333,6 +387,57 @@ int32_t ECC_Example_init (void)
         }
         else {
             DebugP_log("\r\nECC_init: MCU MCAN1 ECC Init complete \r\n");
+        }
+	}
+    return retValue;
+}
+\endcode
+\endcond
+\cond SOC_AM275X
+\code{.c}
+int32_t ECC_Example_init (void)
+{
+    int32_t retValue=0;
+    void *ptr = (void *)&arg;
+    SDL_ErrType_t result;
+
+    if (retValue == SDL_APP_TEST_PASS) {
+        /* Initialize MAIN ESM module */
+        result = SDL_ESM_init(SDL_ESM_INST_MAIN_ESM0, &ECC_Test_esmInitConfig_MAIN, SDL_ESM_applicationCallbackFunction, ptr);
+        if (result != SDL_APP_TEST_PASS) {
+            /* print error and quit */
+            DebugP_log("\rECC_Example_init: Error initializing MAIN ESM: result = %d\n\n", result);
+
+            retValue = SDL_APP_TEST_FAILED;
+        } else {
+            DebugP_log("\rECC_Example_init: Init MAIN ESM complete \n\n");
+        }
+    }
+    if (retValue == SDL_APP_TEST_PASS) 
+	{
+        /* Initialize MCAN1 ECC */
+        result = SDL_ECC_init(SDL_MCAN1_MCANSS_MSGMEM_WRAP_ECC_AGGR, &ECC_Test_MCAN1ECCInitConfig);
+        if (result != SDL_APP_TEST_PASS)
+        {
+            /* print error and quit */
+            DebugP_log("\r\nECC_init: Error initializing MAIN MCAN1 ECC: result = %d\r\n", result);
+
+            retValue = SDL_APP_TEST_FAILED;
+        }
+        else {
+            DebugP_log("\r\nECC_init: MAIN MCAN1 ECC Init complete \r\n");
+        }
+        /* Initialize C7X256V1 ECC */
+        result = SDL_ECC_init(SDL_C7X256V1_ECC_AGGR, &ECC_Test_C7X256V1ECCInitConfig);
+        if (result != SDL_APP_TEST_PASS)
+        {
+            /* print error and quit */
+            DebugP_log("\r\nECC_init: Error initializing C7X256V1 ECC: result = %d\r\n", result);
+
+            retValue = SDL_APP_TEST_FAILED;
+        }
+        else {
+            DebugP_log("\r\nECC_init: C7X256V1 ECC Init complete \r\n");
         }
 	}
     return retValue;
@@ -470,6 +575,30 @@ if (result != SDL_PASS ) {
 
 return retVal;
 \endcode
+\cond SOC_AM275X
+\code{.c}
+/* Note the address is relative to start of ram */
+injectErrorConfig.pErrMem = (uint32_t *)(0x20718000u);
+result = SDL_ECC_selfTest(SDL_MCAN1_MCANSS_MSGMEM_WRAP_ECC_AGGR,
+                            SDL_MCAN1_MCANSS_MSGMEM_WRAP_ECC_AGGR_MCANSS_MSGMEM_WRAP_MSGMEM_ECC_RAM_ID,
+                            SDL_INJECT_ECC_ERROR_FORCING_2BIT_ONCE,
+                            &injectErrorConfig,
+                          100000);
+\endcode
+\endcond
+\code{.c}
+if (result != SDL_PASS ) {
+     DebugP_log("\r\nDouble bit error self test at pErrMem 0x%p test failed\r\n",
+                 injectErrorConfig.pErrMem);
+    retVal = -1;
+} else {
+
+    DebugP_log("\r\nDouble bit error self test at pErrMem 0x%p: test complete\r\n",
+                injectErrorConfig.pErrMem);
+}
+
+return retVal;
+\endcode
 
 Inject an error for a specified ECC aggregator (memtype) and RAM Id (subtype)
 
@@ -497,6 +626,19 @@ result = SDL_ECC_injectError(SDL_MCU_MCAN1_MCANSS_MSGMEM_WRAP_ECC_AGGR,
                              SDL_MCU_MCAN1_MCANSS_MSGMEM_WRAP_ECC_AGGR_MCANSS_MSGMEM_WRAP_MSGMEM_ECC_RAM_ID,
                              SDL_INJECT_ECC_ERROR_FORCING_1BIT_ONCE,
                              &injectErrorConfig);
+\endcode
+\endcond
+\cond SOC_AM275X
+\code{.c}
+/* Note the address is relative to start of ram */
+injectErrorConfig.pErrMem = (uint32_t *)(0x20718000u);
+
+/* Run one shot test for MCU MCAN1 2 bit error */
+injectErrorConfig.flipBitMask = 0x101;
+result = SDL_ECC_injectError(SDL_MCAN1_MCANSS_MSGMEM_WRAP_ECC_AGGR,
+                            SDL_MCAN1_MCANSS_MSGMEM_WRAP_ECC_AGGR_MCANSS_MSGMEM_WRAP_MSGMEM_ECC_RAM_ID,
+                            SDL_INJECT_ECC_ERROR_FORCING_2BIT_ONCE,
+                            &injectErrorConfig);
 \endcode
 \endcond
 \code{.c}
@@ -527,6 +669,12 @@ result = SDL_ECC_getStaticRegisters(SDL_ECC_AGGR0_SAM62_SEC_ECC_AGGR, &staticReg
 \code{.c}
 /* Read back the static registers */
 result = SDL_ECC_getStaticRegisters(SDL_MCU_MCAN1_MCANSS_MSGMEM_WRAP_ECC_AGGR, &staticRegs);
+\endcode
+\endcond
+\cond SOC_AM62AX
+\code{.c}
+/* Read back the static registers */
+result = SDL_ECC_getStaticRegisters(SDL_MCAN1_MCANSS_MSGMEM_WRAP_ECC_AGGR, &staticRegs);
 \endcode
 \endcond
 \code{.c}

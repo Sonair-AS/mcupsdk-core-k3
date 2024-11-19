@@ -58,6 +58,10 @@ SDL_MCRC_InstType instance = MCU_MCRC64_0;
 SDL_MCRC_InstType instance = MCU_MCRC64_0;
 \endcond
 
+\cond SOC_AM275X
+SDL_MCRC_InstType instance = MCRC64_0;
+\endcond
+
 \code{.c}
 result = SDL_MCRC_init(instance, SDL_MCRC_CHANNEL_1, MCRC_DEF_WATCHDOG_PRELOAD, MCRC_DEF_BLOCK_PRELOAD);
 \endcode

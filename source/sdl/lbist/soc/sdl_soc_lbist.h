@@ -1,5 +1,5 @@
 /*
- *  Copyright (c) Texas Instruments Incorporated 2023-24
+ *  Copyright (c) Texas Instruments Incorporated 2023-2024
  *
  *  Redistribution and use in source and binary forms, with or without
  *  modification, are permitted provided that the following conditions
@@ -54,6 +54,9 @@ extern "C" {
 #include <sdl/lbist/soc/am62dx/sdl_lbist.h>
 #endif /* SOC_AM62DX */
 
+#if defined (SOC_AM275X)
+#include <sdl/lbist/soc/am275x/sdl_lbist.h>
+#endif /* SOC_AM275X */
 #ifdef __cplusplus
 }
 #endif  /* extern "C" */

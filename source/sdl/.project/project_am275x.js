@@ -12,13 +12,20 @@ const files_r5f = {
         "sdl_dcc.c",
         "sdl_soc_dcc.c",
 
-        // "sdl_mcrc.c",
-        // "sdl_ip_mcrc.c",
-        // "sdl_mcrc_soc.c",
-        // "sdl_pok.c",
-        // "sdl_ip_pok.c",
-        // "sdl_soc_pok.c",
-        // "sdl_ip_pok_defs.c",
+        "sdl_ip_lbist.c",
+        "sdl_soc_lbist.c",
+        "sdl_lbist.c",
+
+        "sdl_mcrc.c",
+        "sdl_ip_mcrc.c",
+        "sdl_mcrc_soc.c",
+        "sdl_pok.c",
+        "sdl_ip_pok.c",
+        "sdl_soc_pok.c",
+        "sdl_ip_pok_defs.c",
+
+        "sdl_ip_rom_checksum.c",
+        "sdl_rom_checksum.c",
 
         "sdl_ip_vtm.c",
         "sdl_vtm_pvt_sensor.c",
@@ -30,19 +37,13 @@ const files_r5f = {
         "sdl_ip_pbist.c",
         "sdl_soc_pbist.c",
         "sdl_pbist.c",
-
-        // "sdl_ip_lbist.c",
-        // "sdl_soc_lbist.c",
-        // "sdl_lbist.c",
         "sdl_interrupt.c",
         "sdl_interrupt_handlers.c",
         "sdl_interrupt_register.c",
         "sdl_exception.c",
-        // "sdl_ip_rom_checksum.c",
-        // "sdl_rom_checksum.c",
-        // "sdl_ecc.c",
-        // "sdl_ip_ecc.c",
-        // "sdl_ecc_r5.c",
+        "sdl_ecc.c",
+        "sdl_ip_ecc.c",
+        "sdl_ecc_r5.c",
     ],
 };
 
@@ -72,13 +73,6 @@ const filedirs = {
         "rti/v0",
         "rti/v0/soc",
         "rti/v0/soc/am275x",
-        "stog/v0",
-        "stog/v0/soc",
-        "stog/v0/soc/am275x",
-        "mtog",
-        "mtog/v0",
-        "mtog/v0/soc",
-        "mtog/soc/am275x",
         "pbist",
         "pbist/v0",
         "pbist/v0/soc",
@@ -125,7 +119,7 @@ function getComponentProperty() {
     property.dirPath = path.resolve(__dirname, "..");
     property.type = "library";
     property.name = "sdl";
-    property.isInternal = false; 
+    property.isInternal = false;
     property.buildOptionCombos = buildOptionCombos;
 
     return property;

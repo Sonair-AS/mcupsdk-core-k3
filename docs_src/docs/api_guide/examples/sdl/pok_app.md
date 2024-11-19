@@ -19,7 +19,7 @@ UC-1     | An over-voltage POK instance is configured to a threshold value that 
 
 # Supported Combinations {#EXAMPLES_SDL_POK_COMBOS}
 
-\cond SOC_AM62X
+\cond (SOC_AM62X) || (SOC_AM275X)
 
  Parameter      | Value
  ---------------|-----------

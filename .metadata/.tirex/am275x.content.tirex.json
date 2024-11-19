@@ -4244,6 +4244,71 @@
         "resourceSubClass": [
             "example.general"
         ],
+        "description": "This example verifies DCC in various modes of operation CPU is R5FSS0-0 running NORTOS.",
+        "name": "dcc",
+        "location": "../../examples/sdl/dcc/dcc_modes/am275x-evm/r5fss0-0_nortos/ti-arm-clang/example.projectspec",
+        "devtools": [
+            "AM275x_EVM"
+        ],
+        "kernel": [
+            "nortos"
+        ],
+        "compiler": [
+            "ticlang"
+        ],
+        "subCategories": [
+            "sdl",
+            "dcc",
+            "dcc_modes",
+            "r5fss0-0_nortos"
+        ],
+        "mainCategories": [
+            [
+                "Examples",
+                "Development Tools"
+            ]
+        ]
+    },
+    {
+        "resourceType": "project.ccs",
+        "resourceClass": [
+            "example"
+        ],
+        "resourceSubClass": [
+            "example.general"
+        ],
+        "description": "This example verifies ECC inject operations in single and double bits CPU is R5FSS0-0 running NORTOS.",
+        "name": "ecc_example",
+        "location": "../../examples/sdl/ecc/am275x-evm/r5fss0-0_nortos/ti-arm-clang/example.projectspec",
+        "devtools": [
+            "AM275x_EVM"
+        ],
+        "kernel": [
+            "nortos"
+        ],
+        "compiler": [
+            "ticlang"
+        ],
+        "subCategories": [
+            "sdl",
+            "ecc",
+            "r5fss0-0_nortos"
+        ],
+        "mainCategories": [
+            [
+                "Examples",
+                "Development Tools"
+            ]
+        ]
+    },
+    {
+        "resourceType": "project.ccs",
+        "resourceClass": [
+            "example"
+        ],
+        "resourceSubClass": [
+            "example.general"
+        ],
         "description": "This example demonstrates the ESM operation CPU is R5FSS0-0 running NORTOS.",
         "name": "mcu_esm0",
         "location": "../../examples/sdl/esm/mcu_esm0/am275x-evm/r5fss0-0_nortos/ti-arm-clang/example.projectspec",
@@ -4277,9 +4342,9 @@
         "resourceSubClass": [
             "example.general"
         ],
-        "description": "This example verifies DCC in various modes of operation CPU is R5FSS0-0 running NORTOS.",
-        "name": "dcc",
-        "location": "../../examples/sdl/dcc/dcc_modes/am275x-evm/r5fss0-0_nortos/ti-arm-clang/example.projectspec",
+        "description": "This example verifies CRC in auto CPU mode of operation CPU is R5FSS0-0 running NORTOS.",
+        "name": "mcrc_auto",
+        "location": "../../examples/sdl/mcrc/mcrc_auto/am275x-evm/r5fss0-0_nortos/ti-arm-clang/example.projectspec",
         "devtools": [
             "AM275x_EVM"
         ],
@@ -4291,8 +4356,74 @@
         ],
         "subCategories": [
             "sdl",
-            "dcc",
-            "dcc_modes",
+            "mcrc",
+            "mcrc_auto",
+            "r5fss0-0_nortos"
+        ],
+        "mainCategories": [
+            [
+                "Examples",
+                "Development Tools"
+            ]
+        ]
+    },
+    {
+        "resourceType": "project.ccs",
+        "resourceClass": [
+            "example"
+        ],
+        "resourceSubClass": [
+            "example.general"
+        ],
+        "description": "This example verifies CRC in full CPU mode of operation CPU is R5FSS0-0 running NORTOS.",
+        "name": "mcrc_full_cpu",
+        "location": "../../examples/sdl/mcrc/mcrc_full_cpu/am275x-evm/r5fss0-0_nortos/ti-arm-clang/example.projectspec",
+        "devtools": [
+            "AM275x_EVM"
+        ],
+        "kernel": [
+            "nortos"
+        ],
+        "compiler": [
+            "ticlang"
+        ],
+        "subCategories": [
+            "sdl",
+            "mcrc",
+            "mcrc_full_cpu",
+            "r5fss0-0_nortos"
+        ],
+        "mainCategories": [
+            [
+                "Examples",
+                "Development Tools"
+            ]
+        ]
+    },
+    {
+        "resourceType": "project.ccs",
+        "resourceClass": [
+            "example"
+        ],
+        "resourceSubClass": [
+            "example.general"
+        ],
+        "description": "This example verifies CRC in semi CPU mode of operation CPU is R5FSS0-0 running NORTOS.",
+        "name": "mcrc_semi_cpu",
+        "location": "../../examples/sdl/mcrc/mcrc_semi_cpu/am275x-evm/r5fss0-0_nortos/ti-arm-clang/example.projectspec",
+        "devtools": [
+            "AM275x_EVM"
+        ],
+        "kernel": [
+            "nortos"
+        ],
+        "compiler": [
+            "ticlang"
+        ],
+        "subCategories": [
+            "sdl",
+            "mcrc",
+            "mcrc_semi_cpu",
             "r5fss0-0_nortos"
         ],
         "mainCategories": [
@@ -4426,6 +4557,71 @@
             "pbist",
             "pbist_mpu",
             "r5fss1-0_freertos"
+        ],
+        "mainCategories": [
+            [
+                "Examples",
+                "Development Tools"
+            ]
+        ]
+    },
+    {
+        "resourceType": "project.ccs",
+        "resourceClass": [
+            "example"
+        ],
+        "resourceSubClass": [
+            "example.general"
+        ],
+        "description": "This example verifies POK operation CPU is R5FSS0-0 running NORTOS.",
+        "name": "pok_example",
+        "location": "../../examples/sdl/pok/pok_mcu/am275x-evm/r5fss0-0_nortos/ti-arm-clang/example.projectspec",
+        "devtools": [
+            "AM275x_EVM"
+        ],
+        "kernel": [
+            "nortos"
+        ],
+        "compiler": [
+            "ticlang"
+        ],
+        "subCategories": [
+            "sdl",
+            "pok",
+            "pok_mcu",
+            "r5fss0-0_nortos"
+        ],
+        "mainCategories": [
+            [
+                "Examples",
+                "Development Tools"
+            ]
+        ]
+    },
+    {
+        "resourceType": "project.ccs",
+        "resourceClass": [
+            "example"
+        ],
+        "resourceSubClass": [
+            "example.general"
+        ],
+        "description": "This example performes ROM CHECKSUM CPU is R5FSS0-0 running NORTOS.",
+        "name": "rom_checksum_example",
+        "location": "../../examples/sdl/rom_checksum/am275x-evm/r5fss0-0_nortos/ti-arm-clang/example.projectspec",
+        "devtools": [
+            "AM275x_EVM"
+        ],
+        "kernel": [
+            "nortos"
+        ],
+        "compiler": [
+            "ticlang"
+        ],
+        "subCategories": [
+            "sdl",
+            "rom_checksum",
+            "r5fss0-0_nortos"
         ],
         "mainCategories": [
             [

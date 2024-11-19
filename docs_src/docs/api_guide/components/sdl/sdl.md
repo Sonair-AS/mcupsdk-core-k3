@@ -56,13 +56,13 @@ SDL consists of below sub-modules
 \cond SOC_AM275X
 - \subpage SDL_DCC_PAGE
 - \subpage SDL_DPL_PAGE
-<!-- - \subpage SDL_ECC_PAGE -->
+- \subpage SDL_ECC_PAGE
 - \subpage SDL_ESM_PAGE
-<!-- - \subpage SDL_LBIST_PAGE
-- \subpage SDL_MCRC_PAGE -->
+- \subpage SDL_LBIST_PAGE
+- \subpage SDL_MCRC_PAGE
 - \subpage SDL_PBIST_PAGE
-<!-- - \subpage SDL_POK_PAGE
-- \subpage SDL_ROM_CHECKSUM_PAGE -->
+- \subpage SDL_POK_PAGE
+- \subpage SDL_ROM_CHECKSUM_PAGE
 - \subpage SDL_RTI_PAGE
 - \subpage SDL_VTM_PAGE
 \endcond

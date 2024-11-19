@@ -1,5 +1,5 @@
 /*
- *  Copyright (c) Texas Instruments Incorporated 2023-2024
+ *   Copyright (c) Texas Instruments Incorporated 2024
  *
  *  Redistribution and use in source and binary forms, with or without
  *  modification, are permitted provided that the following conditions
@@ -31,34 +31,49 @@
  *
  */
 
-#ifndef INCLUDE_SDL_SOC_POK_H_
-#define INCLUDE_SDL_SOC_POK_H_
+/**
+ *  \file     sdl_soc_pok.c
+ *
+ *  \brief    This file contains the soc-specific implementation of the API's present in the
+ *            device abstraction layer file of pok.
+ */
+
+#include <stdint.h>
+#include <stdbool.h>
+#include "sdl_soc_pok.h"
+#include <sdl/pok/v1/sdl_ip_pok.h>
+#include <sdl/pok/v1/sdl_pok.h>
+#include <sdl/dpl/sdl_dpl.h>
 
 #ifdef __cplusplus
 extern "C" {
 #endif
 
-#if defined (SOC_AM62X)
-#include <sdl/pok/v1/soc/am62x/sdl_soc_pok.h>
-#endif /* SOC_AM62X */
 
-#if defined (SOC_AM62AX)
-#include <sdl/pok/v1/soc/am62ax/sdl_soc_pok.h>
-#endif /* SOC_AM62AX */
 
-#if defined (SOC_AM62PX)
-#include <sdl/pok/v1/soc/am62px/sdl_soc_pok.h>
-#endif /* SOC_AM62PX */
 
-#if defined (SOC_AM62DX)
-#include <sdl/pok/v1/soc/am62dx/sdl_soc_pok.h>
-#endif /* SOC_AM62DX */
-#if defined (SOC_AM275X)
-#include <sdl/pok/v1/soc/am275x/sdl_soc_pok.h>
-#endif /* SOC_AM275X */
+bool SDL_POK_getBaseaddr(SDL_POK_InstanceType instance, uint32_t *pBaseAddress)
+{
+    bool instValid = ((bool)false);
+    uint32_t size = 0;
+	if (pBaseAddress != NULL)
+	{
+        switch(instance)
+        {
+            case SDL_POK_MCU_CTRL_MMR0:
+                instValid = ((bool)true);
+                *pBaseAddress = SDL_MCU_CTRL_MMR0_CFG0_BASE;
+                size = SDL_MCU_CTRL_MMR0_CFG0_SIZE;
+                break;
 
-#ifdef __cplusplus
+
+            default:
+                break;
+		}
+
+        *pBaseAddress = (uint32_t)SDL_DPL_addrTranslate(*pBaseAddress, size);
+	}
+    return instValid;
+
 }
-#endif  /* extern "C" */
 
-#endif /* INCLUDE_SDL_SOC_DCC_H_ */

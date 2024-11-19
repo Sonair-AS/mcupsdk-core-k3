@@ -8,7 +8,7 @@
  *
  *  \par
  *  ============================================================================
- *  @n   (C) Copyright 2023, Texas Instruments, Inc.
+ *  @n   (C) Copyright 2023-2024, Texas Instruments, Inc.
  *
  *  Redistribution and use in source and binary forms, with or without
  *  modification, are permitted provided that the following conditions
@@ -68,12 +68,14 @@ void sdlGetErrSig(uint32_t id, SDL_POK_Inst *instance, uint32_t *esm_err_sig_uv,
             *esm_err_sig_uv = MCU_ESM_ERR_SIG_VDDA_PMIC_IN_UV;
             *esm_err_sig_ov = (uint32_t)(-1);
             break;
+#if !defined(IP_VERSION_POK_V1_NO_DDRIO)
         case SDL_POK_VDDS_DDRIO_ID:
             *instance = SDL_POK_VDDS_DDRIO_ID;
             *usePorCfgFlag = FALSE;
             *esm_err_sig_uv = MCU_ESM_ERR_SIG_VDDS_DDRIO_UV;
             *esm_err_sig_ov = MCU_ESM_ERR_SIG_VDDS_DDRIO_OV;
             break;
+#endif
         case SDL_POK_VDDR_CORE_ID:
             *instance = SDL_POK_VDDR_CORE_ID;
             *usePorCfgFlag = FALSE;
@@ -212,7 +214,7 @@ int32_t SDL_pok_GetShiftsAndMasks(SDL_mcuCtrlRegsBase_t     *pBaseAddress,
              /* POK Enable PP - No PP support for this POK */
              pShMasks->pokEnPPAddr = NULL;
         break;
-
+#if !defined(IP_VERSION_POK_V1_NO_DDRIO)
 	    case     SDL_POK_VDDS_DDRIO_ID:
 
              pShMasks->pokAddr     = &pCtrlMMRCfgRegs->POK_VDDS_DDRIO_UV_CTRL;
@@ -253,7 +255,7 @@ int32_t SDL_pok_GetShiftsAndMasks(SDL_mcuCtrlRegsBase_t     *pBaseAddress,
              pShMasks->pokEnPPMask = SDL_MCU_CTRL_MMR_CFG0_PRG_PP_1_CTRL_POK_PP_EN_MASK ;
              pShMasks->pokEnPPShift = SDL_MCU_CTRL_MMR_CFG0_PRG_PP_1_CTRL_POK_PP_EN_SHIFT ;
 	     break;
-
+#endif
         case     SDL_POK_VDDR_CORE_ID:
 
              pShMasks->pokAddr     = &pCtrlMMRCfgRegs->POK_VDDR_CORE_UV_CTRL;

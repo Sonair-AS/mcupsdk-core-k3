@@ -51,6 +51,17 @@ Use Cases
 
 \endcond
 
+\cond SOC_AM275X
+
+ Parameter      | Value
+ ---------------|-----------
+ CPU + OS       | r5fss0-0 nortos
+ Toolchain      | ti-arm-clang
+ Board          | @VAR_BOARD_NAME_LOWER
+ Example folder | examples/sdl/mcrc/mcrc_full_cpu/
+
+\endcond
+
 # Steps to Run the Example
 
 - **When using CCS projects to build**, import the CCS project for the required combination
@@ -160,6 +171,26 @@ Shown below is a sample output when the application is run,
 
  MCRC FULL CPU mode : starting
  Full_CPU mode MCRC signature verification done successfully for the instance MCU_MCRC64_0
+
+ Applications Name: MCRC_fullCPU_mode  PASSED
+
+ All tests have passed
+\endcode
+
+\endcond
+
+\cond SOC_AM275X
+# Sample Output SOC_AM275X
+
+\code
+ MCRC Application
+
+ MCRC FULL CPU mode : starting
+ Full_CPU mode MCRC signature verification done successfully for the instance MCRC64_0
+
+
+ MCRC FULL CPU mode : starting
+ Full_CPU mode MCRC signature verification done successfully for the instance MCRC64_0
 
  Applications Name: MCRC_fullCPU_mode  PASSED
 

@@ -18,7 +18,7 @@ Use Cases
 
 # Supported Combinations {#EXAMPLES_SDL_MCRC_SEMI_CPU_COMBOS}
 
-\cond SOC_AM62X || SOC_AM62AX || SOC_AM62DX
+\cond SOC_AM62X || SOC_AM62AX || SOC_AM62DX || (SOC_AM275X)
 
  Parameter      | Value
  ---------------|-----------
@@ -57,7 +57,7 @@ Use Cases
 Shown below is a sample output when the application is run,
 
 
-\cond (SOC_AM62X) || (SOC_AM62AX) || (SOC_AM62PX) || (SOC_AM62DX)
+\cond (SOC_AM62X) || (SOC_AM62AX) || (SOC_AM62PX) || (SOC_AM62DX) || (SOC_AM275X)
 \code
 [MAIN_Cortex_R5_0_0]
  MCRC Test Application

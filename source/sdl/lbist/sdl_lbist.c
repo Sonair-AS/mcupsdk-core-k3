@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2023 Texas Instruments Incorporated
+ * Copyright (C) 2023-2024 Texas Instruments Incorporated
  *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions
@@ -144,7 +144,7 @@ uint8_t SDL_LBIST_checkDone(SDL_LBIST_inst instance)
     if (pInfo->handler == NULL)
     {
         /* Use Polling */
-        SDL_LBIST_eventHandler(&pInfo);
+        SDL_LBIST_eventHandler(pInfo);
     }
     return ((uint8_t)(pInfo->doneFlag));
 }

@@ -11,7 +11,7 @@ This example shows setup and usage of some ECC Aggregators for a few events in t
 * Printing out error information within the ECC callback upon reception of ECC events
 
 The following use cases are implemented in this example:
-\cond SOC_AM62X
+\cond SOC_AM62X ||(SOC_AM275X)
 Use Cases
 ---------
 Use Case | Description
@@ -66,7 +66,18 @@ UC-4     | Single DED error on Main ESM for wrapper RAM ID type
  Toolchain      | ti-arm-clang
  Board          | @VAR_BOARD_NAME_LOWER
  Example folder | examples/sdl/ecc/
- 
+
+\endcond
+
+\cond SOC_AM275X
+
+ Parameter      | Value
+ ---------------|-----------
+ CPU + OS       | r5fss0-0 nortos
+ Toolchain      | ti-arm-clang
+ Board          | @VAR_BOARD_NAME_LOWER
+ Example folder | examples/sdl/ecc/
+
 \endcond
 
 # Steps to Run the Example
@@ -187,3 +198,50 @@ All Use_Cases have passed.
 \endcode
 \endcond
 
+\cond SOC_AM275X
+\code
+[MAIN_Cortex_R5_0_0]
+
+ECC Example Application
+
+ECC_Example_init: Init MAIN ESM complete 
+
+ECC_Example_init: Init WKUP ESM complete 
+
+ECC_init: MAIN MCAN1 ECC Init complete 
+
+ECC_init: C7X256V1 ECC Init complete 
+
+ESM Safety Example tests: starting
+
+MAIN MCAN1 single bit error inject Example test UC-1: starting
+
+MAIN MCAN1 Single bit error inject test: pError address 0x20718000 test complete and the value is 0x00000000
+
+Waiting for ESM Interrupt
+
+UC-1: Got the ESM Interrupt 
+
+C7X256V1 Single bit error inject Example test UC-2: starting
+
+Single bit error inject test: Subtype 0x00000000 test complete
+
+Waiting for the ESM Interrupt 
+
+UC-2: Memory Parity Error Test Complete
+
+MAIN MCAN1 Double bit error inject Example test UC-0: starting
+
+MAIN MCAN1 Double bit error inject test: pError address 0x20718000 test complete and the value is 0x00000301
+
+Waiting for ESM Interrupt
+
+UC-0: Got the ESM Interrupt
+
+ECC Safety Example tests: success
+
+ECC UC-1 and UC-2 Test
+
+All Use_Cases have passed.
+\endcode
+\endcond
