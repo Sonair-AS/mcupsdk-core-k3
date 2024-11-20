@@ -32,10 +32,11 @@ udma1.udmaBlkCopyChannel.create(2);
 udma1.udmaBlkCopyChannel[0].$name = "CONFIG_UDMA_BLKCOPY_CH0";
 udma1.udmaBlkCopyChannel[1].$name = "CONFIG_UDMA_BLKCOPY_CH1";
 
-debug_log.enableUartLog        = true;
-debug_log.uartTrace            = true;
-debug_log.uartLog.$name        = "CONFIG_UART0";
-debug_log.uartLog.UART.$assign = "UART3";
+debug_log.enableUartLog            = true;
+debug_log.uartTrace                = true;
+debug_log.uartLog.$name            = "CONFIG_UART0";
+debug_log.uartLog.UART.$assign     = "UART2";
+debug_log.uartLog.UART.TXD.$assign = "SPI1_CS1";
 
 mmu_armv81.size  = 0x20000000;
 mmu_armv81.$name = "REGISTERS_REGION0";
@@ -95,5 +96,4 @@ mmu_armv810.pAddr     = 0x80400000;
  * version of the tool will not impact the pinmux you originally saw.  These lines can be completely deleted in order to
  * re-solve from scratch.
  */
-debug_log.uartLog.UART.RXD.$suggestSolution = "MCASP0_AXR8";
-debug_log.uartLog.UART.TXD.$suggestSolution = "GPIO1_47";
+debug_log.uartLog.UART.RXD.$suggestSolution = "MCASP0_AXR6";
