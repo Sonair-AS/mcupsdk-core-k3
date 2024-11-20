@@ -84,9 +84,8 @@ debug_log.enableUartLog            = true;
 debug_log.enableCssLog             = false;
 debug_log.uartLog.$name            = "CONFIG_UART0";
 debug_log.uartLog.intrEnable       = "DISABLE";
-debug_log.uartLog.UART.$assign     = "UART0";
-debug_log.uartLog.UART.RXD.$assign = "UART0_RXD";
-debug_log.uartLog.UART.TXD.$assign = "UART0_TXD";
+debug_log.uartLog.UART.$assign     = "UART2";
+debug_log.uartLog.UART.TXD.$assign = "SPI1_CS1";
 
 mmu_armv81.size  = 0x20000000;
 mmu_armv81.$name = "REGISTER_REGION0";
@@ -166,3 +165,4 @@ mcasp1.MCASP.ACLKR.$suggestSolution                = "MCASP0_AXR14";
 mcasp1.CLOCKING.AUDIO_EXT_REFCLK2.$suggestSolution = "GPIO1_72";
 mcasp1.mcaspSer[0].MCASP.AXR0.$suggestSolution     = "MCASP1_AXR0";
 mcasp1.mcaspSer[1].MCASP.AXR1.$suggestSolution     = "MCASP1_AXR1";
+debug_log.uartLog.UART.RXD.$suggestSolution        = "MCASP0_AXR6";

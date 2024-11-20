@@ -58,9 +58,10 @@ const udma2         = udma.addInstance({}, false);
 udma2.$name         = "CONFIG_UDMA1";
 mcasp1.pktDmaDriver = udma2;
 
-debug_log.enableUartLog        = true;
-debug_log.uartLog.$name        = "CONFIG_UART0";
-debug_log.uartLog.UART.$assign = "UART3";
+debug_log.enableUartLog            = true;
+debug_log.uartLog.$name            = "CONFIG_UART0";
+debug_log.uartLog.UART.$assign     = "UART2";
+debug_log.uartLog.UART.TXD.$assign = "SPI1_CS1";
 
 mmu_armv81.size  = 0x20000000;
 mmu_armv81.$name = "REGISTER_REGION0";
@@ -137,5 +138,4 @@ mcasp1.MCASP.AFSR.$suggestSolution             = "MCASP0_AXR15";
 mcasp1.MCASP.ACLKR.$suggestSolution            = "MCASP0_AXR14";
 mcasp1.mcaspSer[0].MCASP.AXR0.$suggestSolution = "MCASP1_AXR0";
 mcasp1.mcaspSer[1].MCASP.AXR1.$suggestSolution = "MCASP1_AXR1";
-debug_log.uartLog.UART.RXD.$suggestSolution    = "MCASP0_AXR8";
-debug_log.uartLog.UART.TXD.$suggestSolution    = "GPIO1_47";
+debug_log.uartLog.UART.RXD.$suggestSolution    = "MCASP0_AXR6";

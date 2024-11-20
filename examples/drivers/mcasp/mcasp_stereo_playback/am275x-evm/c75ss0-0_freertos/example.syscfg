@@ -44,17 +44,22 @@ mcasp1.enableLoopback                          = false;
 mcasp1.clkSyncMode                             = "ASYNC";
 mcasp1.txCallbackFxn                           = "mcasp_txcb";
 mcasp1.rxCallbackFxn                           = "mcasp_rxcb";
-mcasp1.MCASP.$assign                           = "MCASP2";
+mcasp1.RxMode                                  = "TDM";
+mcasp1.rxFsWidth                               = 0;
+mcasp1.rxFsPolarity                            = 0;
+mcasp1.rxBitClkPolarity                        = 0;
+mcasp1.MCASP.$assignAllowConflicts             = "MCASP1";
 mcasp1.CLOCKING.$assign                        = "CLOCKING";
 mcasp1.mcaspSer.create(2);
 mcasp1.mcaspSer[0].$name                       = "CONFIG_MCASP_SER0";
+mcasp1.mcaspSer[0].dataDir                     = "Receive";
 mcasp1.mcaspSer[0].MCASP.$assignAllowConflicts = "MCASP1";
 mcasp1.mcaspSer[1].$name                       = "CONFIG_MCASP_SER1";
-mcasp1.mcaspSer[1].dataDir                     = "Receive";
 mcasp1.mcaspSer[1].serNum                      = 1;
 mcasp1.mcaspSer[1].MCASP.$assignAllowConflicts = "MCASP1";
-scripting.suppress("Resource conflict,MCASP1 is also in use by @@@.+?@@@", mcasp1.mcaspSer[0].MCASP, "$assign");
-scripting.suppress("Resource conflict,MCASP1 is also in use by @@@.+?@@@", mcasp1.mcaspSer[1].MCASP, "$assign");
+scripting.suppress("Resource conflict,MCASP1 is also in use by @@@.+?@@@, @@@.+?@@@", mcasp1.MCASP, "$assign");
+scripting.suppress("Resource conflict,MCASP1 is also in use by @@@.+?@@@, @@@.+?@@@", mcasp1.mcaspSer[0].MCASP, "$assign");
+scripting.suppress("Resource conflict,MCASP1 is also in use by @@@.+?@@@, @@@.+?@@@", mcasp1.mcaspSer[1].MCASP, "$assign");
 
 const udma         = scripting.addModule("/drivers/udma/udma", {}, false);
 const udma1        = udma.addInstance({}, false);
@@ -65,9 +70,11 @@ const udma2         = udma.addInstance({}, false);
 udma2.$name         = "CONFIG_UDMA1";
 mcasp1.pktDmaDriver = udma2;
 
-debug_log.enableUartLog        = true;
-debug_log.uartLog.$name        = "CONFIG_UART0";
-debug_log.uartLog.UART.$assign = "UART3";
+debug_log.enableUartLog            = true;
+debug_log.enableCssLog             = false;
+debug_log.uartLog.$name            = "CONFIG_UART0";
+debug_log.uartLog.UART.$assign     = "UART2";
+debug_log.uartLog.UART.TXD.$assign = "SPI1_CS1";
 
 mmu_armv81.size  = 0x20000000;
 mmu_armv81.$name = "REGISTER_REGION0";
@@ -117,15 +124,15 @@ mmu_armv89.attribute = "MAIR7";
 
 mmu_armv810.$name     = "MSRAM_BANK0_TO_BANK3";
 mmu_armv810.vAddr     = 0x80000000;
-mmu_armv810.pAddr     = 0x80000000;
 mmu_armv810.size      = 0x400000;
 mmu_armv810.attribute = "MAIR7";
+mmu_armv810.pAddr     = 0x72000000;
 
 mmu_armv811.$name     = "MSRAM_BANK4_TO_BANK5";
 mmu_armv811.size      = 0x200000;
 mmu_armv811.vAddr     = 0x80400000;
-mmu_armv811.pAddr     = 0x80400000;
 mmu_armv811.attribute = "MAIR7";
+mmu_armv811.pAddr     = 0x72400000;
 
 mmu_armv812.$name     = "CCS_DEBUG_LOG_MEM";
 mmu_armv812.vAddr     = 0x8027F000;
@@ -140,11 +147,10 @@ mmu_armv812.attribute = "MAIR4";
  */
 i2c1.I2C.SCL.$suggestSolution                  = "I2C0_SCL";
 i2c1.I2C.SDA.$suggestSolution                  = "I2C0_SDA";
-mcasp1.MCASP.AFSX.$suggestSolution             = "MCASP2_AFSX";
-mcasp1.MCASP.ACLKX.$suggestSolution            = "MCASP2_ACLKX";
-mcasp1.MCASP.AFSR.$suggestSolution             = "MCASP4_AXR2";
-mcasp1.MCASP.ACLKR.$suggestSolution            = "MCASP4_AXR1";
+mcasp1.MCASP.AFSX.$suggestSolution             = "MCASP1_AFSX";
+mcasp1.MCASP.ACLKX.$suggestSolution            = "MCASP1_ACLKX";
+mcasp1.MCASP.AFSR.$suggestSolution             = "MCASP0_AXR15";
+mcasp1.MCASP.ACLKR.$suggestSolution            = "MCASP0_AXR14";
 mcasp1.mcaspSer[0].MCASP.AXR0.$suggestSolution = "MCASP1_AXR0";
 mcasp1.mcaspSer[1].MCASP.AXR1.$suggestSolution = "MCASP1_AXR1";
-debug_log.uartLog.UART.RXD.$suggestSolution    = "MCASP0_AXR8";
-debug_log.uartLog.UART.TXD.$suggestSolution    = "GPIO1_47";
+debug_log.uartLog.UART.RXD.$suggestSolution    = "MCASP0_AXR6";
