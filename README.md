@@ -196,6 +196,12 @@ Download and install PSDK Linux on **${HOME}/ti** directory corresponding to the
       - If you have Ubuntu 22.04, do below in Linux Ubuntu shell to install openssl
         -`$ sudo apt install openssl`
 
+ 7. Install Device Tree Compiler (DTC)
+
+    - Device Tree Compiler (DTC) is unavailable for Windows, and is required for Windows users.
+    - In Linux,
+      - If you have Ubuntu 22.04, do below in Linux Ubuntu shell to install dtc
+        -`$ sudo apt-get install device-tree-compiler`
 ---
 
 **NOTE**
@@ -225,6 +231,9 @@ Download and install PSDK Linux on **${HOME}/ti** directory corresponding to the
 - Pass one of these values to `"DEVICE="`
 - You can also build components (examples, tests or libraries) in `release` or `debug`
   profiles. To do this pass one of these values to `"PROFILE="`
+- For A53 cores in am62x, there is a support to build the appimages with **Trusted Firmware-A (TF-A)** binary.
+- You can set the pass the values as `yes` or `no` to `"ATF_INTEGRATED_BOOT="` to build the appimage with/without ATF binary respectively.
+- By default, it's set to `yes` and all the A53 examples in am62x are built with ATF binary in their appimages.
 
 ---
 
@@ -250,6 +259,10 @@ Download and install PSDK Linux on **${HOME}/ti** directory corresponding to the
    ```bash
    make -s -C examples/hello_world/am62ax-sk/mcu-r5fss0-0_nortos/ti-arm-clang all PROFILE=debug
    ```
+   For AM62x, to build without the ATF binary for A53, run the following:
+   ```bash
+   make -s -C examples/hello_world/am62x-sk/a53ss0-0_freertos/gcc-aarch64 all PROFILE=debug ATF_INTEGRATED_BOOT=no
+   ```
    `Note`: For AM62x, an external library named `atf` is added. Make sure to build external libraries
    before building any example for Am62x as follows. The below command will not have any effect for
    other SoCs.
@@ -263,6 +276,11 @@ Download and install PSDK Linux on **${HOME}/ti** directory corresponding to the
    ```bash
    make -s -j4 clean DEVICE=am62ax PROFILE=debug
    make -s -j4 all   DEVICE=am62ax PROFILE=debug
+   ```
+   For AM62x, to build the libraries and examples without TF-A, run the following:
+   ```bash
+   make -s -j4 clean DEVICE=am62ax PROFILE=debug ATF_INTEGRATED_BOOT=no
+   make -s -j4 all   DEVICE=am62ax PROFILE=debug ATF_INTEGRATED_BOOT=no
    ```
 
 ### Building and Running Secondary-Bootloader (SBL)

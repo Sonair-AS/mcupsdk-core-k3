@@ -202,8 +202,6 @@ To build applications using this SDK, one needs below host PC machine
 
 To download, install and setup CCS, follow instructions on this page, \ref CCS_SETUP_PAGE .
 
-## Download and Install Additional SDK Tools
-
 ### TI CLANG Compiler Toolchain {#INSTALL_TIARMCLANG}
 
 
@@ -215,3 +213,16 @@ To download, install and setup CCS, follow instructions on this page, \ref CCS_S
 - Install at below path,
   - Windows, C:/ti
   - Linux, ${HOME}/ti
+
+### Device Tree Compiler {#INSTALL_DTC}
+
+\attention You MUST install device tree compiler only if you're on Linux.
+
+- Device Tree Compiler is required for ATF (Arm Trusted Firmware) to build.
+- If you haven't installed device tree compiler, you are likely to run into this error while building ATF:
+
+        ../../make helpers/toolchain.sk: 344: The configured host device tree compiler could not be identified and may not be supported:
+
+- Do below in Linux Ubuntu shell to install device tree compiler (DTC).
+
+        $ sudo apt install device-tree-compiler

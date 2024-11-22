@@ -28,7 +28,7 @@ Support for SW version check of binaries through RPRC header                    
 FreeRTOS AMP support on A53                                                                    | Kernel
 RTC driver                                                                                     | Drivers
 Display driver support on A53                                                                  | Drivers
-A53 applications booted with ATF now                                                           | Bootloader
+A53 applications booted with ATF now                                                           | ATF
 
 
 ### Experimental Features {#EXPERIMENTAL_FEATURES}

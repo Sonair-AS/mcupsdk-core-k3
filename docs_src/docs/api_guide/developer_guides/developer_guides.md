@@ -73,6 +73,7 @@ SDK features and tools.
 - \subpage SMP_FREERTOS_GUIDE
 \endcond
 \cond SOC_AM62X
+- \subpage ATF_INTEGRATION
 - \subpage MEMORY_MAP
 - \subpage CUSTOM_FLASH_SUPPORT_GUIDE
 \endcond
