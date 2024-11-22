@@ -80,6 +80,10 @@ const socIncludes = {
         "${MCU_PLUS_SDK_PATH}/source/networking/enet/soc/awr294x",
         "${MCU_PLUS_SDK_PATH}/source/networking/lwip/lwip-config/awr294x",
     ],
+    am275x : [
+        "${MCU_PLUS_SDK_PATH}/source/networking/enet/soc/k3/am275x",
+        "${MCU_PLUS_SDK_PATH}/source/networking/lwip/lwip-config/am275x",
+    ],
 
 };
 
@@ -115,6 +119,8 @@ const soc_cflags = {
     am62px : [
     ],
     am62dx : [
+    ],
+    am275x : [
     ],
     am263x : [
         "-Wno-ti-macros",
@@ -185,6 +191,9 @@ const soc_defines = {
     ],
     awr294x : [
     ],
+    am275x : [
+        "SOC_AM275X",
+    ],
 };
 
 const buildOptionCombos = [
@@ -199,6 +208,7 @@ const buildOptionCombos = [
     { device: "am62x",  cpu: "a53", cgt: "gcc-aarch64"},
     { device: "am62px",  cpu: "wkup-r5f", cgt: "ti-arm-clang"},
     { device: "am62dx",  cpu: "r5f", cgt: "ti-arm-clang"},
+    { device: "am275x",  cpu: "r5f", cgt: "ti-arm-clang"},
 ];
 
 function getComponentProperty(device) {

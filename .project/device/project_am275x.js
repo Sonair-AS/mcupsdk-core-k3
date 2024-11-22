@@ -14,6 +14,12 @@ const component_file_list = [
     "source/kernel/nortos/.project/project.js",
     "source/kernel/freertos/.project/project.js",
     "source/networking/enet/.project/project_cpsw.js",
+    "source/networking/enet/.project/project_cpsw_lwipif_freertos.js",
+    "source/networking/enet/.project/project_cpsw_lwipif_nortos.js",
+    "source/networking/lwip/.project/project_contrib_freertos.js",
+    "source/networking/lwip/.project/project_contrib_nortos.js",
+    "source/networking/lwip/.project/project_stack_freertos.js",
+    "source/networking/lwip/.project/project_stack_nortos.js",
     "test/unity/.project/project.js",
     "docs_src/docs/api_guide/doxy_samples/.project/project.js",
 ];

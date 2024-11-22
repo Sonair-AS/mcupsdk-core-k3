@@ -238,6 +238,9 @@ const deviceSpecificIncludes = {
     awr294x : [
         "${MCU_PLUS_SDK_PATH}/source/networking/lwip/lwip-config/awr294x",
     ],
+    am275x : [
+        "${MCU_PLUS_SDK_PATH}/source/networking/lwip/lwip-config/am275x",
+    ],
 };
 
 
@@ -283,6 +286,10 @@ const deviceSpecific_cflags = {
     awr294x : [
         "-fno-strict-aliasing",
     ],
+    am275x : [
+        "-mthumb",
+        "-fno-strict-aliasing",
+    ],
 };
 
 const buildOptionCombos = [
@@ -295,6 +302,7 @@ const buildOptionCombos = [
     { device: "am62ax",  cpu: "r5f", cgt: "ti-arm-clang"},
     { device: "am62px",  cpu: "wkup-r5f", cgt: "ti-arm-clang"},
     { device: "am62dx",  cpu: "r5f", cgt: "ti-arm-clang"},
+    { device: "am275x",  cpu: "r5f", cgt: "ti-arm-clang"},
 ];
 
 function getComponentProperty(device) {
