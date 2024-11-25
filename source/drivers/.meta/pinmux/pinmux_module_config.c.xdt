@@ -20,7 +20,7 @@
             %           let x = peripheral.$solution.devicePinName.toUpperCase();
             %           if((x.includes("MCU") && args[1] == "mcu") || (x.includes("WKUP") && args[1] == "mcu") ||
             %                    (x.includes("PMIC") && args[1] == "mcu")  ||  (x.includes("EMU") && args[1] == "mcu") ||
-            %                    !(x.includes("MCU")) && args[1] == "main")
+            %                    (!((x.includes("MCU")) || x.includes("WKUP") || x.includes("PMIC") || x.includes("EMU")) && args[1] == "main"))
             %           {
                              `soc.getPinConfigCStruct(peripheral, interfaceName, instance)`
             %           }
@@ -29,7 +29,9 @@
             %         let peripheralPin = peripheral[pinName];
             %         if (peripheralPin && peripheralPin.$solution.peripheralPinName) {
             %             let x = peripheralPin.$solution.devicePinName.toUpperCase();
-            %             if((x.includes("MCU") && args[1] == "mcu") || !(x.includes("MCU")) && args[1] == "main")
+            %             if((x.includes("MCU") && args[1] == "mcu") || (x.includes("WKUP") && args[1] == "mcu") ||
+            %                    (x.includes("PMIC") && args[1] == "mcu")  ||  (x.includes("EMU") && args[1] == "mcu") ||
+            %                    (!((x.includes("MCU")) || x.includes("WKUP") || x.includes("PMIC") || x.includes("EMU")) && args[1] == "main"))
             %             {
                              `soc.getPinConfigCStruct(peripheralPin, interfaceName)`
             %             }
