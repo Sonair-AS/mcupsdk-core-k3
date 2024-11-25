@@ -59,15 +59,25 @@
         "/fs/fs",
         "/networking/networking",
 %}
-% if((args.device == "am62ax") || (args.device == "am275x")) {
+
+% if((args.device == "am62ax")) {
         "/kernel/dpl",
         "/drivers/drivers",
         "/board/board",
         "/fs/fs",
-%if((isDevelopmentMode) && (args.device != "am275x")) {
+        "/security/security",
+%if((isDevelopmentMode)){
         "/networking/networking",
 % }
 % }
+% if((args.device == "am275x")) {
+        "/kernel/dpl",
+        "/drivers/drivers",
+        "/board/board",
+        "/fs/fs",
+        "/security/security",
+        "/networking/networking",
+%}
 % if((args.device == "am62dx")) {
         "/kernel/dpl",
         "/drivers/drivers",
