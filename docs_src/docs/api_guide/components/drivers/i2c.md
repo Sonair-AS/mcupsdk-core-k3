@@ -11,6 +11,11 @@ I2C driver provides API to perform transmit/receive to any of the I2C peripheral
 
 - Master and Slave mode of operation
 - Interrupt, Polled Mode
+\cond SOC_AM275X
+
+- For C7x , i2c4 and i2c5 should only be operated in polling mode.
+
+\endcond
 - Blocking and Non-blocking (callback) transfers
 - Queueing of I2C transactions
 - I2C Bus Recovery

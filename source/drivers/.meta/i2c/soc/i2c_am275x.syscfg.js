@@ -123,6 +123,22 @@ const staticConfig_c7x = [
         funcClk: i2c_func_clk,
         clockIds: [ "TISCI_DEV_I2C3" ],
     },
+    {
+        name: "I2C4",
+        baseAddr: "CSL_I2C4_CFG_BASE",
+        intNum: 0xFFFFFFFF,
+        eventId: 0xFFFFFFFF,
+        funcClk: i2c_func_clk,
+        clockIds: [ "TISCI_DEV_I2C4" ],
+    },
+    {
+        name: "I2C5",
+        baseAddr: "CSL_I2C5_CFG_BASE",
+        intNum: 0xFFFFFFFF,
+        eventId: 0xFFFFFFFF,
+        funcClk: i2c_func_clk,
+        clockIds: [ "TISCI_DEV_I2C5" ],
+    },
 ];
 
 
