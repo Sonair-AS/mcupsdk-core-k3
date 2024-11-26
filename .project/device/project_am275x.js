@@ -104,6 +104,9 @@ const example_file_list = [
     "examples/kernel/freertos/posix_demo/.project/project.js",
     "examples/kernel/freertos/task_switch/.project/project_am275x_wkupr5.js",
     "examples/kernel/freertos/task_switch/.project/project.js",
+    "source/networking/enet/core/examples/enet_loopback/enet_cpsw_loopback/loopback_mac_end/.project/project.js",
+    "source/networking/enet/core/examples/lwip/enet_cpsw_tcpserver/.project/project.js",
+    "source/networking/enet/core/examples/lwip/enet_lwip_cpsw/.project/project.js",
 
     // Tests
     "test/board/eeprom/.project/project.js",
