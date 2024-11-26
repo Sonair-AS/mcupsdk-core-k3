@@ -1,5 +1,5 @@
 /*
- *  Copyright (C) 2023-2024 Texas Instruments Incorporated
+ *  Copyright (C) 2018-2024 Texas Instruments Incorporated
  *
  *  Redistribution and use in source and binary forms, with or without
  *  modification, are permitted provided that the following conditions
@@ -28,44 +28,38 @@
  *  THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
  *  (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
  *  OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
- *
  */
-#ifndef SDL_SOC_CONFIG_TOP_H_
-#define SDL_SOC_CONFIG_TOP_H_
 
-#ifdef __cplusplus
-extern "C"
+#include <stdlib.h>
+#include "ti_drivers_config.h"
+#include "ti_board_config.h"
+#include "ti_drivers_open_close.h"
+#include "ti_board_open_close.h"
+
+void wkup_esm0_main(void *args);
+
+int main()
 {
-#endif
+    int32_t status = SystemP_SUCCESS;
 
-#if defined (SOC_AM64X) || defined (SOC_AM243X)
-#include <sdl/include/am64x_am243x/soc_config.h>
-#endif
+    System_init();
+    Board_init();
 
+    /* Open drivers */
+    Drivers_open();
+    /* Open flash and board drivers */
+    status = Board_driversOpen();
+    DebugP_assert(status==SystemP_SUCCESS);
 
-#if defined (SOC_AM62X)
-#include <sdl/include/am62x/soc_config.h>
-#endif
+    wkup_esm0_main(NULL);
 
+    /* Close board and flash drivers */
+    Board_driversClose();
+    /* Close drivers */
+    Drivers_close();
 
-#if defined (SOC_AM62AX)
-#include <sdl/include/am62ax/soc_config.h>
-#endif
+    Board_deinit();
+    System_deinit();
 
-#if defined (SOC_AM62PX)
-#include <sdl/include/am62px/soc_config.h>
-#endif
-
-#if defined (SOC_AM62DX)
-#include <sdl/include/am62dx/soc_config.h>
-#endif
-
-#if defined (SOC_AM275X)
-#include <sdl/include/am275x/soc_config.h>
-#endif
-
-#ifdef __cplusplus
+    return 0;
 }
-#endif
-
-#endif

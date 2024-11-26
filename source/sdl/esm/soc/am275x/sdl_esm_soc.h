@@ -1,5 +1,5 @@
 /*
- *  Copyright (C) 2023-2024 Texas Instruments Incorporated
+ *  Copyright (c) Texas Instruments Incorporated 2023-24
  *
  *  Redistribution and use in source and binary forms, with or without
  *  modification, are permitted provided that the following conditions
@@ -30,42 +30,45 @@
  *  OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  *
  */
-#ifndef SDL_SOC_CONFIG_TOP_H_
-#define SDL_SOC_CONFIG_TOP_H_
+/*
+ * SDL ESM
+ *
+ * Software Diagnostics Reference module for Error Signaling Module
+ *
+*/
+
+
+
+#ifndef INCLUDE_SDL_ESM_SOC_AM275X_H_ 
+#define INCLUDE_SDL_ESM_SOC_AM275X_H_
 
 #ifdef __cplusplus
-extern "C"
-{
+extern "C" {
 #endif
 
-#if defined (SOC_AM64X) || defined (SOC_AM243X)
-#include <sdl/include/am64x_am243x/soc_config.h>
-#endif
+#include <sdl/include/am275x/sdlr_intr_wkup_esm0.h>
+#include <sdl/include/am275x/sdlr_intr_esm0.h>
+#include <sdl/include/am275x/sdlr_soc_baseaddress.h>
+
+/* Defines for ESM base addresses */
+#define SOC_WKUP_ESM_BASE (SDL_WKUP_ESM0_CFG_BASE)
+#define SOC_MAIN_ESM_BASE (SDL_ESM0_CFG_BASE)
+
+#define SOC_WKUP_ESM_MAX_NUM_EVENTS (SDLR_WKUP_ESM0_ESM_PLS_EVENT2_MCU_MCU_GPIOMUX_INTROUTER0_OUTP_11+1U)
+#define SOC_MAIN_ESM_MAX_NUM_EVENTS (SDLR_ESM0_ESM_PLS_EVENT2_RTI5_INTR_WWD_0+1U)  
 
 
-#if defined (SOC_AM62X)
-#include <sdl/include/am62x/soc_config.h>
-#endif
-
-
-#if defined (SOC_AM62AX)
-#include <sdl/include/am62ax/soc_config.h>
-#endif
-
-#if defined (SOC_AM62PX)
-#include <sdl/include/am62px/soc_config.h>
-#endif
-
-#if defined (SOC_AM62DX)
-#include <sdl/include/am62dx/soc_config.h>
-#endif
-
-#if defined (SOC_AM275X)
-#include <sdl/include/am275x/soc_config.h>
-#endif
+typedef enum {
+    /**< WKUP_ESM0 instance  */
+   SDL_ESM_INST_WKUP_ESM0 = 1,
+   /**< ESM0 (Main domain) instance  */
+   SDL_ESM_INST_MAIN_ESM0 = 2,
+   /**< Invalid instance > */
+  SDL_ESM_INSTANCE_MAX=0xFFFF
+} SDL_ESM_Inst;
 
 #ifdef __cplusplus
 }
-#endif
+#endif  /* extern "C" */
 
-#endif
+#endif /* INCLUDE_SDL_ESM_SOC_AM275X_H_ */

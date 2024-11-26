@@ -74,13 +74,17 @@
 #include <sdl/include/am62px/sdlr_soc_baseaddress.h>
 #include <sdl/esm/soc/am62px/sdl_esm_core.h>
 #endif
+#if defined (SOC_AM275X)
+#include <sdl/include/am275x/sdlr_soc_baseaddress.h>
+#include <sdl/esm/soc/am275x/sdl_esm_core.h>
+#endif
 
 #if defined (SOC_AM62DX)
 #include <sdl/include/am62dx/sdlr_soc_baseaddress.h>
 #include <sdl/esm/soc/am62dx/sdl_esm_core.h>
 #endif
 
-#if defined (SOC_AM62X) || defined (SOC_AM62AX) || defined (SOC_AM62PX) || defined (SOC_AM62DX)
+#if defined (SOC_AM62X) || defined (SOC_AM62AX) || defined (SOC_AM62PX) || defined (SOC_AM62DX) || defined(SOC_AM275X)
 #define SDL_TEST_ESM_BASE  SDL_WKUP_ESM0_CFG_BASE
 #define INT_NUM_HI		SDL_WKUP_ESM_HI_INTNO
 #define INT_NUM_LO		SDL_WKUP_ESM_LO_INTNO
@@ -89,6 +93,7 @@
 
 SDL_ESM_config ESM_esmInitConfig_MAIN_appcallback =
 {
+    #if defined (SOC_AM62X) || defined (SOC_AM62AX) || defined (SOC_AM62PX)
     .esmErrorConfig = {1u, 8u}, /* Self test error config */
     .enableBitmap = {0x00000000u, 0xfffffffbu, 0x7fffffffu, 0xffffffffu,
                  0xffffffffu, 0xffffffffu, 0xffffffffu, 0xffffffffu,
@@ -117,6 +122,37 @@ SDL_ESM_config ESM_esmInitConfig_MAIN_appcallback =
                       },
     /**< All events high priority: except clkstop for unused clocks
      *   and PCIE events */
+    #endif
+    #if defined (SOC_AM275X)
+    .esmErrorConfig = {1u, 8u}, /* Self test error config */
+    .enableBitmap = {0x00000000u, 0xfffffffbu, 0x7fffffffu, 0xffffffffu,
+                 0xffffffffu, 0xffffffffu, 0xffffffffu, 0xffffefbfu,
+                 0xffffffffu, 0xffffffffu, 0xffffffffu, 0xffffffffu,
+                 0xffffffffu, 0xffffffffu, 0xffffffffu, 0x00000000u,
+                 0x00000000u, 0x00000000u, 0x00000000u, 0x00000000u,
+                 0xffffffffu,
+                },
+     /**< All events enable: except clkstop events for unused clocks
+      *   and PCIE events */
+    .priorityBitmap = {0x00000000u, 0xfffffffbu, 0x7fffffffu, 0x00000001u,
+                         0xffffffffu, 0xffffffffu, 0xffffffffu, 0xffffefbfu,
+                         0xffffffffu, 0xffffffffu, 0xffffffffu, 0xffffffffu,
+                         0xffffffffu, 0xffffffffu, 0xffffffffu, 0x00000000u,
+                         0x00000000u, 0x00000000u, 0x00000000u, 0x00000000u,
+                         0xffffffffu,
+                        },
+    /**< All events high priority: except clkstop events for unused clocks
+     *   and PCIE events */
+    .errorpinBitmap = {0x00000000u, 0xfffffffbu, 0x7fffffffu, 0xffffffffu,
+                       0xffffffffu, 0xffffffffu, 0xffffffffu, 0xffffefbfu,
+                       0xffffffffu, 0xffffffffu, 0xffffffffu, 0xffffffffu,
+                       0xffffffffu, 0xffffffffu, 0xffffffffu, 0x00000000u,
+                       0x00000000u, 0x00000000u, 0x00000000u, 0x00000000u,
+                       0xffffffffu,
+                      },
+    /**< All events high priority: except clkstop for unused clocks
+     *   and PCIE events */
+    #endif
 };
 
 extern int32_t SDL_ESM_errorInsert (const SDL_ESM_Inst esmInstType,
@@ -140,7 +176,7 @@ int32_t sdl_Esm_posTest(void)
 #endif
 
 
-#if defined(SOC_AM62X)|| defined(SOC_AM62AX) || defined (SOC_AM62PX) || defined (SOC_AM62DX)
+#if defined(SOC_AM62X)|| defined(SOC_AM62AX) || defined (SOC_AM62PX) || defined (SOC_AM62DX) || defined(SOC_AM275X)
     SDL_ESM_Inst  instance =SDL_ESM_INST_WKUP_ESM0;
 	SDL_ESM_Inst  startInstance =SDL_ESM_INST_WKUP_ESM0;
 	SDL_ESM_Inst  endInstance =SDL_ESM_INST_MAIN_ESM0;
@@ -699,7 +735,7 @@ int32_t sdl_Esm_posTest(void)
         }
 #endif
 #endif
-#if defined (SOC_AM62X) || defined (SOC_AM62AX) || defined (SOC_AM62PX) || defined (SOC_AM62DX)
+#if defined (SOC_AM62X) || defined (SOC_AM62AX) || defined (SOC_AM62PX) || defined (SOC_AM62DX) || defined(SOC_AM275X)
 #if defined (R5F_CORE)
           if (SDL_ESM_getIntNumber(SDL_ESM_INST_MAIN_ESM0, SDL_ESM_INT_TYPE_HI) != SDL_MAIN_ESM_HI_INTNO)
           {
@@ -721,7 +757,7 @@ int32_t sdl_Esm_posTest(void)
         }
 #endif
 #endif
-#if defined (SOC_AM62X) || defined (SOC_AM62AX) || defined (SOC_AM62PX) || defined (SOC_AM62DX)
+#if defined (SOC_AM62X) || defined (SOC_AM62AX) || defined (SOC_AM62PX) || defined (SOC_AM62DX) || defined(SOC_AM275X)
 #if defined (R5F_CORE)
           if (SDL_ESM_getIntNumber(SDL_ESM_INST_MAIN_ESM0, SDL_ESM_INT_TYPE_CFG) != SDL_MAIN_ESM_CFG_INTNO)
           {
@@ -743,7 +779,7 @@ int32_t sdl_Esm_posTest(void)
         }
 #endif
 #endif
-#if defined (SOC_AM62X) || defined (SOC_AM62AX) || defined (SOC_AM62PX) || defined (SOC_AM62DX)
+#if defined (SOC_AM62X) || defined (SOC_AM62AX) || defined (SOC_AM62PX) || defined (SOC_AM62DX) || defined(SOC_AM275X)
 #if defined (R5F_CORE)
           if (SDL_ESM_getIntNumber(SDL_ESM_INST_MAIN_ESM0, SDL_ESM_INT_TYPE_LO) != SDL_MAIN_ESM_LO_INTNO)
           {

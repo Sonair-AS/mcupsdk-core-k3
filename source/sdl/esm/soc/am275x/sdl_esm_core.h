@@ -1,5 +1,5 @@
 /*
- *  Copyright (C) 2023-2024 Texas Instruments Incorporated
+ *  Copyright (c) Texas Instruments Incorporated 2024
  *
  *  Redistribution and use in source and binary forms, with or without
  *  modification, are permitted provided that the following conditions
@@ -30,42 +30,37 @@
  *  OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  *
  */
-#ifndef SDL_SOC_CONFIG_TOP_H_
-#define SDL_SOC_CONFIG_TOP_H_
+/*
+ * SDL ESM
+ *
+ * Software Diagnostics Reference module for Error Signaling Module
+ *
+*/
+
+#ifndef INCLUDE_SDL_ESM_CORE_H_
+#define INCLUDE_SDL_ESM_CORE_H_
+#include <sdl/esm/sdl_esm.h>
 
 #ifdef __cplusplus
-extern "C"
-{
+extern "C" {
 #endif
 
-#if defined (SOC_AM64X) || defined (SOC_AM243X)
-#include <sdl/include/am64x_am243x/soc_config.h>
-#endif
+#include <sdl/include/am275x/sdlr_intr_r5fss0_core0.h>
+#include <sdl/include/am275x/sdlr_intr_wkup_r5fss0_core0.h>
+
+/* Enumerate Interrupt number for the different esm interrupts */
 
 
-#if defined (SOC_AM62X)
-#include <sdl/include/am62x/soc_config.h>
-#endif
+#define SDL_WKUP_ESM_HI_INTNO  SDLR_WKUP_R5FSS0_CORE0_INTR_WKUP_ESM0_ESM_INT_HI_LVL_0
+#define SDL_WKUP_ESM_LO_INTNO  SDLR_WKUP_R5FSS0_CORE0_INTR_WKUP_ESM0_ESM_INT_LOW_LVL_0
+#define SDL_WKUP_ESM_CFG_INTNO SDLR_WKUP_R5FSS0_CORE0_INTR_WKUP_ESM0_ESM_INT_CFG_LVL_0
 
+#define SDL_MAIN_ESM_HI_INTNO  SDLR_R5FSS0_CORE0_INTR_ESM0_ESM_INT_HI_LVL_0
+#define SDL_MAIN_ESM_LO_INTNO  SDLR_R5FSS0_CORE0_INTR_ESM0_ESM_INT_LOW_LVL_0
+#define SDL_MAIN_ESM_CFG_INTNO SDLR_R5FSS0_CORE0_INTR_ESM0_ESM_INT_CFG_LVL_0
 
-#if defined (SOC_AM62AX)
-#include <sdl/include/am62ax/soc_config.h>
-#endif
-
-#if defined (SOC_AM62PX)
-#include <sdl/include/am62px/soc_config.h>
-#endif
-
-#if defined (SOC_AM62DX)
-#include <sdl/include/am62dx/soc_config.h>
-#endif
-
-#if defined (SOC_AM275X)
-#include <sdl/include/am275x/soc_config.h>
-#endif
 
 #ifdef __cplusplus
 }
-#endif
-
-#endif
+#endif  /* extern "C" */
+#endif /* INCLUDE_SDL_ESM_CORE_H_ */

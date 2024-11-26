@@ -1,5 +1,5 @@
 /*
- *  Copyright (C) 2023-2024 Texas Instruments Incorporated
+ *  Copyright (C) 2022-2024 Texas Instruments Incorporated
  *
  *  Redistribution and use in source and binary forms, with or without
  *  modification, are permitted provided that the following conditions
@@ -30,39 +30,28 @@
  *  OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  *
  */
-#ifndef SDL_SOC_CONFIG_TOP_H_
-#define SDL_SOC_CONFIG_TOP_H_
+#ifndef SDL_SOC_CONFIG_IN_H_
+#define SDL_SOC_CONFIG_IN_H_
 
 #ifdef __cplusplus
 extern "C"
 {
 #endif
 
-#if defined (SOC_AM64X) || defined (SOC_AM243X)
-#include <sdl/include/am64x_am243x/soc_config.h>
-#endif
+/* IP versions */
 
 
-#if defined (SOC_AM62X)
-#include <sdl/include/am62x/soc_config.h>
-#endif
-
-
-#if defined (SOC_AM62AX)
-#include <sdl/include/am62ax/soc_config.h>
-#endif
-
-#if defined (SOC_AM62PX)
-#include <sdl/include/am62px/soc_config.h>
-#endif
-
-#if defined (SOC_AM62DX)
-#include <sdl/include/am62dx/soc_config.h>
-#endif
-
-#if defined (SOC_AM275X)
-#include <sdl/include/am275x/soc_config.h>
-#endif
+#define IP_VERSION_DCC_V0
+#define IP_VERSION_ESM_V0
+#define IP_VERSION_ESM_V0_0
+#define IP_VERSION_ECC_V0
+#define IP_VERSION_LBIST_V0
+#define IP_VERSION_MCRC_V0
+#define IP_VERSION_PBIST_V0
+#define IP_VERSION_POK_V1
+#define IP_VERSION_ROMCHECKSUM_V0
+#define IP_VERSION_RTI_V0
+#define IP_VERSION_VTM_V0
 
 #ifdef __cplusplus
 }
