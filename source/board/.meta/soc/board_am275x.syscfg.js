@@ -2,6 +2,9 @@
 let common = system.getScript("/common");
 
 const driverVer = {
+    "ethphy": {
+        version: "am275x",
+    },
     "flash": {
         version: "v0",
     },
@@ -11,8 +14,9 @@ const driverVer = {
 };
 
 const topModules_r5 = [
-    "/board/led/led",
     "/board/eeprom/eeprom",
+    "board/ethphy_cpsw_icssg/ethphy_cpsw_icssg",
+    "/board/led/led",
 ];
 const topModules_wkup_r5 = [
     "/board/flash/flash",

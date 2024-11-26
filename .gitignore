@@ -76,4 +76,4 @@ tools/sysfw/boardcfg/k3-resource-partitioning
 source/safety_checkers
 source/board/pmic/pmic_lld
 tools/boot/multicoreELFImageGen
-source/board/ethphy/
+source/board/ethphy/enet/

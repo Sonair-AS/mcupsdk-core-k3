@@ -5,6 +5,12 @@ let device = "am275x";
 
 const files_r5f={
     common: [
+        "dp83tc812.c",
+		"dp83tg720.c",
+		"dp83869.c",
+		"dp83867.c",
+		"dp83822.c",
+		"dp83826.c",
         "eeprom.c",
         "eeprom_at24c512c.c",
         "flash.c",
@@ -17,6 +23,7 @@ const files_r5f={
         "led_tpic2810.c",
         "led_ioexp_am275x_evm.c",
         "nor_spi_sfdp.c",
+        "phy_common_priv.c",
     ],
 };
 
@@ -36,11 +43,27 @@ const files_c75x = {
 const filedirs = {
     common: [
         "eeprom",
+        "ethphy/enet/rtos_drivers/src",
+        "ethphy/enet/rtos_drivers/include",
         "flash",
         "flash/ospi",
         "flash/sfdp",
         "ioexp",
         "led",
+    ],
+};
+
+const includes = {
+    common: [
+        "${MCU_PLUS_SDK_PATH}/source/board/ethphy/enet/rtos_drivers/include",
+        "${MCU_PLUS_SDK_PATH}/source/board/ethphy/port",
+    ],
+}
+
+const defines_r5f = {
+    common: [
+        "MCU_SDK_BUILD",
+        "PHY_CFG_TRACE_LEVEL=3",
     ],
 };
 
@@ -65,9 +88,11 @@ function getComponentBuildProperty(buildOption) {
     let build_property = {};
 
     build_property.filedirs = filedirs;
+    build_property.includes = includes;
     if(buildOption.cpu.match(/r5f*/))
     {
         build_property.files = files_r5f;
+        build_property.defines = defines_r5f;
     }
     else if(buildOption.cpu.match(/c75x*/))
     {

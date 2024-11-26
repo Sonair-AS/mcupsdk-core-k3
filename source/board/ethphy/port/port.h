@@ -104,7 +104,7 @@ extern "C"
  *        a condition is met.
  */
 #ifdef __cplusplus
-#define PHYTRACE_ERR_IF(cond, ...) ((cond) ? PHYTRACE_ERR(__VA_ARGS__) : void())
+#define PHYTRACE_ERR_IF(cond, ...) ((cond) ? PHYTRACE_ERR(__VA_ARGS__) : 0U)
 #else
 #define PHYTRACE_ERR_IF(cond, ...) ((cond) ? PHYTRACE_ERR(__VA_ARGS__) : 0U)
 #endif
@@ -123,7 +123,7 @@ extern "C"
  *        a condition is met.
  */
 #ifdef __cplusplus
-#define PHYTRACE_WARN_IF(cond, ...) ((cond) ? PHYTRACE_WARN(__VA_ARGS__) : void())
+#define PHYTRACE_WARN_IF(cond, ...) ((cond) ? PHYTRACE_WARN(__VA_ARGS__) : 0U)
 #else
 #define PHYTRACE_WARN_IF(cond, ...) ((cond) ? PHYTRACE_WARN(__VA_ARGS__) : 0U)
 #endif
@@ -147,7 +147,7 @@ extern "C"
  *        a condition is met.
  */
 #ifdef __cplusplus
-#define PHYTRACE_INFO_IF(cond, ...) ((cond) ? PHYTRACE_INFO(__VA_ARGS__) : void())
+#define PHYTRACE_INFO_IF(cond, ...) ((cond) ? PHYTRACE_INFO(__VA_ARGS__) : 0U)
 #else
 #define PHYTRACE_INFO_IF(cond, ...) ((cond) ? PHYTRACE_INFO(__VA_ARGS__) : 0U)
 #endif
@@ -172,7 +172,7 @@ extern "C"
  *        a condition is met.
  */
 #ifdef __cplusplus
-#define PHYTRACE_DBG_IF(cond, ...) ((cond) ? PHYTRACE_DBG(__VA_ARGS__) : void())
+#define PHYTRACE_DBG_IF(cond, ...) ((cond) ? PHYTRACE_DBG(__VA_ARGS__) : 0U)
 #else
 #define PHYTRACE_DBG_IF(cond, ...) ((cond) ? PHYTRACE_DBG(__VA_ARGS__) : 0U)
 #endif
@@ -198,7 +198,7 @@ extern "C"
  *        a condition is met.
  */
 #ifdef __cplusplus
-#define PHYTRACE_VERBOSE_IF(cond, ...) ((cond) ? PHYTRACE_VERBOSE(__VA_ARGS__) : void())
+#define PHYTRACE_VERBOSE_IF(cond, ...) ((cond) ? PHYTRACE_VERBOSE(__VA_ARGS__) : 0U)
 #else
 #define PHYTRACE_VERBOSE_IF(cond, ...) ((cond) ? PHYTRACE_VERBOSE(__VA_ARGS__) : 0U)
 #endif
