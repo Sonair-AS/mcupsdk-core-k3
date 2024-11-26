@@ -20,7 +20,7 @@ const mcasp_config = [
         clockFrequencies            : [
             {
                 moduleId: "TISCI_DEV_MCASP0_LOCAL_AUXCLK_SEL_DEV_VD ",
-                clkId   : "TISCI_DEV_DEV_MCASP0_LOCAL_AUXCLK_SEL_DEV_VD_CLK",
+                clkId   : "TISCI_DEV_MCASP0_LOCAL_AUXCLK_SEL_DEV_VD_CLK",
                 clkRate : mcasp_input_clk_freq,
             },
             {
@@ -76,10 +76,10 @@ const mcasp_config = [
         inputClkFreq                : mcasp_input_clk_freq,
         wkupR5RxIntr                : 124,
         wkupR5TxIntr                : 125,
-        c7xRxIntr                   : 271,
-        c7xTxIntr                   : 272,
-        c7xRxEvent                  : 43,
-        c7xTxEvent                  : 44,
+        c7xRxIntr                   : 43,
+        c7xTxIntr                   : 44,
+        c7xRxEvent                  : 271,
+        c7xTxEvent                  : 272,
         clockIds                    : ["TISCI_DEV_MCASP2"],
         clockFrequencies            : [
             {
@@ -108,10 +108,10 @@ const mcasp_config = [
         inputClkFreq                : mcasp_input_clk_freq,
         wkupR5RxIntr                : 126,
         wkupR5TxIntr                : 127,
-        c7xRxIntr                   : 273,
-        c7xTxIntr                   : 274,
-        c7xRxEvent                  : 45,
-        c7xTxEvent                  : 46,
+        c7xRxIntr                   : 45,
+        c7xTxIntr                   : 46,
+        c7xRxEvent                  : 273,
+        c7xTxEvent                  : 274,
         clockIds                    : ["TISCI_DEV_MCASP3"],
         clockFrequencies            : [
             {
@@ -140,10 +140,10 @@ const mcasp_config = [
         inputClkFreq                : mcasp_input_clk_freq,
         wkupR5RxIntr                : 130,
         wkupR5TxIntr                : 131,
-        c7xRxIntr                   : 275,
-        c7xTxIntr                   : 276,
-        c7xRxEvent                  : 47,
-        c7xTxEvent                  : 48,
+        c7xRxIntr                   : 47,
+        c7xTxIntr                   : 48,
+        c7xRxEvent                  : 275,
+        c7xTxEvent                  : 276,
         clockIds                    : ["TISCI_DEV_MCASP4"],
         clockFrequencies            : [
             {
