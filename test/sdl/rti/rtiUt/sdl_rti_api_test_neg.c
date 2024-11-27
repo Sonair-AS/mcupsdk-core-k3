@@ -1,5 +1,5 @@
 /*
- *    Copyright (c) 2022 Texas Instruments Incorporated
+ *    Copyright (c) 2022-2024 Texas Instruments Incorporated
  *
  *  Redistribution and use in source and binary forms, with or without
  *  modification, are permitted provided that the following conditions
@@ -41,7 +41,12 @@ int32_t SDL_RTI_negTest()
     int32_t         testStatus = SDL_APP_TEST_PASS, sdlRet;
 
     SDL_RTI_staticRegs        pStaticRegs;
+    #if defined (SOC_AM62X) || defined (SOC_AM62PX) || defined (SOC_AM62AX)
     SDL_RTI_InstanceType   validInstance = SDL_INSTANCE_RTI0_CFG;
+    #endif
+    #if defined (SOC_AM275X)
+    SDL_RTI_InstanceType   validInstance = SDL_INSTANCE_RTI0;
+    #endif
     SDL_RTI_configParms       pConfig;
 
     pConfig.SDL_RTI_dwwdPreloadVal = RTI_RTIDWDPRLD_INVALID;
@@ -55,7 +60,12 @@ int32_t SDL_RTI_negTest()
 
 	if (testStatus == SDL_APP_TEST_PASS)
 	{
-		sdlRet = SDL_RTI_getBaseaddr(SDL_INSTANCE_RTI0_CFG, NULL);
+        #if defined (SOC_AM62X) || defined (SOC_AM62PX) || defined (SOC_AM62AX)
+        sdlRet = SDL_RTI_getBaseaddr(SDL_INSTANCE_RTI0_CFG, NULL);
+        #endif
+        #if defined (SOC_AM275X)
+        sdlRet = SDL_RTI_getBaseaddr(SDL_INSTANCE_RTI0, NULL);
+        #endif
 		if (sdlRet != SDL_EBADARGS)
 		{
 			testStatus = SDL_APP_TEST_FAILED;
@@ -374,7 +384,12 @@ int32_t SDL_RTI_negTest()
 *     Coverage test case for SDL_RTI_getWindowSize
 *******************************************************************************************/
 
+    #if defined (SOC_AM62X) || defined (SOC_AM62PX) || defined (SOC_AM62AX)
     baseAddr = SDL_RTI_baseAddress[SDL_INSTANCE_MCU_RTI0_CFG];
+    #endif
+    #if defined (SOC_AM275X)
+    baseAddr = SDL_RTI_baseAddress[SDL_INSTANCE_RTI0];
+    #endif
 
     if (testStatus == SDL_APP_TEST_PASS)
     {

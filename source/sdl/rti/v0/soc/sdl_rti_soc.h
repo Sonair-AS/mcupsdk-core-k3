@@ -1,6 +1,6 @@
 /*
  *
- *  Copyright (c) Texas Instruments Incorporated 2023-24
+ *  Copyright (c) Texas Instruments Incorporated 2023-2024
  *
  *  Redistribution and use in source and binary forms, with or without
  *  modification, are permitted provided that the following conditions
@@ -49,6 +49,9 @@ extern "C" {
 
 #if defined (SOC_AM62PX)
 #include <sdl/rti/v0/soc/am62px/sdl_soc_rti.h>
+#endif
+#if defined (SOC_AM275X)
+#include <sdl/rti/v0/soc/am275x/sdl_soc_rti.h>
 #endif
 
 #if defined (SOC_AM62DX)

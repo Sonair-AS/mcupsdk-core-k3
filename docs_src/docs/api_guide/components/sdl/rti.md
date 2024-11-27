@@ -16,7 +16,7 @@ The module provides the following functionality
 - Ability to read back static register
 
 \cond SOC_AM62X || SOC_AM62PX
-There are 7 RTI Modules in the device – 1 in the MCU domain and 5 in the Main domain and 1 in wakup domain.
+There are 7 RTI Modules in the device – 1 in the MCU domain and 5 in the Main domain and 1 in wkup domain.
 
 Instances in MCU domain:
 1)	MCU_RTI0
@@ -44,6 +44,21 @@ Instances in Main domain:
 3)	RTI2
 4)	RTI3
 5)	RTI4
+
+Instances in WKUP domain:
+1)	WKUP_RTI0
+\endcond
+
+\cond SOC_AM275X
+There are 7 RTI Modules in the device – 6 in the Main domain and 1 in wkup domain.
+
+Instances in Main domain:
+1)	RTI0
+2)	RTI1
+3)	RTI2
+4)	RTI3
+5)	RTI4
+6)  RTI5
 
 Instances in WKUP domain:
 1)	WKUP_RTI0
@@ -143,6 +158,56 @@ SDL_RTI_service(SDL_INSTANCE_WKUP_RTI0);
 \endcode
 
 \endcond
+
+\cond SOC_AM275X
+Config an RTI Instance
+\code{.c}
+SDL_RTI_configParms pConfig;
+
+/* Configure RTI parameters for preload, window and reaction*/
+pConfig.SDL_RTI_dwwdPreloadVal = RTIGetPreloadValue(RTI_CLOCK_SOURCE_200KHZ, RTI_WDT_TIMEOUT);
+pConfig.SDL_RTI_dwwdWindowSize = RTI_DWWD_WINDOWSIZE_100_PERCENT;
+pConfig.SDL_RTI_dwwdReaction   = RTI_DWWD_REACTION_GENERATE_NMI;
+
+retVal = SDL_RTI_config(SDL_INSTANCE_WKUP_RTI0, &pConfig);
+
+if (retVal == SDL_EFAIL)
+{
+    UART_printf("Error during Window configuration.\n");
+}
+\endcode
+
+Verify the config
+\code{.c}
+/* Verify the config */
+retVal = SDL_RTI_verifyConfig(SDL_INSTANCE_WKUP_RTI0, &pConfig);
+
+if (retVal == SDL_EFAIL)
+{
+    UART_printf("Error during Window Verify configuration.\n");
+}
+\endcode
+
+Read the static registers
+\code{.c}
+SDL_RTI_staticRegs pStaticRegs;
+
+retVal = SDL_RTI_readStaticRegs(SDL_INSTANCE_WKUP_RTI0, &pStaticRegs);
+\endcode
+
+Start an RTI Instance
+\code{.c}
+SDL_RTI_start(SDL_INSTANCE_WKUP_RTI0);
+\endcode
+
+Start an RTI Instance
+\code{.c}
+/* Servicing of the watchdog is done by the core that is being monitored with the watchdg */
+SDL_RTI_service(SDL_INSTANCE_WKUP_RTI0);
+\endcode
+
+\endcond
+
 ## API
 
 \ref SDL_RTI_API

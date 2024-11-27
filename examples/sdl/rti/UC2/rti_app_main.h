@@ -52,7 +52,7 @@
 #include <kernel/dpl/DebugP.h>
 #include <dpl_interface.h>
 #include <sdl/esm/sdl_esm_priv.h>
-#include <dpl_interface.h>
+
 #if !defined(SDL_RTI_TEST_H)
 #define SDL_RTI_TEST_H
 

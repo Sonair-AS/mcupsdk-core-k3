@@ -21,6 +21,9 @@ FILES_common := \
     sdl_esm.c \
     sdl_esm_core.c \
     sdl_esm_priv.c \
+    sdl_rti.c \
+    sdl_ip_rti.c \
+    sdl_soc_rti.c \
     sdl_interrupt.c \
     sdl_interrupt_handlers.c \
     sdl_interrupt_register.c \
@@ -84,6 +87,7 @@ INCLUDES_common := \
 DEFINES_common := \
     -DSOC_AM275X \
     -DR5F_CORE \
+    -DSW_VERSION=$(SW_VERSION)
 
 CFLAGS_common := \
     -mcpu=cortex-r5 \

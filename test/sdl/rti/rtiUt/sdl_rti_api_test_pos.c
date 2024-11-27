@@ -1,5 +1,5 @@
 /*
- *    Copyright (c) 2022-24 Texas Instruments Incorporated
+ *    Copyright (c) 2022-2024 Texas Instruments Incorporated
  *
  *  Redistribution and use in source and binary forms, with or without
  *  modification, are permitted provided that the following conditions
@@ -42,7 +42,12 @@ int32_t SDL_RTI_posTest(void)
     uint32_t      status, i, preload_rd, baseAddr, winSize;
     int32_t     testStatus = SDL_APP_TEST_PASS, sdlRet;
     SDL_RTI_configParms       pConfig;
+     #if defined (SOC_AM62X) || defined (SOC_AM62PX) || defined (SOC_AM62AX)
     SDL_RTI_InstanceType   validInstance = SDL_INSTANCE_RTI0_CFG;
+    #endif
+    #if defined (SOC_AM275X)
+    SDL_RTI_InstanceType   validInstance = SDL_INSTANCE_RTI0;
+    #endif
 
     SDL_RTI_staticRegs     pstaticRegs;
 
@@ -68,6 +73,10 @@ int32_t SDL_RTI_posTest(void)
 		for(i= SDL_INSTANCE_MCU_RTI0_CFG; i <= SDL_INSTANCE_RTI4_CFG; i++)
         {
 		#endif
+        #if defined (SOC_AM275X)
+		for(i= SDL_INSTANCE_RTI0; i <= SDL_INSTANCE_RTI5; i++)
+        {
+		#endif
             sdlRet = SDL_RTI_config((SDL_RTI_InstanceType)i, &pConfig);
 
             if (sdlRet != SDL_PASS)
@@ -76,7 +85,7 @@ int32_t SDL_RTI_posTest(void)
                 printf("SDL_RTI_config: failure on line no. %d \n", __LINE__);
             }
         }
-     }
+    }
 
 
 
@@ -92,6 +101,10 @@ int32_t SDL_RTI_posTest(void)
 		#endif
 		#if defined (SOC_AM62AX) || defined (SOC_AM62DX)
 		for(i= SDL_INSTANCE_MCU_RTI0_CFG; i <= SDL_INSTANCE_RTI4_CFG; i++)
+        {
+		#endif
+        #if defined (SOC_AM275X)
+		for(i= SDL_INSTANCE_RTI0; i <= SDL_INSTANCE_RTI5; i++)
         {
 		#endif
             sdlRet = SDL_RTI_verifyConfig((SDL_RTI_InstanceType)i, &pConfig);
@@ -121,6 +134,10 @@ int32_t SDL_RTI_posTest(void)
 		for(i= SDL_INSTANCE_MCU_RTI0_CFG; i <= SDL_INSTANCE_RTI4_CFG; i++)
         {
 		#endif
+        #if defined (SOC_AM275X)
+		for(i= SDL_INSTANCE_RTI0; i <= SDL_INSTANCE_RTI5; i++)
+        {
+		#endif
             sdlRet = SDL_RTI_start((SDL_RTI_InstanceType)i);
 
             if (sdlRet != SDL_PASS)
@@ -145,6 +162,10 @@ int32_t SDL_RTI_posTest(void)
 		#endif
 		#if defined (SOC_AM62AX) || defined (SOC_AM62DX)
 		for(i= SDL_INSTANCE_MCU_RTI0_CFG; i <= SDL_INSTANCE_RTI4_CFG; i++)
+        {
+		#endif
+        #if defined (SOC_AM275X)
+		for(i= SDL_INSTANCE_RTI0; i <= SDL_INSTANCE_RTI5; i++)
         {
 		#endif
             sdlRet = SDL_RTI_service((SDL_RTI_InstanceType)i);
@@ -173,6 +194,10 @@ int32_t SDL_RTI_posTest(void)
 		for(i= SDL_INSTANCE_MCU_RTI0_CFG; i <= SDL_INSTANCE_RTI4_CFG; i++)
         {
 		#endif
+        #if defined (SOC_AM275X)
+		for(i= SDL_INSTANCE_RTI0; i <= SDL_INSTANCE_RTI5; i++)
+        {
+		#endif
             sdlRet = SDL_RTI_clearStatus((SDL_RTI_InstanceType)i, STATUS_VLD);
 
             if (sdlRet != SDL_PASS)
@@ -199,6 +224,10 @@ int32_t SDL_RTI_posTest(void)
 		for(i= SDL_INSTANCE_MCU_RTI0_CFG; i <= SDL_INSTANCE_RTI4_CFG; i++)
         {
 		#endif
+        #if defined (SOC_AM275X)
+		for(i= SDL_INSTANCE_RTI0; i <= SDL_INSTANCE_RTI5; i++)
+        {
+		#endif
             sdlRet = SDL_RTI_getStatus((SDL_RTI_InstanceType)i, &status);
 
             if (sdlRet != SDL_PASS)
@@ -223,6 +252,10 @@ int32_t SDL_RTI_posTest(void)
 		#endif
 		#if defined (SOC_AM62AX) || defined (SOC_AM62DX)
 		for(i= SDL_INSTANCE_MCU_RTI0_CFG; i <= SDL_INSTANCE_RTI4_CFG; i++)
+        {
+		#endif
+        #if defined (SOC_AM275X)
+		for(i= SDL_INSTANCE_RTI0; i <= SDL_INSTANCE_RTI5; i++)
         {
 		#endif
             sdlRet = SDL_RTI_readStaticRegs((SDL_RTI_InstanceType)i, &pstaticRegs);

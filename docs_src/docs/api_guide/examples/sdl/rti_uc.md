@@ -48,6 +48,20 @@ Use Cases
 
 \endcond
 
+\cond SOC_AM275X
+
+ Parameter      | Value
+ ---------------|-----------
+ CPU + OS       | r5fss0-0 nortos
+ Toolchain      | ti-arm-clang
+ Board          | @VAR_BOARD_NAME_LOWER
+ Example folder | examples/sdl/rti/uc1/
+                | examples/sdl/rti/uc2/
+                | examples/sdl/rti/uc3/
+                | examples/sdl/rti/uc4/
+
+\endcond
+
 # Steps to Run the Example
 
 - **When using CCS projects to build**, import the CCS project for the required combination

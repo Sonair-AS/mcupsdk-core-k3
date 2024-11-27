@@ -9,6 +9,7 @@
 /**
  * Import the modules used in this configuration.
  */
+const clock      = scripting.addModule("/kernel/dpl/clock");
 const debug_log  = scripting.addModule("/kernel/dpl/debug_log");
 const mpu_armv7  = scripting.addModule("/kernel/dpl/mpu_armv7", {}, false);
 const mpu_armv71 = mpu_armv7.addInstance();
@@ -56,3 +57,4 @@ timer1.timerCallback = "timerExpPinDisable";
  */
 debug_log.uartLog.UART.RXD.$suggestSolution = "MCASP4_AXR0";
 debug_log.uartLog.UART.TXD.$suggestSolution = "MLB0_MLBCLK";
+timer1.TIMER.$suggestSolution               = "TIMER7";

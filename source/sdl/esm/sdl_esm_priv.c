@@ -185,14 +185,14 @@ static void SDL_ESM_interruptHandler (uint32_t esmInstBaseAddr,
     }
     /* Check on the highest priority event and handle it */
     do {
-        (void)SDL_ESM_getGroupIntrStatus((uint32_t)esmInstBaseAddr, 
+        (void)SDL_ESM_getGroupIntrStatus((uint32_t)esmInstBaseAddr,
                                          (uint32_t)esmIntrPriorityLvlType,
                                          &localEsmGroupIntrStatus);
-        intSrc1 = localEsmGroupIntrStatus.highestPendPlsIntNum; 
+        intSrc1 = localEsmGroupIntrStatus.highestPendPlsIntNum;
         SDL_ESM_processInterruptSource((uint32_t)esmInstBaseAddr, esmIntType, intSrc1, arg);
         intSrc2 = localEsmGroupIntrStatus.highestPendLvlIntNum;
 
-        SDL_ESM_processInterruptSource((uint32_t)esmInstBaseAddr, esmIntType, intSrc2, arg); 
+        SDL_ESM_processInterruptSource((uint32_t)esmInstBaseAddr, esmIntType, intSrc2, arg);
 
         if (SDL_ESM_checkSpecialEvent(esmInstBaseAddr, (uint32_t)esmIntrPriorityLvlType, &base_addr,
                                       &esm_inst, &isCfgIntr) == true)
@@ -204,7 +204,7 @@ static void SDL_ESM_interruptHandler (uint32_t esmInstBaseAddr,
     return;
 }
 
-static void SDL_ESM_handleCfgIntr(uint32_t baseAddr, SDL_ESM_Inst esmInstType) 
+static void SDL_ESM_handleCfgIntr(uint32_t baseAddr, SDL_ESM_Inst esmInstType)
 {
     SDL_ESM_Instance_t *SDL_ESM_instance;
     uint32_t group;
@@ -215,7 +215,7 @@ static void SDL_ESM_handleCfgIntr(uint32_t baseAddr, SDL_ESM_Inst esmInstType)
     /* Get the proper ESM SW instance here based on esmInstBaseAddr register base */
     for (group = 0; group < ESM_INTR_GRP_NUM; group++)
     {
-        (void)SDL_ESM_getCfgIntrStatus(baseAddr, group, &status); 
+        (void)SDL_ESM_getCfgIntrStatus(baseAddr, group, &status);
         if (status == 0x1u)
         {
             break;
@@ -243,7 +243,7 @@ static void SDL_ESM_handleCfgIntr(uint32_t baseAddr, SDL_ESM_Inst esmInstType)
 /*
  * Design: PROC_SDL-1047
  */
-void SDL_ESM_hiInterruptHandler (void *arg) 
+void SDL_ESM_hiInterruptHandler (void *arg)
 {
     uint32_t esm_base_addr;
     /*Passing the instance and using that to get the base_addr*/
@@ -252,7 +252,7 @@ void SDL_ESM_hiInterruptHandler (void *arg)
     SDL_ESM_Inst esm_inst;
     bool isCfgIntr = (bool)false;
 
-    SDL_ESM_getBaseAddr(instance, &esm_base_addr); 
+    SDL_ESM_getBaseAddr(instance, &esm_base_addr);
 
     if (SDL_ESM_checkSpecialEvent(esm_base_addr, ESM_INTR_PRIORITY_LEVEL_HIGH, &base_addr, &esm_inst, &isCfgIntr) == true)
     {

@@ -1,5 +1,5 @@
 /*
- *  Copyright (c) 2022-24 Texas Instruments Incorporated
+ *  Copyright (c) 2022-2024 Texas Instruments Incorporated
  *
  *  Redistribution and use in source and binary forms, with or without
  *  modification, are permitted provided that the following conditions
@@ -119,6 +119,9 @@ int32_t RTIDwwdIsClosedWindow(uint32_t rtiModuleBase, uint32_t *pIsClosedWindow)
 #if defined (SOC_AM62AX) || defined (SOC_AM62PX) || defined (SOC_AM62DX)
 		SDL_RTI_getBaseaddr(SDL_INSTANCE_MCU_RTI0_CFG,&baseAddr);
 #endif
+#if defined (SOC_AM275X)
+		SDL_RTI_getBaseaddr(SDL_INSTANCE_WKUP_RTI0,&baseAddr);
+#endif
         /* Get configured Window Size */
         windowSize = RTIDwwdReadWinSz(baseAddr);
         switch (windowSize)
@@ -187,12 +190,23 @@ static void RTISetClockSource(uint32_t rtiModuleSelect,
 #if defined (SOC_AM62AX) || defined (SOC_AM62PX) || defined (SOC_AM62DX)
 		case SDL_MCU_RTI0_CFG_BASE:
 #endif
-
+#if defined (SOC_AM275X)
+		case SDL_WKUP_RTI0_CFG_BASE:
+#endif
+            #if defined (SOC_AM62AX) || defined (SOC_AM62PX) || defined (SOC_AM62X)
 			baseAddr = (uint32_t)SDL_DPL_addrTranslate(SDL_MCU_CTRL_MMR_CFG0_MCU_RTI0_CLKSEL, SDL_WKUP_CTRL_MMR0_CFG0_SIZE);
             HW_WR_FIELD32(baseAddr,
                           SDL_MCU_CTRL_MMR_CFG0_MCU_RTI0_CLKSEL_CLK_SEL,
                           rtiClockSourceSelect);
             break;
+            #endif
+            #if defined (SOC_AM275X)
+            baseAddr = (uint32_t)SDL_DPL_addrTranslate(SDL_WKUP_CTRL_MMR0_CFG0_BASE+SDL_WKUP_CTRL_MMR_CFG0_WKUP_WWD0_CLKSEL, SDL_WKUP_CTRL_MMR0_CFG0_SIZE);
+            HW_WR_FIELD32(baseAddr,
+                          SDL_WKUP_CTRL_MMR_CFG0_WKUP_WWD0_CLKSEL_CLK_SEL,
+                          rtiClockSourceSelect);
+            break;
+            #endif
     }
 }
 
@@ -209,6 +223,9 @@ static void RTIAppExpiredDwwdService(uint32_t rtiModuleBase, uint32_t rtiWindow_
 #endif
 #if defined (SOC_AM62AX) || defined (SOC_AM62PX) || defined (SOC_AM62DX)
 	SDL_RTI_getBaseaddr(SDL_INSTANCE_MCU_RTI0_CFG,&rtiModule);
+#endif
+#if defined (SOC_AM275X)
+	SDL_RTI_getBaseaddr(SDL_INSTANCE_WKUP_RTI0,&rtiModule);
 #endif
     /* Set dwwd window size to 100 percent. */
     SDL_RTI_writeWinSz(rtiModule, RTI_DWWD_WINDOWSIZE_100_PERCENT);
@@ -237,6 +254,13 @@ static void RTIAppExpiredDwwdService(uint32_t rtiModuleBase, uint32_t rtiWindow_
     /* Service watchdog again. */
     SDL_RTI_service(SDL_INSTANCE_MCU_RTI0_CFG);
 #endif
+#if defined (SOC_AM275X)
+	SDL_RTI_service(SDL_INSTANCE_WKUP_RTI0);
+    SDL_RTI_writeWinSz(rtiModule, rtiWindow_size);
+    SDL_DPL_delay(1U);
+    /* Service watchdog again. */
+    SDL_RTI_service(SDL_INSTANCE_WKUP_RTI0);
+#endif
 }
 
 int32_t SDL_RTI_funcTest(void)
@@ -258,6 +282,9 @@ int32_t SDL_RTI_funcTest(void)
 #if defined (SOC_AM62AX) || defined (SOC_AM62PX) || defined (SOC_AM62DX)
 	rtiModule = SDL_MCU_RTI0_CFG_BASE;
 #endif
+#if defined (SOC_AM275X)
+	rtiModule = SDL_WKUP_RTI0_CFG_BASE;
+#endif
     printf("RTI Function test started\n");
 
     /* Register Interrupt */
@@ -271,7 +298,7 @@ int32_t SDL_RTI_funcTest(void)
 
     /* Select RTI module clock source */
     RTISetClockSource(rtiModule, RTI_CLOCK_SOURCE_32KHZ);
-    printf("RTI Function test checking1 \n");
+    printf("RTI Function test checking \n");
 #if defined (SOC_AM62X)
 #if defined (M4F_CORE)
     retVal = SDL_RTI_config(SDL_INSTANCE_MCU_RTI0_CFG, &pConfig);
@@ -282,6 +309,9 @@ int32_t SDL_RTI_funcTest(void)
 #endif
 #if defined (SOC_AM62AX) || defined (SOC_AM62PX) || defined (SOC_AM62DX)
 	retVal = SDL_RTI_config(SDL_INSTANCE_MCU_RTI0_CFG, &pConfig);
+#endif
+#if defined (SOC_AM275X)
+	retVal = SDL_RTI_config(SDL_INSTANCE_WKUP_RTI0, &pConfig);
 #endif
 
     if (retVal == SDL_EFAIL)
@@ -301,6 +331,9 @@ int32_t SDL_RTI_funcTest(void)
 #if defined (SOC_AM62AX) || defined (SOC_AM62PX) || defined (SOC_AM62DX)
     retVal = SDL_RTI_verifyConfig(SDL_INSTANCE_MCU_RTI0_CFG, &pConfig);
 #endif
+#if defined (SOC_AM275X)
+    retVal = SDL_RTI_verifyConfig(SDL_INSTANCE_WKUP_RTI0, &pConfig);
+#endif
 
     if (retVal == SDL_EFAIL)
     {
@@ -319,6 +352,9 @@ int32_t SDL_RTI_funcTest(void)
 #endif
 #if defined (SOC_AM62AX) || defined (SOC_AM62PX) || defined (SOC_AM62DX)
         SDL_RTI_readStaticRegs(SDL_INSTANCE_MCU_RTI0_CFG, &pStaticRegs);
+#endif
+#if defined (SOC_AM275X)
+        SDL_RTI_readStaticRegs(SDL_INSTANCE_WKUP_RTI0, &pStaticRegs);
 #endif
 
         switch(pStaticRegs.RTI_WWDSIZECTRL)
@@ -355,6 +391,9 @@ int32_t SDL_RTI_funcTest(void)
 #endif
 #if defined (SOC_AM62AX) || defined (SOC_AM62PX) || defined (SOC_AM62DX)
         SDL_RTI_start(SDL_INSTANCE_MCU_RTI0_CFG);
+#endif
+#if defined (SOC_AM275X)
+        SDL_RTI_start(SDL_INSTANCE_WKUP_RTI0);
 #endif
         /* Let DWWD expire here */
         printf("\nWait for %u ms for interrupt "
@@ -406,6 +445,9 @@ int32_t SDL_RTI_funcTest(void)
 #if defined (SOC_AM62AX) || defined (SOC_AM62PX) || defined (SOC_AM62DX)
                 SDL_RTI_service(SDL_INSTANCE_MCU_RTI0_CFG);
 #endif
+#if defined (SOC_AM275X)
+                SDL_RTI_service(SDL_INSTANCE_WKUP_RTI0);
+#endif
                 while (RTI_NO_INTERRUPT == isrFlag)
                 {
                     /* Wait for interrupt */
@@ -424,6 +466,9 @@ int32_t SDL_RTI_funcTest(void)
 #endif
 #if defined (SOC_AM62AX) || defined (SOC_AM62PX) || defined (SOC_AM62DX)
                 SDL_RTI_service(SDL_INSTANCE_MCU_RTI0_CFG);
+#endif
+#if defined (SOC_AM275X)
+                SDL_RTI_service(SDL_INSTANCE_WKUP_RTI0);
 #endif
             }
         }
@@ -468,6 +513,9 @@ int32_t SDL_RTI_funcTest(void)
 #endif
 #if defined (SOC_AM62AX) || defined (SOC_AM62PX) || defined (SOC_AM62DX)
             SDL_RTI_service(SDL_INSTANCE_MCU_RTI0_CFG);
+#endif
+#if defined (SOC_AM275X)
+            SDL_RTI_service(SDL_INSTANCE_WKUP_RTI0);
 #endif
         }
         if (isrFlag != RTI_NO_INTERRUPT)
@@ -515,6 +563,13 @@ static void IntrDisable(uint32_t intrSrc)
 #if defined (SOC_AM62AX) || defined (SOC_AM62PX) || defined (SOC_AM62DX)
     SDL_RTI_getStatus(SDL_INSTANCE_MCU_RTI0_CFG, &intrStatus);
     SDL_RTI_clearStatus(SDL_INSTANCE_MCU_RTI0_CFG, intrStatus);
+
+	/* clear the ERROR pin */
+    SDL_ESM_clrNError(SDL_ESM_INST_WKUP_ESM0);
+#endif
+#if defined (SOC_AM275X)
+    SDL_RTI_getStatus(SDL_INSTANCE_WKUP_RTI0, &intrStatus);
+    SDL_RTI_clearStatus(SDL_INSTANCE_WKUP_RTI0, intrStatus);
 
 	/* clear the ERROR pin */
     SDL_ESM_clrNError(SDL_ESM_INST_WKUP_ESM0);
