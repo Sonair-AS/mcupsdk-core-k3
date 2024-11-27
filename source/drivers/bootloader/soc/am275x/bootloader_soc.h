@@ -308,4 +308,13 @@ void Bootloader_socCpuPowerOff(uint32_t cpuId);
  */
 int32_t Bootloader_socIsDmaRestrictedRegion(uint32_t addr);
 
+/**
+ * \brief Enable Core 0 in the domain if Core 1 is turned on first
+ *
+ * \param cpuId [in] The CSL ID of the core
+ *
+ * \param coresPresentMap [in] Core map already out of reset
+*/
+int32_t Bootloader_socEnableDomain(uint32_t cpuId, uint32_t *coresPresentMap);
+
 #endif /* BOOTLOADER_SOC_AM275X_H_ */

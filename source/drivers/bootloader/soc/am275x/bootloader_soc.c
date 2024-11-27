@@ -1331,3 +1331,42 @@ int32_t Bootloader_socIsDmaRestrictedRegion(uint32_t addr)
 
     return isRestricted;
 }
+
+int32_t Bootloader_socEnableDomain(uint32_t cpuId, uint32_t *coresPresentMap)
+{
+    int32_t status = SystemP_SUCCESS;
+
+    if(cpuId == CSL_CORE_ID_R5FSS0_1 && !(*coresPresentMap & (1 << CSL_CORE_ID_R5FSS0_0)))
+    {
+        status = Bootloader_socCpuRequest(CSL_CORE_ID_R5FSS0_0);
+
+        if(status == SystemP_SUCCESS)
+        {
+            status = Bootloader_socCpuSetClock(CSL_CORE_ID_R5FSS0_0, Bootloader_socCpuGetClkDefault(CSL_CORE_ID_R5FSS0_0));
+
+            if(status == SystemP_SUCCESS)
+            {
+                status = Bootloader_socCpuPowerOnReset(CSL_CORE_ID_R5FSS0_0, 0);
+                *coresPresentMap = *coresPresentMap | (1 << CSL_CORE_ID_R5FSS0_0);
+            }
+        }
+    }
+
+    if(cpuId == CSL_CORE_ID_R5FSS1_1 && !(*coresPresentMap & (1 << CSL_CORE_ID_R5FSS1_0)))
+    {
+        status = Bootloader_socCpuRequest(CSL_CORE_ID_R5FSS1_0);
+
+        if(status == SystemP_SUCCESS)
+        {
+            status = Bootloader_socCpuSetClock(CSL_CORE_ID_R5FSS1_0, Bootloader_socCpuGetClkDefault(CSL_CORE_ID_R5FSS1_0));
+
+            if(status == SystemP_SUCCESS)
+            {
+                status = Bootloader_socCpuPowerOnReset(CSL_CORE_ID_R5FSS1_0, 0);
+                *coresPresentMap = *coresPresentMap | (1 << CSL_CORE_ID_R5FSS1_0);
+            }
+        }
+    }
+
+    return status;
+}

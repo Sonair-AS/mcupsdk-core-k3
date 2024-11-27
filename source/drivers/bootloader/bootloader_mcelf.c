@@ -731,7 +731,14 @@ static int32_t Bootloader_initCpu(Bootloader_Handle handle, Bootloader_CpuInfo *
         }
         else
         {
-            status = Bootloader_socCpuRequest(cpuInfo->cpuId);
+            Bootloader_Config *config = (Bootloader_Config *)handle;
+
+            status = Bootloader_socEnableDomain(cpuInfo->cpuId, &(config->coresPresentMap));
+
+            if(SystemP_SUCCESS == status)
+            {
+                status = Bootloader_socCpuRequest(cpuInfo->cpuId);
+            }
 
             if(SystemP_SUCCESS == status)
             {
@@ -739,7 +746,6 @@ static int32_t Bootloader_initCpu(Bootloader_Handle handle, Bootloader_CpuInfo *
 
                 if(SystemP_SUCCESS == status)
                 {
-                    Bootloader_Config *config = (Bootloader_Config *)handle;
                     status = Bootloader_socCpuPowerOnReset(cpuInfo->cpuId,config->socCoreOpMode);
                 }
             }
