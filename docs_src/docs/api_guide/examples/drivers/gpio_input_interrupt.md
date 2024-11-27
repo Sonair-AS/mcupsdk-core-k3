@@ -142,7 +142,21 @@ Then rebuild the boardconfig and SBL using the steps mentioned in \ref BOARCFG_G
 \attention
 A GPIO bank interrupt can be routed to only one core at a time. For example if a gpio interrupt is routed to A53 core, the same cannot be routed to other cores (C75/R5).
 \endcond
-
+\cond SOC_AM62X
+\attention
+A GPIO bank interrupt can be routed to only one core at a time. For example if a gpio interrupt is routed to A53_0 core, the same cannot be routed to other cores (A53_1/A53_2/A53_3/R5F).
+In the case of AMP, currenly all cores are using the same SPI_MAIN_GPIOMUX_INTROUTER and GPIO mux introuter output number. User can change this and can be used different gpiomux interrupt router for each a53 core by making following changes in the board_gpio.c.xdt file
+\code
+% if(args.project.cpu == "a53ss0-1"){
+#define BOARD_BUTTON_GPIO_INTR_NUM      (CSLR_GICSS0_COMMON_0_SPI_MAIN_GPIOMUX_INTROUTER0_OUTP_1)
+#define BOARD_BUTTON_GPIO_SWITCH_NUM    ("GPIO0_14")
+%}
+% else if(args.project.cpu == "a53ss0-1"){
+#define GPIOMUX_INTROUTER_OUTP (1U)
+%}
+\endcode
+In this way different SPI_MAIN_GPIOMUX_INTROUTER and GPIO mux introuter output number can be assigned to other a53 cores
+\endcond
 \cond SOC_AM62PX
 @VAR_BOARD_NAME does not contain any push button connected to MCU GPIOs. This example is using MCU_GPIO0_15 pin in the MCU_HEADER(J11) for generating GPIO interrupt.
 Key presses can be done by connecting followed by disconnecting MCU_GPIO0_15(Pin 10 of J11) to ground (Pin 27 of J11) in the @VAR_BOARD_NAME. Please note that number of key presses will be higher than actual as we are manualy connecting the ground using jumpers.
@@ -169,6 +183,9 @@ Key presses can be done by connecting followed by disconnecting MCU_GPIO0_15(Pin
  ---------------|-----------
  CPU + OS       | m4fss0-0 nortos
  ^              | a53ss0-0 freertos
+ ^              | a53ss0-1 freertos
+ ^              | a53ss1-0 freertos
+ ^              | a53ss1-1 freertos
  Toolchain      | ti-arm-clang
  ^              | arm.gnu.aarch64-none
  Board          | @VAR_BOARD_NAME_LOWER, @VAR_SIP_SK_BOARD_NAME_LOWER, @VAR_SK_LP_BOARD_NAME_LOWER
@@ -338,3 +355,23 @@ Key is pressed 5 times
 GPIO Input Interrupt Test Passed!!
 All tests have passed!!
 \endcode
+\cond SOC_AM62X
+\attention Output from the a53ss0-0, a53ss0-1, a53ss1-0 and a53ss1-1 cores are printed to UART0(/dev/ttyUSB0), UART1(/dev/ttyUSB1)
+WAKEUP_UART(/dev/ttyUSB2) and MCU_UART(/dev/ttyUSB3)respectively
+
+Shown below is a sample output from a53ss1-0 when the application is run, similar logs can be seen from other a53 cores in their respective
+uart console
+\code
+GPIO Input Interrupt Test Started ...
+GPIO Interrupt Configured for Rising Edge ...
+Connect the GPIO0_14 pin on EVM to ground and release to trigger GPIO interrupt ...
+Key is pressed 0 times
+Key is pressed 0 times
+Key is pressed 0 times
+Key is pressed 0 times
+Key is pressed 0 times
+Key is pressed 25 times
+GPIO Input Interrupt Test Passed on a53_core2 !!
+All tests have passed on a53_core2 !!
+\endcode
+\endcond

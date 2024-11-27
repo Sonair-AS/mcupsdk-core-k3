@@ -62,6 +62,13 @@ We also fetch the clock frequency of the current CPU using Sciclient and print t
  CPU + OS       | m4fss0-0 nortos
  ^              | r5fss0-0 freertos
  ^              | a53ss0-0 freertos
+ ^              | a53ss0-0 nortos
+ ^              | a53ss0-1 freertos
+ ^              | a53ss0-1 nortos
+ ^              | a53ss1-0 freertos
+ ^              | a53ss1-0 nortos
+ ^              | a53ss1-1 freertos
+ ^              | a53ss1-1 nortos
  Toolchain      | ti-arm-clang
  ^              | arm.gnu.aarch64-none
  Board          | @VAR_BOARD_NAME_LOWER, @VAR_SK_LP_BOARD_NAME_LOWER, @VAR_SIP_SK_BOARD_NAME_LOWER
@@ -121,6 +128,7 @@ We also fetch the clock frequency of the current CPU using Sciclient and print t
   make command (see \ref MAKEFILE_BUILD_PAGE)
 - Launch a CCS debug session and run the executable, see \ref CCS_LAUNCH_PAGE
 \cond SOC_AM62X
+- To run the example on a53ss0-0, a53ss0-1, a53ss1-0 and a53ss1-1 in FreeRTOS-AMP mode, run the sciclient_get_version_freertos-amp_sbl_uart_hs_fs.cfg file using \ref   EXAMPLES_DRIVERS_SBL_UART or load and run through CCS individually
 \attention As the wake-up R5 is the device manager, it needs to be started by the SBL. So it can not be loaded through CCS. It should be flashed and booted through SBL.
 
 - Refer \ref GETTING_STARTED_FLASH for flashing the application.
@@ -160,5 +168,37 @@ Firmware revision 0x9
 ABI revision 3.1
 [SCICLIENT] CPU clock frequency = 1250000000 Hz
 All tests have passed!!
+\endcode
+\endcond
+\cond SOC_AM62X
+
+**FreeRTOS-AMP Sample Output**
+
+\attention Output from  a53ss0-1, a53ss1-0 and a53ss1-1 cores are log to the Shared memory, can be viewed via a53ss0-0 on which log reader is enabled
+
+Shown below is a sample output on UART0 console when the application is run,
+\code
+NOTICE:  BL31: v2.11.0(release):v2.11.0-906-g58b25570c
+NOTICE:  BL31: Built : 16:12:49, Dec 16 2024
+SYSFW Firmware Version 10.1.8--v10.01.08 (Fiery Fox)
+Firmware revision 0xa
+ABI revision 4.0
+[SCICLIENT] CPU clock frequency = 1400000000 Hz
+All tests have passed on a53_core0 !!
+[a530-1]     0.000140s : SYSFW Firmware Version 10.1.8--v10.01.08 (Fiery Fox)
+[a530-1]     0.000156s : Firmware revision 0xa
+[a530-1]     0.000159s : ABI revision 4.0
+[a530-1]     0.000324s : [SCICLIENT] CPU clock frequency = 1400000000 Hz
+[a530-1]     0.000328s : All tests have passed on a53_core1 !!
+[a531-0]     0.000153s : SYSFW Firmware Version 10.1.8--v10.01.08 (Fiery Fox)
+[a531-0]     0.000170s : Firmware revision 0xa
+[a531-0]     0.000174s : ABI revision 4.0
+[a531-0]     0.000264s : [SCICLIENT] CPU clock frequency = 1400000000 Hz
+[a531-0]     0.000268s : All tests have passed on a53_core2 !!
+[a531-1]     0.000205s : SYSFW Firmware Version 10.1.8--v10.01.08 (Fiery Fox)
+[a531-1]     0.000220s : Firmware revision 0xa
+[a531-1]     0.000224s : ABI revision 4.0
+[a531-1]     0.000364s : [SCICLIENT] CPU clock frequency = 1400000000 Hz
+[a531-1]     0.000368s : All tests have passed on a53_core3 !!
 \endcode
 \endcond

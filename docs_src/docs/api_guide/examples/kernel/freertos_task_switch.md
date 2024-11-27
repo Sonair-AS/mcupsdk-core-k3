@@ -60,6 +60,9 @@ The example does the below
  ---------------|-----------
  CPU + OS       | m4fss0-0 nortos
  ^              | a53ss0-0 freertos
+ ^              | a53ss0-1 freertos
+ ^              | a53ss1-0 freertos
+ ^              | a53ss1-1 freertos
  Toolchain      | ti-arm-clang
  ^              | arm.gnu.aarch64-none
  Boards         | @VAR_BOARD_NAME_LOWER, @VAR_SK_LP_BOARD_NAME_LOWER, @VAR_SIP_SK_BOARD_NAME_LOWER
@@ -100,7 +103,9 @@ The example does the below
 - **When using makefiles to build**, note the required combination and build using
   make command (see \ref MAKEFILE_BUILD_PAGE)
 - Launch a CCS debug session and run the executable, see \ref CCS_LAUNCH_PAGE
-
+\cond SOC_AM62X
+- To run the example on a53ss0-0, a53ss0-1, a53ss1-0 and a53ss1-1 in FreeRTOS-AMP mode, run the task_switch_freertos-amp_sbl_uart_hs_fs.cfg file using \ref   EXAMPLES_DRIVERS_SBL_UART or load and run through CCS individually
+\endcond
 # See Also
 
 \ref KERNEL_FREERTOS_PAGE
@@ -128,3 +133,87 @@ time per task - ISR - task switch (semaphore give/take) = 1070 ns
 
 All tests have passed!!
 \endcode
+\cond SOC_AM62X
+
+**FreeRTOS-AMP Sample Output**
+
+\attention Output from  a53ss0-1, a53ss1-0 and a53ss1-1 cores are log to the Shared memory, can be viewed via a53ss0-0 on which log reader is enabled
+
+Shown below is a sample output on UART0 console when the application is run,
+\code
+NOTICE:  BL31: v2.11.0(release):v2.11.0-906-g58b25570c
+NOTICE:  BL31: Built : 16:12:49, Dec 16 2024
+
+[FreeRTOS] ping task ... start on a53_core0 !!!
+
+execution time for task switches = 1990424 us
+number of task switches = 2000000
+time per task switch (semaphore give/take) = 995 ns
+
+execution time for task switches = 1696993 us
+number of task switches = 2000000
+time per task switch (direct-to-task notification give/take) = 848 ns
+
+execution time for task - ISR - task - task switches = 3359642 us
+number of ISRs = 2000000
+time per task - ISR - task switch (semaphore give/take) = 1679 ns
+[a530-1]     0.000115s :
+[a530-1]     0.000130s : [FreeRTOS] ping task ... start on a53_core1 !!!
+[a530-1]     1.990292s :
+[a530-1]     1.990294s : execution time for task switches = 1990158 us
+[a530-1]     1.990298s : number of task switches = 2000000
+[a530-1]     1.990302s : time per task switch (semaphore give/take) = 995 ns
+[a530-1]     3.687094s :
+[a530-1]     3.687096s : execution time for task switches = 1696788 us
+[a530-1]     3.687100s : number of task switches = 2000000
+[a530-1]     3.687104s : time per task switch (direct-to-task notification give/take) = 848 ns
+[a530-1]     6.830287s :
+[a530-1]     6.830289s : execution time for task - ISR - task - task switches = 3143177 us
+[a530-1]     6.830294s : number of ISRs = 2000000
+[a530-1]     6.830297s : time per task - ISR - task switch (semaphore give/take) = 1571 ns
+[a530-1]     7.031001s :
+[a530-1]     7.031003s : [FreeRTOS] ping task ... done on a53_core1 !!!
+[a530-1]     7.031007s :
+[a530-1]     7.031009s : All tests have passed on a53_core1 !!!
+[a531-0]     0.000100s :
+[a531-0]     0.000115s : [FreeRTOS] ping task ... start on a53_core2 !!!
+[a531-0]     1.990266s :
+[a531-0]     1.990269s : execution time for task switches = 1990147 us
+[a531-0]     1.990273s : number of task switches = 2000000
+[a531-0]     1.990277s : time per task switch (semaphore give/take) = 995 ns
+[a531-0]     3.687061s :
+[a531-0]     3.687063s : execution time for task switches = 1696779 us
+[a531-0]     3.687067s : number of task switches = 2000000
+[a531-0]     3.687071s : time per task switch (direct-to-task notification give/take) = 848 ns
+[a531-0]     6.722177s :
+[a531-0]     6.722180s : execution time for task - ISR - task - task switches = 3035101 us
+[a531-0]     6.722184s : number of ISRs = 2000000
+[a531-0]     6.722187s : time per task - ISR - task switch (semaphore give/take) = 1517 ns
+[a531-0]     6.923001s :
+[a531-0]     6.923003s : [FreeRTOS] ping task ... done on a53_core2 !!!
+[a531-0]     6.923008s :
+[a531-0]     6.923010s : All tests have passed on a53_core2 !!!
+[a531-1]     0.000118s :
+[a531-1]     0.000132s : [FreeRTOS] ping task ... start on a53_core3 !!!
+[a531-1]     1.990284s :
+[a531-1]     1.990287s : execution time for task switches = 1990149 us
+[a531-1]     1.990291s : number of task switches = 2000000
+
+[FreeRTOS] ping task ... done on a53_core0 !!!
+
+All tests have passed on a53_core0 !!!
+[a531-1]     1.990295s : time per task switch (semaphore give/take) = 995 ns
+[a531-1]     3.687088s :
+[a531-1]     3.687090s : execution time for task switches = 1696789 us
+[a531-1]     3.687094s : number of task switches = 2000000
+[a531-1]     3.687098s : time per task switch (direct-to-task notification give/take) = 848 ns
+[a531-1]     6.849302s :
+[a531-1]     6.849305s : execution time for task - ISR - task - task switches = 3162199 us
+[a531-1]     6.849309s : number of ISRs = 2000000
+[a531-1]     6.849312s : time per task - ISR - task switch (semaphore give/take) = 1581 ns
+[a531-1]     7.050001s :
+[a531-1]     7.050003s : [FreeRTOS] ping task ... done on a53_core3 !!!
+[a531-1]     7.050007s :
+[a531-1]     7.050009s : All tests have passed on a53_core3 !!!
+\endcode
+\endcond

@@ -74,6 +74,12 @@ The example does the below
  ^              | r5fss0-0 freertos
  ^              | a53ss0-0 nortos
  ^              | a53ss0-0 freertos
+ ^              | a53ss0-1 freertos
+ ^              | a53ss0-1 nortos
+ ^              | a53ss1-0 freertos
+ ^              | a53ss1-0 nortos
+ ^              | a53ss1-1 freertos
+ ^              | a53ss1-1 nortos
  Toolchain      | ti-arm-clang
  ^              | arm.gnu.aarch64-none
  Board          | @VAR_BOARD_NAME_LOWER, @VAR_SK_LP_BOARD_NAME_LOWER, @VAR_SIP_SK_BOARD_NAME_LOWER
@@ -118,7 +124,9 @@ The example does the below
 - **When using makefiles to build**, note the required combination and build using
   make command (see \ref MAKEFILE_BUILD_PAGE)
 - Launch a CCS debug session and run the executable, see \ref CCS_LAUNCH_PAGE
-
+\cond SOC_AM62X
+- To run the example on a53ss0-0, a53ss0-1, a53ss1-0 and a53ss1-1 in FreeRTOS-AMP mode, run the dpl_demo_freertos-amp_sbl_uart_hs_fs.cfg file using \ref   EXAMPLES_DRIVERS_SBL_UART or load and run through CCS individually
+\endcond
 # See Also
 
 \ref KERNEL_DPL_PAGE
@@ -139,3 +147,78 @@ Shown below is a sample output when the application is run,
 [DPL] Free'ed 1023 bytes @ 0x80010440, heap free size = 1984 bytes
 All tests have passed!
 \endcode
+\cond SOC_AM62X
+
+**FreeRTOS-AMP Sample Output**
+
+\attention Output from  a53ss0-1, a53ss1-0 and a53ss1-1 cores are log to the Shared memory, can be viewed via a53ss0-0 on which log reader is enabled
+
+Shown below is a sample output on UART0 console when the application is run,
+\code
+NOTICE:  BL31: v2.11.0(release):v2.11.0-906-g58b25570c
+NOTICE:  BL31: Built : 16:12:49, Dec 16 2024
+DPL Demo Example started on a53_core0
+[DPL] Hwi post ...
+[DPL] Hwi post ... DONE !!!
+[DPL] Hwi(sgi) post ...
+[DPL] Hwi(sgi) post ... DONE !!!
+[DPL] Sleep for 100 msecs ...
+[a530-1]     0.000095s : DPL Demo Example started on a53_core1
+[DPL] Hwi post ...109s :
+[a530-1]     0.000121s : [DPL] Hwi post ... DONE !!!
+[a530-1]     0.000127s : [DPL] Hwi(sgi) post ...
+[a530-1]     0.000132s : [DPL] Hwi(sgi) post ... DONE !!!
+[a530-1]     0.000135s : [DPL] Sleep for 100 msecs ...
+[a531-0]     0.000086s : DPL Demo Example started on a53_core2
+[DPL] Hwi post ...100s :
+[a531-0]     0.000112s : [DPL] Hwi post ... DONE !!!
+[a531-0]     0.000118s : [DPL] Hwi(sgi) post ...
+[a531-0]     0.000123s : [DPL] Hwi(sgi) post ... DONE !!!
+[a531-0]     0.000126s : [DPL] Sleep for 100 msecs ...
+[a531-1]     0.000103s : DPL Demo Example started on a53_core3
+[DPL] Hwi post ...116s :
+[a531-1]     0.000128s : [DPL] Hwi post ... DONE !!!
+[a531-1]     0.000134s : [DPL] Hwi(sgi) post ...
+[a531-1]     0.000138s : [DPL] Hwi(sgi) post ... DONE !!!
+[a531-1]     0.000141s : [DPL] Sleep for 100 msecs ...
+[a531-1]     0.100003s : [DPL] Sleep ... DONE (Measured time = 99859 usecs, CPU cycles = 167570 ) !!!
+[a531-1]     0.100008s : Note: In case of FREERTOS CPU Cycles will not match with the measured time
+[DPL] Sleep ... DONE (Measured time = 99801 usecs, CPU cycles = 11863381 ) !!!
+Note: In case of FREERTOS CPU Cycles will not match with the measured time
+        As the "WFI" instruction is called from idle task, which suspends the PMU counter used to mea.
+[DPL] Running cache operations ...
+[DPL] Running cache operations ... DONE !!!
+[DPL] Heap free size = 1984 bytes
+[DPL] Allocated 1023 bytes @ 0x800a0440, heap free size = 896 bytes
+[DPL] Free'ed 1023 bytes @ 0x800a0440, heap free size = 1984 bytes
+All tests have passed on a53_core0 !!
+[a531-1]     0.100012s :        As the "WFI" instruction is called from idle task, which suspends thes
+[a531-1]     0.100017s : ure CPU cycles.
+[a531-1]     0.100020s : [DPL] Running cache operations ...
+[a531-1]     0.100025s : [DPL] Running cache operations ... DONE !!!
+[a531-1]     0.100029s : [DPL] Heap free size = 1984 bytes
+[a531-1]     0.100034s : [DPL] Allocated 1023 bytes @ 0x88110440, heap free size = 896 bytes
+[a531-1]     0.100041s : [DPL] Free'ed 1023 bytes @ 0x88110440, heap free size = 1984 bytes
+[a531-1]     0.100046s : All tests have passed on a53_core3 !!
+[a530-1]     0.100003s : [DPL] Sleep ... DONE (Measured time = 99865 usecs, CPU cycles = 167076 ) !!!
+[a530-1]     0.100009s : Note: In case of FREERTOS CPU Cycles will not match with the measured time
+[a530-1]     0.100013s :        As the "WFI" instruction is called from idle task, which suspends thes
+[a530-1]     0.100017s : ure CPU cycles.
+[a530-1]     0.100020s : [DPL] Running cache operations ...
+[a530-1]     0.100025s : [DPL] Running cache operations ... DONE !!!
+[a530-1]     0.100029s : [DPL] Heap free size = 1984 bytes
+[a530-1]     0.100035s : [DPL] Allocated 1023 bytes @ 0x82110440, heap free size = 896 bytes
+[a530-1]     0.100041s : [DPL] Free'ed 1023 bytes @ 0x82110440, heap free size = 1984 bytes
+[a530-1]     0.100046s : All tests have passed on a53_core1 !!
+[a531-0]     0.100003s : [DPL] Sleep ... DONE (Measured time = 99874 usecs, CPU cycles = 166969 ) !!!
+[a531-0]     0.100008s : Note: In case of FREERTOS CPU Cycles will not match with the measured time
+[a531-0]     0.100012s :        As the "WFI" instruction is called from idle task, which suspends thes
+[a531-0]     0.100017s : ure CPU cycles.
+[a531-0]     0.100020s : [DPL] Running cache operations ...
+[a531-0]     0.100025s : [DPL] Running cache operations ... DONE !!!
+[a531-0]     0.100029s : [DPL] Heap free size = 1984 bytes
+[a531-0]     0.100035s : [DPL] Allocated 1023 bytes @ 0x86090440, heap free size = 896 bytes
+[a531-0]     0.100041s : [DPL] Free'ed 1023 bytes @ 0x86090440, heap free size = 1984 bytes
+[a531-0]     0.100046s : All tests have passed on a53_core2 !!
+\endcode
+\endcond

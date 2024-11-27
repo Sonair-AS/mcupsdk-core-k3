@@ -83,6 +83,12 @@ For all other cores, CCS prints are used.
  ^              | r5fss0-0 freertos
  ^              | a53ss0-0 nortos
  ^              | a53ss0-0 freertos
+ ^              | a53ss0-1 freertos
+ ^              | a53ss0-1 nortos
+ ^              | a53ss1-0 freertos
+ ^              | a53ss1-0 nortos
+ ^              | a53ss1-1 freertos
+ ^              | a53ss1-1 nortos
  Toolchain      | ti-arm-clang
  ^              | arm.gnu.aarch64-none
  Board          | @VAR_BOARD_NAME_LOWER, @VAR_SK_LP_BOARD_NAME_LOWER, @VAR_SIP_SK_BOARD_NAME_LOWER
@@ -145,6 +151,9 @@ For all other cores, CCS prints are used.
 - **When using makefiles to build**, note the required combination and build using
   make command (see \ref MAKEFILE_BUILD_PAGE)
 - Launch a CCS debug session and run the executable, see \ref CCS_LAUNCH_PAGE
+\cond SOC_AM62X
+- To run the example on a53ss0-0, a53ss0-1, a53ss1-0 and a53ss1-1 in FreeRTOS-AMP mode, run the empty_freertos-amp_sbl_uart_hs_fs.cfg file using \ref   EXAMPLES_DRIVERS_SBL_UART or load and run through CCS individually
+\endcond
 \cond SOC_AM62PX
 \attention As the wake-up R5 is the device manager, it needs to be started by the SBL.
 So it can not be loaded through CCS. It should be flashed and booted through SBL.
@@ -159,3 +168,19 @@ Shown below is a sample output when the application is run,
 \code
 All tests have passed!!
 \endcode
+\cond SOC_AM62X
+
+**FreeRTOS-AMP Sample Output**
+
+\attention Output from  a53ss0-1, a53ss1-0 and a53ss1-1 cores are log to the Shared memory, can be viewed via a53ss0-0 on which log reader is enabled
+
+Shown below is a sample output on UART0 console when the application is run,
+\code
+NOTICE:  BL31: v2.11.0(release):v2.11.0-906-g58b25570c
+NOTICE:  BL31: Built : 16:12:49, Dec 16 2024
+All tests have passed on a53_core0 !!
+[a530-1]     0.000084s : All tests have passed on a53_core1 !!
+[a531-0]     0.000092s : All tests have passed on a53_core2 !!
+[a531-1]     0.000077s : All tests have passed on a53_core3 !!
+\endcode
+\endcond
