@@ -7,6 +7,10 @@
 ## Download CCS
 
 - The Code Composer Studio (CCS) download home page is, https://www.ti.com/tool/CCSTUDIO
+
+\cond !SOC_AM275X
+- Download CCS @VAR_CCS_VERSION from above link
+\endcond
 \cond !SOC_AM263X
 - Download CCS @VAR_CCS_VERSION from above link
 \endcond
@@ -14,6 +18,10 @@
 - Download CCS @VAR_CCS_VERSION_AM263X
 \endcond
 - Unzip the file for Windows or Linux at any location on your host PC
+
+\attention AM275x is not yet available on the above version by default
+\attention Please use the internal csp package for AM275x support
+
 
 ## Install CCS
 

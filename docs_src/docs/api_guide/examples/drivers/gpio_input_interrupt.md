@@ -96,7 +96,7 @@ So replace the above code with the following lines in source/drivers/sciclient/s
 Then rebuild the boardconfig and SBL using the steps mentioned in \ref BOARCFG_GEN .
 Key presses can be done by connecting followed by disconnecting GPIO1_22(Pin 15 of J3) to ground (Pin 27 of MCU_HEADER(J9)) in the @VAR_BOARD_NAME. Please note that number of key presses will be higher than actual as we are manualy connecting the ground using jumpers.
 
-\cond !SOC_AM62DX
+\cond !SOC_AM62DX  && !SOC_AM275X
 \attention MCU GPIO and MAIN GPIO interrupt is used by Linux running on A53.
 
 \attention

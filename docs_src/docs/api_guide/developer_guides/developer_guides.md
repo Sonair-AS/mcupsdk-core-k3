@@ -91,7 +91,9 @@ SDK features and tools.
 - \subpage CUSTOM_FLASH_SUPPORT_GUIDE
 \endcond
 
-
+\cond SOC_AM275X
+- \subpage CUSTOM_FLASH_SUPPORT_GUIDE
+\endcond
 
 \cond SOC_AM62PX
 - \subpage INSTALL_NON_DEFAULT

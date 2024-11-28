@@ -8,15 +8,24 @@
 
 ### Cable Connections {#EVM_CABLES}
 
-- The figure below shows some important cable connections, ports and switches.
+The figure below shows some important cable connections, ports and switches.
   - Take note of the location of the "BOOTMODE" switch, this is used to
-    switch between different boot modes like OSPI, UART, SD, NOBOOT mode
+    switch between different boot modes like OSPI, UART, eMMC, SD, NOBOOT mode
 
-  \imageStyle{evm_overview.png,width:80%}
+\attention Dip Switch (SW9) - MMC0_SEL needs to be selected to switch the interface between eMMC and SD
+ MMC0_SELECT         | Interface
+ ------------------  |--------------------
+ OFF                 | eMMC
+ ON                  | SD
+ This switch also needs to selected alongside bootmedia switch to select the bootmedia between SD & eMMC
+
+  \imageStyle{evm_overview.png,width:50%}
   \image html evm_overview.png "@VAR_BOARD_NAME"
 
 ### Setup UART Terminal {#CCS_UART_TERMINAL}
-\attention Remove the shunt from the Jumper J10 for the MCU UART to work.
+
+\attention Both JTAG and UART0 is enumerated to same USB port - J17
+\attention UART2, UART3 and WKUP_UART0 is available from USB port - J22
 
 - Many examples use a standard UART terminal to log the output from the examples.
   You can use any UART terminal program for the same. Below steps show how to setup
@@ -32,7 +41,7 @@
   - If dont see any USB serial ports listed in "Device Manager" under "Ports (COM & LPT)",
     then make sure you have installed the UART to USB driver from FTDI, https://www.ftdichip.com/FTDrivers.htm.
 
-    \imageStyle{ccs_uart_identify.png,width:30%}
+    \imageStyle{ccs_uart_identify.png,width:50%}
     \image html ccs_uart_identify.png "Identify UART Port in Windows Device Manager"
 
 - In CCS, goto "View > Terminal"
@@ -67,9 +76,6 @@
 \attention This is a recommended one time step that needs to be done before
            you can load and run programs via CCS
 
-\attention If this step fails, maybe due to bad flash in EVM, then try one of the other SOC initialization steps
-           mentioned at \ref EVM_SOC_INIT
-
 \attention This step needs to be done once unless the OSPI flash has been erased
            or some other application has been flashed
 
@@ -96,6 +102,11 @@
   \imageStyle{boot_pins_uart_boot_mode.png,width:30%}
   \image html boot_pins_uart_boot_mode.png "UART BOOT MODE"
 
+- Switch the MMC0_SELECT switch(SW9) to OFF position
+
+  \imageStyle{mmc_interface.png,width:30%}
+  \image html mmc_interface.png "MMC INTERFACE SELECT"
+
 - **POWER-ON** the EVM
 
 - You should see character "C" getting printed on the UART terminal every 2-3 seconds as shown below
@@ -108,16 +119,16 @@
   \imageStyle{ccs_uart_close.png,width:80%}
   \image html ccs_uart_close.png "Close UART terminal"
 
-\note For HS-FS device, use default_sbl_null_hs_fs.cfg as the cfg file.
+\note For HS-FS device, use sbl_null_hs_fs.cfg as the cfg file.
 
 - Open a command prompt and run the below command to flash the SOC initialization binary to the EVM.
 
         cd ${SDK_INSTALL_PATH}/tools/boot
-        python uart_uniflash.py -p COM<x> --cfg=sbl_prebuilt/@VAR_BOARD_NAME_LOWER/default_sbl_null_hs_fs.cfg
+        python uart_uniflash.py -p COM<x> --cfg=sbl_prebuilt/@VAR_BOARD_NAME_LOWER/sbl_null_hs_fs.cfg
 
   - Here COM<x> is the port name of the identified UART port in Windows.
   - On Linux,
-    - The name for UART port is typically something like `/dev/ttyUSB0`
+    - The name for UART port is typically something like `/dev/ttyACM0`
     - On some Linux systems, one needs to use `python3` to invoke python3.x, just `python` command may invoke python 2.x which will not work with the flashing script.
 
 - When the flashing is in progress you will see something like below
@@ -136,10 +147,10 @@
 
 - **POWER-OFF** the EVM
 
-- Switch the EVM boot mode to OSPI NAND mode as shown below,
+- Switch the EVM boot mode to OSPI NOR mode as shown below,
 
-  \imageStyle{boot_pins_ospi_nand_mode.png,width:30%}
-  \image html boot_pins_ospi_nand_mode.png "OSPI NAND BOOT MODE"
+  \imageStyle{boot_pins_ospi_mode.png,width:30%}
+  \image html boot_pins_ospi_mode.png "OSPI NOR BOOT MODE"
 
 - Re-connect the UART terminal in CCS window as shown in \ref CCS_UART_TERMINAL
 
@@ -147,20 +158,24 @@
 
 - You should see output like below on the UART terminal
 
+        Sciserver Testapp Built On: Nov  6 2024 13:17:23
+        Sciserver Version: v2023.11.0.0REL.MCUSDK.MM.NN.PP.bb
+        RM_PM_HAL Version: vMM.NN.PP
+        Starting Sciserver..... PASSED
+
         Starting NULL Bootloader ...
 
-        SYSFW Version 8.6.4--v08.06.04 (Chill Capybar
-        SYSFW revision 0x8
-        DMSC ABI revision 3.1
+        SYSFW Firmware Version 10.0.8--w2024.02-am275x (Fiery
+        SYSFW Firmware revision 0xa
+        SYSFW ABI revision 4.0
 
-        INFO: Bootloader_runCpu:155: CPU mcu-r5f is initialized to 800000000 Hz !!!
-        INFO: Bootloader_runCpu:155: CPU a530-0 is initialized to 1250000000 Hz !!!
-        INFO: Bootloader_runCpu:155: CPU a530-1 is initialized to 1250000000 Hz !!!
-        INFO: Bootloader_runCpu:155: CPU a531-0 is initialized to 1250000000 Hz !!!
-        INFO: Bootloader_runCpu:155: CPU a531-1 is initialized to 1250000000 Hz !!!
-        INFO: Bootloader_runCpu:162: CPU c7x0-0 is initialized to 850000000 Hz !!!
-        INFO: Bootloader_loadSelfCpu:208: CPU r5f0-0 is initialized to 800000000 Hz !!!
-        INFO: Bootloader_JumpSelfCpu:227: All done, jumping self ...
+        [BOOTLOADER_PROFILE] Boot Media       : undefined
+        [BOOTLOADER_PROFILE] Boot Image Size  : 0 KB
+        [BOOTLOADER_PROFILE] Cores present    :
+        [BOOTLOADER PROFILE] Sciclient Get Version            :      13224us
+        [BOOTLOADER_PROFILE] SBL Total Time Taken             :      13224us
+
+
 
 
 
@@ -169,65 +184,25 @@
 - You dont need to do these steps again unless you have flashed some other binary to the flash.
 - Now you can build a example of interest (see \ref GETTING_STARTED_BUILD) and then run it (see \ref CCS_LAUNCH_PAGE)
 
-\attention If SBL NULL is used for development, GEL files aren't required for MCU-R5FSS0-0 R5FSS0-0
-
-## Additional Details
-
-\note This section has more details on @VAR_BOARD_NAME. This is mainly for reference and can be skipped unless referred to by
-other pages in this user guide.
-### SOC Initialization {#EVM_SOC_INIT}
-
-Before any program can be loaded and run on the EVM, the SOC needs to be initialized.
-Below sections describes the various options available for SOC initialization.
-
-#### SOC Initialization Using SPL {#EVM_SOC_INIT_SPL}
-
-- Prepare a SD card with Linux image by following the \htmllink{https://software-dl.ti.com/processor-sdk-linux/esd/AM62X/latest/exports/docs/linux/Overview/Processor_SDK_Linux_create_SD_card.html, Processor SDK Linux - Create SD card} page.
-
-- **POWER-OFF** the EVM
-
-- Make sure below cables are connected as shown in \ref EVM_CABLES
-  - Power cable
-  - JTAG cable
-  - UART cable
-
-- Set EVM in SDCARD BOOT mode as shown below
-  \imageStyle{boot_pins_sd_card_boot_mode.png,width:30%}
-  \image html boot_pins_sd_card_boot_mode.png "SD CARD BOOT MODE"
-
-- Insert the prepared SD card on the SD card slot.
-
-- Setup UART terminals for Uboot/Linux and the MCU R5 console as per \ref CCS_UART_TERMINAL section.
-
-- **POWER-ON** the EVM
-
-- Uboot and Linux should come-up on the UART terminal.
-
-- While Linux is booting, the remoteproc should start MCU R5 as shown below.
-\code
-[    9.276880] platform 79000000.r5f: configured R5F for remoteproc mode
-[    9.544692] platform 79000000.r5f: assigned reserved memory node r5f-dma-memory@9b800000
-[    9.551482] random: systemd: uninitialized urandom read (16 bytes read)
-[    9.598523] remoteproc remoteproc1: 79000000.r5f is available
-[    9.671824] remoteproc remoteproc1: powering up 79000000.r5f
-[    9.677585] remoteproc remoteproc1: Booting fw image am62d-mcu-r5f0_0-fw, size 93468
-[   10.123496] virtio_rpmsg_bus virtio1: rpmsg host is online
-[   10.124434] virtio_rpmsg_bus virtio1: creating channel ti.ipc4.ping-pong addr 0xd
-[   10.175580]  remoteproc1#vdev0buffer: registered virtio2 (type 7)
-[   10.185823] remoteproc remoteproc1: remote processor 79000000.r5f is now up
-[   10.443139] virtio_rpmsg_bus virtio2: creating channel ti.ipc4.ping-pong addr 0xd
-[   10.450979] virtio_rpmsg_bus virtio2: creating channel rpmsg_chrdev addr 0xe
-\endcode
-
-- Setting up the board for Linux boot requires to be done only once with the EVM. But after every power cycle of the board, we need to wait for the linux to come up before loading binaries to AM275x MCU R5 through CCS.
-
+\attention If SBL NULL is used for development, GEL files aren't required for R5FSS
 
 ### BOOT MODE
+
+#### MMC INTERFACE
+Select the MMC interface between eMMC and SD using switch MMC0_SELECT (SW9). This selection also required with bootmedia switch to select the bootmedia between eMMC and SD
+
+ MMC0_SELECT         | Interface
+ ------------------  |--------------------
+ OFF                 | eMMC
+ ON                  | SD
+
+  \imageStyle{mmc_interface.png,width:30%}
+  \image html mmc_interface.png "MMC INTERFACE SELECT"
 
 #### UART BOOT MODE  {#BOOTMODE_UART}
 This mode is used to flash files to the board flash via UART. It can also be used to boot applications via UART.
     \code
-    BOOTMODE [ 8 : 15 ] (SW3) = 0000 0000
+    BOOTMODE [ 8 : 15 ] (SW1) = 0000 0000
     BOOTMODE [ 0 :  7 ] (SW2) = 1101 1100
     \endcode
   \imageStyle{boot_pins_uart_boot_mode.png,width:30%}
@@ -236,26 +211,16 @@ This mode is used to flash files to the board flash via UART. It can also be use
 #### OSPI NOR BOOT MODE  {#BOOTMODE_OSPI}
 This mode is used to boot flashed applications via EVM flash like OSPI NOR flash
     \code
-    BOOTMODE [ 8 : 15 ] (SW3) = 0100 0000
+    BOOTMODE [ 8 : 15 ] (SW1) = 0100 0000
     BOOTMODE [ 0 :  7 ] (SW2) = 1100 1110
     \endcode
   \imageStyle{boot_pins_ospi_mode.png,width:30%}
   \image html boot_pins_ospi_mode.png "OSPI BOOT MODE"
 
-
-#### OSPI SERIAL NAND BOOT MODE  {#BOOTMODE_OSPI_NAND}
-This mode is used to boot flashed applications via EVM flash like OSPI Serial NAND flash
-    \code
-    BOOTMODE [ 8 : 15 ] (SW3) = 0000 0000
-    BOOTMODE [ 0 :  7 ] (SW2) = 1100 0000
-    \endcode
-
-  \imageStyle{boot_pins_ospi_nand_mode.png,width:30%}
-  \image html boot_pins_ospi_nand_mode.png "OSPI NAND BOOT MODE"
 #### SD BOOT MODE  {#BOOTMODE_SD}
 This mode is used to boot applications via SD card on the EVM.
     \code
-    BOOTMODE [ 8 : 15 ] (SW3) = 0100 0000
+    BOOTMODE [ 8 : 15 ] (SW1) = 0100 0000
     BOOTMODE [ 0 :  7 ] (SW2) = 1100 0010
     \endcode
 
@@ -264,7 +229,7 @@ This mode is used to boot applications via SD card on the EVM.
 
 #### NOBOOT MODE  {#BOOTMODE_NOBOOT}
     \code
-    BOOTMODE [ 8 : 15 ] (SW3) = 0000 0000
+    BOOTMODE [ 8 : 15 ] (SW1) = 0000 0000
     BOOTMODE [ 0 :  7 ] (SW2) = 1101 1111
     \endcode
 
@@ -273,7 +238,7 @@ This mode is used to boot applications via SD card on the EVM.
 #### EMMC BOOT MODE  {#BOOTMODE_EMMC}
 This mode is used to boot applications via eMMC on the EVM.
     \code
-    BOOTMODE [ 8 : 15 ] (SW3) = 0000 0000
+    BOOTMODE [ 8 : 15 ] (SW1) = 0000 0000
     BOOTMODE [ 0 :  7 ] (SW2) = 1101 0011
     \endcode
 
