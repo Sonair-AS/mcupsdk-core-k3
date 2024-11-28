@@ -276,4 +276,6 @@ void task_switch_main(void *args)
                                   &gPingTaskObj ); /* pointer to statically allocated task object memory */
     configASSERT(gPingTask != NULL);
 
+    vTaskDelay(60000);
+
 }
