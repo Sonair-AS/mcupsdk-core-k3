@@ -23,6 +23,13 @@ FILES_common := \
     sdl_esm_priv.c \
     sdl_dcc.c \
     sdl_soc_dcc.c \
+    sdl_ip_vtm.c \
+    sdl_vtm_pvt_sensor.c \
+    sdl_vtm.c \
+    sdl_soc_vtm.c \
+    sdl_rti.c \
+    sdl_ip_rti.c \
+    sdl_soc_rti.c \
     sdl_interrupt.c \
     sdl_interrupt_handlers.c \
     sdl_interrupt_register.c \

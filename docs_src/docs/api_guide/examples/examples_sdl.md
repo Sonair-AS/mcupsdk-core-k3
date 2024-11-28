@@ -42,9 +42,9 @@ This page lists all the examples related to usage of SDL.
 \endcond
 
 \cond SOC_AM275X
-<!-- -# DCC
+-# DCC
    -# \subpage EXAMPLES_SDL_DCC
--# ECC
+<!-- -# ECC
    -# \subpage EXAMPLES_SDL_ECC -->
 -# ESM
    -# \subpage EXAMPLES_SDL_MCU_ESM
@@ -60,6 +60,6 @@ This page lists all the examples related to usage of SDL.
    -# \subpage EXAMPLES_SDL_ROM_CHECKSUM -->
 -# RTI
    -# \subpage EXAMPLES_SDL_RTI
-<!-- -# VTM
-   -# \subpage EXAMPLES_SDL_VTM -->
+-# VTM
+   -# \subpage EXAMPLES_SDL_VTM
 \endcond

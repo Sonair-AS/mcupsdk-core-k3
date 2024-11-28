@@ -108,24 +108,24 @@ const example_file_list = [
     "source/networking/enet/core/examples/lwip/enet_lwip_cpsw/.project/project.js",
     /* SDL Examples */
     "examples/sdl/esm/mcu_esm0/.project/project.js",
-    // "examples/sdl/dcc/dcc_modes/.project/project_am275x.js",
+    "examples/sdl/dcc/dcc_modes/.project/project_am275x.js",
     // "examples/sdl/pbist/pbist_mpu/.project/project_am275x.js",
     "examples/sdl/rti/UC1/.project/project_am275x.js",
     "examples/sdl/rti/UC2/.project/project_am275x.js",
     "examples/sdl/rti/UC3/.project/project_am275x.js",
     "examples/sdl/rti/UC4/.project/project_am275x.js",
-    // "examples/sdl/vtm/vtm_uc/.project/project_am275x.js",
+    "examples/sdl/vtm/vtm_uc/.project/project_am275x.js",
     /* SDL Tests */
     "test/sdl/esm/esm_func_test/.project/project_am275x.js",
     "test/sdl/esm/esm_unit_test/.project/project_am275x.js",
-    // "test/sdl/dcc/dcc_func_test/.project/project_am275x.js",
-    // "test/sdl/dcc/dcc_unit_test/.project/project_am275x.js",
+    "test/sdl/dcc/dcc_func_test/.project/project_am275x.js",
+    "test/sdl/dcc/dcc_unit_test/.project/project_am275x.js",
     // "test/sdl/pbist/ip_pbist_test/.project/project_am275x.js"
     // "test/sdl/pbist/sdl_pbist_test/.project/project_am275x.js"
     "test/sdl/rti/rtiFuncTest/.project/project_am275.js",
     "test/sdl/rti/rtiUt/.project/project_am275x.js",
-    // "test/sdl/vtm/vtm_func_test/.project/project_am275x.js",
-    // "test/sdl/vtm/vtm_unit_test/.project/project_am275x.js",
+    "test/sdl/vtm/vtm_func_test/.project/project_am275x.js",
+    "test/sdl/vtm/vtm_unit_test/.project/project_am275x.js",
     // Tests
     "test/board/eeprom/.project/project.js",
     "test/drivers/epwm/.project/project.js",

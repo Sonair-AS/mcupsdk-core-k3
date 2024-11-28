@@ -54,7 +54,7 @@ SDL consists of below sub-modules
 \endcond
 
 \cond SOC_AM275X
-<!-- - \subpage SDL_DCC_PAGE -->
+- \subpage SDL_DCC_PAGE
 - \subpage SDL_DPL_PAGE
 <!-- - \subpage SDL_ECC_PAGE -->
 - \subpage SDL_ESM_PAGE
@@ -64,5 +64,5 @@ SDL consists of below sub-modules
 - \subpage SDL_POK_PAGE
 - \subpage SDL_ROM_CHECKSUM_PAGE -->
 - \subpage SDL_RTI_PAGE
-<!-- - \subpage SDL_VTM_PAGE -->
+- \subpage SDL_VTM_PAGE
 \endcond
