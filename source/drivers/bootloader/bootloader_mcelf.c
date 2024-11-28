@@ -106,6 +106,9 @@ typedef struct
 /* Buffer to store the elf header, program header table(PHT) and note segment */
 uint8_t gElfBuffer[BOOTLOADER_MCELF_META_DATA_SIZE_MAX];
 
+/* Map to store cores booted */
+static uint32_t gCoresBootedMap = 0;
+
 /* ========================================================================== */
 /*                          Function Declarations                             */
 /* ========================================================================== */
@@ -733,7 +736,7 @@ static int32_t Bootloader_initCpu(Bootloader_Handle handle, Bootloader_CpuInfo *
         {
             Bootloader_Config *config = (Bootloader_Config *)handle;
 
-            status = Bootloader_socEnableDomain(cpuInfo->cpuId, &(config->coresPresentMap));
+            status = Bootloader_socEnableDomain(cpuInfo->cpuId, &gCoresBootedMap);
 
             if(SystemP_SUCCESS == status)
             {
@@ -747,6 +750,8 @@ static int32_t Bootloader_initCpu(Bootloader_Handle handle, Bootloader_CpuInfo *
                 if(SystemP_SUCCESS == status)
                 {
                     status = Bootloader_socCpuPowerOnReset(cpuInfo->cpuId,config->socCoreOpMode);
+
+                    gCoresBootedMap = gCoresBootedMap | (1 << cpuInfo->cpuId);
                 }
             }
         }

@@ -313,8 +313,8 @@ int32_t Bootloader_socIsDmaRestrictedRegion(uint32_t addr);
  *
  * \param cpuId [in] The CSL ID of the core
  *
- * \param coresPresentMap [in] Core map already out of reset
+ * \param coresBootedMap [in] Core map already out of reset
 */
-int32_t Bootloader_socEnableDomain(uint32_t cpuId, uint32_t *coresPresentMap);
+int32_t Bootloader_socEnableDomain(uint32_t cpuId, uint32_t *coresBootedMap);
 
 #endif /* BOOTLOADER_SOC_AM275X_H_ */
