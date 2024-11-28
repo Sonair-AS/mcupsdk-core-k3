@@ -1,5 +1,5 @@
 /*
- *  Copyright (C) 2022-24 Texas Instruments Incorporated
+ *  Copyright (C) 2018-2024 Texas Instruments Incorporated
  *
  *  Redistribution and use in source and binary forms, with or without
  *  modification, are permitted provided that the following conditions
@@ -28,37 +28,38 @@
  *  THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
  *  (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
  *  OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
- *
  */
 
-#ifndef INCLUDE_SDL_SOC_DCC_H_
-#define INCLUDE_SDL_SOC_DCC_H_
+#include <stdlib.h>
+#include "ti_drivers_config.h"
+#include "ti_board_config.h"
+#include "ti_drivers_open_close.h"
+#include "ti_board_open_close.h"
 
-#ifdef __cplusplus
-extern "C" {
-#endif
+void test_main(void *args);
 
-#if defined (SOC_AM62X)
-#include <sdl/dcc/v0/soc/am62x/sdl_soc_dcc.h>
-#endif /* SOC_AM62X */
+int main()
+{
+    int32_t status = SystemP_SUCCESS;
 
-#if defined (SOC_AM62AX)
-#include <sdl/dcc/v0/soc/am62ax/sdl_soc_dcc.h>
-#endif /* SOC_AM62AX */
+    System_init();
+    Board_init();
 
-#if defined (SOC_AM62PX)
-#include <sdl/dcc/v0/soc/am62px/sdl_soc_dcc.h>
-#endif /* SOC_AM62PX */
+    /* Open drivers */
+    Drivers_open();
+    /* Open flash and board drivers */
+    status = Board_driversOpen();
+    DebugP_assert(status==SystemP_SUCCESS);
 
-#if defined (SOC_AM62DX)
-#include <sdl/dcc/v0/soc/am62dx/sdl_soc_dcc.h>
-#endif /* SOC_AM62DX */
-#if defined (SOC_AM275X)
-#include <sdl/dcc/v0/soc/am275x/sdl_soc_dcc.h>
-#endif /* SOC_AM275X */
+    test_main(NULL);
 
-#ifdef __cplusplus
+    /* Close board and flash drivers */
+    Board_driversClose();
+    /* Close drivers */
+    Drivers_close();
+
+    Board_deinit();
+    System_deinit();
+
+    return 0;
 }
-#endif  /* extern "C" */
-
-#endif /* INCLUDE_SDL_SOC_DCC_H_ */

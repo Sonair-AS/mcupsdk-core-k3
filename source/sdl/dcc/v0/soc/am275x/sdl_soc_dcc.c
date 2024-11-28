@@ -1,5 +1,5 @@
 /*
- *  Copyright (C) 2022-24 Texas Instruments Incorporated
+ *   Copyright (C) 2022-24 Texas Instruments Incorporated
  *
  *  Redistribution and use in source and binary forms, with or without
  *  modification, are permitted provided that the following conditions
@@ -31,34 +31,41 @@
  *
  */
 
-#ifndef INCLUDE_SDL_SOC_DCC_H_
-#define INCLUDE_SDL_SOC_DCC_H_
+/**
+ *  \file     sdl_dcc_soc.c
+ *
+ *  \brief    This file contains the soc-specific implementation of the API's present in the
+ *            device abstraction layer file of DCC.
+ */
 
-#ifdef __cplusplus
-extern "C" {
-#endif
-
-#if defined (SOC_AM62X)
-#include <sdl/dcc/v0/soc/am62x/sdl_soc_dcc.h>
-#endif /* SOC_AM62X */
-
-#if defined (SOC_AM62AX)
-#include <sdl/dcc/v0/soc/am62ax/sdl_soc_dcc.h>
-#endif /* SOC_AM62AX */
-
-#if defined (SOC_AM62PX)
-#include <sdl/dcc/v0/soc/am62px/sdl_soc_dcc.h>
-#endif /* SOC_AM62PX */
-
-#if defined (SOC_AM62DX)
-#include <sdl/dcc/v0/soc/am62dx/sdl_soc_dcc.h>
-#endif /* SOC_AM62DX */
-#if defined (SOC_AM275X)
+#include <stdint.h>
+#include <stdbool.h>
+#include <sdl/include/sdl_types.h>
+#include <sdl/include/hw_types.h>
+#include <sdl/dpl/sdl_dpl.h>
+#include <sdl/dcc/v0/soc/sdl_dcc_soc.h>
 #include <sdl/dcc/v0/soc/am275x/sdl_soc_dcc.h>
-#endif /* SOC_AM275X */
 
-#ifdef __cplusplus
+int32_t SDL_DCC_getBaseaddr(SDL_DCC_Inst instance,
+                            uint32_t *baseAddr)
+{
+    int32_t status = SDL_PASS;
+    uint32_t size = 0;
+
+    if (baseAddr == NULL)
+    {
+        status = SDL_EBADARGS;
+    }
+    else
+    {
+        *baseAddr = SDL_DCC_baseAddress[instance];
+    }
+
+    if (status == SDL_PASS)
+    {
+        *baseAddr = (uint32_t)SDL_DPL_addrTranslate((uint64_t)*baseAddr, size);
+    }
+
+    return (status);
 }
-#endif  /* extern "C" */
 
-#endif /* INCLUDE_SDL_SOC_DCC_H_ */

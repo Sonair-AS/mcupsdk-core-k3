@@ -20,7 +20,7 @@ The following methods can be used as a trigger for the DCC error event:
     * Use Sciclient API to change clock dividers (with ratio criterion stable) to slow down clock
     * Turn off power for the monitored input clock
 
-\cond SOC_AM62X || SOC_AM62AX || SOC_AM62PX || SOC_AM62DX
+\cond SOC_AM62X || SOC_AM62AX || SOC_AM62PX || SOC_AM62DX || SOC_AM275X
 Use Cases
 ---------
 Use Case | Reference Clock | Description
@@ -56,6 +56,17 @@ UC-10    | FICLK           | Configuration of DCC instance in single-shot mode a
  Parameter      | Value
  ---------------|-----------
  CPU + OS       | mcu-r5fss0-0 nortos
+ Toolchain      | ti-arm-clang
+ Board          | @VAR_BOARD_NAME_LOWER
+ Example folder | examples/sdl/dcc/dcc_app/
+
+\endcond
+
+\cond SOC_AM275X
+
+ Parameter      | Value
+ ---------------|-----------
+ CPU + OS       | r5fss0-0 nortos
  Toolchain      | ti-arm-clang
  Board          | @VAR_BOARD_NAME_LOWER
  Example folder | examples/sdl/dcc/dcc_app/
