@@ -43,19 +43,19 @@ const files_c75x = {
 const filedirs = {
     common: [
         "eeprom",
-        "ethphy/enet/rtos_drivers/src",
-        "ethphy/enet/rtos_drivers/include",
         "flash",
         "flash/ospi",
         "flash/sfdp",
         "ioexp",
         "led",
+	"${MCU_PLUS_SDK_PATH}/source/networking/enet/core/src/phy",
+	"${MCU_PLUS_SDK_PATH}/source/networking/enet/core/include/phy",
     ],
 };
 
 const includes = {
     common: [
-        "${MCU_PLUS_SDK_PATH}/source/board/ethphy/enet/rtos_drivers/include",
+        "${MCU_PLUS_SDK_PATH}/source/networking/enet/core/include/phy",
         "${MCU_PLUS_SDK_PATH}/source/board/ethphy/port",
     ],
 }
