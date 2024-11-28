@@ -1,7 +1,7 @@
 
 let common = system.getScript("/common");
 
-let ratBaseAddr_r5f = 0x7FE0000;
+let ratBaseAddr_r5f = 0x2FFE0000;
 let ratBaseAddr_wkup_r5f = 0x2FFE0000;
 
 let longDescription_r5f =

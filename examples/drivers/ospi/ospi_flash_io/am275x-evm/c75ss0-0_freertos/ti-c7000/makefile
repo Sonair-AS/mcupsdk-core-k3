@@ -100,12 +100,14 @@ LIBS_PATH_common = \
 	-i${MCU_PLUS_SDK_PATH}/source/kernel/freertos/lib \
 	-i${MCU_PLUS_SDK_PATH}/source/drivers/lib \
 	-i${MCU_PLUS_SDK_PATH}/source/board/lib \
+	-i${MCU_PLUS_SDK_PATH}/source/drivers/udma/lib \
 	-i${CG_TOOL_ROOT}/lib \
 
 LIBS_common = \
 	-lfreertos.am275x.c75x.ti-c7000.${ConfigName}.lib \
 	-ldrivers.am275x.c75x.ti-c7000.${ConfigName}.lib \
 	-lboard.am275x.c75x.ti-c7000.${ConfigName}.lib \
+	-ludma.am275x.c75x.ti-c7000.${ConfigName}.lib \
 	-llibc.a \
 
 LFLAGS_common = \
@@ -124,12 +126,14 @@ LIBS_NAME = \
 	freertos.am275x.c75x.ti-c7000.${ConfigName}.lib \
 	drivers.am275x.c75x.ti-c7000.${ConfigName}.lib \
 	board.am275x.c75x.ti-c7000.${ConfigName}.lib \
+	udma.am275x.c75x.ti-c7000.${ConfigName}.lib \
 	libc.a \
 
 LIBS_PATH_NAME = \
 	${MCU_PLUS_SDK_PATH}/source/kernel/freertos/lib \
 	${MCU_PLUS_SDK_PATH}/source/drivers/lib \
 	${MCU_PLUS_SDK_PATH}/source/board/lib \
+	${MCU_PLUS_SDK_PATH}/source/drivers/udma/lib \
 	${CG_TOOL_ROOT}/lib \
 
 FILES := $(FILES_common) $(FILES_$(PROFILE))

@@ -55,6 +55,9 @@
 #define C7X0_0_SRAM_ALIAS_SIZE  (0x600000U)
 #define SOC_SRAM_BASE_ADDR      (0x72000000U)
 
+/* Flash boot region mask */
+#define FSS0_CTRL1_BOOT_MASK    (0xF8000u)
+
 int32_t SOC_moduleClockEnable(uint32_t moduleId, uint32_t enable)
 {
     int32_t status = SystemP_SUCCESS;
@@ -247,7 +250,7 @@ const char *SOC_getCoreName(uint16_t coreId)
         "c75ss1-0",
         "hsm-m4f0-0",
         "unknown"
-    };      
+    };
     const char *name;
 
     if(coreId < CSL_CORE_ID_MAX)
@@ -635,6 +638,8 @@ void SOC_setFSSCtrlFlashBootSize(void)
 
     baseAddr = (uint32_t) AddrTranslateP_getLocalAddr(CSL_CTRL_MMR0_CFG0_BASE);
 
+    CSL_REG32_WR(baseAddr + CSL_MAIN_CTRL_MMR_CFG0_FSS0_CTRL1, FSS0_CTRL1_BOOT_MASK);
+
     /* Selects the size of the boot block to be used for the OSPI flash
      * interface. Default value is 1'b0 - S0_BOOT_SIZE_64MB for the MMR
      * register. Set 1'b1 - S0_BOOT_SIZE_128MB to update the value.
@@ -658,7 +663,7 @@ void SOC_setFSSCtrlFlashBootSize(void)
 
 uint64_t Soc_getPhyAddr(uint64_t virtAddr)
 {
-    if(Sciclient_getSelfDevIdCore() == TISCI_DEV_C7X256V0_C7XV_CORE_0 || 
+    if(Sciclient_getSelfDevIdCore() == TISCI_DEV_C7X256V0_C7XV_CORE_0 ||
         Sciclient_getSelfDevIdCore() == TISCI_DEV_C7X256V1_C7XV_CORE_0 )
     {
         uint64_t addr = 0;

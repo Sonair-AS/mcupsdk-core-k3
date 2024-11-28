@@ -52,6 +52,7 @@ const libdirs_freertos = {
         "${MCU_PLUS_SDK_PATH}/source/kernel/freertos/lib",
         "${MCU_PLUS_SDK_PATH}/source/drivers/lib",
         "${MCU_PLUS_SDK_PATH}/source/board/lib",
+        "${MCU_PLUS_SDK_PATH}/source/drivers/udma/lib",
     ],
 };
 
@@ -87,7 +88,8 @@ const libs_freertos_c75 = {
     common: [
         "freertos.am275x.c75x.ti-c7000.${ConfigName}.lib",
         "drivers.am275x.c75x.ti-c7000.${ConfigName}.lib",
-        "board.am275x.c75x.ti-c7000.${ConfigName}.lib"
+        "board.am275x.c75x.ti-c7000.${ConfigName}.lib",
+        "udma.am275x.c75x.ti-c7000.${ConfigName}.lib"
     ],
 };
 

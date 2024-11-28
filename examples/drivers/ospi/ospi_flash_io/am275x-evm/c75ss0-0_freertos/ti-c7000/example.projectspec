@@ -55,6 +55,7 @@
             -i${MCU_PLUS_SDK_PATH}/source/kernel/freertos/lib
             -i${MCU_PLUS_SDK_PATH}/source/drivers/lib
             -i${MCU_PLUS_SDK_PATH}/source/board/lib
+            -i${MCU_PLUS_SDK_PATH}/source/drivers/udma/lib
             -i${CG_TOOL_ROOT}/lib
             -m=ospi_flash_io.${ConfigName}.map
             --silicon_version=7504
@@ -90,6 +91,7 @@
                 -lfreertos.am275x.c75x.ti-c7000.debug.lib
                 -ldrivers.am275x.c75x.ti-c7000.debug.lib
                 -lboard.am275x.c75x.ti-c7000.debug.lib
+                -ludma.am275x.c75x.ti-c7000.debug.lib
                 -llibc.a
             "
         ></configuration>
@@ -105,6 +107,7 @@
                 -lfreertos.am275x.c75x.ti-c7000.release.lib
                 -ldrivers.am275x.c75x.ti-c7000.release.lib
                 -lboard.am275x.c75x.ti-c7000.release.lib
+                -ludma.am275x.c75x.ti-c7000.release.lib
                 -llibc.a
             "
         ></configuration>

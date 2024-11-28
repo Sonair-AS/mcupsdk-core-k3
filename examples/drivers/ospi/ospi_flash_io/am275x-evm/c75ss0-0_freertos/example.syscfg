@@ -11,8 +11,6 @@
  */
 const flash       = scripting.addModule("/board/flash/flash", {}, false);
 const flash1      = flash.addInstance();
-const uart        = scripting.addModule("/drivers/uart/uart", {}, false);
-const uart1       = uart.addInstance();
 const debug_log   = scripting.addModule("/kernel/dpl/debug_log");
 const mmu_armv8   = scripting.addModule("/kernel/dpl/mmu_armv8", {}, false);
 const mmu_armv81  = mmu_armv8.addInstance();
@@ -26,6 +24,7 @@ const mmu_armv88  = mmu_armv8.addInstance();
 const mmu_armv89  = mmu_armv8.addInstance();
 const mmu_armv810 = mmu_armv8.addInstance();
 const mmu_armv811 = mmu_armv8.addInstance();
+const mmu_armv812 = mmu_armv8.addInstance();
 
 /**
  * Write custom configuration values to the imported modules.
@@ -33,11 +32,25 @@ const mmu_armv811 = mmu_armv8.addInstance();
 flash1.$name                                           = "CONFIG_FLASH0";
 flash1.serialFlashDriver.$name                         = "board_flash_serialFlash_serialflash0";
 flash1.serialFlashDriver.peripheralDriver.$name        = "CONFIG_OSPI0";
-flash1.serialFlashDriver.peripheralDriver.baudRateDiv  = 8;
+flash1.serialFlashDriver.peripheralDriver.dmaEnable    = true;
+flash1.serialFlashDriver.peripheralDriver.phyEnable    = true;
 flash1.serialFlashDriver.peripheralDriver.OSPI.$assign = "OSPI0";
 
-uart1.$name        = "CONFIG_UART0";
-uart1.UART.$assign = "UART3";
+const udma                                           = scripting.addModule("/drivers/udma/udma", {}, false);
+const udma1                                          = udma.addInstance({}, false);
+udma1.$name                                          = "CONFIG_UDMA0";
+flash1.serialFlashDriver.peripheralDriver.udmaDriver = udma1;
+
+const udma_blkcopy_channel                                   = scripting.addModule("/drivers/udma/udma_blkcopy_channel", {}, false);
+const udma_blkcopy_channel1                                  = udma_blkcopy_channel.addInstance({}, false);
+udma_blkcopy_channel1.$name                                  = "CONFIG_UDMA_BLKCOPY_CH0";
+flash1.serialFlashDriver.peripheralDriver.udmaBlkCopyChannel = udma_blkcopy_channel1;
+
+debug_log.enableUartLog            = true;
+debug_log.uartLog.$name            = "CONFIG_UART1";
+debug_log.uartLog.UART.$assign     = "UART2";
+debug_log.uartLog.UART.RXD.$assign = "MCASP0_AXR6";
+debug_log.uartLog.UART.TXD.$assign = "SPI1_CS1";
 
 mmu_armv81.size  = 0x20000000;
 mmu_armv81.$name = "REGISTERS_REGION0";
@@ -67,35 +80,41 @@ mmu_armv86.vAddr = 0x7C400000;
 mmu_armv86.pAddr = 0x7C400000;
 mmu_armv86.size  = 0x300000;
 
-mmu_armv87.$name     = "CCS_DEBUG_LOG_MEM";
-mmu_armv87.size      = 0x1000;
-mmu_armv87.attribute = "MAIR4";
-mmu_armv87.pAddr     = 0x8027F000;
-mmu_armv87.vAddr     = 0x8027F000;
+mmu_armv87.$name     = "L2SRAM";
+mmu_armv87.vAddr     = 0x7E000000;
+mmu_armv87.pAddr     = 0x7E000000;
+mmu_armv87.attribute = "MAIR7";
+mmu_armv87.size      = 0x200000;
 
-mmu_armv88.$name     = "L2SRAM";
-mmu_armv88.vAddr     = 0x7E000000;
-mmu_armv88.pAddr     = 0x7E000000;
+mmu_armv88.$name     = "L2SRAM_AUX";
+mmu_armv88.vAddr     = 0x7E200000;
+mmu_armv88.pAddr     = 0x7E200000;
+mmu_armv88.size      = 0x40000;
 mmu_armv88.attribute = "MAIR7";
-mmu_armv88.size      = 0x200000;
 
-mmu_armv89.$name     = "L2SRAM_AUX";
-mmu_armv89.vAddr     = 0x7E200000;
-mmu_armv89.pAddr     = 0x7E200000;
-mmu_armv89.size      = 0x40000;
 mmu_armv89.attribute = "MAIR7";
+mmu_armv89.$name     = "MSRAM_BANK0_TO_BANK3";
+mmu_armv89.vAddr     = 0x80000000;
+mmu_armv89.pAddr     = 0x80000000;
+mmu_armv89.size      = 0x400000;
 
+mmu_armv810.$name     = "MSRAM_BANK4_TO_BANK5";
+mmu_armv810.size      = 0x200000;
 mmu_armv810.attribute = "MAIR7";
-mmu_armv810.$name     = "MSRAM_BANK0_TO_BANK3";
-mmu_armv810.vAddr     = 0x80000000;
-mmu_armv810.pAddr     = 0x80000000;
-mmu_armv810.size      = 0x400000;
+mmu_armv810.vAddr     = 0x80400000;
+mmu_armv810.pAddr     = 0x80400000;
 
-mmu_armv811.$name     = "MSRAM_BANK4_TO_BANK5";
-mmu_armv811.size      = 0x200000;
-mmu_armv811.attribute = "MAIR7";
-mmu_armv811.vAddr     = 0x80400000;
-mmu_armv811.pAddr     = 0x80400000;
+mmu_armv811.$name     = "LOG_SHM_MEM";
+mmu_armv811.attribute = "MAIR4";
+mmu_armv811.vAddr     = 0x80380000;
+mmu_armv811.pAddr     = 0x80380000;
+mmu_armv811.size      = 0x40000;
+
+mmu_armv812.$name     = "CCS_DEBUG_LOG_MEM";
+mmu_armv812.attribute = "MAIR4";
+mmu_armv812.size      = 0x1000;
+mmu_armv812.vAddr     = 0x8027F000;
+mmu_armv812.pAddr     = 0x8027F000;
 
 /**
  * Pinmux solution for unlocked pins/peripherals. This ensures that minor changes to the automatic solver in a future
@@ -113,5 +132,3 @@ flash1.serialFlashDriver.peripheralDriver.OSPI.D3.$suggestSolution   = "OSPI0_D3
 flash1.serialFlashDriver.peripheralDriver.OSPI.D2.$suggestSolution   = "OSPI0_D2";
 flash1.serialFlashDriver.peripheralDriver.OSPI.D1.$suggestSolution   = "OSPI0_D1";
 flash1.serialFlashDriver.peripheralDriver.OSPI.D0.$suggestSolution   = "OSPI0_D0";
-uart1.UART.RXD.$suggestSolution                                      = "MCASP0_AXR8";
-uart1.UART.TXD.$suggestSolution                                      = "GPIO1_47";
