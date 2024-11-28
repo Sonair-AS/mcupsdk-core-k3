@@ -76,6 +76,7 @@ SDK features and tools.
 - \subpage ATF_INTEGRATION
 - \subpage MEMORY_MAP
 - \subpage CUSTOM_FLASH_SUPPORT_GUIDE
+- \subpage AMP_FREERTOS_GUIDE
 \endcond
 \cond SOC_AM62X || SOC_AM62AX
 - \subpage SYSFW_PLL_UPDATE_GUIDE
