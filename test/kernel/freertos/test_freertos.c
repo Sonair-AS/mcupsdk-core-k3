@@ -862,4 +862,6 @@ void test_freertos_main(void *args)
     status = TaskP_construct(&gPingTaskObj, &taskParams);
     DebugP_assert(status==SystemP_SUCCESS);
 
+    vTaskDelay(20000);
+
 }

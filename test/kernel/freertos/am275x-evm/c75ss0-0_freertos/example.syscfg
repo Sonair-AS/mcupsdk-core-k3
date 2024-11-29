@@ -29,8 +29,10 @@ const timer1      = timer.addInstance();
 /**
  * Write custom configuration values to the imported modules.
  */
-debug_log.enableUartLog = true;
-debug_log.uartLog.$name = "CONFIG_UART0";
+debug_log.enableUartLog            = true;
+debug_log.uartLog.$name            = "CONFIG_UART0";
+debug_log.uartLog.UART.$assign     = "UART2";
+debug_log.uartLog.UART.TXD.$assign = "SPI1_CS1";
 
 mmu_armv81.size  = 0x20000000;
 mmu_armv81.$name = "REGISTER_REGION0";
@@ -105,6 +107,4 @@ timer1.TIMER.$assign = "TIMER6";
  * version of the tool will not impact the pinmux you originally saw.  These lines can be completely deleted in order to
  * re-solve from scratch.
  */
-debug_log.uartLog.UART.$suggestSolution     = "UART0";
-debug_log.uartLog.UART.RXD.$suggestSolution = "MCASP4_AXR0";
-debug_log.uartLog.UART.TXD.$suggestSolution = "MLB0_MLBCLK";
+debug_log.uartLog.UART.RXD.$suggestSolution = "MCASP0_AXR6";
