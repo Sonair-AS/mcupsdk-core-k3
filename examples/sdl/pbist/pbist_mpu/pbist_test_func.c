@@ -1,5 +1,5 @@
 /*
- *  Copyright (C) 2023-24 Texas Instruments Incorporated
+ *  Copyright (C) 2023-2024 Texas Instruments Incorporated
  *
  *  Redistribution and use in source and binary forms, with or without
  *  modification, are permitted provided that the following conditions
@@ -147,7 +147,7 @@ int32_t PBIST_runTest(uint32_t instanceId, bool runNegTest)
     /* Get start time of test */
     startTime = ClockP_getTimeUsec();
 
-#if defined (SOC_AM62PX)
+#if defined (SOC_AM62PX) || defined (SOC_AM275X)
     /* Step 1: (if HW Power-On Self Test, i.e. POST) Check POST results  */
     if ((testResult == 0) &&
         (PBIST_TestHandleArray[instanceId].numPostPbistToCheck > 0))
@@ -1084,7 +1084,7 @@ int32_t PBIST_runTest(uint32_t instanceId, bool runNegTest)
         DebugP_log(" PBIST complete %s, test index %d\r\n",
                     PBIST_TestHandleArray[instanceId].testName,
                     instanceId);
-#if defined (SOC_AM62PX)
+#if defined (SOC_AM62PX) || defined (SOC_AM275X)
     }
 #endif
     return (testResult);
@@ -1116,7 +1116,7 @@ int32_t PBIST_funcTest(void)
 			testResult = PBIST_runTest(i, true);
 #endif
 #endif
-#if defined (SOC_AM62AX) || defined (SOC_AM62PX) || defined(SOC_AM62DX)
+#if defined (SOC_AM62AX) || defined (SOC_AM62PX) || defined(SOC_AM62DX) || defined (SOC_AM275X)
             /* Excluded MCU instance*/
             testResult = PBIST_runTest(i, true);
 #endif
@@ -1142,7 +1142,7 @@ int32_t PBIST_funcTest(void)
                 testResult = PBIST_runTest(i, false);
 #endif
 #endif
-#if defined (SOC_AM62AX) || defined (SOC_AM62PX) || defined(SOC_AM62DX)
+#if defined (SOC_AM62AX) || defined (SOC_AM62PX) || defined(SOC_AM62DX) || defined (SOC_AM275X)
             /* Excluded MCU instance*/
                 testResult = PBIST_runTest(i, false);
 #endif

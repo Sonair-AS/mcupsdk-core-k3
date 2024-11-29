@@ -51,10 +51,10 @@ This page lists all the examples related to usage of SDL.
 <!-- -# MCRC
    -# \subpage EXAMPLES_SDL_MCRC_AUTO
    -# \subpage EXAMPLES_SDL_MCRC_FULL_CPU
-   -# \subpage EXAMPLES_SDL_MCRC_SEMI_CPU
+   -# \subpage EXAMPLES_SDL_MCRC_SEMI_CPU -->
 -# PBIST
    -# \subpage EXAMPLES_SDL_PBIST
--# POK
+<!-- -# POK
    -# \subpage EXAMPLES_SDL_POK
 -# ROM_CHECKSUM
    -# \subpage EXAMPLES_SDL_ROM_CHECKSUM -->

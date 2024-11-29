@@ -1158,7 +1158,7 @@ int32_t PBIST_funcTest(void)
         for (i = 0; i < PBIST_NUM_INSTANCE; i++)
         {
             /* Run test on selected instance */
-#if defined (SOC_AM62X)
+#if defined (SOC_AM62X) || defined (SOC_AM275X)
 #if defined(M4F_CORE)
             testResult = PBIST_runTest(i, true);
 #endif
@@ -1178,7 +1178,7 @@ int32_t PBIST_funcTest(void)
             for (i = 0; i < PBIST_NUM_INSTANCE; i++)
             {
                 /* Run test on selected instance */
-#if defined (SOC_AM62X)
+#if defined (SOC_AM62X) || defined (SOC_AM275X)
 #if defined(M4F_CORE)
                 testResult = PBIST_runTest(i, false);
 #endif

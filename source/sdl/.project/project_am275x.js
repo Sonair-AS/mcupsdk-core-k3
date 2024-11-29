@@ -27,9 +27,9 @@ const files_r5f = {
         "sdl_rti.c",
         "sdl_ip_rti.c",
         "sdl_soc_rti.c",
-        // "sdl_ip_pbist.c",
-        // "sdl_soc_pbist.c",
-        // "sdl_pbist.c",
+        "sdl_ip_pbist.c",
+        "sdl_soc_pbist.c",
+        "sdl_pbist.c",
 
         // "sdl_ip_lbist.c",
         // "sdl_soc_lbist.c",
