@@ -1,5 +1,5 @@
 /*
- *   Copyright (c) Texas Instruments Incorporated 2023-24
+ *   Copyright (c) Texas Instruments Incorporated 2023-2024
  *
  *  Redistribution and use in source and binary forms, with or without
  *  modification, are permitted provided that the following conditions
@@ -59,6 +59,10 @@
 #if defined(SOC_AM62AX) || defined (SOC_AM62PX) || defined (SOC_AM62DX)
 #define PSRAM0_MAX_MEM_SECTIONS 		  (1u)
 #define MCUMCAN1_MAX_MEM_SECTIONS         (1u)
+#endif
+#if defined(SOC_AM275X)
+#define MCAN1_MAX_MEM_SECTIONS         (1u)
+#define C7X256V1_MAX_MEM_SECTIONS      (1u)
 #endif
 /* ========================================================================== */
 /*                            Global Variables                                */
@@ -257,6 +261,28 @@ SDL_ESM_config ECC_Test_esmInitConfig_MCU =
      *   and PCIE events */
 };
 #endif
+
+#if defined (SOC_AM275X)
+SDL_ESM_config ECC_Test_esmInitConfig_MAIN =
+{
+    .esmErrorConfig = {1u, 8u}, /* Self test error config */
+    .enableBitmap = {0x00000000u, 0x30000000u, 0x00000000u, 0x00000000u,
+					 0x00000000u, 0x00000000u, 0x00000003u, 0x00000000u,
+					},
+     /**< All events enable: except timer and self test  events, and Main ESM output */
+    /* Temporarily disabling vim compare error as well*/
+    .priorityBitmap = {0x00000000u, 0x30000000u, 0x00000000u, 0x00000000u,
+					   0x00000000u, 0x00000000u, 0x00000003u, 0x00000000u,
+                        },
+    /**< All events high priority: except timer, selftest error events, and Main ESM output */
+    .errorpinBitmap = {0x00000000u, 0x30000000u, 0x00000000u, 0x00000000u,
+					   0x00000000u, 0x00000000u, 0x00000003u, 0x00000000u,
+                      },
+    /**< All events high priority: except timer, selftest error events, and Main ESM output */
+};
+#endif
+
+
 extern int32_t SDL_ESM_applicationCallbackFunction(SDL_ESM_Inst esmInstType,
                                                    SDL_ESM_IntType esmIntType,
                                                    uint32_t grpChannel,
@@ -348,6 +374,31 @@ static SDL_ECC_InitConfig_t ECC_Test_MCUMCAN1ECCInitConfig =
     /**< Sub type list  */
 };
 #endif
+#if defined (SOC_AM275X)
+static SDL_ECC_MemSubType ECC_Test_MCAN1subMemTypeList[MCAN1_MAX_MEM_SECTIONS] =
+{
+    SDL_MCAN1_MCANSS_MSGMEM_WRAP_ECC_AGGR_MCANSS_MSGMEM_WRAP_MSGMEM_ECC_RAM_ID
+};
+static SDL_ECC_InitConfig_t ECC_Test_MCAN1ECCInitConfig =
+{
+    .numRams = MCAN1_MAX_MEM_SECTIONS,
+    /**< Number of Rams ECC is enabled  */
+    .pMemSubTypeList = &(ECC_Test_MCAN1subMemTypeList[0]),
+    /**< Sub type list  */
+};
+static SDL_ECC_MemSubType ECC_Test_C7X256V1subMemTypeList[C7X256V1_MAX_MEM_SECTIONS] =
+{
+    SDL_C7X256V1_ECC_AGGR_AC71_PMC_WRAP_PMC_PMC_MEMWRAP_EDC_CTRL_PARITY_0_RAM_ID
+};
+static SDL_ECC_InitConfig_t ECC_Test_C7X256V1ECCInitConfig =
+{
+    .numRams = C7X256V1_MAX_MEM_SECTIONS,
+    /**< Number of Rams ECC is enabled  */
+    .pMemSubTypeList = &(ECC_Test_C7X256V1subMemTypeList[0]),
+    /**< Sub type list  */
+};
+#endif
+
 static uint32_t arg;
 /*********************************************************************
 * @fn      ECC_Example_init
@@ -459,6 +510,32 @@ int32_t ECC_Example_init (void)
         }
         else {
             DebugP_log("\r\nECC_init: MCU MCAN1 ECC Init complete \r\n");
+        }
+#endif
+#if defined(SOC_AM275X)
+        /* Initialize MCAN1 ECC */
+        result = SDL_ECC_init(SDL_MCAN1_MCANSS_MSGMEM_WRAP_ECC_AGGR, &ECC_Test_MCAN1ECCInitConfig);
+        if (result != SDL_APP_TEST_PASS)
+        {
+            /* print error and quit */
+            DebugP_log("\r\nECC_init: Error initializing MAIN MCAN1 ECC: result = %d\r\n", result);
+
+            retValue = SDL_APP_TEST_FAILED;
+        }
+        else {
+            DebugP_log("\r\nECC_init: MAIN MCAN1 ECC Init complete \r\n");
+        }
+        /* Initialize C7X256V1 ECC */
+        result = SDL_ECC_init(SDL_C7X256V1_ECC_AGGR, &ECC_Test_C7X256V1ECCInitConfig);
+        if (result != SDL_APP_TEST_PASS)
+        {
+            /* print error and quit */
+            DebugP_log("\r\nECC_init: Error initializing C7X256V1 ECC: result = %d\r\n", result);
+
+            retValue = SDL_APP_TEST_FAILED;
+        }
+        else {
+            DebugP_log("\r\nECC_init: C7X256V1 ECC Init complete \r\n");
         }
 #endif
     }
@@ -615,6 +692,147 @@ int32_t runECC2BitMCUMCAN1_InjectTest(void)
     return retVal;
 }/* End of runECC2BitMCUMCAN1_InjectTest() */
 #endif
+#if defined(SOC_AM275X)
+/*********************************************************************
+ * @fn    runECC2BitMCAN1_InjectTest
+ *
+ * @brief   Execute ECC Double bit error example test on MAIN MCAN1 ECC aggregator
+ *
+ * @param   None
+ *
+ * @return  0 : Success; < 0 for failures
+ */
+int32_t runECC2BitMCAN1_InjectTest(void)
+{
+    SDL_ErrType_t result;
+    int32_t retVal=0;
+
+    SDL_ECC_InjectErrorConfig_t injectErrorConfig;
+	volatile uint32_t testLocationValue;
+	memset(&injectErrorConfig, 0, sizeof(injectErrorConfig));
+
+    DebugP_log("\r\nMAIN MCAN1 Double bit error inject Example test UC-0: starting\r\n");
+
+    /* Run one shot test for MAIN MCAN1 2 bit error */
+    /* Note the address is relative to start of ram */
+    injectErrorConfig.pErrMem = (uint32_t *)(0x20718000u);
+
+    injectErrorConfig.flipBitMask = 0x101;
+
+    result = SDL_ECC_injectError(SDL_MCAN1_MCANSS_MSGMEM_WRAP_ECC_AGGR,
+                                 SDL_MCAN1_MCANSS_MSGMEM_WRAP_ECC_AGGR_MCANSS_MSGMEM_WRAP_MSGMEM_ECC_RAM_ID,
+                                 SDL_INJECT_ECC_ERROR_FORCING_2BIT_ONCE,
+                                 &injectErrorConfig);
+
+    if (result != SDL_APP_TEST_PASS ) {
+        DebugP_log("\r\nMAIN MCAN1 Double bit error inject test: pError address 0x%p: test failed\r\n",
+                   injectErrorConfig.pErrMem);
+        retVal = SDL_APP_TEST_FAILED;
+    } else {
+
+        /* Access the memory where injection is expected */
+        testLocationValue = injectErrorConfig.pErrMem[0];
+        DebugP_log("\r\nMAIN MCAN1 Double bit error inject test: pError address 0x%p test complete and the value is 0x%p\r\n",
+                   injectErrorConfig.pErrMem, testLocationValue);
+    }
+
+    return retVal;
+}/* End of runECC2BitMCAN1_InjectTest() */
+/*********************************************************************
+ * @fn    runECC1BitC7X256V1_InjectTest
+ *
+ * @brief   Execute ECC Single bit error example test on C7X256V1 ECC aggregator
+ *
+ * @param   None
+ *
+ * @return  0 : Success; < 0 for failures
+ */
+int32_t runECC1BitC7X256V1_InjectTest(void)
+{
+    SDL_ErrType_t result;
+    int32_t retVal=0;
+
+    SDL_ECC_InjectErrorConfig_t injectErrorConfig;
+    uint32_t subType;
+	memset(&injectErrorConfig, 0, sizeof(injectErrorConfig));
+
+    DebugP_log("\r\nC7X256V1 Single bit error inject Example test UC-2: starting\r\n");
+
+    /* Run one shot test for C7X256V1 1 bit error */
+    /* Note the address is relative to start of ram */
+    injectErrorConfig.pErrMem = (uint32_t *)(0x0u);
+
+    injectErrorConfig.flipBitMask = 0x10;
+
+    injectErrorConfig.chkGrp = 0x0;
+
+    subType = SDL_C7X256V1_ECC_AGGR_AC71_PMC_WRAP_PMC_PMC_MEMWRAP_EDC_CTRL_PARITY_0_RAM_ID;
+
+    result = SDL_ECC_injectError(SDL_C7X256V1_ECC_AGGR,
+                                 subType,
+                                 SDL_INJECT_ECC_ERROR_FORCING_1BIT_ONCE,
+                                 &injectErrorConfig);
+
+    if (result != SDL_APP_TEST_PASS ) {
+        DebugP_log("\r\nC7X256V1 Single bit error inject test: Subtype %d: test failed\r\n",
+                   subType);
+        retVal = SDL_APP_TEST_FAILED;
+    } else {
+
+        DebugP_log("\r\nSingle bit error inject test: Subtype 0x%p test complete\r\n",
+                   subType);
+    }
+
+    return retVal;
+}/* End of runECC1BitC7X256V1_InjectTest() */
+/*********************************************************************
+ * @fn    runECC1BitMCAN1_InjectTest
+ *
+ * @brief   Execute ECC Single bit error example test on MAIN MCAN1 ECC aggregator
+ *
+ * @param   None
+ *
+ * @return  0 : Success; < 0 for failures
+ */
+int32_t runECC1BitMCAN1_InjectTest(void)
+{
+    SDL_ErrType_t result;
+    int32_t retVal=0;
+
+    SDL_ECC_InjectErrorConfig_t injectErrorConfig;
+	volatile uint32_t testLocationValue;
+	memset(&injectErrorConfig, 0, sizeof(injectErrorConfig));
+
+    DebugP_log("\r\nMAIN MCAN1 single bit error inject Example test UC-1: starting\r\n");
+
+    /* Run one shot test for MAIN MCAN1 1 bit error */
+    /* Note the address is relative to start of ram */
+    injectErrorConfig.pErrMem = (uint32_t *)(0x20718000u);
+
+    injectErrorConfig.flipBitMask = 0x101;
+
+    result = SDL_ECC_injectError(SDL_MCAN1_MCANSS_MSGMEM_WRAP_ECC_AGGR,
+                                 SDL_MCAN1_MCANSS_MSGMEM_WRAP_ECC_AGGR_MCANSS_MSGMEM_WRAP_MSGMEM_ECC_RAM_ID,
+                                 SDL_INJECT_ECC_ERROR_FORCING_1BIT_ONCE,
+                                 &injectErrorConfig);
+
+    if (result != SDL_APP_TEST_PASS ) {
+        DebugP_log("\r\nMAIN MCAN1 Single bit error inject test: pError address 0x%p: test failed\r\n",
+                   injectErrorConfig.pErrMem);
+        retVal = SDL_APP_TEST_FAILED;
+    } else {
+
+        /* Access the memory where injection is expected */
+        testLocationValue = injectErrorConfig.pErrMem[0];
+        DebugP_log("\r\nMAIN MCAN1 Single bit error inject test: pError address 0x%p test complete and the value is 0x%p\r\n",
+                   injectErrorConfig.pErrMem, testLocationValue);
+    }
+
+    return retVal;
+}/* End of runECC1BitMCAN1_InjectTest() */
+#endif
+
+
 
 #if defined (SOC_AM62AX) || defined (SOC_AM62X) || defined (SOC_AM62DX)
 #if defined (SOC_AM62AX) || defined (SOC_AM62DX)
@@ -741,6 +959,9 @@ static int32_t ECC_sdlFuncTest(void)
 #if defined(SOC_AM62AX) || defined (SOC_AM62PX) || defined (SOC_AM62DX)
 		result = runECC2BitMCUMCAN1_InjectTest();
 #endif
+#if defined(SOC_AM275X)
+		result = runECC1BitMCAN1_InjectTest();
+#endif
         if (result == SDL_APP_TEST_PASS)
         {
         DebugP_log("\r\nWaiting for ESM Interrupt\r\n");
@@ -819,6 +1040,62 @@ static int32_t ECC_sdlFuncTest(void)
             retVal = SDL_APP_TEST_FAILED;
             DebugP_log("\r\nMemory Parity Error Test has failed...\r\n");
         }/* UC-3 High priority Parity interrupt */
+    }
+#endif
+#if defined(SOC_AM275X)
+    if (retVal == SDL_APP_TEST_PASS)
+    {
+        result = runECC1BitC7X256V1_InjectTest();
+        if (result == SDL_APP_TEST_PASS)
+        {
+            DebugP_log("\r\nWaiting for the ESM Interrupt \r\n");
+        do
+            {
+                timeOutCnt += 10;
+                if (timeOutCnt > maxTimeOutMilliSeconds)
+                {
+                    result = SDL_EFAIL;
+                    break;
+                }
+            } while (esmError == false);
+        }
+        if(result == SDL_APP_TEST_PASS){
+            DebugP_log("\r\nUC-2: Memory Parity Error Test Complete\r\n");
+            esmError = false;
+        }
+
+        if (result != SDL_APP_TEST_PASS) {
+            retVal = SDL_APP_TEST_FAILED;
+            DebugP_log("\r\nESM_ECC_Example_run: UC-2 has failed....\r\n");
+            /* UC-2 C7X256V1 interrupt */
+        }
+    }
+    if (retVal == SDL_APP_TEST_PASS)
+    {
+        result = runECC2BitMCAN1_InjectTest();
+        if (result == SDL_APP_TEST_PASS)
+        {
+            DebugP_log("\r\nWaiting for ESM Interrupt\r\n");
+        do
+            {
+                timeOutCnt += 10;
+                if (timeOutCnt > maxTimeOutMilliSeconds)
+                {
+                    result = SDL_EFAIL;
+                    break;
+                }
+            } while (esmError == false);
+        }
+        if(result == SDL_APP_TEST_PASS){
+            DebugP_log("\r\nUC-0: Got the ESM Interrupt\r\n");
+            esmError = false;
+        }
+
+        if (result != SDL_APP_TEST_PASS) {
+            retVal = SDL_APP_TEST_FAILED;
+            DebugP_log("\r\nESM_ECC_Example_run: UC-0 has failed...\r\n");
+            /* UC-0 MCAN1 interrupt */
+        }
     }
 #endif
 #if defined(SOC_AM62AX) || defined (SOC_AM62DX)

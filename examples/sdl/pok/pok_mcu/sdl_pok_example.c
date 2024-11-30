@@ -1,4 +1,4 @@
-/* Copyright (c) 2023-24 Texas Instruments Incorporated
+/* Copyright (c) 2023-2024 Texas Instruments Incorporated
  *
  *  Redistribution and use in source and binary forms, with or without
  *  modification, are permitted provided that the following conditions
@@ -57,6 +57,10 @@
 #if defined (SOC_AM62PX)
 #include <sdl/pok/v1/soc/am62px/sdl_soc_pok.h>
 #include <sdl/include/am62px/sdlr_intr_wkup_esm0.h>
+#endif
+#if defined (SOC_AM275X)
+#include <sdl/pok/v1/soc/am275x/sdl_soc_pok.h>
+#include <sdl/include/am275x/sdlr_intr_wkup_esm0.h>
 #endif
 
 #if defined (SOC_AM62DX)
@@ -288,10 +292,12 @@ static void sdlGetInstance(SDL_POK_Inst *instance, uint32_t *esm_err_sig)
         case MCU_ESM_ERR_SIG_VDD_MCU_OV:
              *instance = SDL_POK_VDD_MCU_OV_ID;
              break;
+#if !defined(IP_VERSION_POK_V1_NO_DDRIO)
         case MCU_ESM_ERR_SIG_VDDS_DDRIO_UV:
         case MCU_ESM_ERR_SIG_VDDS_DDRIO_OV:
             *instance    = SDL_POK_VDDS_DDRIO_ID;
             break;
+#endif
         case MCU_ESM_ERR_SIG_VDDR_CORE_UV:
         case MCU_ESM_ERR_SIG_VDDR_CORE_OV:
             *instance    = SDL_POK_VDDR_CORE_ID;

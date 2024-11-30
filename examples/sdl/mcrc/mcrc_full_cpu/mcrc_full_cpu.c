@@ -1,4 +1,4 @@
-/* Copyright (c) 2022-24 Texas Instruments Incorporated
+/* Copyright (c) 2022-2024 Texas Instruments Incorporated
  *
  *  Redistribution and use in source and binary forms, with or without
  *  modification, are permitted provided that the following conditions
@@ -129,6 +129,10 @@ static SDL_MCRC_ConfigParams_t params[MCRC_NUM_USE_CASES] =
 #if defined(SOC_AM62X) || defined(SOC_AM62AX) || defined (SOC_AM62PX) || defined (SOC_AM62DX)
 	 MCU_MCRC64_0,
 #endif
+
+#if defined(SOC_AM275X)
+	 MCRC64_0,
+#endif
      (uint32_t) SDL_MCRC_CHANNEL_1,
      (uint32_t) SDL_MCRC_OPERATION_MODE_FULLCPU,
      4U,
@@ -148,6 +152,10 @@ static SDL_MCRC_ConfigParams_t params[MCRC_NUM_USE_CASES] =
 
 #if defined(SOC_AM62X) || defined(SOC_AM62AX) || defined (SOC_AM62PX) || defined (SOC_AM62DX)
 	 MCU_MCRC64_0,
+#endif
+
+#if defined(SOC_AM275X)                                                                             
+	 MCRC64_0,
 #endif
      (uint32_t) SDL_MCRC_CHANNEL_2,
      (uint32_t) SDL_MCRC_OPERATION_MODE_FULLCPU,
@@ -244,6 +252,14 @@ static int32_t sdl_mcrc_full_cpu_test(void)
                 DebugP_log("\n Full_CPU mode MCRC signature verification failed for the instance MCU_MCRC64_0 \n\n");
             }
 #endif
+
+#if defined(SOC_AM275X)
+            if (params[useCase].instance == MCRC64_0 )
+            {
+                DebugP_log("\n Full_CPU mode MCRC signature verification failed for the instance MCRC64_0 \n\n");
+            }
+#endif
+
             retVal = SDL_EFAIL;
         }
         else
@@ -259,6 +275,13 @@ static int32_t sdl_mcrc_full_cpu_test(void)
 			if (params[useCase].instance == MCU_MCRC64_0 )
             {
                 DebugP_log("\n Full_CPU mode MCRC signature verification done successfully for the instance MCU_MCRC64_0 \n\n ");
+            }
+#endif
+
+#if defined(SOC_AM275X)
+			if (params[useCase].instance == MCRC64_0 )
+            {
+                DebugP_log("\n Full_CPU mode MCRC signature verification done successfully for the instance MCRC64_0 \n\n ");
             }
 #endif
             retVal = SDL_PASS;

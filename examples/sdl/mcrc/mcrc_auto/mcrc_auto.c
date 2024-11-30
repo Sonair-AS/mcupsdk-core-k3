@@ -105,7 +105,14 @@ uint32_t            testCase = 0;
 static    SDL_MCRC_ConfigParams_t testparams[MCRC_USECASES] =
 {
   {
-      MCU_MCRC64_0,
+
+#if defined(SOC_AM62X) || defined(SOC_AM62AX) || defined (SOC_AM62PX) || defined (SOC_AM64X)
+	 MCU_MCRC64_0,
+#endif
+
+#if defined(SOC_AM275X)                                                                             
+	 MCRC64_0,
+#endif
       (uint32_t) SDL_MCRC_CHANNEL_1,
       (uint32_t) SDL_MCRC_OPERATION_MODE_AUTO,
       4U,
@@ -119,7 +126,14 @@ static    SDL_MCRC_ConfigParams_t testparams[MCRC_USECASES] =
       (uint32_t) &gMCRCSrcBuffer[0],
   },
   {
-      MCU_MCRC64_0,
+
+#if defined(SOC_AM62X) || defined(SOC_AM62AX) || defined (SOC_AM62PX) || defined (SOC_AM64X)
+	 MCU_MCRC64_0,
+#endif
+
+#if defined(SOC_AM275X)                                                                             
+	 MCRC64_0,
+#endif
       (uint32_t) SDL_MCRC_CHANNEL_2,
       (uint32_t) SDL_MCRC_OPERATION_MODE_AUTO,
       4U,
