@@ -179,9 +179,6 @@ void App_bootMultipleCoreEmmc()
             DebugP_log("Image loading done, switching to application ...\r\n");
             DebugP_log("Starting linux and RTOS/Baremetal applications\r\n");
             UART_flushTxFifo(gUartHandle[CONFIG_UART_SBL]);
-
-            /* Restore CONFIG_UART_APP (WKUP_UART) for application logs */
-            DebugP_uartSetDrvIndex(CONFIG_UART_APP);
         }
 
          /* Deinitialise the flash and driver peripherial used by bootloader before starting other cores,
@@ -220,9 +217,6 @@ void App_bootMultipleCoreEmmc()
 
         UART_close(gUartHandle[CONFIG_UART_SBL]);
         gUartHandle[CONFIG_UART_SBL] = NULL;
-
-        /* Restore CONFIG_UART_APP (WKUP_UART) for application logs */
-        DebugP_uartSetDrvIndex(CONFIG_UART_APP);
     }
 }
 
