@@ -1,4 +1,4 @@
-/* Copyright (c) 2023-24 Texas Instruments Incorporated
+/* Copyright (c) 2023-2024 Texas Instruments Incorporated
  *
  *  Redistribution and use in source and binary forms, with or without
  *  modification, are permitted provided that the following conditions
@@ -72,6 +72,12 @@
 #include <sdl/include/am62dx/sdlr_mcu_ctrl_mmr.h>
 #endif
 
+
+#if defined (SOC_AM275X)
+#include <drivers/soc/am275x/soc.h>
+#include <sdl/include/am275x/sdlr_soc_baseaddress.h>
+#include <sdl/include/am275x/sdlr_mcu_ctrl_mmr.h>
+#endif
 #if !defined(TEST_MAIN_H)
 #define TEST_MAIN_H
 

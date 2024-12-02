@@ -1,5 +1,5 @@
 /*
- *  Copyright (C) 2022-24 Texas Instruments Incorporated
+ *  Copyright (C) 2022-2024 Texas Instruments Incorporated
  *
  *  Redistribution and use in source and binary forms, with or without
  *  modification, are permitted provided that the following conditions
@@ -77,6 +77,10 @@ static SDL_MCRC_ConfigParams_t testParams[2] =
 #if defined(SOC_AM62X) || defined(SOC_AM62AX) || defined (SOC_AM62PX) || defined (SOC_AM62DX)
 		MCU_MCRC64_0,
 #endif
+
+#if defined(SOC_AM275X)
+	    MCRC64_0,
+#endif
         (uint32_t) SDL_MCRC_CHANNEL_2,
         (uint32_t) SDL_MCRC_OPERATION_MODE_FULLCPU,
         4U,
@@ -96,6 +100,10 @@ static SDL_MCRC_ConfigParams_t testParams[2] =
 
 #if defined(SOC_AM62X) || defined(SOC_AM62AX) || defined (SOC_AM62PX) || defined (SOC_AM62DX)
 		MCU_MCRC64_0,
+#endif
+
+#if defined(SOC_AM275X)
+	    MCRC64_0,
 #endif
         (uint32_t) SDL_MCRC_CHANNEL_3,
         (uint32_t) SDL_MCRC_OPERATION_MODE_FULLCPU,

@@ -1,4 +1,4 @@
- /* Copyright (c) 2022-24 Texas Instruments Incorporated
+ /* Copyright (c) 2022-2024 Texas Instruments Incorporated
  *
  *  Redistribution and use in source and binary forms, with or without
  *  modification, are permitted provided that the following conditions
@@ -49,6 +49,10 @@ int32_t sdl_ip_mcrcNegTest(void)
 
 #if defined(SOC_AM62X) || defined(SOC_AM62AX) || defined (SOC_AM62PX) || defined (SOC_AM62DX)
     SDL_MCRC_InstType             instance = MCU_MCRC64_0;
+#endif
+
+#if defined(SOC_AM275X)
+    SDL_MCRC_InstType             instance = MCRC64_0;
 #endif
     uint32_t              baseAddr;
     uint32_t              ctrlFlag = 1U;
@@ -326,6 +330,11 @@ int32_t sdl_ip_mcrcPosTest(void)
 
 #if defined(SOC_AM62X) || defined(SOC_AM62AX) || defined (SOC_AM62PX) || defined (SOC_AM62DX)
 	SDL_MCRC_InstType startInstance = MCU_MCRC64_0;
+	SDL_MCRC_InstType endInstance = MCRC64_0;
+#endif
+
+#if defined(SOC_AM275X)
+	SDL_MCRC_InstType startInstance = MCRC64_0;
 	SDL_MCRC_InstType endInstance = MCRC64_0;
 #endif
     int32_t               testStatus = SDL_APP_TEST_PASS;

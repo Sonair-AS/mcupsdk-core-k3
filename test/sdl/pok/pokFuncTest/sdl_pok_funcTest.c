@@ -1,4 +1,4 @@
-/* Copyright (c) 2021 Texas Instruments Incorporated
+/* Copyright (c) 2021-2024 Texas Instruments Incorporated
  *
  *  Redistribution and use in source and binary forms, with or without
  *  modification, are permitted provided that the following conditions
@@ -369,6 +369,7 @@ int32_t sdlPOK_funcTest(void)
     uint32_t                     isOV;
     SDL_POK_staticRegs           pStaticRegs;
 
+#if !defined(IP_VERSION_POK_V1_NO_DDRIO)
 
     DebugP_log(" Below are the POK ID values \n");
     DebugP_log("  SDL_POK_VDDA_PMIC_IN_ID is:            0 \n");
@@ -379,8 +380,17 @@ int32_t sdlPOK_funcTest(void)
 	DebugP_log("  SDL_POK_VDDSHV_MAIN_3P3_ID is:         5 \n");
 	DebugP_log("  SDL_POK_VDD_MCU_OV_ID is:              6 \n");
 
+#else
 
+    DebugP_log(" Below are the POK ID values \n");
+    DebugP_log("  SDL_POK_VDDA_PMIC_IN_ID is:            0 \n");
+    DebugP_log("  SDL_POK_VDDR_CORE_ID is:               1 \n");
+    DebugP_log("  SDL_POK_VMON_CAP_MCU_GENERAL_ID is:    2 \n");
+    DebugP_log("  SDL_POK_VDDSHV_MAIN_1P8_ID is:         3 \n");
+	DebugP_log("  SDL_POK_VDDSHV_MAIN_3P3_ID is:         4 \n");
+	DebugP_log("  SDL_POK_VDD_MCU_OV_ID is:              5 \n");
 
+#endif
     DebugP_log(" Enter the Voltage Detection (0: UV, 1: OV, 2: PP) for the POK ID to monitor for the test  \n");
 
 
@@ -476,10 +486,12 @@ static void sdlGetInstance(SDL_POK_Inst *instance, uint32_t *esm_err_sig)
 	    case MCU_ESM_ERR_SIG_VDDA_PMIC_IN_UV:
             *instance = SDL_POK_VDDA_PMIC_IN_ID;
             break;
+#if !defined(IP_VERSION_POK_V1_NO_DDRIO)
         case MCU_ESM_ERR_SIG_VDDS_DDRIO_UV:
         case MCU_ESM_ERR_SIG_VDDS_DDRIO_OV:
             *instance    = SDL_POK_VDDS_DDRIO_ID;
             break;
+#endif
         case MCU_ESM_ERR_SIG_VDDR_CORE_UV:
         case MCU_ESM_ERR_SIG_VDDR_CORE_OV:
             *instance    = SDL_POK_VDDR_CORE_ID;

@@ -103,7 +103,11 @@ uint32_t            testCase = 0;
 static    SDL_MCRC_ConfigParams_t testparams[MCRC_USECASES] =
 {
   {
+#if defined (SOC_AM275X)
+      MCRC64_0,
+#else
       MCU_MCRC64_0,
+#endif
       (uint32_t) SDL_MCRC_CHANNEL_1,
       (uint32_t) SDL_MCRC_OPERATION_MODE_FULLCPU,
       4U,
@@ -117,7 +121,11 @@ static    SDL_MCRC_ConfigParams_t testparams[MCRC_USECASES] =
       (uint32_t) &gMCRCSrcBuffer[0],
   },
   {
+#if defined (SOC_AM275X)
+      MCRC64_0,
+#else
       MCU_MCRC64_0,
+#endif
       (uint32_t) SDL_MCRC_CHANNEL_2,
       (uint32_t) SDL_MCRC_OPERATION_MODE_AUTO,
       4U,

@@ -50,6 +50,11 @@ int32_t sdl_mcrc_negTest(void)
 #if defined(SOC_AM62X) || defined(SOC_AM62AX) || defined (SOC_AM62PX) || defined (SOC_AM62DX)
     SDL_MCRC_InstType             instance = MCU_MCRC64_0;
 #endif
+
+#if defined(SOC_AM275X)
+    SDL_MCRC_InstType             instance = MCRC64_0;
+#endif
+
     SDL_MCRC_Channel_t            channel = SDL_MCRC_CHANNEL_1;
     uint32_t                      watchdogPreload = MCRC_WATCHDOG_PRELOAD;
     uint32_t                      blockPreload = MCRC_BLOCK_PRELOAD;

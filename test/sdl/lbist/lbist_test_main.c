@@ -96,7 +96,6 @@ void tearDown(void)
 #define KICK1_UNLOCK_VAL 0xD172BC5A
 #define KICK_LOCK_VAL    0x00000000
 
-#define SDL_MCU_CTRL_MMR0_CFG0_BASE                                         (0x4500000UL)
 
 static int32_t LBIST_appInitBoard(void)
 {
@@ -109,7 +108,9 @@ static int32_t LBIST_appInitBoard(void)
     SOC_controlModuleUnlockMMR(SOC_DOMAIN_ID_MCU,4);
     SOC_controlModuleUnlockMMR(SOC_DOMAIN_ID_MCU,5);
     SOC_controlModuleUnlockMMR(SOC_DOMAIN_ID_MCU,6);
-
+#if defined (SOC_AM275X)
+    SOC_controlModuleUnlockMMR(SOC_DOMAIN_ID_MAIN,3);
+#endif
     return (testResult);
 }
 

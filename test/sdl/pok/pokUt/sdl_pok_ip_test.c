@@ -1,4 +1,4 @@
- /* Copyright (c) 2023-24 Texas Instruments Incorporated
+ /* Copyright (c) 2023-2024 Texas Instruments Incorporated
  *
  *  Redistribution and use in source and binary forms, with or without
  *  modification, are permitted provided that the following conditions
@@ -57,6 +57,11 @@
 #include <sdl/pok/v1/soc/am62px/sdl_soc_pok.h>
 #include <sdl/include/am62px/sdlr_mcu_ctrl_mmr.h>
 #include <sdl/include/am62px/sdlr_intr_wkup_esm0.h>
+#endif
+#if defined (SOC_AM275X)
+#include <sdl/pok/v1/soc/am275x/sdl_soc_pok.h>
+#include <sdl/include/am275x/sdlr_mcu_ctrl_mmr.h>
+#include <sdl/include/am275x/sdlr_intr_wkup_esm0.h>
 #endif
 
 #if defined (SOC_AM62DX)
@@ -1214,6 +1219,7 @@ int32_t sdl_ip_pokPosTest(void)
             return (testStatus);
         }
     }
+#if !defined(IP_VERSION_POK_V1_NO_DDRIO)
 	if (testStatus == SDL_APP_TEST_PASS)
     {
         SDL_POK_config               pPokCfg;
@@ -1233,7 +1239,7 @@ int32_t sdl_ip_pokPosTest(void)
             testStatus = SDL_APP_TEST_PASS;
         }
     }
-
+#endif
     if (testStatus != SDL_APP_TEST_PASS)
     {
         DebugP_log("sdlPOK_ip_negTest: failure on line no. %d \n", __LINE__);
@@ -1394,7 +1400,7 @@ int32_t sdl_ip_pokPosTest(void)
             return (testStatus);
         }
     }
-
+#if !defined(IP_VERSION_POK_V1_NO_DDRIO)
 	if (testStatus == SDL_APP_TEST_PASS)
     {
         SDL_POK_config               pPokCfg;
@@ -1414,13 +1420,13 @@ int32_t sdl_ip_pokPosTest(void)
             testStatus = SDL_APP_TEST_PASS;
         }
     }
-
+#endif
     if (testStatus != SDL_APP_TEST_PASS)
     {
         DebugP_log("sdlPOK_ip_negTest: failure on line no. %d \n", __LINE__);
         return (testStatus);
     }
-
+#if !defined(IP_VERSION_POK_V1_NO_DDRIO)
 	if (testStatus == SDL_APP_TEST_PASS)
     {
         SDL_POK_config               pPokCfg;
@@ -1440,7 +1446,7 @@ int32_t sdl_ip_pokPosTest(void)
             testStatus = SDL_APP_TEST_PASS;
         }
     }
-
+#endif
     if (testStatus != SDL_APP_TEST_PASS)
     {
         DebugP_log("sdlPOK_ip_negTest: failure on line no. %d \n", __LINE__);

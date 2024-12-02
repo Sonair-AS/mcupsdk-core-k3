@@ -1,5 +1,5 @@
 /*
- *   Copyright (c) Texas Instruments Incorporated 2023-24
+ *   Copyright (c) Texas Instruments Incorporated 2023-2024
  *
  *  Redistribution and use in source and binary forms, with or without
  *  modification, are permitted provided that the following conditions
@@ -66,6 +66,9 @@
 #if defined (SOC_AM62DX)
 #include "soc/am62dx/ecc_func.h"
 #endif /* SOC_AM62DX */
+#if defined (SOC_AM275X)
+#include "soc/am275x/ecc_func.h"
+#endif /* SOC_AM275X */
 
 #include "ti_drivers_open_close.h"
 #include "ti_board_open_close.h"
@@ -82,6 +85,9 @@
 #endif
 #if defined (SOC_AM62PX)
 #define AUX_NUM_DEVICES 38
+#endif
+#if defined (SOC_AM275X)
+#define AUX_NUM_DEVICES 25
 #endif
 #if defined (SOC_AM62AX) || defined(SOC_AM62DX)
 #define AUX_NUM_DEVICES 35
@@ -219,6 +225,36 @@ uint32_t aux_devices[AUX_NUM_DEVICES] =
   TISCI_DEV_VPAC0,
   TISCI_DEV_VPAC_RSWS_BW_LIMITER7,
   TISCI_DEV_VPAC_RSWS_BW_LIMITER8,
+};
+#endif
+#if defined (SOC_AM275X)
+uint32_t aux_devices[AUX_NUM_DEVICES] =
+{
+  TISCI_DEV_DMASS0,
+  TISCI_DEV_MCAN0,
+  TISCI_DEV_MCAN1,
+  TISCI_DEV_MCAN2,
+  TISCI_DEV_MCAN3,
+  TISCI_DEV_MCAN4,
+  TISCI_DEV_MMCSD0,
+  TISCI_DEV_CPSW0,
+  TISCI_DEV_USB0,
+  TISCI_DEV_WKUP_R5FSS0,
+  TISCI_DEV_WKUP_R5FSS0_CORE0,
+  TISCI_DEV_USB0,
+  TISCI_DEV_MAIN_USB0_ISO_VD,
+  TISCI_DEV_MLB0,
+  TISCI_DEV_R5FSS0_CORE0,
+  TISCI_DEV_R5FSS0_CORE1,
+  TISCI_DEV_R5FSS1_CORE0,
+  TISCI_DEV_R5FSS1_CORE1,
+  TISCI_DEV_FSS1,
+  TISCI_DEV_FSS1_FSAS_0,
+  TISCI_DEV_FSS1_OSPI_0,
+  TISCI_DEV_FSS1_HYPERBUS1P0_0,
+  TISCI_DEV_FSS1_MISC_0,
+  TISCI_DEV_FSS1_OSPI_1,
+  TISCI_DEV_FSS0,
 };
 #endif
 /* ========================================================================== */

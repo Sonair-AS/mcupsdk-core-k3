@@ -1,5 +1,5 @@
 /*
- *   Copyright (c) Texas Instruments Incorporated 2023-24
+ *   Copyright (c) Texas Instruments Incorporated 2023-2024
  *
  *  Redistribution and use in source and binary forms, with or without
  *  modification, are permitted provided that the following conditions
@@ -67,6 +67,10 @@
 #include <sdl/include/am62x/sdlr_soc_baseaddress.h>
 #include <sdl/ecc/soc/am62x/sdl_ecc_soc.h>
 #endif
+#if defined(SOC_AM275X)
+#include <sdl/include/am275x/sdlr_soc_baseaddress.h>
+#include <sdl/ecc/soc/am275x/sdl_ecc_soc.h>
+#endif
 #include "ecc_test_main.h"
 /* ========================================================================== */
 /*                                Macros                                      */
@@ -91,6 +95,9 @@ static int32_t ECC_errNegativeTest(void)
 #endif
 #if defined(SOC_AM62X)
 	SDL_ecc_aggrRegs *pEccAggrRegs = ((SDL_ecc_aggrRegs *)((uintptr_t)SDL_WKUP_R5FSS0_PULSAR_UL_CPU0_ECC_AGGR));// R5 core
+#endif
+#if defined(SOC_AM275X)
+	SDL_ecc_aggrRegs *pEccAggrRegs = ((SDL_ecc_aggrRegs *)((uintptr_t)SDL_R5FSS0_CORE0_ECC_AGGR_BASE));// R5 core
 #endif
     SDL_Ecc_AggrEccRamErrorStatusInfo eccRamErrorStatus;
     SDL_Ecc_AggrErrorInfo eccErrorInfo;

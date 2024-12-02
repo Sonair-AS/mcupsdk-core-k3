@@ -687,11 +687,11 @@ int32_t LBIST_runTest(uint32_t coreIndex)
     prepTime = testStartTime - startTime;
     diffTime = testEndTime - testStartTime;
     restoreTime = endTime - testEndTime;
-    DebugP_log("  Delta Cores prep time in micro secs %d \n", (uint32_t)prepTime );
-    DebugP_log("  Delta LBIST execution time in micro secs %d \n", (uint32_t)diffTime );
-    DebugP_log("  Delta Cores restore time in micro secs %d \n", (uint32_t)restoreTime );
+    DebugP_log("\r\n  Delta Cores prep time in micro secs %d \r\n", (uint32_t)prepTime );
+    DebugP_log("\r\n  Delta LBIST execution time in micro secs %d \r\n", (uint32_t)diffTime );
+    DebugP_log("\r\n  Delta Cores restore time in micro secs %d \r\n", (uint32_t)restoreTime );
 
-    DebugP_log("  LBIST complete for %s \n",
+    DebugP_log("\r\n  LBIST complete for %s \r\n",
                 LBIST_TestHandleArray[coreIndex].coreName);
 
     return (testResult);
@@ -711,18 +711,22 @@ int32_t LBIST_apiTest(uint32_t coreIndex)
 int32_t LBIST_funcTest(void)
 {
     int32_t    testResult = 0;
-    int i;
 
     if (testResult == 0)
     {
-        for ( i = 0; i < SDL_LBIST_NUM_INSTANCES; i++)
+        for (int i = 0; i < SDL_LBIST_NUM_INSTANCES; i++)
         {
+            uint32_t lbist_devId = Sciclient_getSelfDevIdCore();
+            if(LBIST_TestHandleArray[i].tisciDeviceId == lbist_devId)
+            {
+                DebugP_log("\r\n Skipping LBIST test for %s\r\n", LBIST_TestHandleArray[i].coreName);
+                continue;
+            }
             testResult = LBIST_runTest(i);
 
             if (testResult != 0)
             {
-                DebugP_log("   LBIST functional test failed %d\n", i);
-                //break;
+                DebugP_log("\r\n LBIST functional test failed %d\r\n", i);
             }
         }
     }
@@ -732,7 +736,7 @@ int32_t LBIST_funcTest(void)
         testResult = LBIST_apiTest(0);
         if (testResult != 0)
         {
-            DebugP_log("   LBIST API test failed \n");
+            DebugP_log("\r\n  LBIST API test failed\r\n");
         }
     }
 

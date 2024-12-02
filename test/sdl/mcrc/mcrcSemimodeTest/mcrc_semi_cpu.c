@@ -106,7 +106,13 @@ static SemaphoreP_Object gUdmaAppDoneSem;
     static    SDL_MCRC_ConfigParams_t params[MCRC_USECASES] =
     {
         {
-            MCU_MCRC64_0,
+#if defined(SOC_AM62X) || defined(SOC_AM62AX) || defined (SOC_AM62PX)
+		    MCU_MCRC64_0,
+#endif
+
+#if defined(SOC_AM275X)
+	        MCRC64_0,
+#endif
             (uint32_t) SDL_MCRC_CHANNEL_1,
             (uint32_t) SDL_MCRC_OPERATION_MODE_SEMICPU,
             4U,
@@ -120,7 +126,13 @@ static SemaphoreP_Object gUdmaAppDoneSem;
             (uint32_t) &gMCRCSrcBuffer[0],
         },
         {
-            MCU_MCRC64_0,
+#if defined(SOC_AM62X) || defined(SOC_AM62AX) || defined (SOC_AM62PX)
+		    MCU_MCRC64_0,
+#endif
+
+#if defined(SOC_AM275X)
+	        MCRC64_0,
+#endif
             (uint32_t) SDL_MCRC_CHANNEL_2,
             (uint32_t) SDL_MCRC_OPERATION_MODE_SEMICPU,
             4U,

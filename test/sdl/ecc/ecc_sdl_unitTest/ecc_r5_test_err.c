@@ -67,7 +67,10 @@
 #include <sdl/include/am62px/sdlr_soc_baseaddress.h>
 #include <sdl/include/am62px/sdlr_soc_ecc_aggr.h>
 #endif
-
+#if defined(SOC_AM275X)
+#include <sdl/include/am275x/sdlr_soc_baseaddress.h>
+#include <sdl/include/am275x/sdlr_soc_ecc_aggr.h>
+#endif
 #include "ecc_test_main.h"
 #include <sdl/ecc/sdl_ecc_core.h>
 /* ========================================================================== */
@@ -156,6 +159,37 @@ static int32_t ECC_errNegativeTest(void)
         }
     }
 #endif
+
+#if defined(SOC_AM275X)
+    if (testStatus == SDL_APP_TEST_PASS)
+    {
+            /*  SDL_ECC_EVENT_FOUND = 1U*/
+        if (SDL_ECC_pollErrorEvent(100U, SDL_R5FSS0_PULSAR_SL_CPU0_ECC_AGGR_PULSAR_SL_ATCM0_BANK0_RAM_ID, \
+                                   	SDL_INJECT_ECC_ERROR_FORCING_1BIT_ONCE) == 1U)
+        {
+            testStatus = SDL_APP_TEST_FAILED;
+        }
+    }
+    if (testStatus == SDL_APP_TEST_PASS)
+    {
+            /*  SDL_ECC_EVENT_FOUND = 1U*/
+        if (SDL_ECC_pollErrorEvent(SDL_R5FSS0_PULSAR_SL_CPU0_ECC_AGGR, 100U, \
+                                   	SDL_INJECT_ECC_ERROR_FORCING_1BIT_ONCE) == 1U)
+        {
+            testStatus = SDL_APP_TEST_FAILED;
+        }
+    }
+    if (testStatus == SDL_APP_TEST_PASS)
+    {
+            /*  SDL_ECC_EVENT_FOUND = 1U*/
+        if (SDL_ECC_pollErrorEvent(SDL_R5FSS0_PULSAR_SL_CPU0_ECC_AGGR, SDL_R5FSS0_PULSAR_SL_CPU0_ECC_AGGR_PULSAR_SL_ATCM0_BANK0_RAM_ID, \
+                                   	SDL_INJECT_ECC_ERROR_FORCING_1BIT_REPEAT) == 1U)
+        {
+            testStatus = SDL_APP_TEST_FAILED;
+        }
+    }
+#endif
+
     if (testStatus != SDL_APP_TEST_PASS)
     {
         DebugP_log("\r\nsdlEccAggr_negTest: failure on line no. %d \r\n", __LINE__);

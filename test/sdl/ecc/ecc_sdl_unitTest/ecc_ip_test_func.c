@@ -1,5 +1,5 @@
 /*
- *   Copyright (c) Texas Instruments Incorporated 2023-24
+ *   Copyright (c) Texas Instruments Incorporated 2023-2024
  *
  *  Redistribution and use in source and binary forms, with or without
  *  modification, are permitted provided that the following conditions
@@ -68,6 +68,10 @@
 #include <sdl/include/am62x/sdlr_soc_baseaddress.h>
 #include <sdl/include/am62x/sdlr_soc_ecc_aggr.h>
 #endif
+#if defined(SOC_AM275X)
+#include <sdl/include/am275x/sdlr_soc_baseaddress.h>
+#include <sdl/include/am275x/sdlr_soc_ecc_aggr.h>
+#endif
 #include "ecc_test_main.h"
 
 
@@ -96,6 +100,9 @@ static int32_t ECC_funcAPITest(void)
 #if defined(SOC_AM62X)
     SDL_ecc_aggrRegs *pEccAggrRegs = ((SDL_ecc_aggrRegs *)((uintptr_t)SDL_WKUP_R5FSS0_PULSAR_UL_CPU0_ECC_AGGR));
 #endif
+#if defined(SOC_AM275X)
+    SDL_ecc_aggrRegs *pEccAggrRegs = ((SDL_ecc_aggrRegs *)((uintptr_t)SDL_R5FSS0_CORE0_ECC_AGGR_BASE));
+#endif
     SDL_Ecc_AggrEccRamErrorStatusInfo eccRamErrorStatus;
     SDL_Ecc_AggrErrorInfo eccErrorInfo;
     SDL_ECC_staticRegs eccStaticRegs;
@@ -107,7 +114,7 @@ static int32_t ECC_funcAPITest(void)
     injectErrorConfig.pErrMem = (uint32_t *)(0u);
     injectErrorConfig.flipBitMask = 0x3;
 
-    #if defined(SOC_AM62AX) || defined (SOC_AM62PX) || defined (SOC_AM62DX)
+    #if defined(SOC_AM62AX) || defined (SOC_AM62PX) || defined (SOC_AM62DX) || defined (SOC_AM275X)
     SDL_ECC_InjectErrorType intsrc;
     uint32_t mainMem, subMemType, errSrc;
     #endif
@@ -890,6 +897,81 @@ static int32_t ECC_funcAPITest(void)
     {
         mainMem    = SDL_ECC_MEMTYPE_MAX;
         subMemType = SDL_PSRAMECC1_PSRAM256X32E_ECC_AGGR_PSRAM256X32E_PSRAM0_ECC_RAM_ID;
+        intsrc     = SDL_INJECT_ECC_ERROR_FORCING_1BIT_ONCE;
+        errSrc     = SDL_ECC_AGGR_INTR_SRC_SINGLE_BIT;
+
+        SDL_ECC_injectError(mainMem, subMemType, intsrc,&injectErrorConfig);
+        SDL_ecc_aggrSetEccRamIntrPending(pEccAggrRegs, subMemType, errSrc);
+        if (SDL_ecc_aggrIsEccRamIntrPending(pEccAggrRegs, subMemType, errSrc, &isPend) != SDL_PASS)
+        {
+            testStatus = SDL_APP_TEST_FAILED;
+            DebugP_log("sdlEccAggr_apiTest: failure on line no. %d \n", __LINE__);
+        }
+        if (SDL_ecc_aggrIsAnyIntrPending(pEccAggrRegs, subMemType, &isPend) != SDL_PASS)
+        {
+            testStatus = SDL_APP_TEST_FAILED;
+            DebugP_log("sdlEccAggr_apiTest: failure on line no. %d \n", __LINE__);
+        }
+    }
+#endif
+#if defined(SOC_AM275X)
+    if (testStatus == SDL_APP_TEST_PASS)
+    {
+        mainMem    = SDL_ECC_MEMTYPE_MAX;
+        subMemType = SDL_PSRAMECC0_PSRAM256X32E_ECC_AGGR_PSRAM256X32E_PSRAM0_ECC_RAM_ID;
+        intsrc     = SDL_INJECT_ECC_ERROR_FORCING_2BIT_REPEAT;
+        errSrc     = SDL_ECC_AGGR_INTR_SRC_DOUBLE_BIT;
+        SDL_ECC_injectError(mainMem, subMemType, intsrc,&injectErrorConfig);
+        SDL_ecc_aggrSetEccRamNIntrPending(pEccAggrRegs, subMemType, errSrc, 3U);
+        if (SDL_ecc_aggrIsEccRamIntrPending(pEccAggrRegs, subMemType, 0U, &isPend) != SDL_PASS)
+        {
+            testStatus = SDL_APP_TEST_FAILED;
+            DebugP_log("sdlEccAggr_apiTest: failure on line no. %d \n", __LINE__);
+        }
+    }
+    if (testStatus == SDL_APP_TEST_PASS)
+    {
+        mainMem    = SDL_ECC_MEMTYPE_MAX;
+        subMemType = SDL_PSRAMECC0_PSRAM256X32E_ECC_AGGR_PSRAM256X32E_PSRAM0_ECC_RAM_ID;
+        intsrc     = SDL_INJECT_ECC_ERROR_FORCING_2BIT_REPEAT;
+        errSrc     = SDL_ECC_AGGR_INTR_SRC_DOUBLE_BIT;
+        SDL_ECC_injectError(mainMem, subMemType, intsrc,&injectErrorConfig);
+        SDL_ecc_aggrSetEccRamIntrPending(pEccAggrRegs, subMemType, errSrc);
+        if (SDL_ecc_aggrIsEccRamIntrPending(pEccAggrRegs, subMemType, errSrc, &isPend) != SDL_PASS)
+        {
+            testStatus = SDL_APP_TEST_FAILED;
+            DebugP_log("sdlEccAggr_apiTest: failure on line no. %d \n", __LINE__);
+        }
+        if (SDL_ecc_aggrIsAnyIntrPending(pEccAggrRegs, subMemType, &isPend) != SDL_PASS)
+        {
+            testStatus = SDL_APP_TEST_FAILED;
+            DebugP_log("sdlEccAggr_apiTest: failure on line no. %d \n", __LINE__);
+        }
+    }
+    if (testStatus == SDL_APP_TEST_PASS)
+    {
+        mainMem    = SDL_ECC_MEMTYPE_MAX;
+        subMemType = SDL_PSRAMECC0_PSRAM256X32E_ECC_AGGR_PSRAM256X32E_PSRAM0_ECC_RAM_ID;
+        intsrc     = SDL_INJECT_ECC_ERROR_FORCING_1BIT_REPEAT;
+        errSrc     = SDL_ECC_AGGR_INTR_SRC_SINGLE_BIT;
+
+        SDL_ECC_injectError(mainMem, subMemType, intsrc,&injectErrorConfig);
+        SDL_ecc_aggrSetEccRamIntrPending(pEccAggrRegs, subMemType, errSrc);
+        if (SDL_ecc_aggrIsEccRamIntrPending(pEccAggrRegs, subMemType, errSrc, &isPend) != SDL_PASS)
+        {
+            testStatus = SDL_APP_TEST_FAILED;
+            DebugP_log("sdlEccAggr_apiTest: failure on line no. %d \n", __LINE__);
+        }
+        if (SDL_ecc_aggrIsAnyIntrPending(pEccAggrRegs, subMemType, &isPend) != SDL_PASS)
+        {
+            testStatus = SDL_APP_TEST_FAILED;
+            DebugP_log("sdlEccAggr_apiTest: failure on line no. %d \n", __LINE__);
+        }
+    }
+    if (testStatus == SDL_APP_TEST_PASS)
+    {
+        mainMem    = SDL_ECC_MEMTYPE_MAX;
+        subMemType = SDL_PSRAMECC0_PSRAM256X32E_ECC_AGGR_PSRAM256X32E_PSRAM0_ECC_RAM_ID;
         intsrc     = SDL_INJECT_ECC_ERROR_FORCING_1BIT_ONCE;
         errSrc     = SDL_ECC_AGGR_INTR_SRC_SINGLE_BIT;
 

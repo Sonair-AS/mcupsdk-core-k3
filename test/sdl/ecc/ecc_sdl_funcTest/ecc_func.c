@@ -69,6 +69,11 @@
 #include "soc/am62px/ecc_func.h"
 #endif
 
+#if defined(SOC_AM275X)
+#include <sdl/ecc/soc/am275x/sdl_ecc_soc.h>
+#include "soc/am275x/ecc_func.h"
+#endif
+
 #include "ecc_test_main.h"
 #include <sdl/dpl/sdl_dpl.h>
 #include <drivers/soc.h>
@@ -305,6 +310,44 @@ SDL_ESM_config ECC_Test_esmInitConfig_MCU =
 };
 #endif
 
+
+#if defined(SOC_AM275X)
+SDL_ESM_config ECC_Test_esmInitConfig_MAIN =
+{
+    .esmErrorConfig = {1u, 8u}, /* Self test error config */
+    .enableBitmap = {0x7f33bf0eu, 0xffc03c0eu, 0x0f006cfeu, 0x03c08300u,
+					 0x06cfd800u, 0xffffff03u, 0x1f830003u, 0x00000000u,
+					},
+     /**< All events enable: except timer and self test  events, and Main ESM output */
+    /* Temporarily disabling vim compare error as well*/
+    .priorityBitmap = {0x7f33bf0eu, 0xffc03c0eu, 0x0f006cfeu, 0x03c08300u,
+					   0x06cfd800u, 0xffffff03u, 0x1f830003u, 0x00000000u,
+                        },
+    /**< All events high priority: except timer, selftest error events, and Main ESM output */
+    .errorpinBitmap = {0x7f33bf0eu, 0xffc03c0eu, 0x0f006cfeu, 0x03c08300u,
+					   0x06cfd800u, 0xffffff03u, 0x1f830003u, 0x00000000u,
+                      },
+    /**< All events high priority: except timer, selftest error events, and Main ESM output */
+};
+SDL_ESM_config ECC_Test_esmInitConfig_WKUP =
+{
+    .esmErrorConfig = {1u, 8u}, /* Self test error config */
+    .enableBitmap = {0x00300000u, 0x00000000u, 0x00000000u, 0x00000000u,
+					 0x00000000u, 0x00000000u, 0x00000000u, 0x00000000u,
+					},
+     /**< All events enable: except timer and self test  events, and Main ESM output */
+    /* Temporarily disabling vim compare error as well*/
+    .priorityBitmap = {0x00300000u, 0x00000000u, 0x00000000u, 0x00000000u,
+					   0x00000000u, 0x00000000u, 0x00000000u, 0x00000000u,
+                        },
+    /**< All events high priority: except timer, selftest error events, and Main ESM output */
+    .errorpinBitmap = {0x00300000u, 0x00000000u, 0x00000000u, 0x00000000u,
+					   0x00000000u, 0x00000000u, 0x00000000u, 0x00000000u,
+                      },
+    /**< All events high priority: except timer, selftest error events, and Main ESM output */
+};
+#endif
+
 extern int32_t SDL_ESM_applicationCallbackFunction(SDL_ESM_Inst esmInstType,
                                                    SDL_ESM_IntType esmIntType,
                                                    uint32_t grpChannel,
@@ -347,6 +390,9 @@ int32_t ECC_Memory_init (void)
 #endif
 #if defined(SOC_AM62AX) || defined (SOC_AM62PX) || defined(SOC_AM62DX)
         result = SDL_ESM_init(SDL_ESM_INST_WKUP_ESM0, &ECC_Test_esmInitConfig_MCU, SDL_ESM_applicationCallbackFunction, ptr);
+#endif
+#if defined(SOC_AM275X)
+        result = SDL_ESM_init(SDL_ESM_INST_WKUP_ESM0, &ECC_Test_esmInitConfig_WKUP, SDL_ESM_applicationCallbackFunction, ptr);
 #endif
 		if (result != SDL_PASS) {
             /* print error and quit */
@@ -466,6 +512,10 @@ int32_t ecc_aggr_test(void)
 #if defined(SOC_AM62PX)
 		for (mainMem = SDL_WKUP_R5FSS0_PULSAR_UL_CPU0_ECC_AGGR; mainMem < SDL_ECC_MEMTYPE_MAX; mainMem++)
 #endif
+#if defined(SOC_AM275X)
+		for (mainMem = SDL_C7X256V1_ECC_AGGR; mainMem < SDL_ECC_MEMTYPE_MAX; mainMem++)
+#endif
+
 #endif
 		{
 #ifndef DEBUG
