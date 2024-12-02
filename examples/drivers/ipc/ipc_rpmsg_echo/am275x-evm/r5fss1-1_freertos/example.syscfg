@@ -23,7 +23,9 @@ const mpu_armv77 = mpu_armv7.addInstance();
 /**
  * Write custom configuration values to the imported modules.
  */
-ipc.vringMsgSize = 64;
+ipc.vringMsgSize  = 64;
+ipc.wkup_r5fss0_0 = "NONE";
+ipc.c75ss1_0      = "NONE";
 
 debug_log.enableSharedMemLog = true;
 
