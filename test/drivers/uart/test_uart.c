@@ -378,6 +378,9 @@ static void test_uart_set_params(UART_TestParams *testParams, uint32_t tcId)
     #if defined(SOC_AM263X)
     params->intrNum = CSLR_R5FSS0_CORE0_INTR_UART0_IRQ;
     #endif
+    #if defined(SOC_AM275X)
+    params->intrNum = CSLR_R5FSS0_CORE0_INTR_UART0_USART_IRQ_0;
+    #endif
     #if defined(SOC_AM62X)
     #if defined(A53_FREERTOS)
     params->intrNum = CSLR_GICSS0_COMMON_0_SPI_UART1_USART_IRQ_0;
