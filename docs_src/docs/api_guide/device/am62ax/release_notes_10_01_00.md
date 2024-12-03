@@ -1,4 +1,4 @@
-# Release Notes 10.00.00 {#RELEASE_NOTES_10_00_00_PAGE}
+# Release Notes 10.01.00 {#RELEASE_NOTES_10_01_00_PAGE}
 
 [TOC]
 
@@ -19,7 +19,9 @@ AM62Ax | MCU R5F, DM R5F, A53, C75   | @VAR_BOARD_NAME EVM (referred to as am62a
 
 Feature                                                                                        | Module
 -----------------------------------------------------------------------------------------------|-----------------------------------
--                                                                                              | -
+Support for authentication from DDR when in-place authentication fails from OSPI NOR           | Bootloader
+Support for SW version check of binaries through RPRC header                                   | Bootloader
+SBL now ensures the cores are switched off if no application image is present                  | Bootloader
 
 ### Experimental Features {#EXPERIMENTAL_FEATURES}
 
@@ -32,20 +34,6 @@ Feature                                                             | Module
 --------------------------------------------------------------------|--------------------------
 A53 FreeRTOS SMP support and A53 FreeRTOS SMP examples              | DPL, FreeRTOS
 
-## Other Updates on This Release
-
-Update                                                                                   | Module
------------------------------------------------------------------------------------------|-----------------------------------
-ATF Load Address is updated to 0X80000000 from 0x9e780000                                | LinuxAppImageGen, QnxAppImagegen
-Linux FDT is added in qnx app image and loaded at DDR 0x88000000                         | QnxAppImagegen
-make commands are added in boardcfg makefile to open k3-resource-part tool               | BoardCfg
-SBL emmc uart-uniflash config files are added for QNX                                    | Uart Uniflash
-OSPI tuning optimizations to redue tuning time                                           | OSPI
-I2C driver updated for inclusinve API names                                              | I2C
-Bootloader powers off cores if image not present                                         | SBL
-DRU UTC support is added in UDMA                                                         | UDMA
-Option to skip driver open is added in sysconfig                                         | McASP
-FreeRTOS FAT will now work with FreeRTOS application as well                             | FAT FS
 
 ## Dependent Tools and Compiler Information
 \attention It is recommended to use the TIFS version provided with the release for ensuring compatibility between TIFS and device manager. Using the TIFS from different MCU+SDK release is not recomended and may cause TIFS/ DM functionality to break.

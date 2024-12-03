@@ -19,10 +19,6 @@ The Bootloader module provides APIs to write bootloader applications for various
 - Boot Media to be used
 - Boot Image offset
 
-## Features not Supported
-
-- MMCSD Boot
-
 ## R5 Dual Core Support
 
 RBL boots the R5 in eFUSE default, which is **split mode**. SBL (Secondary Boot Loader) follows the same and keeps the R5s in split mode. As of now the lock step configuration of dual R5 is not supported from bootloader.

@@ -142,8 +142,6 @@ A combined boot method is employed in these devices, by virtue of which the SBL,
 
 The SBL is signed with a dummy customer MPK in the SDK. This is supposed to be used only with the devices with the same dummy customer MPK burnt into the eFUSEes. If the SDK is supposed to be used with a production/development device with actual customer MPKs burnt into the device, please replace the file at ${SDK_INSTALL_PATH}/tools/boot/signing/custMpk_${SOC}.pem. This is true for also the encryption key used, which can also be found at ${SDK_INSTALL_PATH}/tools/boot/signing/custMek_${SOC}.txt. Whenever any SBL is built, it will be signed with dummy customer MPK, and the signed image generated will have an extension of `*.hs.tiimage`. There is no extra step required other than making sure that the MPK used is indeed the one burnt into the eFUSEs.
 
-\note We have enabled full debug while signing the ROM image. This is intentional as this is helpful for debug. Once moved from development to production please remove this option from the makefile. For more details see \ref TOOLS_BOOT_SIGNING
-
 \cond SOC_AM64X | SOC_AM243X | SOC_AM62X | SOC_AM62AX || SOC_AM62DX
 #### Signing the HSM Runtime binary (SYSFW)
 As mentioned above, since we follow a combined boot method, SYSFW and SBL is signed with the same certificate using the same key. In case of a GP device this will be a degenerate key for easy parsing from ROM. In the case of an HS device, SYSFW will be already signed with TI MPK (and encrypted). This is then countersigned again with dummy customer MPK during the combined image generation process.

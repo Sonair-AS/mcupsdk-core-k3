@@ -31,7 +31,7 @@ QoS support                                                                     
 Early PLL driver in TIFS init updated to follow recommended sequence to avoid PLL instability  | TIFS
 PM PLL and HSDIV programing in PLL init updated to remove steps violating the recommendation   | DM
 
-### Experimental Features {#EXPERIMENTAL_FEATURES}
+### Experimental Features {#EXPERIMENTAL_FEATURES_10_00_00}
 
 \attention Features listed below are early versions and should be considered as "experimental".
 \attention Users can evaluate the feature, however the feature is not fully tested at TI side.

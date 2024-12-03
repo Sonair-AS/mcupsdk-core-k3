@@ -1,4 +1,4 @@
-# Release Notes 10.00.00 {#RELEASE_NOTES_10_00_00_PAGE}
+# Release Notes 10.01.00 {#RELEASE_NOTES_10_01_00_PAGE}
 
 [TOC]
 
@@ -22,9 +22,13 @@ AM62x  | M4F, R5F, A53   | SK-AM62 (referred as am62x-sk in code), SK-AM62-LP (r
 
 Feature                                                                                        | Module
 -----------------------------------------------------------------------------------------------|-----------------------------------
-OSPI FLASH DIAG EXAMPLE                                                                        | OSPI
-Use DDR copy in case of flash in place authentication failure                                  | Bootloader
--                                                                                              | -
+OSPI flash diag application for custom flashes                                                 | OSPI
+Support for authentication from DDR when in-place authentication fails from OSPI NOR           | Bootloader
+Support for SW version check of binaries through RPRC header                                   | Bootloader
+FreeRTOS AMP support on A53                                                                    | Kernel
+RTC driver                                                                                     | Drivers
+Display driver support on A53                                                                  | Drivers
+A53 applications booted with ATF now                                                           | Bootloader
 
 
 ### Experimental Features {#EXPERIMENTAL_FEATURES}
@@ -38,22 +42,10 @@ Feature                                                             | Module
 --------------------------------------------------------------------|--------------------------
 A53 FreeRTOS support and A53 FreeRTOS examples                      | DPL, FreeRTOS
 
-## Other Updates on This Release
-
-Update                                                                                   | Module
------------------------------------------------------------------------------------------|-----------------------------------
-ATF Load Address is updated to 0X80000000 from 0x9e780000                                | LinuxAppImageGen, QnxAppImagegen
-Linux FDT is added in qnx app image and loaded at DDR 0x88000000                         | QnxAppImagegen
-make commands are added in boardcfg makefile to open k3-resource-part tool               | BoardCfg
-OSPI tuning optimizations to redue tuning time                                           | OSPI
-I2C driver updated for inclusinve API names                                              | I2C
-Bootloader powers off cores if image not present                                         | SBL
-FreeRTOS FAT will now work with FreeRTOS application as well                             | FAT FS
-
 ### FreeRTOS Support on A53
 Is                                                      | Is Not
 --------------------------------------------------------|--------------------------
-FreeRTOS single core support on A53                     | GPU Support
+FreeRTOS AMP support on A53                             | GPU Support
 Drivers listed for A53 in "SOC Device Drivers" section  | Low power mode support
 -                                                       | CSI RX Driver
 -                                                       | WiFi, USB, BLE Drivers
@@ -70,7 +62,7 @@ SysConfig               | M4F, R5F, A53  | 1.20.0, build 3587
 TI ARM CLANG            | M4F, R5F       | 3.2.2.LTS
 GCC AARCH64             | A53            | 9.2-2019.12
 FreeRTOS Kernel         | M4F, R5F, A53  | 11.1.0
-TIFS                    | NA             | 10.00.08
+TIFS                    | NA             | 10.01.08
 
 ## Key Features
 
@@ -230,6 +222,12 @@ UART      | R5F            | Yes               | NA          |   No        | NOR
         <td>Yes</td>
     </tr>
     <tr>
+        <td>RTC</td>
+        <td>Main</td>
+        <td>R5F, A53</td>
+        <td>Yes</td>
+    </tr>
+    <tr>
         <td>SOC</td>
         <td>NA</td>
         <td>M4F, R5F, A53</td>
@@ -305,7 +303,7 @@ ROM Checksum | R5F            | No
     <th> Applicable Releases
 </tr>
 <tr>
-    <td> SITSW-4867
+    <td> \htmllink{https://sir.ext.ti.com/jira/browse/EXT_SITMPUSW-5, EXT_SITMPUSW-5}
     <td> Potential Infinite loop in OSPI_utilLog2 defined in ospi_v0.c
     <td> OSPI
     <td> 10.01.00
