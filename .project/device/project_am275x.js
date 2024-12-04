@@ -106,6 +106,8 @@ const example_file_list = [
     "source/networking/enet/core/examples/enet_loopback/enet_cpsw_loopback/loopback_mac_end/.project/project.js",
     "source/networking/enet/core/examples/lwip/enet_cpsw_tcpserver/.project/project.js",
     "source/networking/enet/core/examples/lwip/enet_lwip_cpsw/.project/project.js",
+    "source/networking/enet/core/examples/tsn/aafpcmlistener_app/.project/project.js",
+    "source/networking/enet/core/examples/tsn/aafpcmtalker_app/.project/project.js",
     /* SDL Examples */
     "examples/sdl/dcc/dcc_modes/.project/project_am275x.js",
     "examples/sdl/ecc/.project/project.js",
