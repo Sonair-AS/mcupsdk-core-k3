@@ -96,7 +96,7 @@ const Udma_RmInitPrms gUdmaRmDefCfg_Main =
 
         {0U, 0U, 0U, 0U},
         {0U, 0U, 0U, 0U},
-        
+
         {0U, 0U, 0U, 0U},
         {0U, 0U, 0U, 0U},
 
@@ -389,7 +389,7 @@ static uint32_t Udma_getCoreSciDevId(void)
         /* Return device ID for GIC as interrupts to A53 core is routed through GIC */
         devId = TISCI_DEV_GICSS0;
     }
-#endif 
+#endif
 
 #if defined(BUILD_C7X)
     if (devId == TISCI_DEV_C7X256V0_C7XV_CORE_0)
@@ -399,19 +399,19 @@ static uint32_t Udma_getCoreSciDevId(void)
     }
 
 #if (CSL_C7X256V_CORE0_MAIN_CNT > 1U)
-    if (devId == TISCI_DEV_C7X256V0_C7XV_CORE_0)
+    if (devId == TISCI_DEV_C7X256V1_C7XV_CORE_0)
     {
         /* Return device ID for CLEC as interrupts to C7x core is routed through CLEC */
         devId = TISCI_DEV_C7X256V1_CLEC;
     }
 #endif
-    
+
 #endif
     return devId;
 }
 const Udma_RmInitPrms *Udma_rmGetDefaultCfg(void)
 {
     const Udma_RmInitPrms  *rmInitPrms;
-    rmInitPrms = &gUdmaRmDefCfg_Main; 
+    rmInitPrms = &gUdmaRmDefCfg_Main;
     return (rmInitPrms);
 }
