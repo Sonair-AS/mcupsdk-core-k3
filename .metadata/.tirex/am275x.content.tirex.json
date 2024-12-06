@@ -1544,6 +1544,39 @@
         "resourceSubClass": [
             "example.gettingstarted"
         ],
+        "description": "This example verifies MCASP loopback mode of operation CPU is C75SS1-0 running FREERTOS.",
+        "name": "mcasp_loopback",
+        "location": "../../examples/drivers/mcasp/mcasp_loopback/am275x-evm/c75ss1-0_freertos/ti-c7000/example.projectspec",
+        "devtools": [
+            "AM275x_EVM"
+        ],
+        "kernel": [
+            "freertos"
+        ],
+        "compiler": [
+            "ccs"
+        ],
+        "subCategories": [
+            "drivers",
+            "mcasp",
+            "mcasp_loopback",
+            "c75ss1-0_freertos"
+        ],
+        "mainCategories": [
+            [
+                "Examples",
+                "Development Tools"
+            ]
+        ]
+    },
+    {
+        "resourceType": "project.ccs",
+        "resourceClass": [
+            "example"
+        ],
+        "resourceSubClass": [
+            "example.gettingstarted"
+        ],
         "description": "This example verifies MCASP loopback mode of operation CPU is R5FSS0-0 running FREERTOS.",
         "name": "mcasp_loopback",
         "location": "../../examples/drivers/mcasp/mcasp_loopback/am275x-evm/r5fss0-0_freertos/ti-arm-clang/example.projectspec",

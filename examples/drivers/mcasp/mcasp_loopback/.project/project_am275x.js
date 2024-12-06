@@ -92,12 +92,20 @@ const templates_freertos_r5f =
     }
 ];
 
-const templates_freertos_c75 =
+const templates_freertos_c75_0 =
 [
     {
-        input: ".project/templates/am275x/common/linker_c75ss0.cmd.xdt",
-        output: "linker.cmd",
-    },
+        input: ".project/templates/am275x/freertos/main_freertos.c.xdt",
+        output: "../main.c",
+        options: {
+            entryFunction: "mcasp_loopback_main",
+            stackSize: 64*1024,
+        },
+    }
+];
+
+const templates_freertos_c75_1 =
+[
     {
         input: ".project/templates/am275x/freertos/main_freertos.c.xdt",
         output: "../main.c",
@@ -110,6 +118,7 @@ const templates_freertos_c75 =
 
 const buildOptionCombos = [
     { device: device, cpu: "c75ss0-0", cgt: "ti-c7000",    board: "am275x-evm", os: "freertos"},
+    { device: device, cpu: "c75ss1-0", cgt: "ti-c7000",    board: "am275x-evm", os: "freertos"},
     { device: device, cpu: "r5fss0-0", cgt: "ti-arm-clang", board: "am275x-evm", os: "freertos"},
 ];
 
@@ -150,7 +159,15 @@ function getComponentBuildProperty(buildOption) {
             build_property.includes = includes_freertos_c75;
             build_property.libdirs = libdirs_freertos_c75;
             build_property.libs = libs_freertos_c75;
-            build_property.templates = templates_freertos_c75;
+
+            if(buildOption.cpu.match("c75ss0-0"))
+            {
+                build_property.templates = templates_freertos_c75_0;
+            }
+            else if (buildOption.cpu.match("c75ss1-0"))
+            {
+                build_property.templates = templates_freertos_c75_1;
+            }
         }
     }
 
