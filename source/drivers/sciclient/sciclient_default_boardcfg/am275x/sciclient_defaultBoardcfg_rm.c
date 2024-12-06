@@ -137,7 +137,7 @@ __attribute__(( aligned(128), section(".boardcfg_data") )) =
                 .magic = TISCI_BOARDCFG_RM_RESASG_MAGIC_NUM,
                 .size = (uint16_t) sizeof(struct tisci_boardcfg_rm_resasg),
             },
-            .resasg_entries_size = 128 * sizeof(struct tisci_boardcfg_rm_resasg_entry),
+            .resasg_entries_size = 129 * sizeof(struct tisci_boardcfg_rm_resasg_entry),
         },
     },
     .resasg_entries = {
@@ -676,6 +676,12 @@ __attribute__(( aligned(128), section(".boardcfg_data") )) =
             .host_id = TISCI_HOST_ID_C7X_0_0,
         },
         {
+            .num_resource = 5,
+            .type = TISCI_RESASG_UTYPE (TISCI_DEV_DMASS0_PKTDMA_0, TISCI_RESASG_SUBTYPE_PKTDMA_RING_UNMAPPED_RX_CHAN),
+            .start_resource = 112,
+            .host_id = TISCI_HOST_ID_C7X_1_0,
+        },
+        {
             .num_resource = 2,
             .type = TISCI_RESASG_UTYPE (TISCI_DEV_DMASS0_PKTDMA_0, TISCI_RESASG_SUBTYPE_PKTDMA_RING_UNMAPPED_RX_CHAN),
             .start_resource = 117,
@@ -911,4 +917,3 @@ __attribute__(( aligned(128), section(".boardcfg_data") )) =
         },
     }
 };
-
