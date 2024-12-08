@@ -355,7 +355,10 @@ struct tisci_sec_header {
 /** Message to do streaming hash authentication operation */
 #define TISCI_MSG_MCELF_PROC_AUTH_BOOT_UPDATE        (0xC123U)
 
-/** Message to validate streaming authentication, optional streaming decryption and authenticated boot configuration of a processor */
+/**
+ * Message to validate streaming authentication, optional streaming decryption
+ * and authenticated boot configuration of a processor
+ */
 #define TISCI_MSG_MCELF_PROC_AUTH_BOOT_FINISH        (0xC124U)
 
 /* RM IDs */

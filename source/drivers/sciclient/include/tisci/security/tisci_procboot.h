@@ -393,7 +393,7 @@ struct tisci_msg_proc_auth_boot_resp {
  * \param certificate_address_lo Lower 32bit (Little Endian) of certificate
  * \param certificate_address_hi Higher 32bit (Little Endian) of certificate
  */
-struct hs_tisci_security_mesg_mcelf_init_req {
+struct tisci_security_mesg_mcelf_init_req {
     struct tisci_header    hdr;
     uint32_t            certificate_address_lo;
     uint32_t            certificate_address_hi;
@@ -412,7 +412,7 @@ struct hs_tisci_security_mesg_mcelf_init_req {
  * by scan. If permitted, System firmware logs shall provide relevant failure
  * information.
  */
-struct hs_tisci_security_mesg_mcelf_init_resp {
+struct tisci_security_mesg_mcelf_init_resp {
     struct tisci_header hdr;
 } __attribute__((__packed__));
 
@@ -426,7 +426,7 @@ struct hs_tisci_security_mesg_mcelf_init_resp {
  * \param final_pkt - Boolean value to denote final packet
  * \param dest_address - Destination address to write the segment
  */
-struct hs_tisci_security_mesg_mcelf_update_req {
+struct tisci_security_mesg_mcelf_update_req {
     struct tisci_header    hdr;
     uint32_t            address_lo;
     uint32_t            address_hi;
@@ -448,7 +448,7 @@ struct hs_tisci_security_mesg_mcelf_update_req {
  * by scan. If permitted, System firmware logs shall provide relevant failure
  * information.
  */
-struct hs_tisci_security_mesg_mcelf_update_resp {
+struct tisci_security_mesg_mcelf_update_resp {
     struct tisci_header hdr;
 } __attribute__((__packed__));
 
@@ -457,7 +457,7 @@ struct hs_tisci_security_mesg_mcelf_update_resp {
  *
  * \param hdr Common TI-SCI header
  */
-struct hs_tisci_security_mesg_mcelf_finish_req {
+struct tisci_security_mesg_mcelf_finish_req {
     struct tisci_header hdr;
 } __attribute__((__packed__));
 
@@ -474,7 +474,7 @@ struct hs_tisci_security_mesg_mcelf_finish_req {
  * by scan. If permitted, System firmware logs shall provide relevant failure
  * information.
  */
-struct hs_tisci_security_mesg_mcelf_finish_resp {
+struct tisci_security_mesg_mcelf_finish_resp {
     struct tisci_header hdr;
 } __attribute__((__packed__));
 

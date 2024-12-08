@@ -899,8 +899,8 @@ static int32_t Bootloader_parseNoteSegment(Bootloader_Handle handle,
 static int32_t Bootloader_authInit(uint32_t certLoadAddr)
 {
     int32_t status, authStatus = SystemP_FAILURE;
-    struct hs_tisci_security_mesg_mcelf_init_req request;
-    struct hs_tisci_security_mesg_mcelf_init_resp response;
+    struct tisci_security_mesg_mcelf_init_req request;
+    struct tisci_security_mesg_mcelf_init_resp response;
 
     Sciclient_ReqPrm_t  reqParam = {0U};
     Sciclient_RespPrm_t respParam = {0U};
@@ -937,8 +937,8 @@ static int32_t Bootloader_authInit(uint32_t certLoadAddr)
 static int32_t Bootloader_authUpdate(uint32_t segAddr, uint32_t segSize, bool final_pkt, uint64_t dst)
 {
     int32_t status;
-    struct hs_tisci_security_mesg_mcelf_update_req request;
-    struct hs_tisci_security_mesg_mcelf_update_resp response;
+    struct tisci_security_mesg_mcelf_update_req request;
+    struct tisci_security_mesg_mcelf_update_resp response;
 
     Sciclient_ReqPrm_t  reqParam = {0U};
     Sciclient_RespPrm_t respParam = {0U};
@@ -980,8 +980,8 @@ static int32_t Bootloader_authUpdate(uint32_t segAddr, uint32_t segSize, bool fi
 static int32_t Bootloader_authFinish()
 {
     int32_t status;
-    struct hs_tisci_security_mesg_mcelf_finish_req request;
-    struct hs_tisci_security_mesg_mcelf_finish_resp response;
+    struct tisci_security_mesg_mcelf_finish_req request;
+    struct tisci_security_mesg_mcelf_finish_resp response;
 
     Sciclient_ReqPrm_t  reqParam = {0U};
     Sciclient_RespPrm_t respParam = {0U};
