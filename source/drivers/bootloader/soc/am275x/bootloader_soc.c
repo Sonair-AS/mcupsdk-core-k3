@@ -197,7 +197,7 @@ Bootloader_CoreBootInfo gCoreBootInfo[] =
         .tisciProcId    = PROC_ID_C7X256V0_C7XV_CORE_0,
         .tisciDevId     = TISCI_DEV_C7X256V0_C7XV_CORE_0,
         .tisciClockId   = TISCI_DEV_C7X256V0_C7XV_CORE_0_C7XV_CLK,
-        .defaultClockHz = (uint32_t)(850*1000000),
+        .defaultClockHz = (uint32_t)(1000*1000000),
         .coreName       = "c7x0-0",
     },
 
@@ -205,7 +205,7 @@ Bootloader_CoreBootInfo gCoreBootInfo[] =
         .tisciProcId    = PROC_ID_C7X256V1_C7XV_CORE_0,
         .tisciDevId     = TISCI_DEV_C7X256V1_C7XV_CORE_0,
         .tisciClockId   = TISCI_DEV_C7X256V1_C7XV_CORE_0_C7XV_CLK,
-        .defaultClockHz = (uint32_t)(850*1000000),
+        .defaultClockHz = (uint32_t)(1000*1000000),
         .coreName       = "c7x1-0",
     },
 
