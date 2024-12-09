@@ -92,7 +92,7 @@ const libs_wkup_r5f = {
         "self_reset.am275x.wkup-r5f.ti-arm-clang.${ConfigName}.lib",
         "sciserver.am275x.wkup-r5f.ti-arm-clang.${ConfigName}.lib",
         "freertos.am275x.r5f.ti-arm-clang.${ConfigName}.lib",
-        "drivers.am275x.r5f.ti-arm-clang.${ConfigName}.lib",
+        "drivers.am275x.wkup-r5f.ti-arm-clang.${ConfigName}.lib",
         "unity.am275x.r5f.ti-arm-clang.${ConfigName}.lib",
     ],
 };

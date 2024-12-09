@@ -115,7 +115,7 @@ LIBS_common = \
 	-lself_reset.am275x.wkup-r5f.ti-arm-clang.${ConfigName}.lib \
 	-lsciserver.am275x.wkup-r5f.ti-arm-clang.${ConfigName}.lib \
 	-lfreertos.am275x.r5f.ti-arm-clang.${ConfigName}.lib \
-	-ldrivers.am275x.r5f.ti-arm-clang.${ConfigName}.lib \
+	-ldrivers.am275x.wkup-r5f.ti-arm-clang.${ConfigName}.lib \
 	-lunity.am275x.r5f.ti-arm-clang.${ConfigName}.lib \
 	-llibc.a \
 	-llibsysbm.a \
@@ -133,7 +133,7 @@ LIBS_NAME = \
 	self_reset.am275x.wkup-r5f.ti-arm-clang.${ConfigName}.lib \
 	sciserver.am275x.wkup-r5f.ti-arm-clang.${ConfigName}.lib \
 	freertos.am275x.r5f.ti-arm-clang.${ConfigName}.lib \
-	drivers.am275x.r5f.ti-arm-clang.${ConfigName}.lib \
+	drivers.am275x.wkup-r5f.ti-arm-clang.${ConfigName}.lib \
 	unity.am275x.r5f.ti-arm-clang.${ConfigName}.lib \
 	libc.a \
 	libsysbm.a \
