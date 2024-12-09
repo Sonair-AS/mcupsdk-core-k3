@@ -114,7 +114,7 @@ DEFINES_common := \
     -DSW_VERSION=$(SW_VERSION)
 
 CFLAGS_common := \
-    -mv7504 \
+    -mv7524 \
     --abi=eabi \
     -q \
     -mo \

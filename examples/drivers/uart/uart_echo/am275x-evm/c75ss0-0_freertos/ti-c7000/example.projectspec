@@ -34,7 +34,7 @@
             -I${MCU_PLUS_SDK_PATH}/source/kernel/freertos/FreeRTOS-Kernel/include
             -I${MCU_PLUS_SDK_PATH}/source/kernel/freertos/portable/TI_CGT/DSP_C75X
             -I${MCU_PLUS_SDK_PATH}/source/kernel/freertos/config/am275x/c75x
-            -mv7504
+            -mv7524
             --abi=eabi
             -q
             -mo
@@ -57,7 +57,7 @@
             -i${MCU_PLUS_SDK_PATH}/source/board/lib
             -i${CG_TOOL_ROOT}/lib
             -m=uart_echo.${ConfigName}.map
-            --silicon_version=7504
+            --silicon_version=7524
             -z
             --emit_warnings_as_errors
             --diag_suppress=10063
