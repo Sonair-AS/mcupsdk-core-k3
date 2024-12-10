@@ -75,21 +75,10 @@ void mcasp_playback_main(void *args)
     MCASP_Handle    mcaspHandle;
     char            valueChar;
 
+
 #if defined (SOC_AM275X)
     Pinmux_PerCfg_t i2cPinmuxConfig[] =
     {
-        /* I2C0 pin config */
-        /* I2C0_SCL -> I2C0_SCL (M3) */
-        {
-            PIN_I2C0_SCL,
-            ( PIN_MODE(0) | PIN_INPUT_ENABLE | PIN_PULL_DIRECTION  )
-        },
-                /* I2C0_SDA -> I2C0_SDA (N3) */
-        {
-            PIN_I2C0_SDA,
-            ( PIN_MODE(0) | PIN_INPUT_ENABLE | PIN_PULL_DIRECTION  )
-        },
-
         {
             PIN_GPIO1_72,
             ( PIN_MODE(1) | PIN_INPUT_ENABLE | PIN_PULL_DIRECTION  )

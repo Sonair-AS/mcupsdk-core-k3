@@ -58,26 +58,6 @@ void i2c_memory_read_main(void *arg)
     I2C_Handle      i2cHandle;
     I2C_Transaction i2cTransaction;
 
-#if defined (SOC_AM275X)
-    Pinmux_PerCfg_t i2cPinmuxConfig[] = 
-    {
-        /* I2C0 pin config */
-        /* I2C0_SCL -> I2C0_SCL (M3) */
-        {
-            PIN_I2C0_SCL,
-            ( PIN_MODE(0) | PIN_INPUT_ENABLE | PIN_PULL_DIRECTION  )
-        },
-                /* I2C0_SDA -> I2C0_SDA (N3) */
-        {
-            PIN_I2C0_SDA,
-            ( PIN_MODE(0) | PIN_INPUT_ENABLE | PIN_PULL_DIRECTION  )
-        },
-        {PINMUX_END, 0U}
-    };
-
-    Pinmux_config(i2cPinmuxConfig, PINMUX_DOMAIN_ID_MAIN);
-#endif
-
     i2cDeviceAddr = Board_i2cGetEepromDeviceAddr();
     i2cEepromMemAddr = (uint32_t)Board_i2cGetEepromMemAddr();
 
