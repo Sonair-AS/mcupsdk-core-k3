@@ -80,8 +80,8 @@ typedef int32_t (*MCSPI_dmaOpenFxn)(void *mcspiDmaArgs);
  * Typically this callback is hidden from the end application and is implemented
  * when a new DMA driver needs to be supported.
  *
- * \param MCSPI_DmaHandle   [in] MCSPI DMA Object handle returned from \ref MCSPI_dmaOpen
- * \param mcspiDmaArgs      [in] DMA specific arguments, obtained from the config
+ * \param handle   [in] MCSPI DMA Object handle returned from \ref MCSPI_dmaOpen
+ * \param chCfg    [in] DMA specific arguments, obtained from the config
  *
  * \return SystemP_SUCCESS on success, else failure
  */

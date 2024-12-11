@@ -174,8 +174,7 @@ typedef uint32_t (*Bootloader_imgOffsetFxn)(void *args);
  * Typically this callback is hidden from the end application and is implemented
  * when a new boot media needs to be supported.
  *
- * \param dstAddr [in] Destination address to which the data is to be read into
- * \param length  [in] Length in bytes of the data to be read
+ * \param location [in] Destination address to which read offset need to be moved
  * \param args    [in] Boot media specific arguments, obtained from the config
  *
  * \return SystemP_SUCCESS on success, else failure
