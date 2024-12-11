@@ -318,6 +318,21 @@ int32_t IpcNotify_init(const IpcNotify_Params *params)
 
             for(i=0; i<gIpcNotifyCtrl.interruptConfigNum; i++)
             {
+                IpcNotify_InterruptConfig *pInterruptConfig;
+
+                pInterruptConfig = &gIpcNotifyCtrl.interruptConfig[i];
+                for(core=0; core<pInterruptConfig->numCores; core++)
+                {
+                    if(gIpcNotifyCtrl.isCoreEnabled[pInterruptConfig->coreIdList[core]] == TRUE)
+                    {
+                        IpcNotify_getReadMailbox(pInterruptConfig->coreIdList[core], &mailboxBaseAddr, &hwFifoId, &userId);
+                        IpcNotify_mailboxDisableInt(mailboxBaseAddr, hwFifoId, userId);
+                    }
+                }
+            }
+
+            for(i=0; i<gIpcNotifyCtrl.interruptConfigNum; i++)
+            {
                 Bool isCoreEnable = 0;
                 HwiP_Params hwiParams;
                 IpcNotify_InterruptConfig *pInterruptConfig;
@@ -328,9 +343,6 @@ int32_t IpcNotify_init(const IpcNotify_Params *params)
                 {
                     if(gIpcNotifyCtrl.isCoreEnabled[pInterruptConfig->coreIdList[core]] == TRUE)
                     {
-                        IpcNotify_getReadMailbox(pInterruptConfig->coreIdList[core], &mailboxBaseAddr, &hwFifoId, &userId);
-                        IpcNotify_mailboxClearInt(mailboxBaseAddr, hwFifoId, userId);
-                        IpcNotify_mailboxEnableInt(mailboxBaseAddr, hwFifoId, userId);
                         isCoreEnable = 1;
                     }
                 }
@@ -347,6 +359,23 @@ int32_t IpcNotify_init(const IpcNotify_Params *params)
                                         &pInterruptConfig->hwiObj,
                                         &hwiParams);
                                         }
+            }
+
+
+            for(i=0; i<gIpcNotifyCtrl.interruptConfigNum; i++)
+            {
+                IpcNotify_InterruptConfig *pInterruptConfig;
+
+                pInterruptConfig = &gIpcNotifyCtrl.interruptConfig[i];
+                for(core=0; core<pInterruptConfig->numCores; core++)
+                {
+                    if(gIpcNotifyCtrl.isCoreEnabled[pInterruptConfig->coreIdList[core]] == TRUE)
+                    {
+                        IpcNotify_getReadMailbox(pInterruptConfig->coreIdList[core], &mailboxBaseAddr, &hwFifoId, &userId);
+                        IpcNotify_mailboxClearInt(mailboxBaseAddr, hwFifoId, userId);
+                        IpcNotify_mailboxEnableInt(mailboxBaseAddr, hwFifoId, userId);
+                    }
+                }
             }
 
             HwiP_restore(oldIntState);
