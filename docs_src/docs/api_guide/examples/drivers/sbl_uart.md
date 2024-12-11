@@ -12,7 +12,10 @@ This bootloader does SOC initializations and attempts to boot a multicore appima
 
 \cond SOC_AM275X
 
-This bootloader does SOC initializations and attempts to boot a multicore elf image (mcelf) received over UART via XMODEM. The image file is sent using a python script (See \ref UART_BOOTLOADER_PYTHON_SCRIPT). The SBL first recieves the elf image meta data, once meta is received, the SBL parses it and requests the program segments applicable for each core and loads to respective load addresses. Each core is then initialized, entry points are set and the core is released from reset. For more on bootflow/bootloaders, please refer \ref BOOTFLOW_GUIDE
+This bootloader does SOC initializations and attempts to boot a multicore elf image (mcelf) received over UART via XMODEM. The image file is sent using a python script (See \ref UART_BOOTLOADER_PYTHON_SCRIPT). The SBL first recieves the elf image meta data from host, once meta is received, the SBL parses it and requests the program segments applicable for each core by specifying the required segment offset and length to host. It then receives the segments and loads to respective load addresses. Each core is then initialized, entry points are set and the core is released from reset.
+
+Since the image is received segment wise with proper handshaking between target and host and also loaded directly to load addresses it eliminates the usage of large intermediate scratch buffer to hold the complete image.
+For more on bootflow/bootloaders, please refer \ref BOOTFLOW_GUIDE
 
 \endcond
 

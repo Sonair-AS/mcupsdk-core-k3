@@ -52,7 +52,7 @@ SDK features and tools.
 - \subpage REAL_TIME_DEBUG_SUPPORT_GUIDE
 \endcond
 
-\cond SOC_AM62X || SOC_AM62AX || SOC_AM62DX || SOC_AM275X
+\cond SOC_AM62X || SOC_AM62AX || SOC_AM62DX
 - \subpage INSTALL_NON_DEFAULT
 - \subpage IPC_GUIDE
 - \subpage BOOTFLOW_GUIDE
@@ -68,6 +68,19 @@ SDK features and tools.
 - \subpage SECURE_BOOT
 - \subpage APPIMAGE_SW_VERSION
 \endcond
+
+\cond SOC_AM275X
+- \subpage INSTALL_NON_DEFAULT
+- \subpage IPC_GUIDE
+- \subpage BOOTFLOW_GUIDE
+- \subpage MCELF_LANDING
+- \subpage CCS_PROJECTS_PAGE
+- \subpage MAKEFILE_BUILD_PAGE
+- \subpage SYSCONFIG_INTRO_PAGE
+- \subpage TIREX_INTRO_PAGE
+- \subpage RESOURCE_ALLOCATION_GUIDE
+\endcond
+
 \cond SOC_AM62AX || SOC_AM62DX
 - \subpage ROV_INTRO_PAGE
 - \subpage SMP_FREERTOS_GUIDE

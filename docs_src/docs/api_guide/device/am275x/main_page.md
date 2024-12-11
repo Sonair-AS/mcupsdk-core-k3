@@ -218,10 +218,6 @@ In Linux, the tools are installed by default in ${HOME}/ti.
     <td>C:/ti/ti-cgt-c7000_@VAR_TI_C7000_CGT_VERSION
     <td>C7000 compiler tool chain</td>
 </tr>
-<tr>
-    <td>C:/ti/gcc-arm-@VAR_GCC_AARCH64_VERSION
-    <td>GCC AARCH64 compiler
-</tr>
 </table>
 
 ## Licenses

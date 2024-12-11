@@ -67,7 +67,7 @@ Shown below is a block diagram of the SW modules involved in IPC,
 \image html ipc_block_diagram_am62.png "IPC SW Block Diagram"
 \endcond
 
-\cond SOC_AM62AX || SOC_AM275X
+\cond SOC_AM62AX
 \imageStyle{ipc_block_diagram_am62a.png,width:60%}
 \image html ipc_block_diagram_am62a.png "IPC SW Block Diagram"
 \endcond
@@ -75,6 +75,11 @@ Shown below is a block diagram of the SW modules involved in IPC,
 \cond SOC_AM62DX
 \imageStyle{ipc_block_diagram_am62d.png,width:60%}
 \image html ipc_block_diagram_am62d.png "IPC SW Block Diagram"
+\endcond
+
+\cond SOC_AM275X
+\imageStyle{ipc_block_diagram_am275.png,width:90%}
+\image html ipc_block_diagram_am275.png "IPC SW Block Diagram"
 \endcond
 
 \cond SOC_AM62PX

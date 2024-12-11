@@ -76,7 +76,7 @@ MCU_I2C0 can be connected to Board ID EEPROM through making the following jumper
 
 \endcond
 
-\cond SOC_AM62X || SOC_AM62AX || SOC_AM62DX || SOC_AM62PX || SOC_AM275X
+\cond SOC_AM62X || SOC_AM62AX || SOC_AM62DX || SOC_AM62PX
 To modify the example to use main/wakeup domain I2C, refer \ref MAIN_DOMAIN_PERIPHERAL_FROM_MCU
 \endcond
 # Supported Combinations {#EXAMPLES_DRIVERS_I2C_READ_COMBOS}

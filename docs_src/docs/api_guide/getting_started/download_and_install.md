@@ -38,7 +38,7 @@ To build applications using this SDK, one needs below host PC machine
   - Windows, C:/ti
   - Linux, ${HOME}/ti
 
-\cond SOC_AM64X || SOC_AM62X || SOC_AM62AX || SOC_AM62PX || SOC_AM62DX || SOC_AM275X
+\cond SOC_AM64X || SOC_AM62X || SOC_AM62AX || SOC_AM62PX || SOC_AM62DX
 ### GCC AARCH64 Compiler  {#GCC_AARCH64_DOWNLOAD}
 \cond SOC_AM64X
 \attention GCC AARCH64 compiler installation is required only for A53 development in am64x
@@ -77,7 +77,7 @@ To build applications using this SDK, one needs below host PC machine
 \endcond
 
 
-\cond SOC_AM62AX || SOC_AM62DX
+\cond SOC_AM62AX || SOC_AM62DX || SOC_AM275X
 ### C7000-CGT Compiler Toolchain {#INSTALL_C7000_CGT}
 
 - Download C7000-CGT compiler toolchain @VAR_TI_C7000_CGT_VERSION from \htmllink{https://www.ti.com/tool/download/C7000-CGT, the link}
@@ -139,7 +139,7 @@ To build applications using this SDK, one needs below host PC machine
   - Install below additional packages via "pip" that are needed for the flashing tools. If you are behind a corporate firewall
     make sure to pass the server name and port for the proxy as shown below. If proxy is not needed keep `--proxy=` as blank.
 
-        C:\> python -m pip install pyserial xmodem tqdm --proxy={your proxy server web-link and port}
+        C:\> python -m pip install pyserial xmodem tqdm pyelftools construct --proxy={your proxy server web-link and port}
 
 - In Linux,
   - Do below in Linux bash shell to install python3
@@ -157,7 +157,7 @@ To build applications using this SDK, one needs below host PC machine
   - Install below additional packages via "pip" that are needed for the flashing tools. If you are behind a corporate firewall
     make sure to pass the server name and port for the proxy as shown below. If proxy is not needed keep `--proxy=` as blank.
 
-        $ pip3 install pyserial xmodem tqdm --proxy={your proxy server web-link and port}
+        $ pip3 install pyserial xmodem tqdm pyelftools construct --proxy={your proxy server web-link and port}
 
 ### OpenSSL {#INSTALL_OPENSSL}
 

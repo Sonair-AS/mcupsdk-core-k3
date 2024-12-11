@@ -196,7 +196,7 @@ INFO: Bootloader_JumpSelfCpu:226: All done, jumping self ...
 \endcode
 \endcond
 
-\cond SOC_AM62AX || SOC_AM62DX || SOC_AM275X
+\cond SOC_AM62AX || SOC_AM62DX
 \code
 Starting NULL Bootloader ...
 
@@ -212,6 +212,29 @@ INFO: Bootloader_runCpu:155: CPU a531-1 is initialized to 1250000000 Hz !!!
 INFO: Bootloader_runCpu:155: CPU c7x0-0 is initialized to 850000000 Hz !!!
 INFO: Bootloader_loadSelfCpu:208: CPU r5f0-0 is initialized to 800000000 Hz !!!
 INFO: Bootloader_JumpSelfCpu:227: All done, jumping self ...
+
+\endcode
+\endcond
+
+\cond SOC_AM275X
+\code
+
+Sciserver Testapp Built On: Nov 29 2024 18:37:11
+Sciserver Version: v2023.11.0.0REL.MCUSDK.MM.NN.PP.bb
+RM_PM_HAL Version: vMM.NN.PP
+Starting Sciserver..... PASSED
+
+Starting NULL Bootloader ...
+
+SYSFW Firmware Version 10.0.8--w2024.02-am275x (Fiery
+SYSFW Firmware revision 0xa
+SYSFW ABI revision 4.0
+
+[BOOTLOADER_PROFILE] Boot Media       : undefined
+[BOOTLOADER_PROFILE] Boot Image Size  : 0 KB
+[BOOTLOADER_PROFILE] Cores present    :
+[BOOTLOADER PROFILE] Sciclient Get Version            :      13390us
+[BOOTLOADER_PROFILE] SBL Total Time Taken             :      13390us
 
 \endcode
 \endcond
@@ -233,3 +256,5 @@ INFO: Bootloader_loadSelfCpu:215: CPU wkup-r5f  is initialized to 800000000 Hz !
 
 \endcode
 \endcond
+
+

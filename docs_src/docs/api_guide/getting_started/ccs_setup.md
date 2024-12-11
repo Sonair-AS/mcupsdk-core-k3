@@ -19,8 +19,12 @@
 \endcond
 - Unzip the file for Windows or Linux at any location on your host PC
 
-\attention AM275x is not yet available on the above version by default
-\attention Please use the internal csp package for AM275x support
+\cond SOC_AM275X
+\attention AM275x is not yet supported on the above version by default
+\attention Please follow below steps to add AM275x support
+
+\endcond
+
 
 
 ## Install CCS
@@ -329,6 +333,21 @@
 
 - Now you can move on to \ref EVM_SETUP_PAGE to prepare your EVM for running programs.
 
+\endcond
+
+\cond SOC_AM275X
+## Adding AM275 CCS CSP
+- Go to ‘ Help ’ -> ‘ Install New Software... ’.
+
+- In the ' Work with ' dropdown,choose ' --All Available Sites-- '.
+
+- Select the ' Arm-based Signal Processing MCU Device Support ' entry.
+
+- Click Next, and then Finish. Wait for install, and then restart CCS.
+  ( Don't restart until finish )
+
+\imageStyle{am275_CCS_package.png,width:50%}
+\image html am275_CCS_package.png "am275_CCS_package "
 \endcond
 
 \cond SOC_AM62AX || SOC_AM62PX || SOC_AM62DX || SOC_AM275X

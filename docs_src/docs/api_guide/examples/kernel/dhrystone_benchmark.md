@@ -99,7 +99,12 @@ The application runs with thread number equal to 1, 2, 5 and 10, with iteration 
 \elseif SOC_AM275X
 - Launch a CCS debug session and run the executable, see \ref CCS_LAUNCH_PAGE
 \else
+\cond !SOC_AM275X
 - Launch a CCS debug session and run the executable, see \ref CCS_LAUNCH_PAGE and \ref SMP_FREERTOS_GUIDE
+\endcond
+\cond SOC_AM275X
+- Launch a CCS debug session and run the executable, see \ref CCS_LAUNCH_PAGE
+\endcond
 \endif
 
 # See Also

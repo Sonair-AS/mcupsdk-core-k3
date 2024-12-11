@@ -16,6 +16,27 @@ This bootloader does SOC initializations and attempts to boot MCU M4 image by th
 
 If the appimage files are found at the location, the SBL reads the files into a buffer, parses it. Each core is then initialized, RPRC image is loaded, entry points are set and the core is released from reset. For more on bootflow/bootloaders, please refer \ref BOOTFLOW_GUIDE
 
+\elseif SOC_AM275X
+
+This bootloader does SOC initializations and attempts to boot R5 image by the name "app_{corename}", C7x image by the name "dsp_{corename}", present in the first FAT partition found in the connected SD card.
+
+The image name for different cores can be as follows
+
+CORE        | IMAGE NAME
+------------|-----------
+r5fss0-0    | app_r50_0
+r5fss0-1    | app_r50_1
+r5fss1-0    | app_r51_0
+r5fss1-1    | app_r51_1
+c75ss0-0    | app_dsp0_0
+c75ss1-0    | app_dsp0_1
+
+The file can be copied to the SD card by connecting it to the host PC using a card reader. Make sure that the images are named without any file extension. If the card is new, make sure that it is formatted with FAT32/16.
+
+If a multicore appimage file is found at the location, the SBL reads the file metadata into a buffer, parses it, and identifies the program segments for each core applicable. These program segments are then read from respective offset as per the metadata and loads it to corresponding load address. Each core is then initialized, entry points are set and the core is released from reset.
+
+Since the image is loaded segment wise directly from SD card to load addresses it eliminates the usage of large intermediate scratch buffer to hold the complete image. For more on bootflow/bootloaders, please refer \ref BOOTFLOW_GUIDE
+
 \else
 
 This bootloader does SOC initializations and attempts to boot a multicore appimage file named "app" present in the first FAT partition found in the connected SD card. The file can be copied to the SD card by connecting it to the host PC using a card reader. Make sure that it is named "app" without any file extension. If the card is new, make sure that it is formatted with FAT32/16.
@@ -65,6 +86,17 @@ If a multicore appimage file is found at the location, the SBL reads the file in
  CPU + OS       | r5fss0-0 nortos
  Toolchain      | ti-arm-clang
  Boards         | @VAR_BOARD_NAME_LOWER, @VAR_SIP_SK_BOARD_NAME_LOWER, @VAR_SK_LP_BOARD_NAME_LOWER
+ Example folder | examples/drivers/boot/sbl_sd
+
+\endcond
+
+\cond SOC_AM275X
+
+ Parameter      | Value
+ ---------------|-----------
+ CPU + OS       | wkup-r5fss0-0_freertos
+ Toolchain      | ti-arm-clang
+ Board          | @VAR_BOARD_NAME_LOWER
  Example folder | examples/drivers/boot/sbl_sd
 
 \endcond
