@@ -22,12 +22,14 @@ MULTI_CORE_BOOTIMAGE_NAME_SIGNED:=$(MULTI_CORE_BOOTIMAGE_NAME).signed
 MULTI_CORE_BOOTIMAGE_NAME_XIP:=ipc_rpmsg_echo_system.$(PROFILE).mcelf_xip
 
 CORE_0=--script ../c75ss0-0_freertos/example.syscfg --context c75ss0-0 --output ../c75ss0-0_freertos/ti-c7000/generated
-CORE_1=--script ../r5fss0-0_freertos/example.syscfg --context r5fss0-0 --output ../r5fss0-0_freertos/ti-arm-clang/generated
-CORE_2=--script ../r5fss0-1_freertos/example.syscfg --context r5fss0-1 --output ../r5fss0-1_freertos/ti-arm-clang/generated
-CORE_3=--script ../r5fss1-0_freertos/example.syscfg --context r5fss1-0 --output ../r5fss1-0_freertos/ti-arm-clang/generated
-CORE_4=--script ../r5fss1-1_freertos/example.syscfg --context r5fss1-1 --output ../r5fss1-1_freertos/ti-arm-clang/generated
+CORE_1=--script ../c75ss1-0_freertos/example.syscfg --context c75ss1-0 --output ../c75ss1-0_freertos/ti-c7000/generated
+CORE_2=--script ../r5fss0-0_freertos/example.syscfg --context r5fss0-0 --output ../r5fss0-0_freertos/ti-arm-clang/generated
+CORE_3=--script ../r5fss0-1_freertos/example.syscfg --context r5fss0-1 --output ../r5fss0-1_freertos/ti-arm-clang/generated
+CORE_4=--script ../r5fss1-0_freertos/example.syscfg --context r5fss1-0 --output ../r5fss1-0_freertos/ti-arm-clang/generated
+CORE_5=--script ../r5fss1-1_freertos/example.syscfg --context r5fss1-1 --output ../r5fss1-1_freertos/ti-arm-clang/generated
 
 CORES = \
+    $(CORE_5) \
     $(CORE_4) \
     $(CORE_3) \
     $(CORE_2) \
@@ -36,6 +38,7 @@ CORES = \
 
 all: syscfg
 	$(MAKE) -C ../c75ss0-0_freertos/ti-c7000/ all
+	$(MAKE) -C ../c75ss1-0_freertos/ti-c7000/ all
 	$(MAKE) -C ../r5fss0-0_freertos/ti-arm-clang/ all
 	$(MAKE) -C ../r5fss0-1_freertos/ti-arm-clang/ all
 	$(MAKE) -C ../r5fss1-0_freertos/ti-arm-clang/ all
@@ -44,6 +47,7 @@ all: syscfg
 
 clean:
 	$(MAKE) -C ../c75ss0-0_freertos/ti-c7000/ clean
+	$(MAKE) -C ../c75ss1-0_freertos/ti-c7000/ clean
 	$(MAKE) -C ../r5fss0-0_freertos/ti-arm-clang/ clean
 	$(MAKE) -C ../r5fss0-1_freertos/ti-arm-clang/ clean
 	$(MAKE) -C ../r5fss1-0_freertos/ti-arm-clang/ clean
@@ -54,6 +58,7 @@ clean:
 
 scrub:
 	$(MAKE) -C ../c75ss0-0_freertos/ti-c7000/ scrub
+	$(MAKE) -C ../c75ss1-0_freertos/ti-c7000/ scrub
 	$(MAKE) -C ../r5fss0-0_freertos/ti-arm-clang/ scrub
 	$(MAKE) -C ../r5fss0-1_freertos/ti-arm-clang/ scrub
 	$(MAKE) -C ../r5fss1-0_freertos/ti-arm-clang/ scrub
@@ -102,6 +107,7 @@ APP_IMAGE_SIGN_CMD = $(MCU_PLUS_SDK_PATH)/tools/boot/signing/appimage_x509_cert_
 
 MULTI_CORE_APP_PARAMS = \
     --core-img=$(BOOTIMAGE_CORE_ID_c75ss0-0)\:../c75ss0-0_freertos/ti-c7000/ipc_rpmsg_echo.$(PROFILE).out \
+    --core-img=$(BOOTIMAGE_CORE_ID_c75ss1-0)\:../c75ss1-0_freertos/ti-c7000/ipc_rpmsg_echo.$(PROFILE).out \
     --core-img=$(BOOTIMAGE_CORE_ID_r5fss0-0)\:../r5fss0-0_freertos/ti-arm-clang/ipc_rpmsg_echo.$(PROFILE).out \
     --core-img=$(BOOTIMAGE_CORE_ID_r5fss0-1)\:../r5fss0-1_freertos/ti-arm-clang/ipc_rpmsg_echo.$(PROFILE).out \
     --core-img=$(BOOTIMAGE_CORE_ID_r5fss1-0)\:../r5fss1-0_freertos/ti-arm-clang/ipc_rpmsg_echo.$(PROFILE).out \
@@ -109,6 +115,7 @@ MULTI_CORE_APP_PARAMS = \
 
 MULTI_CORE_BOOTIMAGE_DEPENDENCY = \
     ../c75ss0-0_freertos/ti-c7000/ipc_rpmsg_echo.$(PROFILE).out \
+    ../c75ss1-0_freertos/ti-c7000/ipc_rpmsg_echo.$(PROFILE).out \
     ../r5fss0-0_freertos/ti-arm-clang/ipc_rpmsg_echo.$(PROFILE).out \
     ../r5fss0-1_freertos/ti-arm-clang/ipc_rpmsg_echo.$(PROFILE).out \
     ../r5fss1-0_freertos/ti-arm-clang/ipc_rpmsg_echo.$(PROFILE).out \

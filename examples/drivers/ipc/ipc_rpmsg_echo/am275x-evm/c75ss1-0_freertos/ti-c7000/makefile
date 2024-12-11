@@ -62,7 +62,7 @@ DEFINES_common := \
 	-DSOC_AM275X \
 
 CFLAGS_common := \
-	-mv7504 \
+	-mv7524 \
 	--abi=eabi \
 	-q \
 	-mo \
@@ -107,7 +107,7 @@ LIBS_common = \
 	-llibc.a \
 
 LFLAGS_common = \
-	--silicon_version=7504 \
+	--silicon_version=7524 \
 	-z \
 	--emit_warnings_as_errors \
 	--diag_suppress=10063 \

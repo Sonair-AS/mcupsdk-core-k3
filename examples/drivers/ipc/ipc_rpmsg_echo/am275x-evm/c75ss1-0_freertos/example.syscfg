@@ -29,13 +29,7 @@ const mmu_armv813 = mmu_armv8.addInstance();
 /**
  * Write custom configuration values to the imported modules.
  */
-ipc.vringMsgSize  = 64;
-ipc.wkup_r5fss0_0 = "NONE";
-ipc.r5fss0_0      = "NONE";
-ipc.r5fss0_1      = "NONE";
-ipc.r5fss1_0      = "NONE";
-ipc.r5fss1_1      = "NONE";
-ipc.c75ss0_0      = "NONE";
+ipc.vringMsgSize = 64;
 
 debug_log.enableSharedMemLog = true;
 

@@ -146,6 +146,8 @@ uint32_t gRemoteCoreId[] = {
     CSL_CORE_ID_R5FSS1_0,
     CSL_CORE_ID_R5FSS1_1,
     CSL_CORE_ID_C75SS0_0,
+    CSL_CORE_ID_C75SS1_0,
+    CSL_CORE_ID_WKUP_R5FSS0_0,
     CSL_CORE_ID_MAX /* this value indicates the end of the array */
 };
 #endif
