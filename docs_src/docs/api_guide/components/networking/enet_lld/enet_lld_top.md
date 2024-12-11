@@ -13,7 +13,7 @@
 \cond SOC_AM62DX || SOC_AM62PX || SOC_AM62X
 - \subpage enetlld_performance
 \endcond
-\cond SOC_AM263X || SOC_AM263PX || SOC_AM243X || SOC_AM64X || SOC_AM273X || SOC_AM62PX || SOC_AM62DX || SOC_AM62X
+\cond SOC_AM263X || SOC_AM263PX || SOC_AM243X || SOC_AM64X || SOC_AM273X || SOC_AM62PX || SOC_AM62DX ||SOC_AM62Xm ||SOC_AM275X
 - \subpage enet_tas_top
 \endcond
 - \subpage enet_migration_guide_top

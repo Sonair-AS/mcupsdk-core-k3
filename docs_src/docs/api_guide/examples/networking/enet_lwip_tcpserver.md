@@ -58,6 +58,17 @@ Example folder | source/networking/enet/core/examples/lwip/enet_cpsw_tcpserver
 
 \endcond
 
+\cond SOC_AM275X
+
+ Parameter      | Value
+ ---------------|-----------
+ CPU + OS       | mcu-r5fss0-0_freertos
+ Toolchain      | ti-arm-clang
+ Board          | @VAR_BOARD_NAME_LOWER
+ Example folder | source/networking/enet/core/examples/lwip/enet_cpsw_tcpserver
+
+\endcond
+
 # Configuring Syscfg
 
 - Following Syscfg option allows flexibility to configure memory foot print based on required use case like: Number of DMA descriptors and buffering.
@@ -263,11 +274,16 @@ accepted new connection 700C2DA0
 
 ## Troubleshooting issues
 
-\cond SOC_AM62DX
+\cond SOC_AM62DX || SOC_AM275X
 - If you see MAC address as `00:00:00:00:00:00`, likely you are using a very early Si sample which does not
   have MAC address "fused" in, in this case do below steps
 
+   - \cond SOC_AM62DX
    - Open file `source/networking/.meta/enet_cpsw/templates/am62dx/enet_soc_cfg.c.xdt`
+   \endcond
+   \cond SOC_AM275X
+   - Open file `source/networking/.meta/enet_cpsw/templates/am275x/enet_soc_cfg.c.xdt`
+   \endcond
    - Uncomment below line
         \code
         #define ENET_MAC_ADDR_HACK (TRUE)

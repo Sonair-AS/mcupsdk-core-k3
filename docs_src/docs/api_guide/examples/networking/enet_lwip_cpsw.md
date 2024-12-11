@@ -12,7 +12,7 @@ ethernet driver (ENET)
 On @VAR_SOC_NAME, we can do ethernet based communication using CPSW as HW mechanism
   - CPSW is a standard ethernet switch + port HW
   - It uses ethernet driver underneath with LwIP TCP/IP networking stack
-\cond SOC_AM62DX || SOC_AM62X
+\cond SOC_AM62DX || SOC_AM62X || SOC_AM275X
   - CPSW can be configured in two modes: Switch or MAC. For more details, \ref ENET_LWIP_CPSW_OPERATING_MODES
 \endcond
 \cond SOC_AM62PX
@@ -51,7 +51,7 @@ The examples do below
 
 \endcond
 
-\cond SOC_AM62X 
+\cond SOC_AM62X
 
  Parameter      | Value
  ---------------|-----------
@@ -59,6 +59,17 @@ The examples do below
  Toolchain      | gcc-arch64
  Boards         | @VAR_BOARD_NAME_LOWER
 Example folder | source/networking/enet/core/examples/lwip/enet_lwip_cpsw
+\endcond
+
+\cond SOC_AM275X
+
+ Parameter      | Value
+ ---------------|-----------
+ CPU + OS       | mcu-r5fss0-0_freertos
+ Toolchain      | ti-arm-clang
+ Boards         | @VAR_BOARD_NAME_LOWER
+ Example folder | source/networking/enet/core/examples/lwip/enet_lwip_cpsw
+
 \endcond
 
 # Configuring Syscfg
@@ -75,7 +86,7 @@ Example folder | source/networking/enet/core/examples/lwip/enet_lwip_cpsw
     <th>Remarks/Default Setting
 </tr>
 
-\cond SOC_AM64X || SOC_AM243X || SOC_AM263X || SOC_AM62DX || SOC_AM62X
+\cond SOC_AM64X || SOC_AM243X || SOC_AM263X || SOC_AM62DX || SOC_AM62X || SOC_AM275X
 <tr>
     <td>Disable Mac Port1, Disable Mac Port2
     <td>TI Networking / Enet (CPSW)
@@ -239,7 +250,7 @@ to a network which has a DHCP server running.
 
 ## Sample output for CPSW example
 
-\cond SOC_AM62PX || SOC_AM62DX || SOC_AM62X
+\cond SOC_AM62PX || SOC_AM62DX || SOC_AM62X || SOC_AM275X
 
 \code
 
@@ -352,11 +363,16 @@ TCP window size: 208 KByte (default)
 
 ## Troubleshooting issues
 
-\cond SOC_AM62DX
+\cond SOC_AM62DX || SOC_AM275X
 - If you see MAC address as `00:00:00:00:00:00`, likely you are using a very early Si sample which does not
   have MAC address "fused" in, in this case do below steps
-
+   \cond SOC_AM62DX
    - Open file `source/networking/.meta/enet_cpsw/templates/am62dx/enet_soc_cfg.c.xdt`
+   \endcond
+   \cond SOC_AM275X
+   - Open file `source/networking/.meta/enet_cpsw/templates/am275x/enet_soc_cfg.c.xdt`
+   \endcond
+
    - Uncomment below line
         \code
         #define ENET_MAC_ADDR_HACK (TRUE)

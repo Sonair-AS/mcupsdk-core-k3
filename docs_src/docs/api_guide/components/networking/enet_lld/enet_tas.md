@@ -360,7 +360,7 @@ in the pool as it handles new timestamp events.
 ### CCS Debug GEL Files {#enet_est_cpsw_gels}
 
 CPSW debug GEL files can be loaded by loading the startup GEL file which can be
-located at `<mcu_plus_sdk>/source/networking/enet/core/tools/debug_gels/cpsw_startup.gel`.
+located at `${SDK_INSTALL_PATH}/source/networking/enet/core/tools/debug_gels/cpsw_startup.gel`.
 
 The following image shows the EST GEL files once they have been loaded into CCS.
 

@@ -5,9 +5,9 @@
 # Introduction
 
 
-This example exercises the MAC loopback and PHY loopback functionality of the hardware. The CPSW hardware is opened with default initialization parameters and either the MAC loopback or PHY loopback is enabled based on the user input.
+This example exercises the MAC loopback functionality of the hardware. The CPSW hardware is opened with default initialization parameters and either the MAC loopback is enabled based on the user input.
 
-\cond SOC_AM62PX || SOC_AM62DX || SOC_AM62X
+\cond SOC_AM62PX || SOC_AM62DX || SOC_AM62X || SOC_AM275X
 
 On @VAR_SOC_NAME, we can do ethernet based communication using CPSW as HW mechanism
   - CPSW is a standard ethernet switch + port HW
@@ -34,7 +34,7 @@ The examples do below
 
 
 
-\cond SOC_AM62PX 
+\cond SOC_AM62PX
 
  Parameter      | Value
  ---------------|-----------
@@ -45,7 +45,7 @@ Example folder | source/networking/enet/core/examples/enet_loopback/enet_cpsw_lo
 
 \endcond
 
-\cond SOC_AM62X 
+\cond SOC_AM62X
 
  Parameter      | Value
  ---------------|-----------
@@ -67,6 +67,19 @@ Example folder | source/networking/enet/core/examples/enet_loopback/enet_cpsw_lo
 
 \endcond
 
+\cond SOC_275X
+
+ Parameter      | Value
+ ---------------|-----------
+ CPU + OS       | mcu-r5fss0-0_freertos
+ Toolchain      | ti-arm-clang
+ Boards         | @VAR_BOARD_NAME_LOWER
+ Example folder | source/networking/enet/core/examples/enet_loopback/enet_cpsw_loopback
+
+\endcond
+
+
+
 # Steps to Run the Example
 
 ## Build the example
@@ -80,9 +93,7 @@ Example folder | source/networking/enet/core/examples/enet_loopback/enet_cpsw_lo
 
 \code
 
-0: Internal MAC loopback
-1: External PHY loopback
-Enter option:0
+
 
 Create periodic tick task
 =============================
@@ -292,6 +303,8 @@ Delete EnetLpbk_tickTask() and exit..
 Loopback application completed
 
 \endcode
+
+\cond !SOC_AM275X
 
 ## Sample output for PHY Loopback
 
@@ -519,7 +532,7 @@ Delete EnetLpbk_tickTask() and exit..
 Loopback application completed
 
 \endcode
-
+\endcond
 # See Also
 
 \ref NETWORKING

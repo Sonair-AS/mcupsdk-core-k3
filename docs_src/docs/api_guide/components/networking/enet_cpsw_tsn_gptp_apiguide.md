@@ -24,10 +24,10 @@ This guide is intended to enhance user's understanding of the TSN stack and prov
 # TSN Stack
 
 ## Compilation
-TSN stack library is pre-built in SDK and located in ``<mcu_plus_sdk>/examples/networking/tsn`` directory as .lib files. Any changes in the stack source code needs rebuild of library.
+TSN stack library is pre-built in SDK and located in ``<${SDK_INSTALL_PATH}>/examples/networking/tsn`` directory as .lib files. Any changes in the stack source code needs rebuild of library.
 In order to re-build the library, follow the below steps-
 \code
-cd  <mcu_plus_sdk>
+cd  ${SDK_INSTALL_PATH}
 gmake DEVICE:=@VAR_SOC_NAME PROFILE:=debug libs-clean
 gmake DEVICE:=@VAR_SOC_NAME PROFILE:=release libs-clean
 gmake DEVICE:=@VAR_SOC_NAME PROFILE:=debug libs
@@ -40,14 +40,14 @@ The TSN Stack library is composed of the following source modules:
 
  Module Name  | lcoation | Description
  -------------|-----------|-----------
- Unibase      | `<mcu_plus_sdk>/source/networking/tsn/tsn_unibase` | Universal utility libraries that are platform-independent
- Combase      | `<mcu_plus_sdk>/source/networking/tsn/tsn_combase` | Communication utility libraries that provide support for functions like sockets, mutexes, and semaphores
- Uniconf      | `<mcu_plus_sdk>/source/networking/tsn/tsn_uniconf` | Universal configuration daemon for Yang, provides APIs for developing a client application which retreives/writes yang parameters from/to database
- gPTP         | `<mcu_plus_sdk>/source/networking/tsn/tsn_gptp`    | Implementation of the IEEE 802.1 AS gptp protocol
+ Unibase      | `<${SDK_INSTALL_PATH}>/source/networking/tsn/tsn_unibase` | Universal utility libraries that are platform-independent
+ Combase      | `<${SDK_INSTALL_PATH}>/source/networking/tsn/tsn_combase` | Communication utility libraries that provide support for functions like sockets, mutexes, and semaphores
+ Uniconf      | `<${SDK_INSTALL_PATH}>/source/networking/tsn/tsn_uniconf` | Universal configuration daemon for Yang, provides APIs for developing a client application which retreives/writes yang parameters from/to database
+ gPTP         | `<${SDK_INSTALL_PATH}>/source/networking/tsn/tsn_gptp`    | Implementation of the IEEE 802.1 AS gptp protocol
 
 ## Stack Initialization {#ENET_CPSW_TSN_STACK_INITIALIZATION}
 
-A reference example of the TSN stack initialization can be found in ``<mcu_plus_sdk>/examples/networking/tsn/tsninit.c``.
+A reference example of the TSN stack initialization can be found in ``<${SDK_INSTALL_PATH}>/examples/networking/tsn/tsninit.c``.
 Prior to any module calls, it is necessary to initialize the unibase library once.
 This can be achieved by invoking the ``EnetApp_initTsnByCfg()`` function.
 
@@ -107,11 +107,11 @@ To deinitialize the TSN modules, you can invoke the ``EnetApp_stopTsn();`` and `
 
 ## gPTP Multiple Domains
 
-At the moment, our system supports two domains, but this feature is turned off by default. 
+At the moment, our system supports two domains, but this feature is turned off by default.
 To turn on multiple domains, follow these steps:
 
-- Set ``#define GPTP_MAX_DOMAINS 2`` in the ``<mcu_plus_sdk>/source/networking/tsn/tsn-stack/tsn_buildconf/sitara_buildconf.h`` file
-- In the file ``<mcu_plus_sdk>/examples/networking/tsn/gptp_init.c``, you will see the following settings are set:
+- Set ``#define GPTP_MAX_DOMAINS 2`` in the ``<${SDK_INSTALL_PATH}>/source/networking/tsn/tsn-stack/tsn_buildconf/sitara_buildconf.h`` file
+- In the file ``<${SDK_INSTALL_PATH}>/examples/networking/tsn/gptp_init.c``, you will see the following settings are set:
 ```
 #if GPTP_MAX_DOMAINS == 2
     {"CMLDS_MODE", XL4_EXTMOD_XL4GPTP_CMLDS_MODE, 1},
@@ -122,18 +122,18 @@ This will activate the second domain in the gPTP system.
 
 ## gPTP Shorter Sync Interval
 
-By default, the gPTP Sync interval is set to 125 milliseconds. 
+By default, the gPTP Sync interval is set to 125 milliseconds.
 If you need a shorter Sync interval, you can adjust it by setting a specific value in the ``sitara_buildconf.h`` file:
 
 ```
-/* Interval timeout in nanoseconds used to generate timers in GPTP. 
+/* Interval timeout in nanoseconds used to generate timers in GPTP.
  * Supported values are 125, 62.5, 31.25, 15.625 and 7.8125 milliseconds. */
 #define GPTPNET_INTERVAL_TIMEOUT_NSEC 15625000u
 ```
 
-``GPTPNET_INTERVAL_TIMEOUT_NSEC`` must be equal to or less than the desired Sync interval time. 
+``GPTPNET_INTERVAL_TIMEOUT_NSEC`` must be equal to or less than the desired Sync interval time.
 For instance, if you want a Sync interval time of 31.25 milliseconds, set ``GPTPNET_INTERVAL_TIMEOUT_NSEC`` to 31.25, 15.625, or 7.8125 milliseconds.
-Be aware that decreasing ``GPTPNET_INTERVAL_TIMEOUT_NSEC`` will increase CPU load. 
+Be aware that decreasing ``GPTPNET_INTERVAL_TIMEOUT_NSEC`` will increase CPU load.
 Additionally, adjust the ``log-sync-interval`` in the standard yang config by referring to the ``gptp_init.c`` file.
 For example, to set the Sync interval to 31.25 milliseconds, set ``log-sync-interval`` to -5.
 
@@ -143,7 +143,7 @@ For example, to set the Sync interval to 31.25 milliseconds, set ``log-sync-inte
 To integrate the TSN stack into your application, follow these steps:
 
 - Initialize Enet LLD and setup board dependencies.  In the TSN example application,
-  the initialization routines can be found at ``<mcu_plus_sdk>/examples/networking/tsn/tsnapp_cpsw_main.c.c``,
+  the initialization routines can be found at ``<${SDK_INSTALL_PATH}>/examples/networking/tsn/tsnapp_cpsw_main.c.c``,
   which can be used as reference.
 
   The main functions related to EVM board initialization are::
@@ -223,7 +223,7 @@ Currently, as file system is not supported, this parameter is set to ``NULL``.
 
 - ``configfiles``: array of runtime config files will be used by the uniconf. Run time config file is a
 text file which has one-to-one mapping with yang files, the format of each line of a
-run time config file is specified under ``<mcu_plus_sdk>/source/networking/tsn/tsn-stack/tsn_uniconf/README.org``.
+run time config file is specified under ``<${SDK_INSTALL_PATH}>/source/networking/tsn/tsn-stack/tsn_uniconf/README.org``.
 Currently, as file system is not supported, this parameter is set to ``NULL``.
 
 - ``numofconfigfile``: Specify how many config files have been set via the the ``configfiles`` array above.
@@ -248,7 +248,7 @@ side writes the database and ask it for an update.
 
 This section describes the standard Yang parameters utilized for gPTP.
 To access the list of these parameters along with their default values for gPTP, please refer to the file located at:
-``<mcu_plus_sdk>/source/networking/tsn/tsn-stack/tsn_gptp/gptpconf/gptp-yangconfig.xml``.
+``${SDK_INSTALL_PATH}/source/networking/tsn/tsn-stack/tsn_gptp/gptpconf/gptp-yangconfig.xml``.
 
 For detailed descriptions of each parameter, please refer to the following Yang files:
 https://github.com/YangModels/yang/blob/main/standard/ieee/draft/1588/ieee1588-ptp.yang
@@ -262,7 +262,7 @@ function in the ``tsninit.c`` file. This function will demonstrate how to update
 In addition to the standard Yang parameters, gPTP also includes a set of non-Yang configuration parameters
 that are specific to its implementation. To access the list of these parameters, along with their descriptions
  and default values for gPTP, please refer to the file located at:
-``<mcu_plus_sdk>/source/networking/tsn/tsn-stack/tsn_gptp/gptpconf/gptp_nonyangconfig.xml``.
+``${SDK_INSTALL_PATH}/source/networking/tsn/tsn-stack/tsn_gptp/gptpconf/gptp_nonyangconfig.xml``.
 
 To modify the default value of the Non-Yang parameters, please refer to the ``gptp_nonyang_config()`` function
 in the ``tsninit.c`` file. This function will invokes ``gptpgcfg_set_item()`` to configure each params:
@@ -287,7 +287,7 @@ for persistence.
 Example usage:
 ``gptpgcfg_set_item(gpoptd.instnum, XL4_EXTMOD_XL4GPTP_USE_HW_PHASE_ADJUSTMENT,
   YDBI_CONFIG, &use_hwphase, sizeof(use_hwphase));``
-- As a reference, please consult the ``<mcu_plus_sdk>/examples/networking/tsn/tsninit.c``
+- As a reference, please consult the ``${SDK_INSTALL_PATH}/examples/networking/tsn/tsninit.c``
 file.
 
 - The configuration must be done before calling the ``gptpman_run()`` function

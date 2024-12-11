@@ -24,10 +24,10 @@ The TSN Stack library is composed of the following source modules:
 
  Module Name  | lcoation | Description
  -------------|-----------|-----------
- Unibase      | `<mcu_plus_sdk>/source/networking/tsn/tsn_unibase` | Universal utility libraries that are platform-independent
- Combase      | `<mcu_plus_sdk>/source/networking/tsn/tsn_combase` | Communication utility libraries that provide support for functions like sockets, mutexes, and semaphores
- Uniconf      | `<mcu_plus_sdk>/source/networking/tsn/tsn_uniconf` | Universal configuration daemon for Yang, provides APIs for developing a client application which retreives/writes yang parameters from/to database
- LLDP         | `<mcu_plus_sdk>/source/networking/tsn/tsn_lldp`    | Implementation of the IEEE 802.1 AB LLDP
+ Unibase      | `${SDK_INSTALL_PATH}/source/networking/tsn/tsn_unibase` | Universal utility libraries that are platform-independent
+ Combase      | `${SDK_INSTALL_PATH}/source/networking/tsn/tsn_combase` | Communication utility libraries that provide support for functions like sockets, mutexes, and semaphores
+ Uniconf      | `${SDK_INSTALL_PATH}/source/networking/tsn/tsn_uniconf` | Universal configuration daemon for Yang, provides APIs for developing a client application which retreives/writes yang parameters from/to database
+ LLDP         | `${SDK_INSTALL_PATH}/source/networking/tsn/tsn_lldp`    | Implementation of the IEEE 802.1 AB LLDP
 
  ## Stack Initialization
 

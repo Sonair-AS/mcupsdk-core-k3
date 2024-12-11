@@ -38,6 +38,15 @@ This page lists all the examples related to Ethernet Communication.
 \endcond
 
 
+\cond SOC_AM275X
+### Layer 2 Examples on FreeRTOS
+-# \subpage EXAMPLES_ENET_CPSW_LOOPBACK
+### TCP/IP Examples using LwIP Stack on FreeRTOS
+-# \subpage EXAMPLES_ENET_LWIP_CPSW
+-# \subpage ENET_LWIP_CPSW_OPERATING_MODES
+-# \subpage EXAMPLES_ENET_LWIP_CPSW_TCPSERVER
+\endcond
+
 \cond SOC_AM62DX
 ### Layer 2 Examples on FreeRTOS
 -# \subpage EXAMPLES_ENET_CPSW_LOOPBACK
