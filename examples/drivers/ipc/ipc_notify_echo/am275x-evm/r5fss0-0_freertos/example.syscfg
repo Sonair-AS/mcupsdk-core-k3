@@ -3,7 +3,7 @@
  * via the GUI or CLI. Run CLI with '--help' for additional information on how to override these arguments.
  * @cliArgs --device "AM275x" --part "AM2754" --package "ANJ" --context "r5fss0-0" --product "MCU_PLUS_SDK@07.03.01"
  * @v2CliArgs --device "AM2754" --package "FCCSP (ANJ)" --context "r5fss0-0" --product "MCU_PLUS_SDK@07.03.01"
- * @versions {"tool":"1.21.0+3721"}
+ * @versions {"tool":"1.22.0+3893"}
  */
 
 /**
@@ -22,12 +22,12 @@ const mpu_armv76 = mpu_armv7.addInstance();
 /**
  * Write custom configuration values to the imported modules.
  */
-ipc.wkup_r5fss0_0 = "notify";
 ipc.r5fss0_1      = "notify";
 ipc.r5fss1_1      = "notify";
 ipc.c75ss1_0      = "notify";
 ipc.c75ss0_0      = "notify";
 ipc.r5fss1_0      = "notify";
+ipc.wkup_r5fss0_0 = "NONE";
 
 debug_log.enableUartLog            = true;
 debug_log.enableSharedMemLogReader = true;
