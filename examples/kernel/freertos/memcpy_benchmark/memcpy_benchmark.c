@@ -62,12 +62,28 @@
 #endif
 
 #ifdef MSRAM_REGION
+#if defined (SOC_AM275X)
+#define TOTAL_MEM_INDEX 1
+#else
 #define TOTAL_MEM_INDEX 2
+#endif
 #define NUM_TASK_MSRAM 10
 #else
 #define TOTAL_MEM_INDEX 1
 #endif
 
+#ifdef MSRAM_REGION
+QueueP_Handle gMyQueue[NUM_TASK_MSRAM] __attribute__((section(".buffMsramRegion"))) ;
+
+static TaskP_Object gMasterTaskObj __attribute__((section(".buffMsramRegion"))) ;
+#if defined (SOC_AM275X)
+static uint32_t gArgs[NUM_TASK] __attribute__((section(".buffMsramRegion"))) ;
+#endif
+static TaskP_Object gSlaveTaskObj[NUM_TASK_MSRAM] __attribute__((section(".buffMsramRegion"))) ;
+
+/* Array to hold all the semaphores */
+SemaphoreP_Object gSemaphorePHandle[NUM_TASK_MSRAM] __attribute__((section(".buffMsramRegion"))) ;
+#else
 QueueP_Handle gMyQueue[NUM_TASK] __attribute__((section(".buffDdrRegion"))) ;
 
 static TaskP_Object gMasterTaskObj __attribute__((section(".buffDdrRegion"))) ;
@@ -75,6 +91,7 @@ static TaskP_Object gSlaveTaskObj[NUM_TASK] __attribute__((section(".buffDdrRegi
 
 /* Array to hold all the semaphores */
 SemaphoreP_Object gSemaphorePHandle[NUM_TASK] __attribute__((section(".buffDdrRegion"))) ;
+#endif
 SemaphoreP_Object gSemMasterTaskEndPHandle;
 SemaphoreP_Object gMutexTaskNum;
 
@@ -121,11 +138,13 @@ uint32_t gNumSwitches = 0;
  * 'gBufTarget' is the target gBuffer for all the memcpy operations.
  */
 #ifdef MSRAM_REGION
-uint32_t gBuffer[NUM_TASK][BUF_SIZE] __attribute__((section(".buffMsramRegion"))) ;
+uint32_t gBuffer[NUM_TASK_MSRAM][BUF_SIZE] __attribute__((section(".buffMsramRegion"))) ;
 uint32_t gBufTarget[BUF_SIZE] __attribute__((section(".buffMsramRegion"),aligned (32U)));
 #else
+#if !defined (SOC_AM275X)
 uint32_t gBuffer[NUM_TASK][BUF_SIZE] __attribute__((section(".buffDdrRegion"))) ;
 uint32_t gBufTarget[BUF_SIZE] __attribute__((section(".buffDdrRegion"))) ;
+#endif
 #endif
 
 uint32_t gHours, gMins, gSecs, gDurationInSecs, gUSecs;
@@ -151,9 +170,11 @@ void SlaveTaskFxnMsram6(void *args)  __attribute__((section(".task_msram6")));
 void SlaveTaskFxnMsram7(void *args)  __attribute__((section(".task_msram7")));
 void SlaveTaskFxnMsram8(void *args)  __attribute__((section(".task_msram8")));
 void SlaveTaskFxnMsram9(void *args)  __attribute__((section(".task_msram9")));
-static uint8_t slaveTaskStackMsram[NUM_TASK_MSRAM][TASK_STACK_SIZE];
+static uint8_t slaveTaskStackMsram[NUM_TASK_MSRAM][TASK_STACK_SIZE]__attribute__((section(".buffMsramRegion")));
+static uint8_t MainApp_TaskStack[TASK_STACK_SIZE] __attribute__((section(".buffMsramRegion")));
 #endif
 
+#if !defined (SOC_AM275X)
 void SlaveTaskFxnDdr0(void *args)  __attribute__((section(".task_ddr0")));
 void SlaveTaskFxnDdr1(void *args)  __attribute__((section(".task_ddr1")));
 void SlaveTaskFxnDdr2(void *args)  __attribute__((section(".task_ddr2")));
@@ -173,6 +194,7 @@ void SlaveTaskFxnDdr15(void *args)  __attribute__((section(".task_ddr15")));
 
 static uint8_t MainApp_TaskStack[TASK_STACK_SIZE] __attribute__((section(".buffDdrRegion"))) ;
 static uint8_t slaveTaskStack[NUM_TASK][TASK_STACK_SIZE] __attribute__((section(".buffDdrRegion")));
+#endif
 
 #define CMPLX_FNCT_1 \
                 denominator = 2 / gBufTarget[33] + x1; \
@@ -458,7 +480,11 @@ void memcpy_benchmark_main(void *args)
 {
     int i,j;
 #ifdef MSRAM_REGION
+#if defined (SOC_AM275X)
+    uint8_t testMemories[TOTAL_MEM_INDEX] = {MSRAM_MEM};
+#else
     uint8_t testMemories[TOTAL_MEM_INDEX] = {MSRAM_MEM, DDR_MEM};
+#endif
 #else
     uint8_t testMemories[TOTAL_MEM_INDEX] = {DDR_MEM};
 #endif
@@ -511,6 +537,7 @@ void memcpy_benchmark_main(void *args)
                 tasks[9] = SlaveTaskFxnMsram9;
                 break;
 #endif
+#if !defined (SOC_AM275X)
         case DDR_MEM:
                 DebugP_log("\r\nMemcpy Benchmarking for DDR memory:\r\n");
                 SemaphoreP_pend(&gMutexTaskNum, SystemP_WAIT_FOREVER);
@@ -533,6 +560,7 @@ void memcpy_benchmark_main(void *args)
                 tasks[14] = SlaveTaskFxnDdr14;
                 tasks[15] = SlaveTaskFxnDdr15;
                 break;
+#endif
         }
 
         for (i = 0; i < gNumTasks; ++i)
@@ -540,14 +568,20 @@ void memcpy_benchmark_main(void *args)
 #ifdef MSRAM_REGION
             if(gNumTasks == NUM_TASK)
             {
+#if !defined (SOC_AM275X)
+
                 taskStacks[i] = slaveTaskStack[i];
+#endif
             }
             else
             {
                 taskStacks[i] = slaveTaskStackMsram[i];
             }
 #else
+#if !defined (SOC_AM275X)
+
             taskStacks[i] = slaveTaskStack[i];
+#endif
 #endif
         }
 
@@ -597,8 +631,14 @@ void memcpy_benchmark_main(void *args)
 
         for (i = 0; i < gNumTasks; ++i)
         {
+#if defined (SOC_AM275X)
+            gArgs[i] = i;
+            gTaskParams.args = (void *) &gArgs[i];
+            gTaskParams.stack = &slaveTaskStackMsram[i][0];
+#else
             gTaskParams.args = (void *) &i;
             gTaskParams.stack = &slaveTaskStack[i][0];
+#endif
             gTaskParams.taskMain = tasks[i];
 
             status = TaskP_construct(&gSlaveTaskObj[i], &gTaskParams);
@@ -647,6 +687,9 @@ void SlaveTaskFxnMsram8(void *args)
 void SlaveTaskFxnMsram9(void *args)
 {TSKFN}
 #endif
+
+#if !defined (SOC_AM275X)
+
 /*From DDR*/
 void SlaveTaskFxnDdr0(void *args)
 {TSKFN}
@@ -695,3 +738,5 @@ void SlaveTaskFxnDdr14(void *args)
 
 void SlaveTaskFxnDdr15(void *args)
 {TSKFN}
+
+#endif
