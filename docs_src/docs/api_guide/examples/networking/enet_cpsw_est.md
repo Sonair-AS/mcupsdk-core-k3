@@ -8,7 +8,7 @@ Enhanced Scheduled Traffic (EST) with CPSW through Enet LLD.  The example
 application enables MAC port 1 by default, but it supports up to two MAC
 ports available in CPSW3G on SoC.
 
-  \image html CpswEstExample_BlockDiagram.png CPSW EST example on device
+  \image html cpsw_est_am62x.png CPSW EST example on device
   
 
 The example application opens one DMA TX channel and one DMA RX channel.  The TX
@@ -372,7 +372,7 @@ are shown in the following sequence diagram:
  CPU + OS       | r5fss0-0_freertos
  Toolchain      | ti-arm-clang
  Boards         | @VAR_BOARD_NAME_LOWER
- Example folder | examples/networking/enet_cpsw_est/V1
+ Example folder | source/networking/enet/core/examples/enet_cpsw_est/V1
  \endcond
 
  \cond SOC_AM62X 
@@ -381,7 +381,7 @@ are shown in the following sequence diagram:
  CPU + OS       | a53ss0-0_freertos
  Toolchain      | gcc-arch64
  Boards         | @VAR_BOARD_NAME_LOWER
-Example folder | examples/networking/enet_cpsw_est/V1
+Example folder | source/networking/enet/core/examples/enet_cpsw_est/V1
 \endcond
 
 

@@ -76,7 +76,7 @@ This example do below:
  CPU + OS       | wkup-r5fss0-0_freertos
  Toolchain      | ti-arm-clang
  Board          | @VAR_BOARD_NAME_LOWER
- Example folder | examples/networking/enet_layer2_cpsw_switch/V0
+ Example folder | source/networking/enet/core/examples/enet_layer2_cpsw_switch/V0
 
 \endcond
 
@@ -87,7 +87,7 @@ This example do below:
  CPU + OS       | mcu-r5fss0-0_freertos
  Toolchain      | ti-arm-clang
  Board          | @VAR_BOARD_NAME_LOWER
- Example folder | examples/networking/enet_layer2_cpsw_switch/V0
+ Example folder | source/networking/enet/core/examples/enet_layer2_cpsw_switch/V0
 
 \endcond
 
@@ -98,7 +98,7 @@ This example do below:
  CPU + OS       | a53ss0-0_freertos
  Toolchain      | gcc-arch64
  Boards         | @VAR_BOARD_NAME_LOWER
-Example folder | examples/networking/enet_layer2_cpsw_switch/V0
+Example folder  | source/networking/enet/core/examples/enet_layer2_cpsw_switch/V0
 \endcond
 
 # Steps to Run the Example

@@ -66,7 +66,7 @@ This example do below:
  CPU + OS       | r5fss0-0_freertos
  Toolchain      | ti-arm-clang
  Board          | @VAR_BOARD_NAME_LOWER, @VAR_SK_BOARD_NAME_LOWER
- Example folder | examples/networking/enet_layer2_cpsw/V0
+ Example folder | source/networking/enet/core/examples/enet_layer2_cpsw/V0
 
 \endcond
 
@@ -76,7 +76,7 @@ This example do below:
  CPU + OS       | a53ss0-0_freertos
  Toolchain      | gcc-arch64
  Boards         | @VAR_BOARD_NAME_LOWER
-Example folder | examples/networking/enet_layer2_cpsw/V0
+Example folder  | source/networking/enet/core/examples/enet_layer2_cpsw/V0
 \endcond
 
 \cond SOC_AM243X
@@ -86,7 +86,7 @@ Example folder | examples/networking/enet_layer2_cpsw/V0
  CPU + OS       | r5fss0-0_freertos
  Toolchain      | ti-arm-clang
  Boards         | @VAR_BOARD_NAME_LOWER, @VAR_LP_BOARD_NAME_LOWER
- Example folder | examples/networking/enet_layer2_cpsw/V0
+ Example folder | source/networking/enet/core/examples/enet_layer2_cpsw/V0
 
 \endcond
 
@@ -119,7 +119,7 @@ Example folder | examples/networking/enet_layer2_cpsw/V0
  CPU + OS       | mcu-r5fss0-0_freertos
  Toolchain      | ti-arm-clang
  Board          | @VAR_BOARD_NAME_LOWER
- Example folder | examples/networking/enet_layer2_cpsw/V0
+ Example folder | source/networking/enet/core/examples/enet_layer2_cpsw/V0
 
 \endcond
 

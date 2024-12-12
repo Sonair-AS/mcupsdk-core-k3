@@ -36,7 +36,7 @@ The examples do below
  CPU + OS       | wkup-r5fss0-0_freertos
  Toolchain      | ti-arm-clang
  Boards         | @VAR_BOARD_NAME_LOWER
- Example folder | examples/networking/lwip/enet_lwip_cpsw
+ Example folder | source/networking/enet/core/examples/lwip/enet_lwip_cpsw
 
 \endcond
 
@@ -47,7 +47,7 @@ The examples do below
  CPU + OS       | mcu-r5fss0-0_freertos
  Toolchain      | ti-arm-clang
  Boards         | @VAR_BOARD_NAME_LOWER
- Example folder | examples/networking/lwip/enet_lwip_cpsw
+ Example folder | source/networking/enet/core/examples/lwip/enet_lwip_cpsw
 
 \endcond
 
@@ -58,7 +58,7 @@ The examples do below
  CPU + OS       | a53ss0-0_freertos
  Toolchain      | gcc-arch64
  Boards         | @VAR_BOARD_NAME_LOWER
-Example folder | examples/networking/lwip/enet_lwip_cpsw
+Example folder | source/networking/enet/core/examples/lwip/enet_lwip_cpsw
 \endcond
 
 # Configuring Syscfg

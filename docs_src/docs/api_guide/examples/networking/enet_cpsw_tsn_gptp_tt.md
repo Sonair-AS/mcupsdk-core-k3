@@ -45,7 +45,7 @@ See also :\ref ENET_CPSW_TSN_GPTP
  CPU + OS       | a53ss0-0_freertos
  Toolchain      | gcc-arch64
  Boards         | @VAR_BOARD_NAME_LOWER
-Example folder | examples/networking/tsn/gptp_cpsw_app
+Example folder | source/networking/enet/core/examples/tsn/gptp_cpsw_app
 \endcond
 
 \cond SOC_AM243X
@@ -88,7 +88,7 @@ Example folder | examples/networking/tsn/gptp_cpsw_app
  CPU + OS       | r5fss0-0_freertos
  Toolchain      | ti-arm-clang
  Board          | @VAR_BOARD_NAME_LOWER
- Example folder | examples/networking/tsn/gptp_cpsw_app
+ Example folder | source/networking/enet/core/examples/tsn/gptp_cpsw_app
 
 \endcond
 
