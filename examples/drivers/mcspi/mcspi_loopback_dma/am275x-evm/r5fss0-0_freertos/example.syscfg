@@ -3,7 +3,7 @@
  * via the GUI or CLI. Run CLI with '--help' for additional information on how to override these arguments.
  * @cliArgs --device "AM275x" --part "AM2754" --package "ANJ" --context "r5fss0-0" --product "MCU_PLUS_SDK@07.03.01"
  * @v2CliArgs --device "AM2754" --package "FCCSP (ANJ)" --context "r5fss0-0" --product "MCU_PLUS_SDK@07.03.01"
- * @versions {"tool":"1.21.0+3721"}
+ * @versions {"tool":"1.22.0+3893"}
  */
 
 /**
@@ -28,7 +28,6 @@ const mpu_armv76 = mpu_armv7.addInstance();
 mcspi1.$name                 = "CONFIG_MCSPI0";
 mcspi1.inputSelect           = "0";
 mcspi1.intrEnable            = "DMA";
-mcspi1.SPI.D0.rx             = false;
 mcspi1.mcspiChannel[0].$name = "CONFIG_MCSPI_CH0";
 
 udma1.$name       = "CONFIG_UDMA0";
@@ -39,8 +38,8 @@ debug_log.enableUartLog            = true;
 debug_log.enableSharedMemLogReader = true;
 debug_log.uartLog.$name            = "CONFIG_UART0";
 debug_log.uartLog.UART.$assign     = "UART0";
-debug_log.uartLog.UART.RXD.$assign = "UART0_RXD";
-debug_log.uartLog.UART.TXD.$assign = "UART0_TXD";
+debug_log.uartLog.UART.RXD.$assign = "MCASP4_AXR0";
+debug_log.uartLog.UART.TXD.$assign = "MLB0_MLBCLK";
 
 mpu_armv71.size              = 31;
 mpu_armv71.attributes        = "Device";
