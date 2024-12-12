@@ -69,8 +69,8 @@
 #define PING_TASK_PRI  (2u)
 #define PONG_TASK_PRI  (3u)
 
-#if defined (SOC_AM62AX) || defined (SOC_AM62DX)
-#if defined(__C7504__)
+#if defined (SOC_AM62AX) || defined (SOC_AM62DX) || defined (SOC_AM275X)
+#if defined(__C7504__) || defined(__C7524__)
 #define PING_TASK_SIZE (1024*64u)
 #else
 #define PING_TASK_SIZE (4096u)
@@ -81,8 +81,8 @@
 
 StackType_t gPingTaskStack[PING_TASK_SIZE] __attribute__((aligned(32)));
 
-#if defined (SOC_AM62AX) || defined (SOC_AM62DX)
-#if defined(__C7504__)
+#if defined (SOC_AM62AX) || defined (SOC_AM62DX)|| defined (SOC_AM275X)
+#if defined(__C7504__) || defined(__C7524__)
 #define PONG_TASK_SIZE (1024*64u)
 #else
 #define PONG_TASK_SIZE (4096u)
