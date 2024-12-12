@@ -3,7 +3,7 @@
  * via the GUI or CLI. Run CLI with '--help' for additional information on how to override these arguments.
  * @cliArgs --device "AM275x" --part "AM2754" --package "ANJ" --context "c75ss0-0" --product "MCU_PLUS_SDK@07.03.01"
  * @v2CliArgs --device "AM2754" --package "FCCSP (ANJ)" --context "c75ss0-0" --product "MCU_PLUS_SDK@07.03.01"
- * @versions {"tool":"1.21.0+3721"}
+ * @versions {"tool":"1.22.0+3893"}
  */
 
 /**
@@ -11,8 +11,6 @@
  */
 const mcspi       = scripting.addModule("/drivers/mcspi/mcspi", {}, false);
 const mcspi1      = mcspi.addInstance();
-const uart        = scripting.addModule("/drivers/uart/uart", {}, false);
-const uart1       = uart.addInstance();
 const debug_log   = scripting.addModule("/kernel/dpl/debug_log");
 const mmu_armv8   = scripting.addModule("/kernel/dpl/mmu_armv8", {}, false);
 const mmu_armv81  = mmu_armv8.addInstance();
@@ -36,8 +34,10 @@ mcspi1.inputSelect           = "0";
 mcspi1.SPI.$assign           = "SPI0";
 mcspi1.mcspiChannel[0].$name = "CONFIG_MCSPI_CH0";
 
-uart1.$name        = "CONFIG_UART0";
-uart1.UART.$assign = "UART3";
+debug_log.enableUartLog            = true;
+debug_log.uartLog.$name            = "CONFIG_UART0";
+debug_log.uartLog.UART.$assign     = "UART2";
+debug_log.uartLog.UART.TXD.$assign = "SPI1_CS1";
 
 mmu_armv81.size  = 0x20000000;
 mmu_armv81.$name = "REGISTERS_REGION0";
@@ -106,5 +106,4 @@ mcspi1.SPI.CLK.$suggestSolution             = "SPI0_CLK";
 mcspi1.SPI.D0.$suggestSolution              = "SPI0_D0";
 mcspi1.SPI.D1.$suggestSolution              = "SPI0_D1";
 mcspi1.mcspiChannel[0].CSn.$suggestSolution = "SPI0_CS0";
-uart1.UART.RXD.$suggestSolution             = "MCASP0_AXR8";
-uart1.UART.TXD.$suggestSolution             = "GPIO1_47";
+debug_log.uartLog.UART.RXD.$suggestSolution = "MCASP0_AXR6";
