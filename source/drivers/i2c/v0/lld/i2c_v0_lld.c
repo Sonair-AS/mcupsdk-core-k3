@@ -224,15 +224,21 @@ static void I2CControllerControl(uint32_t baseAddr, uint32_t cmd);
 static void I2CControllerStart(uint32_t baseAddr);
 static void I2CControllerStop(uint32_t baseAddr);
 static void I2CControllerIntEnableEx(uint32_t baseAddr, uint32_t intFlag);
+#if !defined(I2C_TARGET_MODE_DISABLE)
 static void I2CTargetIntEnableEx(uint32_t baseAddr, uint32_t intFlag);
-static void I2CControllerIntDisableEx(uint32_t baseAddr, uint32_t intFlag);
 static void I2CTargetIntDisableEx(uint32_t baseAddr, uint32_t intFlag);
-static void I2CControllerIntClearEx(uint32_t baseAddr, uint32_t intFlag);
 static void I2CTargetIntClearEx(uint32_t baseAddr, uint32_t intFlag);
+static void I2COwnAddressSet(uint32_t baseAddr, uint32_t ownAdd, uint32_t flag);
+static uint32_t I2CTargetIntRawStatus(uint32_t baseAddr);
+static uint8_t I2CTargetDataGet(uint32_t baseAddr);
+static void I2C_lld_completeCurrTargetTransfer( I2CLLD_Handle handle,
+                                                int32_t xferStatus);
+#endif
+static void I2CControllerIntDisableEx(uint32_t baseAddr, uint32_t intFlag);
+static void I2CControllerIntClearEx(uint32_t baseAddr, uint32_t intFlag);
 static void I2CControllerTargetAddrSet(uint32_t baseAddr, uint32_t targetAdd);
 static void I2CSetDataCount(uint32_t baseAddr, uint32_t count);
 static void I2CFIFOClear(uint32_t baseAddr, uint32_t flag);
-static void I2COwnAddressSet(uint32_t baseAddr, uint32_t ownAdd, uint32_t flag);
 static void I2CSoftReset(uint32_t baseAddr);
 static void I2CAutoIdleDisable(uint32_t baseAddr);
 static void I2CControllerDataPut(uint32_t baseAddr, uint8_t data);
@@ -242,7 +248,6 @@ static void I2CConfig(uint32_t baseAddr, uint32_t conParams);
 static uint32_t I2CControllerGetSysTest(uint32_t baseAddr);
 static uint32_t I2CControllerIntStatus(uint32_t baseAddr);
 static uint32_t I2CControllerIntRawStatus(uint32_t baseAddr);
-static uint32_t I2CTargetIntRawStatus(uint32_t baseAddr);
 static uint32_t I2CControllerIntRawStatusEx(uint32_t baseAddr,
                                             uint32_t intFlag);
 static uint32_t I2CGetEnabledIntStatus(uint32_t baseAddr, uint32_t intFlag);
@@ -251,7 +256,6 @@ static uint32_t I2CBufferStatus(uint32_t baseAddr, uint32_t flag);
 static uint32_t I2CSystemStatusGet(uint32_t baseAddr);
 
 static uint8_t I2CControllerDataGet(uint32_t baseAddr);
-static uint8_t I2CTargetDataGet(uint32_t baseAddr);
 
 static int32_t I2CControllerBusBusy(uint32_t baseAddr);
 
@@ -264,8 +268,6 @@ static int32_t I2C_lld_primeTransferPoll(   I2CLLD_Handle handle);
 static int32_t I2C_lld_primeTransferIntr(   I2CLLD_Handle handle);
 static void I2C_lld_completeCurrTransfer(   I2CLLD_Handle handle,
                                             int32_t xferStatus);
-static void I2C_lld_completeCurrTargetTransfer( I2CLLD_Handle handle,
-                                                int32_t xferStatus);
 static int32_t I2C_lld_transferInit(I2CLLD_Handle handle,
                                     I2CLLD_Message *msg);
 
@@ -443,6 +445,7 @@ int32_t I2C_lld_Message_init(I2CLLD_Message *msg)
     return status;
 }
 
+#if !defined(I2C_TARGET_MODE_DISABLE)
 int32_t I2C_lld_write(  I2CLLD_Handle handle,
                         I2C_ExtendedParams *extendedParams,
                         uint32_t timeout)
@@ -626,6 +629,7 @@ int32_t I2C_lld_readIntr(   I2CLLD_Handle handle,
 
     return status;
 }
+#endif
 
 int32_t I2C_lld_mem_write(  I2CLLD_Handle handle,
                             I2C_Memory_ExtendedParams *mem_extendedParams,
@@ -991,6 +995,7 @@ int32_t I2C_lld_transferIntr(I2CLLD_Handle handle, I2CLLD_Message *msg)
     return status;
 }
 
+#if !defined(I2C_TARGET_MODE_DISABLE)
 int32_t I2C_lld_targetTransferIntr( I2CLLD_Handle handle,
                                     I2CLLD_targetTransaction *txn)
 {
@@ -1078,6 +1083,7 @@ int32_t I2C_lld_targetTransferIntr( I2CLLD_Handle handle,
 
     return retVal;
 }
+#endif
 
 int32_t I2C_lld_probe(I2CLLD_Handle handle, uint32_t targetAddr)
 {
@@ -1610,6 +1616,7 @@ void I2C_lld_controllerIsr(void *args)
     object->intStatusErr |= intErr;
 }
 
+#if !defined(I2C_TARGET_MODE_DISABLE)
 void I2C_lld_targetIsr(void *args)
 {
     I2CLLD_Object       *object = NULL;
@@ -1789,6 +1796,7 @@ void I2C_lld_targetIsr(void *args)
     }
     return;
 }
+#endif
 
 /* ========================================================================== */
 /*                      Internal Function Definitions                         */
@@ -1935,6 +1943,7 @@ static void I2CControllerIntEnableEx(uint32_t baseAddr, uint32_t intFlag)
     i2cRegs->IRQENABLE_SET = i2cRegValue;
 }
 
+#if !defined(I2C_TARGET_MODE_DISABLE)
 static void I2CTargetIntEnableEx(uint32_t baseAddr, uint32_t intFlag)
 {
     CSL_I2cRegsOvly i2cRegs = (CSL_I2cRegsOvly)baseAddr;
@@ -1943,13 +1952,66 @@ static void I2CTargetIntEnableEx(uint32_t baseAddr, uint32_t intFlag)
     i2cRegs->IRQENABLE_SET = i2cRegValue;
 }
 
-static void I2CControllerIntDisableEx(uint32_t baseAddr, uint32_t intFlag)
+static void I2CTargetIntDisableEx(uint32_t baseAddr, uint32_t intFlag)
 {
     CSL_I2cRegsOvly i2cRegs = (CSL_I2cRegsOvly)baseAddr;
     i2cRegs->IRQENABLE_CLR = intFlag;
 }
 
-static void I2CTargetIntDisableEx(uint32_t baseAddr, uint32_t intFlag)
+static uint32_t I2CTargetIntRawStatus(uint32_t baseAddr)
+{
+    CSL_I2cRegsOvly i2cRegs = (CSL_I2cRegsOvly)baseAddr;
+    return((uint32_t)(i2cRegs->IRQSTATUS_RAW));
+}
+
+static void I2CTargetIntClearEx(uint32_t baseAddr, uint32_t intFlag)
+{
+    CSL_I2cRegsOvly i2cRegs = (CSL_I2cRegsOvly)baseAddr;
+    i2cRegs->IRQSTATUS = intFlag;
+}
+
+static void I2COwnAddressSet(uint32_t baseAddr, uint32_t ownAdd, uint32_t flag)
+{
+    CSL_I2cRegsOvly i2cRegs = (CSL_I2cRegsOvly)baseAddr;
+
+    switch (flag)
+    {
+        case I2C_OWN_ADDR_0:
+            i2cRegs->OA = ownAdd;
+            break;
+
+        case I2C_OWN_ADDR_1:
+            i2cRegs->OA1 = ownAdd;
+            break;
+
+        case I2C_OWN_ADDR_2:
+            i2cRegs->OA2 = ownAdd;
+            break;
+
+        case I2C_OWN_ADDR_3:
+            i2cRegs->OA3 = ownAdd;
+            break;
+
+        default:
+            /* Invalid input */
+            break;
+    }
+}
+
+static uint8_t I2CTargetDataGet(uint32_t baseAddr)
+{
+    CSL_I2cRegsOvly i2cRegs = (CSL_I2cRegsOvly)baseAddr;
+    uint8_t rData;
+
+    rData = (uint8_t)(i2cRegs->DATA);
+
+    return rData;
+}
+
+#endif
+
+
+static void I2CControllerIntDisableEx(uint32_t baseAddr, uint32_t intFlag)
 {
     CSL_I2cRegsOvly i2cRegs = (CSL_I2cRegsOvly)baseAddr;
     i2cRegs->IRQENABLE_CLR = intFlag;
@@ -1967,12 +2029,6 @@ static uint32_t I2CControllerIntRawStatus(uint32_t baseAddr)
     return((uint32_t)(i2cRegs->IRQSTATUS_RAW));
 }
 
-static uint32_t I2CTargetIntRawStatus(uint32_t baseAddr)
-{
-    CSL_I2cRegsOvly i2cRegs = (CSL_I2cRegsOvly)baseAddr;
-    return((uint32_t)(i2cRegs->IRQSTATUS_RAW));
-}
-
 static uint32_t I2CControllerIntRawStatusEx(uint32_t baseAddr, uint32_t intFlag)
 {
     CSL_I2cRegsOvly i2cRegs = (CSL_I2cRegsOvly)baseAddr;
@@ -1980,12 +2036,6 @@ static uint32_t I2CControllerIntRawStatusEx(uint32_t baseAddr, uint32_t intFlag)
 }
 
 static void I2CControllerIntClearEx(uint32_t baseAddr, uint32_t intFlag)
-{
-    CSL_I2cRegsOvly i2cRegs = (CSL_I2cRegsOvly)baseAddr;
-    i2cRegs->IRQSTATUS = intFlag;
-}
-
-static void I2CTargetIntClearEx(uint32_t baseAddr, uint32_t intFlag)
 {
     CSL_I2cRegsOvly i2cRegs = (CSL_I2cRegsOvly)baseAddr;
     i2cRegs->IRQSTATUS = intFlag;
@@ -2057,34 +2107,6 @@ static uint32_t I2CBufferStatus(uint32_t baseAddr, uint32_t flag)
     return status;
 }
 
-static void I2COwnAddressSet(uint32_t baseAddr, uint32_t ownAdd, uint32_t flag)
-{
-    CSL_I2cRegsOvly i2cRegs = (CSL_I2cRegsOvly)baseAddr;
-
-    switch (flag)
-    {
-        case I2C_OWN_ADDR_0:
-            i2cRegs->OA = ownAdd;
-            break;
-
-        case I2C_OWN_ADDR_1:
-            i2cRegs->OA1 = ownAdd;
-            break;
-
-        case I2C_OWN_ADDR_2:
-            i2cRegs->OA2 = ownAdd;
-            break;
-
-        case I2C_OWN_ADDR_3:
-            i2cRegs->OA3 = ownAdd;
-            break;
-
-        default:
-            /* Invalid input */
-            break;
-    }
-}
-
 static void I2CSoftReset(uint32_t baseAddr)
 {
     CSL_I2cRegsOvly i2cRegs = (CSL_I2cRegsOvly)baseAddr;
@@ -2111,16 +2133,6 @@ static void I2CControllerDataPut(uint32_t baseAddr, uint8_t data)
 }
 
 static uint8_t I2CControllerDataGet(uint32_t baseAddr)
-{
-    CSL_I2cRegsOvly i2cRegs = (CSL_I2cRegsOvly)baseAddr;
-    uint8_t rData;
-
-    rData = (uint8_t)(i2cRegs->DATA);
-
-    return rData;
-}
-
-static uint8_t I2CTargetDataGet(uint32_t baseAddr)
 {
     CSL_I2cRegsOvly i2cRegs = (CSL_I2cRegsOvly)baseAddr;
     uint8_t rData;
@@ -2892,6 +2904,7 @@ static void I2C_lld_completeCurrTransfer(   I2CLLD_Handle handle,
 * Return Values:    NONE
 ** ========================================================================== */
 
+#if !defined(I2C_TARGET_MODE_DISABLE)
 static void I2C_lld_completeCurrTargetTransfer( I2CLLD_Handle handle,
                                                 int32_t xferStatus)
 {
@@ -2909,6 +2922,7 @@ static void I2C_lld_completeCurrTargetTransfer( I2CLLD_Handle handle,
         object->state = I2C_STATE_IDLE;
     }
 }
+#endif
 
 static int32_t I2C_lld_resetCtrl(I2CLLD_Handle handle)
 {

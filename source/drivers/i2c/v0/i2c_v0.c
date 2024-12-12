@@ -125,9 +125,11 @@ static void I2C_LLD_transferCompleteCallback(void *args,
                                              const I2CLLD_Message * msg,
                                              int32_t transferStatus);
 
+#if !defined(I2C_TARGET_MODE_DISABLE)
 static void I2C_LLD_targetTransferCompleteCallback(void *args,
                                     const I2CLLD_targetTransaction * targetTxn,
                                     int32_t transferStatus);
+#endif
 
 /* HWI Function */
 static void I2C_hwiFxn(void* arg);
@@ -278,7 +280,9 @@ I2C_Handle I2C_open(uint32_t idx, const I2C_Params *params)
         i2cLldHandle->Clock_usecToTicks = ClockP_usecToTicks;
         i2cLldHandle->Clock_uSleep = ClockP_usleep;
 
+#if !defined(I2C_TARGET_MODE_DISABLE)
         i2cLldHandle->targetTransferCompleteCallback = I2C_LLD_targetTransferCompleteCallback;
+#endif
 
         if (hwAttrs->enableIntr)
         {
@@ -739,6 +743,7 @@ static int32_t I2C_primeTransfer(   I2C_Handle handle,
     }
 
     /* Target Mode */
+#if !defined(I2C_TARGET_MODE_DISABLE)    
     else
     {
         i2cLldHandle->i2cTargetTransaction.writeBuf = (uint8_t*)transaction->writeBuf;
@@ -752,6 +757,7 @@ static int32_t I2C_primeTransfer(   I2C_Handle handle,
 
         status = I2C_lld_targetTransferIntr(i2cLldHandle, &(i2cLldHandle->i2cTargetTransaction));
     }
+#endif  
 
     return status;
 }
@@ -912,6 +918,7 @@ static void I2C_LLD_transferCompleteCallback (void * args,
     }
 }
 
+#if !defined(I2C_TARGET_MODE_DISABLE)
 static void I2C_LLD_targetTransferCompleteCallback (void * args,
                                 const I2CLLD_targetTransaction * targetTxn,
                                 int32_t transferStatus)
@@ -949,6 +956,7 @@ static void I2C_LLD_targetTransferCompleteCallback (void * args,
         }
     }
 }
+#endif
 
 static void I2C_hwiFxn(void* arg)
 {
@@ -965,10 +973,12 @@ static void I2C_hwiFxn(void* arg)
         {
             I2C_lld_controllerIsr(object->i2cLldHandle);
         }
+#if !defined(I2C_TARGET_MODE_DISABLE)
         else
         {
             I2C_lld_targetIsr(object->i2cLldHandle);
         }
+#endif
     }
     return;
 }
