@@ -335,6 +335,10 @@ int32_t Bootloader_rprcImageLoad(Bootloader_Handle handle, Bootloader_CpuInfo *c
 
         if(header.magic != (uint32_t)BOOTLOADER_RPRC_MAGIC_NUMBER || header.version != SW_VERSION)
         {
+            if(header.version != SW_VERSION)
+            {
+                DebugP_logWarn("Software version mismatch, Installer version 0x%x, AppImage version 0x%x\n\r", SW_VERSION, header.version);
+            }
             status = SystemP_FAILURE;
         }
         else
