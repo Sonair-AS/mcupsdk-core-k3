@@ -139,6 +139,7 @@ const templates_freertos_wkup_r5f =
         options: {
             entryFunction: "dss_safety_test_main",
             dmWithBootloader: "true",
+            stackSize: 0x8000,
         },
     }
 ];
@@ -165,6 +166,7 @@ const templates_nortos_wkup_r5f =
         output: "../main.c",
         options: {
             entryFunction: "dss_safety_test_main",
+            stackSize: 0x8000,
         },
     }
 ];

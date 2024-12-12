@@ -135,7 +135,8 @@ const templates_freertos_wkup_r5f =
         output: "../main.c",
         options: {
             entryFunction: "dss_colorbar_test_main",
-            dmWithBootloader: "true"
+            dmWithBootloader: "true",
+            stackSize: 0x8000,
         },
     }
 ];
@@ -162,6 +163,7 @@ const templates_nortos_wkup_r5f =
         output: "../main.c",
         options: {
             entryFunction: "dss_colorbar_test_main",
+            stackSize: 0x8000,
         },
     }
 ];

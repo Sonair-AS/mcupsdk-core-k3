@@ -45,7 +45,7 @@
 #define TASK_PRI_BOOT_THREAD  (configMAX_PRIORITIES-1)
 
 
-#define TASK_SIZE (16384U/sizeof(configSTACK_DEPTH_TYPE))
+#define TASK_SIZE (32768U/sizeof(configSTACK_DEPTH_TYPE))
 
 StackType_t gMainTaskStack[TASK_SIZE] __attribute__((aligned(32)));
 StaticTask_t gMainTaskObj;
