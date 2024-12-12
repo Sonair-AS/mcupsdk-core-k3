@@ -84,14 +84,14 @@
 #define PING_INT_PRIORITY   (3u)
 #define PONG_INT_PRIORITY   (4u)
 
-#if defined(__C7504__)
+#if defined(__C7504__) || defined(__C7524__)
 #define PING_TASK_SIZE (1024*64u)
 #else
 #define PING_TASK_SIZE (1024*4u)
 #endif
 uint8_t gPingTaskStack[PING_TASK_SIZE] __attribute__((aligned(32)));
 
-#if defined(__C7504__)
+#if defined(__C7504__) || defined(__C7524__)
 #define PONG_TASK_SIZE (1024*64u)
 #else
 #define PONG_TASK_SIZE (1024*4u)
