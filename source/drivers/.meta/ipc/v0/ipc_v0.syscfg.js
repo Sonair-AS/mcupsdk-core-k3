@@ -78,7 +78,8 @@ function getConfigurables()
 
         if(common.getSocName().match(/am62x/) ||
            common.getSocName().match(/am62ax/)||
-           common.getSocName().match(/am62px/))
+           common.getSocName().match(/am62px/) ||
+           common.getSocName().match(/am275x/) )
            {
                 if(element.name == "vringNumBuf")
                 {
@@ -86,15 +87,30 @@ function getConfigurables()
                     element.options.push({ name: 64});
                     element.options.push({ name: 128});
                     element.options.push({ name: 256});
-                    element.options.push({ name: 512});
-                    element.default = 256;
-                    element.readOnly = true;
+                    if(common.getSocName().match(/am275x/))
+                    {
+                        element.default = 8;
+                        element.readOnly = false;
+                    }
+                    else
+                    {
+                        element.default = 256;
+                        element.readOnly = true;
+                    }
                 }
 
                 if (element.name == "vringMsgSize")
                 {
-                    element.default = 512;
-                    element.readOnly = true;
+                    if(common.getSocName().match(/am275x/))
+                    {
+                        element.default = 64;
+                        element.readOnly = false;
+                    }
+                    else
+                    {
+                        element.default = 512;
+                        element.readOnly = true;
+                    }
                 }
            }
 
@@ -105,16 +121,24 @@ function getConfigurables()
 
         if(common.getSocName().match(/am62x/) ||
         common.getSocName().match(/am62ax/)||
-        common.getSocName().match(/am62px/))
+        common.getSocName().match(/am62px/) ||
+        common.getSocName().match(/am275x/) )
         {
             vringAllocationPDKHidden = false;
-            vringAllocationPDKDefault = true;
+            if (common.getSocName().match(/am275x/))
+            {
+                vringAllocationPDKDefault = false;
+            }
+            else
+            {
+                vringAllocationPDKDefault = true;
+            }
         }
         config.push(
             {
                 name: "vringAllocationPDK",
                 displayName: "PDK IPC",
-                description: `Enable IPC to work with PDK implementation`,
+                description: `Enable IPC to work with cores running MCAL or QNX`,
                 default: vringAllocationPDKDefault,
                 hidden: vringAllocationPDKHidden,
             },
@@ -158,7 +182,14 @@ function onChangePdkIpc(instance, ui)
 {
     if (instance.vringAllocationPDK == true)
     {
-        instance.vringNumBuf = 256;
+        if (common.getSocName().match(/am275x/))
+        {
+            instance.vringNumBuf = 16;
+        }
+        else
+        {
+            instance.vringNumBuf = 256;
+        }
         instance.vringMsgSize = 512;
         ui.vringNumBuf.readOnly = true;
         ui.vringMsgSize.readOnly = true;
@@ -273,12 +304,30 @@ function getRPMessageVringRxTxMap(instance)
     }
     else
     {
-        for( let src of enabledCpus ) {
-            rxTxMap[src] = {};
-            for( let dst of enabledCpus ) {
-                rxTxMap[src][dst] = -1;
-                if(dst != src) { /* NO VRING for a CPU to itself */
-                    rxTxMap[src][dst] = getVringIndexPDK(enabledCpus.length, ipc_soc.getIPCCoreID(src), ipc_soc.getIPCCoreID(dst));
+        if (common.getSocName().match(/am275x/))
+        {
+            /* for each name, construct a N x N object mapping SRC CPU to DST CPU VRING ID,
+            Assign VRING IDs to each SRC/DST pair, skip assignment when SRC == DST */
+            for( let src of enabledCpus ) {
+                rxTxMap[src] = {};
+                for( let dst of enabledCpus ) {
+                    rxTxMap[src][dst] = -1;
+                    if(dst != src) { /* NO VRING for a CPU to itself */
+                        rxTxMap[src][dst] = vringId;
+                        vringId++;
+                    }
+                }
+            }
+        }
+        else
+        {
+            for( let src of enabledCpus ) {
+                rxTxMap[src] = {};
+                for( let dst of enabledCpus ) {
+                    rxTxMap[src][dst] = -1;
+                    if(dst != src) { /* NO VRING for a CPU to itself */
+                        rxTxMap[src][dst] = getVringIndexPDK(enabledCpus.length, ipc_soc.getIPCCoreID(src), ipc_soc.getIPCCoreID(dst));
+                    }
                 }
             }
         }
