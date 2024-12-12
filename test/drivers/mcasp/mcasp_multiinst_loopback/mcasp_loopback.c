@@ -63,7 +63,7 @@ void mcasp_loopback_main(void *args)
     uint32_t            i = 0, j = 0, k = 0, l = 0;
     MCASP_Handle mcaspHandle;
     volatile uint32_t   transferComplete = 0;
-#if (!(SOC_AM62AX) && !(SOC_AM62X) && !(SOC_AM62DX))
+#if (!(SOC_AM62AX) && !(SOC_AM62X) && !(SOC_AM62DX) && !(SOC_AM275X))
     Drivers_open();
     Board_driversOpen();
 #endif
@@ -176,7 +176,7 @@ void mcasp_loopback_main(void *args)
     {
         DebugP_log("Data mismatch for %d bytes!!\r\n", l);
     }
-#if (!(SOC_AM62AX) && !(SOC_AM62X) && !(SOC_AM62DX))
+#if (!(SOC_AM62AX) && !(SOC_AM62X) && !(SOC_AM62DX) && !(SOC_AM275X))
     Board_driversClose();
     Drivers_close();
 #endif
