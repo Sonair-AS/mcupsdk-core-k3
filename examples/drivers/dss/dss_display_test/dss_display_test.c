@@ -55,8 +55,8 @@
 /*                           Macros & Typedefs                                */
 /* ========================================================================== */
 
-/* Number of frames (5sec 300 frames) */
-#define DISP_NUM_FRAMES_COUNT              ((uint32_t)300U)
+/* Number of frames (10 seconds 600 frames) */
+#define DISP_NUM_FRAMES_COUNT              ((uint32_t)600U)
 
 /* Max frame size based on resolution */
 #define DISP_FRAME_SIZE_MAX                (3840U*1080U)
