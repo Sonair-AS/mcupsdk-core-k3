@@ -57,7 +57,7 @@
 #define EVENT_BIT2_FROM_ISR             (0x200000u)
 
 #define EVENT_TASK_PRI             (14U)    /* One less than highest priority kernel timer task */
-#if defined(__C7504__)
+#if defined(__C7504__) || defined(__C7524__)
 #define EVENT_TASK_STACK_SIZE      (64*1024U)
 #else
 #define EVENT_TASK_STACK_SIZE      (4*1024U)
@@ -72,7 +72,11 @@ int32_t gEventGetBitsStatusFromISR;
 uint32_t gEventGetBitsFromISR;
 
 /* MailboxP Test Object and Definitions */
+#if defined(__C7504__) || defined(__C7524__)
+#define TEST_MBOX_TASK_STACK_SIZE      (32*1024U)
+#else
 #define TEST_MBOX_TASK_STACK_SIZE      (4*1024U)
+#endif
 #define TEST_MBOX_TASK1_PRIO             (14U)
 #define TEST_MBOX_TASK2_PRIO             (14U)
 #define TEST_MBOX_MSG_SIZE               (10U)
@@ -114,7 +118,7 @@ static ClockP_Object gMyClock;
 static HeapP_Object gMyHeap;
 
 #define MY_TASK_PRI         (14U)   /* One less than highest priority kernel timer task */
-#if defined(__C7504__)
+#if defined(__C7504__) || defined(__C7524__)
 #define MY_TASK_STACK_SIZE      (64*1024U)
 #else
 #define MY_TASK_STACK_SIZE  (4*1024U)
@@ -1415,11 +1419,13 @@ void test_main(void *args)
     RUN_TEST(test_mailbox, 13390, NULL);
     #endif
 
-    #if defined(__ARM_ARCH_7R__) && (defined(OS_FREERTOS) || defined(OS_THREADX))
+    #if defined(__ARM_ARCH_7R__) && (defined(OS_FREERTOS) || defined(OS_THREADX) || !defined(__C7524__))
     /* nested ISR not supported for now */
     #elif defined(_TMS320C6X)
     /* nested ISR not supported in C66x */
     #elif defined(__C7504__)
+    /* nested ISR not supported in C75x */
+    #elif defined(__C7524__)
     /* nested ISR not supported in C75x */
     #else
     RUN_TEST(test_hwiNested, 295, NULL);
