@@ -64,13 +64,14 @@ void watchdogCallback(void *arg)
 
 void watchdog_interrupt_main(void *args)
 {
-#if defined(SOC_AM64X) || defined(SOC_AM243X) || defined(SOC_AM62AX) || defined(SOC_AM62X) || defined(SOC_AM62DX)
+#if defined(SOC_AM64X) || defined(SOC_AM243X) || defined(SOC_AM62AX) || defined(SOC_AM62X) || defined(SOC_AM62DX) || defined(SOC_AM275X)
     HwiP_Params             hwiPrms;
     int32_t                 status = SystemP_SUCCESS;
     static HwiP_Object       gRtiHwiObject;
     /* Register interrupt */
     HwiP_Params_init(&hwiPrms);
     hwiPrms.intNum      = CONFIG_WDT0_INTR;
+    hwiPrms.eventId     = CONFIG_WDT0_EVENT_ID;
     hwiPrms.callback    = &watchdogCallback;
     status              = HwiP_construct(&gRtiHwiObject, &hwiPrms);
     DebugP_assert(status == SystemP_SUCCESS);
