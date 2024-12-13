@@ -11,8 +11,6 @@
  */
 const mmcsd       = scripting.addModule("/drivers/mmcsd/mmcsd", {}, false);
 const mmcsd1      = mmcsd.addInstance();
-const uart        = scripting.addModule("/drivers/uart/uart", {}, false);
-const uart1       = uart.addInstance();
 const debug_log   = scripting.addModule("/kernel/dpl/debug_log");
 const mmu_armv8   = scripting.addModule("/kernel/dpl/mmu_armv8", {}, false);
 const mmu_armv81  = mmu_armv8.addInstance();
@@ -42,8 +40,10 @@ mmcsd1.MMC.MMC_DAT5.$assign = "MMC0_DAT5";
 mmcsd1.MMC.MMC_DAT6.$assign = "MMC0_DAT6";
 mmcsd1.MMC.MMC_DAT7.$assign = "MMC0_DAT7";
 
-uart1.$name        = "CONFIG_UART0";
-uart1.UART.$assign = "UART3";
+debug_log.enableUartLog            = true;
+debug_log.uartLog.$name            = "CONFIG_UART1";
+debug_log.uartLog.UART.$assign     = "UART2";
+debug_log.uartLog.UART.TXD.$assign = "SPI1_CS1";
 
 mmu_armv81.size  = 0x20000000;
 mmu_armv81.$name = "REGISTERS_REGION0";
@@ -108,6 +108,5 @@ mmu_armv811.pAddr     = 0x80400000;
  * version of the tool will not impact the pinmux you originally saw.  These lines can be completely deleted in order to
  * re-solve from scratch.
  */
-mmcsd1.MMC.$suggestSolution     = "MMC0";
-uart1.UART.RXD.$suggestSolution = "MCASP0_AXR8";
-uart1.UART.TXD.$suggestSolution = "GPIO1_47";
+mmcsd1.MMC.$suggestSolution                 = "MMC0";
+debug_log.uartLog.UART.RXD.$suggestSolution = "MCASP0_AXR6";
