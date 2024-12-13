@@ -32,6 +32,7 @@ clock.instance = "TIMER1";
 debug_log.enableUartLog      = true;
 debug_log.enableMemLog       = true;
 debug_log.enableLogZoneInfo  = true;
+debug_log.uartTrace          = true;
 debug_log.uartLog.$name      = "CONFIG_UART0";
 debug_log.uartLog.intrEnable = "DISABLE";
 
