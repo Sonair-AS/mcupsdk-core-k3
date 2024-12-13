@@ -26,6 +26,20 @@ then reading back the same data from the EEPROM.
 
 \endcond
 
+\cond SOC_AM275X
+
+ Parameter      | Value
+ ---------------|-----------
+ CPU + OS       | r5fss0-0 freertos
+ ^              | r5fss0-0 nortos
+ ^              | c75ss0-0 freertos
+ Toolchain      | ti-arm-clang
+ ^              | ti-c7000
+ Boards         | @VAR_BOARD_NAME_LOWER
+ Example folder | examples/drivers/i2c/i2c_memory_read
+
+\endcond
+
 # Steps to Run the Example
 
 - **When using CCS projects to build**, import the CCS project for the required combination
@@ -42,7 +56,7 @@ then reading back the same data from the EEPROM.
 
 Shown below is a sample output when the application is run,
 
-\cond SOC_AM62DX
+\cond SOC_AM62DX || SOC_AM275X
 
 \code
 [I2C] Writing data to EEPROM ... !!!

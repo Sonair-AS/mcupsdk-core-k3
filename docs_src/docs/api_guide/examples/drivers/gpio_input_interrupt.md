@@ -231,6 +231,7 @@ Key presses can be done by connecting followed by disconnecting MCU_GPIO0_15(Pin
  Parameter      | Value
  ---------------|-----------
  CPU + OS       | r5fss0-0 freertos
+ ^              | r5fss0-0 nortos
  ^              | c75ss0-0 freertos
  Toolchain      | ti-arm-clang
  ^              | ti-c7000

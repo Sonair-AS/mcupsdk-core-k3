@@ -93,8 +93,11 @@ When both the comparisons match, test result is passed otherwise failed.
 
  Parameter      | Value
  ---------------|-----------
- CPU + OS       | wkup-r5fss0-0 freertos
+ CPU + OS       | wkup-r5fss0-0_freertos
+ ^              | r5fss0-0 freertos
+ ^              | c75ss0-0 freertos
  Toolchain      | ti-arm-clang
+ ^              | ti-c7000
  Board          | @VAR_BOARD_NAME_LOWER
  Example folder | examples/drivers/ospi/ospi_flash_io
 

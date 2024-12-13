@@ -46,7 +46,7 @@ To modify the example to use main domain SPI, refer \ref MAIN_DOMAIN_PERIPHERAL_
 
 \endcond
 
-\cond SOC_AM62AX || SOC_AM62DX || SOC_AM275X
+\cond SOC_AM62AX || SOC_AM62DX
 
  Parameter      | Value
  ---------------|-----------
@@ -137,7 +137,9 @@ To modify the example to use main domain SPI, refer \ref MAIN_DOMAIN_PERIPHERAL_
  ---------------|-----------
  CPU + OS       | r5fss0-0 freertos
  ^              | r5fss0-0 nortos
+ ^              | c75ss0-0 freertos
  Toolchain      | ti-arm-clang
+ ^              | ti-c7000
  Board          | @VAR_BOARD_NAME_LOWER
  Example folder | examples/drivers/mcspi/mcspi_performance_32bit
 

@@ -122,10 +122,10 @@ In this example,
  ^              | r5fss1-1 freertos
  ^              | c75ss0-0 freertos
  ^              | c75ss1-0 freertos
- ^              | wkup-r5fss0-0 freertos
  Toolchain      | ti-arm-clang
+ ^              | ti-c7000
  Board          | @VAR_BOARD_NAME_LOWER
- Example folder | examples/drivers/ipc/ipc_notify_echo
+ Example folder | examples/drivers/ipc/ipc_rpmsg_echo
 
 \endcond
 

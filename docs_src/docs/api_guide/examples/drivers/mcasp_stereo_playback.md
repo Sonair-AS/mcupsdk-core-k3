@@ -28,6 +28,19 @@ and audio out can be heard from audio line out jack (J3 Top).
 
 \endcond
 
+\cond SOC_AM275X
+
+ Parameter      | Value
+ ---------------|-----------
+ CPU + OS       | r5fss0-0 freertos
+ ^              | c75ss0-0 freertos
+ Toolchain      | ti-arm-clang
+ ^              | ti-c7000
+ Board          | @VAR_BOARD_NAME_LOWER
+ Example folder | examples/drivers/mcasp/mcasp_stereo_playback
+
+\endcond
+
 # Steps to Run the Example
 
 - **When using CCS projects to build**, import the CCS project for the required combination

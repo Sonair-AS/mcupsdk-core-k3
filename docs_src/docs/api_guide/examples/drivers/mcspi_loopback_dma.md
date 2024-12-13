@@ -95,6 +95,19 @@ If data is matched, test result is passed otherwise failed.
 
 \endcond
 
+\cond SOC_AM275X
+
+ Parameter      | Value
+ ---------------|-----------
+ CPU + OS       | r5fss0-0 freertos
+ ^              | c75ss0-0 freertos
+ Toolchain      | ti-arm-clang
+ ^              | ti-c7000
+ Board          | @VAR_BOARD_NAME_LOWER
+ Example folder | examples/drivers/mcspi/mcspi_loopback_dma
+
+\endcond
+
 # Steps to Run the Example
 
 - **When using CCS projects to build**, import the CCS project for the required combination

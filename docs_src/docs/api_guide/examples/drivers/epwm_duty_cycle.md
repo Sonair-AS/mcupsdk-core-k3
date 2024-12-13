@@ -176,6 +176,19 @@ This example uses the Debug Header 2 (J3) on Audio expansion card 1 for testing 
 
 \endcond
 
+\cond SOC_AM275X
+
+ Parameter      | Value
+ ---------------|-----------
+ CPU + OS       | r5fss0-0 freertos
+ ^              | c75ss0-0 freertos
+ Toolchain      | ti-arm-clang
+ ^              | ti-c7000
+ Board          | @VAR_BOARD_NAME_LOWER
+ Example folder | examples/drivers/epwm/epwm_duty_cycle/
+
+\endcond
+
 # Steps to Run the Example
 
 - **When using CCS projects to build**, import the CCS project for the required combination

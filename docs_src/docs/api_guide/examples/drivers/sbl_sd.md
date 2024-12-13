@@ -94,9 +94,9 @@ If a multicore appimage file is found at the location, the SBL reads the file in
 
  Parameter      | Value
  ---------------|-----------
- CPU + OS       | wkup-r5fss0-0_freertos
+ CPU + OS       | wkup-r5fss0-0 freertos
  Toolchain      | ti-arm-clang
- Board          | @VAR_BOARD_NAME_LOWER
+ Boards         | @VAR_BOARD_NAME_LOWER
  Example folder | examples/drivers/boot/sbl_sd
 
 \endcond

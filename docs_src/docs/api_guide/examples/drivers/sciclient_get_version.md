@@ -126,6 +126,8 @@ We also fetch the clock frequency of the current CPU using Sciclient and print t
  Parameter      | Value
  ---------------|-----------
  CPU + OS       | r5fss0-0 freertos
+ ^              | r5fss0-0 nortos
+ ^              | wkup-r5fss0-0_freertos
  ^              | c75ss0-0 freertos
  Toolchain      | ti-arm-clang
  ^              | ti-c7000

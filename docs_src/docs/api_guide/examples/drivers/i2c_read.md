@@ -193,7 +193,10 @@ To modify the example to use main/wakeup domain I2C, refer \ref MAIN_DOMAIN_PERI
  Parameter      | Value
  ---------------|-----------
  CPU + OS       | r5fss0-0 freertos
+ ^              | r5fss0-0 nortos
+ ^              | c75ss0-0 freertos
  Toolchain      | ti-arm-clang
+ ^              | ti-c7000
  Boards         | @VAR_BOARD_NAME_LOWER
  Example folder | examples/drivers/i2c/i2c_read
 

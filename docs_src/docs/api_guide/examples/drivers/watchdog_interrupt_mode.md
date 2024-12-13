@@ -88,7 +88,9 @@ This example uses the WDT module in non reset mode to generate NMI Interrupt.
  Parameter      | Value
  ---------------|-----------
  CPU + OS       | r5fss0-0 freertos
+ ^              | c75ss0-0 freertos
  Toolchain      | ti-arm-clang
+ ^              | ti-c7000
  Board          | @VAR_BOARD_NAME_LOWER
  Example folder | examples/drivers/watchdog/watchdog_interrupt/
 

@@ -134,6 +134,12 @@ This example just does driver and board initialization and prints the string, He
  ---------------|-----------
  CPU + OS       | r5fss0-0 nortos
  ^              | r5fss0-0 freertos
+ ^              | r5fss0-1 freertos
+ ^              | r5fss0-1 nortos
+ ^              | r5fss1-0 freertos
+ ^              | r5fss1-0 nortos
+ ^              | r5fss1-1 freertos
+ ^              | r5fss1-1 nortos
  ^              | c75ss0-0 freertos
  ^              | c75ss1-0 freertos
  ^              | wkup-r5fss0-0 freertos

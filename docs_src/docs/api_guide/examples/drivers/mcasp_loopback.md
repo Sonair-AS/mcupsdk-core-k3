@@ -66,8 +66,11 @@ This example demonstrates the McASP in loopback mode operation.
 
  Parameter      | Value
  ---------------|-----------
- CPU + OS       | c75ss0-0 freertos
- Toolchain      | ti-c7000
+ CPU + OS       | r5fss0-0 freertos
+ ^              | c75ss0-0 freertos
+ ^              | c75ss1-0 freertos
+ Toolchain      | ti-arm-clang
+ ^              | ti-c7000
  Board          | @VAR_BOARD_NAME_LOWER
  Example folder | examples/drivers/mcasp/mcasp_loopback
 

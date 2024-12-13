@@ -106,6 +106,19 @@ and compares the source and destination buffers for any data mismatch.
 
 \endcond
 
+\cond SOC_AM275X
+
+ Parameter      | Value
+ ---------------|-----------
+ CPU + OS       | r5fss0-0 freertos
+ ^              | c75ss0-0 freertos
+ Toolchain      | ti-arm-clang
+ ^              | ti-c7000
+ Board          | @VAR_BOARD_NAME_LOWER
+ Example folder | examples/drivers/udma/udma_memcpy_polling
+
+\endcond
+
 # Steps to Run the Example
 
 - **When using CCS projects to build**, import the CCS project for the required combination

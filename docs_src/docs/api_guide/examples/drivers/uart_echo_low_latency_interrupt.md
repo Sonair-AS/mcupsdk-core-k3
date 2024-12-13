@@ -118,8 +118,11 @@ UART TX (echo).
 
  Parameter      | Value
  ---------------|-----------
- CPU + OS       | r5fss0-0 nortos
+ CPU + OS       | r5fss0-0 freertos
+ ^              | r5fss0-0 nortos
+ ^              | c75ss0-0 freertos
  Toolchain      | ti-arm-clang
+ ^              | ti-c7000
  Board          | @VAR_BOARD_NAME_LOWER
  Example folder | examples/drivers/uart/uart_echo_low_latency_interrupt
 

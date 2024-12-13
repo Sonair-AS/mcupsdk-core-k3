@@ -49,6 +49,17 @@ in 1s1s1s mode.
 
 \endcond
 
+\cond SOC_AM275X
+
+ Parameter      | Value
+ ---------------|-----------
+ CPU + OS       | wkup-r5fss0-0_freertos
+ Toolchain      | ti-arm-clang
+ Board          | @VAR_BOARD_NAME_LOWER
+ Example folder | examples/drivers/ospi/ospi_flash_diag
+
+\endcond
+
 # Steps to Run the Example
 
 - **When using CCS projects to build**, import the CCS project for the required combination
@@ -62,7 +73,7 @@ in 1s1s1s mode.
 \ref DRIVERS_OSPI_PAGE
 
 # Sample Output
-\cond SOC_AM62X || SOC_AM62PX || SOC_AM62DX
+\cond SOC_AM62X || SOC_AM62PX || SOC_AM62DX || SOC_AM275X
 
 \code
 [OSPI Flash Diagnostic Test] Starting ...

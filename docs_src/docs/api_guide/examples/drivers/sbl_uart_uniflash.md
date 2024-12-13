@@ -24,7 +24,7 @@ This example is more or less like a flashing server, and will never terminate un
 
  Parameter      | Value
  ---------------|-----------
- CPU + OS       | r5fss0-0 nortos
+ CPU + OS       | wkup-r5fss0-0 freertos
  Toolchain      | ti-arm-clang
  Board          | @VAR_BOARD_NAME_LOWER
  Example folder | examples/drivers/boot/sbl_uart_uniflash

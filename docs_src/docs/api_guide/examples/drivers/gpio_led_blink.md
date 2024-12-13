@@ -107,6 +107,7 @@ To modify the example to use main domain GPIO, refer \ref MAIN_DOMAIN_PERIPHERAL
  Parameter      | Value
  ---------------|-----------
  CPU + OS       | r5fss0-0 freertos
+ ^              | r5fss0-0 nortos
  ^              | c75ss0-0 freertos
  Toolchain      | ti-arm-clang
  ^              | ti-c7000

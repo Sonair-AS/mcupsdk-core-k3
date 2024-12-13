@@ -53,6 +53,20 @@ where the core is only active when it has acquired the spinlock, while the other
  Example folder | examples/drivers/spinlock/spinlock_example/
 
 \endcond
+
+\cond SOC_AM275X
+
+ Parameter      | Value
+ ---------------|-----------
+ CPU + OS       | r5fss0-0 freertos
+ ^              | c75ss0-0 freertos
+ Toolchain      | ti-arm-clang
+ ^              | ti-c7000
+ Boards         | @VAR_BOARD_NAME_LOWER
+ Example folder | examples/drivers/spinlock/spinlock_example/
+
+\endcond
+
 # Steps to Run the Example
 
 \note This is a `system` or multi-core project, so refer to system project build instructions for CCS project or makefiles when building the example.

@@ -73,6 +73,21 @@ When the comparison match, test result is passed otherwise failed.
  Example folder | examples/drivers/mmcsd/mmcsd_file_io
 
 \endcond
+
+\cond SOC_AM275X
+
+ Parameter      | Value
+ ---------------|-----------
+ CPU + OS       | wkup-r5fss0-0_freertos
+ ^              | r5fss0-0 freertos
+ ^              | c75ss0-0 freertos
+ Toolchain      | ti-arm-clang
+ ^              | ti-c7000
+ Board          | @VAR_BOARD_NAME_LOWER
+ Example folder | examples/drivers/mmcsd/mmcsd_file_io
+
+\endcond
+
 # Steps to Run the Example
 
 - **When using CCS projects to build**, import the CCS project for the required combination
