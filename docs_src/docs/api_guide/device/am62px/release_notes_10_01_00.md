@@ -22,6 +22,7 @@ Support for authentication from DDR when in-place authentication fails from OSPI
 Support for SW version check of binaries through RPRC header                                   | Bootloader
 SBL now ensures the cores are switched off if no application image is present                  | Bootloader
 SBL NULL: Close flash drivers before jumping to DM application                                 | Bootloader
+A53 priv-id is now set to 1 to match other SOCs (instead of previous value 4)                  | TIFS
 
 ## Dependent Tools and Compiler Information
 \attention It is recommended to use the TIFS version provided with the release for ensuring compatibility between TIFS and device manager. Using the TIFS from different MCU+SDK release is not recomended and may cause TIFS/ DM functionality to break.
@@ -33,7 +34,7 @@ SysConfig               | MCU-R5F, WKUP-R5F        | 1.20.0, build 3587
 TI ARM CLANG            | MCU-R5F, WKUP-R5F        | 3.2.2.LTS
 GCC AARCH64             | A53                      | 9.2-2019.12
 FreeRTOS Kernel         | MCU-R5F, WKUP-R5F        | 11.1.0
-TIFS                    | NA                       | 10.00.08
+TIFS                    | NA                       | v10.01.08
 
 ## Key Features
 
@@ -281,6 +282,90 @@ ROM_CHECKSUM     |MCU-R5F         | No
     <td> Uniflash
     <td> 10.01.00
 </tr>
+<tr>
+    <td> SITSW-3685
+    <td> DM Sciclient ignores flags field for TIFS bound messages
+    <td> DM
+    <td> 08.03.00 onwards
+</tr>
+<tr>
+    <td> SITSW-4773
+    <td> DM is ignoring the exact flags sent in TISCI message
+    <td> DM
+    <td> 08.03.00 onwards
+</tr>
+<tr>
+    <td> SYSFW-5992
+    <td> Unable to set exact pixel clock for OLDI LCD display / HDMI Pixel clock
+    <td> DM
+    <td> 08.05.00 onwards
+</tr>
+<tr>
+    <td> SYSFW-6432
+    <td> Set device API doesn't return Error when PD is in transition state
+    <td> DM
+    <td> 08.03.00 onwards
+</tr>
+<tr>
+    <td> SYSFW-7559
+    <td> In MCU-Only mode resume path the MCU_M4 LPSC is ON
+    <td> DM (LPM)
+    <td> 10.00.00 onwards
+</tr>
+<tr>
+    <td> SYSFW-7571
+    <td> Device IDs higher than 255 does not work with set device constraint API
+    <td> DM (LPM)
+    <td> 10.00.00 onwards
+</tr>
+<tr>
+    <td> SYSFW-7602
+    <td> RTC count value not getting updated after DeepSleep exit
+    <td> DM (LPM)
+    <td> 08.03.00 onwards
+</tr>
+<tr>
+    <td> SYSFW-7614
+    <td> Unable to configure DSS clock below 15.625MHz
+    <td> DM
+    <td> 10.00.00 onwards
+</tr>
+<tr>
+    <td> SYSFW-7617
+    <td> LPM mode selection logic does not check for constraints on all the hosts/devices
+    <td> DM (LPM)
+    <td> 10.00.00 onwards
+</tr>
+<tr>
+    <td> SYSFW-7740
+    <td> Only the last latency constraint value passed from a host considered in LPM selection
+    <td> DM (LPM)
+    <td> 10.00.00 onwards
+</tr>
+<tr>
+    <td> SYSFW-7753
+    <td> A53 privid is set to 4 and does not match other SOCs value of 1
+    <td> TIFS
+    <td> 09.02.00 onwards
+</tr>
+<tr>
+    <td> SYSFW-7760
+    <td> LPM: MCU subsystem (GPIO) clock should not be changed in MCU Only mode
+    <td> DM (LPM)
+    <td> 10.00.00 onwards
+</tr>
+<tr>
+    <td> SYSFW-6426
+    <td> Ownership of a firewall region can be transferred to an invalid host
+    <td> TIFS
+    <td> 08.03.00 onwards
+</tr>
+<tr>
+    <td> SYSFW-7739
+    <td> LPM constraint messages received by TIFS not forwarded to DM
+    <td> TIFS
+    <td> 10.00.00
+</tr>
 </table>
 
 ## Known Issues
@@ -323,52 +408,38 @@ ROM_CHECKSUM     |MCU-R5F         | No
     <td> None.
 </tr>
 <tr>
-    <td> SYSFW-5992
-    <td> Unable to set exact pixel clock for OLDI LCD display / HDMI Pixel clock
+    <td> SYSFW-7781
+    <td> Get device API does not return error when the LPSC is in transition state
     <td> DM
-    <td> 08.05.00
-    <td> Avoid gving range for SET_CLOCK, use exact values for min, max and target
-</tr>
-<tr>
-    <td> SYSFW-6369
-    <td> DM unable to enter deep sleep mode when booting in SBL flow
-    <td> DM
-    <td> 08.03.00
+    <td> 10.01.00
     <td> None.
 </tr>
 <tr>
-    <td> SYSFW-6432
-    <td> Set device API doesn't return Error when PD is in transition state
+    <td> SYSFW-7831
+    <td> DMA Resources used by ROM are not cleaned up when resuming from IO Only + DDR mode
+    <td> DM (LPM)
+    <td> 10.01.00
+    <td> None.
+</tr>
+<tr>
+    <td> SYSFW-7884
+    <td> There is an additional divide by 4 on all clocks of WKUP/MCU GPIO clock mux
     <td> DM
-    <td> 08.03.00
+    <td> 10.01.00
     <td> None.
 </tr>
 <tr>
-    <td> SYSFW-6426
-    <td> Ownership of a firewall region can be transferred to an invalid host
-    <td> TIFS
-    <td> 08.03.00
+    <td> SYSFW-7897
+    <td> Partial I/O mode fails after few hundred iterations
+    <td> DM (LPM)
+    <td> 10.01.00
     <td> None.
 </tr>
 <tr>
-    <td> SYSFW-7201
-    <td> A53 privid is 4 in am62p and j722s and should be 1
-    <td> TIFS
-    <td> 09.01.00
-    <td> None.
-</tr>
-<tr>
-    <td> SYSFW-7559
-    <td> LPM: In MCU Only mode resume path the MCU_M4 LPSC is ON
-    <td> DM
-    <td> 10.00.00
-    <td> None.
-</tr>
-<tr>
-    <td> SYSFW-7571
-    <td> LPM: Device IDs higher than 255 will not work with set device constraint
-    <td> DM
-    <td> 10.00.00
+    <td> SYSFW-7899
+    <td> LPM configuration is not enabled in HS-SE firmware
+    <td> TIFS (LPM)
+    <td> 10.01.00
     <td> None.
 </tr>
 <tr>
