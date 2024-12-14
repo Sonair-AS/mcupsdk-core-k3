@@ -18,8 +18,6 @@ LIBNAME:=drivers.am275x.c75x.ti-c7000.$(PROFILE).lib
 FILES_common := \
     csl_dru.c \
     csl_sec_proxy.c \
-    ecap.c \
-    epwm.c \
     gpio.c \
     gtc.c \
     gtc_soc.c \
@@ -64,8 +62,6 @@ FILES_common := \
     watchdog_soc.c \
 
 FILES_PATH_common = \
-    ecap/v0 \
-    epwm/v0 \
     gpio/v0 \
     gtc/v0 \
     gtc/v0/soc/am275x \

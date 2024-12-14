@@ -149,8 +149,6 @@ const example_file_list = [
     "test/sdl/vtm/vtm_unit_test/.project/project_am275x.js",
     // Tests
     "test/board/eeprom/.project/project.js",
-    "test/drivers/epwm/.project/project.js",
-    "test/drivers/ecap/.project/project.js",
     "test/drivers/gpio/.project/project.js",
     "test/drivers/gtc/.project/project.js",
     "test/drivers/i2c/.project/project.js",

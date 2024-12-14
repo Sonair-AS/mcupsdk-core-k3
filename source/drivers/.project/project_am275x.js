@@ -10,8 +10,6 @@ const files_r5f = {
         "csl_lcdma_ringacc.c",
         "csl_pktdma.c",
         "csl_sec_proxy.c",
-        "ecap.c",
-        "epwm.c",
         "gpio.c",
         "gtc.c",
         "gtc_soc.c",
@@ -137,8 +135,6 @@ const files_c75 = {
     common: [
         "csl_dru.c",
         "csl_sec_proxy.c",
-        "ecap.c",
-        "epwm.c",
         "gpio.c",
         "gtc.c",
         "gtc_soc.c",
@@ -186,8 +182,6 @@ const files_c75 = {
 
 const filedirs_common = {
     common: [
-        "ecap/v0",
-        "epwm/v0",
         "gpio/v0",
         "gtc/v0",
         'gtc/v0/soc/am275x',
@@ -234,8 +228,6 @@ const filedirs_wkup_r5f = {
     common: [
         "bootloader/soc/am275x",
         "bootloader",
-        "ecap/v0",
-        "epwm/v0",
         "gpio/v0",
         "gtc/v0",
         'gtc/v0/soc/am275x',
@@ -279,8 +271,6 @@ const filedirs_wkup_r5f = {
 
 const filedirs_c75   = {
     common: [
-        "ecap/v0",
-        "epwm/v0",
         "gpio/v0",
         "gtc/v0",
         'gtc/v0/soc/am275x',

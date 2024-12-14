@@ -79,8 +79,6 @@ FILES_common := \
 FILES_PATH_common = \
     bootloader/soc/am275x \
     bootloader \
-    ecap/v0 \
-    epwm/v0 \
     gpio/v0 \
     gtc/v0 \
     gtc/v0/soc/am275x \
