@@ -177,7 +177,7 @@ function getComponentProperty() {
 
     property.dirPath = path.resolve(__dirname, "..");
     property.type = "executable";
-    property.name = "task_switch_main";
+    property.name = "task_switch";
     property.isInternal = false;
     property.tirexResourceSubClass = [ "example.gettingstarted" ];
     property.isInternal = false;
@@ -192,7 +192,7 @@ function getComponentPropertyWkup() {
 
     property.dirPath = path.resolve(__dirname, "..");
     property.type = "executable";
-    property.name = "task_switch_main";
+    property.name = "task_switch";
     property.isInternal = false;
     property.tirexResourceSubClass = [ "example.gettingstarted" ];
     property.isInternal = false;

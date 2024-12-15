@@ -679,8 +679,8 @@ BUILD_COMBO_EXAMPLE_ALL += dpl_demo_am275x-evm_c75ss1-0_freertos_ti-c7000
 BUILD_COMBO_EXAMPLE_ALL += dhrystone_benchmark_am275x-evm_r5fss0-0_freertos_ti-arm-clang
 BUILD_COMBO_EXAMPLE_ALL += memcpy_benchmark_am275x-evm_r5fss0-0_freertos_ti-arm-clang
 BUILD_COMBO_EXAMPLE_ALL += posix_demo_am275x-evm_r5fss0-0_freertos_ti-arm-clang
-BUILD_COMBO_EXAMPLE_ALL += task_switch_main_am275x-evm_r5fss0-0_freertos_ti-arm-clang
-BUILD_COMBO_EXAMPLE_ALL += task_switch_main_am275x-evm_c75ss0-0_freertos_ti-c7000
+BUILD_COMBO_EXAMPLE_ALL += task_switch_am275x-evm_r5fss0-0_freertos_ti-arm-clang
+BUILD_COMBO_EXAMPLE_ALL += task_switch_am275x-evm_c75ss0-0_freertos_ti-c7000
 BUILD_COMBO_EXAMPLE_ALL += enet_cpsw_loopback_mac_end_am275x-evm_r5fss0-0_freertos_ti-arm-clang
 BUILD_COMBO_EXAMPLE_ALL += enet_cpsw_tcpserver_am275x-evm_r5fss0-0_freertos_ti-arm-clang
 BUILD_COMBO_EXAMPLE_ALL += enet_lwip_cpsw_am275x-evm_r5fss0-0_freertos_ti-arm-clang
@@ -1051,13 +1051,13 @@ examples-private: $(BUILD_COMBO_EXAMPLE_PRIVATE_ALL)
  posix_demo_am275x-evm_r5fss0-0_freertos_ti-arm-clang:
 	$(MAKE) -C examples/kernel/freertos/posix_demo/am275x-evm/r5fss0-0_freertos/ti-arm-clang -f makefile all
 
- task_switch_main_am275x-evm_wkup-r5fss0-0_freertos_ti-arm-clang:
+ task_switch_am275x-evm_wkup-r5fss0-0_freertos_ti-arm-clang:
 	$(MAKE) -C examples/kernel/freertos/task_switch/am275x-evm/wkup-r5fss0-0_freertos/ti-arm-clang -f makefile all
 
- task_switch_main_am275x-evm_r5fss0-0_freertos_ti-arm-clang:
+ task_switch_am275x-evm_r5fss0-0_freertos_ti-arm-clang:
 	$(MAKE) -C examples/kernel/freertos/task_switch/am275x-evm/r5fss0-0_freertos/ti-arm-clang -f makefile all
 
- task_switch_main_am275x-evm_c75ss0-0_freertos_ti-c7000:
+ task_switch_am275x-evm_c75ss0-0_freertos_ti-c7000:
 	$(MAKE) -C examples/kernel/freertos/task_switch/am275x-evm/c75ss0-0_freertos/ti-c7000 -f makefile all
 
  enet_cpsw_loopback_mac_end_am275x-evm_r5fss0-0_freertos_ti-arm-clang:
@@ -1240,8 +1240,8 @@ BUILD_COMBO_EXAMPLE_CLEAN_ALL += dpl_demo_am275x-evm_c75ss1-0_freertos_ti-c7000_
 BUILD_COMBO_EXAMPLE_CLEAN_ALL += dhrystone_benchmark_am275x-evm_r5fss0-0_freertos_ti-arm-clang_clean
 BUILD_COMBO_EXAMPLE_CLEAN_ALL += memcpy_benchmark_am275x-evm_r5fss0-0_freertos_ti-arm-clang_clean
 BUILD_COMBO_EXAMPLE_CLEAN_ALL += posix_demo_am275x-evm_r5fss0-0_freertos_ti-arm-clang_clean
-BUILD_COMBO_EXAMPLE_CLEAN_ALL += task_switch_main_am275x-evm_r5fss0-0_freertos_ti-arm-clang_clean
-BUILD_COMBO_EXAMPLE_CLEAN_ALL += task_switch_main_am275x-evm_c75ss0-0_freertos_ti-c7000_clean
+BUILD_COMBO_EXAMPLE_CLEAN_ALL += task_switch_am275x-evm_r5fss0-0_freertos_ti-arm-clang_clean
+BUILD_COMBO_EXAMPLE_CLEAN_ALL += task_switch_am275x-evm_c75ss0-0_freertos_ti-c7000_clean
 BUILD_COMBO_EXAMPLE_CLEAN_ALL += enet_cpsw_loopback_mac_end_am275x-evm_r5fss0-0_freertos_ti-arm-clang_clean
 BUILD_COMBO_EXAMPLE_CLEAN_ALL += enet_cpsw_tcpserver_am275x-evm_r5fss0-0_freertos_ti-arm-clang_clean
 BUILD_COMBO_EXAMPLE_CLEAN_ALL += enet_lwip_cpsw_am275x-evm_r5fss0-0_freertos_ti-arm-clang_clean
@@ -1612,13 +1612,13 @@ examples-private-clean: $(BUILD_COMBO_EXAMPLE_PRIVATE_CLEAN_ALL)
  posix_demo_am275x-evm_r5fss0-0_freertos_ti-arm-clang_clean:
 	$(MAKE) -C examples/kernel/freertos/posix_demo/am275x-evm/r5fss0-0_freertos/ti-arm-clang -f makefile clean
 
- task_switch_main_am275x-evm_wkup-r5fss0-0_freertos_ti-arm-clang_clean:
+ task_switch_am275x-evm_wkup-r5fss0-0_freertos_ti-arm-clang_clean:
 	$(MAKE) -C examples/kernel/freertos/task_switch/am275x-evm/wkup-r5fss0-0_freertos/ti-arm-clang -f makefile clean
 
- task_switch_main_am275x-evm_r5fss0-0_freertos_ti-arm-clang_clean:
+ task_switch_am275x-evm_r5fss0-0_freertos_ti-arm-clang_clean:
 	$(MAKE) -C examples/kernel/freertos/task_switch/am275x-evm/r5fss0-0_freertos/ti-arm-clang -f makefile clean
 
- task_switch_main_am275x-evm_c75ss0-0_freertos_ti-c7000_clean:
+ task_switch_am275x-evm_c75ss0-0_freertos_ti-c7000_clean:
 	$(MAKE) -C examples/kernel/freertos/task_switch/am275x-evm/c75ss0-0_freertos/ti-c7000 -f makefile clean
 
  enet_cpsw_loopback_mac_end_am275x-evm_r5fss0-0_freertos_ti-arm-clang_clean:
@@ -1801,8 +1801,8 @@ BUILD_COMBO_EXAMPLE_SCRUB_ALL += dpl_demo_am275x-evm_c75ss1-0_freertos_ti-c7000_
 BUILD_COMBO_EXAMPLE_SCRUB_ALL += dhrystone_benchmark_am275x-evm_r5fss0-0_freertos_ti-arm-clang_scrub
 BUILD_COMBO_EXAMPLE_SCRUB_ALL += memcpy_benchmark_am275x-evm_r5fss0-0_freertos_ti-arm-clang_scrub
 BUILD_COMBO_EXAMPLE_SCRUB_ALL += posix_demo_am275x-evm_r5fss0-0_freertos_ti-arm-clang_scrub
-BUILD_COMBO_EXAMPLE_SCRUB_ALL += task_switch_main_am275x-evm_r5fss0-0_freertos_ti-arm-clang_scrub
-BUILD_COMBO_EXAMPLE_SCRUB_ALL += task_switch_main_am275x-evm_c75ss0-0_freertos_ti-c7000_scrub
+BUILD_COMBO_EXAMPLE_SCRUB_ALL += task_switch_am275x-evm_r5fss0-0_freertos_ti-arm-clang_scrub
+BUILD_COMBO_EXAMPLE_SCRUB_ALL += task_switch_am275x-evm_c75ss0-0_freertos_ti-c7000_scrub
 BUILD_COMBO_EXAMPLE_SCRUB_ALL += enet_cpsw_loopback_mac_end_am275x-evm_r5fss0-0_freertos_ti-arm-clang_scrub
 BUILD_COMBO_EXAMPLE_SCRUB_ALL += enet_cpsw_tcpserver_am275x-evm_r5fss0-0_freertos_ti-arm-clang_scrub
 BUILD_COMBO_EXAMPLE_SCRUB_ALL += enet_lwip_cpsw_am275x-evm_r5fss0-0_freertos_ti-arm-clang_scrub
@@ -2173,13 +2173,13 @@ examples-scrub-private: $(BUILD_COMBO_EXAMPLE_PRIVATE_SCRUB_ALL)
  posix_demo_am275x-evm_r5fss0-0_freertos_ti-arm-clang_scrub:
 	$(MAKE) -C examples/kernel/freertos/posix_demo/am275x-evm/r5fss0-0_freertos/ti-arm-clang -f makefile scrub
 
- task_switch_main_am275x-evm_wkup-r5fss0-0_freertos_ti-arm-clang_scrub:
+ task_switch_am275x-evm_wkup-r5fss0-0_freertos_ti-arm-clang_scrub:
 	$(MAKE) -C examples/kernel/freertos/task_switch/am275x-evm/wkup-r5fss0-0_freertos/ti-arm-clang -f makefile scrub
 
- task_switch_main_am275x-evm_r5fss0-0_freertos_ti-arm-clang_scrub:
+ task_switch_am275x-evm_r5fss0-0_freertos_ti-arm-clang_scrub:
 	$(MAKE) -C examples/kernel/freertos/task_switch/am275x-evm/r5fss0-0_freertos/ti-arm-clang -f makefile scrub
 
- task_switch_main_am275x-evm_c75ss0-0_freertos_ti-c7000_scrub:
+ task_switch_am275x-evm_c75ss0-0_freertos_ti-c7000_scrub:
 	$(MAKE) -C examples/kernel/freertos/task_switch/am275x-evm/c75ss0-0_freertos/ti-c7000 -f makefile scrub
 
  enet_cpsw_loopback_mac_end_am275x-evm_r5fss0-0_freertos_ti-arm-clang_scrub:

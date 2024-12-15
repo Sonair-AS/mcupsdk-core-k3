@@ -21,14 +21,14 @@ endif
 PROFILE?=release
 ConfigName:=$(PROFILE)
 
-OUTNAME:=task_switch_main.$(PROFILE).out
+OUTNAME:=task_switch.$(PROFILE).out
 
 BOOTIMAGE_PATH=$(abspath .)
-BOOTIMAGE_NAME:=task_switch_main.$(PROFILE).mcelf
-BOOTIMAGE_NAME_XIP:=task_switch_main.$(PROFILE).mcelf_xip
-BOOTIMAGE_NAME_SIGNED:=task_switch_main.$(PROFILE).mcelf.signed
-BOOTIMAGE_NAME_HS:=task_switch_main.$(PROFILE).mcelf.hs
-BOOTIMAGE_NAME_HS_FS:=task_switch_main.$(PROFILE).mcelf.hs_fs
+BOOTIMAGE_NAME:=task_switch.$(PROFILE).mcelf
+BOOTIMAGE_NAME_XIP:=task_switch.$(PROFILE).mcelf_xip
+BOOTIMAGE_NAME_SIGNED:=task_switch.$(PROFILE).mcelf.signed
+BOOTIMAGE_NAME_HS:=task_switch.$(PROFILE).mcelf.hs
+BOOTIMAGE_NAME_HS_FS:=task_switch.$(PROFILE).mcelf.hs_fs
 TARGETS := $(BOOTIMAGE_NAME)
 ifeq ($(DEVICE_TYPE), HS)
    TARGETS += $(BOOTIMAGE_NAME_HS)
@@ -188,7 +188,7 @@ clean:
 	$(RMDIR) generated/
 
 scrub:
-	@echo  Scrubing: am275x:c75ss0-0:freertos:ti-c7000 task_switch_main ...
+	@echo  Scrubing: am275x:c75ss0-0:freertos:ti-c7000 task_switch ...
 	$(RMDIR) obj
 ifeq ($(OS),Windows_NT)
 	$(RM) \*.out

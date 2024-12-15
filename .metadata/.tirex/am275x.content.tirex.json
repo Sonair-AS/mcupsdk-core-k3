@@ -4229,7 +4229,7 @@
             "example.gettingstarted"
         ],
         "description": "A Task Switch example. CPU is WKUP-R5FSS0-0 running FREERTOS.",
-        "name": "task_switch_main",
+        "name": "task_switch",
         "location": "../../examples/kernel/freertos/task_switch/am275x-evm/wkup-r5fss0-0_freertos/ti-arm-clang/example.projectspec",
         "devtools": [
             "AM275x_EVM"
@@ -4262,7 +4262,7 @@
             "example.gettingstarted"
         ],
         "description": "A Task Switch example. CPU is R5FSS0-0 running FREERTOS.",
-        "name": "task_switch_main",
+        "name": "task_switch",
         "location": "../../examples/kernel/freertos/task_switch/am275x-evm/r5fss0-0_freertos/ti-arm-clang/example.projectspec",
         "devtools": [
             "AM275x_EVM"
@@ -4295,7 +4295,7 @@
             "example.gettingstarted"
         ],
         "description": "A Task Switch example. CPU is C75SS0-0 running FREERTOS.",
-        "name": "task_switch_main",
+        "name": "task_switch",
         "location": "../../examples/kernel/freertos/task_switch/am275x-evm/c75ss0-0_freertos/ti-c7000/example.projectspec",
         "devtools": [
             "AM275x_EVM"

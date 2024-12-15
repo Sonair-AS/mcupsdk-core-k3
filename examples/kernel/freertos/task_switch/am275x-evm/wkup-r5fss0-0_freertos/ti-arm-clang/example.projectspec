@@ -10,8 +10,8 @@
     </applicability>
 
     <project
-        title="Task Switch Main"
-        name = "task_switch_main_am275x-evm_wkup-r5fss0-0_freertos_ti-arm-clang"
+        title="Task Switch"
+        name = "task_switch_am275x-evm_wkup-r5fss0-0_freertos_ti-arm-clang"
         products="sysconfig;com.ti.MCU_PLUS_SDK_AMXXX"
         configurations="
             Debug,
@@ -55,7 +55,7 @@
             -i${MCU_PLUS_SDK_PATH}/source/drivers/lib
             -i${MCU_PLUS_SDK_PATH}/source/board/lib
             -i${CG_TOOL_ROOT}/lib
-            -m=task_switch_main.${ConfigName}.map
+            -m=task_switch.${ConfigName}.map
             --diag_suppress=10063
             --priority
             --ram_model
@@ -69,7 +69,7 @@
             --context wkup-r5fss0-0 --part AM2754 --package ANJ
         "
 
-        description="A Task Switch Main FREERTOS project">
+        description="A Task Switch FREERTOS project">
 
         <configuration name="Debug"
             compilerBuildOptions="

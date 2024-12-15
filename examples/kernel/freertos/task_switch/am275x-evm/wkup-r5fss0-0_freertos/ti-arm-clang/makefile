@@ -21,13 +21,13 @@ endif
 PROFILE?=release
 ConfigName:=$(PROFILE)
 
-OUTNAME:=task_switch_main.$(PROFILE).out
+OUTNAME:=task_switch.$(PROFILE).out
 
 BOOTIMAGE_PATH=$(abspath .)
-BOOTIMAGE_NAME_GP:=task_switch_main.$(PROFILE).tiimage
-BOOTIMAGE_NAME_HS:=task_switch_main.$(PROFILE).hs.tiimage
-BOOTIMAGE_NAME_HS_FS:=task_switch_main.$(PROFILE).hs_fs.tiimage
-BOOTIMAGE_BIN_NAME:=task_switch_main.$(PROFILE).bin
+BOOTIMAGE_NAME_GP:=task_switch.$(PROFILE).tiimage
+BOOTIMAGE_NAME_HS:=task_switch.$(PROFILE).hs.tiimage
+BOOTIMAGE_NAME_HS_FS:=task_switch.$(PROFILE).hs_fs.tiimage
+BOOTIMAGE_BIN_NAME:=task_switch.$(PROFILE).bin
 
 ifeq ($(DEVICE_TYPE),HS)
 	BOOTIMAGE_NAME=$(BOOTIMAGE_NAME_HS)
@@ -200,7 +200,7 @@ clean:
 	$(RMDIR) generated/
 
 scrub:
-	@echo  Scrubing: am275x:wkup-r5fss0-0:freertos:ti-arm-clang task_switch_main ...
+	@echo  Scrubing: am275x:wkup-r5fss0-0:freertos:ti-arm-clang task_switch ...
 	$(RMDIR) obj
 ifeq ($(OS),Windows_NT)
 	$(RM) \*.out

@@ -3,7 +3,7 @@
  * via the GUI or CLI. Run CLI with '--help' for additional information on how to override these arguments.
  * @cliArgs --device "AM275x" --part "AM2754" --package "ANJ" --context "r5fss0-0" --product "MCU_PLUS_SDK@07.03.01"
  * @v2CliArgs --device "AM2754" --package "FCCSP (ANJ)" --context "r5fss0-0" --product "MCU_PLUS_SDK@07.03.01"
- * @versions {"tool":"1.21.0+3721"}
+ * @versions {"tool":"1.22.0+3893"}
  */
 
 /**
@@ -20,8 +20,9 @@ const mpu_armv75 = mpu_armv7.addInstance();
 /**
  * Write custom configuration values to the imported modules.
  */
-debug_log.enableUartLog = true;
-debug_log.uartLog.$name = "CONFIG_UART0";
+debug_log.enableUartLog        = true;
+debug_log.uartLog.$name        = "CONFIG_UART0";
+debug_log.uartLog.UART.$assign = "UART0";
 
 mpu_armv71.size              = 31;
 mpu_armv71.attributes        = "Device";
@@ -51,6 +52,5 @@ mpu_armv75.$name    = "MSRAM_BANK4_TO_BANK5";
  * version of the tool will not impact the pinmux you originally saw.  These lines can be completely deleted in order to
  * re-solve from scratch.
  */
-debug_log.uartLog.UART.$suggestSolution     = "UART1";
-debug_log.uartLog.UART.RXD.$suggestSolution = "I2C1_SCL";
-debug_log.uartLog.UART.TXD.$suggestSolution = "I2C1_SDA";
+debug_log.uartLog.UART.RXD.$suggestSolution = "MCASP4_AXR0";
+debug_log.uartLog.UART.TXD.$suggestSolution = "MLB0_MLBCLK";
