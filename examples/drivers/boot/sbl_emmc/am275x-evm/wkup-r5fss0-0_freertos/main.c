@@ -74,33 +74,6 @@ void sbl_emmc_main(void *args);
 /*                            Global Variables                                */
 /* ========================================================================== */
 
-/* UART pinmux for SysFW UART log */
-Pinmux_PerCfg_t gSysFwPinMux[] = {
-        /* UART1 pin config */
-            /* UART1_RXD -> SPI2_CS0 (T2) */
-    {
-        PIN_SPI2_CS0,
-        ( PIN_MODE(2) | PIN_INPUT_ENABLE | PIN_PULL_DISABLE )
-    },
-            /* UART1_TXD -> SPI2_CLK (R2) */
-    {
-        PIN_SPI2_CLK,
-        ( PIN_MODE(2) | PIN_PULL_DISABLE )
-    },
-            /* UART1_RTSn -> SPI2_D1 (R3) */
-    {
-        PIN_SPI2_D1,
-        ( PIN_MODE(2) | PIN_INPUT_ENABLE | PIN_PULL_DISABLE )
-    },
-            /* UART1_CTSn -> SPI2_D0 (P2) */
-    {
-        PIN_SPI2_D0,
-        ( PIN_MODE(2) | PIN_PULL_DISABLE )
-    },
-
-    {PINMUX_END, 0U}
-};
-
 StackType_t gMainTaskStack[TASK_SIZE] __attribute__((aligned(32)));
 StaticTask_t gMainTaskObj;
 TaskHandle_t gMainTask;
@@ -116,10 +89,6 @@ TaskHandle_t gBootTask;
 void main_thread(void *args)
 {
     int32_t status = SystemP_SUCCESS;
-
-    /* TODO: To move to syscfg */
-    /* Set UART pinmux for TIFS */
-    Pinmux_config(gSysFwPinMux, PINMUX_DOMAIN_ID_MAIN);
 
     /* Open drivers */
     Drivers_open();
