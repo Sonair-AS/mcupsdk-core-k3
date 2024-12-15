@@ -10,8 +10,13 @@
     "name": "MCU_PLUS_SDK",
     "displayName": "MCU+ SDK",
 % } else {
+    % if (args.device == "am275x") {
+    "name": "`deviceName`_FREERTOS_SDK",
+    "displayName": "FreeRTOS SDK for `deviceName`",
+    % } else {
     "name": "MCU_PLUS_SDK_`deviceName`",
     "displayName": "MCU+ SDK for `deviceName`",
+    % }
 % }
     "version": "07.03.01",
     "documentationPath": "../docs",

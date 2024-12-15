@@ -204,7 +204,7 @@ function getSysCfgPart(board) {
 }
 
 function getDevToolTirex(board) {
-    return "AM275x_EVM";
+    return "AUDIO-AM275-EVM";
 }
 
 function getProperty() {
@@ -220,11 +220,11 @@ function getLinuxFwName(cpu) {
 }
 
 function getProductNameProjectSpec() {
-    return "MCU_PLUS_SDK_AM275X";
+    return "AM275_FREERTOS_SDK";
 }
 
 function getTirexId() {
-    return "MCU-PLUS-SDK-AM275X";
+    return "AM275-FREERTOS-SDK";
 }
 
 function getFlashAddr() {

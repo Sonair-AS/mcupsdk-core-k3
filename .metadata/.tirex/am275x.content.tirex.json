@@ -11,7 +11,7 @@
         "name": "sbl_emmc",
         "location": "../../examples/drivers/boot/sbl_emmc/am275x-evm/wkup-r5fss0-0_freertos/ti-arm-clang/example.projectspec",
         "devtools": [
-            "AM275x_EVM"
+            "AUDIO-AM275-EVM"
         ],
         "kernel": [
             "freertos"
@@ -44,7 +44,7 @@
         "name": "sbl_null",
         "location": "../../examples/drivers/boot/sbl_null/am275x-evm/wkup-r5fss0-0_freertos/ti-arm-clang/example.projectspec",
         "devtools": [
-            "AM275x_EVM"
+            "AUDIO-AM275-EVM"
         ],
         "kernel": [
             "freertos"
@@ -77,7 +77,7 @@
         "name": "sbl_ospi",
         "location": "../../examples/drivers/boot/sbl_ospi/am275x-evm/wkup-r5fss0-0_freertos/ti-arm-clang/example.projectspec",
         "devtools": [
-            "AM275x_EVM"
+            "AUDIO-AM275-EVM"
         ],
         "kernel": [
             "freertos"
@@ -110,7 +110,7 @@
         "name": "sbl_sd",
         "location": "../../examples/drivers/boot/sbl_sd/am275x-evm/wkup-r5fss0-0_freertos/ti-arm-clang/example.projectspec",
         "devtools": [
-            "AM275x_EVM"
+            "AUDIO-AM275-EVM"
         ],
         "kernel": [
             "freertos"
@@ -143,7 +143,7 @@
         "name": "sbl_uart_uniflash",
         "location": "../../examples/drivers/boot/sbl_uart_uniflash/am275x-evm/wkup-r5fss0-0_nortos/ti-arm-clang/example.projectspec",
         "devtools": [
-            "AM275x_EVM"
+            "AUDIO-AM275-EVM"
         ],
         "kernel": [
             "nortos"
@@ -176,7 +176,7 @@
         "name": "sbl_uart",
         "location": "../../examples/drivers/boot/sbl_uart/am275x-evm/wkup-r5fss0-0_freertos/ti-arm-clang/example.projectspec",
         "devtools": [
-            "AM275x_EVM"
+            "AUDIO-AM275-EVM"
         ],
         "kernel": [
             "freertos"
@@ -209,7 +209,7 @@
         "name": "eeprom_read_write",
         "location": "../../examples/board/eeprom/eeprom_read_write/am275x-evm/r5fss0-0_freertos/ti-arm-clang/example.projectspec",
         "devtools": [
-            "AM275x_EVM"
+            "AUDIO-AM275-EVM"
         ],
         "kernel": [
             "freertos"
@@ -242,7 +242,7 @@
         "name": "empty",
         "location": "../../examples/empty/am275x-evm/wkup-r5fss0-0_freertos/ti-arm-clang/example.projectspec",
         "devtools": [
-            "AM275x_EVM"
+            "AUDIO-AM275-EVM"
         ],
         "kernel": [
             "freertos"
@@ -273,7 +273,7 @@
         "name": "empty",
         "location": "../../examples/empty/am275x-evm/c75ss0-0_freertos/ti-c7000/example.projectspec",
         "devtools": [
-            "AM275x_EVM"
+            "AUDIO-AM275-EVM"
         ],
         "kernel": [
             "freertos"
@@ -304,7 +304,7 @@
         "name": "empty",
         "location": "../../examples/empty/am275x-evm/c75ss1-0_freertos/ti-c7000/example.projectspec",
         "devtools": [
-            "AM275x_EVM"
+            "AUDIO-AM275-EVM"
         ],
         "kernel": [
             "freertos"
@@ -335,7 +335,7 @@
         "name": "empty",
         "location": "../../examples/empty/am275x-evm/r5fss0-0_freertos/ti-arm-clang/example.projectspec",
         "devtools": [
-            "AM275x_EVM"
+            "AUDIO-AM275-EVM"
         ],
         "kernel": [
             "freertos"
@@ -366,7 +366,7 @@
         "name": "empty",
         "location": "../../examples/empty/am275x-evm/r5fss0-1_freertos/ti-arm-clang/example.projectspec",
         "devtools": [
-            "AM275x_EVM"
+            "AUDIO-AM275-EVM"
         ],
         "kernel": [
             "freertos"
@@ -397,7 +397,7 @@
         "name": "empty",
         "location": "../../examples/empty/am275x-evm/r5fss1-0_freertos/ti-arm-clang/example.projectspec",
         "devtools": [
-            "AM275x_EVM"
+            "AUDIO-AM275-EVM"
         ],
         "kernel": [
             "freertos"
@@ -428,7 +428,7 @@
         "name": "empty",
         "location": "../../examples/empty/am275x-evm/r5fss1-1_freertos/ti-arm-clang/example.projectspec",
         "devtools": [
-            "AM275x_EVM"
+            "AUDIO-AM275-EVM"
         ],
         "kernel": [
             "freertos"
@@ -459,7 +459,7 @@
         "name": "gpio_input_interrupt",
         "location": "../../examples/drivers/gpio/gpio_input_interrupt/am275x-evm/r5fss0-0_nortos/ti-arm-clang/example.projectspec",
         "devtools": [
-            "AM275x_EVM"
+            "AUDIO-AM275-EVM"
         ],
         "kernel": [
             "nortos"
@@ -492,7 +492,7 @@
         "name": "gpio_input_interrupt",
         "location": "../../examples/drivers/gpio/gpio_input_interrupt/am275x-evm/r5fss0-0_freertos/ti-arm-clang/example.projectspec",
         "devtools": [
-            "AM275x_EVM"
+            "AUDIO-AM275-EVM"
         ],
         "kernel": [
             "freertos"
@@ -525,7 +525,7 @@
         "name": "gpio_input_interrupt",
         "location": "../../examples/drivers/gpio/gpio_input_interrupt/am275x-evm/c75ss0-0_freertos/ti-c7000/example.projectspec",
         "devtools": [
-            "AM275x_EVM"
+            "AUDIO-AM275-EVM"
         ],
         "kernel": [
             "freertos"
@@ -558,7 +558,7 @@
         "name": "gpio_led_blink",
         "location": "../../examples/drivers/gpio/gpio_led_blink/am275x-evm/r5fss0-0_nortos/ti-arm-clang/example.projectspec",
         "devtools": [
-            "AM275x_EVM"
+            "AUDIO-AM275-EVM"
         ],
         "kernel": [
             "nortos"
@@ -591,7 +591,7 @@
         "name": "gpio_led_blink",
         "location": "../../examples/drivers/gpio/gpio_led_blink/am275x-evm/r5fss0-0_freertos/ti-arm-clang/example.projectspec",
         "devtools": [
-            "AM275x_EVM"
+            "AUDIO-AM275-EVM"
         ],
         "kernel": [
             "freertos"
@@ -624,7 +624,7 @@
         "name": "gpio_led_blink",
         "location": "../../examples/drivers/gpio/gpio_led_blink/am275x-evm/c75ss0-0_freertos/ti-c7000/example.projectspec",
         "devtools": [
-            "AM275x_EVM"
+            "AUDIO-AM275-EVM"
         ],
         "kernel": [
             "freertos"
@@ -657,7 +657,7 @@
         "name": "i2c_read",
         "location": "../../examples/drivers/i2c/i2c_read/am275x-evm/r5fss0-0_nortos/ti-arm-clang/example.projectspec",
         "devtools": [
-            "AM275x_EVM"
+            "AUDIO-AM275-EVM"
         ],
         "kernel": [
             "nortos"
@@ -690,7 +690,7 @@
         "name": "i2c_read",
         "location": "../../examples/drivers/i2c/i2c_read/am275x-evm/r5fss0-0_freertos/ti-arm-clang/example.projectspec",
         "devtools": [
-            "AM275x_EVM"
+            "AUDIO-AM275-EVM"
         ],
         "kernel": [
             "freertos"
@@ -723,7 +723,7 @@
         "name": "i2c_read",
         "location": "../../examples/drivers/i2c/i2c_read/am275x-evm/c75ss0-0_freertos/ti-c7000/example.projectspec",
         "devtools": [
-            "AM275x_EVM"
+            "AUDIO-AM275-EVM"
         ],
         "kernel": [
             "freertos"
@@ -756,7 +756,7 @@
         "name": "i2c_led_blink",
         "location": "../../examples/drivers/i2c/i2c_led_blink/am275x-evm/r5fss0-0_nortos/ti-arm-clang/example.projectspec",
         "devtools": [
-            "AM275x_EVM"
+            "AUDIO-AM275-EVM"
         ],
         "kernel": [
             "nortos"
@@ -789,7 +789,7 @@
         "name": "i2c_led_blink",
         "location": "../../examples/drivers/i2c/i2c_led_blink/am275x-evm/r5fss0-0_freertos/ti-arm-clang/example.projectspec",
         "devtools": [
-            "AM275x_EVM"
+            "AUDIO-AM275-EVM"
         ],
         "kernel": [
             "freertos"
@@ -822,7 +822,7 @@
         "name": "i2c_led_blink",
         "location": "../../examples/drivers/i2c/i2c_led_blink/am275x-evm/c75ss0-0_freertos/ti-c7000/example.projectspec",
         "devtools": [
-            "AM275x_EVM"
+            "AUDIO-AM275-EVM"
         ],
         "kernel": [
             "freertos"
@@ -855,7 +855,7 @@
         "name": "i2c_memory_read",
         "location": "../../examples/drivers/i2c/i2c_memory_read/am275x-evm/r5fss0-0_nortos/ti-arm-clang/example.projectspec",
         "devtools": [
-            "AM275x_EVM"
+            "AUDIO-AM275-EVM"
         ],
         "kernel": [
             "nortos"
@@ -888,7 +888,7 @@
         "name": "i2c_memory_read",
         "location": "../../examples/drivers/i2c/i2c_memory_read/am275x-evm/r5fss0-0_freertos/ti-arm-clang/example.projectspec",
         "devtools": [
-            "AM275x_EVM"
+            "AUDIO-AM275-EVM"
         ],
         "kernel": [
             "freertos"
@@ -921,7 +921,7 @@
         "name": "i2c_memory_read",
         "location": "../../examples/drivers/i2c/i2c_memory_read/am275x-evm/c75ss0-0_freertos/ti-c7000/example.projectspec",
         "devtools": [
-            "AM275x_EVM"
+            "AUDIO-AM275-EVM"
         ],
         "kernel": [
             "freertos"
@@ -954,7 +954,7 @@
         "name": "i2c_temperature",
         "location": "../../examples/drivers/i2c/i2c_temperature/am275x-evm/r5fss0-0_nortos/ti-arm-clang/example.projectspec",
         "devtools": [
-            "AM275x_EVM"
+            "AUDIO-AM275-EVM"
         ],
         "kernel": [
             "nortos"
@@ -987,7 +987,7 @@
         "name": "i2c_temperature",
         "location": "../../examples/drivers/i2c/i2c_temperature/am275x-evm/r5fss0-0_freertos/ti-arm-clang/example.projectspec",
         "devtools": [
-            "AM275x_EVM"
+            "AUDIO-AM275-EVM"
         ],
         "kernel": [
             "freertos"
@@ -1020,7 +1020,7 @@
         "name": "i2c_temperature",
         "location": "../../examples/drivers/i2c/i2c_temperature/am275x-evm/c75ss0-0_freertos/ti-c7000/example.projectspec",
         "devtools": [
-            "AM275x_EVM"
+            "AUDIO-AM275-EVM"
         ],
         "kernel": [
             "freertos"
@@ -1053,7 +1053,7 @@
         "name": "ipc_notify_echo",
         "location": "../../examples/drivers/ipc/ipc_notify_echo/am275x-evm/c75ss0-0_freertos/ti-c7000/example.projectspec",
         "devtools": [
-            "AM275x_EVM"
+            "AUDIO-AM275-EVM"
         ],
         "kernel": [
             "freertos"
@@ -1086,7 +1086,7 @@
         "name": "ipc_notify_echo",
         "location": "../../examples/drivers/ipc/ipc_notify_echo/am275x-evm/c75ss1-0_freertos/ti-c7000/example.projectspec",
         "devtools": [
-            "AM275x_EVM"
+            "AUDIO-AM275-EVM"
         ],
         "kernel": [
             "freertos"
@@ -1119,7 +1119,7 @@
         "name": "ipc_notify_echo",
         "location": "../../examples/drivers/ipc/ipc_notify_echo/am275x-evm/r5fss0-0_freertos/ti-arm-clang/example.projectspec",
         "devtools": [
-            "AM275x_EVM"
+            "AUDIO-AM275-EVM"
         ],
         "kernel": [
             "freertos"
@@ -1152,7 +1152,7 @@
         "name": "ipc_notify_echo",
         "location": "../../examples/drivers/ipc/ipc_notify_echo/am275x-evm/r5fss0-1_freertos/ti-arm-clang/example.projectspec",
         "devtools": [
-            "AM275x_EVM"
+            "AUDIO-AM275-EVM"
         ],
         "kernel": [
             "freertos"
@@ -1185,7 +1185,7 @@
         "name": "ipc_notify_echo",
         "location": "../../examples/drivers/ipc/ipc_notify_echo/am275x-evm/r5fss1-0_freertos/ti-arm-clang/example.projectspec",
         "devtools": [
-            "AM275x_EVM"
+            "AUDIO-AM275-EVM"
         ],
         "kernel": [
             "freertos"
@@ -1218,7 +1218,7 @@
         "name": "ipc_notify_echo",
         "location": "../../examples/drivers/ipc/ipc_notify_echo/am275x-evm/r5fss1-1_freertos/ti-arm-clang/example.projectspec",
         "devtools": [
-            "AM275x_EVM"
+            "AUDIO-AM275-EVM"
         ],
         "kernel": [
             "freertos"
@@ -1251,7 +1251,7 @@
         "name": "ipc_rpmsg_echo",
         "location": "../../examples/drivers/ipc/ipc_rpmsg_echo/am275x-evm/c75ss0-0_freertos/ti-c7000/example.projectspec",
         "devtools": [
-            "AM275x_EVM"
+            "AUDIO-AM275-EVM"
         ],
         "kernel": [
             "freertos"
@@ -1284,7 +1284,7 @@
         "name": "ipc_rpmsg_echo",
         "location": "../../examples/drivers/ipc/ipc_rpmsg_echo/am275x-evm/c75ss1-0_freertos/ti-c7000/example.projectspec",
         "devtools": [
-            "AM275x_EVM"
+            "AUDIO-AM275-EVM"
         ],
         "kernel": [
             "freertos"
@@ -1317,7 +1317,7 @@
         "name": "ipc_rpmsg_echo",
         "location": "../../examples/drivers/ipc/ipc_rpmsg_echo/am275x-evm/r5fss0-0_freertos/ti-arm-clang/example.projectspec",
         "devtools": [
-            "AM275x_EVM"
+            "AUDIO-AM275-EVM"
         ],
         "kernel": [
             "freertos"
@@ -1350,7 +1350,7 @@
         "name": "ipc_rpmsg_echo",
         "location": "../../examples/drivers/ipc/ipc_rpmsg_echo/am275x-evm/r5fss0-1_freertos/ti-arm-clang/example.projectspec",
         "devtools": [
-            "AM275x_EVM"
+            "AUDIO-AM275-EVM"
         ],
         "kernel": [
             "freertos"
@@ -1383,7 +1383,7 @@
         "name": "ipc_rpmsg_echo",
         "location": "../../examples/drivers/ipc/ipc_rpmsg_echo/am275x-evm/r5fss1-0_freertos/ti-arm-clang/example.projectspec",
         "devtools": [
-            "AM275x_EVM"
+            "AUDIO-AM275-EVM"
         ],
         "kernel": [
             "freertos"
@@ -1416,7 +1416,7 @@
         "name": "ipc_rpmsg_echo",
         "location": "../../examples/drivers/ipc/ipc_rpmsg_echo/am275x-evm/r5fss1-1_freertos/ti-arm-clang/example.projectspec",
         "devtools": [
-            "AM275x_EVM"
+            "AUDIO-AM275-EVM"
         ],
         "kernel": [
             "freertos"
@@ -1449,7 +1449,7 @@
         "name": "mcan_loopback_polling",
         "location": "../../examples/drivers/mcan/mcan_loopback_polling/am275x-evm/r5fss0-0_nortos/ti-arm-clang/example.projectspec",
         "devtools": [
-            "AM275x_EVM"
+            "AUDIO-AM275-EVM"
         ],
         "kernel": [
             "nortos"
@@ -1482,7 +1482,7 @@
         "name": "mcan_loopback_polling",
         "location": "../../examples/drivers/mcan/mcan_loopback_polling/am275x-evm/r5fss0-0_freertos/ti-arm-clang/example.projectspec",
         "devtools": [
-            "AM275x_EVM"
+            "AUDIO-AM275-EVM"
         ],
         "kernel": [
             "freertos"
@@ -1515,7 +1515,7 @@
         "name": "mcan_loopback_interrupt",
         "location": "../../examples/drivers/mcan/mcan_loopback_interrupt/am275x-evm/r5fss0-0_nortos/ti-arm-clang/example.projectspec",
         "devtools": [
-            "AM275x_EVM"
+            "AUDIO-AM275-EVM"
         ],
         "kernel": [
             "nortos"
@@ -1548,7 +1548,7 @@
         "name": "mcan_loopback_interrupt",
         "location": "../../examples/drivers/mcan/mcan_loopback_interrupt/am275x-evm/r5fss0-0_freertos/ti-arm-clang/example.projectspec",
         "devtools": [
-            "AM275x_EVM"
+            "AUDIO-AM275-EVM"
         ],
         "kernel": [
             "freertos"
@@ -1581,7 +1581,7 @@
         "name": "mcasp_aec_playback",
         "location": "../../examples/drivers/mcasp/mcasp_aec_multichannel_playback/am275x-evm/c75ss0-0_freertos/ti-c7000/example.projectspec",
         "devtools": [
-            "AM275x_EVM"
+            "AUDIO-AM275-EVM"
         ],
         "kernel": [
             "freertos"
@@ -1614,7 +1614,7 @@
         "name": "mcasp_loopback",
         "location": "../../examples/drivers/mcasp/mcasp_loopback/am275x-evm/c75ss0-0_freertos/ti-c7000/example.projectspec",
         "devtools": [
-            "AM275x_EVM"
+            "AUDIO-AM275-EVM"
         ],
         "kernel": [
             "freertos"
@@ -1647,7 +1647,7 @@
         "name": "mcasp_loopback",
         "location": "../../examples/drivers/mcasp/mcasp_loopback/am275x-evm/c75ss1-0_freertos/ti-c7000/example.projectspec",
         "devtools": [
-            "AM275x_EVM"
+            "AUDIO-AM275-EVM"
         ],
         "kernel": [
             "freertos"
@@ -1680,7 +1680,7 @@
         "name": "mcasp_loopback",
         "location": "../../examples/drivers/mcasp/mcasp_loopback/am275x-evm/r5fss0-0_freertos/ti-arm-clang/example.projectspec",
         "devtools": [
-            "AM275x_EVM"
+            "AUDIO-AM275-EVM"
         ],
         "kernel": [
             "freertos"
@@ -1713,7 +1713,7 @@
         "name": "mcasp_multichannel_playback",
         "location": "../../examples/drivers/mcasp/mcasp_multichannel_playback/am275x-evm/c75ss0-0_freertos/ti-c7000/example.projectspec",
         "devtools": [
-            "AM275x_EVM"
+            "AUDIO-AM275-EVM"
         ],
         "kernel": [
             "freertos"
@@ -1746,7 +1746,7 @@
         "name": "mcasp_multichannel_playback",
         "location": "../../examples/drivers/mcasp/mcasp_multichannel_playback/am275x-evm/r5fss0-0_freertos/ti-arm-clang/example.projectspec",
         "devtools": [
-            "AM275x_EVM"
+            "AUDIO-AM275-EVM"
         ],
         "kernel": [
             "freertos"
@@ -1779,7 +1779,7 @@
         "name": "mcasp_stereo_playback",
         "location": "../../examples/drivers/mcasp/mcasp_stereo_playback/am275x-evm/c75ss0-0_freertos/ti-c7000/example.projectspec",
         "devtools": [
-            "AM275x_EVM"
+            "AUDIO-AM275-EVM"
         ],
         "kernel": [
             "freertos"
@@ -1812,7 +1812,7 @@
         "name": "mcasp_stereo_playback",
         "location": "../../examples/drivers/mcasp/mcasp_stereo_playback/am275x-evm/r5fss0-0_freertos/ti-arm-clang/example.projectspec",
         "devtools": [
-            "AM275x_EVM"
+            "AUDIO-AM275-EVM"
         ],
         "kernel": [
             "freertos"
@@ -1845,7 +1845,7 @@
         "name": "mcspi_loopback",
         "location": "../../examples/drivers/mcspi/mcspi_loopback/am275x-evm/r5fss0-0_nortos/ti-arm-clang/example.projectspec",
         "devtools": [
-            "AM275x_EVM"
+            "AUDIO-AM275-EVM"
         ],
         "kernel": [
             "nortos"
@@ -1878,7 +1878,7 @@
         "name": "mcspi_loopback",
         "location": "../../examples/drivers/mcspi/mcspi_loopback/am275x-evm/r5fss0-0_freertos/ti-arm-clang/example.projectspec",
         "devtools": [
-            "AM275x_EVM"
+            "AUDIO-AM275-EVM"
         ],
         "kernel": [
             "freertos"
@@ -1911,7 +1911,7 @@
         "name": "mcspi_loopback",
         "location": "../../examples/drivers/mcspi/mcspi_loopback/am275x-evm/c75ss0-0_freertos/ti-c7000/example.projectspec",
         "devtools": [
-            "AM275x_EVM"
+            "AUDIO-AM275-EVM"
         ],
         "kernel": [
             "freertos"
@@ -1944,7 +1944,7 @@
         "name": "mcspi_loopback_dma",
         "location": "../../examples/drivers/mcspi/mcspi_loopback_dma/am275x-evm/r5fss0-0_freertos/ti-arm-clang/example.projectspec",
         "devtools": [
-            "AM275x_EVM"
+            "AUDIO-AM275-EVM"
         ],
         "kernel": [
             "freertos"
@@ -1977,7 +1977,7 @@
         "name": "mcspi_loopback_dma",
         "location": "../../examples/drivers/mcspi/mcspi_loopback_dma/am275x-evm/c75ss0-0_freertos/ti-c7000/example.projectspec",
         "devtools": [
-            "AM275x_EVM"
+            "AUDIO-AM275-EVM"
         ],
         "kernel": [
             "freertos"
@@ -2010,7 +2010,7 @@
         "name": "mcspi_loopback_turbo_mode",
         "location": "../../examples/drivers/mcspi/mcspi_loopback_turbo_mode/am275x-evm/r5fss0-0_freertos/ti-arm-clang/example.projectspec",
         "devtools": [
-            "AM275x_EVM"
+            "AUDIO-AM275-EVM"
         ],
         "kernel": [
             "freertos"
@@ -2043,7 +2043,7 @@
         "name": "mcspi_loopback_turbo_mode",
         "location": "../../examples/drivers/mcspi/mcspi_loopback_turbo_mode/am275x-evm/c75ss0-0_freertos/ti-c7000/example.projectspec",
         "devtools": [
-            "AM275x_EVM"
+            "AUDIO-AM275-EVM"
         ],
         "kernel": [
             "freertos"
@@ -2076,7 +2076,7 @@
         "name": "mcspi_performance_8bit",
         "location": "../../examples/drivers/mcspi/mcspi_performance_8bit/am275x-evm/r5fss0-0_nortos/ti-arm-clang/example.projectspec",
         "devtools": [
-            "AM275x_EVM"
+            "AUDIO-AM275-EVM"
         ],
         "kernel": [
             "nortos"
@@ -2109,7 +2109,7 @@
         "name": "mcspi_performance_8bit",
         "location": "../../examples/drivers/mcspi/mcspi_performance_8bit/am275x-evm/r5fss0-0_freertos/ti-arm-clang/example.projectspec",
         "devtools": [
-            "AM275x_EVM"
+            "AUDIO-AM275-EVM"
         ],
         "kernel": [
             "freertos"
@@ -2142,7 +2142,7 @@
         "name": "mcspi_performance_8bit",
         "location": "../../examples/drivers/mcspi/mcspi_performance_8bit/am275x-evm/c75ss0-0_freertos/ti-c7000/example.projectspec",
         "devtools": [
-            "AM275x_EVM"
+            "AUDIO-AM275-EVM"
         ],
         "kernel": [
             "freertos"
@@ -2175,7 +2175,7 @@
         "name": "mcspi_performance_32bit",
         "location": "../../examples/drivers/mcspi/mcspi_performance_32bit/am275x-evm/r5fss0-0_nortos/ti-arm-clang/example.projectspec",
         "devtools": [
-            "AM275x_EVM"
+            "AUDIO-AM275-EVM"
         ],
         "kernel": [
             "nortos"
@@ -2208,7 +2208,7 @@
         "name": "mcspi_performance_32bit",
         "location": "../../examples/drivers/mcspi/mcspi_performance_32bit/am275x-evm/r5fss0-0_freertos/ti-arm-clang/example.projectspec",
         "devtools": [
-            "AM275x_EVM"
+            "AUDIO-AM275-EVM"
         ],
         "kernel": [
             "freertos"
@@ -2241,7 +2241,7 @@
         "name": "mcspi_performance_32bit",
         "location": "../../examples/drivers/mcspi/mcspi_performance_32bit/am275x-evm/c75ss0-0_freertos/ti-c7000/example.projectspec",
         "devtools": [
-            "AM275x_EVM"
+            "AUDIO-AM275-EVM"
         ],
         "kernel": [
             "freertos"
@@ -2274,7 +2274,7 @@
         "name": "mmcsd_file_io",
         "location": "../../examples/drivers/mmcsd/mmcsd_file_io/am275x-evm/wkup-r5fss0-0_freertos/ti-arm-clang/example.projectspec",
         "devtools": [
-            "AM275x_EVM"
+            "AUDIO-AM275-EVM"
         ],
         "kernel": [
             "freertos"
@@ -2307,7 +2307,7 @@
         "name": "mmcsd_file_io",
         "location": "../../examples/drivers/mmcsd/mmcsd_file_io/am275x-evm/c75ss0-0_freertos/ti-c7000/example.projectspec",
         "devtools": [
-            "AM275x_EVM"
+            "AUDIO-AM275-EVM"
         ],
         "kernel": [
             "freertos"
@@ -2340,7 +2340,7 @@
         "name": "mmcsd_file_io",
         "location": "../../examples/drivers/mmcsd/mmcsd_file_io/am275x-evm/r5fss0-0_freertos/ti-arm-clang/example.projectspec",
         "devtools": [
-            "AM275x_EVM"
+            "AUDIO-AM275-EVM"
         ],
         "kernel": [
             "freertos"
@@ -2373,7 +2373,7 @@
         "name": "mmcsd_raw_io",
         "location": "../../examples/drivers/mmcsd/mmcsd_raw_io/am275x-evm/wkup-r5fss0-0_freertos/ti-arm-clang/example.projectspec",
         "devtools": [
-            "AM275x_EVM"
+            "AUDIO-AM275-EVM"
         ],
         "kernel": [
             "freertos"
@@ -2406,7 +2406,7 @@
         "name": "mmcsd_raw_io",
         "location": "../../examples/drivers/mmcsd/mmcsd_raw_io/am275x-evm/r5fss0-0_freertos/ti-arm-clang/example.projectspec",
         "devtools": [
-            "AM275x_EVM"
+            "AUDIO-AM275-EVM"
         ],
         "kernel": [
             "freertos"
@@ -2439,7 +2439,7 @@
         "name": "mmcsd_raw_io",
         "location": "../../examples/drivers/mmcsd/mmcsd_raw_io/am275x-evm/c75ss0-0_freertos/ti-c7000/example.projectspec",
         "devtools": [
-            "AM275x_EVM"
+            "AUDIO-AM275-EVM"
         ],
         "kernel": [
             "freertos"
@@ -2472,7 +2472,7 @@
         "name": "ospi_flash_diag",
         "location": "../../examples/drivers/ospi/ospi_flash_diag/am275x-evm/wkup-r5fss0-0_freertos/ti-arm-clang/example.projectspec",
         "devtools": [
-            "AM275x_EVM"
+            "AUDIO-AM275-EVM"
         ],
         "kernel": [
             "freertos"
@@ -2505,7 +2505,7 @@
         "name": "ospi_flash_io",
         "location": "../../examples/drivers/ospi/ospi_flash_io/am275x-evm/wkup-r5fss0-0_freertos/ti-arm-clang/example.projectspec",
         "devtools": [
-            "AM275x_EVM"
+            "AUDIO-AM275-EVM"
         ],
         "kernel": [
             "freertos"
@@ -2538,7 +2538,7 @@
         "name": "ospi_flash_io",
         "location": "../../examples/drivers/ospi/ospi_flash_io/am275x-evm/r5fss0-0_freertos/ti-arm-clang/example.projectspec",
         "devtools": [
-            "AM275x_EVM"
+            "AUDIO-AM275-EVM"
         ],
         "kernel": [
             "freertos"
@@ -2571,7 +2571,7 @@
         "name": "ospi_flash_io",
         "location": "../../examples/drivers/ospi/ospi_flash_io/am275x-evm/c75ss0-0_freertos/ti-c7000/example.projectspec",
         "devtools": [
-            "AM275x_EVM"
+            "AUDIO-AM275-EVM"
         ],
         "kernel": [
             "freertos"
@@ -2604,7 +2604,7 @@
         "name": "sciclient_get_version",
         "location": "../../examples/drivers/sciclient/sciclient_get_version/am275x-evm/wkup-r5fss0-0_freertos/ti-arm-clang/example.projectspec",
         "devtools": [
-            "AM275x_EVM"
+            "AUDIO-AM275-EVM"
         ],
         "kernel": [
             "freertos"
@@ -2637,7 +2637,7 @@
         "name": "sciclient_get_version",
         "location": "../../examples/drivers/sciclient/sciclient_get_version/am275x-evm/r5fss0-0_freertos/ti-arm-clang/example.projectspec",
         "devtools": [
-            "AM275x_EVM"
+            "AUDIO-AM275-EVM"
         ],
         "kernel": [
             "freertos"
@@ -2670,7 +2670,7 @@
         "name": "sciclient_get_version",
         "location": "../../examples/drivers/sciclient/sciclient_get_version/am275x-evm/r5fss0-0_nortos/ti-arm-clang/example.projectspec",
         "devtools": [
-            "AM275x_EVM"
+            "AUDIO-AM275-EVM"
         ],
         "kernel": [
             "nortos"
@@ -2703,7 +2703,7 @@
         "name": "sciclient_get_version",
         "location": "../../examples/drivers/sciclient/sciclient_get_version/am275x-evm/c75ss0-0_freertos/ti-c7000/example.projectspec",
         "devtools": [
-            "AM275x_EVM"
+            "AUDIO-AM275-EVM"
         ],
         "kernel": [
             "freertos"
@@ -2736,7 +2736,7 @@
         "name": "spinlock_example",
         "location": "../../examples/drivers/spinlock/spinlock_example/am275x-evm/r5fss0-0_freertos/ti-arm-clang/example.projectspec",
         "devtools": [
-            "AM275x_EVM"
+            "AUDIO-AM275-EVM"
         ],
         "kernel": [
             "freertos"
@@ -2769,7 +2769,7 @@
         "name": "spinlock_example",
         "location": "../../examples/drivers/spinlock/spinlock_example/am275x-evm/c75ss0-0_freertos/ti-c7000/example.projectspec",
         "devtools": [
-            "AM275x_EVM"
+            "AUDIO-AM275-EVM"
         ],
         "kernel": [
             "freertos"
@@ -2802,7 +2802,7 @@
         "name": "uart_echo",
         "location": "../../examples/drivers/uart/uart_echo/am275x-evm/r5fss0-0_nortos/ti-arm-clang/example.projectspec",
         "devtools": [
-            "AM275x_EVM"
+            "AUDIO-AM275-EVM"
         ],
         "kernel": [
             "nortos"
@@ -2835,7 +2835,7 @@
         "name": "uart_echo",
         "location": "../../examples/drivers/uart/uart_echo/am275x-evm/r5fss0-0_freertos/ti-arm-clang/example.projectspec",
         "devtools": [
-            "AM275x_EVM"
+            "AUDIO-AM275-EVM"
         ],
         "kernel": [
             "freertos"
@@ -2868,7 +2868,7 @@
         "name": "uart_echo",
         "location": "../../examples/drivers/uart/uart_echo/am275x-evm/c75ss0-0_freertos/ti-c7000/example.projectspec",
         "devtools": [
-            "AM275x_EVM"
+            "AUDIO-AM275-EVM"
         ],
         "kernel": [
             "freertos"
@@ -2901,7 +2901,7 @@
         "name": "uart_echo_callback",
         "location": "../../examples/drivers/uart/uart_echo_callback/am275x-evm/r5fss0-0_nortos/ti-arm-clang/example.projectspec",
         "devtools": [
-            "AM275x_EVM"
+            "AUDIO-AM275-EVM"
         ],
         "kernel": [
             "nortos"
@@ -2934,7 +2934,7 @@
         "name": "uart_echo_callback",
         "location": "../../examples/drivers/uart/uart_echo_callback/am275x-evm/r5fss0-0_freertos/ti-arm-clang/example.projectspec",
         "devtools": [
-            "AM275x_EVM"
+            "AUDIO-AM275-EVM"
         ],
         "kernel": [
             "freertos"
@@ -2967,7 +2967,7 @@
         "name": "uart_echo_callback",
         "location": "../../examples/drivers/uart/uart_echo_callback/am275x-evm/c75ss0-0_freertos/ti-c7000/example.projectspec",
         "devtools": [
-            "AM275x_EVM"
+            "AUDIO-AM275-EVM"
         ],
         "kernel": [
             "freertos"
@@ -3000,7 +3000,7 @@
         "name": "uart_echo_dma",
         "location": "../../examples/drivers/uart/uart_echo_dma/am275x-evm/r5fss0-0_freertos/ti-arm-clang/example.projectspec",
         "devtools": [
-            "AM275x_EVM"
+            "AUDIO-AM275-EVM"
         ],
         "kernel": [
             "freertos"
@@ -3033,7 +3033,7 @@
         "name": "uart_echo_dma",
         "location": "../../examples/drivers/uart/uart_echo_dma/am275x-evm/c75ss0-0_freertos/ti-c7000/example.projectspec",
         "devtools": [
-            "AM275x_EVM"
+            "AUDIO-AM275-EVM"
         ],
         "kernel": [
             "freertos"
@@ -3066,7 +3066,7 @@
         "name": "uart_echo_low_latency_interrupt",
         "location": "../../examples/drivers/uart/uart_echo_low_latency_interrupt/am275x-evm/r5fss0-0_nortos/ti-arm-clang/example.projectspec",
         "devtools": [
-            "AM275x_EVM"
+            "AUDIO-AM275-EVM"
         ],
         "kernel": [
             "nortos"
@@ -3099,7 +3099,7 @@
         "name": "uart_echo_low_latency_interrupt",
         "location": "../../examples/drivers/uart/uart_echo_low_latency_interrupt/am275x-evm/r5fss0-0_freertos/ti-arm-clang/example.projectspec",
         "devtools": [
-            "AM275x_EVM"
+            "AUDIO-AM275-EVM"
         ],
         "kernel": [
             "freertos"
@@ -3132,7 +3132,7 @@
         "name": "uart_echo_low_latency_interrupt",
         "location": "../../examples/drivers/uart/uart_echo_low_latency_interrupt/am275x-evm/c75ss0-0_freertos/ti-c7000/example.projectspec",
         "devtools": [
-            "AM275x_EVM"
+            "AUDIO-AM275-EVM"
         ],
         "kernel": [
             "freertos"
@@ -3165,7 +3165,7 @@
         "name": "uart_echo_low_latency_polling",
         "location": "../../examples/drivers/uart/uart_echo_low_latency_polling/am275x-evm/r5fss0-0_nortos/ti-arm-clang/example.projectspec",
         "devtools": [
-            "AM275x_EVM"
+            "AUDIO-AM275-EVM"
         ],
         "kernel": [
             "nortos"
@@ -3198,7 +3198,7 @@
         "name": "uart_echo_low_latency_polling",
         "location": "../../examples/drivers/uart/uart_echo_low_latency_polling/am275x-evm/r5fss0-0_freertos/ti-arm-clang/example.projectspec",
         "devtools": [
-            "AM275x_EVM"
+            "AUDIO-AM275-EVM"
         ],
         "kernel": [
             "freertos"
@@ -3231,7 +3231,7 @@
         "name": "uart_echo_low_latency_polling",
         "location": "../../examples/drivers/uart/uart_echo_low_latency_polling/am275x-evm/c75ss0-0_freertos/ti-c7000/example.projectspec",
         "devtools": [
-            "AM275x_EVM"
+            "AUDIO-AM275-EVM"
         ],
         "kernel": [
             "freertos"
@@ -3264,7 +3264,7 @@
         "name": "udma_chaining",
         "location": "../../examples/drivers/udma/udma_chaining/am275x-evm/r5fss0-0_freertos/ti-arm-clang/example.projectspec",
         "devtools": [
-            "AM275x_EVM"
+            "AUDIO-AM275-EVM"
         ],
         "kernel": [
             "freertos"
@@ -3297,7 +3297,7 @@
         "name": "udma_chaining",
         "location": "../../examples/drivers/udma/udma_chaining/am275x-evm/c75ss0-0_freertos/ti-c7000/example.projectspec",
         "devtools": [
-            "AM275x_EVM"
+            "AUDIO-AM275-EVM"
         ],
         "kernel": [
             "freertos"
@@ -3330,7 +3330,7 @@
         "name": "udma_memcpy_interrupt",
         "location": "../../examples/drivers/udma/udma_memcpy_interrupt/am275x-evm/r5fss0-0_freertos/ti-arm-clang/example.projectspec",
         "devtools": [
-            "AM275x_EVM"
+            "AUDIO-AM275-EVM"
         ],
         "kernel": [
             "freertos"
@@ -3363,7 +3363,7 @@
         "name": "udma_memcpy_interrupt",
         "location": "../../examples/drivers/udma/udma_memcpy_interrupt/am275x-evm/c75ss0-0_freertos/ti-c7000/example.projectspec",
         "devtools": [
-            "AM275x_EVM"
+            "AUDIO-AM275-EVM"
         ],
         "kernel": [
             "freertos"
@@ -3396,7 +3396,7 @@
         "name": "udma_memcpy_polling",
         "location": "../../examples/drivers/udma/udma_memcpy_polling/am275x-evm/r5fss0-0_freertos/ti-arm-clang/example.projectspec",
         "devtools": [
-            "AM275x_EVM"
+            "AUDIO-AM275-EVM"
         ],
         "kernel": [
             "freertos"
@@ -3429,7 +3429,7 @@
         "name": "udma_memcpy_polling",
         "location": "../../examples/drivers/udma/udma_memcpy_polling/am275x-evm/c75ss0-0_freertos/ti-c7000/example.projectspec",
         "devtools": [
-            "AM275x_EVM"
+            "AUDIO-AM275-EVM"
         ],
         "kernel": [
             "freertos"
@@ -3462,7 +3462,7 @@
         "name": "udma_sw_trigger",
         "location": "../../examples/drivers/udma/udma_sw_trigger/am275x-evm/r5fss0-0_freertos/ti-arm-clang/example.projectspec",
         "devtools": [
-            "AM275x_EVM"
+            "AUDIO-AM275-EVM"
         ],
         "kernel": [
             "freertos"
@@ -3495,7 +3495,7 @@
         "name": "udma_sw_trigger",
         "location": "../../examples/drivers/udma/udma_sw_trigger/am275x-evm/c75ss0-0_freertos/ti-c7000/example.projectspec",
         "devtools": [
-            "AM275x_EVM"
+            "AUDIO-AM275-EVM"
         ],
         "kernel": [
             "freertos"
@@ -3528,7 +3528,7 @@
         "name": "watchdog_interrupt",
         "location": "../../examples/drivers/watchdog/watchdog_interrupt/am275x-evm/r5fss0-0_freertos/ti-arm-clang/example.projectspec",
         "devtools": [
-            "AM275x_EVM"
+            "AUDIO-AM275-EVM"
         ],
         "kernel": [
             "freertos"
@@ -3561,7 +3561,7 @@
         "name": "watchdog_interrupt",
         "location": "../../examples/drivers/watchdog/watchdog_interrupt/am275x-evm/c75ss0-0_freertos/ti-c7000/example.projectspec",
         "devtools": [
-            "AM275x_EVM"
+            "AUDIO-AM275-EVM"
         ],
         "kernel": [
             "freertos"
@@ -3594,7 +3594,7 @@
         "name": "hello_world",
         "location": "../../examples/hello_world/am275x-evm/wkup-r5fss0-0_freertos/ti-arm-clang/example.projectspec",
         "devtools": [
-            "AM275x_EVM"
+            "AUDIO-AM275-EVM"
         ],
         "kernel": [
             "freertos"
@@ -3625,7 +3625,7 @@
         "name": "hello_world",
         "location": "../../examples/hello_world/am275x-evm/r5fss0-0_nortos/ti-arm-clang/example.projectspec",
         "devtools": [
-            "AM275x_EVM"
+            "AUDIO-AM275-EVM"
         ],
         "kernel": [
             "nortos"
@@ -3656,7 +3656,7 @@
         "name": "hello_world",
         "location": "../../examples/hello_world/am275x-evm/r5fss0-0_freertos/ti-arm-clang/example.projectspec",
         "devtools": [
-            "AM275x_EVM"
+            "AUDIO-AM275-EVM"
         ],
         "kernel": [
             "freertos"
@@ -3687,7 +3687,7 @@
         "name": "hello_world",
         "location": "../../examples/hello_world/am275x-evm/r5fss0-1_nortos/ti-arm-clang/example.projectspec",
         "devtools": [
-            "AM275x_EVM"
+            "AUDIO-AM275-EVM"
         ],
         "kernel": [
             "nortos"
@@ -3718,7 +3718,7 @@
         "name": "hello_world",
         "location": "../../examples/hello_world/am275x-evm/r5fss1-0_nortos/ti-arm-clang/example.projectspec",
         "devtools": [
-            "AM275x_EVM"
+            "AUDIO-AM275-EVM"
         ],
         "kernel": [
             "nortos"
@@ -3749,7 +3749,7 @@
         "name": "hello_world",
         "location": "../../examples/hello_world/am275x-evm/r5fss1-1_nortos/ti-arm-clang/example.projectspec",
         "devtools": [
-            "AM275x_EVM"
+            "AUDIO-AM275-EVM"
         ],
         "kernel": [
             "nortos"
@@ -3780,7 +3780,7 @@
         "name": "hello_world",
         "location": "../../examples/hello_world/am275x-evm/r5fss0-1_freertos/ti-arm-clang/example.projectspec",
         "devtools": [
-            "AM275x_EVM"
+            "AUDIO-AM275-EVM"
         ],
         "kernel": [
             "freertos"
@@ -3811,7 +3811,7 @@
         "name": "hello_world",
         "location": "../../examples/hello_world/am275x-evm/r5fss1-0_freertos/ti-arm-clang/example.projectspec",
         "devtools": [
-            "AM275x_EVM"
+            "AUDIO-AM275-EVM"
         ],
         "kernel": [
             "freertos"
@@ -3842,7 +3842,7 @@
         "name": "hello_world",
         "location": "../../examples/hello_world/am275x-evm/r5fss1-1_freertos/ti-arm-clang/example.projectspec",
         "devtools": [
-            "AM275x_EVM"
+            "AUDIO-AM275-EVM"
         ],
         "kernel": [
             "freertos"
@@ -3873,7 +3873,7 @@
         "name": "hello_world",
         "location": "../../examples/hello_world/am275x-evm/c75ss0-0_freertos/ti-c7000/example.projectspec",
         "devtools": [
-            "AM275x_EVM"
+            "AUDIO-AM275-EVM"
         ],
         "kernel": [
             "freertos"
@@ -3904,7 +3904,7 @@
         "name": "hello_world",
         "location": "../../examples/hello_world/am275x-evm/c75ss1-0_freertos/ti-c7000/example.projectspec",
         "devtools": [
-            "AM275x_EVM"
+            "AUDIO-AM275-EVM"
         ],
         "kernel": [
             "freertos"
@@ -3935,7 +3935,7 @@
         "name": "dpl_demo",
         "location": "../../examples/kernel/dpl/dpl_demo/am275x-evm/wkup-r5fss0-0_freertos/ti-arm-clang/example.projectspec",
         "devtools": [
-            "AM275x_EVM"
+            "AUDIO-AM275-EVM"
         ],
         "kernel": [
             "freertos"
@@ -3968,7 +3968,7 @@
         "name": "dpl_demo",
         "location": "../../examples/kernel/dpl/dpl_demo/am275x-evm/r5fss0-0_nortos/ti-arm-clang/example.projectspec",
         "devtools": [
-            "AM275x_EVM"
+            "AUDIO-AM275-EVM"
         ],
         "kernel": [
             "nortos"
@@ -4001,7 +4001,7 @@
         "name": "dpl_demo",
         "location": "../../examples/kernel/dpl/dpl_demo/am275x-evm/r5fss0-0_freertos/ti-arm-clang/example.projectspec",
         "devtools": [
-            "AM275x_EVM"
+            "AUDIO-AM275-EVM"
         ],
         "kernel": [
             "freertos"
@@ -4034,7 +4034,7 @@
         "name": "dpl_demo",
         "location": "../../examples/kernel/dpl/dpl_demo/am275x-evm/c75ss0-0_freertos/ti-c7000/example.projectspec",
         "devtools": [
-            "AM275x_EVM"
+            "AUDIO-AM275-EVM"
         ],
         "kernel": [
             "freertos"
@@ -4067,7 +4067,7 @@
         "name": "dpl_demo",
         "location": "../../examples/kernel/dpl/dpl_demo/am275x-evm/c75ss1-0_freertos/ti-c7000/example.projectspec",
         "devtools": [
-            "AM275x_EVM"
+            "AUDIO-AM275-EVM"
         ],
         "kernel": [
             "freertos"
@@ -4100,7 +4100,7 @@
         "name": "dhrystone_benchmark",
         "location": "../../examples/kernel/freertos/dhrystone_benchmark/am275x-evm/r5fss0-0_freertos/ti-arm-clang/example.projectspec",
         "devtools": [
-            "AM275x_EVM"
+            "AUDIO-AM275-EVM"
         ],
         "kernel": [
             "freertos"
@@ -4133,7 +4133,7 @@
         "name": "memcpy_benchmark",
         "location": "../../examples/kernel/freertos/memcpy_benchmark/am275x-evm/wkup-r5fss0-0_freertos/ti-arm-clang/example.projectspec",
         "devtools": [
-            "AM275x_EVM"
+            "AUDIO-AM275-EVM"
         ],
         "kernel": [
             "freertos"
@@ -4166,7 +4166,7 @@
         "name": "memcpy_benchmark",
         "location": "../../examples/kernel/freertos/memcpy_benchmark/am275x-evm/r5fss0-0_freertos/ti-arm-clang/example.projectspec",
         "devtools": [
-            "AM275x_EVM"
+            "AUDIO-AM275-EVM"
         ],
         "kernel": [
             "freertos"
@@ -4199,7 +4199,7 @@
         "name": "posix_demo",
         "location": "../../examples/kernel/freertos/posix_demo/am275x-evm/r5fss0-0_freertos/ti-arm-clang/example.projectspec",
         "devtools": [
-            "AM275x_EVM"
+            "AUDIO-AM275-EVM"
         ],
         "kernel": [
             "freertos"
@@ -4232,7 +4232,7 @@
         "name": "task_switch",
         "location": "../../examples/kernel/freertos/task_switch/am275x-evm/wkup-r5fss0-0_freertos/ti-arm-clang/example.projectspec",
         "devtools": [
-            "AM275x_EVM"
+            "AUDIO-AM275-EVM"
         ],
         "kernel": [
             "freertos"
@@ -4265,7 +4265,7 @@
         "name": "task_switch",
         "location": "../../examples/kernel/freertos/task_switch/am275x-evm/r5fss0-0_freertos/ti-arm-clang/example.projectspec",
         "devtools": [
-            "AM275x_EVM"
+            "AUDIO-AM275-EVM"
         ],
         "kernel": [
             "freertos"
@@ -4298,7 +4298,7 @@
         "name": "task_switch",
         "location": "../../examples/kernel/freertos/task_switch/am275x-evm/c75ss0-0_freertos/ti-c7000/example.projectspec",
         "devtools": [
-            "AM275x_EVM"
+            "AUDIO-AM275-EVM"
         ],
         "kernel": [
             "freertos"
@@ -4331,7 +4331,7 @@
         "name": "enet_cpsw_loopback_mac_end",
         "location": "../../source/networking/enet/core/examples/enet_loopback/enet_cpsw_loopback/loopback_mac_end/am275x-evm/r5fss0-0_freertos/ti-arm-clang/example.projectspec",
         "devtools": [
-            "AM275x_EVM"
+            "AUDIO-AM275-EVM"
         ],
         "kernel": [
             "freertos"
@@ -4370,7 +4370,7 @@
         "name": "enet_cpsw_tcpserver",
         "location": "../../source/networking/enet/core/examples/lwip/enet_cpsw_tcpserver/am275x-evm/r5fss0-0_freertos/ti-arm-clang/example.projectspec",
         "devtools": [
-            "AM275x_EVM"
+            "AUDIO-AM275-EVM"
         ],
         "kernel": [
             "freertos"
@@ -4408,7 +4408,7 @@
         "name": "enet_lwip_cpsw",
         "location": "../../source/networking/enet/core/examples/lwip/enet_lwip_cpsw/am275x-evm/r5fss0-0_freertos/ti-arm-clang/example.projectspec",
         "devtools": [
-            "AM275x_EVM"
+            "AUDIO-AM275-EVM"
         ],
         "kernel": [
             "freertos"
@@ -4446,7 +4446,7 @@
         "name": "aafpcmlistener_app",
         "location": "../../source/networking/enet/core/examples/tsn/aafpcmlistener_app/am275x-evm/r5fss0-0_freertos/ti-arm-clang/example.projectspec",
         "devtools": [
-            "AM275x_EVM"
+            "AUDIO-AM275-EVM"
         ],
         "kernel": [
             "freertos"
@@ -4484,7 +4484,7 @@
         "name": "aafpcmtalker_app",
         "location": "../../source/networking/enet/core/examples/tsn/aafpcmtalker_app/am275x-evm/r5fss0-0_freertos/ti-arm-clang/example.projectspec",
         "devtools": [
-            "AM275x_EVM"
+            "AUDIO-AM275-EVM"
         ],
         "kernel": [
             "freertos"
@@ -4522,7 +4522,7 @@
         "name": "gptp_app",
         "location": "../../source/networking/enet/core/examples/tsn/gptp_cpsw_app/am275x-evm/r5fss0-0_freertos/ti-arm-clang/example.projectspec",
         "devtools": [
-            "AM275x_EVM"
+            "AUDIO-AM275-EVM"
         ],
         "kernel": [
             "freertos"
@@ -4560,7 +4560,7 @@
         "name": "dcc",
         "location": "../../examples/sdl/dcc/dcc_modes/am275x-evm/r5fss0-0_nortos/ti-arm-clang/example.projectspec",
         "devtools": [
-            "AM275x_EVM"
+            "AUDIO-AM275-EVM"
         ],
         "kernel": [
             "nortos"
@@ -4593,7 +4593,7 @@
         "name": "ecc_example",
         "location": "../../examples/sdl/ecc/am275x-evm/r5fss0-0_nortos/ti-arm-clang/example.projectspec",
         "devtools": [
-            "AM275x_EVM"
+            "AUDIO-AM275-EVM"
         ],
         "kernel": [
             "nortos"
@@ -4625,7 +4625,7 @@
         "name": "mcu_esm0",
         "location": "../../examples/sdl/esm/mcu_esm0/am275x-evm/r5fss0-0_nortos/ti-arm-clang/example.projectspec",
         "devtools": [
-            "AM275x_EVM"
+            "AUDIO-AM275-EVM"
         ],
         "kernel": [
             "nortos"
@@ -4658,7 +4658,7 @@
         "name": "mcrc_auto",
         "location": "../../examples/sdl/mcrc/mcrc_auto/am275x-evm/r5fss0-0_nortos/ti-arm-clang/example.projectspec",
         "devtools": [
-            "AM275x_EVM"
+            "AUDIO-AM275-EVM"
         ],
         "kernel": [
             "nortos"
@@ -4691,7 +4691,7 @@
         "name": "mcrc_full_cpu",
         "location": "../../examples/sdl/mcrc/mcrc_full_cpu/am275x-evm/r5fss0-0_nortos/ti-arm-clang/example.projectspec",
         "devtools": [
-            "AM275x_EVM"
+            "AUDIO-AM275-EVM"
         ],
         "kernel": [
             "nortos"
@@ -4724,7 +4724,7 @@
         "name": "mcrc_semi_cpu",
         "location": "../../examples/sdl/mcrc/mcrc_semi_cpu/am275x-evm/r5fss0-0_nortos/ti-arm-clang/example.projectspec",
         "devtools": [
-            "AM275x_EVM"
+            "AUDIO-AM275-EVM"
         ],
         "kernel": [
             "nortos"
@@ -4757,7 +4757,7 @@
         "name": "pbist_mpu_example",
         "location": "../../examples/sdl/pbist/pbist_mpu/am275x-evm/r5fss0-0_nortos/ti-arm-clang/example.projectspec",
         "devtools": [
-            "AM275x_EVM"
+            "AUDIO-AM275-EVM"
         ],
         "kernel": [
             "nortos"
@@ -4790,7 +4790,7 @@
         "name": "pbist_mpu_example",
         "location": "../../examples/sdl/pbist/pbist_mpu/am275x-evm/r5fss0-0_freertos/ti-arm-clang/example.projectspec",
         "devtools": [
-            "AM275x_EVM"
+            "AUDIO-AM275-EVM"
         ],
         "kernel": [
             "freertos"
@@ -4823,7 +4823,7 @@
         "name": "pbist_mpu_example",
         "location": "../../examples/sdl/pbist/pbist_mpu/am275x-evm/r5fss1-0_nortos/ti-arm-clang/example.projectspec",
         "devtools": [
-            "AM275x_EVM"
+            "AUDIO-AM275-EVM"
         ],
         "kernel": [
             "nortos"
@@ -4856,7 +4856,7 @@
         "name": "pbist_mpu_example",
         "location": "../../examples/sdl/pbist/pbist_mpu/am275x-evm/r5fss1-0_freertos/ti-arm-clang/example.projectspec",
         "devtools": [
-            "AM275x_EVM"
+            "AUDIO-AM275-EVM"
         ],
         "kernel": [
             "freertos"
@@ -4889,7 +4889,7 @@
         "name": "pok_example",
         "location": "../../examples/sdl/pok/pok_mcu/am275x-evm/r5fss0-0_nortos/ti-arm-clang/example.projectspec",
         "devtools": [
-            "AM275x_EVM"
+            "AUDIO-AM275-EVM"
         ],
         "kernel": [
             "nortos"
@@ -4922,7 +4922,7 @@
         "name": "rom_checksum_example",
         "location": "../../examples/sdl/rom_checksum/am275x-evm/r5fss0-0_nortos/ti-arm-clang/example.projectspec",
         "devtools": [
-            "AM275x_EVM"
+            "AUDIO-AM275-EVM"
         ],
         "kernel": [
             "nortos"
@@ -4954,7 +4954,7 @@
         "name": "sdl_rti_example_uc1",
         "location": "../../examples/sdl/rti/UC1/am275x-evm/r5fss0-0_nortos/ti-arm-clang/example.projectspec",
         "devtools": [
-            "AM275x_EVM"
+            "AUDIO-AM275-EVM"
         ],
         "kernel": [
             "nortos"
@@ -4987,7 +4987,7 @@
         "name": "sdl_rti_example_uc2",
         "location": "../../examples/sdl/rti/UC2/am275x-evm/r5fss0-0_nortos/ti-arm-clang/example.projectspec",
         "devtools": [
-            "AM275x_EVM"
+            "AUDIO-AM275-EVM"
         ],
         "kernel": [
             "nortos"
@@ -5020,7 +5020,7 @@
         "name": "sdl_rti_example_uc3",
         "location": "../../examples/sdl/rti/UC3/am275x-evm/r5fss0-0_nortos/ti-arm-clang/example.projectspec",
         "devtools": [
-            "AM275x_EVM"
+            "AUDIO-AM275-EVM"
         ],
         "kernel": [
             "nortos"
@@ -5053,7 +5053,7 @@
         "name": "sdl_rti_example_uc4",
         "location": "../../examples/sdl/rti/UC4/am275x-evm/r5fss0-0_nortos/ti-arm-clang/example.projectspec",
         "devtools": [
-            "AM275x_EVM"
+            "AUDIO-AM275-EVM"
         ],
         "kernel": [
             "nortos"
@@ -5086,7 +5086,7 @@
         "name": "vtm_example",
         "location": "../../examples/sdl/vtm/vtm_uc/am275x-evm/r5fss0-0_nortos/ti-arm-clang/example.projectspec",
         "devtools": [
-            "AM275x_EVM"
+            "AUDIO-AM275-EVM"
         ],
         "kernel": [
             "nortos"
@@ -5119,7 +5119,7 @@
         "name": "empty",
         "location": "../../examples/empty/am275x-evm/system_freertos/system.projectspec",
         "devtools": [
-            "AM275x_EVM"
+            "AUDIO-AM275-EVM"
         ],
         "kernel": [
             "freertos"
@@ -5147,7 +5147,7 @@
         "name": "ipc_notify_echo",
         "location": "../../examples/drivers/ipc/ipc_notify_echo/am275x-evm/system_freertos/system.projectspec",
         "devtools": [
-            "AM275x_EVM"
+            "AUDIO-AM275-EVM"
         ],
         "kernel": [
             "freertos"
@@ -5177,7 +5177,7 @@
         "name": "ipc_rpmsg_echo",
         "location": "../../examples/drivers/ipc/ipc_rpmsg_echo/am275x-evm/system_freertos/system.projectspec",
         "devtools": [
-            "AM275x_EVM"
+            "AUDIO-AM275-EVM"
         ],
         "kernel": [
             "freertos"
@@ -5203,7 +5203,7 @@
         "name": "User Guide",
         "location": "../../docs/api_guide_am275x/index.html",
         "devtools": [
-            "AM275x_EVM"
+            "AUDIO-AM275-EVM"
         ],
         "mainCategories": [
             [
