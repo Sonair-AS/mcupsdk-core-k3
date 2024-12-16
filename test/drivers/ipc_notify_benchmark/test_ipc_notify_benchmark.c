@@ -67,6 +67,7 @@ SemaphoreP_Object gRemoteDoneSem;
 /* Flag to indicate if primary core */
 uint8_t gIsPrimCore = 0;
 
+#ifdef SOC_AM62DX
 CoreCombos gCoreCombos[] =
 {
     {
@@ -100,6 +101,43 @@ CoreCombos gCoreCombos[] =
 };
 
 uint32_t gLoggingCore = CSL_CORE_ID_MCU_R5FSS0_0;
+#endif
+
+#ifdef SOC_AM275X
+CoreCombos gCoreCombos[] =
+{
+    {
+        .primCore = CSL_CORE_ID_C75SS0_0,
+        .secCore = CSL_CORE_ID_C75SS1_0,
+    },
+    {
+        .primCore = CSL_CORE_ID_R5FSS0_0,
+        .secCore = CSL_CORE_ID_R5FSS0_1,
+    },
+    {
+        .primCore = CSL_CORE_ID_R5FSS0_0,
+        .secCore = CSL_CORE_ID_R5FSS1_0,
+    },
+    {
+        .primCore = CSL_CORE_ID_R5FSS0_0,
+        .secCore = CSL_CORE_ID_R5FSS1_1,
+    },
+    {
+        .primCore = CSL_CORE_ID_R5FSS0_0,
+        .secCore = CSL_CORE_ID_C75SS0_0,
+    },
+    {
+        .primCore = CSL_CORE_ID_R5FSS0_0,
+        .secCore = CSL_CORE_ID_C75SS1_0,
+    },
+    {
+        .primCore = CSL_CORE_ID_MAX,
+        .secCore = CSL_CORE_ID_MAX,
+    }
+};
+
+uint32_t gLoggingCore = CSL_CORE_ID_R5FSS0_0;
+#endif
 
 uint32_t gTimeInNs[sizeof(gCoreCombos)/sizeof(gCoreCombos[0]) - 1];
 
