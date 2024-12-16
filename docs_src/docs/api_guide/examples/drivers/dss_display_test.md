@@ -117,6 +117,24 @@ through SBL.
 
 # Sample Output
 
+\cond SOC_AM62X
+\code
+DispApp_init() - DONE !!!
+DSS display application started...
+Display create complete!!
+Starting display ... !!!
+Display in progress ... DO NOT HALT !!!
+Underflow did not occur
+Underflow did not occur
+Sync Lost did not occur
+Display delete complete!!
+Number of frames = 300, elapsed msec = 5032, fps = 59.62
+DispApp_deInit() - DONE !!!
+DSS display test Passed!!
+\endcode
+\endcond
+
+\cond !SOC_AM62X
 \code
 Sciserver Testapp Built On: Dec  7 2023 14:12:00
 Sciserver Version: v2023.11.0.0REL.MCUSDK.MM.NN.PP.bb
@@ -135,6 +153,8 @@ Number of frames = 300, elapsed msec = 5032, fps = 59.62
 DispApp_deInit() - DONE !!!
 DSS display test Passed!!
 \endcode
+\endcond
+
 
 **Display Output**
 \image html docs_src/docs/api_guide/images/examples/dss_display_test_output.png width=50%

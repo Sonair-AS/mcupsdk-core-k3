@@ -126,6 +126,64 @@ through SBL.
 \ref DRIVERS_DSS_PAGE
 
 # Sample Output
+
+\cond SOC_AM62X
+\code
+DispApp_init() - DONE !!!
+DSS display application started...
+Display create complete!!
+Starting display ... !!!
+Display in progress ... DO NOT HALT !!!
+Underflow did not occur
+Underflow did not occur
+Sync Lost did not occur
+Display delete complete!!
+DispApp_deInit() - DONE !!!
+****************************************************
+Safety Data Log Region : 0
+Safety Data VP ID: VP1
+Safety Check Interupt Trigger: TRUE
+Safety Check Mode: FRAME_FREEZE_DETECT
+Safety Data Frame count: 13
+Safety Data Captured Signature: 0xCCFA10E0
+****************************************************
+Safety Data Log Region : 1
+Safety Data VP ID: VP1
+Safety Check Interupt Trigger: TRUE
+Safety Check Mode: FRAME_FREEZE_DETECT
+Safety Data Frame count: 33
+Safety Data Captured Signature: 0x7FE99F52
+****************************************************
+Safety Data Log Region : 2
+Safety Data VP ID: VP1
+Safety Check Interupt Trigger: TRUE
+Safety Check Mode: DATA_INTEGRITY
+Safety Data Frame count: 73
+Safety Data Captured Signature: 0x5576A020
+****************************************************
+Safety Data Log Region : 3
+Safety Data VP ID: VP1
+Safety Check Interupt Trigger: TRUE
+Safety Check Mode: DATA_INTEGRITY
+Safety Data Frame count: 73
+Safety Data Captured Signature: 0xCD822043
+****************************************************
+Safety Data Pipeline ID: VID1
+Safety Check Interupt Trigger: TRUE
+Safety Check Mode: FRAME_FREEZE_DETECT
+Safety Data Frame count: 53
+Safety Data Captured Signature: 0xF6BA4989
+****************************************************
+Safety Data Pipeline ID: VIDL1
+Safety Check Interupt Trigger: TRUE
+Safety Check Mode: DATA_INTEGRITY
+Safety Data Frame count: 73
+Safety Data Captured Signature: 0xC948AD61
+DSS Safety Test Passed!!
+\endcode
+\endcond
+
+\cond !SOC_AM62X
 \code
 Sciserver Testapp Built On: Dec  7 2023 14:12:00
 Sciserver Version: v2023.11.0.0REL.MCUSDK.MM.NN.PP.bb
@@ -183,3 +241,4 @@ Safety Data Frame count: 73
 Safety Data Captured Signature: 0xC948AD61
 DSS Safety Test Passed!!
 \endcode
+\endcond
