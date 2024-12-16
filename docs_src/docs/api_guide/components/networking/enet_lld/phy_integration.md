@@ -73,19 +73,20 @@ specific drivers, while the latter can be carried out directly by the main PHY
 driver.
 
 This model facilitates the addition of new drivers for PHY devices not yet
-supported in the Enet LLD. The `EnetPhy_Drv` structure is defined as the
+supported in the Enet LLD. The `Phy_DrvObj_t` structure is defined as the
 interface that device specific drivers must implement.  Since this structure is
 not exposed to the application, its scope is internal to the Enet LLD.
 
 ![Ethernet PHY Driver Interface]
  (EnetPhy_Drv.png "Ethernet PHY Driver Interface")
 
-The members of the `EnetPhy_Drv` structure can be mandatory or optional in
+The members of the `Phy_DrvObj_t` structure can be mandatory or optional in
 nature. Optional members can be set to NULL if the PHY doesn't provide an
 implementation for them. The list below provides a description of the purpose
-of each `EnetPhy_Drv` member.
+of each `Phy_DrvObj_t` member.
 
 - **name**: Driver name.
+- **bind**: The main PHY driver will call this function to bind the driver handle and register access functions to specific PHY device.
 - **isPhyDevSupported()**: Function pointer used by the main PHY driver to check
   if this device specific driver support a given PHY hardware identified by
   its version (OUI). This function is used during PHY device to driver binding.
@@ -109,16 +110,35 @@ of each `EnetPhy_Drv` member.
   EnetPhy_printRegs() is called. This function is optional and will not be called
   if the driver sets the function pointer to `NULL`.
 
+ The below functions are optional and can only be supported when the PHY has a built-in PTP clock.
+- **adjPtpFreq()**: The main PHY driver will call this function when EnetPhy_adjPtpFreq() is called to adjust PTP clock frequency.
+- **adjPtpPhase()**: The main PHY driver will call this function when EnetPhy_adjPtpPhase() is called to adjust PTP clock phase.
+- **getPtpTime()**: The main PHY driver will call this function when EnetPhy_getPtpTime() is called to get current PHY PTP clock time.
+- **setPtpTime()**: The main PHY driver will call this function when EnetPhy_setPtpTime() is called to set PHY PTP clock time.
+- **getPtpTxTime()**: The main PHY driver will call this function when EnetPhy_getPtpTxTime() is called to get PHY PTP TX packet timestamp.
+- **getPtpRxTime()**: The main PHY driver will call this function when EnetPhy_getPtpRxTime() is called to get PHY PTP RX packet timestamp.
+- **waitPtpTxTime()**: The main PHY driver will call this function when EnetPhy_waitPtpTxTime() is called to add PHY PTP TX packet info to a waiting TX timestamp list.
+- **procStatusFrame()**: The main PHY driver will call this function when EnetPhy_procStatusFrame() is called to process PHY status frame.
+- **getStatusFrameEthHeader()**: The main PHY driver will call this function when EnetPhy_getStatusFrameEthHeader() is called to get the Ethernet header of the PHY status frame.
+- **enablePtp()**: The main PHY driver will call this function when EnetPhy_enablePtp() is called to enable/disable the PHY PTP module.
+- **tickDriver()**: The main PHY driver will call this function when EnetPhy_tickDriver() is called to provide timer tick to the driver.
+- **enableEventCapture()**: The main PHY driver will call this function when EnetPhy_enableEventCapture() is called to enable/disable an event capture on a PHY GPIO pin. This function can only be supported when the built-in PTP clock supports event capture.
+- **enableTriggerOutput()**: The main PHY driver will call this function when EnetPhy_enableTriggerOutput() is called to enable/disable trigger output on a GPIO pin. This function can only be supported when the built-in PTP clock supports trigger output.
+- **getEventTs()**: The main PHY driver will call this function when () is called when EnetPhy_getEventTs() is called to get event timestamp.
+
 The current version of Enet LLD includes the following PHY drivers:
 - Generic PHY driver.
 - TI [DP83867](http://www.ti.com/lit/ds/symlink/dp83867cr.pdf) RGMII PHY driver.
 - TI [DP83869](https://www.ti.com/lit/ds/symlink/dp83869hm.pdf) RGMII PHY driver.
 - TI [DP83822](https://www.ti.com/lit/ds/symlink/dp83822i.pdf) RMII PHY driver.
-- VSC8514 QSGMII PHY driver.
+- TI [DP83826](https://www.ti.com/lit/ds/symlink/dp83826e.pdf) RMII PHY driver.
+- TI [DP83TG720](https://www.ti.com/lit/ds/symlink/dp83tg720s-q1.pdf) Automotive PHY driver.
+- TI [DP83TG721](https://www.ti.com/lit/ds/symlink/dp83tg721s-q1.pdf) Automotive PHY driver.
+- TI [DP83TC812](https://www.ti.com/lit/ds/symlink/dp83tc812r-q1.pdf) Automotive PHY driver.
 
 The generic PHY driver is a special case because its implementation is limited
 to IEEE-Standard MII registers. Reuse of PHY generic function by other
-device-specific drivers is possible when their `EnetPhy_Drv` implementation
+device-specific drivers is possible when their `Phy_DrvObj_t` implementation
 doesn't deviate from standard. The diagram in figure below shows the reuse of
 extended register read/write functions by the DP83867 driver.
 
@@ -146,9 +166,8 @@ specific drivers that are registered and that will participate in the search
 for the best driver for the PHY that had been recently discovered.
 
 \code{.c}
-static EnetPhyDrv_Handle gEnetPhyDrvs[] =
+static const EthPhyDrv_If gEnetPhyDrvs[] =
 {
-    &gEnetPhyDrvVsc8514,   /* VSC8514 */
     &gEnetPhyDrvDp83822,   /* DP83822 */
     &gEnetPhyDrvDp83867,   /* DP83867 */
     &gEnetPhyDrvDp83869,   /* DP83869 */
@@ -170,75 +189,11 @@ PHY full functionality can't be guaranteed.
 
 # Implementing a New PHY Driver {#enetphy_guide_implementing}
 
-The following list of steps is provided as guideline when adding a new PHY
-driver for a device which is not supported by Enet LLD.
+You can find the guide for implementing a new PHY Driver **[here](\ref custom_enetphy_guide)**.
 
-- Create the public PHY specific header file at `<ENET_LLD>/include/phy`.
-   + This header file should have the device extended configuration
-     structure definition (if applicable) as well as auxiliary structures or
-     enumerations.
-  ![](MyPhy_h.png)
-- Create new source file and private header file (if needed) for the new PHY
-  driver at `<ENET_LLD>/src/phy`.
-  ![](MyPhy_c.png)
-- Declare a global structure of type `EnetPhy_Drv`, but don't make it static.
-  This variable will be later accessed as an extern symbol by the Ethernet PHY
-  driver.
-- Initialize `EnetPhy_Drv` structure with the function pointers of the device
-  specific implementation.
-   + Look for reuse of PHY generic functions if a device specific implementation
-     is not needed.
+# MAC2MAC feature (NO-PHY mode) {#mac_to_mac_mode}
 
-\code{.c}
-EnetPhy_Drv gEnetPhyDrvMyDrv =
-{
-    .name               = "My PHY driver",
-    .isPhyDevSupported  = MyPhy_isPhyDevSupported,
-    .isMacModeSupported = MyPhy_isMacModeSupported,
-    .config             = MyPhy_config,
-    .reset              = MyPhy_reset,
-    .isResetComplete    = MyPhy_isResetComplete,
-    .runComplianceTest  = NULL,
-    .readExtReg         = GenericPhy_readExtReg,
-    .writeExtReg        = GenericPhy_writeExtReg,
-    .printRegs          = MyPhy_printRegs,
-};
-\endcode
-
-- Declare the variable of type `EnetPhy_Drv` as extern in main PHY driver
-  located at `<ENET_LLD>/src/phy/enetphy.c`. Also, add it to the `gEnetPhyDrvs`
-  array.
-
-\code{.c}
-extern EnetPhy_Drv gEnetPhyDrvGeneric;
-extern EnetPhy_Drv gEnetPhyDrvDp83822;
-extern EnetPhy_Drv gEnetPhyDrvDp83867;
-extern EnetPhy_Drv gEnetPhyDrvDp83869;
-extern EnetPhy_Drv gEnetPhyDrvVsc8514;
-extern EnetPhy_Drv gEnetPhyDrvMyDrv;
-
-static EnetPhyDrv_Handle gEnetPhyDrvs[] =
-{
-    &gEnetPhyDrvMyDrv,     /* My PHY driver */
-    &gEnetPhyDrvVsc8514,   /* VSC8514 */
-    &gEnetPhyDrvDp83822,   /* DP83822 */
-    &gEnetPhyDrvDp83867,   /* DP83867 */
-    &gEnetPhyDrvDp83869,   /* DP83869 */
-    &gEnetPhyDrvGeneric,   /* Generic PHY - must be last */
-};
-\endcode
-
-- Add the PHY source file to `SRCS_COMMON` in the Ethernet PHY driver makefile
-  locate at `<ENET_LLD>/src/phy/makefile`.
-
-\code
-SRCS_COMMON += enetphy.c generic_phy.c
-SRCS_COMMON += dp83869.c dp83867.c dp83822.c vsc8514.c
-\endcode
-
-- PHY driver directory is already part of the `SRCDIR`, so just the source
-  name needs to be added.
-
+You can find the guide to enable MAC2MAC support **[here](\ref enet_mac2mac_top)**.
 
 # Appendix {#enetphy_guide_appendix}
 
