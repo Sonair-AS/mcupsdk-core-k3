@@ -41,13 +41,14 @@ A53 applications booted with ATF now                                            
 Feature                                                             | Module
 --------------------------------------------------------------------|--------------------------
 FreeRTOS AMP support on A53.                                        | DPL, FreeRTOS
+A53 FreeRTOS AMP examples demonstrating usage of ethernet           | Networking
 
 ### FreeRTOS Support on A53
 Is                                                      | Is Not
 --------------------------------------------------------|--------------------------
 FreeRTOS AMP support on A53                             | GPU Support
 Drivers listed for A53 in "SOC Device Drivers" section  | Low power mode support
--                                                       | CSI RX Driver
+Networking                                              | CSI RX Driver
 -                                                       | WiFi, USB, BLE Drivers
 -                                                       | Safety on A53
 
@@ -99,6 +100,13 @@ OSPI NAND | R5F            | Yes               | Yes         |   Yes       | NOR
 EMMC      | R5F            | Yes               | NA          |   NA        | NORTOS
 UART      | R5F            | Yes               | NA          |   No        | NORTOS
 
+### Networking
+
+Module                      | Supported CPUs | SysConfig Support | OS Support  | Key features tested                                                                                                                                                                    | Key features not tested
+----------------------------|----------------|-------------------|-------------|----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|--------------------------------------------------------------------------------------------------
+TSN                         | A53            | NO                | FreeRTOS    | [Experimental] gPTP IEEE 802.1 AS-2020 compliant gPTP stack, End Nodes and Bridge mode support, YANG data model configuration  | Multi-Clock Domain
+LwIP                        | A53            | YES               | FreeRTOS    | [Experimental] TCP/UDP IP networking stack with and without checksum offload enabled, TCP/UDP IP networking stack with server and client functionality, basic Socket APIs, netconn APIs and raw APIs, DHCP, ping, TCP iperf, scatter-gather, DSCP priority mapping, LwIP bridge, shared memory driver  | Other LwIP features
+Ethernet driver (ENET)      | A53            | YES               | FreeRTOS    | [Experimental] Ethernet as port using CPSW,  MAC loopback and PHY loopback, Layer 2 MAC, Packet Timestamping, CPSW Switch, Policer and Classifier, MDIO Manual Mode, CBS (IEEE 802.1Qav) on CPSW, IET (IEEE 802.1Qbu) on CPSW, Strapped PHY (Early Ethernet), cut through switch on CPSW  | RMII mode
 
 ### SOC Device Drivers
 

@@ -23,6 +23,14 @@ Support for SW version check of binaries through RPRC header                    
 SBL now ensures the cores are switched off if no application image is present                  | Bootloader
 SBL NULL: Close flash drivers before jumping to DM application                                 | Bootloader
 A53 priv-id is now set to 1 to match other SOCs (instead of previous value 4)                  | TIFS
+WKUP-R5 FreeRTOS examples demonstrating usage of ethernet Networking with LwIP and TSN         | Networking
+
+## Other Updates on This Release
+
+Update                                                                                                  | Module
+--------------------------------------------------------------------------------------------------------|-----------------------------------
+Networking Examples have been moved from examples to source/networking/enet/core/                       | Networking
+PHY drivers used by networking examples have been moved, and added support through sysconfig-GUI        | Networking
 
 ## Dependent Tools and Compiler Information
 \attention It is recommended to use the TIFS version provided with the release for ensuring compatibility between TIFS and device manager. Using the TIFS from different MCU+SDK release is not recomended and may cause TIFS/ DM functionality to break.
@@ -87,6 +95,13 @@ PBIST            |MCU-R5F         | No
 LBIST            |MCU-R5F         | No
 ROM_CHECKSUM     |MCU-R5F         | No
 
+### Networking
+
+Module                      | Supported CPUs | SysConfig Support | OS Support  | Key features tested                                                                                                                                                                    | Key features not tested
+----------------------------|----------------|-------------------|-------------|----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|--------------------------------------------------------------------------------------------------
+TSN                         | WKUP-R5F       | NO                | FreeRTOS    | gPTP IEEE 802.1 AS-2020 compliant gPTP stack, End Nodes and Bridge mode support, YANG data model configuration  | Multi-Clock Domain
+LwIP                        | WKUP-R5F       | YES               | FreeRTOS    | TCP/UDP IP networking stack with and without checksum offload enabled, TCP/UDP IP networking stack with server and client functionality, basic Socket APIs, netconn APIs and raw APIs, DHCP, ping, TCP iperf, scatter-gather, DSCP priority mapping, LwIP bridge, shared memory driver  | Other LwIP features
+Ethernet driver (ENET)      | WKUP-R5F       | YES               | FreeRTOS    | Ethernet as port using CPSW,  MAC loopback and PHY loopback, Layer 2 MAC, Packet Timestamping, CPSW Switch, Policer and Classifier, MDIO Manual Mode, CBS (IEEE 802.1Qav) on CPSW, IET (IEEE 802.1Qbu) on CPSW, Strapped PHY (Early Ethernet), cut through switch on CPSW  | RMII mode
 
 ### SOC Device Drivers
 
