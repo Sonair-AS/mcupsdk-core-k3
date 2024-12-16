@@ -6,16 +6,36 @@
         deviceName = "AM273x"
     if(args.device == "am62x")
         deviceName = "AM62x"
+
     sdkName="MCU+ SDK"
+    coreList="ARM R5F, ARM M4F, ARM A53, ARM C7X"
     if(isDevelopmentMode)
     {
         deviceName = "AMXXX";
     }
     else
     {
-        if(args.device == "am275x")
+        if(args.device == "am62x")
+        {
+            coreList="ARM R5F, ARM M4F, ARM A53"
+        }
+        else if(args.device == "am62ax" || args.device == "am62dx")
+        {
+            coreList="ARM R5F, ARM A53, TI C7X"
+        }
+        else if(args.device == "am62px")
+        {
+            coreList="ARM R5F"
+        }
+        else if(args.device == "am62lx")
         {
             sdkName="FreeRTOS SDK"
+            coreList="ARM A53"
+        }
+        else if(args.device == "am275x")
+        {
+            sdkName="FreeRTOS SDK"
+            coreList="ARM R5F, TI C7X"
         }
     }
 %%}
@@ -33,7 +53,7 @@
         % }
         "devices": ["`deviceName`"],
         "tags": ["SDK", "Baremetal", "FreeRTOS"],
-        "description": "Welcome to `sdkName` for `deviceName`. This SDK contains examples, libraries and tools to develop RTOS and no-RTOS based applications for ARM R5F, ARM M4F CPUs and related peripherals.",
+        "description": "Welcome to `sdkName` for `deviceName`. This SDK contains examples, libraries and tools to develop RTOS and no-RTOS based applications for `coreList` CPUs and related peripherals.",
         "dependencies": [
             % if(((args.device == "am273x") || (args.device == "awr294x")) && (!isDevelopmentMode)) {
             { "packageId": "sysconfig", "version": "1.13.0", "require": "mandatory" },
