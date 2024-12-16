@@ -45,6 +45,11 @@ This page lists all the examples related to Ethernet Communication.
 -# \subpage EXAMPLES_ENET_LWIP_CPSW
 -# \subpage ENET_LWIP_CPSW_OPERATING_MODES
 -# \subpage EXAMPLES_ENET_LWIP_CPSW_TCPSERVER
+### Time-Sensitive Networking (TSN) Examples on FreeRTOS
+-# \subpage EXAMPLES_ENET_CPSW_TSN_GPTP_TR
+-# \subpage EXAMPLES_ENET_CPSW_TSN_GPTP_TT
+-# \subpage EXAMPLES_ENET_CPSW_TSN_GPTP_BRIDGE
+-# \subpage EXAMPLES_ENET_CPSW_AVTP
 \endcond
 
 \cond SOC_AM62DX

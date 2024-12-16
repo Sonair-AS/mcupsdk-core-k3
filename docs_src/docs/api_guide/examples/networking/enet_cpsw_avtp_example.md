@@ -55,6 +55,7 @@ Not support in this device
  Toolchain      | ti-arm-clang
  Board          | @VAR_BOARD_NAME_LOWER
  Example folder | examples/networking/tsn/aafpcmlistener_app, aafpcmtalker_app, dolbyec3talker_app, dolbyec3listener_app
+ Example folder | examples/networking/tsn/acf_app, aafpcmlistener_app, aafpcmtalker_app
 
 \endcond
 # Prerequisites
