@@ -10,10 +10,10 @@
 FreeRTOS is a market-leading real-time operating system (RTOS) for microcontrollers and small microprocessors. Distributed freely under the MIT open source license, FreeRTOS includes a kernel and a growing set of libraries suitable for use across all industry sectors. FreeRTOS is built with an emphasis on reliability and ease of use.
 
 @VAR_SDK_NAME supports FreeRTOS on below CPUS
-\cond !SOC_AM62AX && !SOC_AM62PX && !SOC_AM62DX
+\cond !SOC_AM62AX && !SOC_AM62PX && !SOC_AM62DX && !SOC_AM275X
 - ARM M4F
 \endcond
-\cond !SOC_AM62AX && !SOC_AM62DX
+\cond !SOC_AM62AX && !SOC_AM62DX && !SOC_AM275X
 - ARM R5F
 \endcond
 \cond SOC_AM64X
@@ -33,6 +33,10 @@ FreeRTOS is a market-leading real-time operating system (RTOS) for microcontroll
 \endcond
 \cond SOC_AM62X
 - ARM A53 (single core)
+\endcond
+\cond SOC_AM275X
+- ARM R5F
+- TI  C75
 \endcond
 
 ## Features Supported {#FREERTOS_SUPPORTED_FEATURES}
@@ -61,7 +65,7 @@ FreeRTOS is a market-leading real-time operating system (RTOS) for microcontroll
     - nested interrupts are supported.
 \endcond
 \endcond
-\cond !SOC_AM62AX && !SOC_AM62AX
+\cond !SOC_AM62AX && !SOC_AM62AX && !SOC_AM275X
 - M4F ISRs,
   - nested interrupts supported
 \endcond
@@ -133,9 +137,10 @@ SysConfig can be used to configure below modules with FreeRTOS
 - MCU_R5F ISRs
   - FPU save/restore not supported.
 \endcond
+\cond !SOC_AM275X
 - A53 ISRs,
   - FPU save/restore not supported.
-
+\endcond
 
 ## Important files and directory structure
 

@@ -196,8 +196,6 @@ It consists of below sub-modules
 - \subpage DRIVERS_BOOTLOADER_PAGE
 - \subpage DRIVERS_DEVICE_MANAGER_PAGE
 - \subpage DRIVERS_GPIO_PAGE
-- \subpage DRIVERS_ECAP_PAGE
-- \subpage DRIVERS_EPWM_PAGE
 - \subpage DRIVERS_GTC_PAGE
 - \subpage DRIVERS_I2C_PAGE
 - \subpage DRIVERS_IPC_NOTIFY_PAGE

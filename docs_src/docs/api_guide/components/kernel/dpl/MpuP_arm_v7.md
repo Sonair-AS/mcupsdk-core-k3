@@ -14,7 +14,7 @@ NA
 
 ## Important Usage Guidelines
 
-\cond !SOC_AM62X && !SOC_AM62DX
+\cond !SOC_AM62X && !SOC_AM62DX && !SOC_AM275X
 - Refer to ARMv7-R or ARMv7-M architecture manual for more details
 - The number of MPU entries varies based on the ARM R5, ARM M4 instantiated in a given DEVICE, refer DEVICE datasheet for more details.
 - In R5 for this DEVICE, there are 16 MPU regions
@@ -33,8 +33,13 @@ NA
 - The number of MPU entries varies based on the ARM R5 instantiated in a given DEVICE, refer DEVICE datasheet for more details.
 - In R5 for this DEVICE, there are 16 MPU regions
 \endcond
-\cond !SOC_AM62AX && !SOC_AM62DX
+\cond !SOC_AM62AX && !SOC_AM62DX && !SOC_AM275X
 - In M4 for this DEVICE, there are 16 MPU regions
+\endcond
+\cond SOC_AM275X
+- Refer to ARMv7-R architecture manual for more details
+- The number of MPU entries varies based on the ARM R5 instantiated in a given DEVICE, refer DEVICE datasheet for more details.
+- In R5 for this DEVICE, there are 16 MPU regions
 \endcond
 - MPU regions can overlap each other, with higher numbered regions taking more precedence in case of address overlaps.
 

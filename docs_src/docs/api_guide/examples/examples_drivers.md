@@ -291,14 +291,8 @@ This page lists all the examples related to usage of SOC and board peripheral dr
 \endcond
 
 \cond SOC_AM275X
--# ECAP
-   -# \subpage EXAMPLES_DRIVERS_ECAP_APWM_MODE
-   -# \subpage EXAMPLES_DRIVERS_ECAP_EPWM_LOOPBACK
 -# EEPROM
    -# \subpage EXAMPLES_DRIVERS_EEPROM_READ_WRITE
--# EPWM
-   -# \subpage EXAMPLES_DRIVERS_EPWM_DUTY_CYCLE
-   -# \subpage EXAMPLES_DRIVERS_EPWM_DUTY_CYCLE_SYNC
 -# GPIO
    -# \subpage EXAMPLES_DRIVERS_GPIO_INPUT_INTERRUPT
    -# \subpage EXAMPLES_DRIVERS_GPIO_LED_BLINK
