@@ -521,6 +521,29 @@ ROM Checksum |MCU-R5F         | No
     <td> Running MCU LBIST on SBL causes JTAG connection issues to MCU R5F
     <td> LBIST
     <td> 09.00.00
+    <td> None.
+</tr>
+<tr>
+    <td> PROC_SDL-8863
+    <td> ECC is failing for 2 Bit VTM selftest
+    <td> SDL
+    <td> 10.01.00
+    <td> None
+</tr>
+<tr>
+    <td> PROC_SDL-8861
+    <td> SDL cannot test the following aggregators due to firewall : SDL_SA3_SS0_SA3SS_AM62A_DMSS_ECCAGGR
+    SDL_SMS0_SMS_HSM_ECC
+    SDL_SMS0_SMS_TIFS_ECC
+    <td> SDL
+    <td> 10.01.00
+    <td> None
+</tr>
+<tr>
+    <td> PROC_SDL-8792
+    <td> System_deinit error in MCRC Semi cpu and Auto CPU examples.
+    <td> SDL
+    <td> 10.01.00
     <td> None
 </tr>
 <tr>
