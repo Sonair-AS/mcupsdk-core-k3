@@ -54,7 +54,7 @@ static void GPIO_bankIsrFxn(void *args);
 extern void Board_gpioInit(void);
 extern void Board_gpioDeinit(void);
 extern uint32_t Board_getGpioButtonIntrNum(void);
-#if defined(__C7504__)
+#if defined(__C7504__) || defined(__C7524__)
 extern uint32_t Board_getGpioButtonEventId(void);
 #endif
 extern char* Board_getGpioButtonSwitchNum(void);
@@ -76,7 +76,7 @@ void gpio_input_interrupt_main(void *args)
     intrNum         = Board_getGpioButtonIntrNum();
     bankNum         = GPIO_GET_BANK_INDEX(pinNum);
 
-    #if defined(__C7504__)
+    #if defined(__C7504__) || defined(__C7524__)
     eventId         = Board_getGpioButtonEventId();
     #endif
 
