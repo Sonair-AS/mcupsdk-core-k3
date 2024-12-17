@@ -119,6 +119,24 @@ ROM_CHECKSUM     |  R5F           | No
 
 \note This is BQ release for SDL. FSQ release will be provided in next release. \n
 
+### SDL
+
+SDL Module       | Supported CPUs | SysConfig Support
+-----------------|----------------|-------------------
+MCRC             |  R5F           | No
+ESM              |  R5F           | No
+VTM              |  R5F           | No
+DCC              |  R5F           | No
+ECC              |  R5F           | No
+RTI              |  R5F           | No
+POK              |  R5F           | No
+PBIST            |  R5F           | No
+LBIST            |  R5F           | No
+ROM_CHECKSUM     |  R5F           | No
+
+
+\note This is BQ release for SDL. FSQ release will be provided in next release. \n
+
 ## Fixed Issues
 
 
@@ -164,7 +182,29 @@ ROM_CHECKSUM     |  R5F           | No
 </tr>
 <tr>
     <td> PROC_SDL-8790
-    <td> Few ECC aggregators (IDOM aggregators 4 to 11, FSS1_OSPI1, WKUP_AGGR0_DM, WKUP_PSRAM) are failing
+    <td> ECC is not supported for some instances. These are
+    SDL_IDOM0_PULSAR_PLL_ECC_AGGR10
+    SDL_IDOM0_PULSAR_PLL_ECC_AGGR8
+    SDL_IDOM0_MAIN_PLL_ECC_AGGR6_IDOM0_MAIN_PLL_ECC_AGGR
+    SDL_IDOM0_MAIN_PLL_ECC_AGGR4_IDOM0_MAIN_PLL_ECC_AGGR
+    SDL_IDOM1_MAIN_PLL_ECC_AGGR5_IDOM1_MAIN_PLL_ECC_AGGR
+    SDL_IDOM1_MAIN_PLL_ECC_AGGR7_IDOM1_MAIN_PLL_ECC_AGGR
+    SDL_IDOM1_PULSAR_PLL_ECC_AGGR9
+    SDL_IDOM1_PULSAR_PLL_ECC_AGGR11
+    SDL_FSS1_FSS_OSPI1_OSPI_WRAP_ECC_AGGR
+    SDL_WKUP_ECC_AGGR0_AM275_DM_DM_ECC_AGGR
+    SDL_WKUP_PSRAM2KX32E0_PSRAM2KX32E_ECC_AGGR
+    <td> SDL
+    <td> 10.01.00
+    <td> None
+</tr>
+<tr>
+    <td> PROC_SDL-8861
+    <td> ECC is not supported for some instances due to firewall. These are
+    SDL_SA3_SS0_SA3SS_AM62A_DMSS_ECCAGGR
+    SDL_SA3_SS0_SA3SS_AM62A_SA_UL_ECC_AGGR
+    SDL_SMS0_SMS_HSM_ECC
+    SDL_SMS0_SMS_TIFS_ECC
     <td> SDL
     <td> 10.01.00
     <td> None
