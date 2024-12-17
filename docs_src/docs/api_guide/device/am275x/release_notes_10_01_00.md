@@ -94,6 +94,24 @@ EEPROM     | R5F            | Yes
 Flash      | WKUP-R5F       | Yes
 LED        | R5F            | Yes
 
+### SDL
+
+SDL Module       | Supported CPUs | SysConfig Support
+-----------------|----------------|-------------------
+MCRC             |  R5F           | No
+ESM              |  R5F           | No
+VTM              |  R5F           | No
+DCC              |  R5F           | No
+ECC              |  R5F           | No
+RTI              |  R5F           | No
+POK              |  R5F           | No
+PBIST            |  R5F           | No
+LBIST            |  R5F           | No
+ROM_CHECKSUM     |  R5F           | No
+
+
+\note This is BQ release for SDL. FSQ release will be provided in next release. \n
+
 ## Fixed Issues
 
 
@@ -124,11 +142,32 @@ LED        | R5F            | Yes
     <th> Workaround
 </tr>
 <tr>
-    <td> NA
-    <td> NA
-    <td> NA
-    <td> NA
-    <td> NA
+    <td> PROC_SDL-8786
+    <td> PBIST MAIN IP Controller (PBIST0) fails if tested and hence has been disabled 
+    <td> SDL
+    <td> 10.01.00
+    <td> None
+</tr>
+<tr>
+    <td> PROC_SDL-8788
+    <td> Secondary core testing of MAIN_PULSAR_0 and MAIN_PULSAR_1 Controllers (PBIST1, PBIST2) fails if tested and hence is disabled
+    <td> SDL
+    <td> 10.01.00
+    <td> None
+</tr>
+<tr>
+    <td> PROC_SDL-8790
+    <td> Few ECC aggregators (IDOM aggregators 4 to 11, FSS1_OSPI1, WKUP_AGGR0_DM, WKUP_PSRAM) are failing
+    <td> SDL
+    <td> 10.01.00
+    <td> None
+</tr>
+<tr>
+    <td> PROC_SDL-8792
+    <td> System_deinit error in MCRC Semi CPU and Auto CPU examples
+    <td> SDL
+    <td> 10.01.00
+    <td> None
 </tr>
 </table>
 
