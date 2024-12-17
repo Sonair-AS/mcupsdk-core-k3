@@ -491,6 +491,38 @@ ROM_CHECKSUM     |MCU-R5F         | No
     <td> 09.02.00
     <td> None
 </tr>
+<tr>
+    <td> PROC_SDL-8582
+    <td> VTM Example is failing in no-bootmode
+    <td> SDL
+    <td> 10.01.00 
+    <td> Use UART Bootmode
+</tr>
+<tr>
+    <td> PROC_SDL-8860 (MCAN1), PROC_SDL-7044 (CSI)
+    <td> ECC is not supported for some instances. These are
+    SDL_MCAN1_MCANSS_MSGMEM_WRAP_ECC_AGGR
+    SDL_CSI_RX_IF0_CSI_RX_IF_ECC_AGGR
+    <td> SDL
+    <td> 10.01.00 (MCAN1), 09.01.00 (CSI)
+    <td> None
+</tr>
+<tr>
+    <td> PROC_SDL-8861
+    <td> ECC is not supported for some instances due to firewall. These are
+    SDL_SA3_SS0_SA3SS_AM62A_DMSS_ECCAGGR
+    SDL_SA3_SS0_SA3SS_AM62A_SA_UL_ECC_AGGR
+    <td> SDL
+    <td> 10.01.00
+    <td> None
+</tr>
+<tr>
+    <td> PROC_SDL-8792
+    <td> System_deinit error in MCRC Semi CPU and Auto CPU examples
+    <td> SDL
+    <td> 10.01.00
+    <td> None
+</tr>
 </table>
 
 ## Limitations

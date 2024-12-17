@@ -399,6 +399,24 @@ ROM Checksum | R5F            | No
     <td> 10.01.00
 </tr>
 <tr>
+    <td> PROC_SDL-8139
+    <td> SDL ECC example application exits with failure on UC-2
+    <td> SDL
+    <td> 10.01.00
+</tr>
+<tr>
+    <td> PROC_SDL-8137
+    <td> PBIST example app fails when built for freertos
+    <td> SDL
+    <td> 10.01.00
+</tr>
+<tr>
+    <td> PROC_SDL-8134
+    <td> POK example app fails when built for freertos
+    <td> SDL
+    <td> 10.01.00
+</tr>
+<tr>
     <td> SITSW-3685
     <td> DM Sciclient ignores flags field for TIFS bound messages
     <td> DM
@@ -522,6 +540,54 @@ ROM Checksum | R5F            | No
     <td> DM (LPM)
     <td> 10.01.00
     <td> None.
+</tr>
+<tr>
+    <td> PROC_SDL-8582
+    <td> VTM Example is failing in no-bootmode for M4F core
+    <td> SDL
+    <td> 10.01.00 
+    <td> Use UART Bootmode
+</tr>
+<tr>
+    <td> PROC_SDL-8404 (CSI), PROC_SDL-8872 (WKUP_R5F), PROC_SDL-8865 (ICSS)
+    <td> ECC is not supported for some instances. These are
+    SDL_CSI_RX_IF0_CSI_RX_IF_ECC_AGGR
+    SDL_WKUP_R5FSS0_PULSAR_UL_CPU0_ECC_AGGR
+    SDL_ICSSM0_ICSS_M_CORE_BORG_ECC_AGGR
+    <td> SDL
+    <td> 10.01.00 (WKUP_R5F,ICSS), 09.01.00 (CSI)
+    <td> None
+</tr>
+<tr>
+    <td> PROC_SDL-8861
+    <td> ECC is not supported for some instances due to firewall. These are
+    SDL_SA3_SS0_SA3SS_AM62_DMSS_ECCAGGR
+    SDL_SMS0_SMS_HSM_ECC
+    SDL_SMS0_SMS_TIFS_ECC
+    <td> SDL
+    <td> 10.01.0
+    <td> None
+</tr>
+<tr>
+    <td> PROC_SDL-8792
+    <td> System_deinit error in MCRC Semi CPU and Auto CPU examples
+    <td> SDL
+    <td> 10.01.00
+    <td> None
+</tr>
+<tr>
+    <td> PROC_SDL-8870
+    <td> VTM Example is failing on R5F core
+    <td> SDL
+    <td> 10.01.00
+    <td> Generate binary for M4F core
+</tr>
+<tr>
+    <td> PROC_SDL-8890
+    <td> ECC TCM Example is failing
+    <td> SDL
+    <td> 10.01.00
+    <td> None
 </tr>
 </table>
 
