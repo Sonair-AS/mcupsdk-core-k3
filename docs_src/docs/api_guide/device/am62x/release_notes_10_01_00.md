@@ -116,6 +116,12 @@ UART      | R5F            | Yes               | NA          |   No        | NOR
         <td>Yes</td>
     </tr>
     <tr>
+        <td>DSS</td>
+        <td>Main</td>
+        <td>A53</td>
+        <td>Yes</td>
+    </tr>
+    <tr>
         <td>ECAP</td>
         <td>Main</td>
         <td>A53</td>
@@ -303,51 +309,93 @@ ROM Checksum | R5F            | No
     <th> Applicable Releases
 </tr>
 <tr>
+    <td> \htmllink{https://sir.ext.ti.com/jira/browse/EXT_SITMPUSW-34, EXT_SITMPUSW-34}
+    <td> SBL_UART_UNIFLASH_STAGE2 build fails on removing OSPI and FLASH module in Sysconfig
+    <td> Uniflasher
+    <td> 10.01.00
+</tr>
+<tr>
     <td> \htmllink{https://sir.ext.ti.com/jira/browse/EXT_SITMPUSW-5, EXT_SITMPUSW-5}
     <td> Potential Infinite loop in OSPI_utilLog2 defined in ospi_v0.c
     <td> OSPI
     <td> 10.01.00
 </tr>
 <tr>
-    <td> SITSW-5575
-    <td> The SYSFW_IMAGE_INTEGRITY OID is incorrectly mentioned in the comment
-    <td> Bootloader
+    <td> \htmllink{https://sir.ext.ti.com/jira/browse/EXT_SITMPUSW-35, EXT_SITMPUSW-35}
+    <td> MMCSD_initSD always returns SUCCESS
+    <td> SD
     <td> 10.01.00
 </tr>
 <tr>
-    <td> SITSW-5056
+    <td> \htmllink{https://sir.ext.ti.com/jira/browse/EXT_SITMPUSW-36, EXT_SITMPUSW-36}
+    <td> MMCSD_initSD does not check the retry variable for failure for OCR command
+    <td> SD
+    <td> 10.01.00
+</tr>
+<tr>
+    <td> \htmllink{https://sir.ext.ti.com/jira/browse/EXT_SITMPUSW-37, EXT_SITMPUSW-37}
     <td> Misleading "File read from SD card" bootloader profile point in the SBL_SD bootloader
     <td> Bootloader
     <td> 10.01.00
 </tr>
 <tr>
-    <td> SITSW-5091
+    <td> \htmllink{https://sir.ext.ti.com/jira/browse/EXT_SITMPUSW-38, EXT_SITMPUSW-38}
     <td> Remote core getting hangs when doing IPC with HLOS
     <td> IPC
     <td> 10.01.00
 </tr>
 <tr>
-    <td> SITSW-5653
-    <td> Closing drivers two times in IPC example
-    <td> IPC
-    <td> 10.01.00
-</tr>
-<tr>
-    <td> SITSW-5554
-    <td> AM62P VTM Temperature outputs value 0
-    <td> OSPI
-    <td> 10.01.00
-</tr>
-<tr>
-    <td> SITSW-5184
+    <td> \htmllink{https://sir.ext.ti.com/jira/browse/EXT_SITMPUSW-39, EXT_SITMPUSW-39}
     <td> Error in the CCS build of the SBL examples
+    <td> SBL
+    <td> 10.01.00
+</tr>
+<tr>
+    <td> \htmllink{https://sir.ext.ti.com/jira/browse/EXT_SITMPUSW-40, EXT_SITMPUSW-40}
+    <td> The SYSFW_IMAGE_INTEGRITY OID is incorrectly mentioned in the comment
     <td> Bootloader
     <td> 10.01.00
 </tr>
 <tr>
-    <td> SITSW-4527
-    <td> SBL_UART_UNIFLASH_STAGE2 build fails on removing OSPI and FLASH module in Sysconfig
-    <td> Uniflash
+    <td> \htmllink{https://sir.ext.ti.com/jira/browse/EXT_SITMPUSW-41, EXT_SITMPUSW-41}
+    <td> ClockP_getTicks to use xTaskGetTickCountFromISR() freeRTOS function if it is from ISR
+    <td> DPL
+    <td> 10.01.00
+</tr>
+<tr>
+    <td> \htmllink{https://sir.ext.ti.com/jira/browse/EXT_SITMPUSW-3, EXT_SITMPUSW-3}
+    <td> EMMC:The tuning algorithm to re-execute up to 10 times if there is no failing or passing itapdly.
+    <td> EMMC
+    <td> 10.01.00
+</tr>
+<tr>
+    <td> \htmllink{https://sir.ext.ti.com/jira/browse/EXT_SITMPUSW-42, EXT_SITMPUSW-42}
+    <td> Enable floating point task save restore for all tasks by default
+    <td> DPL
+    <td> 10.01.00
+</tr>
+<tr>
+    <td> \htmllink{https://sir.ext.ti.com/jira/browse/EXT_SITMPUSW-43, EXT_SITMPUSW-43}
+    <td> MMCSD driver doesn't implement the recovery steps for CRC errors
+    <td> EMMC
+    <td> 10.01.00
+</tr>
+<tr>
+    <td> \htmllink{https://sir.ext.ti.com/jira/browse/EXT_SITMPUSW-44, EXT_SITMPUSW-44}
+    <td> DebugP_log API returning wrong value
+    <td> DPL
+    <td> 10.01.00
+</tr>
+<tr>
+    <td> \htmllink{https://sir.ext.ti.com/jira/browse/EXT_SITMPUSW-45, EXT_SITMPUSW-45}
+    <td> Memcpy: Utils_memcpyWord function doesn't work on 64 bit systems
+    <td> Utils
+    <td> 10.01.00
+</tr>
+<tr>
+    <td> \htmllink{https://sir.ext.ti.com/jira/browse/EXT_SITMPUSW-46, EXT_SITMPUSW-46}
+    <td> SK-AM62-LP: LPM: MCU only mode unable to resolve with uart
+    <td> IPC
     <td> 10.01.00
 </tr>
 <tr>
@@ -455,13 +503,6 @@ ROM Checksum | R5F            | No
     <td> Use bash for windows as part of git for windows or don't use -j option
 </tr>
 <tr>
-    <td> SITSW-4001
-    <td> On SK-AM62-SIP, SBL with ECC enabled does not boot linux, when the SDRAM index is set to 13
-    <td> DDR
-    <td> 09.01.00
-    <td> None.
-</tr>
-<tr>
     <td> SYSFW-7781
     <td> Get device API does not return error when the LPSC is in transition state
     <td> DM
@@ -481,42 +522,6 @@ ROM Checksum | R5F            | No
     <td> DM (LPM)
     <td> 10.01.00
     <td> None.
-</tr>
-<tr>
-    <td> PROC_SDL-8404
-    <td> ECC is not supported for some instances. These are
-    SDL_CSI_RX_IF0_CSI_RX_IF_ECC_AGGR
-    <td> SDL
-    <td> 10.00.00
-    <td> None. Support will be added in future release.
-</tr>
-<tr>
-    <td> PROC_SDL-8139
-    <td> SDL ECC example application exits with failure on UC-2
-    <td> SDL
-    <td> 10.00.00
-    <td> Update the MPU config for the example to make the register region as Strongly Ordered. The Example app will be fixed in future release.
-</tr>
-<tr>
-    <td> PROC_SDL-8138
-    <td> VTM example app fails when built for freertos
-    <td> SDL
-    <td> 10.00.00
-    <td> Use the nortos example. Example will be fixed in future release.
-</tr>
-<tr>
-    <td> PROC_SDL-8137
-    <td> PBIST example app fails when built for freertos
-    <td> SDL
-    <td> 10.00.00
-    <td> Use the nortos example. Freertos example will be fixed in future release.
-</tr>
-<tr>
-    <td> PROC_SDL-8134
-    <td> POK example app fails when built for freertos
-    <td> SDL
-    <td> 10.00.00
-    <td> Use the nortos example. Freertos example will be fixed in future release.
 </tr>
 </table>
 

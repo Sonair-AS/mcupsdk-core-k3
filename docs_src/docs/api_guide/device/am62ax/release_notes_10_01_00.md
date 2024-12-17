@@ -288,39 +288,87 @@ ROM Checksum |MCU-R5F         | No
     <th> Applicable Releases
 </tr>
 <tr>
-    <td> SITSW-5575
-    <td> The SYSFW_IMAGE_INTEGRITY OID is incorrectly mentioned in the comment
-    <td> Bootloader
+    <td> \htmllink{https://sir.ext.ti.com/jira/browse/EXT_SITMPUSW-34, EXT_SITMPUSW-34}
+    <td> SBL_UART_UNIFLASH_STAGE2 build fails on removing OSPI and FLASH module in Sysconfig
+    <td> Uniflasher
     <td> 10.01.00
 </tr>
 <tr>
-    <td> SITSW-5056
+    <td> \htmllink{https://sir.ext.ti.com/jira/browse/EXT_SITMPUSW-5, EXT_SITMPUSW-5}
+    <td> Potential Infinite loop in OSPI_utilLog2 defined in ospi_v0.c
+    <td> OSPI
+    <td> 10.01.00
+</tr>
+<tr>
+    <td> \htmllink{https://sir.ext.ti.com/jira/browse/EXT_SITMPUSW-35, EXT_SITMPUSW-35}
+    <td> MMCSD_initSD always returns SUCCESS
+    <td> SD
+    <td> 10.01.00
+</tr>
+<tr>
+    <td> \htmllink{https://sir.ext.ti.com/jira/browse/EXT_SITMPUSW-36, EXT_SITMPUSW-36}
+    <td> MMCSD_initSD does not check the retry variable for failure for OCR command
+    <td> SD
+    <td> 10.01.00
+</tr>
+<tr>
+    <td> \htmllink{https://sir.ext.ti.com/jira/browse/EXT_SITMPUSW-37, EXT_SITMPUSW-37}
     <td> Misleading "File read from SD card" bootloader profile point in the SBL_SD bootloader
     <td> Bootloader
     <td> 10.01.00
 </tr>
 <tr>
-    <td> SITSW-5653
-    <td> Closing drivers two times in IPC example
+    <td> \htmllink{https://sir.ext.ti.com/jira/browse/EXT_SITMPUSW-38, EXT_SITMPUSW-38}
+    <td> Remote core getting hangs when doing IPC with HLOS
     <td> IPC
     <td> 10.01.00
 </tr>
 <tr>
-    <td> SITSW-5554
-    <td> AM62P VTM Temperature outputs value 0
-    <td> OSPI
-    <td> 10.01.00
-</tr>
-<tr>
-    <td> SITSW-5184
+    <td> \htmllink{https://sir.ext.ti.com/jira/browse/EXT_SITMPUSW-39, EXT_SITMPUSW-39}
     <td> Error in the CCS build of the SBL examples
-    <td> Bootloader
+    <td> SBL
     <td> 10.01.00
 </tr>
 <tr>
-    <td> SITSW-4527
-    <td> SBL_UART_UNIFLASH_STAGE2 build fails on removing OSPI and FLASH module in Sysconfig
-    <td> Uniflash
+    <td> \htmllink{https://sir.ext.ti.com/jira/browse/EXT_SITMPUSW-47, EXT_SITMPUSW-47}
+    <td> Update the DDR configuration with DDR syscfg 9.09+
+    <td> SBL
+    <td> 10.01.00
+</tr>
+<tr>
+    <td> \htmllink{https://sir.ext.ti.com/jira/browse/EXT_SITMPUSW-41, EXT_SITMPUSW-41}
+    <td> ClockP_getTicks to use xTaskGetTickCountFromISR() freeRTOS function if it is from ISR
+    <td> DPL
+    <td> 10.01.00
+</tr>
+<tr>
+    <td> \htmllink{https://sir.ext.ti.com/jira/browse/EXT_SITMPUSW-3, EXT_SITMPUSW-3}
+    <td> EMMC:The tuning algorithm to re-execute up to 10 times if there is no failing or passing itapdly.
+    <td> EMMC
+    <td> 10.01.00
+</tr>
+<tr>
+    <td> \htmllink{https://sir.ext.ti.com/jira/browse/EXT_SITMPUSW-42, EXT_SITMPUSW-42}
+    <td> Enable floating point task save restore for all tasks by default
+    <td> DPL
+    <td> 10.01.00
+</tr>
+<tr>
+    <td> \htmllink{https://sir.ext.ti.com/jira/browse/EXT_SITMPUSW-43, EXT_SITMPUSW-43}
+    <td> MMCSD driver doesn't implement the recovery steps for CRC errors
+    <td> EMMC
+    <td> 10.01.00
+</tr>
+<tr>
+    <td> \htmllink{https://sir.ext.ti.com/jira/browse/EXT_SITMPUSW-44, EXT_SITMPUSW-44}
+    <td> DebugP_log API returning wrong value
+    <td> DPL
+    <td> 10.01.00
+</tr>
+<tr>
+    <td> \htmllink{https://sir.ext.ti.com/jira/browse/EXT_SITMPUSW-45, EXT_SITMPUSW-45}
+    <td> Memcpy: Utils_memcpyWord function doesn't work on 64 bit systems
+    <td> Utils
     <td> 10.01.00
 </tr>
 <tr>
