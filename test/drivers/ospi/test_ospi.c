@@ -61,16 +61,21 @@
 #define TEST_OSPI_256KB_SIZE               (TEST_OSPI_1KB_SIZE*256U)
 #define TEST_OSPI_512KB_SIZE               (TEST_OSPI_1KB_SIZE*512U)
 #define TEST_OSPI_1MB_SIZE                 (TEST_OSPI_1KB_SIZE*TEST_OSPI_1KB_SIZE)
+#define TEST_OSPI_2MB_SIZE                 (TEST_OSPI_1MB_SIZE*2U)
 #define TEST_OSPI_5MB_SIZE                 (TEST_OSPI_1MB_SIZE*5U)
 #define TEST_OSPI_10MB_SIZE                (TEST_OSPI_1MB_SIZE*10U)
 #if defined (SOC_AM275X)
-#define TEST_OSPI_MAX_TEST_SIZE            (TEST_OSPI_512KB_SIZE)
+#define TEST_OSPI_MAX_TEST_SIZE            (TEST_OSPI_2MB_SIZE)
 #else
 #define TEST_OSPI_MAX_TEST_SIZE            (TEST_OSPI_10MB_SIZE)
 #endif
 #define TEST_OSPI_BLOCK_SIZE               (TEST_OSPI_1KB_SIZE*256U)
 #define TEST_OSPI_READ_FRCOUNT             (10U)  /* Frequency of reading required for average time of read operation*/
+#if defined (SOC_AM275X)
+#define TEST_OSPI_PERF_TEST_DATA_COUNT     (2U)   /* Change this value as per testSizes list size */
+#else
 #define TEST_OSPI_PERF_TEST_DATA_COUNT     (3U)   /* Change this value as per testSizes list size */
+#endif
 
 
 /* ========================================================================== */
@@ -569,7 +574,7 @@ static void test_ospi_read_perf(void *args)
     uint32_t offset = TEST_OSPI_FLASH_OFFSET_BASE;
     uint64_t startTime, endTime;
 #if defined (SOC_AM275X)
-    uint32_t testSizes[TEST_OSPI_PERF_TEST_DATA_COUNT] = {TEST_OSPI_128KB_SIZE, TEST_OSPI_256KB_SIZE, TEST_OSPI_512KB_SIZE};
+    uint32_t testSizes[TEST_OSPI_PERF_TEST_DATA_COUNT] = { TEST_OSPI_1MB_SIZE, TEST_OSPI_2MB_SIZE};
 #else
     /* Please provide size of atleast 1MiB */
     uint32_t testSizes[TEST_OSPI_PERF_TEST_DATA_COUNT] = {TEST_OSPI_1MB_SIZE, TEST_OSPI_5MB_SIZE, TEST_OSPI_10MB_SIZE};

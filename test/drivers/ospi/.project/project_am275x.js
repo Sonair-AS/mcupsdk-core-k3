@@ -81,21 +81,6 @@ const readmeDoxygenPageTag = "TEST_DRIVERS_TEST_OSPI";
 const templates_freertos_wkup_r5f =
 [
     {
-        input: ".project/templates/am275x/common/linker_wkup-r5f.cmd.xdt",
-        output: "linker.cmd",
-        options: {
-            heapSize: 0x8000,
-            stackSize: 0x4000,
-            irqStackSize: 0x1000,
-            svcStackSize: 0x0100,
-            fiqStackSize: 0x0100,
-            abortStackSize: 0x0100,
-            undefinedStackSize: 0x0100,
-            dmStubstacksize: 0x0400,
-            globalScratchBuf: "true",
-        },
-    },
-    {
         input: ".project/templates/am275x/freertos/main_freertos_wkup.c.xdt",
         output: "../main.c",
         options: {

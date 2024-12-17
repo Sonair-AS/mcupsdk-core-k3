@@ -123,13 +123,6 @@ MEMORY
     WKUP_R5_MSRAM_VEC (RWIX)     : ORIGIN = 0x72000000      LENGTH = 0x40 // for vectors
     WKUP_R5_MSRAM (RWIX)         : ORIGIN = 0x72000000+0x40 LENGTH = 0x00080000-0x40 // 512 KB for wakeup core
 
-    SCRATCH_OCRAM (RWIX)         : ORIGIN = 0x72080000 LENGTH = 0x00100000 // 1 MB for scratch
-    R50_1_OCRAM   (RWIX)         : ORIGIN = 0x72180000 LENGTH = 0x00080000 // 512 KB for r5fss0-1 core
-    R51_0_OCRAM   (RWIX)         : ORIGIN = 0x72280000 LENGTH = 0x00080000 // 512 KB for r5fss1-0 core
-    R51_1_OCRAM   (RWIX)         : ORIGIN = 0x72300000 LENGTH = 0x00080000 // 512 KB for r5fss1-1 core
-
-    C75_0_OCRAM   (RWIX)         : ORIGIN = 0x72200000 LENGTH = 0x00080000 // 512 KB for c75ss0-0 core
-    C75_1_OCRAM   (RWIX)         : ORIGIN = 0x72400000 LENGTH = 0x00080000 // 512 KB for c75ss1-0 core
-
+    SCRATCH_OCRAM (RWIX)         : ORIGIN = 0x72080000 LENGTH = 0x00500000 // 5 MB for scratch
 
 }
