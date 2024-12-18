@@ -146,6 +146,21 @@ uint32_t gRemoteCoreId[] = {
 };
 #endif
 
+#if defined(SOC_AM275X)
+/* main core that starts the message exchange */
+uint32_t gMainCoreId = CSL_CORE_ID_R5FSS0_0;
+/* remote cores that echo messages from main core, make sure to NOT list main core in this list */
+uint32_t gRemoteCoreId[] = {
+    CSL_CORE_ID_R5FSS0_0,
+    CSL_CORE_ID_R5FSS0_1,
+    CSL_CORE_ID_R5FSS1_0,
+    CSL_CORE_ID_R5FSS1_1,
+    CSL_CORE_ID_C75SS0_0,
+    CSL_CORE_ID_C75SS1_0,
+    CSL_CORE_ID_MAX /* this value indicates the end of the array */
+};
+#endif
+
 /* semaphore's used to indicate a core has recevied all ACK messages exchanges from each core in Any to Any test */
 SemaphoreP_Object gAckDoneSem[CSL_CORE_ID_MAX];
 
@@ -706,6 +721,26 @@ void test_ipc_main_core_start()
     RUN_TEST(test_notifyErrorChecks, 0, (void*)CSL_CORE_ID_MCU_R5FSS0_0);
     RUN_TEST(test_notifyInitErrorCheck,  0, NULL);
     RUN_TEST(test_notifySendErrorCheck, 0, (void*)CSL_CORE_ID_MCU_R5FSS0_0);
+    RUN_TEST(test_notifyInitUnusedCore, 0, NULL);
+    #endif
+    #if defined(SOC_AM275X)
+    RUN_TEST(test_notifyOneToOne, 0, (void*)CSL_CORE_ID_R5FSS0_1);
+    RUN_TEST(test_notifyOneToOne, 0, (void*)CSL_CORE_ID_R5FSS1_0);
+    RUN_TEST(test_notifyOneToOne, 0, (void*)CSL_CORE_ID_R5FSS1_1);
+    RUN_TEST(test_notifyOneToOne, 0, (void*)CSL_CORE_ID_C75SS0_0);
+    RUN_TEST(test_notifyOneToOne, 0, (void*)CSL_CORE_ID_C75SS1_0);
+    RUN_TEST(test_notifyOneToOneBackToBack, 0, (void*)CSL_CORE_ID_R5FSS0_1);
+    RUN_TEST(test_notifyOneToOneBackToBack, 0, (void*)CSL_CORE_ID_R5FSS1_0);
+    RUN_TEST(test_notifyOneToOneBackToBack, 0, (void*)CSL_CORE_ID_R5FSS1_1);
+    RUN_TEST(test_notifyOneToOneBackToBack, 0, (void*)CSL_CORE_ID_C75SS0_0);
+    RUN_TEST(test_notifyOneToOneBackToBack, 0, (void*)CSL_CORE_ID_C75SS1_0);
+    RUN_TEST(test_notifyErrorChecks, 0, (void*)CSL_CORE_ID_R5FSS0_1);
+    RUN_TEST(test_notifyErrorChecks, 0, (void*)CSL_CORE_ID_R5FSS1_0);
+    RUN_TEST(test_notifyErrorChecks, 0, (void*)CSL_CORE_ID_R5FSS1_1);
+    RUN_TEST(test_notifyErrorChecks, 0, (void*)CSL_CORE_ID_C75SS0_0);
+    RUN_TEST(test_notifyErrorChecks, 0, (void*)CSL_CORE_ID_C75SS1_0);
+    RUN_TEST(test_notifySendErrorCheck, 0, (void*)CSL_CORE_ID_R5FSS0_0);
+    RUN_TEST(test_notifyInitErrorCheck,  0, NULL);
     RUN_TEST(test_notifyInitUnusedCore, 0, NULL);
     #endif
 
