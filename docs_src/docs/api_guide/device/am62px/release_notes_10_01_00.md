@@ -25,7 +25,7 @@ SBL NULL: Close flash drivers before jumping to DM application                  
 A53 priv-id is now set to 1 to match other SOCs (instead of previous value 4)                  | TIFS
 WKUP-R5 FreeRTOS examples demonstrating usage of ethernet Networking with LwIP and TSN         | Networking
 
-## Other Updates on This Release
+## Additional updates on this release
 
 Update                                                                                                  | Module
 --------------------------------------------------------------------------------------------------------|-----------------------------------

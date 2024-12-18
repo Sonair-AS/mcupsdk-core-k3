@@ -33,27 +33,6 @@ Rx packet length                | 200 B                    |
 Tx packet length                | 200 B                    |
 \n
 
-## Layer 2 Latency
-<table>
-    <tr>
-        <td style="text-align: center;"><b>Parameter</b></td>
-        <td style="text-align: center;"><b>CPU<->CPSW \n Latency Value (ns)</b></td>
-        <td style="text-align: center;"><b>PHY Latency\n (from datasheet) in ns</b></td>
-        <td style="text-align: center;"><b>Total Latency \n (ns)</b></td>
-    </tr>
-    <tr>
-        <td>RX Latency</td>
-        <td>14000</td>
-        <td>193</td>
-        <td>14193</td>
-    </tr>
-    <tr>
-        <td>TX Latency</td>
-        <td>7000</td>
-        <td>384</td>
-        <td>7384</td>
-    </tr>
-</table>
 
 # TCP/IP Performance
 
