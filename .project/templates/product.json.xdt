@@ -80,7 +80,6 @@
         "/drivers/drivers",
         "/board/board",
         "/fs/fs",
-        "/security/security",
         "/networking/networking",
 %}
 % if((args.device == "am62dx")) {
