@@ -104,6 +104,105 @@
             "example"
         ],
         "resourceSubClass": [
+            "example.gettingstarted"
+        ],
+        "description": "Interrupt Latency Benchmark Example. CPU is A53SS0-0 running FREERTOS.",
+        "name": "interrupt_latency",
+        "location": "../../examples/benchmarks/interrupt_latency_benchmark/am62x-sk/a53ss0-0_freertos/gcc-aarch64/example.projectspec",
+        "devtools": [
+            "SK-AM62B",
+            "SK-AM62B-P1"
+        ],
+        "kernel": [
+            "freertos"
+        ],
+        "compiler": [
+            "gcc"
+        ],
+        "subCategories": [
+            "benchmarks",
+            "interrupt_latency_benchmark",
+            "a53ss0-0_freertos"
+        ],
+        "mainCategories": [
+            [
+                "Examples",
+                "Development Tools"
+            ]
+        ]
+    },
+    {
+        "resourceType": "project.ccs",
+        "resourceClass": [
+            "example"
+        ],
+        "resourceSubClass": [
+            "example.gettingstarted"
+        ],
+        "description": "Interrupt Latency Benchmark Example. CPU is A53SS0-0 running FREERTOS.",
+        "name": "interrupt_latency",
+        "location": "../../examples/benchmarks/interrupt_latency_benchmark/am62x-sip-sk/a53ss0-0_freertos/gcc-aarch64/example.projectspec",
+        "devtools": [
+            "SK-AM62B",
+            "SK-AM62B-P1"
+        ],
+        "kernel": [
+            "freertos"
+        ],
+        "compiler": [
+            "gcc"
+        ],
+        "subCategories": [
+            "benchmarks",
+            "interrupt_latency_benchmark",
+            "a53ss0-0_freertos"
+        ],
+        "mainCategories": [
+            [
+                "Examples",
+                "Development Tools"
+            ]
+        ]
+    },
+    {
+        "resourceType": "project.ccs",
+        "resourceClass": [
+            "example"
+        ],
+        "resourceSubClass": [
+            "example.gettingstarted"
+        ],
+        "description": "Interrupt Latency Benchmark Example. CPU is A53SS0-0 running FREERTOS.",
+        "name": "interrupt_latency",
+        "location": "../../examples/benchmarks/interrupt_latency_benchmark/am62x-sk-lp/a53ss0-0_freertos/gcc-aarch64/example.projectspec",
+        "devtools": [
+            "SK-AM62B",
+            "SK-AM62B-P1"
+        ],
+        "kernel": [
+            "freertos"
+        ],
+        "compiler": [
+            "gcc"
+        ],
+        "subCategories": [
+            "benchmarks",
+            "interrupt_latency_benchmark",
+            "a53ss0-0_freertos"
+        ],
+        "mainCategories": [
+            [
+                "Examples",
+                "Development Tools"
+            ]
+        ]
+    },
+    {
+        "resourceType": "project.ccs",
+        "resourceClass": [
+            "example"
+        ],
+        "resourceSubClass": [
             "example.general"
         ],
         "description": "A Sbl Emmc Linux Stage1 Example. CPU is R5FSS0-0 running NORTOS.",

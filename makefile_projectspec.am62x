@@ -7,6 +7,9 @@ BUILD_COMBO_EXAMPLE_PROJECTSPEC_BUILD_ALL =
 BUILD_COMBO_EXAMPLE_PROJECTSPEC_BUILD_ALL += dhrystone_benchmarking_am62x-sk_a53ss0-0_freertos_gcc-aarch64_build
 BUILD_COMBO_EXAMPLE_PROJECTSPEC_BUILD_ALL += dhrystone_benchmarking_am62x-sip-sk_a53ss0-0_freertos_gcc-aarch64_build
 BUILD_COMBO_EXAMPLE_PROJECTSPEC_BUILD_ALL += dhrystone_benchmarking_am62x-sk-lp_a53ss0-0_freertos_gcc-aarch64_build
+BUILD_COMBO_EXAMPLE_PROJECTSPEC_BUILD_ALL += interrupt_latency_am62x-sk_a53ss0-0_freertos_gcc-aarch64_build
+BUILD_COMBO_EXAMPLE_PROJECTSPEC_BUILD_ALL += interrupt_latency_am62x-sip-sk_a53ss0-0_freertos_gcc-aarch64_build
+BUILD_COMBO_EXAMPLE_PROJECTSPEC_BUILD_ALL += interrupt_latency_am62x-sk-lp_a53ss0-0_freertos_gcc-aarch64_build
 BUILD_COMBO_EXAMPLE_PROJECTSPEC_BUILD_ALL += sbl_emmc_linux_stage1_am62x-sk_r5fss0-0_nortos_ti-arm-clang_build
 BUILD_COMBO_EXAMPLE_PROJECTSPEC_BUILD_ALL += sbl_emmc_linux_stage1_am62x-sip-sk_r5fss0-0_nortos_ti-arm-clang_build
 BUILD_COMBO_EXAMPLE_PROJECTSPEC_BUILD_ALL += sbl_emmc_linux_stage1_am62x-sk-lp_r5fss0-0_nortos_ti-arm-clang_build
@@ -553,6 +556,15 @@ all-private: $(BUILD_COMBO_EXAMPLE_PROJECTSPEC_BUILD_PRIVATE_ALL)
 
  dhrystone_benchmarking_am62x-sk-lp_a53ss0-0_freertos_gcc-aarch64_build:
 	$(MAKE) -C examples/benchmarks/dhrystone_benchmark/am62x-sk-lp/a53ss0-0_freertos/gcc-aarch64 -f makefile_projectspec all
+
+ interrupt_latency_am62x-sk_a53ss0-0_freertos_gcc-aarch64_build:
+	$(MAKE) -C examples/benchmarks/interrupt_latency_benchmark/am62x-sk/a53ss0-0_freertos/gcc-aarch64 -f makefile_projectspec all
+
+ interrupt_latency_am62x-sip-sk_a53ss0-0_freertos_gcc-aarch64_build:
+	$(MAKE) -C examples/benchmarks/interrupt_latency_benchmark/am62x-sip-sk/a53ss0-0_freertos/gcc-aarch64 -f makefile_projectspec all
+
+ interrupt_latency_am62x-sk-lp_a53ss0-0_freertos_gcc-aarch64_build:
+	$(MAKE) -C examples/benchmarks/interrupt_latency_benchmark/am62x-sk-lp/a53ss0-0_freertos/gcc-aarch64 -f makefile_projectspec all
 
  sbl_emmc_linux_stage1_am62x-sk_r5fss0-0_nortos_ti-arm-clang_build:
 	$(MAKE) -C examples/drivers/boot/sbl_emmc_linux_multistage/sbl_emmc_linux_stage1/am62x-sk/r5fss0-0_nortos/ti-arm-clang -f makefile_projectspec all
@@ -2145,6 +2157,9 @@ BUILD_COMBO_EXAMPLE_PROJECTSPEC_CLEAN_ALL =
 BUILD_COMBO_EXAMPLE_PROJECTSPEC_CLEAN_ALL += dhrystone_benchmarking_am62x-sk_a53ss0-0_freertos_gcc-aarch64_clean
 BUILD_COMBO_EXAMPLE_PROJECTSPEC_CLEAN_ALL += dhrystone_benchmarking_am62x-sip-sk_a53ss0-0_freertos_gcc-aarch64_clean
 BUILD_COMBO_EXAMPLE_PROJECTSPEC_CLEAN_ALL += dhrystone_benchmarking_am62x-sk-lp_a53ss0-0_freertos_gcc-aarch64_clean
+BUILD_COMBO_EXAMPLE_PROJECTSPEC_CLEAN_ALL += interrupt_latency_am62x-sk_a53ss0-0_freertos_gcc-aarch64_clean
+BUILD_COMBO_EXAMPLE_PROJECTSPEC_CLEAN_ALL += interrupt_latency_am62x-sip-sk_a53ss0-0_freertos_gcc-aarch64_clean
+BUILD_COMBO_EXAMPLE_PROJECTSPEC_CLEAN_ALL += interrupt_latency_am62x-sk-lp_a53ss0-0_freertos_gcc-aarch64_clean
 BUILD_COMBO_EXAMPLE_PROJECTSPEC_CLEAN_ALL += sbl_emmc_linux_stage1_am62x-sk_r5fss0-0_nortos_ti-arm-clang_clean
 BUILD_COMBO_EXAMPLE_PROJECTSPEC_CLEAN_ALL += sbl_emmc_linux_stage1_am62x-sip-sk_r5fss0-0_nortos_ti-arm-clang_clean
 BUILD_COMBO_EXAMPLE_PROJECTSPEC_CLEAN_ALL += sbl_emmc_linux_stage1_am62x-sk-lp_r5fss0-0_nortos_ti-arm-clang_clean
@@ -2691,6 +2706,15 @@ clean-private: $(BUILD_COMBO_EXAMPLE_PROJECTSPEC_CLEAN_PRIVATE_ALL)
 
  dhrystone_benchmarking_am62x-sk-lp_a53ss0-0_freertos_gcc-aarch64_clean:
 	$(MAKE) -C examples/benchmarks/dhrystone_benchmark/am62x-sk-lp/a53ss0-0_freertos/gcc-aarch64 -f makefile_projectspec clean
+
+ interrupt_latency_am62x-sk_a53ss0-0_freertos_gcc-aarch64_clean:
+	$(MAKE) -C examples/benchmarks/interrupt_latency_benchmark/am62x-sk/a53ss0-0_freertos/gcc-aarch64 -f makefile_projectspec clean
+
+ interrupt_latency_am62x-sip-sk_a53ss0-0_freertos_gcc-aarch64_clean:
+	$(MAKE) -C examples/benchmarks/interrupt_latency_benchmark/am62x-sip-sk/a53ss0-0_freertos/gcc-aarch64 -f makefile_projectspec clean
+
+ interrupt_latency_am62x-sk-lp_a53ss0-0_freertos_gcc-aarch64_clean:
+	$(MAKE) -C examples/benchmarks/interrupt_latency_benchmark/am62x-sk-lp/a53ss0-0_freertos/gcc-aarch64 -f makefile_projectspec clean
 
  sbl_emmc_linux_stage1_am62x-sk_r5fss0-0_nortos_ti-arm-clang_clean:
 	$(MAKE) -C examples/drivers/boot/sbl_emmc_linux_multistage/sbl_emmc_linux_stage1/am62x-sk/r5fss0-0_nortos/ti-arm-clang -f makefile_projectspec clean
@@ -4283,6 +4307,9 @@ BUILD_COMBO_EXAMPLE_PROJECTSPEC_EXPORT_ALL =
 BUILD_COMBO_EXAMPLE_PROJECTSPEC_EXPORT_ALL += dhrystone_benchmarking_am62x-sk_a53ss0-0_freertos_gcc-aarch64_export
 BUILD_COMBO_EXAMPLE_PROJECTSPEC_EXPORT_ALL += dhrystone_benchmarking_am62x-sip-sk_a53ss0-0_freertos_gcc-aarch64_export
 BUILD_COMBO_EXAMPLE_PROJECTSPEC_EXPORT_ALL += dhrystone_benchmarking_am62x-sk-lp_a53ss0-0_freertos_gcc-aarch64_export
+BUILD_COMBO_EXAMPLE_PROJECTSPEC_EXPORT_ALL += interrupt_latency_am62x-sk_a53ss0-0_freertos_gcc-aarch64_export
+BUILD_COMBO_EXAMPLE_PROJECTSPEC_EXPORT_ALL += interrupt_latency_am62x-sip-sk_a53ss0-0_freertos_gcc-aarch64_export
+BUILD_COMBO_EXAMPLE_PROJECTSPEC_EXPORT_ALL += interrupt_latency_am62x-sk-lp_a53ss0-0_freertos_gcc-aarch64_export
 BUILD_COMBO_EXAMPLE_PROJECTSPEC_EXPORT_ALL += sbl_emmc_linux_stage1_am62x-sk_r5fss0-0_nortos_ti-arm-clang_export
 BUILD_COMBO_EXAMPLE_PROJECTSPEC_EXPORT_ALL += sbl_emmc_linux_stage1_am62x-sip-sk_r5fss0-0_nortos_ti-arm-clang_export
 BUILD_COMBO_EXAMPLE_PROJECTSPEC_EXPORT_ALL += sbl_emmc_linux_stage1_am62x-sk-lp_r5fss0-0_nortos_ti-arm-clang_export
@@ -4829,6 +4856,15 @@ export-private: $(BUILD_COMBO_EXAMPLE_PROJECTSPEC_EXPORT_PRIVATE_ALL)
 
  dhrystone_benchmarking_am62x-sk-lp_a53ss0-0_freertos_gcc-aarch64_export:
 	$(MAKE) -C examples/benchmarks/dhrystone_benchmark/am62x-sk-lp/a53ss0-0_freertos/gcc-aarch64 -f makefile_projectspec export
+
+ interrupt_latency_am62x-sk_a53ss0-0_freertos_gcc-aarch64_export:
+	$(MAKE) -C examples/benchmarks/interrupt_latency_benchmark/am62x-sk/a53ss0-0_freertos/gcc-aarch64 -f makefile_projectspec export
+
+ interrupt_latency_am62x-sip-sk_a53ss0-0_freertos_gcc-aarch64_export:
+	$(MAKE) -C examples/benchmarks/interrupt_latency_benchmark/am62x-sip-sk/a53ss0-0_freertos/gcc-aarch64 -f makefile_projectspec export
+
+ interrupt_latency_am62x-sk-lp_a53ss0-0_freertos_gcc-aarch64_export:
+	$(MAKE) -C examples/benchmarks/interrupt_latency_benchmark/am62x-sk-lp/a53ss0-0_freertos/gcc-aarch64 -f makefile_projectspec export
 
  sbl_emmc_linux_stage1_am62x-sk_r5fss0-0_nortos_ti-arm-clang_export:
 	$(MAKE) -C examples/drivers/boot/sbl_emmc_linux_multistage/sbl_emmc_linux_stage1/am62x-sk/r5fss0-0_nortos/ti-arm-clang -f makefile_projectspec export
@@ -6437,6 +6473,9 @@ help:
 	@echo  $(MAKE) -s -C examples/benchmarks/dhrystone_benchmark/am62x-sk/a53ss0-0_freertos/gcc-aarch64 -f makefile_projectspec [export all clean]
 	@echo  $(MAKE) -s -C examples/benchmarks/dhrystone_benchmark/am62x-sip-sk/a53ss0-0_freertos/gcc-aarch64 -f makefile_projectspec [export all clean]
 	@echo  $(MAKE) -s -C examples/benchmarks/dhrystone_benchmark/am62x-sk-lp/a53ss0-0_freertos/gcc-aarch64 -f makefile_projectspec [export all clean]
+	@echo  $(MAKE) -s -C examples/benchmarks/interrupt_latency_benchmark/am62x-sk/a53ss0-0_freertos/gcc-aarch64 -f makefile_projectspec [export all clean]
+	@echo  $(MAKE) -s -C examples/benchmarks/interrupt_latency_benchmark/am62x-sip-sk/a53ss0-0_freertos/gcc-aarch64 -f makefile_projectspec [export all clean]
+	@echo  $(MAKE) -s -C examples/benchmarks/interrupt_latency_benchmark/am62x-sk-lp/a53ss0-0_freertos/gcc-aarch64 -f makefile_projectspec [export all clean]
 	@echo  $(MAKE) -s -C examples/drivers/boot/sbl_emmc_linux_multistage/sbl_emmc_linux_stage1/am62x-sk/r5fss0-0_nortos/ti-arm-clang -f makefile_projectspec [export all clean]
 	@echo  $(MAKE) -s -C examples/drivers/boot/sbl_emmc_linux_multistage/sbl_emmc_linux_stage1/am62x-sip-sk/r5fss0-0_nortos/ti-arm-clang -f makefile_projectspec [export all clean]
 	@echo  $(MAKE) -s -C examples/drivers/boot/sbl_emmc_linux_multistage/sbl_emmc_linux_stage1/am62x-sk-lp/r5fss0-0_nortos/ti-arm-clang -f makefile_projectspec [export all clean]

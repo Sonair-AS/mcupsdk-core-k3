@@ -22,7 +22,7 @@ const component_file_list = [
     "source/networking/tsn/.project/project_tsn_gptp.js",
     "source/networking/tsn/.project/project_tsn_unibase.js",
     "source/networking/tsn/.project/project_tsn_uniconf.js",
-    
+
     "source/sdl/.project/project.js",
     "source/sdl/sdl_sbl/.project/project.js",
     "source/safety_checkers/.project/project.js",
@@ -46,6 +46,7 @@ const device_defines = {
 
 const example_file_list = [
     "examples/benchmarks/dhrystone_benchmark/.project/project.js",
+    "examples/benchmarks/interrupt_latency_benchmark/.project/project.js",
     "examples/drivers/boot/sbl_emmc_linux_multistage/sbl_emmc_linux_stage1/.project/project.js",
     "examples/drivers/boot/sbl_emmc_linux_multistage/sbl_emmc_linux_stage2/.project/project.js",
     "examples/drivers/boot/sbl_emmc_multistage/sbl_emmc_stage1/.project/project.js",
