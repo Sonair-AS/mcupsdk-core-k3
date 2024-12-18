@@ -405,7 +405,7 @@ The detailed sequence of steps that happen when flashing files is listed below, 
   in a single configuration file which is provided as input to the tool.
 \endcond
 
-\cond !SOC_AM62X && !SOC_AM62AX && !SOC_AM62PX && !SOC_AM62DX
+\cond !SOC_AM62X && !SOC_AM62AX && !SOC_AM62PX && !SOC_AM62DX && !SOC_AM275X
 ### GUI for UART Uniflash (Experimental) {#TOOLS_UART_UNIFLASH_GUI}
 
 UART Uniflash GUI is a GUI wrapper around the UART Uniflash tool already present (`uart_uniflash.py`). This is a strictly experimental feature with minimal testing from TI side. Can be used if GUI is more comfortable. Since most of the CLI tool is used underneath, it is the same functionality wise

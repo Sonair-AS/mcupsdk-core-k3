@@ -96,6 +96,11 @@ When the comparison match, test result is passed otherwise failed.
   make command (see \ref MAKEFILE_BUILD_PAGE)
 - Launch a CCS debug session and run the executable, see \ref CCS_LAUNCH_PAGE
 
+\cond SOC_AM275X
+## AM275X-EVM
+- Ensure SW9 "MMC0_SEL" is in ON postion to select SD
+
+\endcond
 # See Also
 
 \ref DRIVERS_MMCSD_PAGE

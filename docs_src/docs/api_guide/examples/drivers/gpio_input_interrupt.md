@@ -60,7 +60,7 @@ A new linux devicetree blob (dtb) should be generated with this change and place
 The RM board config need to have an entry for the interrupt router for the core if the gpio interrupt is routed to the core through the interrupt router.
 \endcond
 
-\cond SOC_AM62AX || SOC_AM62DX || SOC_AM275X
+\cond SOC_AM62AX || SOC_AM62DX
 @VAR_BOARD_NAME does not contain any push button connected to MCU GPIOs.
 
 MCU-R5 example is using MCU_GPIO0_15 pin in the MCU_HEADER(J9) for generating GPIO interrupt.
@@ -347,6 +347,11 @@ Key presses can be done by connecting followed by disconnecting MCU_GPIO0_15(Pin
 
 \endcond
 
+\cond SOC_AM275X
+## AM275X-EVM
+- Press and release SW5 button on the EVM to generate the trigger GPIO interrupt. This button is connected to GPIO0_90.
+
+\endcond
 # See Also
 
 \ref DRIVERS_GPIO_PAGE

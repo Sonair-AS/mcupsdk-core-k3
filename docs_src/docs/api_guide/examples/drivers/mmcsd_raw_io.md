@@ -119,6 +119,12 @@ When both the comparisons match, test result is passed otherwise failed.
 
 - Refer \ref GETTING_STARTED_FLASH for flashing the application.
 \endcond
+
+\cond SOC_AM275X
+## AM275X-EVM
+- Ensure SW9 "MMC0_SEL" is in OFF postion to select eMMC
+
+\endcond
 # See Also
 
 \ref DRIVERS_MMCSD_PAGE

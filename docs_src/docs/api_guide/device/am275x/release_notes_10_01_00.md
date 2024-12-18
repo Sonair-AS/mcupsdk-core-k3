@@ -11,7 +11,7 @@
 
 SOC    | Supported CPUs              | EVM                                                     | Host PC
 -------|-----------------------------|---------------------------------------------------------|-----------------------------------
-AM275x | R5F, C75                    | @VAR_BOARD_NAME EVM (referred to as am275x-evm in code) | Windows 10 64b or Ubuntu 22.04 64b
+AM275x | R5F, C75                    | @VAR_BOARD_NAME (referred to as am275x-evm in code) | Windows 10 64b or Ubuntu 22.04 64b
 
 ## Features Added in This Release
 
@@ -168,7 +168,7 @@ ROM_CHECKSUM     |  R5F           | No
 </tr>
 <tr>
     <td> PROC_SDL-8786
-    <td> PBIST MAIN IP Controller (PBIST0) fails if tested and hence has been disabled 
+    <td> PBIST MAIN IP Controller (PBIST0) fails if tested and hence has been disabled
     <td> SDL
     <td> 10.01.00
     <td> None
