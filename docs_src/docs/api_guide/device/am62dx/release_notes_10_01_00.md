@@ -495,6 +495,20 @@ LED        | MCU-R5F, A53, C75   | Yes
     <td> 09.01.00
     <td> None.
 </tr>
+<tr>
+    <td> PROC_SDL-8582
+    <td> am62dx: VTM is failing in no-bootmode
+    <td> SDL
+    <td> 10.01.00
+    <td> None. This issue will fix in next release.
+</tr>
+<tr>
+    <td> PROC_SDL-6299
+    <td> ECC is not supported for some instances. These are SDL_CPSW0_CPSW_3GUSS_CORE_ECC_CPSW_ECC_AGGR and SDL_CSI_RX_IF0_CSI_RX_IF_ECC_AGGR.
+    <td> SDL
+    <td> 10.01.00
+    <td> None. Support will be added in future release.
+</tr>
 </table>
 
 ## Limitations
