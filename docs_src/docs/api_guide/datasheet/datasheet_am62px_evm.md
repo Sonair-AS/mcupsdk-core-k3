@@ -108,6 +108,63 @@ SBL Stage2: Total time taken            |   57.767
 
 - Out of the ~38 ms taken for System Init is mostly attributed to DDR initialization.
 
+### CPSW Performance
+
+#### TCP Test
+- Software/Application used : enet_lwip_cpsw
+- iperf test type           : TCP iperf
+- iperf command used        : iperf -c 192.168.0.158 -i 10 -t 100 -r
+
+#### TCP Performance(AM62PX-SK):
+
+ TCP direction           | B/W (Mb/s)                     | CPU load(%)
+-------------------------|--------------------------------|--------------
+ TCP RX                  | 206                            | 87.87
+ TCP TX                  | 165                            | 99.62
+ TCP Biderectional       | TX = 91.9 + RX = 93.4          | 100
+
+#### UDP Test
+- Software/Application used : enet_lwip_cpsw
+- iperf test type           : UDP iperf
+- iperf command used        : iperf -c 192.168.0.158 -u -b 60M -l 256 -i 10 -t 100 -r
+
+#### UDP TX Performance(AM62PX-SK):
+
+  - For Packet Size: 1500 B
+
+ Tx Side BW/Packet Size  | CPU load(%)                    | Packet loss(%)        | Latency
+-------------------------|--------------------------------|-----------------------|-----------
+ 25 Mbps                 | 100                            | 0                     | -
+ 50 Mbps                 | 100                            | 0                     | -
+ 100 Mbps                | 100                            | 0                     | -
+ Max(372 Mbps)           | 100                            | 0.1                   | -
+
+#### UDP RX Performance(AM62PX-SK):
+- For Packet Size: 256 B
+
+ Rx Side BW/Packet Size  | CPU load(%)                    | Packet loss(%)        | Latency
+-------------------------|--------------------------------|-----------------------|-----------
+ 25 Mbps                 | 61                             | 0.5                   | -
+ 50 Mbps                 | 100                            | 16                    | -
+ 100 Mbps                | -                              | -                     | -
+
+- For Packet Size: 512 B
+
+ Rx Side BW/Packet Size  | CPU load(%)                    | Packet loss(%)        | Latency
+-------------------------|--------------------------------|-----------------------|-----------
+ 25 Mbps                 | 34                             | 0.01                  | -
+ 50 Mbps                 | 65                             | 0.20                  | -
+ 100 Mbps                | 100                            | 21                    | -
+
+- For Packet Size: 1500 B
+
+ Rx Side BW/Packet Size  | CPU load(%)                    | Packet loss(%)        | Latency
+-------------------------|--------------------------------|-----------------------|-----------
+ 25 Mbps                 | 17                             | 0                     | -
+ 50 Mbps                 | 30                             | 0                     | -
+ 100 Mbps                | 56                             | 0.08                  | -
+ Max(177 Mbps)           | 99.83                          | 0.33                  | -
+
 ### IPC performance
 
 #### IPC NOTIFY

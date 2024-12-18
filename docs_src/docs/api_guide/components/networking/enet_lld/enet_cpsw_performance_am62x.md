@@ -22,7 +22,7 @@ Configuration                   | Value                    |
 Processing Core                 | Main A53 Core 0          |
 Core Frequency                  | 1 GHz                    |
 Ethernet Interface Type         | RGMII at 1 Gbps          |
-Packet buffer memory            | DDR                    |
+Packet buffer memory            | DDR (uncached)           |
 Scatter-gather TX               | Yes                      |
 Scatter-gather RX               | Yes                      |
 UDMA interrupt pacing           | NO                       |

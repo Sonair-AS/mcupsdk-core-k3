@@ -8,29 +8,29 @@ SOC Details           | Values          |
 ----------------------|-----------------|
 Core                  | R5F             |
 Core Operating Speed  | 800 MHz         |
-Memory Type           | MSRAM           |
+Memory Type           | DDR             |
 Cache status          | Enabled         |
-EVM Type              | AM243x-LP E3    |
+EVM Type              | AM62PX-LP       |
 
 # Layer 2 Performance
   \imageStyle{CPSW_latency_measurement_diagram.bmp,width:30%}
   \image html CPSW_latency_measurement_diagram.bmp Latency defination
 
 ## Configuration Details
-Configuration          | Value                    |
+Configuration                   | Value                    |
 --------------------------------|--------------------------|
 Processing Core                 | Main R5F0 Core 0         |
 Core Frequency                  | 800 MHz                  |
-Ethernet Interface Type         | RGMII at 1 Gbps           |
-Packet buffer memory      | MSRAM                      |
-Scatter-gather TX         | Yes                      |
-Scatter-gather RX         | Yes                      |
-UPDMA interrupt pacing    | NO                      |
+Ethernet Interface Type         | RGMII at 1 Gbps          |
+Packet buffer memory            | DDR (uncached)           |
+Scatter-gather TX               | Yes                      |
+Scatter-gather RX               | Yes                      |
+UDMA interrupt pacing           | NO                       |
 RTOS                            | FreeRTOS                 |
 RTOS application                | Modified \ref EXAMPLES_ENET_CPSW_LOOPBACK \n example   |
-Host PC tool version            | nload                   |
-Rx packet length     | 200 B                       |
-Tx packet length     | 200 B                       |
+Host PC tool version            | nload                    |
+Rx packet length                | 200 B                    |
+Tx packet length                | 200 B                    |
 \n
 
 ## Layer 2 Latency
@@ -58,22 +58,22 @@ Tx packet length     | 200 B                       |
 # TCP/IP Performance
 
 ## Configuration Details
-Configuration          | Value                    |
---------------------------------|--------------------------|
-Processing Core                 | Main R5F0 Core 0         |
-Core Frequency                  | 800 MHz                  |
-Ethernet Interface Type         | RGMII at 1 Gbps           |
-Packet buffer memory      | MSRAM (cached)                      |
-Hardware checksum offload | Enabled on both Tx and Rx Side |
-Scatter-gather TX         | Yes                      |
-Scatter-gather RX         | Yes                      |
-UDMA interrupt pacing     | Yes (realized with timer based interrupt pacing) |
-RTOS                            | FreeRTOS                 |
-RTOS application                | \ref EXAMPLES_ENET_LWIP_CPSW in examples   |
-TCP/IP stack                    | LwIP version @VAR_LWIP_VERSION               |
-Host PC tool version            | iperf v2.0.10            |
-Number of Rx packet buffers     | 32                       |
-Number of Tx packet buffers     | 16                       |
+Configuration                   | Value                                            |
+--------------------------------|--------------------------------------------------|
+Processing Core                 | WKUP R5F0 Core 0                                 |
+Core Frequency                  | 800 MHz                                          |
+Ethernet Interface Type         | RGMII at 1 Gbps                                  |
+Packet buffer memory            | DDR (cached)                                     |
+Hardware checksum offload       | Enabled on both Tx and Rx Side                   |
+Scatter-gather TX               | Yes                                              |
+Scatter-gather RX               | Yes                                              |
+UDMA interrupt pacing           | Yes (realized with timer based interrupt pacing) |
+RTOS                            | FreeRTOS                                         |
+RTOS application                | \ref EXAMPLES_ENET_LWIP_CPSW in examples         |
+TCP/IP stack                    | LwIP version @VAR_LWIP_VERSION                   |
+Host PC tool version            | iperf v2.0.10                                    |
+Number of Rx packet buffers     | 32                                               |
+Number of Tx packet buffers     | 16                                               |
 \n
 ### TCP Throughput
 <table>
@@ -83,13 +83,13 @@ Number of Tx packet buffers     | 16                       |
         <td style="text-align: center;"><b>CPU Load \n (%) </b></td>
     </tr>
     <tr>
-        <td>TCP RX</td><td>93</td><td>34</td>
+        <td>TCP RX</td><td>206</td><td>87.8</td>
     </tr>
     <tr>
-        <td>TCP TX</td><td>93</td><td>34</td>
+        <td>TCP TX</td><td>165</td><td>99.6</td>
     </tr>
     <tr>
-        <td>TCP Bidirectional</td><td>RX=93 \n TX=93</td><td>63</td>
+        <td>TCP Bidirectional</td><td>RX=93.4 \n TX=91.9</td><td>100</td>
     </tr>
 </table>
 
@@ -116,36 +116,36 @@ Number of Tx packet buffers     | 16                       |
     </tr>
     <tr>
         <td rowspan="3">UDP RX</td>
-        <td>5</td><td>25</td><td>0.0</td>
-        <td>5</td><td>7</td><td>0.0</td>
-        <td>25</td><td>18</td><td>0.0</td>
+        <td>5</td><td>30</td><td>0.0</td>
+        <td>5</td><td>15</td><td>0.0</td>
+        <td>25</td><td>34</td><td>0.01</td>
         <td>50</td><td>16</td><td>0.0</td>
     </tr>
     <tr>
-        <td>10</td><td>36</td><td>22</td>
-        <td>15</td><td>19</td><td>0.0</td>
-        <td>50</td><td>34</td><td>0.1</td>
-        <td>65</td><td>21</td><td>0.0</td>
+        <td>10</td><td>58</td><td>0.15</td>
+        <td>15</td><td>38</td><td>0.02</td>
+        <td>50</td><td>65</td><td>0.2</td>
+        <td>65</td><td>38</td><td>0.01</td>
     </tr>
     <tr>
-        <td>15</td><td>36</td><td>48</td>
-        <td>25</td><td>31</td><td>0</td>
-        <td>65</td><td>42</td><td>4.6</td>
-        <td>95</td><td>68</td><td>0.0</td>
+        <td>15</td><td>84</td><td>0.2</td>
+        <td>25</td><td>61</td><td>0.5</td>
+        <td>65</td><td>82</td><td>0.3</td>
+        <td>100</td><td>56</td><td>0.08</td>
     </tr>
     <tr>
         <td>UDP RX (Max)</td>
-        <td>7</td><td>32</td><td>0.8</td>
-        <td>32</td><td>37</td><td>0.9</td>
-        <td>61</td><td>41</td><td>0.8</td>
-        <td>110</td><td>78</td><td>2.4</td>
+        <td>17</td><td>100</td><td>1.5</td>
+        <td>42</td><td>97</td><td>0.9</td>
+        <td>80</td><td>99</td><td>0.5</td>
+        <td>177</td><td>99.8</td><td>0.33</td>
     </tr>
     <tr>
         <td>UDP TX (Max)</td>
-        <td>40</td><td>100</td><td>0.0</td>
-        <td>90</td><td>100</td><td>0.0</td>
-        <td>161</td><td>100</td><td>0.0</td>
-        <td>535</td><td>100</td><td>0.0</td>
+        <td>26</td><td>100</td><td>0.0</td>
+        <td>64</td><td>100</td><td>0.0</td>
+        <td>130</td><td>100</td><td>0.0</td>
+        <td>372</td><td>100</td><td>0.0</td>
     </tr>
 </table>
 
@@ -155,11 +155,11 @@ Number of Tx packet buffers     | 16                       |
 where \<bw\> is 5M, 10M, 15M, etc\n
 
 - Test with datagram length of 256B:\n
-     $```iperf -c <evm_ip> -u -l256 -b <bw> -r```\n
+     $```iperf -c <evm_ip> -u -l 256 -b <bw> -r```\n
 where \<bw\> is 25M, 50M, 100M, etc\n
 
 - Test with datagram length of 512B:\n
-     $```iperf -c <evm_ip> -u -l512 -b <bw> -r```\n
+     $```iperf -c <evm_ip> -u -l 512 -b <bw> -r```\n
 where \<bw\> is 25M, 50M, 100M, etc\n
 
 - Test with datagram length of 1470B (max):\n
