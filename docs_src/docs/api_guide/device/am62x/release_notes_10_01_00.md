@@ -40,7 +40,7 @@ A53 applications booted with ATF now                                            
 
 Feature                                                             | Module
 --------------------------------------------------------------------|--------------------------
-A53 FreeRTOS support and A53 FreeRTOS examples                      | DPL, FreeRTOS
+FreeRTOS AMP support on A53.                                        | DPL, FreeRTOS
 
 ### FreeRTOS Support on A53
 Is                                                      | Is Not
@@ -545,7 +545,7 @@ ROM Checksum | R5F            | No
     <td> PROC_SDL-8582
     <td> VTM Example is failing in no-bootmode for M4F core
     <td> SDL
-    <td> 10.01.00 
+    <td> 10.01.00
     <td> Use UART Bootmode
 </tr>
 <tr>
