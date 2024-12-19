@@ -273,7 +273,7 @@ function getComponentBuildProperty(buildOption) {
 
 function getSystemProjects(device)
 {
-    return systemProjects;
+    return null;
 }
 
 module.exports = {
