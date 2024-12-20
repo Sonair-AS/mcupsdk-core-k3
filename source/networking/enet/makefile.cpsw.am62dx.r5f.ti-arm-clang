@@ -74,6 +74,7 @@ FILES_common := \
     k3_soc.c \
     enetphy.c \
     generic_phy.c \
+    dp83tg721.c \
     enet_apputils.c \
     enet_appmemutils.c \
     enet_appethpatterns.c \
@@ -119,6 +120,7 @@ INCLUDES_common := \
     -I${MCU_PLUS_SDK_PATH}/source/networking/enet/hw_include/mdio \
     -I${MCU_PLUS_SDK_PATH}/source/networking/enet/soc/k3/am62dx \
     -I${MCU_PLUS_SDK_PATH}/source/board/ethphy/enet/rtos_drivers/include \
+    -I${MCU_PLUS_SDK_PATH}/source/board/ethphy/enet/rtos_drivers/src \
 
 DEFINES_common := \
     -DSOC_AM62DX \
