@@ -3757,6 +3757,38 @@
             "example"
         ],
         "resourceSubClass": [
+            "example.general"
+        ],
+        "description": "A Runtime Keyrev Example. CPU is WKUP-R5FSS0-0 running NORTOS.",
+        "name": "runtime_keyrev",
+        "location": "../../examples/otp/runtime_keyrev/am62px-sk/wkup-r5fss0-0_nortos/ti-arm-clang/example.projectspec",
+        "devtools": [
+            "SK-AM62P-LP"
+        ],
+        "kernel": [
+            "nortos"
+        ],
+        "compiler": [
+            "ticlang"
+        ],
+        "subCategories": [
+            "otp",
+            "runtime_keyrev",
+            "wkup-r5fss0-0_nortos"
+        ],
+        "mainCategories": [
+            [
+                "Examples",
+                "Development Tools"
+            ]
+        ]
+    },
+    {
+        "resourceType": "project.ccs",
+        "resourceClass": [
+            "example"
+        ],
+        "resourceSubClass": [
             "example.gettingstarted"
         ],
         "description": "Safety app using Safety checkers CPU is MCU-R5FSS0-0 running FREERTOS.",
