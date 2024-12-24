@@ -192,7 +192,7 @@ const utils = {
         if (device == "am62dx") {
             return "1.20.999";
         } else {
-            return "1.20.0";
+            return "1.21.0";
         }
     },
 
