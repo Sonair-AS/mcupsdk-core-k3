@@ -301,6 +301,8 @@ static void VTM_setContinousMode(const CSL_vtm_cfg2Regs_TMPSENS *sensorConfig,
     {
         CSL_REG32_FINS(&sensorConfig->CTRL, VTM_CFG2_TMPSENS_CTRL_CONT, \
                        modeSetVal);
+        CSL_REG32_FINS(&sensorConfig->CTRL, VTM_CFG2_TMPSENS_CTRL_CLRZ, \
+                       modeSetVal);
     }
 }
 
