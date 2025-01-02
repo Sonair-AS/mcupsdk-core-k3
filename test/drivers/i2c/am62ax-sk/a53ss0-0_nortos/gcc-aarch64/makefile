@@ -60,6 +60,7 @@ INCLUDES_common := \
 	-I${MCU_PLUS_SDK_PATH}/source \
 	-I${MCU_PLUS_SDK_PATH}/test/unity/ \
 	-I${MCU_PLUS_SDK_PATH}/test/drivers/i2c/am62ax-evm \
+	-I${MCU_PLUS_SDK_PATH}/source/kernel/dpl \
 	-Igenerated \
 
 DEFINES_common := \
