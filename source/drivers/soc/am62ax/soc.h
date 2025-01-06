@@ -1,5 +1,5 @@
 /*
- *  Copyright (C) 2022-2024 Texas Instruments Incorporated
+ *  Copyright (C) 2022-2025 Texas Instruments Incorporated
  *
  *  Redistribution and use in source and binary forms, with or without
  *  modification, are permitted provided that the following conditions
@@ -111,6 +111,19 @@ extern "C"
  * \return SystemP_FAILURE Module clock could not be enabled
  */
 int32_t SOC_moduleClockEnable(uint32_t moduleId, uint32_t enable);
+
+/**
+ * \brief Set module clock to specified frequency and with a specific parent
+ *
+ * \param moduleId [in] see \ref tisci_devices for list of module ID's
+ * \param clkId [in] see \ref tisci_clocks for list of clocks associated with the specified module ID
+ * \param clkParent [in] see \ref tisci_clocks for list of clock parents associated with the specified module ID
+ * \param clkRate [in] Frequency to set in Hz
+ *
+ * \return SystemP_SUCCESS Module clock is enabled
+ * \return SystemP_FAILURE Module clock could not be enabled
+ */
+int32_t SOC_moduleSetClockFrequencyWithParent(uint32_t moduleId, uint32_t clkId, uint32_t clkParent, uint64_t clkRate);
 
 /**
  * \brief Set module clock to specified frequency
