@@ -1,6 +1,3 @@
---retain="*(.bootCode)";
---retain="*(.startupCode)";
---retain="*(.startupData)";
 --retain="*(.irqStack)";
 --retain="*(.fiqStack)";
 --retain="*(.abortStack)";
@@ -46,8 +43,6 @@ SECTIONS
 {
     /* This has the R5F entry point and vector table, this MUST be at 0x0 */
     .vectors:{} palign(8) > R5F_TCMA_VEC
-    .startupCode:{} palign(8) > R5F_TCMA
-    .startupData: {} palign(8) > DDR, type = NOINIT
 
     /* This has the R5F boot code until MPU is enabled,  this MUST be at a address < 0x80000000
      * i.e this cannot be placed in DDR

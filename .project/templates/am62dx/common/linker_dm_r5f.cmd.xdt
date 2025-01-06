@@ -7,9 +7,6 @@
     if(options && options.globalScratchBuf)
     globalScratchBuf = options.globalScratchBuf;
 %%}
---retain="*(.bootCode)";
---retain="*(.startupCode)";
---retain="*(.startupData)";
 --retain="*(.irqStack)";
 --retain="*(.fiqStack)";
 --retain="*(.abortStack)";
@@ -55,9 +52,6 @@ SECTIONS
 {
     /* This has the R5F entry point and vector table, this MUST be at 0x0 */
     .vectors            : {} palign(8)      > DDR
-    .bootCode           : align = 8, load = R5F_TCMB, run = R5F_TCMA
-    .startupCode        : align = 8, load = R5F_TCMB, run = R5F_TCMA
-    .startupData        : align = 8, load = R5F_TCMB, run = R5F_TCMA, type = NOINIT
 
     /* This has the R5F boot code until MPU is enabled,  this MUST be at a address < 0x80000000
      * i.e this cannot be placed in DDR
