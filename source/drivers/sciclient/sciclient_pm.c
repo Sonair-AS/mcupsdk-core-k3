@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2018-2024, Texas Instruments Incorporated
+ * Copyright (c) 2018-2025, Texas Instruments Incorporated
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -209,7 +209,8 @@ int32_t Sciclient_pmSetModuleRst_flags(uint32_t moduleId,
     retVal = Sciclient_service(&reqParam, &respParam);
 
     if((retVal != SystemP_SUCCESS) ||
-        ((respParam.flags & TISCI_MSG_FLAG_ACK) != TISCI_MSG_FLAG_ACK))
+        ((reqFlag != 0U) &&
+        ((respParam.flags & TISCI_MSG_FLAG_ACK) != TISCI_MSG_FLAG_ACK)))
     {
         retVal = SystemP_FAILURE;
     }
