@@ -568,6 +568,9 @@ help:
 	@echo  $(MAKE) -s -C examples/otp/ext_otp/am62x-sk/r5fss0-0_nortos/ti-arm-clang [all clean syscfg-gui syscfg]
 	@echo  $(MAKE) -s -C examples/otp/ext_otp/am62x-sip-sk/r5fss0-0_nortos/ti-arm-clang [all clean syscfg-gui syscfg]
 	@echo  $(MAKE) -s -C examples/otp/ext_otp/am62x-sk-lp/r5fss0-0_nortos/ti-arm-clang [all clean syscfg-gui syscfg]
+	@echo  $(MAKE) -s -C examples/otp/runtime_keyrev/am62x-sk/r5fss0-0_nortos/ti-arm-clang [all clean syscfg-gui syscfg]
+	@echo  $(MAKE) -s -C examples/otp/runtime_keyrev/am62x-sip-sk/r5fss0-0_nortos/ti-arm-clang [all clean syscfg-gui syscfg]
+	@echo  $(MAKE) -s -C examples/otp/runtime_keyrev/am62x-sk-lp/r5fss0-0_nortos/ti-arm-clang [all clean syscfg-gui syscfg]
 	@echo  $(MAKE) -s -C examples/safety/safety_app/am62x-sk/r5fss0-0_freertos/ti-arm-clang [all clean syscfg-gui syscfg]
 	@echo  $(MAKE) -s -C examples/safety/safety_app/am62x-sk-lp/r5fss0-0_freertos/ti-arm-clang [all clean syscfg-gui syscfg]
 	@echo  $(MAKE) -s -C examples/security/fwl_exception_log/am62x-sk/r5fss0-0_freertos/ti-arm-clang [all clean syscfg-gui syscfg]
@@ -3007,6 +3010,15 @@ examples-private: $(BUILD_COMBO_EXAMPLE_PRIVATE_ALL)
  ext_otp_am62x-sk-lp_r5fss0-0_nortos_ti-arm-clang:
 	$(MAKE) -C examples/otp/ext_otp/am62x-sk-lp/r5fss0-0_nortos/ti-arm-clang -f makefile all
 
+ runtime_keyrev_am62x-sk_r5fss0-0_nortos_ti-arm-clang:
+	$(MAKE) -C examples/otp/runtime_keyrev/am62x-sk/r5fss0-0_nortos/ti-arm-clang -f makefile all
+
+ runtime_keyrev_am62x-sip-sk_r5fss0-0_nortos_ti-arm-clang:
+	$(MAKE) -C examples/otp/runtime_keyrev/am62x-sip-sk/r5fss0-0_nortos/ti-arm-clang -f makefile all
+
+ runtime_keyrev_am62x-sk-lp_r5fss0-0_nortos_ti-arm-clang:
+	$(MAKE) -C examples/otp/runtime_keyrev/am62x-sk-lp/r5fss0-0_nortos/ti-arm-clang -f makefile all
+
  SafetyApp_am62x-sk_r5fss0-0_freertos_ti-arm-clang:
 	$(MAKE) -C examples/safety/safety_app/am62x-sk/r5fss0-0_freertos/ti-arm-clang -f makefile all
 
@@ -5248,6 +5260,15 @@ examples-private-clean: $(BUILD_COMBO_EXAMPLE_PRIVATE_CLEAN_ALL)
 
  ext_otp_am62x-sk-lp_r5fss0-0_nortos_ti-arm-clang_clean:
 	$(MAKE) -C examples/otp/ext_otp/am62x-sk-lp/r5fss0-0_nortos/ti-arm-clang -f makefile clean
+
+ runtime_keyrev_am62x-sk_r5fss0-0_nortos_ti-arm-clang_clean:
+	$(MAKE) -C examples/otp/runtime_keyrev/am62x-sk/r5fss0-0_nortos/ti-arm-clang -f makefile clean
+
+ runtime_keyrev_am62x-sip-sk_r5fss0-0_nortos_ti-arm-clang_clean:
+	$(MAKE) -C examples/otp/runtime_keyrev/am62x-sip-sk/r5fss0-0_nortos/ti-arm-clang -f makefile clean
+
+ runtime_keyrev_am62x-sk-lp_r5fss0-0_nortos_ti-arm-clang_clean:
+	$(MAKE) -C examples/otp/runtime_keyrev/am62x-sk-lp/r5fss0-0_nortos/ti-arm-clang -f makefile clean
 
  SafetyApp_am62x-sk_r5fss0-0_freertos_ti-arm-clang_clean:
 	$(MAKE) -C examples/safety/safety_app/am62x-sk/r5fss0-0_freertos/ti-arm-clang -f makefile clean
@@ -7491,6 +7512,15 @@ examples-scrub-private: $(BUILD_COMBO_EXAMPLE_PRIVATE_SCRUB_ALL)
  ext_otp_am62x-sk-lp_r5fss0-0_nortos_ti-arm-clang_scrub:
 	$(MAKE) -C examples/otp/ext_otp/am62x-sk-lp/r5fss0-0_nortos/ti-arm-clang -f makefile scrub
 
+ runtime_keyrev_am62x-sk_r5fss0-0_nortos_ti-arm-clang_scrub:
+	$(MAKE) -C examples/otp/runtime_keyrev/am62x-sk/r5fss0-0_nortos/ti-arm-clang -f makefile scrub
+
+ runtime_keyrev_am62x-sip-sk_r5fss0-0_nortos_ti-arm-clang_scrub:
+	$(MAKE) -C examples/otp/runtime_keyrev/am62x-sip-sk/r5fss0-0_nortos/ti-arm-clang -f makefile scrub
+
+ runtime_keyrev_am62x-sk-lp_r5fss0-0_nortos_ti-arm-clang_scrub:
+	$(MAKE) -C examples/otp/runtime_keyrev/am62x-sk-lp/r5fss0-0_nortos/ti-arm-clang -f makefile scrub
+
  SafetyApp_am62x-sk_r5fss0-0_freertos_ti-arm-clang_scrub:
 	$(MAKE) -C examples/safety/safety_app/am62x-sk/r5fss0-0_freertos/ti-arm-clang -f makefile scrub
 
@@ -7791,6 +7821,9 @@ sbl: libs
 	$(MAKE) -C examples/otp/ext_otp/am62x-sk/r5fss0-0_nortos/ti-arm-clang -f makefile all
 	$(MAKE) -C examples/otp/ext_otp/am62x-sip-sk/r5fss0-0_nortos/ti-arm-clang -f makefile all
 	$(MAKE) -C examples/otp/ext_otp/am62x-sk-lp/r5fss0-0_nortos/ti-arm-clang -f makefile all
+	$(MAKE) -C examples/otp/runtime_keyrev/am62x-sk/r5fss0-0_nortos/ti-arm-clang -f makefile all
+	$(MAKE) -C examples/otp/runtime_keyrev/am62x-sip-sk/r5fss0-0_nortos/ti-arm-clang -f makefile all
+	$(MAKE) -C examples/otp/runtime_keyrev/am62x-sk-lp/r5fss0-0_nortos/ti-arm-clang -f makefile all
 
 sbl-clean:
 	$(MAKE) -C examples/drivers/boot/sbl_emmc_linux_multistage/sbl_emmc_linux_stage1/am62x-sk/r5fss0-0_nortos/ti-arm-clang -f makefile clean
@@ -7824,6 +7857,9 @@ sbl-clean:
 	$(MAKE) -C examples/otp/ext_otp/am62x-sk/r5fss0-0_nortos/ti-arm-clang -f makefile clean
 	$(MAKE) -C examples/otp/ext_otp/am62x-sip-sk/r5fss0-0_nortos/ti-arm-clang -f makefile clean
 	$(MAKE) -C examples/otp/ext_otp/am62x-sk-lp/r5fss0-0_nortos/ti-arm-clang -f makefile clean
+	$(MAKE) -C examples/otp/runtime_keyrev/am62x-sk/r5fss0-0_nortos/ti-arm-clang -f makefile clean
+	$(MAKE) -C examples/otp/runtime_keyrev/am62x-sip-sk/r5fss0-0_nortos/ti-arm-clang -f makefile clean
+	$(MAKE) -C examples/otp/runtime_keyrev/am62x-sk-lp/r5fss0-0_nortos/ti-arm-clang -f makefile clean
 
 sbl-scrub:
 	$(MAKE) -C examples/drivers/boot/sbl_emmc_linux_multistage/sbl_emmc_linux_stage1/am62x-sk/r5fss0-0_nortos/ti-arm-clang -f makefile scrub
@@ -7857,6 +7893,9 @@ sbl-scrub:
 	$(MAKE) -C examples/otp/ext_otp/am62x-sk/r5fss0-0_nortos/ti-arm-clang -f makefile scrub
 	$(MAKE) -C examples/otp/ext_otp/am62x-sip-sk/r5fss0-0_nortos/ti-arm-clang -f makefile scrub
 	$(MAKE) -C examples/otp/ext_otp/am62x-sk-lp/r5fss0-0_nortos/ti-arm-clang -f makefile scrub
+	$(MAKE) -C examples/otp/runtime_keyrev/am62x-sk/r5fss0-0_nortos/ti-arm-clang -f makefile scrub
+	$(MAKE) -C examples/otp/runtime_keyrev/am62x-sip-sk/r5fss0-0_nortos/ti-arm-clang -f makefile scrub
+	$(MAKE) -C examples/otp/runtime_keyrev/am62x-sk-lp/r5fss0-0_nortos/ti-arm-clang -f makefile scrub
 
 
 

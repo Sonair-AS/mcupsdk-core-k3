@@ -480,6 +480,9 @@ BUILD_COMBO_EXAMPLE_PROJECTSPEC_BUILD_ALL += lpm_mcu_mcan_wakeup_linux_am62x-sip
 BUILD_COMBO_EXAMPLE_PROJECTSPEC_BUILD_ALL += ext_otp_am62x-sk_r5fss0-0_nortos_ti-arm-clang_build
 BUILD_COMBO_EXAMPLE_PROJECTSPEC_BUILD_ALL += ext_otp_am62x-sip-sk_r5fss0-0_nortos_ti-arm-clang_build
 BUILD_COMBO_EXAMPLE_PROJECTSPEC_BUILD_ALL += ext_otp_am62x-sk-lp_r5fss0-0_nortos_ti-arm-clang_build
+BUILD_COMBO_EXAMPLE_PROJECTSPEC_BUILD_ALL += runtime_keyrev_am62x-sk_r5fss0-0_nortos_ti-arm-clang_build
+BUILD_COMBO_EXAMPLE_PROJECTSPEC_BUILD_ALL += runtime_keyrev_am62x-sip-sk_r5fss0-0_nortos_ti-arm-clang_build
+BUILD_COMBO_EXAMPLE_PROJECTSPEC_BUILD_ALL += runtime_keyrev_am62x-sk-lp_r5fss0-0_nortos_ti-arm-clang_build
 BUILD_COMBO_EXAMPLE_PROJECTSPEC_BUILD_ALL += SafetyApp_am62x-sk_r5fss0-0_freertos_ti-arm-clang_build
 BUILD_COMBO_EXAMPLE_PROJECTSPEC_BUILD_ALL += SafetyApp_am62x-sk-lp_r5fss0-0_freertos_ti-arm-clang_build
 BUILD_COMBO_EXAMPLE_PROJECTSPEC_BUILD_ALL += fwl_exception_log_am62x-sk_r5fss0-0_freertos_ti-arm-clang_build
@@ -2007,6 +2010,15 @@ all-private: $(BUILD_COMBO_EXAMPLE_PROJECTSPEC_BUILD_PRIVATE_ALL)
  ext_otp_am62x-sk-lp_r5fss0-0_nortos_ti-arm-clang_build:
 	$(MAKE) -C examples/otp/ext_otp/am62x-sk-lp/r5fss0-0_nortos/ti-arm-clang -f makefile_projectspec all
 
+ runtime_keyrev_am62x-sk_r5fss0-0_nortos_ti-arm-clang_build:
+	$(MAKE) -C examples/otp/runtime_keyrev/am62x-sk/r5fss0-0_nortos/ti-arm-clang -f makefile_projectspec all
+
+ runtime_keyrev_am62x-sip-sk_r5fss0-0_nortos_ti-arm-clang_build:
+	$(MAKE) -C examples/otp/runtime_keyrev/am62x-sip-sk/r5fss0-0_nortos/ti-arm-clang -f makefile_projectspec all
+
+ runtime_keyrev_am62x-sk-lp_r5fss0-0_nortos_ti-arm-clang_build:
+	$(MAKE) -C examples/otp/runtime_keyrev/am62x-sk-lp/r5fss0-0_nortos/ti-arm-clang -f makefile_projectspec all
+
  SafetyApp_am62x-sk_r5fss0-0_freertos_ti-arm-clang_build:
 	$(MAKE) -C examples/safety/safety_app/am62x-sk/r5fss0-0_freertos/ti-arm-clang -f makefile_projectspec all
 
@@ -2754,6 +2766,9 @@ BUILD_COMBO_EXAMPLE_PROJECTSPEC_CLEAN_ALL += lpm_mcu_mcan_wakeup_linux_am62x-sip
 BUILD_COMBO_EXAMPLE_PROJECTSPEC_CLEAN_ALL += ext_otp_am62x-sk_r5fss0-0_nortos_ti-arm-clang_clean
 BUILD_COMBO_EXAMPLE_PROJECTSPEC_CLEAN_ALL += ext_otp_am62x-sip-sk_r5fss0-0_nortos_ti-arm-clang_clean
 BUILD_COMBO_EXAMPLE_PROJECTSPEC_CLEAN_ALL += ext_otp_am62x-sk-lp_r5fss0-0_nortos_ti-arm-clang_clean
+BUILD_COMBO_EXAMPLE_PROJECTSPEC_CLEAN_ALL += runtime_keyrev_am62x-sk_r5fss0-0_nortos_ti-arm-clang_clean
+BUILD_COMBO_EXAMPLE_PROJECTSPEC_CLEAN_ALL += runtime_keyrev_am62x-sip-sk_r5fss0-0_nortos_ti-arm-clang_clean
+BUILD_COMBO_EXAMPLE_PROJECTSPEC_CLEAN_ALL += runtime_keyrev_am62x-sk-lp_r5fss0-0_nortos_ti-arm-clang_clean
 BUILD_COMBO_EXAMPLE_PROJECTSPEC_CLEAN_ALL += SafetyApp_am62x-sk_r5fss0-0_freertos_ti-arm-clang_clean
 BUILD_COMBO_EXAMPLE_PROJECTSPEC_CLEAN_ALL += SafetyApp_am62x-sk-lp_r5fss0-0_freertos_ti-arm-clang_clean
 BUILD_COMBO_EXAMPLE_PROJECTSPEC_CLEAN_ALL += fwl_exception_log_am62x-sk_r5fss0-0_freertos_ti-arm-clang_clean
@@ -4281,6 +4296,15 @@ clean-private: $(BUILD_COMBO_EXAMPLE_PROJECTSPEC_CLEAN_PRIVATE_ALL)
  ext_otp_am62x-sk-lp_r5fss0-0_nortos_ti-arm-clang_clean:
 	$(MAKE) -C examples/otp/ext_otp/am62x-sk-lp/r5fss0-0_nortos/ti-arm-clang -f makefile_projectspec clean
 
+ runtime_keyrev_am62x-sk_r5fss0-0_nortos_ti-arm-clang_clean:
+	$(MAKE) -C examples/otp/runtime_keyrev/am62x-sk/r5fss0-0_nortos/ti-arm-clang -f makefile_projectspec clean
+
+ runtime_keyrev_am62x-sip-sk_r5fss0-0_nortos_ti-arm-clang_clean:
+	$(MAKE) -C examples/otp/runtime_keyrev/am62x-sip-sk/r5fss0-0_nortos/ti-arm-clang -f makefile_projectspec clean
+
+ runtime_keyrev_am62x-sk-lp_r5fss0-0_nortos_ti-arm-clang_clean:
+	$(MAKE) -C examples/otp/runtime_keyrev/am62x-sk-lp/r5fss0-0_nortos/ti-arm-clang -f makefile_projectspec clean
+
  SafetyApp_am62x-sk_r5fss0-0_freertos_ti-arm-clang_clean:
 	$(MAKE) -C examples/safety/safety_app/am62x-sk/r5fss0-0_freertos/ti-arm-clang -f makefile_projectspec clean
 
@@ -5028,6 +5052,9 @@ BUILD_COMBO_EXAMPLE_PROJECTSPEC_EXPORT_ALL += lpm_mcu_mcan_wakeup_linux_am62x-si
 BUILD_COMBO_EXAMPLE_PROJECTSPEC_EXPORT_ALL += ext_otp_am62x-sk_r5fss0-0_nortos_ti-arm-clang_export
 BUILD_COMBO_EXAMPLE_PROJECTSPEC_EXPORT_ALL += ext_otp_am62x-sip-sk_r5fss0-0_nortos_ti-arm-clang_export
 BUILD_COMBO_EXAMPLE_PROJECTSPEC_EXPORT_ALL += ext_otp_am62x-sk-lp_r5fss0-0_nortos_ti-arm-clang_export
+BUILD_COMBO_EXAMPLE_PROJECTSPEC_EXPORT_ALL += runtime_keyrev_am62x-sk_r5fss0-0_nortos_ti-arm-clang_export
+BUILD_COMBO_EXAMPLE_PROJECTSPEC_EXPORT_ALL += runtime_keyrev_am62x-sip-sk_r5fss0-0_nortos_ti-arm-clang_export
+BUILD_COMBO_EXAMPLE_PROJECTSPEC_EXPORT_ALL += runtime_keyrev_am62x-sk-lp_r5fss0-0_nortos_ti-arm-clang_export
 BUILD_COMBO_EXAMPLE_PROJECTSPEC_EXPORT_ALL += SafetyApp_am62x-sk_r5fss0-0_freertos_ti-arm-clang_export
 BUILD_COMBO_EXAMPLE_PROJECTSPEC_EXPORT_ALL += SafetyApp_am62x-sk-lp_r5fss0-0_freertos_ti-arm-clang_export
 BUILD_COMBO_EXAMPLE_PROJECTSPEC_EXPORT_ALL += fwl_exception_log_am62x-sk_r5fss0-0_freertos_ti-arm-clang_export
@@ -6555,6 +6582,15 @@ export-private: $(BUILD_COMBO_EXAMPLE_PROJECTSPEC_EXPORT_PRIVATE_ALL)
  ext_otp_am62x-sk-lp_r5fss0-0_nortos_ti-arm-clang_export:
 	$(MAKE) -C examples/otp/ext_otp/am62x-sk-lp/r5fss0-0_nortos/ti-arm-clang -f makefile_projectspec export
 
+ runtime_keyrev_am62x-sk_r5fss0-0_nortos_ti-arm-clang_export:
+	$(MAKE) -C examples/otp/runtime_keyrev/am62x-sk/r5fss0-0_nortos/ti-arm-clang -f makefile_projectspec export
+
+ runtime_keyrev_am62x-sip-sk_r5fss0-0_nortos_ti-arm-clang_export:
+	$(MAKE) -C examples/otp/runtime_keyrev/am62x-sip-sk/r5fss0-0_nortos/ti-arm-clang -f makefile_projectspec export
+
+ runtime_keyrev_am62x-sk-lp_r5fss0-0_nortos_ti-arm-clang_export:
+	$(MAKE) -C examples/otp/runtime_keyrev/am62x-sk-lp/r5fss0-0_nortos/ti-arm-clang -f makefile_projectspec export
+
  SafetyApp_am62x-sk_r5fss0-0_freertos_ti-arm-clang_export:
 	$(MAKE) -C examples/safety/safety_app/am62x-sk/r5fss0-0_freertos/ti-arm-clang -f makefile_projectspec export
 
@@ -7318,6 +7354,9 @@ help:
 	@echo  $(MAKE) -s -C examples/otp/ext_otp/am62x-sk/r5fss0-0_nortos/ti-arm-clang -f makefile_projectspec [export all clean]
 	@echo  $(MAKE) -s -C examples/otp/ext_otp/am62x-sip-sk/r5fss0-0_nortos/ti-arm-clang -f makefile_projectspec [export all clean]
 	@echo  $(MAKE) -s -C examples/otp/ext_otp/am62x-sk-lp/r5fss0-0_nortos/ti-arm-clang -f makefile_projectspec [export all clean]
+	@echo  $(MAKE) -s -C examples/otp/runtime_keyrev/am62x-sk/r5fss0-0_nortos/ti-arm-clang -f makefile_projectspec [export all clean]
+	@echo  $(MAKE) -s -C examples/otp/runtime_keyrev/am62x-sip-sk/r5fss0-0_nortos/ti-arm-clang -f makefile_projectspec [export all clean]
+	@echo  $(MAKE) -s -C examples/otp/runtime_keyrev/am62x-sk-lp/r5fss0-0_nortos/ti-arm-clang -f makefile_projectspec [export all clean]
 	@echo  $(MAKE) -s -C examples/safety/safety_app/am62x-sk/r5fss0-0_freertos/ti-arm-clang -f makefile_projectspec [export all clean]
 	@echo  $(MAKE) -s -C examples/safety/safety_app/am62x-sk-lp/r5fss0-0_freertos/ti-arm-clang -f makefile_projectspec [export all clean]
 	@echo  $(MAKE) -s -C examples/security/fwl_exception_log/am62x-sk/r5fss0-0_freertos/ti-arm-clang -f makefile_projectspec [export all clean]
