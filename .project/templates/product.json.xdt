@@ -93,14 +93,14 @@
         "AM62x",
         "AM62SIP",
 % }
-% if((args.device == "am62ax") || (args.device == "am62dx") || (isDevelopmentMode)) {
+% if((args.device == "am62ax") || (isDevelopmentMode)) {
         "AM62Ax",
 % }
 % if((args.device == "am62px") || (isDevelopmentMode)) {
         "AM62Px",
 % }
 % if((args.device == "am62dx") || (isDevelopmentMode)) {
-        "AM62Dx",
+        "AM62D-Q1",
 % }
 % if((args.device == "am275x") || (isDevelopmentMode)) {
         "AM275x",
@@ -174,7 +174,7 @@
             "a53ss1-1",
         ],
 % }
-% if((args.device == "am62ax") || (args.device == "am62dx") || (isDevelopmentMode)) {
+% if((args.device == "am62ax") || (isDevelopmentMode)) {
         "AM62Ax": [
             "mcu-r5fss0-0",
             "r5fss0-0",
@@ -189,7 +189,7 @@
         ],
 % }
 % if((args.device == "am62dx") || (isDevelopmentMode)) {
-        "AM62Dx": [
+        "AM62D-Q1": [
             "mcu-r5fss0-0",
             "r5fss0-0",
             "c75ss0-0",

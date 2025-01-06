@@ -25,7 +25,7 @@
         "AM62SIP",
         "AM62Ax",
         "AM62Px",
-        "AM62Dx",
+        "AM62D-Q1",
         "AM275x",
     ],
     "contexts": {
@@ -94,7 +94,7 @@
             "mcu-r5fss0-0",
             "wkup-r5fss0-0",
         ],
-        "AM62Dx": [
+        "AM62D-Q1": [
             "mcu-r5fss0-0",
             "r5fss0-0",
             "c75ss0-0",
