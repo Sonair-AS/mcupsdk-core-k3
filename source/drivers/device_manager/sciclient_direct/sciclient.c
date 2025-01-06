@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2017-2024, Texas Instruments Incorporated
+ * Copyright (c) 2017-2025, Texas Instruments Incorporated
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -745,11 +745,7 @@ int32_t Sciclient_serviceSecureProxy(const Sciclient_ReqPrm_t *pReqPrm,
             status = CSL_ETIMEOUT;
             break;
         }
-#if !defined(MCU_PLUS_SDK)
-        Osal_delay(10);
-#else
         ClockP_usleep((uint32_t)ClockP_ticksToUsec(10));
-#endif
         key = HwiP_disable();
     }
     gSciclient_writeInProgress = 1U;
@@ -861,11 +857,7 @@ int32_t Sciclient_serviceSecureProxy(const Sciclient_ReqPrm_t *pReqPrm,
         ((header->flags & TISCI_MSG_FLAG_MASK) != 0U))
     {
         status = SemaphoreP_pend(gSciclientHandle.semHandles[localSeqId],timeToWait);
-#if !defined(MCU_PLUS_SDK)
-        gSciclientHandle.semStatus[localSeqId] = (SemaphoreP_Status)status;
-#else
         gSciclientHandle.semStatus[localSeqId] = status;
-#endif
     }
 
     if(status == CSL_PASS)
@@ -911,67 +903,8 @@ int32_t Sciclient_serviceSecureProxy(const Sciclient_ReqPrm_t *pReqPrm,
         (contextId != SCICLIENT_CONTEXT_MAX_NUM)
        )
     {
-#if !defined(MCU_PLUS_SDK)
-        #if defined (_TMS320C6X)
-        Osal_ClearInterrupt((int32_t) gSciclientMap[contextId].respIntrNum, OSAL_REGINT_INTVEC_EVENT_COMBINER);
-        Osal_EnableInterrupt((int32_t) gSciclientMap[contextId].respIntrNum, OSAL_REGINT_INTVEC_EVENT_COMBINER);
-        #else
-
-        #if defined (BUILD_C7X)
-        {
-            #if defined (SOC_J721S2) || defined (SOC_J784S4)
-            CSL_CLEC_EVTRegs * regs = (CSL_CLEC_EVTRegs *) CSL_COMPUTE_CLUSTER0_CLEC_BASE;
-            #elif defined(SOC_AM62A)
-            CSL_CLEC_EVTRegs   *regs = (CSL_CLEC_EVTRegs*) CSL_C7X256V0_CLEC_BASE;
-            #else
-            CSL_CLEC_EVTRegs * regs = (CSL_CLEC_EVTRegs *) CSL_COMPUTE_CLUSTER0_CLEC_REGS_BASE;
-            #endif
-            CSL_ClecEventConfig evtCfg;
-            evtCfg.secureClaimEnable = 0;
-            evtCfg.evtSendEnable = 1;
-            evtCfg.rtMap = 0x3C;
-            evtCfg.extEvtNum = 0x0;
-            evtCfg.c7xEvtNum = gSciclientMap[contextId].respIntrNum;
-            /* Clec interrupt number 1024 is connected to GIC interrupt number 32 in J721E.
-             * Due to this for CLEC programming one needs to add an offset of 992 (1024 - 32)
-             * to the event number which is shared between GIC and CLEC.
-             */
-            #if defined(SOC_J721E)
-            if (SCICLIENT_NON_SECURE_CONTEXT == gSciclientMap[contextId].context)
-            {
-                #if defined (SOC_J721S2) || defined (SOC_J784S4)
-                CSL_clecConfigEvent(regs, CSLR_COMPUTE_CLUSTER0_CLEC_SOC_EVENTS_IN_NAVSS0_INTR_0_OUTL_INTR_189 + 992, &evtCfg);
-                #else
-                CSL_clecConfigEvent(regs, CSLR_COMPUTE_CLUSTER0_CLEC_SOC_EVENTS_IN_NAVSS0_INTR_ROUTER_0_OUTL_INTR_189 + 992, &evtCfg);
-                #endif
-            }
-            else
-            {
-                #if defined (SOC_J721S2) || defined (SOC_J784S4)
-                CSL_clecConfigEvent(regs, CSLR_COMPUTE_CLUSTER0_CLEC_SOC_EVENTS_IN_NAVSS0_INTR_0_OUTL_INTR_191 + 992, &evtCfg);
-                #else
-                CSL_clecConfigEvent(regs, CSLR_COMPUTE_CLUSTER0_CLEC_SOC_EVENTS_IN_NAVSS0_INTR_ROUTER_0_OUTL_INTR_191 + 992, &evtCfg);
-                #endif
-            }
-            #elif defined(SOC_AM62A)
-            if (SCICLIENT_NON_SECURE_CONTEXT == gSciclientMap[contextId].context)
-            {
-                CSL_clecConfigEvent(regs, 256, &evtCfg);
-            }
-            else
-            {
-                CSL_clecConfigEvent(regs, 256, &evtCfg);
-            }
-            #endif
-        }
-        #endif
-        Osal_ClearInterrupt(0, (int32_t) gSciclientMap[contextId].respIntrNum);
-        Osal_EnableInterrupt(0, (int32_t) gSciclientMap[contextId].respIntrNum);
-        #endif
-#else
         (void)HwiP_clearInt( gSciclientMap[contextId].respIntrNum);
         (void)HwiP_enableInt( gSciclientMap[contextId].respIntrNum);
-#endif
     }
     return status;
 }
@@ -980,9 +913,6 @@ int32_t Sciclient_deinit(void)
 {
     int32_t   status = CSL_PASS;
     /* gSciclientHandle.initCount is critical */
-#if !defined(MCU_PLUS_SDK)
-    uint32_t contextId;
-#endif
     uint32_t doDeInit = 0;
     uintptr_t key = HwiP_disable();
 
@@ -1010,30 +940,16 @@ int32_t Sciclient_deinit(void)
             /* Delete Sciclient_ServiceHandle_t.semHandles */
             for (i = 0U; i < SCICLIENT_MAX_QUEUE_SIZE; i++)
             {
-#if !defined(MCU_PLUS_SDK)
-                (void) SemaphoreP_delete(gSciclientHandle.semHandles[i]);
-#else
                 (void) SemaphoreP_destruct(gSciclientHandle.semHandles[i]);
-#endif
             }
             /* De-register interrupts */
             if (gSciclientHandle.respIntr[SCICLIENT_NON_SEC_RESP_INTR_HANDLER] != NULL)
             {
-#if !defined(MCU_PLUS_SDK)
-                contextId = SCICLIENT_CONTEXT_NONSEC;
-                (void) Osal_DeleteInterrupt(gSciclientHandle.respIntr[SCICLIENT_NON_SEC_RESP_INTR_HANDLER], (int32_t) gSciclientMap[contextId].respIntrNum);
-#else
                 (void) HwiP_destruct(gSciclientHandle.respIntr[SCICLIENT_NON_SEC_RESP_INTR_HANDLER]);
-#endif
             }
             if (gSciclientHandle.respIntr[SCICLIENT_SEC_RESP_INTR_HANDLER] != NULL)
             {
-#if !defined(MCU_PLUS_SDK)
-                contextId = SCICLIENT_CONTEXT_SEC;
-                (void) Osal_DeleteInterrupt(gSciclientHandle.respIntr[SCICLIENT_SEC_RESP_INTR_HANDLER], (int32_t) gSciclientMap[contextId].respIntrNum);
-#else
                 (void) HwiP_destruct(gSciclientHandle.respIntr[SCICLIENT_SEC_RESP_INTR_HANDLER]);
-#endif
             }
             if (gSciclientHandle.respIntr[SCICLIENT_DM2TIFS_RESP_INTR_HANDLER] != NULL)
             {
@@ -1188,76 +1104,6 @@ static void Sciclient_ISR(uintptr_t arg)
                                                 pSciclient_secProxyCfg,rxThread,0U)
                                         + ((uintptr_t) gSecHeaderSizeWords * (uintptr_t) 4U));
         uint8_t seqId = pLocalRespHdr->seq;
-#if !defined(MCU_PLUS_SDK)
-        if ((gSciclientHandle.semStatus[seqId] == SemaphoreP_OK) && (seqId != 0U))
-        {
-            (void) SemaphoreP_post(gSciclientHandle.semHandles[seqId]);
-            #if defined (_TMS320C6X)
-            Osal_DisableInterrupt((int32_t) gSciclientMap[contextId].respIntrNum, OSAL_REGINT_INTVEC_EVENT_COMBINER);
-            #else
-#ifndef QNX_OS
-            Osal_DisableInterrupt(0, (int32_t) gSciclientMap[contextId].respIntrNum);
-            #if defined (BUILD_C7X)
-            {
-                #if defined (SOC_J721S2) || defined (SOC_J784S4)
-                CSL_CLEC_EVTRegs * regs = (CSL_CLEC_EVTRegs *) CSL_COMPUTE_CLUSTER0_CLEC_BASE;
-                #elif defined(SOC_AM62A)
-                CSL_CLEC_EVTRegs   *regs = (CSL_CLEC_EVTRegs*) CSL_C7X256V0_CLEC_BASE;
-                #else
-                CSL_CLEC_EVTRegs * regs = (CSL_CLEC_EVTRegs *) CSL_COMPUTE_CLUSTER0_CLEC_REGS_BASE;
-                #endif
-                CSL_ClecEventConfig evtCfg;
-                evtCfg.secureClaimEnable = 0;
-                evtCfg.evtSendEnable = 0;
-                evtCfg.rtMap = 0x3C;
-                evtCfg.extEvtNum = 0x0;
-                evtCfg.c7xEvtNum = gSciclientMap[contextId].respIntrNum;
-                /* Clec interrupt number 1024 is connected to GIC interrupt number 32 in J721E.
-                 * Due to this for CLEC programming one needs to add an offset of 992 (1024 - 32)
-                 * to the event number which is shared between GIC and CLEC.
-                 */
-                #if defined(SOC_J721E)
-                if (SCICLIENT_NON_SECURE_CONTEXT == gSciclientMap[contextId].context)
-                {
-                    #if defined (SOC_J721S2) || defined (SOC_J784S4)
-                    CSL_clecConfigEvent(regs, CSLR_COMPUTE_CLUSTER0_CLEC_SOC_EVENTS_IN_NAVSS0_INTR_0_OUTL_INTR_189 + 992, &evtCfg);
-                    #else
-                    CSL_clecConfigEvent(regs, CSLR_COMPUTE_CLUSTER0_CLEC_SOC_EVENTS_IN_NAVSS0_INTR_ROUTER_0_OUTL_INTR_189 + 992, &evtCfg);
-                    #endif
-                }
-                else
-                {
-                    #if defined (SOC_J721S2) || defined (SOC_J784S4)
-                    CSL_clecConfigEvent(regs, CSLR_COMPUTE_CLUSTER0_CLEC_SOC_EVENTS_IN_NAVSS0_INTR_0_OUTL_INTR_191 + 992, &evtCfg);
-                    #else
-                    CSL_clecConfigEvent(regs, CSLR_COMPUTE_CLUSTER0_CLEC_SOC_EVENTS_IN_NAVSS0_INTR_ROUTER_0_OUTL_INTR_191 + 992, &evtCfg);
-                    #endif
-                }
-                #elif defined(SOC_AM62A)
-                if (SCICLIENT_NON_SECURE_CONTEXT == gSciclientMap[contextId].context)
-                {
-                    CSL_clecConfigEvent(regs, 256, &evtCfg);
-                }
-                else
-                {
-                    CSL_clecConfigEvent(regs, 256, &evtCfg);
-                }
-                #endif
-            }
-            Osal_ClearInterrupt(0, (int32_t) gSciclientMap[contextId].respIntrNum);
-            #endif
-#endif
-            #endif
-        }
-        else
-        {
-            /* This implies that the SemaphoreP_pend for this seqId failed.
-            *  So, we need to flush this message.*/
-            (void) Sciclient_readThread32(rxThread,
-                                (uint8_t)((gSciclient_maxMsgSizeBytes/4U) - 1U));
-            gSciclientHandle.semStatus[seqId] = SemaphoreP_OK;
-        }
-#else
         if ((gSciclientHandle.semStatus[seqId] == 0) && (seqId != 0U))
         {
             HwiP_disableInt( (uint32_t) gSciclientMap[contextId].respIntrNum);
@@ -1271,7 +1117,6 @@ static void Sciclient_ISR(uintptr_t arg)
                                 (uint8_t)((gSciclient_maxMsgSizeBytes/4U) - 1U));
             gSciclientHandle.semStatus[seqId] = 0;
         }
-#endif
     }
 }
 

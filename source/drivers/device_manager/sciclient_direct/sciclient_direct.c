@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2023-2024, Texas Instruments Incorporated
+ * Copyright (c) 2023-2025, Texas Instruments Incorporated
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -800,26 +800,18 @@ static int32_t boardcfg_RmAdjustReq(uint32_t *msg, uint16_t adjSize)
     /* If there was no certificate to begin with, do not adjust anything */
     if (adjSize != 0U)
     {
-
-#if !defined(MCU_PLUS_SDK)
-    /* Invalidate the cache */
-    CacheP_Inv((const void*) req->tisci_boardcfg_rmp_low,
-            req->tisci_boardcfg_rm_size);
-#else
-    CacheP_inv((void*)req->tisci_boardcfg_rmp_low,
-            req->tisci_boardcfg_rm_size, CacheP_TYPE_ALL);
-#endif
-    /*
-     * See if there is still a certificate that needs to be compensated for (in
-     * case TIFS did not process this upon multiple requests for RM board cfg).
-     *
-     * If there is no certificate, then we adjust the size of the RM boardcfg
-     * request. If there is a certificate, it should match the size we retrieved
-     * earlier. Advance the base pointer. If the size does not match, then this
-     * is an error.
-     */
-    newSize = boardcfgRmFindCertSize(msg);
-
+        CacheP_inv((void*)req->tisci_boardcfg_rmp_low,
+                req->tisci_boardcfg_rm_size, CacheP_TYPE_ALL);
+        /*
+        * See if there is still a certificate that needs to be compensated for (in
+        * case TIFS did not process this upon multiple requests for RM board cfg).
+        *
+        * If there is no certificate, then we adjust the size of the RM boardcfg
+        * request. If there is a certificate, it should match the size we retrieved
+        * earlier. Advance the base pointer. If the size does not match, then this
+        * is an error.
+        */
+        newSize = boardcfgRmFindCertSize(msg);
         if (newSize == 0U)
         {
             req->tisci_boardcfg_rm_size -= adjSize;
