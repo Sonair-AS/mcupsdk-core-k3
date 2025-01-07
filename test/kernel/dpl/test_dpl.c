@@ -1,5 +1,5 @@
 /*
- *  Copyright (C) 2018-2024 Texas Instruments Incorporated
+ *  Copyright (C) 2018-2025 Texas Instruments Incorporated
  *
  *  Redistribution and use in source and binary forms, with or without
  *  modification, are permitted provided that the following conditions
@@ -58,7 +58,7 @@
 
 #define EVENT_TASK_PRI             (14U)    /* One less than highest priority kernel timer task */
 #if defined(__C7504__)
-#define EVENT_TASK_STACK_SIZE      (32*1024U)
+#define EVENT_TASK_STACK_SIZE      (64*1024U)
 #else
 #define EVENT_TASK_STACK_SIZE      (4*1024U)
 #endif
@@ -115,7 +115,7 @@ static HeapP_Object gMyHeap;
 
 #define MY_TASK_PRI         (14U)   /* One less than highest priority kernel timer task */
 #if defined(__C7504__)
-#define MY_TASK_STACK_SIZE      (32*1024U)
+#define MY_TASK_STACK_SIZE      (64*1024U)
 #else
 #define MY_TASK_STACK_SIZE  (4*1024U)
 #endif

@@ -1,5 +1,5 @@
 /*
- *  Copyright (C) 2018-2024 Texas Instruments Incorporated
+ *  Copyright (C) 2018-2025 Texas Instruments Incorporated
  *
  *  Redistribution and use in source and binary forms, with or without
  *  modification, are permitted provided that the following conditions
@@ -85,14 +85,14 @@
 #define PONG_INT_PRIORITY   (4u)
 
 #if defined(__C7504__)
-#define PING_TASK_SIZE (1024*32u)
+#define PING_TASK_SIZE (1024*64u)
 #else
 #define PING_TASK_SIZE (1024*4u)
 #endif
 uint8_t gPingTaskStack[PING_TASK_SIZE] __attribute__((aligned(32)));
 
 #if defined(__C7504__)
-#define PONG_TASK_SIZE (1024*32u)
+#define PONG_TASK_SIZE (1024*64u)
 #else
 #define PONG_TASK_SIZE (1024*4u)
 #endif

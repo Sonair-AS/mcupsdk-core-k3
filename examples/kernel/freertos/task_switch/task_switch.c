@@ -1,5 +1,5 @@
 /*
- *  Copyright (C) 2018-2021 Texas Instruments Incorporated
+ *  Copyright (C) 2018-2025 Texas Instruments Incorporated
  *
  *  Redistribution and use in source and binary forms, with or without
  *  modification, are permitted provided that the following conditions
@@ -70,7 +70,11 @@
 #define PONG_TASK_PRI  (3u)
 
 #if defined (SOC_AM62AX) || defined (SOC_AM62DX)
+#if defined(__C7504__)
+#define PING_TASK_SIZE (1024*64u)
+#else
 #define PING_TASK_SIZE (4096u)
+#endif
 #else
 #define PING_TASK_SIZE (1024u)
 #endif
@@ -78,7 +82,11 @@
 StackType_t gPingTaskStack[PING_TASK_SIZE] __attribute__((aligned(32)));
 
 #if defined (SOC_AM62AX) || defined (SOC_AM62DX)
+#if defined(__C7504__)
+#define PONG_TASK_SIZE (1024*64u)
+#else
 #define PONG_TASK_SIZE (4096u)
+#endif
 #else
 #define PONG_TASK_SIZE (1024u)
 #endif
