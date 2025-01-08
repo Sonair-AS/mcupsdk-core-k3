@@ -1714,6 +1714,13 @@ int8_t test_sciclient_pm(void)
         failCount++;
     }
 
+    retVal = Sciclient_pmSetModuleRst_flags(moduleId, 1U, 0, 0);
+    if(retVal != SystemP_SUCCESS)
+    {
+        DebugP_log("\r\n Testcase failed in %d and retVal is %d", __LINE__, retVal);
+        failCount++;
+    }
+
     return failCount;
 }
 
