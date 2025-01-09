@@ -183,6 +183,7 @@ static void test_epwm_max_freq_min_duty(void *args)
     /* Register & enable interrupt */
     HwiP_Params_init(&hwiPrms);
     hwiPrms.intNum      = CONFIG_EPWM0_INTR;
+    hwiPrms.eventId     = CONFIG_EPWM0_EVENT_ID;
     hwiPrms.callback    = &App_epwmIntrISR;
     hwiPrms.isPulse     = CONFIG_EPWM0_INTR_IS_PULSE;
     status              = HwiP_construct(&gEpwmHwiObject, &hwiPrms);
@@ -220,6 +221,7 @@ static void test_epwm_min_freq_max_duty(void *args)
     /* Register & enable interrupt */
     HwiP_Params_init(&hwiPrms);
     hwiPrms.intNum      = CONFIG_EPWM0_INTR;
+    hwiPrms.eventId     = CONFIG_EPWM0_EVENT_ID;
     hwiPrms.callback    = &App_epwmIntrISR;
     hwiPrms.isPulse     = CONFIG_EPWM0_INTR_IS_PULSE;
     status              = HwiP_construct(&gEpwmHwiObject, &hwiPrms);
@@ -257,6 +259,7 @@ static void test_epwm_chopper(void *args)
     /* Register & enable interrupt */
     HwiP_Params_init(&hwiPrms);
     hwiPrms.intNum      = CONFIG_EPWM0_INTR;
+    hwiPrms.eventId     = CONFIG_EPWM0_EVENT_ID;
     hwiPrms.callback    = &App_epwmIntrISR;
     hwiPrms.isPulse     = CONFIG_EPWM0_INTR_IS_PULSE;
     status              = HwiP_construct(&gEpwmHwiObject, &hwiPrms);
@@ -294,6 +297,7 @@ static void test_epwm_deadband(void *args)
     /* Register & enable interrupt */
     HwiP_Params_init(&hwiPrms);
     hwiPrms.intNum      = CONFIG_EPWM0_INTR;
+    hwiPrms.eventId     = CONFIG_EPWM0_EVENT_ID;
     hwiPrms.callback    = &App_epwmIntrISR;
     hwiPrms.isPulse     = CONFIG_EPWM0_INTR_IS_PULSE;
     status              = HwiP_construct(&gEpwmHwiObject, &hwiPrms);

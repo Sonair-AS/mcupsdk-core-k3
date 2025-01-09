@@ -107,6 +107,7 @@ typedef struct ECAP_TestParams_s {
     uint32_t ecapIntrEvt;
     uint32_t ecapBaseAddr;
     uint32_t ecapIntrNum;
+    uint32_t ecapEventId;
     uint32_t ecapIntrTypePulse;
 } ECAP_TestParams;
 
@@ -208,6 +209,7 @@ static void test_ecap_epwm_loopback(void *args)
     HwiP_Params_init(&hwiPrms);
     hwiPrms.intNum      = testParams->ecapIntrNum;
     hwiPrms.callback    = &App_ecapIntrISR;
+    hwiPrms.eventId     = testParams->ecapEventId;
     hwiPrms.isPulse     = testParams->ecapIntrTypePulse;
     status              = HwiP_construct(&gEcapHwiObject, &hwiPrms);
     DebugP_assert(status == SystemP_SUCCESS);
@@ -466,6 +468,7 @@ static void test_ecap_init_test_params(ECAP_TestParams *testParams,
     testParams->ecapIntrEvt = ECAP_CEVT4_INT;
     testParams->ecapBaseAddr = CONFIG_ECAP0_BASE_ADDR;
     testParams->ecapIntrNum = CONFIG_ECAP0_INTR;
+    testParams->ecapEventId = CONFIG_ECAP0_EVENT_ID;
     testParams->ecapIntrTypePulse = CONFIG_ECAP0_INTR_IS_PULSE;
 
     switch (testCaseId)
@@ -503,6 +506,7 @@ static void test_ecap_init_test_params(ECAP_TestParams *testParams,
         case 1544:
             testParams->ecapBaseAddr = CONFIG_ECAP1_BASE_ADDR;
             testParams->ecapIntrNum = CONFIG_ECAP1_INTR;
+            testParams->ecapEventId = CONFIG_ECAP1_EVENT_ID;
             testParams->ecapIntrTypePulse = CONFIG_ECAP1_INTR_IS_PULSE;
             testParams->ecapMode = ECAP_APWM_MODE;
             testParams->ecapPwmPol = ECAP_APWM_ACTIVE_LOW;
