@@ -1,8 +1,9 @@
 /**
  * These arguments were used when this file was generated. They will be automatically applied on subsequent loads
  * via the GUI or CLI. Run CLI with '--help' for additional information on how to override these arguments.
- * @cliArgs --device "AM62Dx" --package "ANF" --part "AM62D24-G" --context "a53ss0-0" --product "MCU_PLUS_SDK@07.03.01"
- * @versions {"tool":"1.20.999+143"}
+ * @cliArgs --device "AM62Dx" --part "AM62D24-G" --package "ANF" --context "a53ss0-0" --product "MCU_PLUS_SDK@07.03.01"
+ * @v2CliArgs --device "AM62D-Q1" --package "FCBGA (ANF)" --variant "AM62D24-G" --context "a53ss0-0" --product "MCU_PLUS_SDK@07.03.01"
+ * @versions {"tool":"1.22.0+3893"}
  */
 
 /**
@@ -28,11 +29,11 @@ const mmu_armv82      = mmu_armv8.addInstance();
 /**
  * Write custom configuration values to the imported modules.
  */
-eqep1.$name          = "CONFIG_EQEP0";
+eqep1.$name          = "CONFIG_EQEP1";
 eqep1.EQEP.$assign   = "EQEP2";
 eqep1.EQEP.S.$assign = "MCAN0_RX";
 
-eqep2.$name = "CONFIG_EQEP1";
+eqep2.$name = "CONFIG_EQEP0";
 
 eqep3.$name = "CONFIG_EQEP2";
 
@@ -42,7 +43,7 @@ gpio1.GPIO.$assign = "GPMC0_WAIT1";
 
 gpio2.$name        = "CONFIG_GPIO1";
 gpio2.pinDir       = "OUTPUT";
-gpio2.GPIO.$assign = "GPMC0_WPn";
+gpio2.GPIO.$assign = "GPMC0_WEn";
 
 gpio3.$name        = "CONFIG_GPIO2";
 gpio3.pinDir       = "OUTPUT";

@@ -140,6 +140,11 @@ void test_main(void *args)
 
     DebugP_log("Please refer EXAMPLES_DRIVERS_EQEP_CAPTURE example user \
 guide for the test setup details.\r\n");
+    /*  Pin connection details for this eqep test
+    *   R17-A19
+    *   K19-A20
+    *   L18-B21
+    *   L17-A21 */
 
     /* Run tests */
     test_eqep_init_test_params(&testParams, 1546);
