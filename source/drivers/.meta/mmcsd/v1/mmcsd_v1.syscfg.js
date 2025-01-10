@@ -319,6 +319,8 @@ let mmcsd_module = {
 	defaultInstanceName: "CONFIG_MMCSD",
 	validate: validate,
 	config: getConfigurables(),
+
+
 	getInstanceConfig,
 	pinmuxRequirements,
 	getInterfaceName,
@@ -329,6 +331,10 @@ let mmcsd_module = {
     getSBLClockEnableIds,
     getSBLClockFrequencies,
 };
+
+function validate(inst, report) {
+
+}
 
 function getConfigurables()
 {
@@ -410,20 +416,42 @@ function getConfigurables()
                 { name: "SW_PHY" },
                 { name: "NO_PHY" },
             ],
-			default: "SW_PHY",
-			hidden: false,
-		},
+            default: "SW_PHY",
+            hidden: false,
+        },
     )
+
+    if(system.deviceData.device === "AM275x"){
+        config = config.filter((ele) => ele.name !== "moduleSelect")
+        config.push(
+            {
+                name: "moduleSelect",
+                displayName: "Select MMCSD Module",
+                default: "MMC",
+                options: [
+                    { name: "MMC" },
+                ],
+                onChange: function (inst, ui) {
+                    if(inst.moduleSelect == "MMC") {
+                        inst.cardType = "EMMC";
+                        inst.phyType = "HW_PHY";
+                        ui.modeSelectEMMC.hidden = false;
+                        ui.modeSelectSD.hidden = true;
+                    } else {
+                        inst.cardType = "SD";
+                        inst.phyType = "SW_PHY";
+                        ui.modeSelectSD.hidden = false;
+                        ui.modeSelectEMMC.hidden = true;
+                    }
+                },
+            },
+        )
+    }
 
     if(common.isDMWithBootSupported())
     {
         config.push(common.getDMWithBootConfig());
     }
-
-    return config;
-}
-
-function validate(inst, report) {
 
     return config;
 }
