@@ -118,20 +118,20 @@ BUILD_COMBO_EXAMPLE_PROJECTSPEC_BUILD_ALL += runtime_debug_unlock_am62px-sk_wkup
 BUILD_COMBO_EXAMPLE_PROJECTSPEC_BUILD_ALL += tisci_msg_am62px-sk_wkup-r5fss0-0_freertos_ti-arm-clang_build
 BUILD_COMBO_EXAMPLE_PROJECTSPEC_BUILD_ALL += dcc_am62px-sk_mcu-r5fss0-0_nortos_ti-arm-clang_build
 BUILD_COMBO_EXAMPLE_PROJECTSPEC_BUILD_ALL += ecc_example_am62px-sk_mcu-r5fss0-0_nortos_ti-arm-clang_build
-BUILD_COMBO_EXAMPLE_PROJECTSPEC_BUILD_ALL += mcu_esm0_am62px-sk_mcu-r5fss0-0_nortos_ti-arm-clang_build
+BUILD_COMBO_EXAMPLE_PROJECTSPEC_BUILD_ALL += esm_main_app_am62px-sk_mcu-r5fss0-0_nortos_ti-arm-clang_build
 BUILD_COMBO_EXAMPLE_PROJECTSPEC_BUILD_ALL += mcrc_auto_am62px-sk_mcu-r5fss0-0_nortos_ti-arm-clang_build
 BUILD_COMBO_EXAMPLE_PROJECTSPEC_BUILD_ALL += mcrc_full_cpu_am62px-sk_mcu-r5fss0-0_nortos_ti-arm-clang_build
 BUILD_COMBO_EXAMPLE_PROJECTSPEC_BUILD_ALL += mcrc_semi_cpu_am62px-sk_mcu-r5fss0-0_nortos_ti-arm-clang_build
-BUILD_COMBO_EXAMPLE_PROJECTSPEC_BUILD_ALL += mtog_example_am62px-sk_mcu-r5fss0-0_nortos_ti-arm-clang_build
+BUILD_COMBO_EXAMPLE_PROJECTSPEC_BUILD_ALL += mtog_app_am62px-sk_mcu-r5fss0-0_nortos_ti-arm-clang_build
 BUILD_COMBO_EXAMPLE_PROJECTSPEC_BUILD_ALL += pbist_mpu_example_am62px-sk_mcu-r5fss0-0_nortos_ti-arm-clang_build
 BUILD_COMBO_EXAMPLE_PROJECTSPEC_BUILD_ALL += pbist_mpu_example_am62px-sk_mcu-r5fss0-0_freertos_ti-arm-clang_build
-BUILD_COMBO_EXAMPLE_PROJECTSPEC_BUILD_ALL += pok_example_am62px-sk_mcu-r5fss0-0_nortos_ti-arm-clang_build
+BUILD_COMBO_EXAMPLE_PROJECTSPEC_BUILD_ALL += pok_app_am62px-sk_mcu-r5fss0-0_nortos_ti-arm-clang_build
 BUILD_COMBO_EXAMPLE_PROJECTSPEC_BUILD_ALL += rom_checksum_example_am62px-sk_mcu-r5fss0-0_nortos_ti-arm-clang_build
-BUILD_COMBO_EXAMPLE_PROJECTSPEC_BUILD_ALL += sdl_rti_example_uc1_am62px-sk_mcu-r5fss0-0_nortos_ti-arm-clang_build
-BUILD_COMBO_EXAMPLE_PROJECTSPEC_BUILD_ALL += sdl_rti_example_uc2_am62px-sk_mcu-r5fss0-0_nortos_ti-arm-clang_build
-BUILD_COMBO_EXAMPLE_PROJECTSPEC_BUILD_ALL += sdl_rti_example_uc3_am62px-sk_mcu-r5fss0-0_nortos_ti-arm-clang_build
-BUILD_COMBO_EXAMPLE_PROJECTSPEC_BUILD_ALL += sdl_rti_example_uc4_am62px-sk_mcu-r5fss0-0_nortos_ti-arm-clang_build
-BUILD_COMBO_EXAMPLE_PROJECTSPEC_BUILD_ALL += sdl_tog_am62px-sk_mcu-r5fss0-0_nortos_ti-arm-clang_build
+BUILD_COMBO_EXAMPLE_PROJECTSPEC_BUILD_ALL += rti_app_uc1_am62px-sk_mcu-r5fss0-0_nortos_ti-arm-clang_build
+BUILD_COMBO_EXAMPLE_PROJECTSPEC_BUILD_ALL += rti_app_uc2_am62px-sk_mcu-r5fss0-0_nortos_ti-arm-clang_build
+BUILD_COMBO_EXAMPLE_PROJECTSPEC_BUILD_ALL += rti_app_uc3_am62px-sk_mcu-r5fss0-0_nortos_ti-arm-clang_build
+BUILD_COMBO_EXAMPLE_PROJECTSPEC_BUILD_ALL += rti_app_uc4_am62px-sk_mcu-r5fss0-0_nortos_ti-arm-clang_build
+BUILD_COMBO_EXAMPLE_PROJECTSPEC_BUILD_ALL += tog_app_am62px-sk_mcu-r5fss0-0_nortos_ti-arm-clang_build
 BUILD_COMBO_EXAMPLE_PROJECTSPEC_BUILD_ALL += vtm_example_am62px-sk_mcu-r5fss0-0_nortos_ti-arm-clang_build
 BUILD_COMBO_EXAMPLE_PROJECTSPEC_BUILD_ALL += SafetyCheckersApp_pm_am62px-sk_mcu-r5fss0-0_freertos_ti-arm-clang_build
 BUILD_COMBO_EXAMPLE_PROJECTSPEC_BUILD_ALL += SafetyCheckersApp_pmWarmReset_am62px-sk_mcu-r5fss0-0_freertos_ti-arm-clang_build
@@ -494,7 +494,7 @@ all-private: $(BUILD_COMBO_EXAMPLE_PROJECTSPEC_BUILD_PRIVATE_ALL)
  ecc_example_am62px-sk_mcu-r5fss0-0_nortos_ti-arm-clang_build:
 	$(MAKE) -C examples/sdl/ecc/am62px-sk/mcu-r5fss0-0_nortos/ti-arm-clang -f makefile_projectspec all
 
- mcu_esm0_am62px-sk_mcu-r5fss0-0_nortos_ti-arm-clang_build:
+ esm_main_app_am62px-sk_mcu-r5fss0-0_nortos_ti-arm-clang_build:
 	$(MAKE) -C examples/sdl/esm/mcu_esm0/am62px-sk/mcu-r5fss0-0_nortos/ti-arm-clang -f makefile_projectspec all
 
  mcrc_auto_am62px-sk_mcu-r5fss0-0_nortos_ti-arm-clang_build:
@@ -506,7 +506,7 @@ all-private: $(BUILD_COMBO_EXAMPLE_PROJECTSPEC_BUILD_PRIVATE_ALL)
  mcrc_semi_cpu_am62px-sk_mcu-r5fss0-0_nortos_ti-arm-clang_build:
 	$(MAKE) -C examples/sdl/mcrc/mcrc_semi_cpu/am62px-sk/mcu-r5fss0-0_nortos/ti-arm-clang -f makefile_projectspec all
 
- mtog_example_am62px-sk_mcu-r5fss0-0_nortos_ti-arm-clang_build:
+ mtog_app_am62px-sk_mcu-r5fss0-0_nortos_ti-arm-clang_build:
 	$(MAKE) -C examples/sdl/mtog/mtog_example/am62px-sk/mcu-r5fss0-0_nortos/ti-arm-clang -f makefile_projectspec all
 
  pbist_mpu_example_am62px-sk_mcu-r5fss0-0_nortos_ti-arm-clang_build:
@@ -515,25 +515,25 @@ all-private: $(BUILD_COMBO_EXAMPLE_PROJECTSPEC_BUILD_PRIVATE_ALL)
  pbist_mpu_example_am62px-sk_mcu-r5fss0-0_freertos_ti-arm-clang_build:
 	$(MAKE) -C examples/sdl/pbist/pbist_mpu/am62px-sk/mcu-r5fss0-0_freertos/ti-arm-clang -f makefile_projectspec all
 
- pok_example_am62px-sk_mcu-r5fss0-0_nortos_ti-arm-clang_build:
+ pok_app_am62px-sk_mcu-r5fss0-0_nortos_ti-arm-clang_build:
 	$(MAKE) -C examples/sdl/pok/pok_mcu/am62px-sk/mcu-r5fss0-0_nortos/ti-arm-clang -f makefile_projectspec all
 
  rom_checksum_example_am62px-sk_mcu-r5fss0-0_nortos_ti-arm-clang_build:
 	$(MAKE) -C examples/sdl/rom_checksum/am62px-sk/mcu-r5fss0-0_nortos/ti-arm-clang -f makefile_projectspec all
 
- sdl_rti_example_uc1_am62px-sk_mcu-r5fss0-0_nortos_ti-arm-clang_build:
+ rti_app_uc1_am62px-sk_mcu-r5fss0-0_nortos_ti-arm-clang_build:
 	$(MAKE) -C examples/sdl/rti/UC1/am62px-sk/mcu-r5fss0-0_nortos/ti-arm-clang -f makefile_projectspec all
 
- sdl_rti_example_uc2_am62px-sk_mcu-r5fss0-0_nortos_ti-arm-clang_build:
+ rti_app_uc2_am62px-sk_mcu-r5fss0-0_nortos_ti-arm-clang_build:
 	$(MAKE) -C examples/sdl/rti/UC2/am62px-sk/mcu-r5fss0-0_nortos/ti-arm-clang -f makefile_projectspec all
 
- sdl_rti_example_uc3_am62px-sk_mcu-r5fss0-0_nortos_ti-arm-clang_build:
+ rti_app_uc3_am62px-sk_mcu-r5fss0-0_nortos_ti-arm-clang_build:
 	$(MAKE) -C examples/sdl/rti/UC3/am62px-sk/mcu-r5fss0-0_nortos/ti-arm-clang -f makefile_projectspec all
 
- sdl_rti_example_uc4_am62px-sk_mcu-r5fss0-0_nortos_ti-arm-clang_build:
+ rti_app_uc4_am62px-sk_mcu-r5fss0-0_nortos_ti-arm-clang_build:
 	$(MAKE) -C examples/sdl/rti/UC4/am62px-sk/mcu-r5fss0-0_nortos/ti-arm-clang -f makefile_projectspec all
 
- sdl_tog_am62px-sk_mcu-r5fss0-0_nortos_ti-arm-clang_build:
+ tog_app_am62px-sk_mcu-r5fss0-0_nortos_ti-arm-clang_build:
 	$(MAKE) -C examples/sdl/stog/am62px-sk/mcu-r5fss0-0_nortos/ti-arm-clang -f makefile_projectspec all
 
  vtm_example_am62px-sk_mcu-r5fss0-0_nortos_ti-arm-clang_build:
@@ -684,20 +684,20 @@ BUILD_COMBO_EXAMPLE_PROJECTSPEC_CLEAN_ALL += runtime_debug_unlock_am62px-sk_wkup
 BUILD_COMBO_EXAMPLE_PROJECTSPEC_CLEAN_ALL += tisci_msg_am62px-sk_wkup-r5fss0-0_freertos_ti-arm-clang_clean
 BUILD_COMBO_EXAMPLE_PROJECTSPEC_CLEAN_ALL += dcc_am62px-sk_mcu-r5fss0-0_nortos_ti-arm-clang_clean
 BUILD_COMBO_EXAMPLE_PROJECTSPEC_CLEAN_ALL += ecc_example_am62px-sk_mcu-r5fss0-0_nortos_ti-arm-clang_clean
-BUILD_COMBO_EXAMPLE_PROJECTSPEC_CLEAN_ALL += mcu_esm0_am62px-sk_mcu-r5fss0-0_nortos_ti-arm-clang_clean
+BUILD_COMBO_EXAMPLE_PROJECTSPEC_CLEAN_ALL += esm_main_app_am62px-sk_mcu-r5fss0-0_nortos_ti-arm-clang_clean
 BUILD_COMBO_EXAMPLE_PROJECTSPEC_CLEAN_ALL += mcrc_auto_am62px-sk_mcu-r5fss0-0_nortos_ti-arm-clang_clean
 BUILD_COMBO_EXAMPLE_PROJECTSPEC_CLEAN_ALL += mcrc_full_cpu_am62px-sk_mcu-r5fss0-0_nortos_ti-arm-clang_clean
 BUILD_COMBO_EXAMPLE_PROJECTSPEC_CLEAN_ALL += mcrc_semi_cpu_am62px-sk_mcu-r5fss0-0_nortos_ti-arm-clang_clean
-BUILD_COMBO_EXAMPLE_PROJECTSPEC_CLEAN_ALL += mtog_example_am62px-sk_mcu-r5fss0-0_nortos_ti-arm-clang_clean
+BUILD_COMBO_EXAMPLE_PROJECTSPEC_CLEAN_ALL += mtog_app_am62px-sk_mcu-r5fss0-0_nortos_ti-arm-clang_clean
 BUILD_COMBO_EXAMPLE_PROJECTSPEC_CLEAN_ALL += pbist_mpu_example_am62px-sk_mcu-r5fss0-0_nortos_ti-arm-clang_clean
 BUILD_COMBO_EXAMPLE_PROJECTSPEC_CLEAN_ALL += pbist_mpu_example_am62px-sk_mcu-r5fss0-0_freertos_ti-arm-clang_clean
-BUILD_COMBO_EXAMPLE_PROJECTSPEC_CLEAN_ALL += pok_example_am62px-sk_mcu-r5fss0-0_nortos_ti-arm-clang_clean
+BUILD_COMBO_EXAMPLE_PROJECTSPEC_CLEAN_ALL += pok_app_am62px-sk_mcu-r5fss0-0_nortos_ti-arm-clang_clean
 BUILD_COMBO_EXAMPLE_PROJECTSPEC_CLEAN_ALL += rom_checksum_example_am62px-sk_mcu-r5fss0-0_nortos_ti-arm-clang_clean
-BUILD_COMBO_EXAMPLE_PROJECTSPEC_CLEAN_ALL += sdl_rti_example_uc1_am62px-sk_mcu-r5fss0-0_nortos_ti-arm-clang_clean
-BUILD_COMBO_EXAMPLE_PROJECTSPEC_CLEAN_ALL += sdl_rti_example_uc2_am62px-sk_mcu-r5fss0-0_nortos_ti-arm-clang_clean
-BUILD_COMBO_EXAMPLE_PROJECTSPEC_CLEAN_ALL += sdl_rti_example_uc3_am62px-sk_mcu-r5fss0-0_nortos_ti-arm-clang_clean
-BUILD_COMBO_EXAMPLE_PROJECTSPEC_CLEAN_ALL += sdl_rti_example_uc4_am62px-sk_mcu-r5fss0-0_nortos_ti-arm-clang_clean
-BUILD_COMBO_EXAMPLE_PROJECTSPEC_CLEAN_ALL += sdl_tog_am62px-sk_mcu-r5fss0-0_nortos_ti-arm-clang_clean
+BUILD_COMBO_EXAMPLE_PROJECTSPEC_CLEAN_ALL += rti_app_uc1_am62px-sk_mcu-r5fss0-0_nortos_ti-arm-clang_clean
+BUILD_COMBO_EXAMPLE_PROJECTSPEC_CLEAN_ALL += rti_app_uc2_am62px-sk_mcu-r5fss0-0_nortos_ti-arm-clang_clean
+BUILD_COMBO_EXAMPLE_PROJECTSPEC_CLEAN_ALL += rti_app_uc3_am62px-sk_mcu-r5fss0-0_nortos_ti-arm-clang_clean
+BUILD_COMBO_EXAMPLE_PROJECTSPEC_CLEAN_ALL += rti_app_uc4_am62px-sk_mcu-r5fss0-0_nortos_ti-arm-clang_clean
+BUILD_COMBO_EXAMPLE_PROJECTSPEC_CLEAN_ALL += tog_app_am62px-sk_mcu-r5fss0-0_nortos_ti-arm-clang_clean
 BUILD_COMBO_EXAMPLE_PROJECTSPEC_CLEAN_ALL += vtm_example_am62px-sk_mcu-r5fss0-0_nortos_ti-arm-clang_clean
 BUILD_COMBO_EXAMPLE_PROJECTSPEC_CLEAN_ALL += SafetyCheckersApp_pm_am62px-sk_mcu-r5fss0-0_freertos_ti-arm-clang_clean
 BUILD_COMBO_EXAMPLE_PROJECTSPEC_CLEAN_ALL += SafetyCheckersApp_pmWarmReset_am62px-sk_mcu-r5fss0-0_freertos_ti-arm-clang_clean
@@ -1060,7 +1060,7 @@ clean-private: $(BUILD_COMBO_EXAMPLE_PROJECTSPEC_CLEAN_PRIVATE_ALL)
  ecc_example_am62px-sk_mcu-r5fss0-0_nortos_ti-arm-clang_clean:
 	$(MAKE) -C examples/sdl/ecc/am62px-sk/mcu-r5fss0-0_nortos/ti-arm-clang -f makefile_projectspec clean
 
- mcu_esm0_am62px-sk_mcu-r5fss0-0_nortos_ti-arm-clang_clean:
+ esm_main_app_am62px-sk_mcu-r5fss0-0_nortos_ti-arm-clang_clean:
 	$(MAKE) -C examples/sdl/esm/mcu_esm0/am62px-sk/mcu-r5fss0-0_nortos/ti-arm-clang -f makefile_projectspec clean
 
  mcrc_auto_am62px-sk_mcu-r5fss0-0_nortos_ti-arm-clang_clean:
@@ -1072,7 +1072,7 @@ clean-private: $(BUILD_COMBO_EXAMPLE_PROJECTSPEC_CLEAN_PRIVATE_ALL)
  mcrc_semi_cpu_am62px-sk_mcu-r5fss0-0_nortos_ti-arm-clang_clean:
 	$(MAKE) -C examples/sdl/mcrc/mcrc_semi_cpu/am62px-sk/mcu-r5fss0-0_nortos/ti-arm-clang -f makefile_projectspec clean
 
- mtog_example_am62px-sk_mcu-r5fss0-0_nortos_ti-arm-clang_clean:
+ mtog_app_am62px-sk_mcu-r5fss0-0_nortos_ti-arm-clang_clean:
 	$(MAKE) -C examples/sdl/mtog/mtog_example/am62px-sk/mcu-r5fss0-0_nortos/ti-arm-clang -f makefile_projectspec clean
 
  pbist_mpu_example_am62px-sk_mcu-r5fss0-0_nortos_ti-arm-clang_clean:
@@ -1081,25 +1081,25 @@ clean-private: $(BUILD_COMBO_EXAMPLE_PROJECTSPEC_CLEAN_PRIVATE_ALL)
  pbist_mpu_example_am62px-sk_mcu-r5fss0-0_freertos_ti-arm-clang_clean:
 	$(MAKE) -C examples/sdl/pbist/pbist_mpu/am62px-sk/mcu-r5fss0-0_freertos/ti-arm-clang -f makefile_projectspec clean
 
- pok_example_am62px-sk_mcu-r5fss0-0_nortos_ti-arm-clang_clean:
+ pok_app_am62px-sk_mcu-r5fss0-0_nortos_ti-arm-clang_clean:
 	$(MAKE) -C examples/sdl/pok/pok_mcu/am62px-sk/mcu-r5fss0-0_nortos/ti-arm-clang -f makefile_projectspec clean
 
  rom_checksum_example_am62px-sk_mcu-r5fss0-0_nortos_ti-arm-clang_clean:
 	$(MAKE) -C examples/sdl/rom_checksum/am62px-sk/mcu-r5fss0-0_nortos/ti-arm-clang -f makefile_projectspec clean
 
- sdl_rti_example_uc1_am62px-sk_mcu-r5fss0-0_nortos_ti-arm-clang_clean:
+ rti_app_uc1_am62px-sk_mcu-r5fss0-0_nortos_ti-arm-clang_clean:
 	$(MAKE) -C examples/sdl/rti/UC1/am62px-sk/mcu-r5fss0-0_nortos/ti-arm-clang -f makefile_projectspec clean
 
- sdl_rti_example_uc2_am62px-sk_mcu-r5fss0-0_nortos_ti-arm-clang_clean:
+ rti_app_uc2_am62px-sk_mcu-r5fss0-0_nortos_ti-arm-clang_clean:
 	$(MAKE) -C examples/sdl/rti/UC2/am62px-sk/mcu-r5fss0-0_nortos/ti-arm-clang -f makefile_projectspec clean
 
- sdl_rti_example_uc3_am62px-sk_mcu-r5fss0-0_nortos_ti-arm-clang_clean:
+ rti_app_uc3_am62px-sk_mcu-r5fss0-0_nortos_ti-arm-clang_clean:
 	$(MAKE) -C examples/sdl/rti/UC3/am62px-sk/mcu-r5fss0-0_nortos/ti-arm-clang -f makefile_projectspec clean
 
- sdl_rti_example_uc4_am62px-sk_mcu-r5fss0-0_nortos_ti-arm-clang_clean:
+ rti_app_uc4_am62px-sk_mcu-r5fss0-0_nortos_ti-arm-clang_clean:
 	$(MAKE) -C examples/sdl/rti/UC4/am62px-sk/mcu-r5fss0-0_nortos/ti-arm-clang -f makefile_projectspec clean
 
- sdl_tog_am62px-sk_mcu-r5fss0-0_nortos_ti-arm-clang_clean:
+ tog_app_am62px-sk_mcu-r5fss0-0_nortos_ti-arm-clang_clean:
 	$(MAKE) -C examples/sdl/stog/am62px-sk/mcu-r5fss0-0_nortos/ti-arm-clang -f makefile_projectspec clean
 
  vtm_example_am62px-sk_mcu-r5fss0-0_nortos_ti-arm-clang_clean:
@@ -1250,20 +1250,20 @@ BUILD_COMBO_EXAMPLE_PROJECTSPEC_EXPORT_ALL += runtime_debug_unlock_am62px-sk_wku
 BUILD_COMBO_EXAMPLE_PROJECTSPEC_EXPORT_ALL += tisci_msg_am62px-sk_wkup-r5fss0-0_freertos_ti-arm-clang_export
 BUILD_COMBO_EXAMPLE_PROJECTSPEC_EXPORT_ALL += dcc_am62px-sk_mcu-r5fss0-0_nortos_ti-arm-clang_export
 BUILD_COMBO_EXAMPLE_PROJECTSPEC_EXPORT_ALL += ecc_example_am62px-sk_mcu-r5fss0-0_nortos_ti-arm-clang_export
-BUILD_COMBO_EXAMPLE_PROJECTSPEC_EXPORT_ALL += mcu_esm0_am62px-sk_mcu-r5fss0-0_nortos_ti-arm-clang_export
+BUILD_COMBO_EXAMPLE_PROJECTSPEC_EXPORT_ALL += esm_main_app_am62px-sk_mcu-r5fss0-0_nortos_ti-arm-clang_export
 BUILD_COMBO_EXAMPLE_PROJECTSPEC_EXPORT_ALL += mcrc_auto_am62px-sk_mcu-r5fss0-0_nortos_ti-arm-clang_export
 BUILD_COMBO_EXAMPLE_PROJECTSPEC_EXPORT_ALL += mcrc_full_cpu_am62px-sk_mcu-r5fss0-0_nortos_ti-arm-clang_export
 BUILD_COMBO_EXAMPLE_PROJECTSPEC_EXPORT_ALL += mcrc_semi_cpu_am62px-sk_mcu-r5fss0-0_nortos_ti-arm-clang_export
-BUILD_COMBO_EXAMPLE_PROJECTSPEC_EXPORT_ALL += mtog_example_am62px-sk_mcu-r5fss0-0_nortos_ti-arm-clang_export
+BUILD_COMBO_EXAMPLE_PROJECTSPEC_EXPORT_ALL += mtog_app_am62px-sk_mcu-r5fss0-0_nortos_ti-arm-clang_export
 BUILD_COMBO_EXAMPLE_PROJECTSPEC_EXPORT_ALL += pbist_mpu_example_am62px-sk_mcu-r5fss0-0_nortos_ti-arm-clang_export
 BUILD_COMBO_EXAMPLE_PROJECTSPEC_EXPORT_ALL += pbist_mpu_example_am62px-sk_mcu-r5fss0-0_freertos_ti-arm-clang_export
-BUILD_COMBO_EXAMPLE_PROJECTSPEC_EXPORT_ALL += pok_example_am62px-sk_mcu-r5fss0-0_nortos_ti-arm-clang_export
+BUILD_COMBO_EXAMPLE_PROJECTSPEC_EXPORT_ALL += pok_app_am62px-sk_mcu-r5fss0-0_nortos_ti-arm-clang_export
 BUILD_COMBO_EXAMPLE_PROJECTSPEC_EXPORT_ALL += rom_checksum_example_am62px-sk_mcu-r5fss0-0_nortos_ti-arm-clang_export
-BUILD_COMBO_EXAMPLE_PROJECTSPEC_EXPORT_ALL += sdl_rti_example_uc1_am62px-sk_mcu-r5fss0-0_nortos_ti-arm-clang_export
-BUILD_COMBO_EXAMPLE_PROJECTSPEC_EXPORT_ALL += sdl_rti_example_uc2_am62px-sk_mcu-r5fss0-0_nortos_ti-arm-clang_export
-BUILD_COMBO_EXAMPLE_PROJECTSPEC_EXPORT_ALL += sdl_rti_example_uc3_am62px-sk_mcu-r5fss0-0_nortos_ti-arm-clang_export
-BUILD_COMBO_EXAMPLE_PROJECTSPEC_EXPORT_ALL += sdl_rti_example_uc4_am62px-sk_mcu-r5fss0-0_nortos_ti-arm-clang_export
-BUILD_COMBO_EXAMPLE_PROJECTSPEC_EXPORT_ALL += sdl_tog_am62px-sk_mcu-r5fss0-0_nortos_ti-arm-clang_export
+BUILD_COMBO_EXAMPLE_PROJECTSPEC_EXPORT_ALL += rti_app_uc1_am62px-sk_mcu-r5fss0-0_nortos_ti-arm-clang_export
+BUILD_COMBO_EXAMPLE_PROJECTSPEC_EXPORT_ALL += rti_app_uc2_am62px-sk_mcu-r5fss0-0_nortos_ti-arm-clang_export
+BUILD_COMBO_EXAMPLE_PROJECTSPEC_EXPORT_ALL += rti_app_uc3_am62px-sk_mcu-r5fss0-0_nortos_ti-arm-clang_export
+BUILD_COMBO_EXAMPLE_PROJECTSPEC_EXPORT_ALL += rti_app_uc4_am62px-sk_mcu-r5fss0-0_nortos_ti-arm-clang_export
+BUILD_COMBO_EXAMPLE_PROJECTSPEC_EXPORT_ALL += tog_app_am62px-sk_mcu-r5fss0-0_nortos_ti-arm-clang_export
 BUILD_COMBO_EXAMPLE_PROJECTSPEC_EXPORT_ALL += vtm_example_am62px-sk_mcu-r5fss0-0_nortos_ti-arm-clang_export
 BUILD_COMBO_EXAMPLE_PROJECTSPEC_EXPORT_ALL += SafetyCheckersApp_pm_am62px-sk_mcu-r5fss0-0_freertos_ti-arm-clang_export
 BUILD_COMBO_EXAMPLE_PROJECTSPEC_EXPORT_ALL += SafetyCheckersApp_pmWarmReset_am62px-sk_mcu-r5fss0-0_freertos_ti-arm-clang_export
@@ -1626,7 +1626,7 @@ export-private: $(BUILD_COMBO_EXAMPLE_PROJECTSPEC_EXPORT_PRIVATE_ALL)
  ecc_example_am62px-sk_mcu-r5fss0-0_nortos_ti-arm-clang_export:
 	$(MAKE) -C examples/sdl/ecc/am62px-sk/mcu-r5fss0-0_nortos/ti-arm-clang -f makefile_projectspec export
 
- mcu_esm0_am62px-sk_mcu-r5fss0-0_nortos_ti-arm-clang_export:
+ esm_main_app_am62px-sk_mcu-r5fss0-0_nortos_ti-arm-clang_export:
 	$(MAKE) -C examples/sdl/esm/mcu_esm0/am62px-sk/mcu-r5fss0-0_nortos/ti-arm-clang -f makefile_projectspec export
 
  mcrc_auto_am62px-sk_mcu-r5fss0-0_nortos_ti-arm-clang_export:
@@ -1638,7 +1638,7 @@ export-private: $(BUILD_COMBO_EXAMPLE_PROJECTSPEC_EXPORT_PRIVATE_ALL)
  mcrc_semi_cpu_am62px-sk_mcu-r5fss0-0_nortos_ti-arm-clang_export:
 	$(MAKE) -C examples/sdl/mcrc/mcrc_semi_cpu/am62px-sk/mcu-r5fss0-0_nortos/ti-arm-clang -f makefile_projectspec export
 
- mtog_example_am62px-sk_mcu-r5fss0-0_nortos_ti-arm-clang_export:
+ mtog_app_am62px-sk_mcu-r5fss0-0_nortos_ti-arm-clang_export:
 	$(MAKE) -C examples/sdl/mtog/mtog_example/am62px-sk/mcu-r5fss0-0_nortos/ti-arm-clang -f makefile_projectspec export
 
  pbist_mpu_example_am62px-sk_mcu-r5fss0-0_nortos_ti-arm-clang_export:
@@ -1647,25 +1647,25 @@ export-private: $(BUILD_COMBO_EXAMPLE_PROJECTSPEC_EXPORT_PRIVATE_ALL)
  pbist_mpu_example_am62px-sk_mcu-r5fss0-0_freertos_ti-arm-clang_export:
 	$(MAKE) -C examples/sdl/pbist/pbist_mpu/am62px-sk/mcu-r5fss0-0_freertos/ti-arm-clang -f makefile_projectspec export
 
- pok_example_am62px-sk_mcu-r5fss0-0_nortos_ti-arm-clang_export:
+ pok_app_am62px-sk_mcu-r5fss0-0_nortos_ti-arm-clang_export:
 	$(MAKE) -C examples/sdl/pok/pok_mcu/am62px-sk/mcu-r5fss0-0_nortos/ti-arm-clang -f makefile_projectspec export
 
  rom_checksum_example_am62px-sk_mcu-r5fss0-0_nortos_ti-arm-clang_export:
 	$(MAKE) -C examples/sdl/rom_checksum/am62px-sk/mcu-r5fss0-0_nortos/ti-arm-clang -f makefile_projectspec export
 
- sdl_rti_example_uc1_am62px-sk_mcu-r5fss0-0_nortos_ti-arm-clang_export:
+ rti_app_uc1_am62px-sk_mcu-r5fss0-0_nortos_ti-arm-clang_export:
 	$(MAKE) -C examples/sdl/rti/UC1/am62px-sk/mcu-r5fss0-0_nortos/ti-arm-clang -f makefile_projectspec export
 
- sdl_rti_example_uc2_am62px-sk_mcu-r5fss0-0_nortos_ti-arm-clang_export:
+ rti_app_uc2_am62px-sk_mcu-r5fss0-0_nortos_ti-arm-clang_export:
 	$(MAKE) -C examples/sdl/rti/UC2/am62px-sk/mcu-r5fss0-0_nortos/ti-arm-clang -f makefile_projectspec export
 
- sdl_rti_example_uc3_am62px-sk_mcu-r5fss0-0_nortos_ti-arm-clang_export:
+ rti_app_uc3_am62px-sk_mcu-r5fss0-0_nortos_ti-arm-clang_export:
 	$(MAKE) -C examples/sdl/rti/UC3/am62px-sk/mcu-r5fss0-0_nortos/ti-arm-clang -f makefile_projectspec export
 
- sdl_rti_example_uc4_am62px-sk_mcu-r5fss0-0_nortos_ti-arm-clang_export:
+ rti_app_uc4_am62px-sk_mcu-r5fss0-0_nortos_ti-arm-clang_export:
 	$(MAKE) -C examples/sdl/rti/UC4/am62px-sk/mcu-r5fss0-0_nortos/ti-arm-clang -f makefile_projectspec export
 
- sdl_tog_am62px-sk_mcu-r5fss0-0_nortos_ti-arm-clang_export:
+ tog_app_am62px-sk_mcu-r5fss0-0_nortos_ti-arm-clang_export:
 	$(MAKE) -C examples/sdl/stog/am62px-sk/mcu-r5fss0-0_nortos/ti-arm-clang -f makefile_projectspec export
 
  vtm_example_am62px-sk_mcu-r5fss0-0_nortos_ti-arm-clang_export:

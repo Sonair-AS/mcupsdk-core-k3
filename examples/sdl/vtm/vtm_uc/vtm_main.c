@@ -500,7 +500,7 @@ void vtm_example_app(void)
 
     if (testErrCount == 0)
     {
-        DebugP_log("\n All Use cases have passed. \n");
+        DebugP_log("\n All tests have passed. \n");
     }
     else
     {
