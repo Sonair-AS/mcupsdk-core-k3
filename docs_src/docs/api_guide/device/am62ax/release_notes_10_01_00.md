@@ -570,7 +570,7 @@ ROM Checksum |MCU-R5F         | No
 </tr>
 <tr>
     <td> 2
-    <td> DDR PHY mode not supported for OSPI NAND SBL
+    <td> PHY mode not supported for OSPI NAND SBL on DDR mode. It is supported for SDR mode only
     <td> Bootloader
 </tr>
 </table>

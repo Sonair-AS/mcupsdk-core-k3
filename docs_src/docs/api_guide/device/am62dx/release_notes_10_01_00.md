@@ -19,9 +19,11 @@ AM62Dx | MCU R5F, WKUP R5F, A53, C75 | @VAR_BOARD_NAME EVM (referred to as am62d
 
 Feature                                                                                        | Module
 -----------------------------------------------------------------------------------------------|-----------------------------------
-OSPI FLASH DIAG EXAMPLE                                                                        | OSPI
-Use DDR copy in case of flash in place authentication failure                                  | Bootloader
--                                                                                              | -
+OSPI flash diag application for custom flashes                                                 | OSPI
+Support for authentication from DDR when in-place authentication fails from OSPI NOR           | Bootloader
+Support for SW version check of binaries through RPRC header                                   | Bootloader
+Support for ECAP and EPWN on C7x and A53                                                       | Drivers
+Support for EQEP  on A53                                                                       | Drivers
 
 
 ## Other Updates on This Release
@@ -36,7 +38,7 @@ Update                                                                          
 Tools                   | Supported CPUs             | Version
 ------------------------|----------------------------|-----------------------
 Code Composer Studio    | MCU-R5F, C75, A53          | 12.8.1 with AM62D CCS CSP
-SysConfig               | MCU-R5F, WKUP-R5F, C75, A53| 1.20.999, build 143
+SysConfig               | MCU-R5F, WKUP-R5F, C75, A53| 1.22.0, build 3893
 TI ARM CLANG            | MCU-R5F, WKUP-R5F          | 3.2.2.LTS
 GCC AARCH64             | A53                        | 9.2-2019.12
 C7000-CGT               | C75                        | 4.1.0.LTS
@@ -78,22 +80,6 @@ OSPI NOR  | WKUP-R5F       | Yes               | No          |   Yes       | NOR
 EMMC      | WKUP-R5F       | Yes               | NA          |   NA        | NORTOS
 UART      | WKUP-R5F       | Yes               | NA          |   No        | NORTOS
 
-### SDL
-
-SDL Module       | Supported CPUs | SysConfig Support
------------------|----------------|-------------------
-MCRC             |MCU-R5F         | No
-ESM              |MCU-R5F         | No
-VTM              |MCU-R5F         | No
-DCC              |MCU-R5F         | No
-ECC              |MCU-R5F         | No
-RTI              |MCU-R5F         | No
-POK              |MCU-R5F         | No
-STOG             |MCU-R5F         | No
-MTOG             |MCU-R5F         | No
-PBIST            |MCU-R5F         | No
-LBIST            |MCU-R5F         | No
-ROM_CHECKSUM     |MCU-R5F         | No
 
 
 ### SOC Device Drivers
@@ -297,6 +283,22 @@ Peripheral | Supported CPUs      | SysConfig Support
 EEPROM     | MCU-R5F, A53, C75   | Yes
 Flash      | WKUP-R5F, A53       | Yes
 LED        | MCU-R5F, A53, C75   | Yes
+### SDL
+
+SDL Module       | Supported CPUs | SysConfig Support
+-----------------|----------------|-------------------
+MCRC             |MCU-R5F         | No
+ESM              |MCU-R5F         | No
+VTM              |MCU-R5F         | No
+DCC              |MCU-R5F         | No
+ECC              |MCU-R5F         | No
+RTI              |MCU-R5F         | No
+POK              |MCU-R5F         | No
+STOG             |MCU-R5F         | No
+MTOG             |MCU-R5F         | No
+PBIST            |MCU-R5F         | No
+LBIST            |MCU-R5F         | No
+ROM_CHECKSUM     |MCU-R5F         | No
 
 ## Fixed Issues
 
@@ -309,88 +311,100 @@ LED        | MCU-R5F, A53, C75   | Yes
     <th> Applicable Releases
 </tr>
 <tr>
-    <td> SITSW-4867
+    <td> \htmllink{https://sir.ext.ti.com/jira/browse/EXT_SITMPUSW-34, EXT_SITMPUSW-34}
+    <td> SBL_UART_UNIFLASH_STAGE2 build fails on removing OSPI and FLASH module in Sysconfig
+    <td> Uniflasher
+    <td> 10.01.00
+</tr>
+<tr>
+    <td> \htmllink{https://sir.ext.ti.com/jira/browse/EXT_SITMPUSW-5, EXT_SITMPUSW-5}
     <td> Potential Infinite loop in OSPI_utilLog2 defined in ospi_v0.c
     <td> OSPI
     <td> 10.01.00
 </tr>
 <tr>
-    <td> SITSW-5575
-    <td> The SYSFW_IMAGE_INTEGRITY OID is incorrectly mentioned in the comment
-    <td> Bootloader
+    <td> \htmllink{https://sir.ext.ti.com/jira/browse/EXT_SITMPUSW-35, EXT_SITMPUSW-35}
+    <td> MMCSD_initSD always returns SUCCESS
+    <td> SD
     <td> 10.01.00
 </tr>
 <tr>
-    <td> SITSW-5056
-    <td> Misleading "File read from SD card" bootloader profile point in the SBL_SD bootloader
-    <td> Bootloader
+    <td> \htmllink{https://sir.ext.ti.com/jira/browse/EXT_SITMPUSW-36, EXT_SITMPUSW-36}
+    <td> MMCSD_initSD does not check the retry variable for failure for OCR command
+    <td> SD
     <td> 10.01.00
 </tr>
 <tr>
-    <td> SITSW-5091
+    <td> \htmllink{https://sir.ext.ti.com/jira/browse/EXT_SITMPUSW-38, EXT_SITMPUSW-38}
     <td> Remote core getting hangs when doing IPC with HLOS
     <td> IPC
     <td> 10.01.00
 </tr>
 <tr>
-    <td> SITSW-5554
-    <td> AM62P VTM Temperature outputs value 0
-    <td> OSPI
-    <td> 10.01.00
-</tr>
-<tr>
-    <td> SITSW-5184
-    <td> Error in the CCS build of the SBL examples
+    <td> \htmllink{https://sir.ext.ti.com/jira/browse/EXT_SITMPUSW-40, EXT_SITMPUSW-40}
+    <td> The SYSFW_IMAGE_INTEGRITY OID is incorrectly mentioned in the comment
     <td> Bootloader
     <td> 10.01.00
 </tr>
 <tr>
-    <td> SITSW-4527
-    <td> SBL_UART_UNIFLASH_STAGE2 build fails on removing OSPI and FLASH module in Sysconfig
-    <td> Uniflash
+    <td> \htmllink{https://sir.ext.ti.com/jira/browse/EXT_SITMPUSW-41, EXT_SITMPUSW-41}
+    <td> ClockP_getTicks to use xTaskGetTickCountFromISR() freeRTOS function if it is from ISR
+    <td> DPL
+    <td> 10.01.00
+</tr>
+<tr>
+    <td> \htmllink{https://sir.ext.ti.com/jira/browse/EXT_SITMPUSW-3, EXT_SITMPUSW-3}
+    <td> EMMC:The tuning algorithm to re-execute up to 10 times if there is no failing or passing itapdly.
+    <td> EMMC
+    <td> 10.01.00
+</tr>
+<tr>
+    <td> \htmllink{https://sir.ext.ti.com/jira/browse/EXT_SITMPUSW-42, EXT_SITMPUSW-42}
+    <td> Enable floating point task save restore for all tasks by default
+    <td> DPL
+    <td> 10.01.00
+</tr>
+<tr>
+    <td> \htmllink{https://sir.ext.ti.com/jira/browse/EXT_SITMPUSW-43, EXT_SITMPUSW-43}
+    <td> MMCSD driver doesn't implement the recovery steps for CRC errors
+    <td> EMMC
+    <td> 10.01.00
+</tr>
+<tr>
+    <td> \htmllink{https://sir.ext.ti.com/jira/browse/EXT_SITMPUSW-44, EXT_SITMPUSW-44}
+    <td> DebugP_log API returning wrong value
+    <td> DPL
+    <td> 10.01.00
+</tr>
+<tr>
+    <td> \htmllink{https://sir.ext.ti.com/jira/browse/EXT_SITMPUSW-45, EXT_SITMPUSW-45}
+    <td> Memcpy: Utils_memcpyWord function doesn't work on 64 bit systems
+    <td> Utils
     <td> 10.01.00
 </tr>
 <tr>
     <td> SITSW-3685
     <td> DM Sciclient ignores flags field for TIFS bound messages
     <td> DM
-    <td> 08.03.00 onwards
+    <td> 10.00.00 onwards
 </tr>
 <tr>
     <td> SITSW-4773
     <td> DM is ignoring the exact flags sent in TISCI message
     <td> DM
-    <td> 08.03.00 onwards
+    <td> 10.00.00 onwards
 </tr>
 <tr>
     <td> SYSFW-5992
     <td> Unable to set exact pixel clock for OLDI LCD display / HDMI Pixel clock
     <td> DM
-    <td> 08.05.00 onwards
+    <td> 10.00.00 onwards
 </tr>
 <tr>
     <td> SYSFW-6432
     <td> Set device API doesn't return Error when PD is in transition state
     <td> DM
-    <td> 08.03.00 onwards
-</tr>
-<tr>
-    <td> SYSFW-7559
-    <td> In MCU-Only mode resume path the MCU_M4 LPSC is ON
-    <td> DM (LPM)
     <td> 10.00.00 onwards
-</tr>
-<tr>
-    <td> SYSFW-7571
-    <td> Device IDs higher than 255 does not work with set device constraint API
-    <td> DM (LPM)
-    <td> 10.00.00 onwards
-</tr>
-<tr>
-    <td> SYSFW-7602
-    <td> RTC count value not getting updated after DeepSleep exit
-    <td> DM (LPM)
-    <td> 08.03.00 onwards
 </tr>
 <tr>
     <td> SYSFW-7614
@@ -398,28 +412,11 @@ LED        | MCU-R5F, A53, C75   | Yes
     <td> DM
     <td> 10.00.00 onwards
 </tr>
-<tr>
-    <td> SYSFW-7617
-    <td> LPM mode selection logic does not check for constraints on all the hosts/devices
-    <td> DM (LPM)
-    <td> 10.00.00 onwards
-</tr>
-<tr>
-    <td> SYSFW-7740
-    <td> Only the last latency constraint value passed from a host considered in LPM selection
-    <td> DM (LPM)
-    <td> 10.00.00 onwards
-</tr>
+
 <tr>
     <td> SYSFW-7758
     <td> MAIN PLL15 HSDIVs (DM) if updated in SBL flow results in boot failure in later stages
     <td> DM
-    <td> 10.00.00 onwards
-</tr>
-<tr>
-    <td> SYSFW-7760
-    <td> LPM: MCU subsystem (GPIO) clock should not be changed in MCU Only mode
-    <td> DM (LPM)
     <td> 10.00.00 onwards
 </tr>
 <tr>
@@ -433,12 +430,6 @@ LED        | MCU-R5F, A53, C75   | Yes
     <td> TIFS halts when proc auth boot message is sent for an AES-256 encrypted image
     <td> TIFS
     <td> 09.01.00 onwards
-</tr>
-<tr>
-    <td> SYSFW-7739
-    <td> LPM constraint messages received by TIFS not forwarded to DM
-    <td> TIFS
-    <td> 10.00.00
 </tr>
 </table>
 
@@ -461,30 +452,9 @@ LED        | MCU-R5F, A53, C75   | Yes
     <td> None.
 </tr>
 <tr>
-    <td> SYSFW-7811
-    <td> Resume from IO Only + DDR mode fails sometimes
-    <td> DM (LPM)
-    <td> 10.01.00
-    <td> None.
-</tr>
-<tr>
-    <td> SYSFW-7831
-    <td> DMA Resources used by ROM are not cleaned up when resuming from IO Only + DDR mode
-    <td> DM (LPM)
-    <td> 10.01.00
-    <td> None.
-</tr>
-<tr>
     <td> SYSFW-7884
     <td> There is an additional divide by 4 on all clocks of WKUP/MCU GPIO clock mux
     <td> DM
-    <td> 10.01.00
-    <td> None.
-</tr>
-<tr>
-    <td> SYSFW-7897
-    <td> Partial I/O mode fails after few hundred iterations
-    <td> DM (LPM)
     <td> 10.01.00
     <td> None.
 </tr>
