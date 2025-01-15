@@ -4662,39 +4662,6 @@
         "resourceSubClass": [
             "example.gettingstarted"
         ],
-        "description": "An example to demonstrate the working of spinlock CPU is MCU-R5FSS0-0 running NORTOS.",
-        "name": "spinlock_example",
-        "location": "../../examples/drivers/spinlock/spinlock_example/am62dx-evm/mcu-r5fss0-0_nortos/ti-arm-clang/example.projectspec",
-        "devtools": [
-            "AUDIO-AM62D-EVM"
-        ],
-        "kernel": [
-            "nortos"
-        ],
-        "compiler": [
-            "ticlang"
-        ],
-        "subCategories": [
-            "drivers",
-            "spinlock",
-            "spinlock_example",
-            "mcu-r5fss0-0_nortos"
-        ],
-        "mainCategories": [
-            [
-                "Examples",
-                "Development Tools"
-            ]
-        ]
-    },
-    {
-        "resourceType": "project.ccs",
-        "resourceClass": [
-            "example"
-        ],
-        "resourceSubClass": [
-            "example.gettingstarted"
-        ],
         "description": "An example to demonstrate the working of spinlock CPU is MCU-R5FSS0-0 running FREERTOS.",
         "name": "spinlock_example",
         "location": "../../examples/drivers/spinlock/spinlock_example/am62dx-evm/mcu-r5fss0-0_freertos/ti-arm-clang/example.projectspec",
@@ -4728,39 +4695,6 @@
         "resourceSubClass": [
             "example.gettingstarted"
         ],
-        "description": "An example to demonstrate the working of spinlock CPU is A53SS0-0 running NORTOS.",
-        "name": "spinlock_example",
-        "location": "../../examples/drivers/spinlock/spinlock_example/am62dx-evm/a53ss0-0_nortos/gcc-aarch64/example.projectspec",
-        "devtools": [
-            "AUDIO-AM62D-EVM"
-        ],
-        "kernel": [
-            "nortos"
-        ],
-        "compiler": [
-            "gcc"
-        ],
-        "subCategories": [
-            "drivers",
-            "spinlock",
-            "spinlock_example",
-            "a53ss0-0_nortos"
-        ],
-        "mainCategories": [
-            [
-                "Examples",
-                "Development Tools"
-            ]
-        ]
-    },
-    {
-        "resourceType": "project.ccs",
-        "resourceClass": [
-            "example"
-        ],
-        "resourceSubClass": [
-            "example.gettingstarted"
-        ],
         "description": "An example to demonstrate the working of spinlock CPU is A53SS0-0 running FREERTOS.",
         "name": "spinlock_example",
         "location": "../../examples/drivers/spinlock/spinlock_example/am62dx-evm/a53ss0-0_freertos/gcc-aarch64/example.projectspec",
@@ -4778,39 +4712,6 @@
             "spinlock",
             "spinlock_example",
             "a53ss0-0_freertos"
-        ],
-        "mainCategories": [
-            [
-                "Examples",
-                "Development Tools"
-            ]
-        ]
-    },
-    {
-        "resourceType": "project.ccs",
-        "resourceClass": [
-            "example"
-        ],
-        "resourceSubClass": [
-            "example.gettingstarted"
-        ],
-        "description": "An example to demonstrate the working of spinlock CPU is C75SS0-0 running FREERTOS.",
-        "name": "spinlock_example",
-        "location": "../../examples/drivers/spinlock/spinlock_example/am62dx-evm/c75ss0-0_freertos/ti-c7000/example.projectspec",
-        "devtools": [
-            "AUDIO-AM62D-EVM"
-        ],
-        "kernel": [
-            "freertos"
-        ],
-        "compiler": [
-            "ccs"
-        ],
-        "subCategories": [
-            "drivers",
-            "spinlock",
-            "spinlock_example",
-            "c75ss0-0_freertos"
         ],
         "mainCategories": [
             [

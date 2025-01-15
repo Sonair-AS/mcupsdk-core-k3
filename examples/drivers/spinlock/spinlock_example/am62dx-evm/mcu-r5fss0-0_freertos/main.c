@@ -64,6 +64,8 @@ void freertos_main(void *args)
     status = Board_driversOpen();
     DebugP_assert(status==SystemP_SUCCESS);
 
+    Spinlock_unlock(CSL_SPINLOCK0_BASE, lockNum2);
+
     int loopcount = 5;
 
     while(loopcount--)
@@ -89,6 +91,8 @@ void freertos_main(void *args)
         ClockP_sleep(DELAY_TIME);
 
         Spinlock_unlock(CSL_SPINLOCK0_BASE, lockNum2);
+
+        ClockP_sleep(DELAY_TIME);
 
     }
 
