@@ -113,7 +113,12 @@ uint32_t gRemoteCoreId[] = {
 
 #if defined (SOC_AM62AX) || defined (SOC_AM62DX)
 /* main core that checks the test pass/fail */
+#if defined(BUILD_C7X_AS_MASTER)
+uint32_t gMainCoreId = CSL_CORE_ID_C75SS0_0;
+#else
 uint32_t gMainCoreId = CSL_CORE_ID_R5FSS0_0;
+#endif
+
 /* All cores that participate in the IPC */
 uint32_t gRemoteCoreId[] = {
     CSL_CORE_ID_R5FSS0_0,
@@ -567,17 +572,19 @@ void test_rpmsgOneToOneBackToBack(void *args)
 
 /* In this test
     - we check multiple error conditions for RPMsgSend by
-    - 1. Sending message with size more than vRing size to check for warnings
-    - 2. Sending message to a remote core which is not enabled
-    - 3. Send messages more than numBuffer to induce timeout errors
+    - 1. Sending more messages than freeQ can hold
+    - 2. Sending message with size more than vRing size to check for warnings
+    - 3. Sending message to a remote core which is not enabled
+    - 4. Send messages more than numBuffer to induce timeout errors
 */
+
 void test_rpmsgSendErrorChecks(void *args)
 {
     Test_Args *pTestArgs = (Test_Args*)args;
     uint16_t remoteCoreId = pTestArgs->remoteCoreId;
     uint16_t msgSize = pTestArgs->msgSize;
     uint32_t echoMsgCount = pTestArgs->echoMsgCount;
-    uint32_t msg, oldDebugLogZone;
+    uint32_t msg, oldDebugLogZone, msgSent;
     uint32_t timeout = 1;
     static char msgBuf[INVALID_MSG_SIZE];
     static char ackMsgBuf[INVALID_MSG_SIZE];
@@ -587,8 +594,40 @@ void test_rpmsgSendErrorChecks(void *args)
 
     /* Disable error and warning logs to avoid clutter during test cases */
     oldDebugLogZone = DebugP_logZoneDisable(DebugP_LOG_ZONE_WARN | DebugP_LOG_ZONE_ERROR);
+    memset(msgBuf, 0xAA, 8);
+    ackMsgSize = sizeof(ackMsgBuf);
 
-    /* 1. Send oversized message to trigger truncate warning */
+    /* 1.Send more messages than freeQ can hold */
+    for(msg = 0; msg<2048; msg++)
+    {
+        status = RPMessage_send(msgBuf,
+                                4,
+                                remoteCoreId,
+                                gServerEndPt,
+                                RPMessage_getLocalEndPt(&gSendErrorCheckMsgObject),
+                                timeout);
+        if(status == SystemP_TIMEOUT)
+        {
+            break;
+        }
+    }
+
+    msgSent = msg;
+
+    for(msg = 0; msg<msgSent; msg++)
+    {
+        status = RPMessage_recv(&gSendErrorCheckMsgObject,
+                            ackMsgBuf,
+                            &ackMsgSize,
+                            &remoteCoreId,
+                            &remoteCoreEndPt,
+                            timeout);
+    }
+
+    TEST_ASSERT_EQUAL_INT32(SystemP_SUCCESS, status);
+
+
+    /* 2. Send oversized message to trigger truncate warning */
     memset(msgBuf, 0xAA, INVALID_MSG_SIZE);
     status = RPMessage_send(msgBuf,
                             msgSize,
@@ -622,6 +661,8 @@ void test_rpmsgSendErrorChecks(void *args)
 
     TEST_ASSERT_EQUAL_INT32(SystemP_SUCCESS, status);
 
+    ClockP_sleep(1);
+
     /*Set RPMessage_controlEndPtCallback to NULL*/
     RPMessage_controlEndPtCallback(NULL, NULL);
     status = RPMessage_send(&msgBuf,
@@ -641,7 +682,7 @@ void test_rpmsgSendErrorChecks(void *args)
 
     TEST_ASSERT_EQUAL_INT32(SystemP_SUCCESS, status);
 
-    /* 2. Send message to a remote core which is not enabled*/
+    /* 3. Send message to a remote core which is not enabled*/
     status = RPMessage_send(msgBuf,
                             msgSize,
                             CSL_CORE_ID_HSM_M4FSS0_0,
@@ -677,7 +718,7 @@ void test_rpmsgSendErrorChecks(void *args)
                             SystemP_WAIT_FOREVER);
     TEST_ASSERT_EQUAL_INT32(SystemP_FAILURE, status);
 
-    /*3. Send message > numBuffer to induce timeout errors*/
+    /*4. Send message > numBuffer to induce timeout errors*/
     msg = 0;
     for(msg = 0; msg<echoMsgCount; msg++)
     {
@@ -1035,6 +1076,19 @@ void test_rpmsgErrorChecks(void *args)
     RPMessage_Params_init(&rpmsgParams);
 
     rpmsgParams.vringTxBaseAddr[CSL_CORE_ID_A53SS0_0] = (uintptr_t)&txDataBuff;
+    rpmsgParams.vringRxBaseAddr[CSL_CORE_ID_A53SS0_0] = (uintptr_t)&rxDataBuff;
+    rpmsgParams.vringSize = 1;
+
+    status = RPMessage_init(&rpmsgParams);
+    TEST_ASSERT_EQUAL_INT32(SystemP_FAILURE, status);
+
+    /*De-init properly initilaized RPMsg Object*/
+    RPMessage_deInit();
+
+    /*Re-initialize again with faulty parameter*/
+    RPMessage_Params_init(&rpmsgParams);
+
+    rpmsgParams.vringTxBaseAddr[CSL_CORE_ID_A53SS0_0] = (uintptr_t)&txDataBuff;
     rpmsgParams.vringTxBaseAddr[gMainCoreId] = (uintptr_t)&txDataBuff;
     rpmsgParams.vringRxBaseAddr[gMainCoreId] = (uintptr_t)&rxDataBuff;
 
@@ -1107,12 +1161,16 @@ void test_ipc_main_core_start()
     uint32_t i;
 
     Test_Args testArgs;
+    
+    #if defined(BUILD_C7X_AS_MASTER)
+    DebugP_log("This test is build with c7x as master\n\r");
+    #endif
 
     UNITY_BEGIN();
 
     /* These MUST be the first tests to run */
-    RUN_TEST(test_rpmsgControlEndPt, 296, NULL);
-    RUN_TEST(test_rpmsgAnyToAny, 297, NULL);
+    RUN_TEST(test_rpmsgControlEndPt, 2458, NULL);
+    RUN_TEST(test_rpmsgAnyToAny, 2463, NULL);
 
     /* now you can comment tests if needed to debug a specific test */
     testArgs.echoMsgCount = 1000; /* this value is used by all later tests */
@@ -1133,7 +1191,7 @@ void test_ipc_main_core_start()
 
     #if defined(SOC_AM64X) || defined(SOC_AM243X) || defined(SOC_AM62X)
     testArgs.remoteCoreId = CSL_CORE_ID_M4FSS0_0;
-    RUN_TEST(test_rpmsgOneToOne, 1819, &testArgs);
+    RUN_TEST(test_rpmsgOneToOne, 2465, &testArgs);
     #endif
 
     #if defined(SOC_AM64X) || defined(SOC_AM62AX) || defined(SOC_AM62DX) || defined(SOC_AM62X)
@@ -1149,7 +1207,11 @@ void test_ipc_main_core_start()
     #if defined(SOC_AM62AX) || defined(SOC_AM62DX)
     testArgs.remoteCoreId = CSL_CORE_ID_MCU_R5FSS0_0;
     RUN_TEST(test_rpmsgOneToOne, 1870, &testArgs);
+    #if defined(BUILD_C7X_AS_MASTER)
+    testArgs.remoteCoreId = CSL_CORE_ID_R5FSS0_0;
+    #else
     testArgs.remoteCoreId = CSL_CORE_ID_C75SS0_0;
+    #endif
     RUN_TEST(test_rpmsgOneToOne, 1870, &testArgs);
     #endif
 
@@ -1157,58 +1219,71 @@ void test_ipc_main_core_start()
     #if !defined(SOC_AM62AX) &&  !defined(SOC_AM62DX) && !defined(SOC_AM62X) && !defined(SOC_AM62PX)
     testArgs.remoteCoreId = CSL_CORE_ID_R5FSS0_1;
     testArgs.msgSize = 32;
-    RUN_TEST(test_rpmsgOneToOne, 302, &testArgs);
+    RUN_TEST(test_rpmsgOneToOne, 6230, &testArgs);
     testArgs.remoteCoreId = CSL_CORE_ID_R5FSS0_1;
     testArgs.msgSize = 64;
-    RUN_TEST(test_rpmsgOneToOne, 303, &testArgs);
+    RUN_TEST(test_rpmsgOneToOne, 6225, &testArgs);
     testArgs.remoteCoreId = CSL_CORE_ID_R5FSS0_1;
     testArgs.msgSize = 112;
-    RUN_TEST(test_rpmsgOneToOne, 304, &testArgs);
+    RUN_TEST(test_rpmsgOneToOne, 6232, &testArgs);
     #endif
 
     #if defined(SOC_AM64X) || defined(SOC_AM243X) || defined(SOC_AM62X)
     /* performance test with varying payload size */
     testArgs.remoteCoreId = CSL_CORE_ID_M4FSS0_0;
     testArgs.msgSize = 32;
-    RUN_TEST(test_rpmsgOneToOne, 1820, &testArgs);
+    RUN_TEST(test_rpmsgOneToOne, 2466, &testArgs);
     testArgs.remoteCoreId = CSL_CORE_ID_M4FSS0_0;
     testArgs.msgSize = 64;
-    RUN_TEST(test_rpmsgOneToOne, 1821, &testArgs);
+    RUN_TEST(test_rpmsgOneToOne, 2467, &testArgs);
     testArgs.remoteCoreId = CSL_CORE_ID_M4FSS0_0;
     testArgs.msgSize = 112;
-    RUN_TEST(test_rpmsgOneToOne, 1822, &testArgs);
+    RUN_TEST(test_rpmsgOneToOne, 2468, &testArgs);
     #endif
 
     #if defined(SOC_AM64X) || defined(SOC_AM62AX) || defined(SOC_AM62DX) || defined(SOC_AM62X)
     /* performance test with varying payload size */
     testArgs.remoteCoreId = CSL_CORE_ID_A53SS0_0;
     testArgs.msgSize = 32;
-    RUN_TEST(test_rpmsgOneToOne, 1871, &testArgs);
+    RUN_TEST(test_rpmsgOneToOne, 2464, &testArgs);
     testArgs.remoteCoreId = CSL_CORE_ID_A53SS0_0;
     testArgs.msgSize = 64;
-    RUN_TEST(test_rpmsgOneToOne, 1872, &testArgs);
+    RUN_TEST(test_rpmsgOneToOne, 2732, &testArgs);
     testArgs.remoteCoreId = CSL_CORE_ID_A53SS0_0;
     testArgs.msgSize = 112;
-    RUN_TEST(test_rpmsgOneToOne, 1873, &testArgs);
+    RUN_TEST(test_rpmsgOneToOne, 2734, &testArgs);
     #endif
 
     #if defined(SOC_AM62AX) || defined(SOC_AM62DX)
     testArgs.remoteCoreId = CSL_CORE_ID_MCU_R5FSS0_0;
     testArgs.msgSize = 32;
-    RUN_TEST(test_rpmsgOneToOne, 1870, &testArgs);
+    RUN_TEST(test_rpmsgOneToOne, 2713, &testArgs);
     testArgs.remoteCoreId = CSL_CORE_ID_MCU_R5FSS0_0;
     testArgs.msgSize = 64;
-    RUN_TEST(test_rpmsgOneToOne, 1870, &testArgs);
+    RUN_TEST(test_rpmsgOneToOne, 2712, &testArgs);
     testArgs.remoteCoreId = CSL_CORE_ID_MCU_R5FSS0_0;
     testArgs.msgSize = 112;
-    RUN_TEST(test_rpmsgOneToOne, 1870, &testArgs);
+    RUN_TEST(test_rpmsgOneToOne, 2711, &testArgs);
+#if defined(BUILD_C7X_AS_MASTER)
+    testArgs.remoteCoreId = CSL_CORE_ID_R5FSS0_0;
+#else
     testArgs.remoteCoreId = CSL_CORE_ID_C75SS0_0;
+#endif
     testArgs.msgSize = 32;
     RUN_TEST(test_rpmsgOneToOne, 1870, &testArgs);
+
+#if defined(BUILD_C7X_AS_MASTER)
+    testArgs.remoteCoreId = CSL_CORE_ID_R5FSS0_0;
+#else
     testArgs.remoteCoreId = CSL_CORE_ID_C75SS0_0;
+#endif
     testArgs.msgSize = 64;
     RUN_TEST(test_rpmsgOneToOne, 1870, &testArgs);
+#if defined(BUILD_C7X_AS_MASTER)
+    testArgs.remoteCoreId = CSL_CORE_ID_R5FSS0_0;
+#else
     testArgs.remoteCoreId = CSL_CORE_ID_C75SS0_0;
+#endif
     testArgs.msgSize = 112;
     RUN_TEST(test_rpmsgOneToOne, 1870, &testArgs);
     #endif
@@ -1216,20 +1291,20 @@ void test_ipc_main_core_start()
     #if defined(SOC_AM62PX)
     testArgs.remoteCoreId = CSL_CORE_ID_MCU_R5FSS0_0;
     testArgs.msgSize = 32;
-    RUN_TEST(test_rpmsgOneToOne, 1870, &testArgs);
+    RUN_TEST(test_rpmsgOneToOne, 2713, &testArgs);
     testArgs.remoteCoreId = CSL_CORE_ID_MCU_R5FSS0_0;
     testArgs.msgSize = 64;
-    RUN_TEST(test_rpmsgOneToOne, 1870, &testArgs);
+    RUN_TEST(test_rpmsgOneToOne, 2712, &testArgs);
     testArgs.remoteCoreId = CSL_CORE_ID_MCU_R5FSS0_0;
     testArgs.msgSize = 112;
-    RUN_TEST(test_rpmsgOneToOne, 1870, &testArgs);
+    RUN_TEST(test_rpmsgOneToOne, 2711, &testArgs);
     #endif
 
     #if defined(SOC_AM62AX)
     testArgs.remoteCoreId = CSL_CORE_ID_MCU_R5FSS0_0;
     testArgs.msgSize = 128;
     testArgs.echoMsgCount = 1;
-    RUN_TEST(test_rpmsgRecvErrorChecks, 1876, &testArgs);
+    RUN_TEST(test_rpmsgRecvErrorChecks, 5671, &testArgs);
     #endif
 
     #if !defined(SOC_AM62AX) && !defined(SOC_AM62DX) && !defined(SOC_AM62X) && !defined(SOC_AM62PX)
@@ -1268,7 +1343,7 @@ void test_ipc_main_core_start()
     testArgs.remoteCoreId = CSL_CORE_ID_R5FSS0_1;
     testArgs.msgSize = 4;
     testArgs.echoMsgCount = 1000;
-    RUN_TEST(test_rpmsgRxNotifyCallback, 909, &testArgs);
+    RUN_TEST(test_rpmsgRxNotifyCallback, 2464, &testArgs);
     #endif
 
     #if defined(SOC_AM62AX) || defined(SOC_AM62DX) || defined(SOC_AM62PX)
@@ -1276,7 +1351,7 @@ void test_ipc_main_core_start()
     testArgs.remoteCoreId = CSL_CORE_ID_MCU_R5FSS0_0;
     testArgs.msgSize = 4;
     testArgs.echoMsgCount = 1;
-    RUN_TEST(test_rpmsgRxNotifyCallback, 909, &testArgs);
+    RUN_TEST(test_rpmsgRxNotifyCallback, 2464, &testArgs);
     #endif
 
     #if defined(SOC_AM62X)
@@ -1284,19 +1359,19 @@ void test_ipc_main_core_start()
     testArgs.remoteCoreId = CSL_CORE_ID_M4FSS0_0;
     testArgs.msgSize = 4;
     testArgs.echoMsgCount = 1000;
-    //RUN_TEST(test_rpmsgRxNotifyCallback, 909, &testArgs);
+    //RUN_TEST(test_rpmsgRxNotifyCallback, 2464, &testArgs);
     #endif
 
     #if defined(SOC_AM62AX)
     testArgs.remoteCoreId = CSL_CORE_ID_MCU_R5FSS0_0;
     testArgs.msgSize = INVALID_MSG_SIZE;
     testArgs.echoMsgCount = 512;
-    RUN_TEST(test_rpmsgSendErrorChecks, 1875, &testArgs);
+    RUN_TEST(test_rpmsgSendErrorChecks, 5649, &testArgs);
     #endif
 
     #if !defined(SOC_AM62X) && !defined(SOC_AM62PX)
     /* error condition checks */
-    RUN_TEST(test_rpmsgErrorChecks, 306, NULL);
+    RUN_TEST(test_rpmsgErrorChecks, 2456, NULL);
     #endif
 
     /* Print performance numbers. */
