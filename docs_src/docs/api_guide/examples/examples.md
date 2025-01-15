@@ -66,7 +66,7 @@ This page lists all the examples and demos supported in this SDK.
 -# \subpage EXAMPLES_DRIVERS_BIST_RESULT
 -# \subpage EXAMPLES_NETWORKING
 <!-- -# \subpage EXAMPLES_OTP -->
-<!-- -# \subpage EXAMPLES_SDL -->
+-# \subpage EXAMPLES_SDL
 -# \subpage EXAMPLES_SECURITY
 <!-- -# \subpage EXAMPLES_SAFETY_CHECKERS -->
 \endcond
