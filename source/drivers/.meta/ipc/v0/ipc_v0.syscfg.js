@@ -86,6 +86,7 @@ function getConfigurables()
                     element.options.push({ name: 64});
                     element.options.push({ name: 128});
                     element.options.push({ name: 256});
+                    element.options.push({ name: 512});
                     element.default = 256;
                     element.readOnly = true;
                 }
