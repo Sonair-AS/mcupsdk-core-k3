@@ -143,3 +143,25 @@ Data size(MiB) | Write speed(MiBps) | Read speed(MiBps)
 ---------------|--------------------|-----------------
  1             | 0.41               | 284.11
  2             | 0.41               | 284.60
+
+ ### XIP Benchmark
+- Core :	R5F
+- Core Operating Speed : 800 MHz
+
+- Software/Application used : xip_benchmark
+
+- 1) FIR operation
+
+Caching status                          | Cycles taken
+----------------------------------------|-------------
+Code/Data fully cached                  |    24048
+Code/Data not cached                    |    66115
+Code/Data not cached 1 of 10 iterations |    28257
+
+- 2) MEMCPY operation
+
+Caching status                          | Cycles taken
+----------------------------------------|-------------
+Code/Data fully cached                  |    1566
+Code/Data not cached                    |    4497
+Code/Data not cached 1 of 10 iterations |    1864

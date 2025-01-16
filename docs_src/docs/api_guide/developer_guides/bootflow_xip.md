@@ -18,7 +18,7 @@
 See also these additional pages for more details and examples about XIP,
 
 - To understand and run a example in XIP mode see
-  - \ref EXAMPLES_KERNEL_DPL_XIP_BENCHMARK
+  - \ref EXAMPLES_BENCHMARKS_XIP_BENCHMARK
 - To understand overall boot flow see, \ref BOOTFLOW_GUIDE
 
 ## Pre-requisites

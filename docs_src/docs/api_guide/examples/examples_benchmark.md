@@ -7,3 +7,7 @@ This page lists all the examples related to benchmarks of SOC and board peripher
    -# \subpage EXAMPLES_DHRYSTONE
    -# \subpage EXAMPLES_INTERRUPT_LATENCY
 \endcond
+
+\cond  SOC_AM275X
+   -# \subpage EXAMPLES_BENCHMARKS_XIP_BENCHMARK
+\endcond
