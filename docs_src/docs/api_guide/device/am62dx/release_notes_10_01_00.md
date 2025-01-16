@@ -479,6 +479,20 @@ ROM_CHECKSUM     |MCU-R5F         | No
     <td> 10.01.00
     <td> None. Support will be added in future release.
 </tr>
+<tr>
+    <td> SITSW-6317
+    <td> I2C0 SDA line does not get pulled up after random resets of EVM on E2 EVM
+    <td> MCU+SDK
+    <td> 10.01.00
+    <td> None. This issue will be fixed in future release.
+</tr>
+<tr>
+    <td> SITSW-6304
+    <td> MCSPI application runs into data abort when operating in DMA mode.
+    <td> MCU+SDK
+    <td> 10.01.00
+    <td> None. This issue will be fixed in future release.
+</tr>
 </table>
 
 ## Limitations

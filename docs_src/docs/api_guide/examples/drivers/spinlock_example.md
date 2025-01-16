@@ -18,10 +18,7 @@ where the core is only active when it has acquired the spinlock, while the other
 
  Parameter      | Value
  ---------------|-----------
- CPU + OS       | a53ss0-0 nortos
- ^              | a53ss0-0 freertos
- ^              | c75ss0-0 freertos
- ^              | mcu-r5fss0-0 nortos
+ CPU + OS       | a53ss0-0 freertos
  ^              | mcu-r5fss0-0 freertos
  Toolchain      | ti-arm-clang
  ^              | arm.gnu.aarch64-none
