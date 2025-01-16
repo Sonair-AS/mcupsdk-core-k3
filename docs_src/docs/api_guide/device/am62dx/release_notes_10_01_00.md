@@ -80,7 +80,12 @@ OSPI NOR  | WKUP-R5F       | Yes               | No          |   Yes       | NOR
 EMMC      | WKUP-R5F       | Yes               | NA          |   NA        | NORTOS
 UART      | WKUP-R5F       | Yes               | NA          |   No        | NORTOS
 
-
+### Networking
+Module                      | Supported CPUs | SysConfig Support | OS Support  | Key features tested  | Key features not tested
+----------------------------|----------------|-------------------|-------------|----------------------|-------------------------
+TSN                         | R5F       | NO                | FreeRTOS    | gPTP IEEE 802.1 AS-2020 compliant gPTP stack, End Nodes and Bridge mode support, YANG data model configuration, IEEE 1722 compliant AVTP Stack | Multi-Clock Domain
+LwIP                        | R5F       | YES               | FreeRTOS    | TCP/UDP IP networking stack with and without checksum offload enabled, TCP/UDP IP networking stack with server and client functionality, basic Socket APIs, netconn APIs and raw APIs, DHCP, ping, TCP iperf, scatter-gather, DSCP priority mapping, LwIP bridge, shared memory driver  | Other LwIP features
+Ethernet driver (ENET)      | R5F       | YES               | FreeRTOS    | Ethernet as port using CPSW,  MAC loopback and PHY loopback, Layer 2 MAC, Packet Timestamping, CPSW Switch, Policer and Classifier, MDIO Manual Mode, CBS (IEEE 802.1Qav) on CPSW, IET (IEEE 802.1Qbu) on CPSW, cut through switch on CPSW  | RMII mode
 
 ### SOC Device Drivers
 
