@@ -5,15 +5,15 @@
 ## Introduction
 
 \cond SOC_AM62X
-\note This scope of this document is to cover the bootflow of the secondary bootloader (SBL) available as part of the MCU+SDK. SPL bootflow is covered as part of  'Boot Flow' section in \htmllink{https://software-dl.ti.com/processor-sdk-linux/esd/AM62X/latest/exports/docs/linux/Foundational_Components/U-Boot/UG-General-Info.html, **PSDK Linux documentation**}.
+\note This scope of this document is to cover the bootflow of the secondary bootloader (SBL) available as part of the @VAR_SDK_NAME. SPL bootflow is covered as part of  'Boot Flow' section in \htmllink{https://software-dl.ti.com/processor-sdk-linux/esd/AM62X/latest/exports/docs/linux/Foundational_Components/U-Boot/UG-General-Info.html, **PSDK Linux documentation**}.
 \endcond
 
 \cond SOC_AM62AX
-\note This scope of this document is to cover the bootflow of the secondary bootloader (SBL) available as part of the MCU+SDK. SPL bootflow is covered as part of  'Boot Flow' section in \htmllink{https://software-dl.ti.com/processor-sdk-linux/esd/AM62AX/latest/exports/docs/linux/Foundational_Components/U-Boot/UG-General-Info.html, **PSDK Linux documentation**}.
+\note This scope of this document is to cover the bootflow of the secondary bootloader (SBL) available as part of the @VAR_SDK_NAME. SPL bootflow is covered as part of  'Boot Flow' section in \htmllink{https://software-dl.ti.com/processor-sdk-linux/esd/AM62AX/latest/exports/docs/linux/Foundational_Components/U-Boot/UG-General-Info.html, **PSDK Linux documentation**}.
 \endcond
 
 \cond SOC_AM62PX
-\note This scope of this document is to cover the bootflow of the secondary bootloader (SBL) available as part of the MCU+SDK. SPL bootflow is covered as part of  'Boot Flow' section in \htmllink{https://software-dl.ti.com/processor-sdk-linux/esd/AM62PX/latest/exports/docs/linux/Foundational_Components/U-Boot/UG-General-Info.html, **PSDK Linux documentation**}.
+\note This scope of this document is to cover the bootflow of the secondary bootloader (SBL) available as part of the @VAR_SDK_NAME. SPL bootflow is covered as part of  'Boot Flow' section in \htmllink{https://software-dl.ti.com/processor-sdk-linux/esd/AM62PX/latest/exports/docs/linux/Foundational_Components/U-Boot/UG-General-Info.html, **PSDK Linux documentation**}.
 \endcond
 
 Booting user defined applications on a SOC involves multiples steps as listed below,

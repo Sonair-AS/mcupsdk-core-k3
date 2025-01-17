@@ -100,11 +100,11 @@ Some of the supported ROV views are listed below
 - If you have created a project on your own then, make sure
   - you add the file `examples\empty\{board}\{cpu_os}\{compiler}\syscfg_c.rov.xs`
   to your project. This file is independent of SOC, CPU, OS, compiler, so you can add this file to any of your project
-  - and make sure your project points to MCU+ SDK as a dependant product. The ROV views are generated using the
+  - and make sure your project points to @VAR_SDK_NAME as a dependant product. The ROV views are generated using the
   backend file `{SDK_INSTALL_PATH}\source\kernel\freertos\rov\FreeRTOS.rov.js` which is referenced by `syscfg_c.rov.xs`, hence the
   project needs to know the location of the SDK.
 
-- When using CCS `projectspec`, the line below in the `.projectspec` file adds the SysConfig and AM64x MCU+ SDK as dependant products for example,
+- When using CCS `projectspec`, the line below in the `.projectspec` file adds the SysConfig and AM64x @VAR_SDK_NAME as dependant products for example,
 
         products="sysconfig;com.ti.MCU_PLUS_SDK_AMXXX"
 

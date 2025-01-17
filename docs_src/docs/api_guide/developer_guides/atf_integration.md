@@ -90,7 +90,7 @@ The following points are important in understanding the application core startup
             mov     x0, #0x1
             msr     s3_0_c12_c12_7, x0    /* Enable Non-secure group 1 interrupts */
 
-- Cache invalidation happens in EL3 in MCU+ in the normal bootflow without TF-A.
+- Cache invalidation happens in EL3 in @VAR_SDK_NAME in the normal bootflow without TF-A.
   -  This is done in non-secure EL2 in TF-A flow as the same is not done in TF-A.
 
             ldr     x0, =CacheP_wbInvAll /* Cache invalidation since it is not done in EL3 by ATF */

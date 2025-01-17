@@ -2,7 +2,7 @@
 
 [TOC]
 
-\attention It is recommended to use the TIFS version provided with the release for ensuring compatibility between TIFS and device manager. Using the TIFS from different MCU+SDK release is not recomended and may cause TIFS/ DM functionality to break.
+\attention It is recommended to use the TIFS version provided with the release for ensuring compatibility between TIFS and device manager. Using the TIFS from different @VAR_SDK_NAME release is not recomended and may cause TIFS/ DM functionality to break.
 
 ## Introduction
 

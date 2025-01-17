@@ -1,8 +1,8 @@
-# Using MCU+SDK with CCS Cloud {#CCS_CLOUD_INTRO_PAGE}
+# Using @VAR_SDK_NAME with CCS Cloud {#CCS_CLOUD_INTRO_PAGE}
 
 [TOC]
 
-\note The screen shots shown on this page are for AM64x MCU+ SDK v8.0.0. You would see
+\note The screen shots shown on this page are for AM64x @VAR_SDK_NAME v8.0.0. You would see
       your specific SOC and SDK version that is installed.
       However the instructions and steps mentioned remain the same, unless mentioned otherwise.
 
@@ -12,7 +12,7 @@ CCS Cloud is a web-based IDE which can be used to edit, build or even debug (lim
 
 ## Importing an example project to CCS Cloud
 
-- The recommended way to start using MCU+SDK with CCS Cloud is to start with an example project. You can import example projects from TI Resource Explorer which is another web-based tool for hosting and exploring TI packages like SDKs. Refer \ref TIREX_BROWSER_USAGE to see how to open TI Resource explorer in web browser and browse through the latest MCU+SDK package. Once you navigate to example project, you can click on the three dots next to the example and click `Import to CCS Cloud IDE` as shown in the picture.
+- The recommended way to start using @VAR_SDK_NAME with CCS Cloud is to start with an example project. You can import example projects from TI Resource Explorer which is another web-based tool for hosting and exploring TI packages like SDKs. Refer \ref TIREX_BROWSER_USAGE to see how to open TI Resource explorer in web browser and browse through the latest @VAR_SDK_NAME package. Once you navigate to example project, you can click on the three dots next to the example and click `Import to CCS Cloud IDE` as shown in the picture.
 
     \imageStyle{ccs_cloud_tirex_import.png,width:60%}
     \image html ccs_cloud_tirex_import.png "Import from TIREX"
@@ -22,7 +22,7 @@ CCS Cloud is a web-based IDE which can be used to edit, build or even debug (lim
     \imageStyle{ccs_cloud_project_imported.png,width:60%}
     \image html ccs_cloud_project_imported.png "Project imported"
 
-- MCU+SDK examples can be run/debugged only on the next generation beta version of the IDE. So if you're on the official IDE, click on the `(Beta)` menu item and say `Try Our Next-Generation IDE` as shown below.
+- @VAR_SDK_NAME examples can be run/debugged only on the next generation beta version of the IDE. So if you're on the official IDE, click on the `(Beta)` menu item and say `Try Our Next-Generation IDE` as shown below.
 
     \imageStyle{ccs_cloud_next_gen_ide.png,width:60%}
     \image html ccs_cloud_next_gen_ide.png "Switch to Next-Gen IDE"

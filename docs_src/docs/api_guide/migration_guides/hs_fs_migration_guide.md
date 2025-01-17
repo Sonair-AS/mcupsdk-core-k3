@@ -3,8 +3,8 @@
 [TOC]
 
 \cond SOC_AM64X || SOC_AM243X
-The MCU+SDK primarily supported **GP** (General Purpose) as the main device type.
-MCU+SDK will now support **HS-FS** (High Security - Field Securable) in the SDK
+The @VAR_SDK_NAME primarily supported **GP** (General Purpose) as the main device type.
+@VAR_SDK_NAME will now support **HS-FS** (High Security - Field Securable) in the SDK
 as the main device type with time-limited support for GP. This document aims to list out
 the differences between the two device types and aid the users to develop on HS-FS device type.
 

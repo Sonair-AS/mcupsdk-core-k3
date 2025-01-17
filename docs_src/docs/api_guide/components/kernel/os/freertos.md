@@ -9,7 +9,7 @@
 
 FreeRTOS is a market-leading real-time operating system (RTOS) for microcontrollers and small microprocessors. Distributed freely under the MIT open source license, FreeRTOS includes a kernel and a growing set of libraries suitable for use across all industry sectors. FreeRTOS is built with an emphasis on reliability and ease of use.
 
-MCU+ SDK supports FreeRTOS on below CPUS
+@VAR_SDK_NAME supports FreeRTOS on below CPUS
 \cond !SOC_AM62AX && !SOC_AM62PX && !SOC_AM62DX
 - ARM M4F
 \endcond
@@ -139,7 +139,7 @@ SysConfig can be used to configure below modules with FreeRTOS
 
 ## Important files and directory structure
 
-FreeRTOS source is distributed along with MCU+ SDK and given below are some important files and folders related to FreeRTOS.
+FreeRTOS source is distributed along with @VAR_SDK_NAME and given below are some important files and folders related to FreeRTOS.
 
 <table>
 <tr>
@@ -162,21 +162,21 @@ FreeRTOS source is distributed along with MCU+ SDK and given below are some impo
 </tr>
 <tr>
     <td>FreeRTOS-Kernel/
-    <td>FreeRTOS Kernel source code. MCU+ SDK simply clones the code from FreeRTOS github and does not modify anything in this folder</td>
+    <td>FreeRTOS Kernel source code. @VAR_SDK_NAME simply clones the code from FreeRTOS github and does not modify anything in this folder</td>
 </tr>
 \cond !SOC_AM62X
 <tr>
     <td>FreeRTOS-Kernel-smp/
-    <td>FreeRTOS Kernel source code for SMP. MCU+ SDK simply clones the code from FreeRTOS github and does not modify anything in this folder</td>
+    <td>FreeRTOS Kernel source code for SMP. @VAR_SDK_NAME simply clones the code from FreeRTOS github and does not modify anything in this folder</td>
 </tr>
 \endcond
 <tr>
     <td>FreeRTOS-POSIX/
-    <td>FreeRTOS POSIX wrapper source code. MCU+ SDK simply clones the code from FreeRTOS POSIX github and does not modify anything in this folder</td>
+    <td>FreeRTOS POSIX wrapper source code. @VAR_SDK_NAME simply clones the code from FreeRTOS POSIX github and does not modify anything in this folder</td>
 </tr>
 <tr>
     <td>portable/
-    <td>MCU+ SDK FreeRTOS porting related files for different CPUs</td>
+    <td>SDK FreeRTOS porting related files for different CPUs</td>
 </tr>
 <tr><td colspan="2" bgcolor=#F0F0F0> ${SDK_INSTALL_PATH}/source/kernel/freertos/dpl</td></tr>
 <tr>
@@ -208,7 +208,7 @@ FreeRTOS source is distributed along with MCU+ SDK and given below are some impo
 </table>
 
 In addition to above files, to enable features like HW interrupts, cache, MPU, the FreeRTOS library
-in MCU+ SDK also shares some code with NORTOS, see to makefile in the folder `source\kernel\freertos` to see the exact list of files
+in @VAR_SDK_NAME also shares some code with NORTOS, see to makefile in the folder `source\kernel\freertos` to see the exact list of files
 that are included to build a freertos library.
 
 ## FreeRTOS usage guidelines

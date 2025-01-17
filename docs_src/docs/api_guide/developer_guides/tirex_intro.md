@@ -43,12 +43,12 @@ Follow the steps as given in \ref CCS_PROJECTS_PAGE to build and run the example
     \imageStyle{tirex_landing_page.png,width:40%}
     \image html tirex_landing_page.png "TIREX Landing Page"
 
-  - Use `ALL FILTERS` tab and enter the device name - say @VAR_SOC_NAME. This lists the MCU+SDK and the device documentation
+  - Use `ALL FILTERS` tab and enter the device name - say @VAR_SOC_NAME. This lists the @VAR_SDK_NAME and the device documentation
 
     \imageStyle{tirex_search_device.png,width:40%}
     \image html tirex_search_device.png "TIREX Device Search"
 
-  - Select MCU+SDK and it should show the latest SDK version. Now one can use this to explore various examples and documentation in the SDK
+  - Select @VAR_SDK_NAME and it should show the latest SDK version. Now one can use this to explore various examples and documentation in the SDK
 
     \imageStyle{tirex_browse_sdk.png,width:40%}
     \image html tirex_browse_sdk.png "TIREX Browse SDK"

@@ -2,7 +2,7 @@
 
 [TOC]
 
-This section has additional useful information related to FreeRTOS and its integration within MCU+ SDK.
+This section has additional useful information related to FreeRTOS and its integration within @VAR_SDK_NAME.
 **It also compares some key points and config in FreeRTOS vs TI SysBIOS RTOS which was used in previous TI SOCs and SDKs.**
 
 ## FreeRTOS configuration
@@ -14,7 +14,7 @@ https://www.freertos.org/a00110.html
   - Task scheduling options, Timer tick resolution, Number of priorities, Debug and trace hooks
   - Enable / disable RTOS features, mainly task, mutex, recursive mutex, semaphore, etc
   - Default sizes for task stack, timer task, idle task etc
-- To allow support of pre-built libraries, MCU+ SDK has a default predefined `FreeRTOSConfig.h` per SOC and per CPU type
+- To allow support of pre-built libraries, @VAR_SDK_NAME has a default predefined `FreeRTOSConfig.h` per SOC and per CPU type
 - In general extreme fine tuning of FreeRTOS config is not needed and a predefined config per SOC and CPU type would meet almost all use-cases and applications.
 - However users can modify this config if needed. When FreeRTOS config is changed, all pre-built libraries have to be recompiled for the changes to take effect (see \ref MAKEFILE_BUILD_PAGE)
 - Also many config options are related to inclusion/exclusion of RTOS modules to save code/data size. However we can rely on compiler to optimize out functions that are not called by applications.
@@ -197,7 +197,7 @@ POSIX                   | FreeRTOS+POSIX        | Similar features, see details 
 
 - To measure task and CPU load, in FreeRTOS config, we need to set `configGENERATE_RUN_TIME_STATS` to `1` (**SDK default** is `1` when `configOPTIMIZE_FOR_LATENCY` is `0`)
 - When load measurement is enabled, `portGET_RUN_TIME_COUNTER_VALUE()` is called to get a high resolution timer counter value.
-- In MCU+ SDK porting layer, we implement `portGET_RUN_TIME_COUNTER_VALUE()` using \ref ClockP_getTimeUsec to return time stamp in units of usecs
+- In @VAR_SDK_NAME porting layer, we implement `portGET_RUN_TIME_COUNTER_VALUE()` using \ref ClockP_getTimeUsec to return time stamp in units of usecs
 - In FreeRTOS Kernel, the load measurement counter will overflow after 32b, i.e around 1 hr with usec resolution timer.
 - To avoid this, in FreeRTOS DPL, a periodic load update API is called in IDLE task to accumulate the measured task load and take care of overflow condition.
 - To get task load with overflow condition taken care of, it is recommended to create the task using \ref KERNEL_DPL_TASK_PAGE DPL APIs

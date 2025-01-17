@@ -72,14 +72,14 @@ Since this is a bootloader, the example will be run every time you boot an appli
 
 - To flash to the EVM, refer to \ref GETTING_STARTED_FLASH . Only when giving the flash config file, point to the `default_sbl_ospi_hs_fs.cfg` shown above.
 
-- Example, assuming SDK is installed at `C:/ti/mcu_plus_sdk` and this example and IPC application is built using makefiles, and RTOS Appimage is already created, in Windows,
+- Example, assuming SDK is installed at `${SDK_INSTALL_PATH}` and this example and IPC application is built using makefiles, and RTOS Appimage is already created, in Windows,
 
-        cd C:/ti/mcu_plus_sdk/tools/boot
-        python uart_uniflash.py -p COM13 --cfg=C:/ti/mcu_plus_sdk/tools/boot/sbl_prebuilt/@VAR_BOARD_NAME_LOWER/default_sbl_ospi_hs_fs.cfg
+        cd ${SDK_INSTALL_PATH}
+        python uart_uniflash.py -p COM13 --cfg=${SDK_INSTALL_PATH}/tools/boot/sbl_prebuilt/@VAR_BOARD_NAME_LOWER/default_sbl_ospi_hs_fs.cfg
 
-- If Linux PC is used, assuming SDK is installed at `~/ti/mcu_plus_sdk`
+- If Linux PC is used, assuming SDK is installed at `${SDK_INSTALL_PATH}`
 
-        cd ~/ti/mcu_plus_sdk/tools/boot
+        cd ${SDK_INSTALL_PATH}/tools/boot
         python uart_uniflash.py -p /dev/ttyUSB0 --cfg=sbl_prebuilt/@VAR_BOARD_NAME_LOWER/default_sbl_ospi_hs_fs.cfg
 
 \endcond
