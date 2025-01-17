@@ -357,6 +357,16 @@ host-emu-clean:
 host-emu-scrub:
 	$(MAKE) -C source/drivers/dmautils -f makefile.am62ax.c75x.ti-c7x-hostemu scrub
 %}
+% if (device == "j722s") {
+host-emu:
+	$(MAKE) -C source/drivers/dmautils -f makefile.j722s.c75ssx-0.ti-c7x-hostemu all
+
+host-emu-clean:
+	$(MAKE) -C source/drivers/dmautils -f makefile.j722s.c75ssx-0.ti-c7x-hostemu clean
+
+host-emu-scrub:
+	$(MAKE) -C source/drivers/dmautils -f makefile.j722s.c75ssx-0.ti-c7x-hostemu scrub
+%}
 
 .PHONY: all clean scrub help
 .PHONY: libs libs-clean libs-scrub

@@ -98,6 +98,7 @@ INCLUDES_common := \
     -IFreeRTOS-POSIX/include/private \
     -IFreeRTOS-POSIX/FreeRTOS-Plus-POSIX/include \
     -IFreeRTOS-POSIX/FreeRTOS-Plus-POSIX/include/portable \
+    -I../nortos/dpl/c75/soc/am62dx \
 
 DEFINES_common := \
     -DSOC_AM62DX \

@@ -284,6 +284,8 @@ typedef uint8_t devgrp_t;
 #define SCICLIENT_COMMON_X509_HEADER_ADDR (0x43c3f1e0)
 #elif defined(SOC_AM62PX)
 #define SCICLIENT_COMMON_X509_HEADER_ADDR (0x43c4f1e0)
+#elif defined(SOC_J722S)
+#define SCICLIENT_COMMON_X509_HEADER_ADDR (0x43c7f1e0)
 #else
 #define SCICLIENT_COMMON_X509_HEADER_ADDR (0x41cffb00)
 #endif
@@ -340,6 +342,17 @@ typedef uint8_t devgrp_t;
 #include <drivers/sciclient/include/tisci/lpm/tisci_lpm.h>
 #include <drivers/sciclient/include/am62px/sciclient_fmwMsgParams.h>
 //#include <drivers/sciclient/include/am62px/sciclient_firmware_V7.h>
+#endif
+#if defined (SOC_J722S)
+#include <drivers/sciclient/include/tisci/j722s/tisci_resasg_types.h>
+#include <drivers/sciclient/include/tisci/j722s/tisci_hosts.h>
+#include <drivers/sciclient/include/tisci/j722s/tisci_sec_proxy.h>
+#include <drivers/sciclient/include/tisci/j722s/tisci_boardcfg_constraints.h>
+#include <drivers/sciclient/include/tisci/j722s/tisci_devices.h>
+#include <drivers/sciclient/include/tisci/j722s/tisci_clocks.h>
+#include <drivers/sciclient/include/tisci/j722s/tisci_hosts.h>
+#include <drivers/sciclient/include/tisci/lpm/tisci_lpm.h>
+#include <drivers/sciclient/include/j722s/sciclient_fmwMsgParams.h>
 #endif
 
 #include <drivers/sciclient/include/tisci/security/tisci_sec_macros.h>

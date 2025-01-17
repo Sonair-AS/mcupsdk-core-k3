@@ -77,6 +77,10 @@ extern "C"
 #include <drivers/hw_include/am275x/cslr_soc.h>
 #endif
 
+#if defined (SOC_J722S)
+#include <drivers/hw_include/j722s/cslr_soc.h>
+#endif
+
 #ifdef __cplusplus
 }
 #endif

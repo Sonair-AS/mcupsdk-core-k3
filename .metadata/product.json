@@ -27,6 +27,7 @@
         "AM62Px",
         "AM62D-Q1",
         "AM275x",
+        "J722S",
     ],
     "contexts": {
         "AM64x_beta": [
@@ -109,6 +110,19 @@
             "c75ss1-0",
             "wkup-r5fss0-0",
         ],
+        "J722S": [
+            "mcu-r5fss0-0",
+            "wkup-r5fss0-0",
+            "main-r5fss0-0",
+            "c75ss0-0",
+            "c75ss1-0",
+            "a53ss0-0",
+            "a53ss0-1",
+            "a53ss1-0",
+            "a53ss1-1",
+            "hsm0-0",
+        ],
+
     },
     "pinmuxUIOptions": {
         "group": "merged",

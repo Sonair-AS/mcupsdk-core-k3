@@ -1,0 +1,77 @@
+[
+    {
+        "resourceType": "project.ccs",
+        "resourceClass": [
+            "example"
+        ],
+        "resourceSubClass": [
+            "example.gettingstarted"
+        ],
+        "description": "An Empty Example. This example is intended to be a starting point for new development CPU is MCU-R5FSS0-0 running FREERTOS.",
+        "name": "empty",
+        "location": "../../examples/empty/j722s-evm/mcu-r5fss0-0_freertos/ti-arm-clang/example.projectspec",
+        "devtools": [
+            "J722S_EVM"
+        ],
+        "kernel": [
+            "freertos"
+        ],
+        "compiler": [
+            "ticlang"
+        ],
+        "subCategories": [
+            "empty",
+            "mcu-r5fss0-0_freertos"
+        ],
+        "mainCategories": [
+            [
+                "Examples",
+                "Development Tools"
+            ]
+        ]
+    },
+    {
+        "resourceType": "project.ccs",
+        "resourceClass": [
+            "example"
+        ],
+        "resourceSubClass": [
+            "example.gettingstarted"
+        ],
+        "description": "An Empty Example. This example is intended to be a starting point for new development System project.",
+        "name": "empty",
+        "location": "../../examples/empty/j722s-evm/system_freertos/system.projectspec",
+        "devtools": [
+            "J722S_EVM"
+        ],
+        "kernel": [
+            "freertos"
+        ],
+        "subCategories": [
+            "empty",
+            "system_freertos"
+        ],
+        "mainCategories": [
+            [
+                "Examples",
+                "Development Tools"
+            ]
+        ]
+    },
+    {
+        "resourceType": "web.page",
+        "resourceClass": [
+            "document"
+        ],
+        "name": "User Guide",
+        "location": "../../docs/api_guide_j722s/index.html",
+        "devtools": [
+            "J722S_EVM"
+        ],
+        "mainCategories": [
+            [
+                "Documents"
+            ]
+        ]
+    }
+]

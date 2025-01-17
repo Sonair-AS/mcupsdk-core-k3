@@ -35,6 +35,8 @@ function getSelfSysCfgCoreName() {
             return system.context;
         case "am275x":
             return system.context;
+        case "j722s":
+            return system.context;
     }
 };
 
@@ -71,6 +73,8 @@ function isSciClientSupported() {
             return true;
         case "am275x":
             return true;
+        case "j722s":
+            return true;
         default:
             return false;
     }
@@ -97,6 +101,8 @@ function getSocName() {
         return "am62px";
     if(system.deviceData.device == "AM275x")
         return "am275x";
+    if(system.deviceData.device == "J722S_TDA4VEN_TDA4AEN_AM67")
+        return "j722s";
 };
 
 function getDeviceName() {
@@ -124,6 +130,8 @@ function getDeviceName() {
         return "am62px-sk";
     if(system.deviceData.device == "AM275x")
         return "am275x-evm";
+    if(system.deviceData.device == "J722S")
+        return "j722s-evm";
 };
 
 function isCName(id) {
@@ -255,7 +263,7 @@ function getUseMcuDomainPeripheralsConfig()
         config.readOnly = true;
     }
 
-    if (getSocName().includes("am62a") || getSocName().includes("am62x")|| getSocName().includes("am62p") || getSocName().includes("am62d"))
+    if (getSocName().includes("am62a") || getSocName().includes("am62x")|| getSocName().includes("am62p") || getSocName().includes("am62d") || getSocName().includes("j722s"))
     {
         // Allow main domain peripheral access to MCU domain for AM62A and AM62X.
         config.readOnly = false;
@@ -268,6 +276,16 @@ function getDMWithBootConfig()
     let config = {
             name: "addedByBootloader",
             displayName: "Instance Added By Bootloader",
+            default: false,
+        }
+    return config;
+}
+
+function getSkipDeinitFromSblConfig()
+{
+    let config = {
+            name: "skipDeinitFromSbl",
+            displayName: "Skip De-Init from SBL",
             default: false,
         }
     return config;
@@ -287,6 +305,8 @@ function isMcuDomainSupported()
         case "am62dx":
             return true;
         case "am62px":
+            return true;
+        case "j722s":
             return true;
         default:
             return false;
@@ -309,7 +329,7 @@ function getUseWakeupDomainPeripheralsConfig()
         }
     }
 
-    if(getSocName().match(/am62x/) || getSocName().match(/am62ax/) || getSocName().match(/am62dx/) || getSocName().match(/am62px/))
+    if(getSocName().match(/am62x/) || getSocName().match(/am62ax/) || getSocName().match(/am62dx/) || getSocName().match(/am62px/) || getSocName().match(/j722s/))
     {
         if(getSelfSysCfgCoreName().includes("r5f"))
         {
@@ -341,6 +361,8 @@ function isWakeupDomainSupported()
         case "am62px":
             return true;
         case "am275x":
+            return true;
+        case "j722s":
             return true;
         default:
             return false;
@@ -442,6 +464,7 @@ exports = {
     isMcuDomainSupported,
     getUseWakeupDomainPeripheralsConfig,
     getDMWithBootConfig,
+    getSkipDeinitFromSblConfig,
     isWakeupDomainSupported,
     findDuplicates,
     stringOrEmpty,

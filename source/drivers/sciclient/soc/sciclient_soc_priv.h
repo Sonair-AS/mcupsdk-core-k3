@@ -68,6 +68,11 @@
 #include <drivers/sciclient/soc/am62px/sciclient_irq_rm.h>
 #endif
 
+#if defined (SOC_J722S)
+#include <drivers/sciclient/soc/j722s/sciclient_soc_priv.h>
+#include <drivers/sciclient/soc/j722s/sciclient_irq_rm.h>
+#endif
+
 #ifdef __cplusplus
 extern "C" {
 #endif

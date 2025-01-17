@@ -283,10 +283,22 @@ function genMakefileExample(example_file_list, device) {
                     `${project.dirPath}/makefile`,
                     args);
             } else
-            common.convertTemplateToFile(
-                    `.project/templates/makefile_${project.type}.xdt`,
-                    `${project.dirPath}/makefile`,
-                    args);
+            {
+                if(`${device}` == "j722s" && example.match(/sbl*/))
+                {
+                    common.convertTemplateToFile(
+                        `.project/templates/${device}/sbl/makefile_${project.type}.xdt`,
+                        `${project.dirPath}/makefile`,
+                        args);
+                }
+                else
+                {
+                    common.convertTemplateToFile(
+                            `.project/templates/makefile_${project.type}.xdt`,
+                            `${project.dirPath}/makefile`,
+                            args);
+                }
+            }
         }
     }
 }

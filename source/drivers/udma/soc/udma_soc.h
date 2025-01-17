@@ -63,6 +63,10 @@
 #include <drivers/udma/soc/am62px/udma_soc.h>
 #endif
 
+#if defined (SOC_J722S)
+#include <drivers/udma/soc/j722s/udma_soc.h>
+#endif
+
 #ifdef __cplusplus
 extern "C" {
 #endif

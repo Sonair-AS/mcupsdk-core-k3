@@ -34,7 +34,7 @@
  *  \cond SOC_AM64X || SOC_AM243X
  *  \defgroup DRV_SCICLIENT_MODULE APIs for SCI Client or SYSFW/DMSC FW
  *  \endcond
- *  \cond SOC_AM62X || SOC_AM62AX || SOC_AM62PX || SOC_AM62DX
+ *  \cond SOC_AM62X || SOC_AM62AX || SOC_AM62PX || SOC_AM62DX || SOC_J722S
  *  \defgroup DRV_SCICLIENT_MODULE APIs for SCI Client or SYSFW
  *  \endcond
  *  \ingroup DRV_MODULE
@@ -253,7 +253,7 @@
  *  - Pass on service requests from higher level software to the DMSC firmware
  *    and forward the response from DMSC firmware to the higher level software.
  *  \endcond
- *  \cond SOC_AM62X || SOC_AM62AX
+ *  \cond SOC_AM62X || SOC_AM62AX || SOC_J722S
  *  The SCIClient has two major functions:
  *  - Pass on service requests from higher level software to the DM firmware
  *    and forward the response from DM firmware to the higher level software.
@@ -439,6 +439,15 @@ typedef uint8_t devgrp_t;
 #include <drivers/sciclient/include/tisci/am62px/tisci_clocks.h>
 #include <drivers/sciclient/include/tisci/am62px/tisci_hosts.h>
 #include <drivers/sciclient/include/am62px/sciclient_fmwMsgParams.h>
+#endif
+#if defined (SOC_J722S)
+#include <drivers/sciclient/include/tisci/j722s/tisci_resasg_types.h>
+#include <drivers/sciclient/include/tisci/j722s/tisci_hosts.h>
+#include <drivers/sciclient/include/tisci/j722s/tisci_sec_proxy.h>
+#include <drivers/sciclient/include/tisci/j722s/tisci_boardcfg_constraints.h>
+#include <drivers/sciclient/include/tisci/j722s/tisci_devices.h>
+#include <drivers/sciclient/include/tisci/j722s/tisci_clocks.h>
+#include <drivers/sciclient/include/j722s/sciclient_fmwMsgParams.h>
 #endif
 #include <drivers/sciclient/include/tisci/security/tisci_sec_macros.h>
 #include <drivers/sciclient/include/tisci/security/tisci_firewall.h>

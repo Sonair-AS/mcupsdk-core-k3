@@ -46,6 +46,12 @@
         "/board/board",
         "/networking/networking",
 % }
+% if((args.device == "j722s")) {
+        "/kernel/dpl",
+        "/drivers/drivers",
+        "/board/board",
+        "/fs/fs",
+% }
 % if((args.device == "am62x") || (args.device == "am62px")) {
         "/kernel/dpl",
         "/drivers/drivers",
@@ -104,6 +110,9 @@
 % }
 % if((args.device == "am275x") || (isDevelopmentMode)) {
         "AM275x",
+% }
+% if((args.device == "j722s") || (isDevelopmentMode)) {
+        "J722S",
 % }
     ],
     "contexts": {
@@ -207,6 +216,21 @@
             "wkup-r5fss0-0",
         ],
 % }
+% if((args.device == "j722s") || (isDevelopmentMode)) {
+        "J722S": [
+            "mcu-r5fss0-0",
+            "wkup-r5fss0-0",
+            "main-r5fss0-0",
+            "c75ss0-0",
+            "c75ss1-0",
+            "a53ss0-0",
+            "a53ss0-1",
+            "a53ss1-0",
+            "a53ss1-1",
+            "hsm0-0",
+        ],
+% }
+
     },
     "pinmuxUIOptions": {
         "group": "merged",
