@@ -558,6 +558,22 @@ int32_t I2C_transfer(I2C_Handle handle,
                     retVal = SystemP_FAILURE;
                 }
             }
+            else
+            {
+                retVal = transaction->status;
+                if(retVal == I2C_STS_SUCCESS)
+                {
+                    retVal = SystemP_SUCCESS;
+                }
+                else if(retVal == I2C_STS_ERR_TIMEOUT)
+                {
+                    retVal = SystemP_TIMEOUT;
+                }
+                else
+                {
+                    retVal = SystemP_FAILURE;
+                }
+            }
             /* Release the lock for this particular I2C handle */
             (void)SemaphoreP_post(&object->mutex);
         }
@@ -913,16 +929,22 @@ static void I2C_LLD_targetTransferCompleteCallback (void * args,
 
         if(NULL != hldhandle)
         {
-            if((object->i2cParams.transferMode) == I2C_MODE_CALLBACK)
+            if(transferStatus != I2C_STS_RESTART)
             {
-                object->currentTransaction->status = transferStatus;
-                object->i2cParams.transferCallbackFxn(hldhandle,
-                                                    object->currentTransaction,
-                                                    transferStatus);
+                I2C_completeCurrTransfer(hldhandle, transferStatus);
             }
             else
             {
-                /* No Code */
+                if((object->i2cParams.transferMode) == I2C_MODE_CALLBACK)
+                {
+                    object->i2cParams.transferCallbackFxn(hldhandle,
+                                                        object->currentTransaction,
+                                                        transferStatus);
+                }
+                else
+                {
+                    /* No Code */
+                }
             }
         }
     }

@@ -73,7 +73,7 @@ void i2c_read_main(void *arg0)
         }
         else
         {
-            i2c_read_error_handler(sample, status);
+            i2c_read_error_handler(sample, i2cTransaction.status);
         }
     }
 
