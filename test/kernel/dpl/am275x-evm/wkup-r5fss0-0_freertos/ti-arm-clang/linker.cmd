@@ -116,15 +116,15 @@ MEMORY
     R5F_TCMB_VEC   (RWIX)      : ORIGIN = 0x41010000 LENGTH = 0x00000040
     R5F_TCMB       (RWIX)      : ORIGIN = 0x41010040 LENGTH = 0x00007FC0
 
-    WKUP_R5_OCRAM (RWIX)         : ORIGIN = 0x72000000 LENGTH = 0x00080000 // 512 KB for wakeup core
+    WKUP_R5_OCRAM (RWIX)         : ORIGIN = 0x72080000 LENGTH = 0x00100000 // 512 KB for wakeup core
 
-    R50_0_OCRAM   (RWIX)         : ORIGIN = 0x72080000 LENGTH = 0x00100000 // 1 MB for r5fss0-0 core
-    R50_1_OCRAM   (RWIX)         : ORIGIN = 0x72180000 LENGTH = 0x00080000 // 512 KB for r5fss0-1 core
-    R51_0_OCRAM   (RWIX)         : ORIGIN = 0x72280000 LENGTH = 0x00080000 // 512 KB for r5fss1-0 core
-    R51_1_OCRAM   (RWIX)         : ORIGIN = 0x72300000 LENGTH = 0x00080000 // 512 KB for r5fss1-1 core
+    R50_0_OCRAM   (RWIX)         : ORIGIN = 0x72180000 LENGTH = 0x00100000 // 1 MB for r5fss0-0 core
+    R50_1_OCRAM   (RWIX)         : ORIGIN = 0x72280000 LENGTH = 0x00080000 // 512 KB for r5fss0-1 core
+    R51_0_OCRAM   (RWIX)         : ORIGIN = 0x72300000 LENGTH = 0x00080000 // 512 KB for r5fss1-0 core
+    R51_1_OCRAM   (RWIX)         : ORIGIN = 0x72380000 LENGTH = 0x00080000 // 512 KB for r5fss1-1 core
 
-    C75_0_OCRAM   (RWIX)         : ORIGIN = 0x72200000 LENGTH = 0x00080000 // 512 KB for c75ss0-0 core
-    C75_1_OCRAM   (RWIX)         : ORIGIN = 0x72400000 LENGTH = 0x00080000 // 512 KB for c75ss1-0 core
+    C75_0_OCRAM   (RWIX)         : ORIGIN = 0x72400000 LENGTH = 0x00080000 // 512 KB for c75ss0-0 core
+    C75_1_OCRAM   (RWIX)         : ORIGIN = 0x72480000 LENGTH = 0x00080000 // 512 KB for c75ss1-0 core
 
 
 }
