@@ -1,5 +1,5 @@
 /*
- *  Copyright (C) 2018-2024 Texas Instruments Incorporated
+ *  Copyright (C) 2018-2025 Texas Instruments Incorporated
  *
  *  Redistribution and use in source and binary forms, with or without
  *  modification, are permitted provided that the following conditions
@@ -518,6 +518,20 @@ extern "C" {
  *  \return TRUE/FALSE
  */
 uint32_t Udma_isCacheCoherent(void);
+
+/**
+ *  \brief Returns TRUE if the given UDMA Instance ID is valid for this
+ *         SoC
+ *
+ *  \return TRUE/TRUE
+ */
+uint8_t Udma_isValidInstance(uint32_t instId);
+
+/**
+ *  \brief Returns the offset value for Global Event
+ *
+ *  \return uint32_t Offset value
+ */
 uint32_t Udma_getGlobalEventOffset(void);
 
 /* ========================================================================== */

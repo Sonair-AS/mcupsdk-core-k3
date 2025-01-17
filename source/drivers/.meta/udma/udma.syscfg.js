@@ -19,10 +19,17 @@ function getInstanceConfig(moduleInstance) {
 
 let defaultPhytoVirtFxn = "Udma_defaultPhyToVirtFxn";
 let defaultVirttoPhyFxn = "Udma_defaultVirtToPhyFxn";
-if (socName == "am275x"  && (cpuName == "c75ss0-0") || (cpuName == "c75ss1-0"))
+if ((socName == "am275x") && ((cpuName == "c75ss0-0") || (cpuName == "c75ss1-0")))
 {
     defaultPhytoVirtFxn = "Udma_defaultPhyToVirtFxnC7x";
     defaultVirttoPhyFxn = "Udma_defaultVirtToPhyFxnC7x";
+}
+
+function getMaxBlkCopyChannels(instance) {
+    let configArr = getConfigArr();
+    let config = configArr.find( o => o.name === instance.instance);
+
+    return config.numBlkCopyCh;
 }
 
 let udma_module = {
@@ -73,7 +80,12 @@ let udma_module = {
                 displayName: "Owned by",
                 hidden: true,
                 default: "NONE"
-        }
+        },
+        {
+            name: "skipDeinitFromSbl",
+            displayName: "Skip De-Init from SBL",
+            default: false,
+        },
     ],
     validate: validate,
     moduleInstances: moduleInstances,
@@ -87,6 +99,7 @@ let udma_module = {
     },
     getConfigArr,
     getInstanceConfig,
+    getMaxBlkCopyChannels,
 };
 
 /*
@@ -104,20 +117,22 @@ function validate(instance, report) {
 function moduleInstances(instance) {
     let modInstances = new Array();
 
+    let maxBlkCopyCh = getMaxBlkCopyChannels(instance);
     let mcaspBcdmaChLen = 0;
     if(instance.parentName == "MCASP")
     {
         mcaspBcdmaChLen += 2;
     }
-
-    modInstances.push({
-        name: "udmaBlkCopyChannel",
-        displayName: "UDMA Block Copy Channel Configuration",
-        moduleName: '/drivers/udma/udma_blkcopy_channel',
-        useArray: true,
-        minInstanceCount: 0,
-        defaultInstanceCount: 0,
-    });
+    if(maxBlkCopyCh > 0) {
+        modInstances.push({
+            name: "udmaBlkCopyChannel",
+            displayName: "UDMA Block Copy Channel Configuration",
+            moduleName: '/drivers/udma/udma_blkcopy_channel',
+            useArray: true,
+            minInstanceCount: 0,
+            defaultInstanceCount: 0,
+        });
+    }
 
     return (modInstances);
 }

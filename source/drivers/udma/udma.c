@@ -1,5 +1,5 @@
 /*
- *  Copyright (C) 2018-2021 Texas Instruments Incorporated
+ *  Copyright (C) 2018-2025 Texas Instruments Incorporated
  *
  *  Redistribution and use in source and binary forms, with or without
  *  modification, are permitted provided that the following conditions
@@ -198,7 +198,7 @@ int32_t UdmaInitPrms_init(uint32_t instId, Udma_InitPrms *initPrms)
     if(UDMA_SOK == retVal)
     {
         initPrms->instId                = instId;
-        initPrms->enableUtc              = FALSE;
+        initPrms->enableUtc             = FALSE;
         initPrms->skipGlobalEventReg    = FALSE;
         initPrms->virtToPhyFxn          = &Udma_defaultVirtToPhyFxn;
         initPrms->phyToVirtFxn          = &Udma_defaultPhyToVirtFxn;

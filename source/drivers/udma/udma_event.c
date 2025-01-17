@@ -1074,7 +1074,6 @@ static int32_t Udma_eventConfig(Udma_DrvHandleInt drvHandle,
             hwiPrms.intNum = eventHandle->irIntrNum - rmInitPrms->startIrIntr;
             hwiPrms.intNum += rmInitPrms->startC7xCoreIntr;
             hwiPrms.eventId = (uint16_t)(eventHandle->coreIntrNum + UDMA_VINT_CLEC_OFFSET);
-            hwiPrms.isPulse = 0;
 #endif
             hwiPrms.callback = &Udma_eventIsrFxn;
             hwiPrms.args = (void *)eventHandle;

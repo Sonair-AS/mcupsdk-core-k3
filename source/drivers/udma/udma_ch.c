@@ -1,5 +1,5 @@
 /*
- *  Copyright (C)2018-2024 Texas Instruments Incorporated
+ *  Copyright (C)2018-2025 Texas Instruments Incorporated
  *
  *  Redistribution and use in source and binary forms, with or without
  *  modification, are permitted provided that the following conditions
@@ -68,7 +68,7 @@
 #define CSL_PSILCFG_REG_STATIC_TR_Y_SHIFT                   (0U)
 #define CSL_PSILCFG_REG_STATIC_TR_Y_MASK                    (((uint32_t)0x0FFFU) << CSL_PSILCFG_REG_STATIC_TR_Y_SHIFT)
 #define CSL_PSILCFG_REG_STATIC_TR_Z_SHIFT                   (0U)
-#define CSL_PSILCFG_REG_STATIC_TR_Z_MASK                    (((uint32_t)0xFFFFFFU) << CSL_PSILCFG_REG_STATIC_TR_Z_SHIFT)
+#define CSL_PSILCFG_REG_STATIC_TR_Z_MASK                    (((uint32_t)0x0FFFU) << CSL_PSILCFG_REG_STATIC_TR_Z_SHIFT)
 #define CSL_PSIL_REG_STATIC_TR_BURST_SHIFT                  (31U)
 #define CSL_PSIL_REG_STATIC_TR_BURST_MASK                   (((uint32_t)0x1U) << CSL_PSIL_REG_STATIC_TR_BURST_SHIFT)
 #define CSL_PSIL_REG_STATIC_TR_ACC2_SHIFT                   (30U)
@@ -365,7 +365,7 @@ int32_t Udma_chConfigTx(Udma_ChHandle chHandle, const Udma_ChTxPrms *txPrms)
             }
             else
             {
-              /* Do Nothing */
+                /* Do Nothing */
             }
         }
 #endif
@@ -1742,6 +1742,10 @@ void UdmaChTxPrms_init(Udma_ChTxPrms *txPrms, uint32_t chType)
         {
             txPrms->chanType    = TISCI_MSG_VALUE_RM_UDMAP_CH_TYPE_3P_BLOCK_REF;
         }
+        if((chType & UDMA_CH_FLAG_TR) == UDMA_CH_FLAG_TR)
+        {
+            txPrms->chanType    = TISCI_MSG_VALUE_RM_UDMAP_CH_TYPE_3P_DMA_REF;
+        }
         txPrms->fetchWordSize   = 16U;  /* sizeof(CSL_UdmapTR15) / sizeof(uint32_t) */
         txPrms->busPriority     = UDMA_DEFAULT_TX_CH_BUS_PRIORITY;
         txPrms->busQos          = UDMA_DEFAULT_TX_CH_BUS_QOS;
@@ -1779,6 +1783,10 @@ void UdmaChRxPrms_init(Udma_ChRxPrms *rxPrms, uint32_t chType)
         if((chType & UDMA_CH_FLAG_BLK_COPY) == UDMA_CH_FLAG_BLK_COPY)
         {
             rxPrms->chanType        = TISCI_MSG_VALUE_RM_UDMAP_CH_TYPE_3P_BLOCK_REF;
+        }
+        if((chType & UDMA_CH_FLAG_TR) == UDMA_CH_FLAG_TR)
+        {
+            rxPrms->chanType    = TISCI_MSG_VALUE_RM_UDMAP_CH_TYPE_3P_DMA_REF;
         }
         rxPrms->fetchWordSize       = 16U;  /* sizeof(CSL_UdmapTR15) / sizeof(uint32_t) */
         rxPrms->busPriority         = UDMA_DEFAULT_RX_CH_BUS_PRIORITY;

@@ -1,5 +1,5 @@
 /*
- *  Copyright (C) 2021-2024 Texas Instruments Incorporated
+ *  Copyright (C) 2021-2025 Texas Instruments Incorporated
  *
  *  Redistribution and use in source and binary forms, with or without
  *  modification, are permitted provided that the following conditions
@@ -153,7 +153,7 @@ const Udma_RmDefBoardCfgPrms *Udma_rmGetDefBoardCfgPrms(uint32_t instId)
     return (rmDefBoardCfgPrms);
 }
 
-Udma_RmSharedResPrms *Udma_rmGetSharedResPrms(uint32_t resId)
+Udma_RmSharedResPrms *Udma_rmGetSharedResPrms(uint32_t instId, uint32_t resId)
 {
     Udma_RmSharedResPrms  *rmSharedResPrms = NULL;
     uint32_t    i;

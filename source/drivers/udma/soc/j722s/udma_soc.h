@@ -1,5 +1,5 @@
 /*
- *  Copyright (C) 2023 Texas Instruments Incorporated
+ *  Copyright (C) 2023-25 Texas Instruments Incorporated
  *
  *  Redistribution and use in source and binary forms, with or without
  *  modification, are permitted provided that the following conditions
@@ -67,18 +67,7 @@ extern "C" {
 #define UDMA_INST_ID_PKTDMA_0            (UDMA_INST_ID_3)
 /** \brief BCDMA(CSI) instance */
 #define UDMA_INST_ID_BCDMA_1             (UDMA_INST_ID_4)
-#if defined(BUILD_C75X)
-/** \brief DRU_0 instance */
-#define UDMA_INST_ID_C7X_DRU_0            (UDMA_INST_ID_5)
-/** \brief DRU_1 instance */
-#define UDMA_INST_ID_C7X_DRU_1            (UDMA_INST_ID_6)
-/** \brief Start of DRU instance */
-#define UDMA_INST_ID_C7X_DRU_START        (UDMA_INST_ID_5)
-/** \brief Maximum Number of DRU instance */
-#define UDMA_INST_ID_C7X_DRU_MAX          (UDMA_INST_ID_6)
-/** \brief Total Number of DRU instances */
-#define UDMA_NUM_INST_ID_C7X_DRU          (UDMA_INST_ID_C7X_DRU_MAX - UDMA_INST_ID_C7X_DRU_START + 1)
-#endif
+
 /** \brief Start of UDMA instance */
 #define UDMA_INST_ID_START               (UDMA_INST_ID_2)
 /** \brief Maximum number of UDMA instance */
@@ -114,11 +103,6 @@ extern "C" {
 
 /** \brief Flag to indicate Ring Monitor is present or not in the SOC*/
 #define UDMA_SOC_CFG_RING_MON_PRESENT            (0U)
-
-#if defined(BUILD_C75X)
-/* Flag to indicate DRU local to C7X cores is present or not in the SoC */
-#define UDMA_LOCAL_C7X_DRU_PRESENT               (1U)
-#endif
 
 /** \brief Flag to indicate the SOC needs ring reset workaround */
 #define UDMA_SOC_CFG_APPLY_RING_WORKAROUND       (0U)
@@ -564,6 +548,14 @@ uint32_t Udma_isCacheCoherent(void);
  *  \return Core ID \ref Udma_CoreId
  */
 uint32_t Udma_getCoreId(void);
+
+/**
+ *  \brief Returns TRUE if the given UDMA Instance ID is valid for this
+ *         SoC
+ *
+ *  \return TRUE/TRUE
+ */
+uint8_t Udma_isValidInstance(uint32_t instId);
 
 /**
  *  \brief Updates DRU Registers

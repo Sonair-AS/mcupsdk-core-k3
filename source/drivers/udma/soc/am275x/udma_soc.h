@@ -1,5 +1,5 @@
 /*
- *  Copyright (C) 2018-2024 Texas Instruments Incorporated
+ *  Copyright (C) 2018-2025 Texas Instruments Incorporated
  *
  *  Redistribution and use in source and binary forms, with or without
  *  modification, are permitted provided that the following conditions
@@ -628,8 +628,17 @@ extern "C" {
  */
 uint32_t Udma_isCacheCoherent(void);
 
+/**
+ *  \brief Returns TRUE if the given UDMA Instance ID is valid for this
+ *         SoC
+ *
+ *  \return TRUE/TRUE
+ */
+uint8_t Udma_isValidInstance(uint32_t instId);
+
 void *Udma_defaultPhyToVirtFxnC7x(uint64_t phyAddr, uint32_t chNum, void *appData);
 uint64_t Udma_defaultVirtToPhyFxnC7x(const void *virtAddr, uint32_t chNum, void *appData);
+
 /* ========================================================================== */
 /*                       Static Function Definitions                          */
 /* ========================================================================== */

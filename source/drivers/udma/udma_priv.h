@@ -1,5 +1,5 @@
 /*
- *  Copyright (C) 2018-2023 Texas Instruments Incorporated
+ *  Copyright (C) 2018-2025 Texas Instruments Incorporated
  *
  *  Redistribution and use in source and binary forms, with or without
  *  modification, are permitted provided that the following conditions
@@ -80,6 +80,7 @@
 #else
 #include <drivers/sciclient.h>
 #endif
+
 #ifdef __cplusplus
 extern "C" {
 #endif
@@ -87,7 +88,6 @@ extern "C" {
 /* ========================================================================== */
 /*                           Macros & Typedefs                                */
 /* ========================================================================== */
-
 
 /**
  *  \anchor Udma_InstanceType
@@ -227,6 +227,8 @@ typedef void (*Udma_ringSetCfgFxn)(Udma_DrvHandleInt drvHandle,
 #define UDMA_RM_MAX_GLOBAL_EVENT            (1024U)
 #define UDMA_RM_MAX_VINTR                   (512U)
 #define UDMA_RM_MAX_IR_INTR                 (128U)
+/* Macro to obtain bit position of given resource */
+#define UDMA_RM_GET_OFFSET_SHIFT            (5U)
 
 /* Array allocation macros */
 #define UDMA_RM_BLK_COPY_CH_ARR_SIZE        (UDMA_RM_MAX_BLK_COPY_CH >> 5U)
@@ -670,7 +672,7 @@ typedef struct Udma_DrvObjectInt_t
      *   Each CPU should have a unique submit register to avoid corrupting
      *   submit word when SW is running from multiple CPU at the same time.
      *   Refer \ref Udma_DruSubmitCoreId */
-#endif  
+#endif
     /*
      * TISCI Ring event IRQ params
      *

@@ -1,5 +1,5 @@
 /*
- *  Copyright (C) 2021 Texas Instruments Incorporated
+ *  Copyright (C) 2023-25 Texas Instruments Incorporated
  *
  *  Redistribution and use in source and binary forms, with or without
  *  modification, are permitted provided that the following conditions
@@ -83,6 +83,23 @@ const Udma_RmDefBoardCfgPrms gUdmaRmDefBoardCfg_Bcdma[UDMA_RM_NUM_BCDMA_RES] =
     {UDMA_RM_RES_ID_VINTR,                  TISCI_DEV_DMASS0_INTAGGR_0,        TISCI_RESASG_SUBTYPE_IA_VINT,                TISCI_MSG_VALUE_RM_UNUSED_SECONDARY_HOST},
 };
 
+/** \brief BCDMA(CSI) defaultBoardCfg Params */
+const Udma_RmDefBoardCfgPrms gUdmaRmDefBoardCfg_BcdmaCsi[UDMA_RM_NUM_BCDMA_RES] =
+{
+    /* resId,                               reqType,                           reqSubtype,                                  secHost */
+    {UDMA_RM_RES_ID_BC_UHC,                 UDMA_RM_SCI_REQ_TYPE_INVALID,      UDMA_RM_SCI_REQ_SUBTYPE_INVALID,             TISCI_MSG_VALUE_RM_UNUSED_SECONDARY_HOST},
+    {UDMA_RM_RES_ID_BC_HC,                  UDMA_RM_SCI_REQ_TYPE_INVALID,      UDMA_RM_SCI_REQ_SUBTYPE_INVALID,             TISCI_MSG_VALUE_RM_UNUSED_SECONDARY_HOST},
+    {UDMA_RM_RES_ID_BC,                     UDMA_RM_SCI_REQ_TYPE_INVALID,      UDMA_RM_SCI_REQ_SUBTYPE_INVALID,             TISCI_MSG_VALUE_RM_UNUSED_SECONDARY_HOST},
+    {UDMA_RM_RES_ID_TX_UHC,                 UDMA_RM_SCI_REQ_TYPE_INVALID,      UDMA_RM_SCI_REQ_SUBTYPE_INVALID,             TISCI_MSG_VALUE_RM_UNUSED_SECONDARY_HOST},
+    {UDMA_RM_RES_ID_TX_HC,                  UDMA_RM_SCI_REQ_TYPE_INVALID,      UDMA_RM_SCI_REQ_SUBTYPE_INVALID,             TISCI_MSG_VALUE_RM_UNUSED_SECONDARY_HOST},
+    {UDMA_RM_RES_ID_TX,                     TISCI_DEV_DMASS1_BCDMA_0,          TISCI_RESASG_SUBTYPE_BCDMA_SPLIT_TR_TX_CHAN, TISCI_MSG_VALUE_RM_UNUSED_SECONDARY_HOST},
+    {UDMA_RM_RES_ID_RX_UHC,                 UDMA_RM_SCI_REQ_TYPE_INVALID,      UDMA_RM_SCI_REQ_SUBTYPE_INVALID,             TISCI_MSG_VALUE_RM_UNUSED_SECONDARY_HOST},
+    {UDMA_RM_RES_ID_RX_HC,                  UDMA_RM_SCI_REQ_TYPE_INVALID,      UDMA_RM_SCI_REQ_SUBTYPE_INVALID,             TISCI_MSG_VALUE_RM_UNUSED_SECONDARY_HOST},
+    {UDMA_RM_RES_ID_RX,                     TISCI_DEV_DMASS1_BCDMA_0,          TISCI_RESASG_SUBTYPE_BCDMA_SPLIT_TR_RX_CHAN, TISCI_MSG_VALUE_RM_UNUSED_SECONDARY_HOST},
+    {UDMA_RM_RES_ID_GLOBAL_EVENT,           TISCI_DEV_DMASS1_INTAGGR_0,        TISCI_RESASG_SUBTYPE_GLOBAL_EVENT_SEVT,      TISCI_MSG_VALUE_RM_UNUSED_SECONDARY_HOST},
+    {UDMA_RM_RES_ID_VINTR,                  TISCI_DEV_DMASS1_INTAGGR_0,        TISCI_RESASG_SUBTYPE_IA_VINT,                TISCI_MSG_VALUE_RM_UNUSED_SECONDARY_HOST},
+};
+
 /** \brief PKTDMA defaultBoardCfg Params */
 const Udma_RmDefBoardCfgPrms gUdmaRmDefBoardCfg_Pktdma[UDMA_RM_NUM_PKTDMA_RES] =
 {
@@ -128,9 +145,17 @@ const Udma_RmDefBoardCfgPrms gUdmaRmDefBoardCfg_Pktdma[UDMA_RM_NUM_PKTDMA_RES] =
 Udma_RmSharedResPrms gUdmaRmSharedResPrms[UDMA_RM_NUM_SHARED_RES] =
 {
     /* Global Events/VINTR must be used based on core and split across BCDMA and PKTDMA instances */
-    /* resId,                     startResrvCnt, endResrvCnt, numInst,           minReq, instShare[BCDMA,PKTDMA] */
-    {UDMA_RM_RES_ID_GLOBAL_EVENT, 0U,            0U,          UDMA_NUM_INST_ID,  50U,    {UDMA_RM_SHARED_RES_CNT_REST, UDMA_RM_SHARED_RES_CNT_REST, UDMA_RM_SHARED_RES_CNT_REST, UDMA_RM_SHARED_RES_CNT_REST, UDMA_RM_SHARED_RES_CNT_REST, UDMA_RM_SHARED_RES_CNT_REST} },
-    {UDMA_RM_RES_ID_VINTR,        0U,            0U,          UDMA_NUM_INST_ID,  4U,     {UDMA_RM_SHARED_RES_CNT_REST, UDMA_RM_SHARED_RES_CNT_REST, UDMA_RM_SHARED_RES_CNT_REST, UDMA_RM_SHARED_RES_CNT_REST, UDMA_RM_SHARED_RES_CNT_REST, UDMA_RM_SHARED_RES_CNT_REST} },
+    /* resId,                     startResrvCnt, endResrvCnt, numInst,           minReq, instShare[BCDMA,PKTDMA,BCDMA(CSI)] */
+    {UDMA_RM_RES_ID_GLOBAL_EVENT, 0U,            0U,          UDMA_NUM_INST_ID,  0U,    {UDMA_RM_SHARED_RES_CNT_REST, UDMA_RM_SHARED_RES_CNT_REST, 0U} },
+    {UDMA_RM_RES_ID_VINTR,        0U,            0U,          UDMA_NUM_INST_ID,  0U,     {UDMA_RM_SHARED_RES_CNT_REST, UDMA_RM_SHARED_RES_CNT_REST, 0U} },
+};
+/** \brief Shared resource Params */
+Udma_RmSharedResPrms gBcdmaCsiRmSharedResPrms[UDMA_RM_NUM_SHARED_RES] =
+{
+    /* Global Events/VINTR must be used based on core and split across BCDMA and PKTDMA instances */
+    /* resId,                     startResrvCnt, endResrvCnt, numInst,           minReq, instShare[BCDMA,PKTDMA,BCDMA(CSI)] */
+    {UDMA_RM_RES_ID_GLOBAL_EVENT, 0U,            0U,          UDMA_NUM_INST_ID,  0U,    {0U, 0U, UDMA_RM_SHARED_RES_CNT_REST} },
+    {UDMA_RM_RES_ID_VINTR,        0U,            0U,          UDMA_NUM_INST_ID,  0U,     {0U, 0U, UDMA_RM_SHARED_RES_CNT_REST} },
 };
 
 /* ========================================================================== */
@@ -145,6 +170,10 @@ const Udma_RmDefBoardCfgPrms *Udma_rmGetDefBoardCfgPrms(uint32_t instId)
     {
         rmDefBoardCfgPrms = &gUdmaRmDefBoardCfg_Bcdma[0U];
     }
+    else if(UDMA_INST_ID_BCDMA_1 == instId)
+    {
+        rmDefBoardCfgPrms = &gUdmaRmDefBoardCfg_BcdmaCsi[0U];
+    }
     else
     {
         rmDefBoardCfgPrms = &gUdmaRmDefBoardCfg_Pktdma[0U];
@@ -158,12 +187,26 @@ Udma_RmSharedResPrms *Udma_rmGetSharedResPrms(uint32_t instId, uint32_t resId)
     Udma_RmSharedResPrms  *rmSharedResPrms = NULL;
     uint32_t    i;
 
-    for(i = 0; i < UDMA_RM_NUM_SHARED_RES; i++)
+    if(instId == UDMA_INST_ID_BCDMA_1)
     {
-        if(resId == gUdmaRmSharedResPrms[i].resId)
+        for(i = 0; i < UDMA_RM_NUM_SHARED_RES; i++)
         {
-            rmSharedResPrms = &gUdmaRmSharedResPrms[i];
-            break;
+            if(resId == gBcdmaCsiRmSharedResPrms[i].resId)
+            {
+                rmSharedResPrms = &gBcdmaCsiRmSharedResPrms[i];
+                break;
+            }
+        }
+    }
+    else
+    {
+        for(i = 0; i < UDMA_RM_NUM_SHARED_RES; i++)
+        {
+            if(resId == gUdmaRmSharedResPrms[i].resId)
+            {
+                rmSharedResPrms = &gUdmaRmSharedResPrms[i];
+                break;
+            }
         }
     }
 

@@ -1,5 +1,5 @@
 /*
- *  Copyright (C) 2018-2021 Texas Instruments Incorporated
+ *  Copyright (C) 2018-2025 Texas Instruments Incorporated
  *
  *  Redistribution and use in source and binary forms, with or without
  *  modification, are permitted provided that the following conditions
@@ -303,6 +303,7 @@ typedef struct
  *  User can use this API to get the default parameters for a resource
  *  and override as per need.
  *
+ *  \param instId       [IN] \ref Udma_InstanceIdSoc
  *  \param resId       [IN] \ref Udma_RmResId
  *
  *  \return Pointer to default RM Shared Resource parameters
@@ -311,7 +312,7 @@ typedef struct
  *          dosen't have an entry in the array of default RM Shared Resource
  *          parameters structure
  */
-Udma_RmSharedResPrms *Udma_rmGetSharedResPrms(uint32_t resId);
+Udma_RmSharedResPrms *Udma_rmGetSharedResPrms(uint32_t instId, uint32_t resId);
 
 /* ========================================================================== */
 /*                       Static Function Definitions                          */

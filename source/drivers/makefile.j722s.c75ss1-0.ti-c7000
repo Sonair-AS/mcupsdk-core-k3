@@ -49,7 +49,9 @@ FILES_common := \
     udma_ring_common.c \
     udma_ring_lcdma.c \
     udma_rm.c \
+    udma_rmcfg.c \
     udma_rmcfg_common.c \
+    udma_soc.c \
     udma_utils.c \
     utils.c \
 

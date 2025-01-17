@@ -1,5 +1,5 @@
 /*
- *  Copyright 2020-2023 (C) Texas Instruments Incorporated
+ *  Copyright (C) 2020-2025 Texas Instruments Incorporated
  *
  *  Redistribution and use in source and binary forms, with or without
  *  modification, are permitted provided that the following conditions
@@ -149,6 +149,12 @@ int32_t UdmaRmInitPrms_init(uint32_t instId, Udma_RmInitPrms *rmInitPrms)
         {
             numRes = UDMA_RM_NUM_BCDMA_RES;
         }
+#ifdef UDMA_INST_ID_BCDMA_1
+        else if(UDMA_INST_ID_BCDMA_1 == instId)
+        {
+            numRes = UDMA_RM_NUM_BCDMA_RES;
+        }
+#endif
         else if(UDMA_INST_ID_PKTDMA_0 == instId)
         {
             numRes = UDMA_RM_NUM_PKTDMA_RES;
@@ -164,7 +170,7 @@ int32_t UdmaRmInitPrms_init(uint32_t instId, Udma_RmInitPrms *rmInitPrms)
             retVal += Udma_rmGetSciclientDefaultBoardCfgRmRange(&rmDefBoardCfgPrms[resIdx], &rmDefBoardCfgResp[resIdx], &splitResFlag[resIdx]);
         }
 
-        if((UDMA_INST_ID_BCDMA_0 == instId) || (UDMA_INST_ID_PKTDMA_0 == instId))
+        if(Udma_isValidInstance(instId) == TRUE)
         {
             /* Ultra High Capacity Block Copy Channels */
             rmInitPrms->startBlkCopyUhcCh   = rmDefBoardCfgResp[UDMA_RM_RES_ID_BC_UHC].rangeStart;
@@ -202,14 +208,13 @@ int32_t UdmaRmInitPrms_init(uint32_t instId, Udma_RmInitPrms *rmInitPrms)
             rmInitPrms->startRxCh           = rmDefBoardCfgResp[UDMA_RM_RES_ID_RX].rangeStart;
             rmInitPrms->numRxCh             = rmDefBoardCfgResp[UDMA_RM_RES_ID_RX].rangeNum;
         }
-
 #if defined(BUILD_C7X)
         /* Get the startInstVintStart i.e., start value of range of VINT interrupts
                allocated to first instance */
         uint32_t startInstVintStart = 0;
         uint32_t num = 0;
 
-        retVal += Udma_rmSetSharedResRmInitPrms(Udma_rmGetSharedResPrms(UDMA_RM_RES_ID_VINTR),
+        retVal += Udma_rmSetSharedResRmInitPrms(Udma_rmGetSharedResPrms(instId, UDMA_RM_RES_ID_VINTR),
                                                 UDMA_INST_ID_START,
                                                 rmDefBoardCfgResp[UDMA_RM_RES_ID_VINTR].rangeStart,
                                                 rmDefBoardCfgResp[UDMA_RM_RES_ID_VINTR].rangeNum,
@@ -218,7 +223,7 @@ int32_t UdmaRmInitPrms_init(uint32_t instId, Udma_RmInitPrms *rmInitPrms)
 #endif
         /* Global Event */
         /* Shared resource - Split based on instance */
-        retVal += Udma_rmSetSharedResRmInitPrms(Udma_rmGetSharedResPrms(UDMA_RM_RES_ID_GLOBAL_EVENT),
+        retVal += Udma_rmSetSharedResRmInitPrms(Udma_rmGetSharedResPrms(instId, UDMA_RM_RES_ID_GLOBAL_EVENT),
                                                instId,
                                                rmDefBoardCfgResp[UDMA_RM_RES_ID_GLOBAL_EVENT].rangeStart,
                                                rmDefBoardCfgResp[UDMA_RM_RES_ID_GLOBAL_EVENT].rangeNum,
@@ -227,7 +232,7 @@ int32_t UdmaRmInitPrms_init(uint32_t instId, Udma_RmInitPrms *rmInitPrms)
 
         /* Virtual Interrupts */
         /* Shared resource - Split based on instance */
-        retVal += Udma_rmSetSharedResRmInitPrms(Udma_rmGetSharedResPrms(UDMA_RM_RES_ID_VINTR),
+        retVal += Udma_rmSetSharedResRmInitPrms(Udma_rmGetSharedResPrms(instId, UDMA_RM_RES_ID_VINTR),
                                                instId,
                                                rmDefBoardCfgResp[UDMA_RM_RES_ID_VINTR].rangeStart,
                                                rmDefBoardCfgResp[UDMA_RM_RES_ID_VINTR].rangeNum,
@@ -236,7 +241,7 @@ int32_t UdmaRmInitPrms_init(uint32_t instId, Udma_RmInitPrms *rmInitPrms)
 #if defined(BUILD_C7X)
         rmInitPrms->startC7xCoreIntr = (UDMA_C7X_CORE_INTR_OFFSET + (rmInitPrms->startVintr - startInstVintStart));
 #endif
-        if((UDMA_INST_ID_BCDMA_0 == instId) || (UDMA_INST_ID_PKTDMA_0 == instId))
+        if(Udma_isValidInstance(instId) == TRUE)
         {
             /* One to one mapping exists from Virtual Interrupts.
              * So translate to corresponding range.

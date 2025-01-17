@@ -1,5 +1,5 @@
 /*
- *  Copyright (C) 2023 Texas Instruments Incorporated
+ *  Copyright (C) 2023-25 Texas Instruments Incorporated
  *
  *  Redistribution and use in source and binary forms, with or without
  *  modification, are permitted provided that the following conditions
@@ -257,6 +257,17 @@ uint32_t Udma_isCacheCoherent(void)
     isCacheCoherent = FALSE;
 
     return (isCacheCoherent);
+}
+
+uint8_t Udma_isValidInstance(uint32_t instId)
+{
+    uint8_t result = FALSE;
+    if((UDMA_INST_ID_BCDMA_0 == instId) || (UDMA_INST_ID_PKTDMA_0 == instId))
+    {
+        result = TRUE;
+    }
+
+    return result;
 }
 
 int32_t Udma_getMappedChRingAttributes(Udma_DrvHandleInt drvHandle,

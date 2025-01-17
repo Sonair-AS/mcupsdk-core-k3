@@ -1,5 +1,5 @@
 /*
- *  Copyright (C) 2018-2024 Texas Instruments Incorporated
+ *  Copyright (C) 2018-2025 Texas Instruments Incorporated
  *
  *  Redistribution and use in source and binary forms, with or without
  *  modification, are permitted provided that the following conditions
@@ -115,6 +115,8 @@ extern "C" {
 #define UDMA_CH_FLAG_UHC                ((uint32_t) 0x0080U)
 /** \brief Mapped TX/RX channel flag */
 #define UDMA_CH_FLAG_MAPPED             ((uint32_t) 0x0100U)
+/** \brief TR mode channel flag */
+#define UDMA_CH_FLAG_TR                 ((uint32_t) 0x0200U)
 /** @} */
 
 /**
@@ -167,6 +169,35 @@ extern "C" {
 /** \brief Ultra high capacity PDMA RX channel type */
 #define UDMA_CH_TYPE_PDMA_RX_UHC        (UDMA_CH_FLAG_RX | UDMA_CH_FLAG_PDMA | UDMA_CH_FLAG_UHC)
 
+/* Channel Type to submit TR */
+/** \brief TX channel type */
+#define UDMA_CH_TYPE_TX_TR                 (UDMA_CH_FLAG_TX | UDMA_CH_FLAG_PSIL | UDMA_CH_FLAG_TR)
+/** \brief High capacity TX channel type */
+#define UDMA_CH_TYPE_TX_HC_TR              (UDMA_CH_FLAG_TX | UDMA_CH_FLAG_PSIL | UDMA_CH_FLAG_HC | UDMA_CH_FLAG_TR)
+/** \brief Ultra high capacity TX channel type */
+#define UDMA_CH_TYPE_TX_UHC_TR             (UDMA_CH_FLAG_TX | UDMA_CH_FLAG_PSIL | UDMA_CH_FLAG_UHC | UDMA_CH_FLAG_TR)
+
+/** \brief RX channel type */
+#define UDMA_CH_TYPE_RX_TR                 (UDMA_CH_FLAG_RX | UDMA_CH_FLAG_PSIL | UDMA_CH_FLAG_TR)
+/** \brief High capacity RX channel type */
+#define UDMA_CH_TYPE_RX_HC_TR              (UDMA_CH_FLAG_RX | UDMA_CH_FLAG_PSIL | UDMA_CH_FLAG_HC | UDMA_CH_FLAG_TR)
+/** \brief Ultra high capacity RX channel type */
+#define UDMA_CH_TYPE_RX_UHC_TR             (UDMA_CH_FLAG_RX | UDMA_CH_FLAG_PSIL | UDMA_CH_FLAG_UHC | UDMA_CH_FLAG_TR)
+
+/** \brief PDMA TX channel type */
+#define UDMA_CH_TYPE_PDMA_TX_TR            (UDMA_CH_FLAG_TX | UDMA_CH_FLAG_PDMA | UDMA_CH_FLAG_TR)
+/** \brief High capacity PDMA TX channel type */
+#define UDMA_CH_TYPE_PDMA_TX_HC_TR         (UDMA_CH_FLAG_TX | UDMA_CH_FLAG_PDMA | UDMA_CH_FLAG_HC | UDMA_CH_FLAG_TR)
+/** \brief Ultra high capacity PDMA TX channel type */
+#define UDMA_CH_TYPE_PDMA_TX_UHC_TR        (UDMA_CH_FLAG_TX | UDMA_CH_FLAG_PDMA | UDMA_CH_FLAG_UHC | UDMA_CH_FLAG_TR)
+
+/** \brief PDMA RX channel type */
+#define UDMA_CH_TYPE_PDMA_RX_TR            (UDMA_CH_FLAG_RX | UDMA_CH_FLAG_PDMA | UDMA_CH_FLAG_TR)
+/** \brief High capacity PDMA RX channel type */
+#define UDMA_CH_TYPE_PDMA_RX_HC_TR         (UDMA_CH_FLAG_RX | UDMA_CH_FLAG_PDMA | UDMA_CH_FLAG_HC | UDMA_CH_FLAG_TR)
+/** \brief Ultra high capacity PDMA RX channel type */
+#define UDMA_CH_TYPE_PDMA_RX_UHC_TR        (UDMA_CH_FLAG_RX | UDMA_CH_FLAG_PDMA | UDMA_CH_FLAG_UHC | UDMA_CH_FLAG_TR)
+
 /**
  *  \brief Mapped TX channel.
  *  This could be different type of mapped TX channels.
@@ -204,6 +235,7 @@ extern "C" {
 #define UDMA_PDMA_ES_DONTCARE           ((uint32_t) 0x00U)
 /** @} */
 
+#define UDMA_DRV_CH_OBJ_SIZE            (178U)
 /* ========================================================================== */
 /*                         Structure Declarations                             */
 /* ========================================================================== */
@@ -243,6 +275,9 @@ typedef struct
      */
     uint32_t                utcId;
     /**< [IN] The UTC instance to use when channel type is #UDMA_CH_TYPE_UTC.
+     *   \cond SOC_AM62AX || SOC_AM62DX || SOC_AM275X || SOC_J722S
+     *   Refer \ref Udma_UtcIdSoc macro for details.
+     *   \endcond
      *
      *   For other channel type set to #UDMA_UTC_ID_INVALID
      */
@@ -1166,7 +1201,7 @@ typedef struct
  */
 typedef struct Udma_ChObject_t
 {
-    uintptr_t rsv[178U];
+    uintptr_t rsv[UDMA_DRV_CH_OBJ_SIZE];
     /**< reserved, should NOT be modified by end users */
 } Udma_ChObject;
 

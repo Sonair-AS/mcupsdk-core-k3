@@ -1,5 +1,5 @@
 /*
- *  Copyright (C) 2020-2025 Texas Instruments Incorporated
+ *  Copyright (C) 2023-25 Texas Instruments Incorporated
  *
  *  Redistribution and use in source and binary forms, with or without
  *  modification, are permitted provided that the following conditions
@@ -69,26 +69,27 @@
 const Udma_MappedChRingAttributes gUdmaTxMappedChRingAttributes[CSL_DMSS_PKTDMA_NUM_TX_CHANS - CSL_DMSS_PKTDMA_TX_CHANS_UNMAPPED_CNT] =
 {
     /* defaultRing, startFreeRing, numFreeRing */
-    {19U, 20U, 7U}, /* Channel 19 - UDMA_MAPPED_TX_GROUP_CPSW Ch 0 */
-    {27U, 28U, 7U}, /* Channel 20 - UDMA_MAPPED_TX_GROUP_CPSW Ch 1 */
-    {35U, 34U, 7U}, /* Channel 21 - UDMA_MAPPED_TX_GROUP_CPSW Ch 2 */
-    {43U, 44U, 7U}, /* Channel 22 - UDMA_MAPPED_TX_GROUP_CPSW Ch 3 */
-    {51U, 52U, 7U}, /* Channel 23 - UDMA_MAPPED_TX_GROUP_CPSW Ch 4 */
-    {59U, 60U, 7U}, /* Channel 24 - UDMA_MAPPED_TX_GROUP_CPSW Ch 5 */
-    {67U, 68U, 7U}, /* Channel 25 - UDMA_MAPPED_TX_GROUP_CPSW Ch 6 */
-    {75U, 76U, 7U}, /* Channel 26 - UDMA_MAPPED_TX_GROUP_CPSW Ch 7 */
-    {83U, 84U, 6U}, /* Channel 27 - UDMA_MAPPED_TX_GROUP_SAUL Ch 0  */
-    {91U, 92U, 6U}, /* Channel 28 - UDMA_MAPPED_TX_GROUP_SAUL Ch 1 */
+    {16U, 17U, 7U}, /* Channel 16 - UDMA_MAPPED_TX_GROUP_CPSW Ch 0 */
+    {24U, 25U, 7U}, /* Channel 17 - UDMA_MAPPED_TX_GROUP_CPSW Ch 1 */
+    {32U, 33U, 7U}, /* Channel 18 - UDMA_MAPPED_TX_GROUP_CPSW Ch 2 */
+    {40U, 41U, 7U}, /* Channel 19 - UDMA_MAPPED_TX_GROUP_CPSW Ch 3 */
+    {48U, 49U, 7U}, /* Channel 20 - UDMA_MAPPED_TX_GROUP_CPSW Ch 4 */
+    {56U, 57U, 7U}, /* Channel 21 - UDMA_MAPPED_TX_GROUP_CPSW Ch 5 */
+    {64U, 65U, 7U}, /* Channel 22 - UDMA_MAPPED_TX_GROUP_CPSW Ch 6 */
+    {72U, 73U, 7U}, /* Channel 23 - UDMA_MAPPED_TX_GROUP_CPSW Ch 7 */
+    {80U, 81U, 7U}, /* Channel 24 - UDMA_MAPPED_TX_GROUP_SAUL Ch 0  */
+    {88U, 89U, 7U}, /* Channel 25 - UDMA_MAPPED_TX_GROUP_SAUL Ch 1 */
 };
 
 const Udma_MappedChRingAttributes gUdmaRxMappedChRingAttributes[CSL_DMSS_PKTDMA_NUM_RX_CHANS - CSL_DMSS_PKTDMA_RX_CHANS_UNMAPPED_CNT] =
 {
     /* defaultRing, startFreeRing, numFreeRing */
-    {118U, 119U, 15U}, /* Channel 19 - UDMA_MAPPED_RX_GROUP_CPSW Ch 0 */
-    {134U, 136U, 6U}, /* Channel 20 - UDMA_MAPPED_RX_GROUP_SAUL Ch 0 */
-    {135U, 136U, 6U}, /* Channel 21 - UDMA_MAPPED_RX_GROUP_SAUL Ch 1 */
-    {142U, 144U, 6U}, /* Channel 22 - UDMA_MAPPED_RX_GROUP_SAUL Ch 2 */
-    {143U, 144U, 4U}, /* Channel 23 - UDMA_MAPPED_RX_GROUP_SAUL Ch 3 */
+    /*RX Ring Offset of 112U added to the startRing */
+    {128U, 129U, 15U}, /* Channel 16 - UDMA_MAPPED_RX_GROUP_CPSW Ch 0 */
+    {144U, 146U, 6U}, /* Channel 17 - UDMA_MAPPED_RX_GROUP_SAUL Ch 0 */
+    {145U, 146U, 6U}, /* Channel 18 - UDMA_MAPPED_RX_GROUP_SAUL Ch 1 */
+    {152U, 154U, 6U}, /* Channel 19 - UDMA_MAPPED_RX_GROUP_SAUL Ch 2 */
+    {153U, 154U, 6U}, /* Channel 20 - UDMA_MAPPED_RX_GROUP_SAUL Ch 3 */
 };
 
 /* ========================================================================== */
@@ -106,10 +107,11 @@ void Udma_initDrvHandle(Udma_DrvHandleInt drvHandle)
     Udma_UtcInstInfo         *utcInfo;
 
     instId = drvHandle->initPrms.instId;
+
     /*
      * BCDMA/PKTDMA config init
      */
-    /* Init the config structure - one time step */
+    /* Init the instance config structure - one time step */
     if(UDMA_INST_ID_BCDMA_0 == instId)
     {
         drvHandle->instType = UDMA_INST_TYPE_LCDMA_BCDMA;
@@ -125,6 +127,29 @@ void Udma_initDrvHandle(Udma_DrvHandleInt drvHandle)
         /* Fill other SOC specific parameters by reading from UDMA config
          * registers */
         CSL_bcdmaGetCfg(pBcdmaRegs);
+
+        pBcdmaRegs->bcChanCnt += pBcdmaRegs->bcHighCapacityChanCnt;
+        pBcdmaRegs->txChanCnt += pBcdmaRegs->bcHighCapacityChanCnt;
+
+        pPktdmaRegs = &drvHandle->pktdmaRegs;
+        memset(pPktdmaRegs, 0, sizeof(*pPktdmaRegs));
+    }
+    else if(UDMA_INST_ID_BCDMA_1 == instId)
+    {
+        drvHandle->instType = UDMA_INST_TYPE_LCDMA_BCDMA;
+        pBcdmaRegs = &drvHandle->bcdmaRegs;
+        pBcdmaRegs->pGenCfgRegs     = ((CSL_bcdma_gcfgRegs *) CSL_DMASS1_BCDMA_GCFG_BASE);
+        pBcdmaRegs->pTxChanCfgRegs  = ((CSL_bcdma_txccfgRegs *) CSL_DMASS1_BCDMA_TCHAN_BASE);
+        pBcdmaRegs->pRxChanCfgRegs  = ((CSL_bcdma_rxccfgRegs *) CSL_DMASS1_BCDMA_RCHAN_BASE);
+        pBcdmaRegs->pTxChanRtRegs   = ((CSL_bcdma_txcrtRegs *) CSL_DMASS1_BCDMA_TCHANRT_BASE);
+        pBcdmaRegs->pRxChanRtRegs   = ((CSL_bcdma_rxcrtRegs *) CSL_DMASS1_BCDMA_RCHANRT_BASE);
+        drvHandle->trigGemOffset    = CSL_DMSS_GEM_BCDMA_TRIGGER_OFFSET;
+        /* Fill other SOC specific parameters by reading from UDMA config
+         * registers */
+        CSL_bcdmaGetCfg(pBcdmaRegs);
+
+        pBcdmaRegs->bcChanCnt += pBcdmaRegs->bcHighCapacityChanCnt;
+        pBcdmaRegs->txChanCnt += pBcdmaRegs->bcHighCapacityChanCnt;
 
         pPktdmaRegs = &drvHandle->pktdmaRegs;
         memset(pPktdmaRegs, 0, sizeof(*pPktdmaRegs));
@@ -160,6 +185,14 @@ void Udma_initDrvHandle(Udma_DrvHandleInt drvHandle)
         pLcdmaRaRegs->pCredRegs      = (CSL_lcdma_ringacc_credRegs *) CSL_DMASS0_BCDMA_CRED_BASE;
         pLcdmaRaRegs->maxRings       = CSL_DMSS_BCDMA_NUM_BC_CHANS + CSL_DMSS_BCDMA_NUM_TX_CHANS + CSL_DMSS_BCDMA_NUM_RX_CHANS;
     }
+    else if(UDMA_INST_ID_BCDMA_1 == instId)
+    {
+        pLcdmaRaRegs->pRingCfgRegs   = (CSL_lcdma_ringacc_ring_cfgRegs *) CSL_DMASS1_BCDMA_RING_BASE;
+        pLcdmaRaRegs->pRingRtRegs    = (CSL_lcdma_ringacc_ringrtRegs *) CSL_DMASS1_BCDMA_RINGRT_BASE;
+        pLcdmaRaRegs->pCredRegs      = (CSL_lcdma_ringacc_credRegs *) CSL_DMASS1_BCDMA_CRED_BASE;
+        /* Need to create defines for BCDMA(CSI) and update below */
+        pLcdmaRaRegs->maxRings       = CSL_BCDMA_CSI_NUM_BC_CHANS + CSL_BCDMA_CSI_NUM_TX_CHANS + CSL_BCDMA_CSI_NUM_RX_CHANS;
+    }
     else
     {
         pLcdmaRaRegs->pRingCfgRegs   = (CSL_lcdma_ringacc_ring_cfgRegs *) CSL_DMASS0_PKTDMA_RING_BASE;
@@ -185,47 +218,67 @@ void Udma_initDrvHandle(Udma_DrvHandleInt drvHandle)
 
     /* IA config init */
     pIaRegs = &drvHandle->iaRegs;
-    pIaRegs->pCfgRegs       = (CSL_intaggr_cfgRegs *) CSL_DMASS0_INTAGGR_CFG_BASE;
-    pIaRegs->pImapRegs      = (CSL_intaggr_imapRegs *) CSL_DMASS0_INTAGGR_IMAP_BASE;
-    pIaRegs->pIntrRegs      = (CSL_intaggr_intrRegs *) CSL_DMASS0_INTAGGR_INTR_BASE;
-    pIaRegs->pL2gRegs       = (CSL_intaggr_l2gRegs *) CSL_DMASS0_INTAGGR_L2G_BASE;
-    pIaRegs->pMcastRegs     = (CSL_intaggr_mcastRegs *) CSL_DMASS0_INTAGGR_MCAST_BASE;
-    pIaRegs->pGcntCfgRegs   = (CSL_intaggr_gcntcfgRegs *) CSL_DMASS0_INTAGGR_GCNTCFG_BASE;
-    pIaRegs->pGcntRtiRegs   = (CSL_intaggr_gcntrtiRegs *) CSL_DMASS0_INTAGGR_GCNTRTI_BASE;
-    CSL_intaggrGetCfg(pIaRegs);
-    drvHandle->iaGemOffset  = CSL_DMSS_GEM_INTA0_SEVI_OFFSET;
-    drvHandle->devIdIa      = TISCI_DEV_DMASS0_INTAGGR_0;
-    drvHandle->devIdCore    = (uint16_t)Sciclient_getSelfDevIdCore();
-    #if (UDMA_NUM_UTC_INSTANCE > 0)
-    #if defined(__C7504__)
-    drvHandle->druCoreId    = UDMA_DRU_CORE_ID_C7X_1;
-    #else
-    drvHandle->druCoreId    = UDMA_DRU_CORE_ID_MCU1_0;
-    #endif
-    #endif
-    /*
-     * UTC config init
-     */
-    utcInfo                = &drvHandle->utcInfo[UDMA_UTC_ID_MSMC_DRU0];
-    utcInfo->utcId         = UDMA_UTC_ID_MSMC_DRU0;
-    utcInfo->utcType       = UDMA_UTC_TYPE_DRU;
-    utcInfo->startCh       = UDMA_UTC_START_CH_DRU0;
-    utcInfo->numCh         = UDMA_UTC_NUM_CH_DRU0;
-    utcInfo->startThreadId = UDMA_UTC_START_THREAD_ID_DRU0;
-    utcInfo->txCredit      = 2U;
-    utcInfo->druRegs       = ((CSL_DRU_t *) UDMA_UTC_BASE_DRU0);
-    utcInfo->numQueue      = CSL_DMSS_UTC_MSMC_DRU_QUEUE_CNT;
+    if(UDMA_INST_ID_BCDMA_1 == instId)
+    {
+        pIaRegs->pCfgRegs       = (CSL_intaggr_cfgRegs *) CSL_DMASS1_INTAGGR_CFG_BASE;
+        pIaRegs->pImapRegs      = (CSL_intaggr_imapRegs *) CSL_DMASS1_INTAGGR_IMAP_BASE;
+        pIaRegs->pIntrRegs      = (CSL_intaggr_intrRegs *) CSL_DMASS1_INTAGGR_INTR_BASE;
+        pIaRegs->pMcastRegs     = (CSL_intaggr_mcastRegs *) CSL_DMASS1_INTAGGR_MCAST_BASE;
+        pIaRegs->pGcntCfgRegs   = (CSL_intaggr_gcntcfgRegs *) CSL_DMASS1_INTAGGR_GCNTCFG_BASE;
+        pIaRegs->pGcntRtiRegs   = (CSL_intaggr_gcntrtiRegs *) CSL_DMASS1_INTAGGR_GCNTRTI_BASE;
+        CSL_intaggrGetCfg(pIaRegs);
 
-    utcInfo                = &drvHandle->utcInfo[UDMA_UTC_ID_VPAC_TC0];
-    utcInfo->utcId         = UDMA_UTC_ID_VPAC_TC0;
-    utcInfo->utcType       = UDMA_UTC_TYPE_DRU_VHWA;
-    utcInfo->startCh       = 0U;
-    utcInfo->numCh         = 64U;
-    utcInfo->startThreadId = UDMA_UTC_START_THREAD_ID_VPAC_TC0;
-    utcInfo->txCredit      = 3U;
-    utcInfo->druRegs       = ((CSL_DRU_t *) UDMA_UTC_BASE_DRU0);
-    utcInfo->numQueue      = CSL_DMSS_UTC_VPAC_TC0_QUEUE_CNT;
+        drvHandle->iaGemOffset  = CSL_DMSS1_GEM_INTA0_SEVI_OFFSET;
+        drvHandle->devIdIa      = TISCI_DEV_DMASS1_INTAGGR_0;
+        drvHandle->devIdCore    = Sciclient_getSelfDevIdCore();
+    }
+    else
+    {
+        pIaRegs->pCfgRegs       = (CSL_intaggr_cfgRegs *) CSL_DMASS0_INTAGGR_CFG_BASE;
+        pIaRegs->pImapRegs      = (CSL_intaggr_imapRegs *) CSL_DMASS0_INTAGGR_IMAP_BASE;
+        pIaRegs->pIntrRegs      = (CSL_intaggr_intrRegs *) CSL_DMASS0_INTAGGR_INTR_BASE;
+        pIaRegs->pL2gRegs       = (CSL_intaggr_l2gRegs *) CSL_DMASS0_INTAGGR_L2G_BASE;
+        pIaRegs->pMcastRegs     = (CSL_intaggr_mcastRegs *) CSL_DMASS0_INTAGGR_MCAST_BASE;
+        pIaRegs->pGcntCfgRegs   = (CSL_intaggr_gcntcfgRegs *) CSL_DMASS0_INTAGGR_GCNTCFG_BASE;
+        pIaRegs->pGcntRtiRegs   = (CSL_intaggr_gcntrtiRegs *) CSL_DMASS0_INTAGGR_GCNTRTI_BASE;
+        CSL_intaggrGetCfg(pIaRegs);
 
+        drvHandle->iaGemOffset  = CSL_DMSS_GEM_INTA0_SEVI_OFFSET;
+        drvHandle->devIdIa      = TISCI_DEV_DMASS0_INTAGGR_0;
+        drvHandle->devIdCore    = Sciclient_getSelfDevIdCore();
+        drvHandle->druCoreId    = UDMA_DRU_CORE_ID_MCU1_0;
+
+        /*
+        * UTC config init
+        */
+        utcInfo = &drvHandle->utcInfo[UDMA_UTC_ID_MSMC_DRU0];
+        utcInfo->utcId         = UDMA_UTC_ID_MSMC_DRU0;
+        utcInfo->utcType       = UDMA_UTC_TYPE_DRU;
+        utcInfo->startCh       = UDMA_UTC_START_CH_DRU0;
+        utcInfo->numCh         = UDMA_UTC_NUM_CH_DRU0;
+        utcInfo->txCredit      = 2U;
+        utcInfo->druRegs       = ((CSL_DRU_t *) UDMA_UTC_BASE_DRU0);
+        utcInfo->numQueue      = CSL_NAVSS_UTC_MSMC_DRU_QUEUE_CNT;
+
+        utcInfo = &drvHandle->utcInfo[UDMA_UTC_ID_VPAC_TC0];
+        utcInfo->utcId         = UDMA_UTC_ID_VPAC_TC0;
+        utcInfo->utcType       = UDMA_UTC_TYPE_DRU_VHWA;
+        utcInfo->startCh       = UDMA_UTC_START_CH_DRU0;
+        utcInfo->numCh         = 64U;
+        utcInfo->txCredit      = 3U;
+        utcInfo->druRegs       = ((CSL_DRU_t *) UDMA_UTC_BASE_DRU0);
+        utcInfo->numQueue      = CSL_NAVSS_UTC_VPAC_TC0_QUEUE_CNT;
+
+        utcInfo = &drvHandle->utcInfo[UDMA_UTC_ID_DMPAC_TC0];
+        utcInfo->utcId         = UDMA_UTC_ID_DMPAC_TC0;
+        utcInfo->utcType       = UDMA_UTC_TYPE_DRU_VHWA;
+        utcInfo->startCh       = UDMA_UTC_START_CH_DRU0;
+        utcInfo->numCh         = UDMA_UTC_NUM_CH_DRU0;
+        utcInfo->txCredit      = 3U;
+        utcInfo->druRegs       = ((CSL_DRU_t *) UDMA_UTC_DMPAC_BASE_DRU0);
+        utcInfo->numQueue      = CSL_NAVSS_UTC_DMPAC_TC0_QUEUE_CNT;
+
+    }
     /* Init other variables */
     if(UDMA_INST_ID_BCDMA_0 == instId)
     {
@@ -249,6 +302,33 @@ void Udma_initDrvHandle(Udma_DrvHandleInt drvHandle)
         drvHandle->blkCopyTrIrqOffset   = TISCI_BCDMA0_BC_DC_OES_IRQ_SRC_IDX_START;
         drvHandle->txTrIrqOffset        = TISCI_BCDMA0_TX_DC_OES_IRQ_SRC_IDX_START;
         drvHandle->rxTrIrqOffset        = TISCI_BCDMA0_RX_DC_OES_IRQ_SRC_IDX_START;
+        drvHandle->devIdPsil            = TISCI_DEV_DMASS0;
+        drvHandle->extChOffset          = 0U;
+        drvHandle->srcIdRingIrq         = drvHandle->devIdIa;
+    }
+    else if(UDMA_INST_ID_BCDMA_1 == instId)
+    {
+        drvHandle->txChOffset           = pBcdmaRegs->bcChanCnt;
+        drvHandle->rxChOffset           = drvHandle->txChOffset + pBcdmaRegs->splitTxChanCnt;
+       /* The srcIdx passed to Sciclient_rmIrqset API for configuring DMA Completion/Ring events,
+        * will be ringNum + the corresponding following offset.
+        * So setting the offset as TISCI Start Idx - corresponding ringNum Offset (if any) */
+        drvHandle->txRingIrqOffset      = TISCI_BCDMA1_TX_RC_OES_IRQ_SRC_IDX_START - drvHandle->txChOffset;
+        drvHandle->rxRingIrqOffset      = TISCI_BCDMA1_RX_RC_OES_IRQ_SRC_IDX_START - drvHandle->rxChOffset;
+        drvHandle->udmapSrcThreadOffset = CSL_PSILCFG_DMSS_CSI_BCDMA_STRM_PSILS_THREAD_OFFSET;
+        drvHandle->udmapDestThreadOffset= CSL_PSILCFG_DMSS_CSI_BCDMA_STRM_PSILD_THREAD_OFFSET;
+        drvHandle->maxRings             = CSL_BCDMA_CSI_NUM_BC_CHANS + CSL_BCDMA_CSI_NUM_TX_CHANS + CSL_BCDMA_CSI_NUM_RX_CHANS;
+        drvHandle->devIdRing            = TISCI_DEV_DMASS1_BCDMA_0;
+        drvHandle->devIdUdma            = TISCI_DEV_DMASS1_BCDMA_0;
+       /* The srcIdx passed to Sciclient_rmIrqset API for configuring TR events,
+        * will be chNum + the corresponding following offset.
+        * So setting the offset as TISCI Start Idx - corresponding chNum Offset (if any) */
+        drvHandle->srcIdTrIrq           = drvHandle->devIdIa;
+        drvHandle->txTrIrqOffset        = TISCI_BCDMA1_TX_DC_OES_IRQ_SRC_IDX_START;
+        drvHandle->rxTrIrqOffset        = TISCI_BCDMA1_RX_DC_OES_IRQ_SRC_IDX_START;
+        drvHandle->devIdPsil            = TISCI_DEV_DMASS1;
+        drvHandle->extChOffset          = 0U;
+        drvHandle->srcIdRingIrq         = drvHandle->devIdIa;
     }
     else
     {
@@ -267,10 +347,10 @@ void Udma_initDrvHandle(Udma_DrvHandleInt drvHandle)
         drvHandle->blkCopyTrIrqOffset   = 0U;
         drvHandle->txTrIrqOffset        = 0U;
         drvHandle->rxTrIrqOffset        = 0U;
+        drvHandle->devIdPsil            = TISCI_DEV_DMASS0;
+        drvHandle->extChOffset          = 0U;
+        drvHandle->srcIdRingIrq         = drvHandle->devIdIa;
     }
-    drvHandle->devIdPsil     = TISCI_DEV_DMASS0;
-    drvHandle->extChOffset  = 0U;
-    drvHandle->srcIdRingIrq = drvHandle->devIdIa;
 
     return;
 }
@@ -287,7 +367,7 @@ uint32_t Udma_isCacheCoherent(void)
 uint8_t Udma_isValidInstance(uint32_t instId)
 {
     uint8_t result = FALSE;
-    if((UDMA_INST_ID_BCDMA_0 == instId) || (UDMA_INST_ID_PKTDMA_0 == instId))
+    if((UDMA_INST_ID_START <= instId) && (instId <= UDMA_INST_ID_MAX))
     {
         result = TRUE;
     }
@@ -301,7 +381,7 @@ int32_t Udma_getMappedChRingAttributes(Udma_DrvHandleInt drvHandle,
                                        Udma_MappedChRingAttributes *chAttr)
 {
     const Udma_MappedChRingAttributes  *mappedChRingAttributes;
-    uint32_t ringAttrIndex = 0U;
+    uint32_t index = 0U;
     int32_t retVal = UDMA_SOK;
 
     if(mappedGrp < UDMA_NUM_MAPPED_TX_GROUP) /* Mapped TX Channel */
@@ -315,12 +395,12 @@ int32_t Udma_getMappedChRingAttributes(Udma_DrvHandleInt drvHandle,
         }
         if(UDMA_SOK == retVal)
         {
-            /* Calculate ringAttrIndex by subtracting the start idx of mapped channels
-            * (For AM64x, mapped channel starts with CPSW channel.) */
-            ringAttrIndex = chNum - CSL_DMSS_PKTDMA_TX_CHANS_CPSW_START;
-            /* Check that, ringAttrIndex is less than total no.of mapped TX channels */
-            DebugP_assert(ringAttrIndex < (CSL_DMSS_PKTDMA_NUM_TX_CHANS - CSL_DMSS_PKTDMA_TX_CHANS_UNMAPPED_CNT));
-            mappedChRingAttributes = &gUdmaTxMappedChRingAttributes[ringAttrIndex];
+            /* Calculate index by subtracting the start idx of mapped channels
+            * (For J722S, mapped channel starts with CPSW channel.) */
+            index = chNum - CSL_DMSS_PKTDMA_TX_CHANS_CPSW_START;
+            /* Check that, index is less than total no.of mapped TX channels */
+            DebugP_assert(index < (CSL_DMSS_PKTDMA_NUM_TX_CHANS - CSL_DMSS_PKTDMA_TX_CHANS_UNMAPPED_CNT));
+            mappedChRingAttributes = &gUdmaTxMappedChRingAttributes[index];
         }
     }
     else /* Mapped RX Channel */
@@ -334,12 +414,12 @@ int32_t Udma_getMappedChRingAttributes(Udma_DrvHandleInt drvHandle,
         }
         if(UDMA_SOK == retVal)
         {
-            /* Calculate ringAttrIndex by subtracting the start idx of mapped channels
-            * (For AM64x, mapped channel starts with CPSW channel.) */
-            ringAttrIndex = chNum - CSL_DMSS_PKTDMA_RX_CHANS_CPSW_START;
-            /* Check that, ringAttrIndex is less than total no.of mapped RX channels */
-            DebugP_assert(ringAttrIndex < (CSL_DMSS_PKTDMA_NUM_RX_CHANS - CSL_DMSS_PKTDMA_RX_CHANS_UNMAPPED_CNT));
-            mappedChRingAttributes = &gUdmaRxMappedChRingAttributes[ringAttrIndex];
+            /* Calculate index by subtracting the start idx of mapped channels
+            * (For J722S, mapped channel starts with CPSW channel.) */
+            index = chNum - CSL_DMSS_PKTDMA_RX_CHANS_CPSW_START;
+            /* Check that, index is less than total no.of mapped RX channels */
+            DebugP_assert(index < (CSL_DMSS_PKTDMA_NUM_RX_CHANS - CSL_DMSS_PKTDMA_RX_CHANS_UNMAPPED_CNT));
+            mappedChRingAttributes = &gUdmaRxMappedChRingAttributes[index];
         }
     }
     if(UDMA_SOK == retVal)

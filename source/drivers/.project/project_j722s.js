@@ -49,7 +49,9 @@ const files_mcu_r5f = {
         "udma_ring_common.c",
         "udma_ring_lcdma.c",
         "udma_rm.c",
+        "udma_rmcfg.c",
         "udma_rmcfg_common.c",
+        "udma_soc.c",
         "udma_utils.c",
         "utils.c"
     ],
@@ -108,10 +110,12 @@ const files_wkup_r5f = {
         "udma_ring_common.c",
         "udma_ring_lcdma.c",
         "udma_rm.c",
+        "udma_rmcfg.c",
         "udma_rmcfg_common.c",
+        "udma_soc.c",
         "udma_utils.c",
         "utils.c",
-        "xmodem.c"
+        "xmodem.c",
     ]
 };
 
@@ -160,9 +164,9 @@ const files_main_r5f = {
         "sciclient_soc_priv.c",
         "soc.c",
         "spinlock.c",
+        "uart_v0.c",
         "uart_dma.c",
         "uart_dma_udma.c",
-        "uart_v0.c",
         "udma.c",
         "udma_ch.c",
         "udma_event.c",
@@ -170,9 +174,11 @@ const files_main_r5f = {
         "udma_ring_common.c",
         "udma_ring_lcdma.c",
         "udma_rm.c",
+        "udma_rmcfg.c",
         "udma_rmcfg_common.c",
+        "udma_soc.c",
         "udma_utils.c",
-        "utils.c"
+        "utils.c",
     ]
 };
 
@@ -210,9 +216,11 @@ const files_c75ss0 = {
         "udma_ring_common.c",
         "udma_ring_lcdma.c",
         "udma_rm.c",
+        "udma_rmcfg.c",
         "udma_rmcfg_common.c",
+        "udma_soc.c",
         "udma_utils.c",
-        "utils.c"
+        "utils.c",
     ],
 };
 
@@ -251,9 +259,11 @@ const files_c75ss1 = {
         "udma_ring_common.c",
         "udma_ring_lcdma.c",
         "udma_rm.c",
+        "udma_rmcfg.c",
         "udma_rmcfg_common.c",
+        "udma_soc.c",
         "udma_utils.c",
-        "utils.c"
+        "utils.c",
     ],
 };
 
