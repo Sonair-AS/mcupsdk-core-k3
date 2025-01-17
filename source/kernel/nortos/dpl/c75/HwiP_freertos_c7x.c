@@ -44,6 +44,7 @@
 #include <kernel/dpl/HwiP.h>
 #include <drivers/hw_include/cslr_soc.h>
 #include <kernel/nortos/dpl/c75/csl_clec.h>
+#include <c75_clec_base_address.h>
 #include "HwiP_c75.h"
 
 #include <FreeRTOS.h>
@@ -292,7 +293,7 @@ static CSL_CLEC_EVTRegs* Hwip_getClecBaseAddr()
     CSL_CLEC_EVTRegs     *clecBaseAddr = (CSL_CLEC_EVTRegs*) NULL;
 
 #if (CSL_C7X256V_CLEC_MAIN_CNT == 1U)
-    clecBaseAddr = (CSL_CLEC_EVTRegs*)CSL_C7X256V0_CLEC_BASE;
+    clecBaseAddr = (CSL_CLEC_EVTRegs*)CSL_C75_CPU_CLUSTER_C75_1_BASE_ADDR;
 #elif (CSL_C7X256V_CLEC_MAIN_CNT == 2U)
     uint32_t clusterId;
 
@@ -300,11 +301,11 @@ static CSL_CLEC_EVTRegs* Hwip_getClecBaseAddr()
 
     if (clusterId == CSL_C75_CPU_CLUSTER_NUM_C75_1)
     {
-        clecBaseAddr = (CSL_CLEC_EVTRegs*)CSL_C7X256V_0_0_CLEC_BASE;
+        clecBaseAddr = (CSL_CLEC_EVTRegs*)CSL_C75_CPU_CLUSTER_C75_1_BASE_ADDR;
     }
     else if (clusterId == CSL_C75_CPU_CLUSTER_NUM_C75_2)
     {
-        clecBaseAddr = (CSL_CLEC_EVTRegs*)CSL_C7X256V_1_1_CLEC_BASE;
+        clecBaseAddr = (CSL_CLEC_EVTRegs*)CSL_C75_CPU_CLUSTER_C75_2_BASE_ADDR;
     }
     else
     {

@@ -349,7 +349,8 @@ const includes_c75x = {
         "${MCU_PLUS_SDK_PATH}/source/kernel/threadx/ports/ti_arm_gcc_clang_cortex_c7x/inc",
         "${MCU_PLUS_SDK_PATH}/source/kernel/threadx/threadx_src/common/inc",
         "${MCU_PLUS_SDK_PATH}/source/kernel/dpl",
-        "${MCU_PLUS_SDK_PATH}/source/kernel/threadx/dpl/common"
+        "${MCU_PLUS_SDK_PATH}/source/kernel/threadx/dpl/common",
+        "../nortos/dpl/c75/soc/am62ax"
     ]
 };
 

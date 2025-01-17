@@ -178,6 +178,7 @@ const includes_c75x = {
         "FreeRTOS-POSIX/include/private",
         "FreeRTOS-POSIX/FreeRTOS-Plus-POSIX/include",
         "FreeRTOS-POSIX/FreeRTOS-Plus-POSIX/include/portable",
+        "../nortos/dpl/c75/soc/am275x",
     ],
 };
 
