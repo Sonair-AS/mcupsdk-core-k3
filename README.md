@@ -14,6 +14,7 @@ MCU+ SDK is a software development package designed for usage with Sitara MPU/MC
 - [AM623](https://www.ti.com/product/AM623), [AM625](https://www.ti.com/product/AM625), [AM620-Q1](https://www.ti.com/product/AM620-Q1), [AM625-Q1](https://www.ti.com/product/AM625-Q1)
 - [AM62A3](https://www.ti.com/product/AM62A3), [AM62A3-Q1](https://www.ti.com/product/AM62A3-Q1), [AM62A7](https://www.ti.com/product/AM62A7), [AM62A7-Q1](https://www.ti.com/product/AM62A7-Q1)
 - [AM62P](https://www.ti.com/product/AM62P)
+- [AM62D-Q1](https://www.ti.com/product/AM62D-Q1)
 
 Go to [MCU+SDK Core repository](https://github.com/TexasInstruments/mcupsdk-core) for other devices.
 
@@ -227,7 +228,7 @@ Download and install PSDK Linux on **${HOME}/ti** directory corresponding to the
 **NOTE**
 
 - Unless mentioned otherwise, all below commands are invoked from root folder of the "mcu_plus_sdk"  repository.
-- Current supported device names are am62x, am62ax and am62px
+- Current supported device names are am62x, am62ax, am62px and am62dx
 - Pass one of these values to `"DEVICE="`
 - You can also build components (examples, tests or libraries) in `release` or `debug`
   profiles. To do this pass one of these values to `"PROFILE="`
@@ -366,6 +367,7 @@ Note that userguides are specific to a particular device. The links for all the 
 - [AM62X User Guide](https://software-dl.ti.com/mcu-plus-sdk/esd/AM62X/latest/exports/docs/api_guide_am62x/index.html)
 - [AM62A User Guide](https://software-dl.ti.com/mcu-plus-sdk/esd/AM62AX/latest/exports/docs/api_guide_am62ax/index.html)
 - [AM62P User Guide](https://software-dl.ti.com/mcu-plus-sdk/esd/AM62PX/latest/exports/docs/api_guide_am62px/index.html)
+- [AM62D User Guide](https://software-dl.ti.com/mcu-plus-sdk/esd/AM62DX/latest/exports/docs/api_guide_am62dx/index.html)
 
 The documentation can also be generated as mentioned in the below section.
 
