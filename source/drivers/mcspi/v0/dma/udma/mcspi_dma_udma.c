@@ -104,8 +104,8 @@ static int32_t MCSPI_udmaChInit(MCSPI_Handle handle, const MCSPI_ChConfig *chCfg
 
     if(MCSPI_TR_MODE_TX_RX == chObj->chCfg.trMode)
     {
-        status  = MCSPI_udmaInitRxCh(handle, chObj);
-        status += MCSPI_udmaInitTxCh(handle, chObj);
+        status  = MCSPI_udmaInitTxCh(handle, chObj);
+        status += MCSPI_udmaInitRxCh(handle, chObj);
     }
     else if(MCSPI_TR_MODE_TX_ONLY == chObj->chCfg.trMode)
     {
@@ -632,6 +632,7 @@ static void MCSPI_udmaIsrTx(Udma_EventHandle eventHandle,
         attrs = config->attrs;
 
         transaction = obj->currTransaction;
+        DebugP_assert(NULL != transaction);
         chNum = transaction->channel;
         chObj = &obj->chObj[chNum];
         txChHandle  = chObj->dmaChCfg.txChHandle;
