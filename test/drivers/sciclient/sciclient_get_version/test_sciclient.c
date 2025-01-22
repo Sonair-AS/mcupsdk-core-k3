@@ -243,7 +243,13 @@ static void test_sciclient_rm_ir_output(void *args)
         TISCI_DEV_WKUP_MCU_GPIOMUX_INTROUTER0,
         TISCI_DEV_TIMESYNC_EVENT_ROUTER0,
     };
-#elif defined(SOC_AM62PX) || defined(SOC_AM275X)
+#elif defined(SOC_AM62PX)
+    uint16_t validIrDevIds[3] = {
+        TISCI_DEV_MAIN_GPIOMUX_INTROUTER0,
+        TISCI_DEV_WKUP_MCU_GPIOMUX_INTROUTER0,
+        TISCI_DEV_TIMESYNC_EVENT_INTROUTER0,
+    };
+#elif defined(SOC_AM275X)
     uint16_t validIrDevIds[3] = {
         TISCI_DEV_MAIN_GPIO_INTROUTER0,
         TISCI_DEV_MCU_MCU_GPIO_INTROUTER0,
