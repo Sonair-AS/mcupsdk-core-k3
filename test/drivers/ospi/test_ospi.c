@@ -329,8 +329,13 @@ static void test_ospi_read_write_1s1s1s_config(void *args)
         config->attrs = &attrs;
 
         /* Set frequency to 200Mhz. */
+        #if defined(SOC_AM275X)
+        status = SOC_moduleSetClockFrequency(TISCI_DEV_FSS1_OSPI_0,
+                 TISCI_DEV_FSS1_OSPI_0_OSPI_RCLK_CLK, 200000000);
+        #else
         status = SOC_moduleSetClockFrequency(TISCI_DEV_FSS0_OSPI_0,
                  TISCI_DEV_FSS0_OSPI_0_OSPI_RCLK_CLK, 200000000);
+        #endif
         DebugP_assert(status == SystemP_SUCCESS);
 
         Drivers_ospiOpen();
@@ -362,14 +367,19 @@ static void test_ospi_read_write_1s1s1s_config(void *args)
         retVal = memcmp(gOspiTestRxBuf, gOspiTestTxBulkBuf, TEST_OSPI_2KB_SIZE);
         TEST_ASSERT_EQUAL_INT32(SystemP_SUCCESS, retVal);
         Board_driversClose();
-        
+
         config->attrs = tempAttrs;
 
         test_ospi_gdevcfg_set_flash_protocol(FLASH_CFG_PROTO_1S_8S_8S);
 
         /* Set frequency to 166Mhz. */
+        #if defined(SOC_AM275X)
+        status = SOC_moduleSetClockFrequency(TISCI_DEV_FSS1_OSPI_0,
+                 TISCI_DEV_FSS1_OSPI_0_OSPI_RCLK_CLK, 166666666);
+        #else
         status = SOC_moduleSetClockFrequency(TISCI_DEV_FSS0_OSPI_0,
                  TISCI_DEV_FSS0_OSPI_0_OSPI_RCLK_CLK, 166666666);
+        #endif
         DebugP_assert(status == SystemP_SUCCESS);
 
     }
