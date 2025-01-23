@@ -30,23 +30,37 @@
  *  OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-#ifndef RTC_TOP_H_
-#define RTC_TOP_H_
+/**
+ *  \file rtc_soc.h
+ *
+ *  \brief RTC Driver SOC specific file.
+ */
 
-#ifdef __cplusplus
-extern "C"
-{
-#endif
+#ifndef RTC_SOC_TOP_H_
+#define RTC_SOC_TOP_H_
 
 /* ========================================================================== */
 /*                             Include Files                                  */
 /* ========================================================================== */
 
-#include <drivers/hw_include/soc_config.h>
+#if defined (SOC_AM62X)
+#include <drivers/rtc/v0/soc/am62x/rtc_soc.h>
+#endif
 
-#if defined (DRV_VERSION_RTC_V0)
-#include <drivers/rtc/v0/rtc.h>
-#include <drivers/rtc/v0/soc/rtc_soc.h>
+#if defined (SOC_AM62AX)
+#include <drivers/rtc/v0/soc/am62ax/rtc_soc.h>
+#endif
+
+#if defined (SOC_AM62DX)
+#include <drivers/rtc/v0/soc/am62dx/rtc_soc.h>
+#endif
+
+#if defined (SOC_AM62PX)
+#include <drivers/rtc/v0/soc/am62px/rtc_soc.h>
+#endif
+
+#ifdef __cplusplus
+extern "C" {
 #endif
 
 /* ========================================================================== */
@@ -62,7 +76,19 @@ extern "C"
 /* None */
 
 /* ========================================================================== */
+/*                  Internal/Private Function Declarations                    */
+/* ========================================================================== */
+
+/* None */
+
+/* ========================================================================== */
 /*                          Function Declarations                             */
+/* ========================================================================== */
+
+/* None */
+
+/* ========================================================================== */
+/*                       Static Function Definitions                          */
 /* ========================================================================== */
 
 /* None */
@@ -71,4 +97,4 @@ extern "C"
 }
 #endif
 
-#endif
+#endif /* #ifndef RTC_SOC_TOP_H_ */

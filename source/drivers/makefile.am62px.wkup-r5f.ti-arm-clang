@@ -81,6 +81,8 @@ FILES_common := \
     ospi_nor_flash.c \
     ospi_phy.c \
     pinmux.c \
+    rtc.c \
+    rtc_soc.c \
     qos.c \
     soc.c \
     sciclient_irq_rm.c \
@@ -150,6 +152,9 @@ FILES_PATH_common = \
     mmcsd \
     mmcsd/v0 \
     pinmux/am62px \
+    rtc \
+    rtc/v0 \
+    rtc/v0/soc/am62px \
     sciclient \
     sciclient/soc/am62px \
     soc/am62px \

@@ -45,6 +45,8 @@ FILES_common := \
     ospi_dma_udma.c \
     ospi_nor_flash.c \
     ospi_phy.c \
+    rtc.c \
+    rtc_soc.c \
     sciclient.c \
     sciclient_lpm.c \
     sciclient_pm.c \
@@ -114,6 +116,9 @@ FILES_PATH_common = \
     qos \
     qos/v0 \
     pinmux/am62ax \
+    rtc \
+    rtc/v0 \
+    rtc/v0/soc/am62ax \
     sciclient \
     sciclient/soc/am62ax \
     soc/am62ax \

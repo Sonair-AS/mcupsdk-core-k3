@@ -76,6 +76,7 @@ FILES_common := \
     udma_utils.c \
     utils.c \
     rtc.c \
+    rtc_soc.c \
     soc.c \
     spinlock.c \
     udma_rmcfg.c \
@@ -136,6 +137,7 @@ FILES_PATH_common = \
     udma/soc/am62x \
     rtc \
     rtc/v0 \
+    rtc/v0/soc/am62x \
     soc/am62x \
     spinlock/v0 \
     elm/v0 \

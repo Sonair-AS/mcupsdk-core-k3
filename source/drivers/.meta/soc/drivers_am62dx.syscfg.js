@@ -50,6 +50,9 @@ const driverVer = {
     "qos": {
         version: "v0",
     },
+    "rtc": {
+        version: "v0",
+    },
     "sciclient": {
         version: "v0",
     },
@@ -76,6 +79,7 @@ const topModules_wkup = [
     "/drivers/mmcsd/mmcsd",
     "/drivers/ospi/ospi",
     "/drivers/qos/qos",
+    "/drivers/rtc/rtc",
     "/drivers/uart/uart",
     "/drivers/udma/udma",
 ];
@@ -86,6 +90,7 @@ const topModules_mcu = [
     "/drivers/ipc/ipc",
     "/drivers/mcan/mcan",
     "/drivers/mcspi/mcspi",
+    "/drivers/rtc/rtc",
     "/drivers/uart/uart",
     "/drivers/udma/udma",
     "/drivers/watchdog/watchdog",

@@ -71,6 +71,7 @@ FILES_common := \
     vtm.c \
     pinmux.c \
     rtc.c \
+    rtc_soc.c \
     sciclient.c \
     sciclient_pm.c \
     sciclient_rm.c \
@@ -144,6 +145,7 @@ FILES_PATH_common = \
     pinmux/am62x \
     rtc \
     rtc/v0 \
+    rtc/v0/soc/am62x \
     sciclient \
     sciclient/soc/am62x \
     soc/am62x \

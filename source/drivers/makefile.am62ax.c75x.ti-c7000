@@ -107,6 +107,9 @@ FILES_PATH_common = \
     qos \
     qos/v0 \
     pinmux/am62ax \
+    rtc \
+    rtc/v0 \
+    rtc/v0/soc/am62ax \
     sciclient \
     sciclient/soc/am62ax \
     soc/am62ax \

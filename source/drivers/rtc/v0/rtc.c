@@ -234,12 +234,19 @@ RTC_Handle RTC_open(uint32_t idx, const  RTC_Params *params)
 
     if (status == SystemP_SUCCESS)
     {
-
         if((RTC_isUnlocked(hwAttrs->baseAddr) & RTC_UNLOCK_MASK) == 0U)
         {
-            status = SystemP_FAILURE;
-        }
+            if(RTC_socErratumi2327Applicable())
+            {
+                DebugP_logInfo("Erratum i2327: Enabling RTC write access failed within 1 second of boot!\n\r");
 
+                status = SystemP_FAILURE;
+            }
+            else
+            {
+                RTC_enableWriteAccess(RTC_BASEADDR, KICK0_UNLOCK_VALUE, KICK1_UNLOCK_VALUE);
+            }
+        }
         if(status == SystemP_SUCCESS)
         {
             /* Disable Interrupt */
@@ -282,7 +289,10 @@ RTC_Handle RTC_open(uint32_t idx, const  RTC_Params *params)
             }
         }
 
-        status = SemaphoreP_constructMutex(&object->mutex);
+        if(status == SystemP_SUCCESS)
+        {
+            status = SemaphoreP_constructMutex(&object->mutex);
+        }
 
         if(status == SystemP_SUCCESS)
         {
@@ -329,6 +339,10 @@ RTC_Handle RTC_open(uint32_t idx, const  RTC_Params *params)
                 RTC_enableFreezeMode(hwAttrs->baseAddr, RTC_FREEZE_MODE);
             }
 
+        }
+
+        if(status == SystemP_SUCCESS)
+        {
             status = RTC_checkPendingStatus(hwAttrs->baseAddr, WR_PEND_MASK);
         }
 
@@ -450,10 +464,14 @@ int32_t RTC_setOff_OnTimerEvent(RTC_Handle handle, const RTC_Time *rtc_time)
         RTC_updateOff_OnCount(hwAttrs->baseAddr, time_in_seconds);
 
         status = RTC_checkPendingStatus(hwAttrs->baseAddr, WR_PEND_MASK);
-        /* Enable Interrupt */
-        RTC_setIRQStatusEnable(hwAttrs->baseAddr, (RTC_TMR_INT_INT1_SET_FLAG));
 
-        status = RTC_checkPendingStatus(hwAttrs->baseAddr, WR_PEND_MASK);
+        if(status == SystemP_SUCCESS)
+        {
+            /* Enable Interrupt */
+            RTC_setIRQStatusEnable(hwAttrs->baseAddr, (RTC_TMR_INT_INT1_SET_FLAG));
+
+            status = RTC_checkPendingStatus(hwAttrs->baseAddr, WR_PEND_MASK);
+        }
 
         /* Release the lock for this particular RTC handle */
         (void)SemaphoreP_post(&object->mutex);
@@ -485,10 +503,13 @@ int32_t RTC_setOn_OffTimerEvent(RTC_Handle handle, const RTC_Time *rtc_time)
 
         status = RTC_checkPendingStatus(hwAttrs->baseAddr, WR_PEND_MASK);
 
-        /* Enable interrupt */
-        RTC_setIRQStatusEnable(hwAttrs->baseAddr, (RTC_TMR_INT_INT0_SET_FLAG));
+        if(status == SystemP_SUCCESS)
+        {
+            /* Enable interrupt */
+            RTC_setIRQStatusEnable(hwAttrs->baseAddr, (RTC_TMR_INT_INT0_SET_FLAG));
 
-        status = RTC_checkPendingStatus(hwAttrs->baseAddr, WR_PEND_MASK);
+            status = RTC_checkPendingStatus(hwAttrs->baseAddr, WR_PEND_MASK);
+        }
 
         /* Release the lock for this particular RTC handle */
         (void)SemaphoreP_post(&object->mutex);
@@ -976,10 +997,13 @@ static int32_t RTC_startRtcTimer(uint32_t baseAddr)
 
     RTC_disableWriteAccess(baseAddr, KICK0_LOCK_VALUE, KICK1_LOCK_VALUE);
 
-    status = RTC_checkPendingStatus(baseAddr, WR_PEND_MASK);
+    if(status == SystemP_SUCCESS)
+    {
+        status = RTC_checkPendingStatus(baseAddr, WR_PEND_MASK);
 
-    RTC_clearWriteErr(baseAddr);
-
+        RTC_clearWriteErr(baseAddr);
+    }
+    
     /* Enable write access to RTC */
     RTC_enableWriteAccess(baseAddr, KICK0_UNLOCK_VALUE, KICK1_UNLOCK_VALUE);
 

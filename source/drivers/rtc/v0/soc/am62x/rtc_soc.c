@@ -30,24 +30,19 @@
  *  OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-#ifndef RTC_TOP_H_
-#define RTC_TOP_H_
-
-#ifdef __cplusplus
-extern "C"
-{
-#endif
+/**
+ *  \file   rtc_soc.c
+ *
+ *  \brief  File containing SOC related APIs.
+ *
+ */
 
 /* ========================================================================== */
 /*                             Include Files                                  */
 /* ========================================================================== */
 
-#include <drivers/hw_include/soc_config.h>
-
-#if defined (DRV_VERSION_RTC_V0)
-#include <drivers/rtc/v0/rtc.h>
 #include <drivers/rtc/v0/soc/rtc_soc.h>
-#endif
+#include <kernel/dpl/SystemP.h>
 
 /* ========================================================================== */
 /*                           Macros & Typedefs                                */
@@ -67,8 +62,17 @@ extern "C"
 
 /* None */
 
-#ifdef __cplusplus
-}
-#endif
+/* ========================================================================== */
+/*                            Global Variables                                */
+/* ========================================================================== */
 
-#endif
+/* ========================================================================== */
+/*                          Function Definitions                              */
+/* ========================================================================== */
+
+bool RTC_socErratumi2327Applicable(void)
+{
+    bool status = true;
+
+    return status;
+}
