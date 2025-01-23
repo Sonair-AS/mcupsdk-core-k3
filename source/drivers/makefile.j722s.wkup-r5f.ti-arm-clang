@@ -18,6 +18,9 @@ LIBNAME:=drivers.j722s.wkup-r5f.ti-arm-clang.$(PROFILE).lib
 FILES_common := \
     csl_sec_proxy.c \
     gpio.c \
+    i2c_v0.c \
+    i2c_v0_lld.c \
+    i2c_soc.c \
     pinmux.c \
     soc.c \
     sciclient_irq_rm.c \
@@ -42,6 +45,8 @@ FILES_PATH_common = \
     gtc/v0 \
     gtc/v0/soc/j722s \
     i2c/v0 \
+    i2c/v0/lld \
+    i2c/v0/soc/j722s \
     ipc_notify/v0 \
     ipc_notify/v0/soc/j722s \
     ipc_rpmsg/ \

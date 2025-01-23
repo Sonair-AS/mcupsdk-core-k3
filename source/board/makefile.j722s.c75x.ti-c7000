@@ -13,51 +13,25 @@ AR=$(CGT_TI_C7000_PATH)/bin/ar7x
 PROFILE?=release
 ConfigName:=$(PROFILE)
 
-LIBNAME:=drivers.j722s.c75ss0-0.ti-c7000.$(PROFILE).lib
+LIBNAME:=board.j722s.c75x.ti-c7000.$(PROFILE).lib
 
 FILES_common := \
-    csl_bcdma.c \
-    csl_sec_proxy.c \
-    i2c_v0.c \
-    i2c_v0_lld.c \
-    i2c_soc.c \
-    pinmux.c \
-    sciclient.c \
-    sciclient_pm.c \
-    sciclient_rm.c \
-    sciclient_rm_irq.c \
-    sciclient_procboot.c \
-    sciclient_firewall.c \
-    sciclient_irq_rm.c \
-    sciclient_fmwSecureProxyMap.c \
-    sciclient_soc_priv.c \
-    spinlock.c \
-    soc.c \
-    uart_v0.c \
-    uart_dma.c \
-    uart_dma_udma.c \
+    eeprom.c \
+    eeprom_at24c.c \
+    led.c \
+    led_ioexp.c \
+    ioexp_tca6424.c \
+    ioexp_tca6416.c \
 
 FILES_PATH_common = \
-    i2c/v0 \
-    i2c/v0/lld \
-    i2c/v0/soc/j722s \
-    ipc_notify/v0 \
-    ipc_notify/v0/soc/j722s \
-    ipc_rpmsg/ \
-    pinmux/j722s \
-    sciclient \
-    sciclient/soc/j722s \
-    spinlock/v0 \
-    soc/j722s \
-    uart/v0 \
-    uart/v0/dma \
-    uart/v0/dma/udma \
-    hw_include/dru/v2 \
-    udma \
-    udma/hw_include \
-    udma/soc \
-    udma/soc/j722s \
-    utils \
+    control \
+    eeprom \
+    flash \
+    flash/ospi \
+    flash/sfdp \
+    ioexp \
+    null \
+    led \
 
 INCLUDES_common := \
     -I${CG_TOOL_ROOT}/include \
@@ -68,7 +42,6 @@ DEFINES_common := \
     -DSW_VERSION=$(SW_VERSION)
 
 CFLAGS_common := \
-    -DBUILD_C75X_1 \
     --advice:performance=none \
     -mv7524 \
     --abi=eabi \
@@ -116,7 +89,7 @@ INCLUDES := $(INCLUDES_common) $(INCLUDE_$(PROFILE))
 ARFLAGS := $(ARFLAGS_common) $(ARFLAGS_$(PROFILE))
 
 LIBDIR := lib
-OBJDIR := obj/j722s/ti-c7000/$(PROFILE)/c75ss0-0/drivers/
+OBJDIR := obj/j722s/ti-c7000/$(PROFILE)/c75x/board/
 OBJS := $(FILES:%.c=%.obj)
 OBJS += $(ASMFILES:%.S=%.obj)
 OBJS += $(ASMEXTNFILES:%.asm=%.obj)

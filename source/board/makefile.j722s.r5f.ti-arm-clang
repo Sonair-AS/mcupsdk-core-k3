@@ -13,90 +13,31 @@ AR=$(CGT_TI_ARM_CLANG_PATH)/bin/tiarmar
 PROFILE?=release
 ConfigName:=$(PROFILE)
 
-LIBNAME:=drivers.j722s.main-r5f.ti-arm-clang.$(PROFILE).lib
+LIBNAME:=board.j722s.r5f.ti-arm-clang.$(PROFILE).lib
 
 FILES_common := \
-    csl_sec_proxy.c \
-    gpio.c \
-    i2c_v0.c \
-    i2c_v0_lld.c \
-    i2c_soc.c \
-    pinmux.c \
-    soc.c \
-    sciclient_irq_rm.c \
-    sciclient_fmwSecureProxyMap.c \
-    uart_v0.c \
-    uart_dma.c \
-    uart_dma_udma.c \
-    sciclient.c \
-    sciclient_pm.c \
-    sciclient_rm.c \
-    sciclient_rm_irq.c \
-    sciclient_procboot.c \
-    sciclient_firewall.c \
-    sciclient_irq_rm.c \
-    sciclient_fmwSecureProxyMap.c \
-    sciclient_soc_priv.c \
-    spinlock.c \
+    board_control.c \
+    eeprom.c \
+    eeprom_at24c.c \
+    flash.c \
+    flash_nor_ospi.c \
+    flash_nand_ospi.c \
+    led.c \
+    led_gpio.c \
+    led_ioexp.c \
+    ioexp_tca6424.c \
+    ioexp_tca6416.c \
+    nor_spi_sfdp.c \
 
 FILES_PATH_common = \
-    dss \
-    dss/v0 \
-    dss/v0/common \
-    dss/v0/dctrl \
-    dss/v0/disp \
-    dss/v0/hw_include \
-    dss/v0/hw_include/V3 \
-    dss/v0/include \
-    dss/v0/soc \
-    dss/v0/soc/j722s \
-    fvid2/v0 \
-    gpio/v0 \
-    csirx \
-    csirx/v1 \
-    csirx/v1/hw_include \
-    csirx/v1/hw_include/V1 \
-    csirx/v1/include \
-    csirx/v1/soc \
-    csirx/v1/soc/V0 \
-    csirx/v1/src \
-    csitx \
-    csitx/v0 \
-    csitx/v0/hw_include \
-    csitx/v0/include \
-    csitx/v0/soc \
-    csitx/v0/soc/V0 \
-    csitx/v0/src \
-    i2c/v0 \
-    i2c/v0/lld \
-    i2c/v0/soc/j722s \
-    ipc_notify/v0 \
-    ipc_notify/v0/soc/j722s \
-    ipc_rpmsg/ \
-    mcspi/v0 \
-    mcspi/v0/dma \
-    mcspi/v0/dma/udma \
-    ospi \
-    ospi/v0 \
-    ospi/v0/dma \
-    ospi/v0/dma/udma \
-    mcan/v0 \
-    mmcsd \
-    mmcsd/v0 \
-    pinmux/j722s \
-    sciclient \
-    sciclient/soc/j722s \
-    soc/j722s \
-    spinlock/v0 \
-    uart/v0 \
-    uart/v0/dma \
-    uart/v0/dma/udma \
-    hw_include/dru/v2 \
-    udma \
-    udma/hw_include \
-    udma/soc \
-    udma/soc/j722s \
-    utils \
+    control \
+    eeprom \
+    flash \
+    flash/ospi \
+    flash/sfdp \
+    ioexp \
+    null \
+    led \
 
 INCLUDES_common := \
     -I${CG_TOOL_ROOT}/include/c \
@@ -104,9 +45,6 @@ INCLUDES_common := \
 
 DEFINES_common := \
     -DSOC_J722S \
-    -DMAIN_R5 \
-    -DFVID2_CFG_TRACE_ENABLE \
-    -DFVID2_CFG_ASSERT_ENABLE \
     -DSW_VERSION=$(SW_VERSION)
 
 CFLAGS_common := \
@@ -155,7 +93,7 @@ INCLUDES := $(INCLUDES_common) $(INCLUDE_$(PROFILE))
 ARFLAGS := $(ARFLAGS_common) $(ARFLAGS_$(PROFILE))
 
 LIBDIR := lib
-OBJDIR := obj/j722s/ti-arm-clang/$(PROFILE)/main-r5f/drivers/
+OBJDIR := obj/j722s/ti-arm-clang/$(PROFILE)/r5f/board/
 OBJS := $(FILES:%.c=%.obj)
 OBJS += $(ASMFILES:%.S=%.obj)
 OBJS += $(ASMEXTNFILES:%.asm=%.obj)

@@ -11,6 +11,9 @@ const files_mcu_r5f = {
         "csl_pktdma.c",
         "csl_dru.c",
         "gpio.c",
+        "i2c_v0.c",
+        "i2c_v0_lld.c",
+        "i2c_soc.c",
         "pinmux.c",
         "sciclient.c",
         "sciclient_pm.c",
@@ -35,6 +38,9 @@ const files_wkup_r5f = {
     common: [
         "csl_sec_proxy.c",
         "gpio.c",
+        "i2c_v0.c",
+        "i2c_v0_lld.c",
+        "i2c_soc.c",
         "pinmux.c",
         "soc.c",
         "sciclient_irq_rm.c",
@@ -50,6 +56,9 @@ const files_main_r5f = {
     common: [
         "csl_sec_proxy.c",
         "gpio.c",
+        "i2c_v0.c",
+        "i2c_v0_lld.c",
+        "i2c_soc.c",
         "pinmux.c",
         "soc.c",
         "sciclient_irq_rm.c",
@@ -74,6 +83,9 @@ const files_c75ss0 = {
     common: [
         "csl_bcdma.c",
         "csl_sec_proxy.c",
+        "i2c_v0.c",
+        "i2c_v0_lld.c",
+        "i2c_soc.c",
         "pinmux.c",
         "sciclient.c",
         "sciclient_pm.c",
@@ -96,6 +108,9 @@ const files_c75ss1 = {
     common: [
         "csl_bcdma.c",
         "csl_sec_proxy.c",
+        "i2c_v0.c",
+        "i2c_v0_lld.c",
+        "i2c_soc.c",
         "pinmux.c",
         "sciclient.c",
         "sciclient_pm.c",
@@ -117,6 +132,8 @@ const files_c75ss1 = {
 const filedirs_c75ss0 = {
     common: [
         "i2c/v0",
+        "i2c/v0/lld",
+        "i2c/v0/soc/j722s",
         "ipc_notify/v0",
         "ipc_notify/v0/soc/j722s",
         "ipc_rpmsg/",
@@ -140,6 +157,8 @@ const filedirs_c75ss0 = {
 const filedirs_c75ss1 = {
     common: [
         "i2c/v0",
+        "i2c/v0/lld",
+        "i2c/v0/soc/j722s",
         "ipc_notify/v0",
         "ipc_notify/v0/soc/j722s",
         "ipc_rpmsg/",
@@ -164,6 +183,8 @@ const filedirs_mcu_r5f = {
     common: [
         "gpio/v0",
         "i2c/v0",
+        "i2c/v0/lld",
+        "i2c/v0/soc/j722s",
         "ipc_notify/v0",
         "ipc_notify/v0/soc/j722s",
         "ipc_rpmsg/",
@@ -210,6 +231,8 @@ const filedirs_wkup_r5f = {
         "gtc/v0",
         'gtc/v0/soc/j722s',
         "i2c/v0",
+        "i2c/v0/lld",
+        "i2c/v0/soc/j722s",
         "ipc_notify/v0",
         "ipc_notify/v0/soc/j722s",
         "ipc_rpmsg/",
@@ -270,6 +293,8 @@ const filedirs_main_r5f = {
         "csitx/v0/soc/V0",
         "csitx/v0/src",
         "i2c/v0",
+        "i2c/v0/lld",
+        "i2c/v0/soc/j722s",
         "ipc_notify/v0",
         "ipc_notify/v0/soc/j722s",
         "ipc_rpmsg/",

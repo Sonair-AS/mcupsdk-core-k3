@@ -1,12 +1,14 @@
 const common = require("../common.js");
 
 const component_file_list = [
+    "source/board/.project/project.js",
     "source/drivers/.project/project.js",
     "source/drivers/device_manager/self_reset/.project/project.js",
     "source/drivers/device_manager/sciclient_direct/.project/project.js",
     "source/drivers/device_manager/sciclient_direct/sbl/.project/project.js",
     "source/drivers/device_manager/sciserver/.project/project.js",
     //"source/kernel/nortos/.project/project.js",
+    "source/drivers/dmautils/.project/project.js",
     "source/kernel/freertos/.project/project.js",
 ];
 
@@ -23,6 +25,7 @@ const device_defines = {
 };
 
 const example_file_list = [
+    "examples/drivers/i2c/i2c_led_blink/.project/project.js",
     "examples/empty/.project/project_freertos.js",
     "examples/drivers/sciclient/sciclient_ccs_init/.project/project.js",
     "examples/drivers/sciclient/sciclient_get_version/.project/project.js",

@@ -1,5 +1,5 @@
 /*
- *  Copyright (C) 2021-`new Date().getFullYear()%100` Texas Instruments Incorporated
+ *  Copyright (C) 2023-25 Texas Instruments Incorporated
  *
  *  Redistribution and use in source and binary forms, with or without
  *  modification, are permitted provided that the following conditions
@@ -30,26 +30,28 @@
  *  OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-/**
- *  \file board.c
- *
- *  \brief File containing the Board setup source for I2C.
- *
- */
-
 /* ========================================================================== */
 /*                             Include Files                                  */
 /* ========================================================================== */
 
 #include <stdlib.h>
-#include <drivers/hw_include/cslr_soc.h>
+#include <kernel/dpl/DebugP.h>
+#include <kernel/dpl/ClockP.h>
+#include "ti_drivers_config.h"
+#include "ti_board_config.h"
+#include "ti_drivers_open_close.h"
 #include "ti_board_open_close.h"
+#include "FreeRTOS.h"
+#include "task.h"
+#include <drivers/device_manager/sciserver/sciserver_init.h>
 
 /* ========================================================================== */
 /*                           Macros & Typedefs                                */
 /* ========================================================================== */
 
-/* None */
+#define TASK_PRI_MAIN_THREAD  (configMAX_PRIORITIES-4)
+
+#define TASK_SIZE (16384U/sizeof(configSTACK_DEPTH_TYPE))
 
 /* ========================================================================== */
 /*                         Structure Declarations                             */
@@ -61,31 +63,58 @@
 /*                          Function Declarations                             */
 /* ========================================================================== */
 
-/* None */
+void i2c_led_blink_main(void *args);
 
 /* ========================================================================== */
 /*                            Global Variables                                */
 /* ========================================================================== */
 
-/* None */
+StackType_t gMainTaskStack[TASK_SIZE] __attribute__((aligned(32)));
+StaticTask_t gMainTaskObj;
+TaskHandle_t gMainTask;
 
 /* ========================================================================== */
 /*                          Function Definitions                              */
 /* ========================================================================== */
 
-/*
- * Board info
- */
-uint32_t Board_getnumLedPerGroup(void)
+void main_thread(void *args)
 {
-    uint32_t            ledCount;
-    const LED_Attrs    *attrs;
+    /* Open UART for sysfw logs */
+    Drivers_uartOpen();
 
-    attrs = LED_getAttrs(CONFIG_LED0);
-    DebugP_assert(NULL != attrs);
-    /* For AM243x-EVM all LEDs are connected, so return
-     * the driver atrributes value of 8 */
-    ledCount = attrs->numLedPerGroup;
+    sciServer_init();
 
-    return (ledCount);
+    /* Close UART as Drivers_open() inside i2c_led_blink_main() opens the UART again */
+    Drivers_uartClose();
+
+    i2c_led_blink_main(NULL);
+
+    vTaskDelete(NULL);
+}
+
+int main()
+{
+    /* init SOC specific modules */
+    System_init();
+    Board_init();
+
+    gMainTask = xTaskCreateStatic( main_thread,   /* Pointer to the function that implements the task. */
+                                  "main_thread", /* Text name for the task.  This is to facilitate debugging only. */
+                                  TASK_SIZE,  /* Stack depth in units of StackType_t typically uint32_t on 32b CPUs */
+                                  NULL,            /* We are not using the task parameter. */
+                                  TASK_PRI_MAIN_THREAD,   /* task priority, 0 is lowest priority, configMAX_PRIORITIES-1 is highest */
+                                  gMainTaskStack,  /* pointer to stack base */
+                                  &gMainTaskObj ); /* pointer to statically allocated task object memory */
+    configASSERT(gMainTask != NULL);
+
+    /* Start the scheduler to start the tasks executing. */
+    vTaskStartScheduler();
+
+    /* The following line should never be reached because vTaskStartScheduler()
+    will only return if there was not enough FreeRTOS heap memory available to
+    create the Idle and (if configured) Timer tasks.  Heap management, and
+    techniques for trapping heap exhaustion, are described in the book text. */
+    DebugP_assertNoLog(0);
+
+    return 0;
 }

@@ -1,5 +1,5 @@
 /*
- *  Copyright (C) 2021-`new Date().getFullYear()%100` Texas Instruments Incorporated
+ *  Copyright (C) 2023 Texas Instruments Incorporated
  *
  *  Redistribution and use in source and binary forms, with or without
  *  modification, are permitted provided that the following conditions
@@ -31,19 +31,31 @@
  */
 
 /**
- *  \file board.c
+ *  \defgroup BOARD_CONTROL_MODULE APIs for board control operation
+ *  \ingroup BOARD_MODULE
  *
- *  \brief File containing the Board setup source for I2C.
+ *  This module contains APIs to control several board specific devices
+ *  on the board
  *
+ *  @{
  */
+
+#ifndef BOARD_CONTROL_H_
+#define BOARD_CONTROL_H_
 
 /* ========================================================================== */
 /*                             Include Files                                  */
 /* ========================================================================== */
 
-#include <stdlib.h>
-#include <drivers/hw_include/cslr_soc.h>
-#include "ti_board_open_close.h"
+#include <stdint.h>
+#include <kernel/dpl/SystemP.h>
+#include <kernel/dpl/SemaphoreP.h>
+#include <drivers/i2c.h>
+#include <board/ioexp/ioexp_tca6424.h>
+
+#ifdef __cplusplus
+extern "C" {
+#endif
 
 /* ========================================================================== */
 /*                           Macros & Typedefs                                */
@@ -55,37 +67,76 @@
 /*                         Structure Declarations                             */
 /* ========================================================================== */
 
-/* None */
+/**
+ *  \brief Parameters passed during EEPROM_open()
+ */
+typedef struct BOARD_HdmiCfg_s
+{
+    uint32_t    resolution;
+    /**< HDMI panel resolution */
+    I2C_Handle      i2cHandle;
+    /**< HDMI I2C instance handle */
+    uint32_t    i2cInstance;
+    /**< HDMI I2C instance */
+} BOARD_HdmiCfg_t;
 
 /* ========================================================================== */
 /*                          Function Declarations                             */
 /* ========================================================================== */
 
+void Board_fpdUb960GetI2CAddr(uint8_t *i2cAddr,
+                              uint32_t csiInst);
+
+int32_t Board_i2c8BitRegWrSingle(void *handle,
+                                 uint32_t slaveAddr,
+                                 uint8_t *regData,
+                                 uint32_t i2cTimeout);
+
+int32_t Board_i2c8BitRegRdSingle(void *handle,
+                                 uint32_t slaveAddr,
+                                 uint8_t *regData,
+                                 uint32_t i2cTimeout);
+
+int32_t Board_i2c8BitRegWr(void *handle,
+                           uint32_t slaveAddr,
+                           uint8_t regAddr,
+                           uint8_t *regData,
+                           uint8_t numOfBytes,
+                           uint32_t i2cTimeout);
+
+int32_t Board_i2c8BitRegRd(void *handle,
+                           uint32_t slaveAddr,
+                           uint8_t regAddr,
+                           uint8_t *regData,
+                           uint8_t numOfBytes,
+                           uint32_t i2cTimeout);
+
+int32_t Board_i2c16BitRegWr(void *handle,
+                            uint32_t slaveAddr,
+                            uint16_t regAddr,
+                            uint8_t *regData,
+                            uint8_t numOfBytes,
+                            uint8_t byteOrdSel,
+                            uint32_t i2cTimeout);
+
+int32_t Board_enableCSII2c(uint32_t i2cInstance);
+
+/* ========================================================================== */
+/*                       Static Function Definitions                          */
+/* ========================================================================== */
+
 /* None */
 
 /* ========================================================================== */
-/*                            Global Variables                                */
+/*                  Internal/Private Structure Declarations                   */
 /* ========================================================================== */
 
 /* None */
 
-/* ========================================================================== */
-/*                          Function Definitions                              */
-/* ========================================================================== */
-
-/*
- * Board info
- */
-uint32_t Board_getnumLedPerGroup(void)
-{
-    uint32_t            ledCount;
-    const LED_Attrs    *attrs;
-
-    attrs = LED_getAttrs(CONFIG_LED0);
-    DebugP_assert(NULL != attrs);
-    /* For AM243x-EVM all LEDs are connected, so return
-     * the driver atrributes value of 8 */
-    ledCount = attrs->numLedPerGroup;
-
-    return (ledCount);
+#ifdef __cplusplus
 }
+#endif
+
+#endif /* #ifndef EEPROM_H_ */
+
+/** @} */
