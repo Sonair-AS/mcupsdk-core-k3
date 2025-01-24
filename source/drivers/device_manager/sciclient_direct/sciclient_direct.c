@@ -639,7 +639,7 @@ int32_t Sciclient_ProcessPmMessage(const uint32_t reqFlags, void *tx_msg)
                                 reqFlags,
                                 SCICLIENT_DEV_WKUP_R5FSS0_CORE0_PROCID);
                     break;
-#if ! (defined(SOC_AM62X) || defined (SOC_AM62AX) || defined (SOC_AM62PX) || defined (SOC_AM275X))
+#if ! (defined(SOC_AM62X) || defined (SOC_AM62AX) || defined (SOC_AM62PX) || defined (SOC_AM275X) || defined (SOC_J722S))
                     case SCICLIENT_DEV_WKUP_R5FSS0_CORE1:
                         ret = Sciclient_pmSetMsgProxy((uint32_t*)tx_msg,
                                 reqFlags,
@@ -665,7 +665,7 @@ int32_t Sciclient_ProcessPmMessage(const uint32_t reqFlags, void *tx_msg)
                         ret = Sciclient_pmSetCpuResetMsgProxy((uint32_t*)tx_msg,
                                 SCICLIENT_DEV_WKUP_R5FSS0_CORE0_PROCID);
                     break;
-#if ! (defined(SOC_AM62X) || defined (SOC_AM62AX) || defined (SOC_AM62PX) || defined (SOC_AM275X))
+#if ! (defined(SOC_AM62X) || defined (SOC_AM62AX) || defined (SOC_AM62PX) || defined (SOC_AM275X) || defined (SOC_J722S))
                     case SCICLIENT_DEV_WKUP_R5FSS0_CORE1:
                         ret = Sciclient_pmSetCpuResetMsgProxy((uint32_t*)tx_msg,
                                 SCICLIENT_DEV_WKUP_R5FSS0_CORE1_PROCID);

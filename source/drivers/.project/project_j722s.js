@@ -22,6 +22,7 @@ const files_mcu_r5f = {
         "sciclient_fmwSecureProxyMap.c",
         "sciclient_soc_priv.c",
         "soc.c",
+        "spinlock.c",
         "uart_v0.c",
         "uart_dma.c",
         "uart_dma_udma.c",
@@ -32,27 +33,47 @@ const files_mcu_r5f = {
 
 const files_wkup_r5f = {
     common: [
+        "csl_sec_proxy.c",
         "gpio.c",
         "pinmux.c",
         "soc.c",
         "sciclient_irq_rm.c",
         "sciclient_fmwSecureProxyMap.c",
+        "spinlock.c",
+        "uart_v0.c",
+        "uart_dma.c",
+        "uart_dma_udma.c",
     ]
 };
 
 const files_main_r5f = {
     common: [
+        "csl_sec_proxy.c",
         "gpio.c",
         "pinmux.c",
         "soc.c",
         "sciclient_irq_rm.c",
         "sciclient_fmwSecureProxyMap.c",
+        "uart_v0.c",
+        "uart_dma.c",
+        "uart_dma_udma.c",
+        "sciclient.c",
+        "sciclient_pm.c",
+        "sciclient_rm.c",
+        "sciclient_rm_irq.c",
+        "sciclient_procboot.c",
+        "sciclient_firewall.c",
+        "sciclient_irq_rm.c",
+        "sciclient_fmwSecureProxyMap.c",
+        "sciclient_soc_priv.c",
+        "spinlock.c",
     ]
 };
 
 const files_c75ss0 = {
     common: [
         "csl_bcdma.c",
+        "csl_sec_proxy.c",
         "pinmux.c",
         "sciclient.c",
         "sciclient_pm.c",
@@ -65,12 +86,16 @@ const files_c75ss0 = {
         "sciclient_soc_priv.c",
         "spinlock.c",
         "soc.c",
+        "uart_v0.c",
+        "uart_dma.c",
+        "uart_dma_udma.c",
     ],
 };
 
 const files_c75ss1 = {
     common: [
         "csl_bcdma.c",
+        "csl_sec_proxy.c",
         "pinmux.c",
         "sciclient.c",
         "sciclient_pm.c",
@@ -83,6 +108,9 @@ const files_c75ss1 = {
         "sciclient_soc_priv.c",
         "spinlock.c",
         "soc.c",
+        "uart_v0.c",
+        "uart_dma.c",
+        "uart_dma_udma.c",
     ],
 };
 

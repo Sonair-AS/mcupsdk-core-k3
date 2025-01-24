@@ -1,5 +1,5 @@
 /*
- *  Copyright (C) 2018-2022 Texas Instruments Incorporated
+ *  Copyright (C) 2018-25 Texas Instruments Incorporated
  *
  *  Redistribution and use in source and binary forms, with or without
  *  modification, are permitted provided that the following conditions
@@ -86,6 +86,9 @@ int32_t Sciserver_tirtosInitPrms_Init(Sciserver_TirtosCfgPrms_t *pPrms)
 #if defined (SOC_AM62PX)
         pPrms->taskPriority[SCISERVER_TASK_USER_LO] = 30U;
         pPrms->taskPriority[SCISERVER_TASK_USER_HI] = 31U;
+#elif defined (SOC_J722S)
+        pPrms->taskPriority[SCISERVER_TASK_USER_LO] = 29U;
+        pPrms->taskPriority[SCISERVER_TASK_USER_HI] = 30U;
 #else
         pPrms->taskPriority[SCISERVER_TASK_USER_LO] = 1U;
         pPrms->taskPriority[SCISERVER_TASK_USER_HI] = 3U;

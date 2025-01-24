@@ -1,5 +1,5 @@
 /*
- *  Copyright (C) 2018-2020 Texas Instruments Incorporated
+ *  Copyright (C) 2018-2025 Texas Instruments Incorporated
  *
  *  Redistribution and use in source and binary forms, with or without
  *  modification, are permitted provided that the following conditions
@@ -106,14 +106,14 @@ typedef struct
 
     uint32_t hostId;
     /**< CPU ID of the A53/A72/R5F/DSP */
-#if !( defined (SOC_AM64X) || defined (SOC_AM62X) || defined (SOC_AM62AX) || defined (SOC_AM62PX) || defined (SOC_AM275X))
+#if !( defined (SOC_AM64X) || defined (SOC_AM62X) || defined (SOC_AM62AX) || defined (SOC_AM62PX) || defined (SOC_AM275X) || defined (SOC_J722S))
     uint32_t reqHighPrioThreadId;
     /**< Thread ID of the high priority thread(write) allowed for the CPU */
 #endif
     uint32_t reqLowPrioThreadId;
     /**< Thread ID of the low priority thread(write) allowed for the CPU */
 
-#if !( defined (SOC_AM64X) || defined (SOC_AM62X) || defined (SOC_AM62AX) || defined (SOC_AM62PX) || defined (SOC_AM275X))
+#if !( defined (SOC_AM64X) || defined (SOC_AM62X) || defined (SOC_AM62AX) || defined (SOC_AM62PX) || defined (SOC_AM275X) || defined (SOC_J722S))
     uint32_t notificationRespThreadId;
     /**< Thread ID of the thread(write) for sending a notification to the
      *   firmware
@@ -122,7 +122,7 @@ typedef struct
     uint32_t respThreadId;
     /**< Thread ID of the response thread(read) available for the CPU */
 
-#if !( defined (SOC_AM64X) || defined (SOC_AM62X) || defined (SOC_AM62AX) || defined (SOC_AM62PX) || defined (SOC_AM275X))
+#if !( defined (SOC_AM64X) || defined (SOC_AM62X) || defined (SOC_AM62AX) || defined (SOC_AM62PX) || defined (SOC_AM275X) || defined (SOC_J722S))
     uint32_t notificationThreadId;
     /**< Thread ID of the notification thread(read) available for the CPU */
 #endif

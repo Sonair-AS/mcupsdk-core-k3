@@ -1,5 +1,5 @@
 /*
- *  Copyright (C) 2018 Texas Instruments Incorporated
+ *  Copyright (C) 2018-25 Texas Instruments Incorporated
  *
  *  Redistribution and use in source and binary forms, with or without
  *  modification, are permitted provided that the following conditions
@@ -248,7 +248,7 @@ const Sciclient_MapStruct_t gSciclientMap[SCICLIENT_CONTEXT_MAX_NUM] =
         0
 
     },
-    
+
     {
         /** Context **/
         SCICLIENT_NON_SECURE_CONTEXT,
@@ -315,6 +315,24 @@ const Sciclient_MapStruct_t gSciclientMap[SCICLIENT_CONTEXT_MAX_NUM] =
 
         /** Thread ID of the response thread(read) available for the GPU */
         TISCI_SEC_PROXY_GPU_1_READ_RESPONSE_THREAD_ID,
+
+        /** Notification Interrupt Number.**/
+        0U
+
+    },
+
+    {
+        /** Context **/
+        SCICLIENT_SECURE_CONTEXT,
+
+        /** DM to TIFS host id */
+        TISCI_HOST_ID_DM2TIFS,
+
+        /** Thread ID of the low priority thread(write) allowed for the CPU */
+        TISCI_SEC_PROXY_DM2TIFS_WRITE_LOW_PRIORITY_THREAD_ID,
+
+        /** Thread ID of the response thread(read) available for the CPU */
+        TISCI_SEC_PROXY_DM2TIFS_READ_RESPONSE_THREAD_ID,
 
         /** Notification Interrupt Number.**/
         0U

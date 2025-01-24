@@ -17,6 +17,7 @@ LIBNAME:=drivers.j722s.c75ss1-0.ti-c7000.$(PROFILE).lib
 
 FILES_common := \
     csl_bcdma.c \
+    csl_sec_proxy.c \
     pinmux.c \
     sciclient.c \
     sciclient_pm.c \
@@ -29,6 +30,9 @@ FILES_common := \
     sciclient_soc_priv.c \
     spinlock.c \
     soc.c \
+    uart_v0.c \
+    uart_dma.c \
+    uart_dma_udma.c \
 
 FILES_PATH_common = \
     i2c/v0 \

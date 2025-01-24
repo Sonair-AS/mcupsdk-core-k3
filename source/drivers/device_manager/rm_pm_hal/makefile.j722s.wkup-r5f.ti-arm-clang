@@ -1,8 +1,11 @@
-#
-# Auto generated makefile
-#
-
-export MCU_PLUS_SDK_PATH?=$(abspath ../..)
+include BuildConfigurationJ722S.mk
+include BuildConfigurations.mk
+export CFLAGS_LOCAL_COMMON
+export SRCS_COMMON
+export SRCDIR
+export INCDIR
+export DEFINES
+export MCU_PLUS_SDK_PATH?=$(abspath ../../../..)
 include $(MCU_PLUS_SDK_PATH)/imports.mak
 
 CG_TOOL_ROOT=$(CGT_TI_ARM_CLANG_PATH)
@@ -13,72 +16,37 @@ AR=$(CGT_TI_ARM_CLANG_PATH)/bin/tiarmar
 PROFILE?=release
 ConfigName:=$(PROFILE)
 
-LIBNAME:=drivers.j722s.mcu-r5f.ti-arm-clang.$(PROFILE).lib
+LIBNAME:=rm_pm_hal.j722s.wkup-r5f.ti-arm-clang.$(PROFILE).lib
 
-FILES_common := \
-    csl_sec_proxy.c \
-    csl_bcdma.c \
-    csl_intaggr.c \
-    csl_lcdma_ringacc.c \
-    csl_pktdma.c \
-    csl_dru.c \
-    gpio.c \
-    pinmux.c \
-    sciclient.c \
-    sciclient_pm.c \
-    sciclient_rm.c \
-    sciclient_rm_irq.c \
-    sciclient_procboot.c \
-    sciclient_firewall.c \
-    sciclient_irq_rm.c \
-    sciclient_fmwSecureProxyMap.c \
-    sciclient_soc_priv.c \
-    soc.c \
-    spinlock.c \
-    uart_v0.c \
-    uart_dma.c \
-    uart_dma_udma.c \
-    utils.c \
-
-FILES_PATH_common = \
-    gpio/v0 \
-    i2c/v0 \
-    ipc_notify/v0 \
-    ipc_notify/v0/soc/j722s \
-    ipc_rpmsg/ \
-    ospi \
-    ospi/v0 \
-    ospi/v0/dma \
-    ospi/v0/dma/udma \
-    mcan/v0 \
-    mcspi/v0 \
-    mcspi/v0/dma \
-    mcspi/v0/dma/udma \
-    mmcsd \
-    mmcsd/v0 \
-    pinmux/j722s \
-    sciclient \
-    sciclient/soc/j722s \
-    soc/j722s \
-    spinlock/v0 \
-    uart/v0 \
-    uart/v0/dma \
-    uart/v0/dma/udma \
-    hw_include/dru/v2 \
-    udma \
-    udma/hw_include \
-    udma/soc \
-    udma/soc/j722s \
-    utils \
-
-INCLUDES_common := \
+FILTER_FILES_ONLY = $(filter-out $(CFLAGS_LOCAL),$(CFLAGS_LOCAL_COMMON))
+CFLAGS_LOCAL_COMMONN = $(subst -I/,-I, $(FILTER_FILES_ONLY))
+CFLAGS_LOCAL_COMMON_NEW = $(subst rm_pm_hal/,rm_pm_hal_src/, $(CFLAGS_LOCAL_COMMONN))
+FILES_PATH_common = $(foreach var,$(SRCS_COMMON),$(addprefix rm_pm_hal_src/, $(subst $(lastword $(subst /, ,$(var))),,$(var))))
+Final_FILES_common = $(foreach var,$(SRCS_COMMON), $(lastword $(subst /, ,$(var))))
+DEFINES += -DSOC_J722S -DMCU_PLUS_SDK
+CFLAGS_LOCAL_COMMON_NEW += \
+    -I../priv/ \
+    -I../priv/trace/ \
+    -I../ \
+    -I../sciclient_direct/soc/j722s/ \
     -I${CG_TOOL_ROOT}/include/c \
     -I${MCU_PLUS_SDK_PATH}/source \
+    -Irm_pm_hal_src/soc/j722s \
+    -Irm_pm_hal_src/src/rm_pm_hal \
+    -Irm_pm_hal_src/src/ \
+    -Irm_pm_hal_src/src/priv/trace \
+    -Isource/drivers/device_manager/sciserver/ \
 
-DEFINES_common := \
-    -DSOC_J722S \
-    -DMCU_R5 \
-    -DSW_VERSION=$(SW_VERSION)
+FILES_common := $(Final_FILES_common)
+
+FILES_PATH_common += \
+    ../priv/osal/ \
+    ../priv/trace/ \
+    . \
+
+INCLUDES_common := $(CFLAGS_LOCAL_COMMON_NEW)
+
+DEFINES_common := $(DEFINES)
 
 CFLAGS_common := \
     -mcpu=cortex-r5 \
@@ -89,7 +57,6 @@ CFLAGS_common := \
     -Werror \
     -g \
     -Wno-gnu-variable-sized-type-not-at-end \
-    -Wno-unused-function \
 
 CFLAGS_cpp_common := \
     -Wno-c99-designator \
@@ -113,8 +80,6 @@ ARFLAGS_common := \
     rc \
 
 FILES := $(FILES_common) $(FILES_$(PROFILE))
-ASMFILES := $(ASMFILES_common) $(ASMFILES_$(PROFILE))
-ASMEXTNFILES := $(ASMEXTNFILES_common) $(ASMEXTNFILES_$(PROFILE))
 FILES_PATH := $(FILES_PATH_common) $(FILES_PATH_$(PROFILE))
 CFLAGS := $(CFLAGS_common) $(CFLAGS_$(PROFILE))
 ASMFLAGS := $(CFLAGS_common) $(CFLAGS_$(PROFILE))
@@ -126,16 +91,13 @@ INCLUDES := $(INCLUDES_common) $(INCLUDE_$(PROFILE))
 ARFLAGS := $(ARFLAGS_common) $(ARFLAGS_$(PROFILE))
 
 LIBDIR := lib
-OBJDIR := obj/j722s/ti-arm-clang/$(PROFILE)/mcu-r5f/drivers/
+OBJDIR := obj/j722s/ti-arm-clang/$(PROFILE)/wkup-r5f/rm_pm_hal/
 OBJS := $(FILES:%.c=%.obj)
-OBJS += $(ASMFILES:%.S=%.obj)
-OBJS += $(ASMEXTNFILES:%.asm=%.obj)
 DEPS := $(FILES:%.c=%.d)
 
 vpath %.obj $(OBJDIR)
 vpath %.c $(FILES_PATH)
 vpath %.S $(FILES_PATH)
-vpath %.asm $(FILES_PATH)
 
 $(OBJDIR)/%.obj %.obj: %.c
 	@echo  Compiling: $(LIBNAME): $<
@@ -144,10 +106,6 @@ $(OBJDIR)/%.obj %.obj: %.c
 $(OBJDIR)/%.obj %.obj: %.S
 	@echo  Compiling: $(LIBNAME): $<
 	$(CC) -c $(ASMFLAGS) -o $(OBJDIR)/$@ $<
-
-$(OBJDIR)/%.obj %.obj: %.asm
-	@echo  Compiling: $(LIBNAME): $<
-	$(CC) -c $(CFLAGS) -o $(OBJDIR)/$@ $<
 
 all: $(LIBDIR)/$(LIBNAME)
 
@@ -174,3 +132,4 @@ $(LIBDIR) $(OBJDIR):
 	$(MKDIR) $@
 
 -include $(addprefix $(OBJDIR)/, $(DEPS))
+

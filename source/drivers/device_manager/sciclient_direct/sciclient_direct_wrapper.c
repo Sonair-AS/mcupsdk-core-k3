@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2017-2024, Texas Instruments Incorporated
+ * Copyright (c) 2017-2025, Texas Instruments Incorporated
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -61,6 +61,9 @@
 #define SCICLIENT_SCECURE_PROXY_MESSAGE_SIZE            64U
 #elif defined(SOC_AM275X)
 #define SCICLIENT_COMMON_X509_HEADER_ADDR               (0x720ff1e0)
+#define SCICLIENT_SCECURE_PROXY_MESSAGE_SIZE            64U
+#elif defined(SOC_J722S)
+#define SCICLIENT_COMMON_X509_HEADER_ADDR               (0x43c7f1e0)
 #define SCICLIENT_SCECURE_PROXY_MESSAGE_SIZE            64U
 #endif
 

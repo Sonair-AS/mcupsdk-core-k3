@@ -2,7 +2,7 @@
 # Auto generated makefile
 #
 
-export MCU_PLUS_SDK_PATH?=$(abspath ../..)
+export MCU_PLUS_SDK_PATH?=$(abspath ../../../..)
 include $(MCU_PLUS_SDK_PATH)/imports.mak
 
 CG_TOOL_ROOT=$(CGT_TI_ARM_CLANG_PATH)
@@ -13,71 +13,43 @@ AR=$(CGT_TI_ARM_CLANG_PATH)/bin/tiarmar
 PROFILE?=release
 ConfigName:=$(PROFILE)
 
-LIBNAME:=drivers.j722s.mcu-r5f.ti-arm-clang.$(PROFILE).lib
+LIBNAME:=sciserver.j722s.wkup-r5f.ti-arm-clang.$(PROFILE).lib
 
 FILES_common := \
-    csl_sec_proxy.c \
-    csl_bcdma.c \
-    csl_intaggr.c \
-    csl_lcdma_ringacc.c \
-    csl_pktdma.c \
-    csl_dru.c \
-    gpio.c \
-    pinmux.c \
-    sciclient.c \
-    sciclient_pm.c \
-    sciclient_rm.c \
-    sciclient_rm_irq.c \
-    sciclient_procboot.c \
-    sciclient_firewall.c \
-    sciclient_irq_rm.c \
-    sciclient_fmwSecureProxyMap.c \
-    sciclient_soc_priv.c \
-    soc.c \
-    spinlock.c \
-    uart_v0.c \
-    uart_dma.c \
-    uart_dma_udma.c \
-    utils.c \
+    sciserver.c \
+    sciserver_secproxyTransfer.c \
+    sciserver_secproxyRoutingDescription.c \
+    sciserver_secproxyConfigData.c \
+    sciserver_dmTxRoutingData.c \
+    sciserver_tirtos.c \
+    sciserver_secproxySocData.c \
+    sciserver_init.c \
 
 FILES_PATH_common = \
-    gpio/v0 \
-    i2c/v0 \
-    ipc_notify/v0 \
-    ipc_notify/v0/soc/j722s \
-    ipc_rpmsg/ \
-    ospi \
-    ospi/v0 \
-    ospi/v0/dma \
-    ospi/v0/dma/udma \
-    mcan/v0 \
-    mcspi/v0 \
-    mcspi/v0/dma \
-    mcspi/v0/dma/udma \
-    mmcsd \
-    mmcsd/v0 \
-    pinmux/j722s \
-    sciclient \
-    sciclient/soc/j722s \
-    soc/j722s \
-    spinlock/v0 \
-    uart/v0 \
-    uart/v0/dma \
-    uart/v0/dma/udma \
-    hw_include/dru/v2 \
-    udma \
-    udma/hw_include \
-    udma/soc \
-    udma/soc/j722s \
-    utils \
+    j722s/ \
+    . \
 
 INCLUDES_common := \
     -I${CG_TOOL_ROOT}/include/c \
     -I${MCU_PLUS_SDK_PATH}/source \
+    -I. \
+    -Ij722s \
+    -I../rm_pm_hal/rm_pm_hal_src/include \
+    -I../rm_pm_hal/rm_pm_hal_src/common/fw_caps \
+    -I../rm_pm_hal/rm_pm_hal_src/pm \
+    -I../rm_pm_hal/rm_pm_hal_src/pm/include \
+    -I../rm_pm_hal/rm_pm_hal_src/rm \
+    -I../rm_pm_hal/rm_pm_hal_src/rm/include \
+    -I../rm_pm_hal/rm_pm_hal_src/include/soc/j722s \
 
 DEFINES_common := \
     -DSOC_J722S \
-    -DMCU_R5 \
+    -DMCU_PLUS_SDK \
+    -DBUILD_DM_R5 \
+    -DBUILD_MCU1_0 \
+    -DBUILD_MCU \
+    -DCONFIG_OSAL_MINIMAL_QUEUES \
+    -DMAKEFILE_BUILD \
     -DSW_VERSION=$(SW_VERSION)
 
 CFLAGS_common := \
@@ -89,7 +61,6 @@ CFLAGS_common := \
     -Werror \
     -g \
     -Wno-gnu-variable-sized-type-not-at-end \
-    -Wno-unused-function \
 
 CFLAGS_cpp_common := \
     -Wno-c99-designator \
@@ -126,7 +97,7 @@ INCLUDES := $(INCLUDES_common) $(INCLUDE_$(PROFILE))
 ARFLAGS := $(ARFLAGS_common) $(ARFLAGS_$(PROFILE))
 
 LIBDIR := lib
-OBJDIR := obj/j722s/ti-arm-clang/$(PROFILE)/mcu-r5f/drivers/
+OBJDIR := obj/j722s/ti-arm-clang/$(PROFILE)/wkup-r5f/sciserver/
 OBJS := $(FILES:%.c=%.obj)
 OBJS += $(ASMFILES:%.S=%.obj)
 OBJS += $(ASMEXTNFILES:%.asm=%.obj)
