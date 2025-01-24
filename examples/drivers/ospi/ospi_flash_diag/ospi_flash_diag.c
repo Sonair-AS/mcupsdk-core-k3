@@ -1,5 +1,5 @@
 /*
- *  Copyright (C) 2024 Texas Instruments Incorporated
+ *  Copyright (C) 2024-2025 Texas Instruments Incorporated
  *
  *  Redistribution and use in source and binary forms, with or without
  *  modification, are permitted provided that the following conditions
@@ -51,6 +51,7 @@
 #define APP_OSPI_FLASH_OFFSET  (512*1024U)
 
 #define APP_OSPI_DATA_SIZE (256)
+#define APP_OSPI_SFDP_BUFFER_SIZE (4096)
 
 /* ========================================================================== */
 /*                            Global Variables                                */
@@ -59,17 +60,11 @@
 uint8_t gOspiTxBuf[APP_OSPI_DATA_SIZE];
 /* read buffer MUST be cache line aligned when using DMA, we aligned to 128B though 32B is enough */
 uint8_t gOspiRxBuf[APP_OSPI_DATA_SIZE] __attribute__((aligned(128U)));
-
+uint8_t gOspiSccrBuf[APP_OSPI_SFDP_BUFFER_SIZE] __attribute__((aligned(128U)));
 NorSpi_SfdpHeader gSfdpHeader;
 NorSpi_SfdpParamHeader gParamHeaders[NOR_SPI_SFDP_NPH_MAX];
 NorSpi_SfdpParamHeader *gBfptHeader;
-
 NorSpi_SfdpBasicFlashParamTable gBfpt;
-NorSpi_SfdpSectorMapParamTable gSmpt;
-NorSpi_SfdpSCCRParamTable gSccr;
-NorSpi_SfdpProfile1ParamTable gXpt1;
-NorSpi_Sfdp4ByteAddressingParamTable g4bait;
-
 NorSpi_SfdpGenericDefines gNorSpiDevDefines;
 
 /* ========================================================================== */
@@ -293,29 +288,34 @@ static int32_t ospi_flashDiagPrintSfdp(OSPI_Handle handle)
             NorSpi_SfdpParamHeader *paramHeader = &gParamHeaders[i];
 
             uint32_t paramID = (uint32_t)((uint32_t)(paramHeader->paramIdMsb << 8U) | (uint32_t)(paramHeader->paramIdLsb));
+            status = OSPI_norFlashReadSfdp(handle, 0x0, (void *)&gOspiSccrBuf, APP_OSPI_SFDP_BUFFER_SIZE);
+            NorSpi_SfdpSCCRParamTable* gSccr;
+            NorSpi_SfdpSectorMapParamTable* gSmpt;
+            NorSpi_SfdpProfile1ParamTable *gXpt1;
+            NorSpi_Sfdp4ByteAddressingParamTable* g4bait;
 
             ptp = NorSpi_Sfdp_getPtp(paramHeader);
 
             switch(paramID)
             {
                 case NOR_SPI_SFDP_4BYTE_ADDR_INSTR_TABLE_ID:
-                    status = OSPI_norFlashReadSfdp(handle, ptp, (void *)&g4bait, paramHeader->paramTableLength * sizeof(uint32_t));
-                    status = NorSpi_Sfdp_parse4bait(&g4bait, &gNorSpiDevDefines, paramHeader->paramTableLength);
+                    g4bait = (NorSpi_Sfdp4ByteAddressingParamTable*)&gOspiSccrBuf[ptp];
+                    status = NorSpi_Sfdp_parse4bait(g4bait, &gNorSpiDevDefines, paramHeader->paramTableLength);
                     break;
 
                 case NOR_SPI_SFDP_SECTOR_MAP_TABLE_ID:
-                    status = OSPI_norFlashReadSfdp(handle, ptp, (void *)&gSmpt, paramHeader->paramTableLength * sizeof(uint32_t));
-                    status = NorSpi_Sfdp_parseSmpt(&gSmpt, &gNorSpiDevDefines, paramHeader->paramTableLength);
+                    gSmpt = (NorSpi_SfdpSectorMapParamTable*)&gOspiSccrBuf[ptp];
+                    status = NorSpi_Sfdp_parseSmpt(gSmpt, &gNorSpiDevDefines, paramHeader->paramTableLength);
                     break;
 
                 case NOR_SPI_SFDP_SCCR_TABLE_ID:
-                    status = OSPI_norFlashReadSfdp(handle, ptp, (void *)&gSccr, paramHeader->paramTableLength * sizeof(uint32_t));
-                    status = NorSpi_Sfdp_parseSccr(&gSccr, &gNorSpiDevDefines, paramHeader->paramTableLength);
+                    gSccr=(NorSpi_SfdpSCCRParamTable*)&gOspiSccrBuf[ptp];
+                    status = NorSpi_Sfdp_parseSccr(gSccr, &gNorSpiDevDefines, paramHeader->paramTableLength);
                     break;
 
                 case NOR_SPI_SFDP_PROFILE_TABLE_ID:
-                    status = OSPI_norFlashReadSfdp(handle, ptp, (void *)&gXpt1, paramHeader->paramTableLength * sizeof(uint32_t));
-                    status = NorSpi_Sfdp_parseXpt1(&gXpt1, &gNorSpiDevDefines, paramHeader->paramTableLength);
+                    gXpt1 = (NorSpi_SfdpProfile1ParamTable*)&gOspiSccrBuf[ptp];
+                    status = NorSpi_Sfdp_parseXpt1(gXpt1, &gNorSpiDevDefines, paramHeader->paramTableLength);
                     break;
 
                 default:
@@ -328,6 +328,7 @@ static int32_t ospi_flashDiagPrintSfdp(OSPI_Handle handle)
                     }
                     break;
             }
+
         }
 
         /* Print the final config */
