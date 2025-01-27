@@ -1,5 +1,5 @@
 /*
- *  Copyright (C) 2018-2024 Texas Instruments Incorporated
+ *  Copyright (C) 2018-2025 Texas Instruments Incorporated
  *
  *  Redistribution and use in source and binary forms, with or without
  *  modification, are permitted provided that the following conditions
@@ -82,10 +82,10 @@ void tx_application_define(void *first_unused_memory)
 {
     UINT status;
 
-    status = tx_thread_create(&main_thread,           /* Pointer to the main thread object. */ 
+    status = tx_thread_create(&main_thread,           /* Pointer to the main thread object. */
                               "main_thread",          /* Name of the task for debugging purposes. */
                               threadx_main,           /* Entry function for the main thread. */
-                              0,                      /* Arguments passed to the entry function. */  
+                              0,                      /* Arguments passed to the entry function. */
                               main_thread_stack,      /* Main thread stack. */
                               MAIN_TASK_STACK_SIZE,   /* Main thread stack size in bytes. */
                               MAIN_TASK_PRI,          /* Main task priority. */
