@@ -412,6 +412,7 @@ int32_t Sciclient_service (const Sciclient_ReqPrm_t *pReqPrm,
             case TISCI_MSG_LPM_GET_LATENCY_CONSTRAINT:
             case TISCI_MSG_LPM_GET_NEXT_SYS_MODE:
             case TISCI_MSG_LPM_GET_NEXT_HOST_STATE:
+            case TISCI_MSG_LPM_ABORT:
             case TISCI_MSG_SET_IO_ISOLATION:
                 memcpy(message, pReqPrm->pReqPayload, pReqPrm->reqPayloadSize);
                 /* Processing enter sleep message locally */
@@ -699,6 +700,8 @@ int32_t Sciclient_ProcessPmMessage(const uint32_t reqFlags, void *tx_msg)
             ret = dm_lpm_get_next_sys_mode((uint32_t*)tx_msg); break;
         case TISCI_MSG_LPM_GET_NEXT_HOST_STATE:
             ret = dm_lpm_get_next_host_state((uint32_t*)tx_msg); break;
+        case TISCI_MSG_LPM_ABORT:
+            ret = dm_lpm_abort((uint32_t*)tx_msg); break;
 #endif
         default:
             ret = CSL_EFAIL; msg_inval = 1U;

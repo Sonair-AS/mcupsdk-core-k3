@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2020-2024, Texas Instruments Incorporated
+ * Copyright (c) 2020-2025, Texas Instruments Incorporated
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -624,6 +624,10 @@ static int32_t Sciserver_UserProcessMsg(uint32_t *msg_recv,
         case TISCI_MSG_SET_IO_ISOLATION:
             reqMsgSize = sizeof(struct tisci_msg_set_io_isolation_req );
             respMsgSize = sizeof(struct tisci_msg_set_io_isolation_resp);
+            break;
+        case TISCI_MSG_LPM_ABORT:
+            reqMsgSize = sizeof(struct tisci_msg_lpm_abort_req);
+            respMsgSize = sizeof(struct tisci_msg_lpm_abort_resp);
             break;
 #endif
         default:
