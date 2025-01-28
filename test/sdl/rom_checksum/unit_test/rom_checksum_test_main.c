@@ -1,5 +1,5 @@
 /*
- *  Copyright (C) 2023-2024 Texas Instruments Incorporated
+ *  Copyright (C) 2023-2025 Texas Instruments Incorporated
  *
  *  Redistribution and use in source and binary forms, with or without
  *  modification, are permitted provided that the following conditions
@@ -61,6 +61,9 @@
 /* ========================================================================== */
 /*                          Function Declarations                             */
 /* ========================================================================== */
+
+void test_sdl_rom_checksum_test_app_runner(void);
+
 /* ========================================================================== */
 /*                            Global Variables                                */
 /* ========================================================================== */
@@ -171,12 +174,23 @@ void SDL_ROM_Checksum_test_app()
     }
 }
 
+void test_sdl_rom_checksum_test_app_runner(void)
+{
+#ifdef UNITY_INCLUDE_CONFIG_H
+    UNITY_BEGIN();
+    RUN_TEST(SDL_ROM_Checksum_test_app,0,NULL);
+    UNITY_END();
+#else
+    SDL_ROM_Checksum_test_app();
+#endif
+}
+
 int32_t rom_checksum_test_main(void)
 {
     /* Init Dpl */
     sdlApp_dplInit();
     DebugP_log("\nROM Checksum Example Application\r\n");
-    SDL_ROM_Checksum_test_app();
+    test_sdl_rom_checksum_test_app_runner();
 
     return 0;
 }
