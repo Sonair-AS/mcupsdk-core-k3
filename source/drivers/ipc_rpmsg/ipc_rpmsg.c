@@ -621,11 +621,14 @@ int32_t  RPMessage_waitForLinuxReady(uint32_t timeout)
             }
             if(status != SystemP_SUCCESS)
             {
-                elaspedTicks = ClockP_getTicks() - startTicks;
-                if( elaspedTicks >= timeout)
+                if (timeout != SystemP_WAIT_FOREVER)
                 {
-                    /* timeout, linux did not init the resource table in user specific timeout time */
-                    status = SystemP_TIMEOUT;
+                    elaspedTicks = ClockP_getTicks() - startTicks;
+                    if( elaspedTicks >= timeout)
+                    {
+                        /* timeout, linux did not init the resource table in user specific timeout time */
+                        status = SystemP_TIMEOUT;
+                    }
                 }
                 if(status != SystemP_TIMEOUT)
                 {
