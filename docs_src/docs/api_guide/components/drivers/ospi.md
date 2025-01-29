@@ -344,12 +344,13 @@ The OSPI NOR tuning algorithm works as follows:
 \n
 - **Step 12 Find the tuning point**
     - **Step1** Find the equation of diagonal between topRight(rxHigh,txHigh) and bottomLeft(rxLow,txLow) points.
-    - **Step2** Find gapLow, last point along the slope of bottom left read delay region.
-    - **Step3** If top right and bottom left have same read delay,  put tuning point in the middle and adjust for temperature.
-    - **Step4** If top right and bottom left have different read delays, find gapHigh, the starting point along the slope of top left read delay region.
-    - **Step5** Find len1 = gapLow - topLeft, len2 = topRight - gapHigh.
-    - **Step6** Choose the read Delay region with maximum length.
-    - **Step7** Place the Phy tuning point in the corner farthest from the gap.
+    - **Step2** Find gapLow, to find gapLow select a midpoint on the slope defined by the bottomLeft and topRight points, moving towards bottomLeft in case of read failure and in case of read success move towards top right.
+    - **Step3** If top right and bottomLeft have same read delay,  put tuning point in the middle and adjust for temperature.
+    - **Step4** If topRight and bottomLeft have different read delays, find gapHigh. To find gapHigh, select a midpoint on the slope defined by topleft and bottomRight, moving towards topRight point in case of read failure, in case of read success move towards bottomLeft.
+    - **Step5** Find len1 = gapLow - bottomLeft, len2 = topRight - gapHigh.
+    - **Step6** Find the tuning point,
+    If len2 > len1, tuningPoint.txDLL = topRight.txDLL - 16 , tuningPoint.rxDLL = topRight.rxDLL - 16 * slope
+    else tuningPoint.txDLL = bottomLeft.txDLL + 16, tuningPoint.rxDLL = bottomLeft.rxDLL - 16 * slope
 
 \endcond
 
