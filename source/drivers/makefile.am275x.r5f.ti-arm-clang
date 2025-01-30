@@ -16,6 +16,7 @@ ConfigName:=$(PROFILE)
 LIBNAME:=drivers.am275x.r5f.ti-arm-clang.$(PROFILE).lib
 
 FILES_common := \
+    adc.c \
     csl_bcdma.c \
     csl_dru.c \
     csl_intaggr.c \
@@ -78,6 +79,7 @@ FILES_common := \
     watchdog_soc.c \
 
 FILES_PATH_common = \
+    adc/v0 \
     gpio/v0 \
     gtc/v0 \
     gtc/v0/soc/am275x \

@@ -4,6 +4,7 @@ let device = "am275x";
 
 const files_r5f = {
     common: [
+        "adc.c",
         "csl_bcdma.c",
         "csl_dru.c",
         "csl_intaggr.c",
@@ -182,6 +183,7 @@ const files_c75 = {
 
 const filedirs_common = {
     common: [
+        "adc/v0",
         "gpio/v0",
         "gtc/v0",
         'gtc/v0/soc/am275x',

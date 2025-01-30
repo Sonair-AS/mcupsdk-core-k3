@@ -1,11 +1,10 @@
 
 let common = system.getScript("/common");
 
-/*
-Missing IPs:
-ADC
-*/
 const driverVer = {
+    "adc": {
+        version: "v0",
+    },
     "bootloader": {
         version: "v0",
     },
@@ -69,6 +68,7 @@ const topModules_wkup = [
 ];
 
 const topModules_main = [
+    "/drivers/adc/adc",
     "/drivers/gpio/gpio",
     "/drivers/gtc/gtc",
     "/drivers/i2c/i2c",
