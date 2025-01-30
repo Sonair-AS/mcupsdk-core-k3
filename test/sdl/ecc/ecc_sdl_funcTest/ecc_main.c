@@ -66,6 +66,7 @@
 #if defined (SOC_AM62DX)
 #include "soc/am62dx/ecc_func.h"
 #endif /* SOC_AM62DX */
+
 #if defined (SOC_AM275X)
 #include "soc/am275x/ecc_func.h"
 #endif /* SOC_AM275X */
@@ -314,6 +315,7 @@ int32_t SDL_ESM_applicationCallbackFunction(SDL_ESM_Inst esmInst,
         DebugP_log("\r\nLow Priority Interrupt Executed\r\n");
     }
 
+#if defined (SOC_AM62X) || defined (SOC_AM62AX) || defined(SOC_AM62DX) || defined (SOC_AM62PX)
 #if defined (SOC_AM62X) || defined (SOC_AM62AX) || defined(SOC_AM62DX)
     if (intSrc == CSI_ESM_FATAL_ERROR)
 #endif
@@ -353,6 +355,7 @@ int32_t SDL_ESM_applicationCallbackFunction(SDL_ESM_Inst esmInst,
     }
     else
     {
+#endif
         retVal = SDL_ECC_getESMErrorInfo(esmInst, intSrc, &eccmemtype, &eccIntrSrc);
 
         if (retVal == SDL_PASS)
@@ -361,9 +364,9 @@ int32_t SDL_ESM_applicationCallbackFunction(SDL_ESM_Inst esmInst,
             retVal = SDL_ECC_getErrorInfo(eccmemtype, eccIntrSrc, &eccErrorInfo);
 
             DebugP_log("\r\nECC Error Call back function called : eccMemType %d, errorSrc 0x%x, " \
-                       "ramId %d, bitErrorOffset 0x%04x%04x, bitErrorGroup %d\r\n",
-                       eccmemtype, eccIntrSrc, eccErrorInfo.memSubType, (uint32_t)(eccErrorInfo.bitErrorOffset >> 32),
-                       (uint32_t)(eccErrorInfo.bitErrorOffset & 0x00000000FFFFFFFF), eccErrorInfo.bitErrorGroup);
+                    "ramId %d, bitErrorOffset 0x%04x%04x, bitErrorGroup %d\r\n",
+                    eccmemtype, eccIntrSrc, eccErrorInfo.memSubType, (uint32_t)(eccErrorInfo.bitErrorOffset >> 32),
+                    (uint32_t)(eccErrorInfo.bitErrorOffset & 0x00000000FFFFFFFF), eccErrorInfo.bitErrorGroup);
 
             if (eccErrorInfo.injectBitErrCnt != 0)
             {
