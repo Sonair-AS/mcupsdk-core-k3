@@ -106,7 +106,7 @@ int32_t RPMessage_getEndPtMsg(RPMessage_Struct *obj, RPMessage_LocalMsg **pMsg, 
             }
             if((status == SystemP_SUCCESS) && ((obj->doRecvUnblock) != 0U))
             {
-                status = SystemP_FAILURE;
+                status = SystemP_TIMEOUT;
                 done = 1;
             }
         }
