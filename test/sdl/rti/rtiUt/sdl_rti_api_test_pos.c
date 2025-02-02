@@ -42,7 +42,7 @@ int32_t SDL_RTI_posTest(void)
     uint32_t      status, i, preload_rd, baseAddr, winSize;
     int32_t     testStatus = SDL_APP_TEST_PASS, sdlRet;
     SDL_RTI_configParms       pConfig;
-     #if defined (SOC_AM62X) || defined (SOC_AM62PX) || defined (SOC_AM62AX)
+     #if defined (SOC_AM62X) || defined (SOC_AM62PX) || defined (SOC_AM62AX) || defined (SOC_AM62DX)
     SDL_RTI_InstanceType   validInstance = SDL_INSTANCE_RTI0_CFG;
     #endif
     #if defined (SOC_AM275X)

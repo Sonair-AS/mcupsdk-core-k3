@@ -387,7 +387,7 @@ static void RTISetClockSource(uint32_t rtiModuleSelect,
 #if defined (SOC_AM275X)
         case SDL_WKUP_RTI0_CFG_BASE:
 #endif
-			#if defined (SOC_AM62AX) || defined (SOC_AM62PX) || defined (SOC_AM62X)
+			#if defined (SOC_AM62AX) || defined (SOC_AM62PX) || defined (SOC_AM62X) || defined (SOC_AM62DX)
 			baseAddr = (uint32_t)SDL_DPL_addrTranslate(SDL_MCU_CTRL_MMR_CFG0_MCU_RTI0_CLKSEL, SDL_WKUP_CTRL_MMR0_CFG0_SIZE);
             HW_WR_FIELD32(baseAddr,
                           SDL_MCU_CTRL_MMR_CFG0_MCU_RTI0_CLKSEL_CLK_SEL,

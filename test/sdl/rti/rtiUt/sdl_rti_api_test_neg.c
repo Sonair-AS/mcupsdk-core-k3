@@ -41,7 +41,7 @@ int32_t SDL_RTI_negTest()
     int32_t         testStatus = SDL_APP_TEST_PASS, sdlRet;
 
     SDL_RTI_staticRegs        pStaticRegs;
-    #if defined (SOC_AM62X) || defined (SOC_AM62PX) || defined (SOC_AM62AX)
+    #if defined (SOC_AM62X) || defined (SOC_AM62PX) || defined (SOC_AM62AX) || defined (SOC_AM62DX)
     SDL_RTI_InstanceType   validInstance = SDL_INSTANCE_RTI0_CFG;
     #endif
     #if defined (SOC_AM275X)
@@ -60,7 +60,7 @@ int32_t SDL_RTI_negTest()
 
 	if (testStatus == SDL_APP_TEST_PASS)
 	{
-        #if defined (SOC_AM62X) || defined (SOC_AM62PX) || defined (SOC_AM62AX)
+        #if defined (SOC_AM62X) || defined (SOC_AM62PX) || defined (SOC_AM62AX) || defined (SOC_AM62DX)
         sdlRet = SDL_RTI_getBaseaddr(SDL_INSTANCE_RTI0_CFG, NULL);
         #endif
         #if defined (SOC_AM275X)
@@ -384,7 +384,7 @@ int32_t SDL_RTI_negTest()
 *     Coverage test case for SDL_RTI_getWindowSize
 *******************************************************************************************/
 
-    #if defined (SOC_AM62X) || defined (SOC_AM62PX) || defined (SOC_AM62AX)
+    #if defined (SOC_AM62X) || defined (SOC_AM62PX) || defined (SOC_AM62AX) || defined (SOC_AM62DX)
     baseAddr = SDL_RTI_baseAddress[SDL_INSTANCE_MCU_RTI0_CFG];
     #endif
     #if defined (SOC_AM275X)
