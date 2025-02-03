@@ -49,6 +49,7 @@
             -Wno-unused-function
             -DSOC_AM275X
             -DENABLE_SCICLIENT_DIRECT
+            -DNO_DDR
         "
         linkerBuildOptions="
             -i${MCU_PLUS_SDK_PATH}/source/drivers/device_manager/rm_pm_hal/lib

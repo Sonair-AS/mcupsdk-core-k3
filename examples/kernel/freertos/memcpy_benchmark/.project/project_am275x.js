@@ -100,6 +100,13 @@ const lnkfiles = {
 const defines_wkup_r5 = {
     common: [
         "ENABLE_SCICLIENT_DIRECT",
+        "NO_DDR",
+    ],
+};
+
+const defines_r5 = {
+    common: [
+        "NO_DDR",
     ],
 };
 
@@ -186,6 +193,7 @@ function getComponentBuildProperty(buildOption) {
         build_property.templates = templates_r5f;
         build_property.libdirs = libdirs_r5f;
         build_property.libs = libs_r5f;
+        build_property.defines = defines_r5;
     }
 
     return build_property;
