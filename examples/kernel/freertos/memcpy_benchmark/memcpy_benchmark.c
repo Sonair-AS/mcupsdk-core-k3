@@ -171,7 +171,9 @@ void SlaveTaskFxnMsram7(void *args)  __attribute__((section(".task_msram7")));
 void SlaveTaskFxnMsram8(void *args)  __attribute__((section(".task_msram8")));
 void SlaveTaskFxnMsram9(void *args)  __attribute__((section(".task_msram9")));
 static uint8_t slaveTaskStackMsram[NUM_TASK_MSRAM][TASK_STACK_SIZE]__attribute__((section(".buffMsramRegion")));
+#if defined(NO_DDR)
 static uint8_t MainApp_TaskStack[TASK_STACK_SIZE] __attribute__((section(".buffMsramRegion")));
+#endif
 #endif
 
 #if !defined (NO_DDR)
