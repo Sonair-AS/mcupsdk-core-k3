@@ -291,6 +291,8 @@ This page lists all the examples related to usage of SOC and board peripheral dr
 \endcond
 
 \cond SOC_AM275X
+-# ADC
+   -# \subpage EXAMPLES_DRIVERS_ADC_SINGLESHOT
 -# EEPROM
    -# \subpage EXAMPLES_DRIVERS_EEPROM_READ_WRITE
 -# GPIO

@@ -193,6 +193,7 @@ It consists of below sub-modules
 \endcond
 
 \cond SOC_AM275X
+- \subpage DRIVERS_ADC_PAGE
 - \subpage DRIVERS_BOOTLOADER_PAGE
 - \subpage DRIVERS_DEVICE_MANAGER_PAGE
 - \subpage DRIVERS_GPIO_PAGE
