@@ -90,6 +90,7 @@ const topModules_mcu = [
     "/drivers/ipc/ipc",
     "/drivers/mcan/mcan",
     "/drivers/mcspi/mcspi",
+    "/drivers/ospi/ospi",
     "/drivers/rtc/rtc",
     "/drivers/uart/uart",
     "/drivers/udma/udma",

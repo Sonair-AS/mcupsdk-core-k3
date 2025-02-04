@@ -37,6 +37,11 @@ FILES_common := \
     mcspi_v0.c \
     mcspi_dma.c \
     mcspi_dma_udma.c \
+    ospi_dma.c \
+    ospi_dma_udma.c \
+    ospi_nor_flash.c \
+    ospi_phy.c \
+    ospi_v0.c \
     pinmux.c \
     rtc.c \
     rtc_soc.c \
@@ -66,6 +71,7 @@ FILES_common := \
     udma_rmcfg.c \
     udma_soc.c \
     utils.c \
+    vtm.c \
     watchdog_rti.c \
     watchdog_soc.c \
 
@@ -87,6 +93,10 @@ FILES_PATH_common = \
     mcspi/v0/dma \
     mcspi/v0/dma/udma \
     mcan/v0 \
+    ospi \
+    ospi/v0 \
+    ospi/v0/dma \
+    ospi/v0/dma/udma \
     pinmux/am62dx \
     rtc \
     rtc/v0 \

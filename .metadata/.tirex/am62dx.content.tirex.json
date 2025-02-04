@@ -4464,6 +4464,39 @@
         "resourceSubClass": [
             "example.general"
         ],
+        "description": "A Ospi Flash Io Example. CPU is MCU-R5FSS0-0 running FREERTOS.",
+        "name": "ospi_flash_io",
+        "location": "../../examples/drivers/ospi/ospi_flash_io/am62dx-evm/mcu-r5fss0-0_freertos/ti-arm-clang/example.projectspec",
+        "devtools": [
+            "AUDIO-AM62D-EVM"
+        ],
+        "kernel": [
+            "freertos"
+        ],
+        "compiler": [
+            "ticlang"
+        ],
+        "subCategories": [
+            "drivers",
+            "ospi",
+            "ospi_flash_io",
+            "mcu-r5fss0-0_freertos"
+        ],
+        "mainCategories": [
+            [
+                "Examples",
+                "Development Tools"
+            ]
+        ]
+    },
+    {
+        "resourceType": "project.ccs",
+        "resourceClass": [
+            "example"
+        ],
+        "resourceSubClass": [
+            "example.general"
+        ],
         "description": "A Sciclient Get Version example. CPU is MCU-R5FSS0-0 running NORTOS.",
         "name": "sciclient_get_version",
         "location": "../../examples/drivers/sciclient/sciclient_get_version/am62dx-evm/mcu-r5fss0-0_nortos/ti-arm-clang/example.projectspec",
