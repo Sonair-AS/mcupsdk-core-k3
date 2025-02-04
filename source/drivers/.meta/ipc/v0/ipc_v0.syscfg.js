@@ -78,6 +78,7 @@ function getConfigurables()
 
         if(common.getSocName().match(/am62x/) ||
            common.getSocName().match(/am62ax/)||
+           common.getSocName().match(/am62dx/)||
            common.getSocName().match(/am62px/) ||
            common.getSocName().match(/am275x/) )
            {
@@ -121,6 +122,7 @@ function getConfigurables()
 
         if(common.getSocName().match(/am62x/) ||
         common.getSocName().match(/am62ax/)||
+        common.getSocName().match(/am62dx/)||
         common.getSocName().match(/am62px/) ||
         common.getSocName().match(/am275x/) )
         {
