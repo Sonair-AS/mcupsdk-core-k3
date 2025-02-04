@@ -1067,7 +1067,7 @@ void test_rpmsgErrorChecks(void *args)
     /* unblock test, post unblock and then waitforever, it should return with a timeout status */
     RPMessage_unblock(&gNullRpmsgObj);
     status = RPMessage_recv(&gNullRpmsgObj, &msgObj, &msgSize, &remoteCoreId, &remoteEndPt, SystemP_WAIT_FOREVER);
-    TEST_ASSERT_EQUAL_INT32(SystemP_FAILURE, status);
+    TEST_ASSERT_EQUAL_INT32(SystemP_TIMEOUT, status);
 
     /*De-init properly initilaized RPMsg Object*/
     RPMessage_deInit();
