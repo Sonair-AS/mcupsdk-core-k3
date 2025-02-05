@@ -22,6 +22,9 @@ BUILD_COMBO_EXAMPLE_PROJECTSPEC_BUILD_ALL += nnet_test_am62x-sk-lp_a53ss0-0_free
 BUILD_COMBO_EXAMPLE_PROJECTSPEC_BUILD_ALL += parser-125k_am62x-sk_a53ss0-0_freertos_gcc-aarch64_build
 BUILD_COMBO_EXAMPLE_PROJECTSPEC_BUILD_ALL += parser-125k_am62x-sip-sk_a53ss0-0_freertos_gcc-aarch64_build
 BUILD_COMBO_EXAMPLE_PROJECTSPEC_BUILD_ALL += parser-125k_am62x-sk-lp_a53ss0-0_freertos_gcc-aarch64_build
+BUILD_COMBO_EXAMPLE_PROJECTSPEC_BUILD_ALL += radix2-big-64k_am62x-sk_a53ss0-0_freertos_gcc-aarch64_build
+BUILD_COMBO_EXAMPLE_PROJECTSPEC_BUILD_ALL += radix2-big-64k_am62x-sip-sk_a53ss0-0_freertos_gcc-aarch64_build
+BUILD_COMBO_EXAMPLE_PROJECTSPEC_BUILD_ALL += radix2-big-64k_am62x-sk-lp_a53ss0-0_freertos_gcc-aarch64_build
 BUILD_COMBO_EXAMPLE_PROJECTSPEC_BUILD_ALL += dhrystone_benchmarking_am62x-sk_a53ss0-0_freertos_gcc-aarch64_build
 BUILD_COMBO_EXAMPLE_PROJECTSPEC_BUILD_ALL += dhrystone_benchmarking_am62x-sip-sk_a53ss0-0_freertos_gcc-aarch64_build
 BUILD_COMBO_EXAMPLE_PROJECTSPEC_BUILD_ALL += dhrystone_benchmarking_am62x-sk-lp_a53ss0-0_freertos_gcc-aarch64_build
@@ -619,6 +622,15 @@ all-private: $(BUILD_COMBO_EXAMPLE_PROJECTSPEC_BUILD_PRIVATE_ALL)
 
  parser-125k_am62x-sk-lp_a53ss0-0_freertos_gcc-aarch64_build:
 	$(MAKE) -C examples/benchmarks/coremark_pro_benchmark/parser-125k/am62x-sk-lp/a53ss0-0_freertos/gcc-aarch64 -f makefile_projectspec all
+
+ radix2-big-64k_am62x-sk_a53ss0-0_freertos_gcc-aarch64_build:
+	$(MAKE) -C examples/benchmarks/coremark_pro_benchmark/radix2-big-64k/am62x-sk/a53ss0-0_freertos/gcc-aarch64 -f makefile_projectspec all
+
+ radix2-big-64k_am62x-sip-sk_a53ss0-0_freertos_gcc-aarch64_build:
+	$(MAKE) -C examples/benchmarks/coremark_pro_benchmark/radix2-big-64k/am62x-sip-sk/a53ss0-0_freertos/gcc-aarch64 -f makefile_projectspec all
+
+ radix2-big-64k_am62x-sk-lp_a53ss0-0_freertos_gcc-aarch64_build:
+	$(MAKE) -C examples/benchmarks/coremark_pro_benchmark/radix2-big-64k/am62x-sk-lp/a53ss0-0_freertos/gcc-aarch64 -f makefile_projectspec all
 
  dhrystone_benchmarking_am62x-sk_a53ss0-0_freertos_gcc-aarch64_build:
 	$(MAKE) -C examples/benchmarks/dhrystone_benchmark/am62x-sk/a53ss0-0_freertos/gcc-aarch64 -f makefile_projectspec all
@@ -2244,6 +2256,9 @@ BUILD_COMBO_EXAMPLE_PROJECTSPEC_CLEAN_ALL += nnet_test_am62x-sk-lp_a53ss0-0_free
 BUILD_COMBO_EXAMPLE_PROJECTSPEC_CLEAN_ALL += parser-125k_am62x-sk_a53ss0-0_freertos_gcc-aarch64_clean
 BUILD_COMBO_EXAMPLE_PROJECTSPEC_CLEAN_ALL += parser-125k_am62x-sip-sk_a53ss0-0_freertos_gcc-aarch64_clean
 BUILD_COMBO_EXAMPLE_PROJECTSPEC_CLEAN_ALL += parser-125k_am62x-sk-lp_a53ss0-0_freertos_gcc-aarch64_clean
+BUILD_COMBO_EXAMPLE_PROJECTSPEC_CLEAN_ALL += radix2-big-64k_am62x-sk_a53ss0-0_freertos_gcc-aarch64_clean
+BUILD_COMBO_EXAMPLE_PROJECTSPEC_CLEAN_ALL += radix2-big-64k_am62x-sip-sk_a53ss0-0_freertos_gcc-aarch64_clean
+BUILD_COMBO_EXAMPLE_PROJECTSPEC_CLEAN_ALL += radix2-big-64k_am62x-sk-lp_a53ss0-0_freertos_gcc-aarch64_clean
 BUILD_COMBO_EXAMPLE_PROJECTSPEC_CLEAN_ALL += dhrystone_benchmarking_am62x-sk_a53ss0-0_freertos_gcc-aarch64_clean
 BUILD_COMBO_EXAMPLE_PROJECTSPEC_CLEAN_ALL += dhrystone_benchmarking_am62x-sip-sk_a53ss0-0_freertos_gcc-aarch64_clean
 BUILD_COMBO_EXAMPLE_PROJECTSPEC_CLEAN_ALL += dhrystone_benchmarking_am62x-sk-lp_a53ss0-0_freertos_gcc-aarch64_clean
@@ -2841,6 +2856,15 @@ clean-private: $(BUILD_COMBO_EXAMPLE_PROJECTSPEC_CLEAN_PRIVATE_ALL)
 
  parser-125k_am62x-sk-lp_a53ss0-0_freertos_gcc-aarch64_clean:
 	$(MAKE) -C examples/benchmarks/coremark_pro_benchmark/parser-125k/am62x-sk-lp/a53ss0-0_freertos/gcc-aarch64 -f makefile_projectspec clean
+
+ radix2-big-64k_am62x-sk_a53ss0-0_freertos_gcc-aarch64_clean:
+	$(MAKE) -C examples/benchmarks/coremark_pro_benchmark/radix2-big-64k/am62x-sk/a53ss0-0_freertos/gcc-aarch64 -f makefile_projectspec clean
+
+ radix2-big-64k_am62x-sip-sk_a53ss0-0_freertos_gcc-aarch64_clean:
+	$(MAKE) -C examples/benchmarks/coremark_pro_benchmark/radix2-big-64k/am62x-sip-sk/a53ss0-0_freertos/gcc-aarch64 -f makefile_projectspec clean
+
+ radix2-big-64k_am62x-sk-lp_a53ss0-0_freertos_gcc-aarch64_clean:
+	$(MAKE) -C examples/benchmarks/coremark_pro_benchmark/radix2-big-64k/am62x-sk-lp/a53ss0-0_freertos/gcc-aarch64 -f makefile_projectspec clean
 
  dhrystone_benchmarking_am62x-sk_a53ss0-0_freertos_gcc-aarch64_clean:
 	$(MAKE) -C examples/benchmarks/dhrystone_benchmark/am62x-sk/a53ss0-0_freertos/gcc-aarch64 -f makefile_projectspec clean
@@ -4466,6 +4490,9 @@ BUILD_COMBO_EXAMPLE_PROJECTSPEC_EXPORT_ALL += nnet_test_am62x-sk-lp_a53ss0-0_fre
 BUILD_COMBO_EXAMPLE_PROJECTSPEC_EXPORT_ALL += parser-125k_am62x-sk_a53ss0-0_freertos_gcc-aarch64_export
 BUILD_COMBO_EXAMPLE_PROJECTSPEC_EXPORT_ALL += parser-125k_am62x-sip-sk_a53ss0-0_freertos_gcc-aarch64_export
 BUILD_COMBO_EXAMPLE_PROJECTSPEC_EXPORT_ALL += parser-125k_am62x-sk-lp_a53ss0-0_freertos_gcc-aarch64_export
+BUILD_COMBO_EXAMPLE_PROJECTSPEC_EXPORT_ALL += radix2-big-64k_am62x-sk_a53ss0-0_freertos_gcc-aarch64_export
+BUILD_COMBO_EXAMPLE_PROJECTSPEC_EXPORT_ALL += radix2-big-64k_am62x-sip-sk_a53ss0-0_freertos_gcc-aarch64_export
+BUILD_COMBO_EXAMPLE_PROJECTSPEC_EXPORT_ALL += radix2-big-64k_am62x-sk-lp_a53ss0-0_freertos_gcc-aarch64_export
 BUILD_COMBO_EXAMPLE_PROJECTSPEC_EXPORT_ALL += dhrystone_benchmarking_am62x-sk_a53ss0-0_freertos_gcc-aarch64_export
 BUILD_COMBO_EXAMPLE_PROJECTSPEC_EXPORT_ALL += dhrystone_benchmarking_am62x-sip-sk_a53ss0-0_freertos_gcc-aarch64_export
 BUILD_COMBO_EXAMPLE_PROJECTSPEC_EXPORT_ALL += dhrystone_benchmarking_am62x-sk-lp_a53ss0-0_freertos_gcc-aarch64_export
@@ -5063,6 +5090,15 @@ export-private: $(BUILD_COMBO_EXAMPLE_PROJECTSPEC_EXPORT_PRIVATE_ALL)
 
  parser-125k_am62x-sk-lp_a53ss0-0_freertos_gcc-aarch64_export:
 	$(MAKE) -C examples/benchmarks/coremark_pro_benchmark/parser-125k/am62x-sk-lp/a53ss0-0_freertos/gcc-aarch64 -f makefile_projectspec export
+
+ radix2-big-64k_am62x-sk_a53ss0-0_freertos_gcc-aarch64_export:
+	$(MAKE) -C examples/benchmarks/coremark_pro_benchmark/radix2-big-64k/am62x-sk/a53ss0-0_freertos/gcc-aarch64 -f makefile_projectspec export
+
+ radix2-big-64k_am62x-sip-sk_a53ss0-0_freertos_gcc-aarch64_export:
+	$(MAKE) -C examples/benchmarks/coremark_pro_benchmark/radix2-big-64k/am62x-sip-sk/a53ss0-0_freertos/gcc-aarch64 -f makefile_projectspec export
+
+ radix2-big-64k_am62x-sk-lp_a53ss0-0_freertos_gcc-aarch64_export:
+	$(MAKE) -C examples/benchmarks/coremark_pro_benchmark/radix2-big-64k/am62x-sk-lp/a53ss0-0_freertos/gcc-aarch64 -f makefile_projectspec export
 
  dhrystone_benchmarking_am62x-sk_a53ss0-0_freertos_gcc-aarch64_export:
 	$(MAKE) -C examples/benchmarks/dhrystone_benchmark/am62x-sk/a53ss0-0_freertos/gcc-aarch64 -f makefile_projectspec export
@@ -6704,6 +6740,9 @@ help:
 	@echo  $(MAKE) -s -C examples/benchmarks/coremark_pro_benchmark/parser-125k/am62x-sk/a53ss0-0_freertos/gcc-aarch64 -f makefile_projectspec [export all clean]
 	@echo  $(MAKE) -s -C examples/benchmarks/coremark_pro_benchmark/parser-125k/am62x-sip-sk/a53ss0-0_freertos/gcc-aarch64 -f makefile_projectspec [export all clean]
 	@echo  $(MAKE) -s -C examples/benchmarks/coremark_pro_benchmark/parser-125k/am62x-sk-lp/a53ss0-0_freertos/gcc-aarch64 -f makefile_projectspec [export all clean]
+	@echo  $(MAKE) -s -C examples/benchmarks/coremark_pro_benchmark/radix2-big-64k/am62x-sk/a53ss0-0_freertos/gcc-aarch64 -f makefile_projectspec [export all clean]
+	@echo  $(MAKE) -s -C examples/benchmarks/coremark_pro_benchmark/radix2-big-64k/am62x-sip-sk/a53ss0-0_freertos/gcc-aarch64 -f makefile_projectspec [export all clean]
+	@echo  $(MAKE) -s -C examples/benchmarks/coremark_pro_benchmark/radix2-big-64k/am62x-sk-lp/a53ss0-0_freertos/gcc-aarch64 -f makefile_projectspec [export all clean]
 	@echo  $(MAKE) -s -C examples/benchmarks/dhrystone_benchmark/am62x-sk/a53ss0-0_freertos/gcc-aarch64 -f makefile_projectspec [export all clean]
 	@echo  $(MAKE) -s -C examples/benchmarks/dhrystone_benchmark/am62x-sip-sk/a53ss0-0_freertos/gcc-aarch64 -f makefile_projectspec [export all clean]
 	@echo  $(MAKE) -s -C examples/benchmarks/dhrystone_benchmark/am62x-sk-lp/a53ss0-0_freertos/gcc-aarch64 -f makefile_projectspec [export all clean]
