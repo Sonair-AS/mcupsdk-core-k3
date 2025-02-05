@@ -44,7 +44,7 @@
  *
  *  \par
  *  ============================================================================
- *  @n   (C) Copyright 2023, Texas Instruments, Inc.
+ *  @n   (C) Copyright 2023-25, Texas Instruments, Inc.
  *
  *  Redistribution and use in source and binary forms, with or without
  *  modification, are permitted provided that the following conditions
@@ -113,7 +113,7 @@ static void SDL_vtmPrepLookupTable(void)
     {
         for ( i = 0; i < SDL_VTM_NUM_OF_ADC_CODES; i++)
         {
-            derived_array[i] = gSDL_pvt_poly[i];
+            derived_array[i] = gSDL_pvt_poly_golden[i];
         }
     }
 
