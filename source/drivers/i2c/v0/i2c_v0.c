@@ -560,7 +560,7 @@ int32_t I2C_transfer(I2C_Handle handle,
             }
             else
             {
-                retVal = transaction->status;
+                transaction->status = retVal;
                 if(retVal == I2C_STS_SUCCESS)
                 {
                     retVal = SystemP_SUCCESS;
