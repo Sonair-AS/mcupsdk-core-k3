@@ -7,6 +7,108 @@
         "resourceSubClass": [
             "example.gettingstarted"
         ],
+        "description": "Coremark_pro_benchmark CPU is A53SS0-0 running FREERTOS.",
+        "name": "cjpeg-rose7-preset",
+        "location": "../../examples/benchmarks/coremark_pro_benchmark/cjpeg-rose7-preset/am62x-sk/a53ss0-0_freertos/gcc-aarch64/example.projectspec",
+        "devtools": [
+            "SK-AM62B",
+            "SK-AM62B-P1"
+        ],
+        "kernel": [
+            "freertos"
+        ],
+        "compiler": [
+            "gcc"
+        ],
+        "subCategories": [
+            "benchmarks",
+            "coremark_pro_benchmark",
+            "cjpeg-rose7-preset",
+            "a53ss0-0_freertos"
+        ],
+        "mainCategories": [
+            [
+                "Examples",
+                "Development Tools"
+            ]
+        ]
+    },
+    {
+        "resourceType": "project.ccs",
+        "resourceClass": [
+            "example"
+        ],
+        "resourceSubClass": [
+            "example.gettingstarted"
+        ],
+        "description": "Coremark_pro_benchmark CPU is A53SS0-0 running FREERTOS.",
+        "name": "cjpeg-rose7-preset",
+        "location": "../../examples/benchmarks/coremark_pro_benchmark/cjpeg-rose7-preset/am62x-sip-sk/a53ss0-0_freertos/gcc-aarch64/example.projectspec",
+        "devtools": [
+            "SK-AM62B",
+            "SK-AM62B-P1"
+        ],
+        "kernel": [
+            "freertos"
+        ],
+        "compiler": [
+            "gcc"
+        ],
+        "subCategories": [
+            "benchmarks",
+            "coremark_pro_benchmark",
+            "cjpeg-rose7-preset",
+            "a53ss0-0_freertos"
+        ],
+        "mainCategories": [
+            [
+                "Examples",
+                "Development Tools"
+            ]
+        ]
+    },
+    {
+        "resourceType": "project.ccs",
+        "resourceClass": [
+            "example"
+        ],
+        "resourceSubClass": [
+            "example.gettingstarted"
+        ],
+        "description": "Coremark_pro_benchmark CPU is A53SS0-0 running FREERTOS.",
+        "name": "cjpeg-rose7-preset",
+        "location": "../../examples/benchmarks/coremark_pro_benchmark/cjpeg-rose7-preset/am62x-sk-lp/a53ss0-0_freertos/gcc-aarch64/example.projectspec",
+        "devtools": [
+            "SK-AM62B",
+            "SK-AM62B-P1"
+        ],
+        "kernel": [
+            "freertos"
+        ],
+        "compiler": [
+            "gcc"
+        ],
+        "subCategories": [
+            "benchmarks",
+            "coremark_pro_benchmark",
+            "cjpeg-rose7-preset",
+            "a53ss0-0_freertos"
+        ],
+        "mainCategories": [
+            [
+                "Examples",
+                "Development Tools"
+            ]
+        ]
+    },
+    {
+        "resourceType": "project.ccs",
+        "resourceClass": [
+            "example"
+        ],
+        "resourceSubClass": [
+            "example.gettingstarted"
+        ],
         "description": "Dhrystone benchmark CPU is A53SS0-0 running FREERTOS.",
         "name": "dhrystone_benchmarking",
         "location": "../../examples/benchmarks/dhrystone_benchmark/am62x-sk/a53ss0-0_freertos/gcc-aarch64/example.projectspec",
