@@ -167,7 +167,7 @@ const uart_config_r5 = [
 
 const uart_config_c75 = [
     {
-        name            : "WKUP_UART0",
+        name            : "WKUP_UART",
         baseAddr        : "CSL_WKUP_UART0_BASE",
         inputClkFreq    : uart_input_clk_freq,
         intrNum         : 22,
