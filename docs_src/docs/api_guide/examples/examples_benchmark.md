@@ -3,6 +3,7 @@
 This page lists all the examples related to benchmarks of SOC and board peripheral drivers.
 
 \cond  SOC_AM62X
+   -# \subpage EXAMPLES_COREMARK_PRO
    -# \subpage EXAMPLES_DHRYSTONE
    -# \subpage EXAMPLES_INTERRUPT_LATENCY
 \endcond

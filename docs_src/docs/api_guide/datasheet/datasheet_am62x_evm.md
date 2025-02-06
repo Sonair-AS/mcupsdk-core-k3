@@ -108,6 +108,25 @@ Benchmarks                      | am62x-sk      | am62x-sk-lp   | am62x-sip-sk  
 cpu_clock (MHz)                 |   1400        |  1400         |  1400          |
 interrupt latency (ns)          |   620         |  622          |  628           |
 
+### AM62X Coremark Pro Benchmark performance
+
+Workload computed for **Single core**
+
+Core : **a530-0**
+
+Benchmark (worloads)             |  am62xx_lp_sk-fs  |    am62xx_sk-fs    |   am62xxsip_sk-fs    |
+---------------------------------|-------------------|--------------------|----------------------|
+cjpeg-rose7-preset               | 40.40             | 40.40              | 40.40                |
+core                             | 0.28              | 0.28               | 0.28                 |
+linear_alg-mid-100x100-sp        | 16.30             | 16.30              | 16.30                |
+loops-all-mid-10k-sp             | 0.71              | 0.72               | 0.72                 |
+nnet_test                        | 1.87              | 1.87               | 1.87                 |
+parser-125k                      | 5.75              | 5.76               | 5.75                 |
+radix2-big-64k                   | 77.54             | 78.47              | 78.11                |
+sha-test                         | 81.72             | 81.75              | 81.74                |
+zip-test                         | 27.13             | 27.27              | 27.23                |
+Coremark-pro()(overall score)    | 982.68            | 984.90             | 984.03               |
+
 ### AM62X-SK SBL OSPI performance (HS-FS)
 
 - Software/Application used        : sbl_ospi_linux_multistage, ipc_rpmsg_echo_linux, linux and HSM App Images
