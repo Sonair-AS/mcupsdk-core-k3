@@ -285,6 +285,11 @@ const defines_mcu_r5 = {
     ],
 };
 
+const cflags_wkup_r5f = {
+    debug: [
+        "-Og",
+    ]
+}
 const buildOptionCombos = [
     { device: device, cpu: "mcu-r5f", cgt: "ti-arm-clang"},
     { device: device, cpu: "wkup-r5f", cgt: "ti-arm-clang"},
@@ -309,6 +314,7 @@ function getComponentBuildProperty(buildOption) {
         build_property.files = files_wkup_r5f;
         build_property.defines = defines_wkup_r5;
         build_property.filedirs = filedirs_wkup_r5f;
+        build_property.cflags = cflags_wkup_r5f;
     }else if(buildOption.cpu.match(/mcu-r5f*/)) {
         build_property.files = files_mcu_r5f;
         build_property.defines = defines_mcu_r5;

@@ -55,7 +55,7 @@ SECTIONS
 MEMORY
 {
     HSM_RAM_VECS: ORIGIN = 0x43C00000 , LENGTH = 0x100
-    HSM_RAM  : ORIGIN = 0x43C00100 , LENGTH = 0x3c800 - 0x100
+    HSM_RAM  : ORIGIN = 0x43C00100 , LENGTH = 0x40000
 
     /* This section is used by the SBL to temporarily load the appimage for authentication */
     APPIMAGE  : ORIGIN = 0x84000000 , LENGTH = 0x800000

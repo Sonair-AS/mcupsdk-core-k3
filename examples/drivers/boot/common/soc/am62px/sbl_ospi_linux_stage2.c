@@ -269,6 +269,8 @@ void App_bootMultipleCoreFlash()
 
     if(SystemP_SUCCESS == status)
     {
+        Bootloader_openDma();
+
         Bootloader_LoadImageParams bootArray[CONFIG_BOOTLOADER_NUM_INSTANCES];
 
         for(uint8_t inst = 0; inst < CONFIG_BOOTLOADER_NUM_INSTANCES; inst++)
@@ -282,6 +284,8 @@ void App_bootMultipleCoreFlash()
 		    	App_loadAndRunImages(&bootArray[inst]);
             }
         }
+
+        Bootloader_closeDma();
     }
 }
 

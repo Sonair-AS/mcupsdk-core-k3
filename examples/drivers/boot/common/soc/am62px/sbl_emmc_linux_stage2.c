@@ -233,6 +233,8 @@ void App_bootMultipleCoreEMMC()
     Bootloader_ReservedMemInit(BOOTLOADER_SECOND_STAGE_RESERVED_MEMORY_START, \
                                 BOOTLOADER_SECOND_STAGE_RESERVED_MEMORY_LENGTH);
 
+    Bootloader_openDma();
+
     Bootloader_LoadImageParams bootArray[CONFIG_BOOTLOADER_NUM_INSTANCES];
 
     for(uint8_t inst = 0; inst < CONFIG_BOOTLOADER_NUM_INSTANCES; inst++)
@@ -247,6 +249,7 @@ void App_bootMultipleCoreEMMC()
         }
     }
 
+    Bootloader_closeDma();
 }
 
 void sbl_stage2_main(void * args)
