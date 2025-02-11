@@ -32,6 +32,13 @@ function getConfig(){
                 else {
                     ui.appImageBaseAddress.hidden = true;
                 }
+                if(inst.bootMedia == "SD") {
+                    ui.appImageBaseAddress.hidden = false;
+                    inst.bootloaderDma = false;
+                }
+                else {
+                    ui.appImageBaseAddress.hidden = true;
+                }
                 /* EMMCAppImageOffset applicable only for EMMC boot */
                 if(inst.bootMedia == "EMMC") {
                     ui.EMMCAppImageOffset.hidden = false;

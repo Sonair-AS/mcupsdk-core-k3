@@ -1,6 +1,7 @@
 %%{
     let common = system.getScript("/common");
     let module = system.modules['/drivers/bootloader/bootloader'];
+    let soc = common.getSocName();
 
     let isFlashBoot = false;
     let isMMCSDBoot = false;
@@ -73,6 +74,8 @@ MMCSD_Config gMmcsdConfig[CONFIG_MMCSD_NUM_INSTANCES] = {};
 Bootloader_MmcsdArgs gBootloader`i`Args =
         % } else if(instance.bootMedia == "BUFIO") {
 Bootloader_BufIoArgs gBootloader`i`Args =
+        % } else if((instance.bootMedia == "SD") && soc != "am275x") {
+Bootloader_MemArgs gBootloader`i`Args =
         % } else {
 Bootloader_`common.camelSentence(instance.bootMedia)`Args gBootloader`i`Args =
         % }
@@ -99,7 +102,7 @@ Bootloader_`common.camelSentence(instance.bootMedia)`Args gBootloader`i`Args =
             % }
         % }
     % }
-    % else if(instance.bootMedia == "MEM") {
+    % else if(instance.bootMedia == "MEM" || instance.bootMedia == "SD" && soc != "am275x") {
     .curOffset        = 0,
     .appImageBaseAddr = `instance.appImageBaseAddress`,
     % }
@@ -115,7 +118,7 @@ Bootloader_`common.camelSentence(instance.bootMedia)`Args gBootloader`i`Args =
     .drvIdx         = 0,
     .tempBuf        = 0,
     % }
-    % else if (instance.bootMedia == "SD") {
+    % else if ((instance.bootMedia == "SD") && (soc == "am275x")) {
     .filePtr = NULL,
     %}
     % else if (instance.bootMedia == "UART") {
@@ -174,6 +177,7 @@ void* operatingMode = NULL;
 % }
 % }
 
+% if(dmaEnable == true) {
 % let dmaRestrictRegions = module.getDmaRestrictedRegions();
 
 /* Regions restricted for DMA. We should use CPU memcpy in these cases */
@@ -206,7 +210,6 @@ static uint8_t gBootloaderUdmaBlkCpyCh0RingMem[BOOTLOADER_UDMA_BLK_COPY_CH_RING_
 /* BOOTLOADER UDMA Blockcopy Channel TRPD Mem */
 static uint8_t gBootloaderUdmaBlkCpyCh0TrpdMem[BOOTLOADER_UDMA_BLK_COPY_CH_TRPD_MEM_SIZE] __attribute__((aligned(UDMA_CACHELINE_ALIGNMENT)));
 
-% if(dmaEnable == true) {
 BootloaderDma_UdmaArgs gBootloaderUdmaArgs =
 {
     .drvHandle     = &gUdmaDrvObj[CONFIG_UDMA0],
@@ -251,11 +254,17 @@ Bootloader_Config gBootloaderConfig[CONFIG_BOOTLOADER_NUM_INSTANCES] =
         &gBootloaderMmcsdFxns,
     % } else if(module.$instances[i].bootMedia == "BUFIO") {
         &gBootloaderBufIoFxns,
+    % } else if(module.$instances[i].bootMedia == "SD" && soc != "am275x") {
+        &gBootloaderMemFxns,
     % } else {
         &gBootloader`common.camelSentence(instance.bootMedia)`Fxns,
     % }
         &gBootloader`i`Args,
+    % if(module.$instances[i].bootMedia == "SD" && soc != "am275x") {
+        BOOTLOADER_MEDIA_MEM,
+    % } else {
         BOOTLOADER_MEDIA_`instance.bootMedia`,
+    % }
         0,
         0,
         NULL,

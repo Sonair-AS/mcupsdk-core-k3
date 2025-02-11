@@ -348,6 +348,12 @@ const defines_r5 = {
     ],
 };
 
+const cflags_dm_r5 = {
+    debug: [
+        "-Og",
+    ]
+}
+
 const filedirs_a53 =  {
     common: [
         "ecap/v0",
@@ -421,6 +427,7 @@ function getComponentBuildProperty(buildOption) {
     if(buildOption.cpu.match(/dm-r5f*/)) {
         build_property.files = files_r5f;
         build_property.defines = defines_dm_r5;
+        build_property.cflags = cflags_dm_r5;
     }else if(buildOption.cpu.match(/r5f*/)) {
         build_property.files = files_mcu_r5f;
         build_property.defines = defines_r5;

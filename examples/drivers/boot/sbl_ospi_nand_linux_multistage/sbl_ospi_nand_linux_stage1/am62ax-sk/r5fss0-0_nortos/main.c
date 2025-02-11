@@ -268,6 +268,8 @@ int main()
 
     if(SystemP_SUCCESS == status)
     {
+        Bootloader_openDma();
+
         Bootloader_LoadImageParams bootArray[CONFIG_BOOTLOADER_NUM_INSTANCES];
         uint32_t imageSize = 0;
 
@@ -318,6 +320,8 @@ int main()
         {
             status = SystemP_FAILURE;
         }
+
+        Bootloader_closeDma();
     }
 
     if(status != SystemP_SUCCESS )

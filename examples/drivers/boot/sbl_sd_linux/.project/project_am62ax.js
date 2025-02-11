@@ -95,7 +95,7 @@ function getComponentProperty() {
     property.buildOptionCombos = buildOptionCombos;
     property.description = "A SBL SD example."
     property.isFileBuf = true;
-    
+
     return property;
 }
 
