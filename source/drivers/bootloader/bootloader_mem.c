@@ -69,9 +69,9 @@ static int32_t Mem_imgRead(void *dst, uint32_t len, void *args)
 {
     Bootloader_MemArgs *memArgs = (Bootloader_MemArgs *)args;
 
-    if(memArgs->enableDmaTransfer == TRUE)
+    if((memArgs->enableDmaTransfer == TRUE) && (memArgs->isDmaOpen == TRUE))
     {
-        Bootloader_dmaCopy((BootloaderDma_UdmaArgs*) memArgs->bootloaderDma_UdmaArgs, dst, (void *)(memArgs->appImageBaseAddr + memArgs->curOffset), len);
+        Bootloader_dmaCopy((BootloaderDma_UdmaArgs*) memArgs->bootloaderDmaUdmaArgs, dst, (void *)(memArgs->appImageBaseAddr + memArgs->curOffset), len);
     }
     else
     {

@@ -217,76 +217,83 @@ int32_t Bootloader_dmaOpen(void* udmaDmaArgs)
     trpdMem     = (uint8_t *) udmaArgs->trpdMem;
     trpdMemSize = udmaArgs->trpdMemSize;
 
-    /* Init channel parameters */
-    chType = BOOTLOADER_DMA_CHANNEL_TYPE;
-    UdmaChPrms_init(&chPrms, chType);
-    chPrms.fqRingPrms.ringMem       = udmaArgs->ringMem;
-    chPrms.fqRingPrms.ringMemSize   = udmaArgs->ringMemSize;
-    chPrms.fqRingPrms.elemCnt       = udmaArgs->ringElemCount;
+    if((drvHandle != NULL) && (chHandle != NULL))
+    {
+        /* Init channel parameters */
+        chType = BOOTLOADER_DMA_CHANNEL_TYPE;;
+        UdmaChPrms_init(&chPrms, chType);
+        chPrms.fqRingPrms.ringMem       = udmaArgs->ringMem;
+        chPrms.fqRingPrms.ringMemSize   = udmaArgs->ringMemSize;
+        chPrms.fqRingPrms.elemCnt       = udmaArgs->ringElemCount;
 
-    /* Open channel for block copy */
-    status = Udma_chOpen(drvHandle, chHandle, chType, &chPrms);
-    DebugP_assert(UDMA_SOK == status);
+        /* Open channel for block copy */
+        status = Udma_chOpen(drvHandle, chHandle, chType, &chPrms);
+        DebugP_assert(UDMA_SOK == status);
 
-    /* Config TX channel */
-    UdmaChTxPrms_init(&txPrms, chType);
-    status = Udma_chConfigTx(chHandle, &txPrms);
-    DebugP_assert(UDMA_SOK == status);
+        /* Config TX channel */
+        UdmaChTxPrms_init(&txPrms, chType);
+        status = Udma_chConfigTx(chHandle, &txPrms);
+        DebugP_assert(UDMA_SOK == status);
 
-    /* Config RX channel - which is implicitly paired to TX channel in
-     * block copy mode */
-    UdmaChRxPrms_init(&rxPrms, chType);
-    status = Udma_chConfigRx(chHandle, &rxPrms);
-    DebugP_assert(UDMA_SOK == status);
+        /* Config RX channel - which is implicitly paired to TX channel in
+         * block copy mode */
+        UdmaChRxPrms_init(&rxPrms, chType);
+        status = Udma_chConfigRx(chHandle, &rxPrms);
+        DebugP_assert(UDMA_SOK == status);
 
-    /* Enable channel */
-    status = Udma_chEnable(chHandle);
-    DebugP_assert(UDMA_SOK == status);
+        /* Enable channel */
+        status = Udma_chEnable(chHandle);
+        DebugP_assert(UDMA_SOK == status);
 
-    /* Check if TRPD memory was allocated, assert if NULL */
-    DebugP_assert(trpdMem != NULL);
+        /* Check if TRPD memory was allocated, assert if NULL */
+        DebugP_assert(trpdMem != NULL);
 
-    /* Do TRPD Init with NULL src dst and 0 length. Fill this later in dmaCopy */
-    CSL_UdmapTR15  *pTr;
-    uint32_t        cqRingNum = Udma_chGetCqRingNum(chHandle);
+        /* Do TRPD Init with NULL src dst and 0 length. Fill this later in dmaCopy */
+        CSL_UdmapTR15  *pTr;
+        uint32_t        cqRingNum = Udma_chGetCqRingNum(chHandle);
 
-    /* Make TRPD with TR15 TR type */
-    UdmaUtils_makeTrpdTr15(trpdMem, 1U, cqRingNum);
+        /* Make TRPD with TR15 TR type */
+        UdmaUtils_makeTrpdTr15(trpdMem, 1U, cqRingNum);
 
-    /* Setup TR */
-    pTr = UdmaUtils_getTrpdTr15Pointer(trpdMem, 0U);
-    pTr->flags    = CSL_FMK(UDMAP_TR_FLAGS_TYPE, CSL_UDMAP_TR_FLAGS_TYPE_4D_BLOCK_MOVE_REPACKING_INDIRECTION);
-    pTr->flags   |= CSL_FMK(UDMAP_TR_FLAGS_STATIC, 0U);
-    pTr->flags   |= CSL_FMK(UDMAP_TR_FLAGS_EOL, CSL_UDMAP_TR_FLAGS_EOL_MATCH_SOL_EOL);
-    pTr->flags   |= CSL_FMK(UDMAP_TR_FLAGS_EVENT_SIZE, CSL_UDMAP_TR_FLAGS_EVENT_SIZE_COMPLETION);
-    pTr->flags   |= CSL_FMK(UDMAP_TR_FLAGS_TRIGGER0, CSL_UDMAP_TR_FLAGS_TRIGGER_NONE);
-    pTr->flags   |= CSL_FMK(UDMAP_TR_FLAGS_TRIGGER0_TYPE, CSL_UDMAP_TR_FLAGS_TRIGGER_TYPE_ALL);
-    pTr->flags   |= CSL_FMK(UDMAP_TR_FLAGS_TRIGGER1, CSL_UDMAP_TR_FLAGS_TRIGGER_NONE);
-    pTr->flags   |= CSL_FMK(UDMAP_TR_FLAGS_TRIGGER1_TYPE, CSL_UDMAP_TR_FLAGS_TRIGGER_TYPE_ALL);
-    pTr->flags   |= CSL_FMK(UDMAP_TR_FLAGS_CMD_ID, 0x25U);  /* This will come back in TR response */
-    pTr->flags   |= CSL_FMK(UDMAP_TR_FLAGS_SA_INDIRECT, 0U);
-    pTr->flags   |= CSL_FMK(UDMAP_TR_FLAGS_DA_INDIRECT, 0U);
-    pTr->flags   |= CSL_FMK(UDMAP_TR_FLAGS_EOP, 1U);
-    pTr->icnt0    = 0U;
-    pTr->icnt1    = 1U;
-    pTr->icnt2    = 1U;
-    pTr->icnt3    = 1U;
-    pTr->dim1     = pTr->icnt0;
-    pTr->dim2     = (pTr->icnt0 * pTr->icnt1);
-    pTr->dim3     = (pTr->icnt0 * pTr->icnt1 * pTr->icnt2);
-    pTr->addr     = 0U;
-    pTr->fmtflags = 0x00000000U;    /* Linear addressing, 1 byte per elem */
-    pTr->dicnt0   = 0U;
-    pTr->dicnt1   = 1U;
-    pTr->dicnt2   = 1U;
-    pTr->dicnt3   = 1U;
-    pTr->ddim1    = pTr->dicnt0;
-    pTr->ddim2    = (pTr->dicnt0 * pTr->dicnt1);
-    pTr->ddim3    = (pTr->dicnt0 * pTr->dicnt1 * pTr->dicnt2);
-    pTr->daddr    = 0U;
+        /* Setup TR */
+        pTr = UdmaUtils_getTrpdTr15Pointer(trpdMem, 0U);
+        pTr->flags    = CSL_FMK(UDMAP_TR_FLAGS_TYPE, CSL_UDMAP_TR_FLAGS_TYPE_4D_BLOCK_MOVE_REPACKING_INDIRECTION);
+        pTr->flags   |= CSL_FMK(UDMAP_TR_FLAGS_STATIC, 0U);
+        pTr->flags   |= CSL_FMK(UDMAP_TR_FLAGS_EOL, CSL_UDMAP_TR_FLAGS_EOL_MATCH_SOL_EOL);
+        pTr->flags   |= CSL_FMK(UDMAP_TR_FLAGS_EVENT_SIZE, CSL_UDMAP_TR_FLAGS_EVENT_SIZE_COMPLETION);
+        pTr->flags   |= CSL_FMK(UDMAP_TR_FLAGS_TRIGGER0, CSL_UDMAP_TR_FLAGS_TRIGGER_NONE);
+        pTr->flags   |= CSL_FMK(UDMAP_TR_FLAGS_TRIGGER0_TYPE, CSL_UDMAP_TR_FLAGS_TRIGGER_TYPE_ALL);
+        pTr->flags   |= CSL_FMK(UDMAP_TR_FLAGS_TRIGGER1, CSL_UDMAP_TR_FLAGS_TRIGGER_NONE);
+        pTr->flags   |= CSL_FMK(UDMAP_TR_FLAGS_TRIGGER1_TYPE, CSL_UDMAP_TR_FLAGS_TRIGGER_TYPE_ALL);
+        pTr->flags   |= CSL_FMK(UDMAP_TR_FLAGS_CMD_ID, 0x25U);  /* This will come back in TR response */
+        pTr->flags   |= CSL_FMK(UDMAP_TR_FLAGS_SA_INDIRECT, 0U);
+        pTr->flags   |= CSL_FMK(UDMAP_TR_FLAGS_DA_INDIRECT, 0U);
+        pTr->flags   |= CSL_FMK(UDMAP_TR_FLAGS_EOP, 1U);
+        pTr->icnt0    = 0U;
+        pTr->icnt1    = 1U;
+        pTr->icnt2    = 1U;
+        pTr->icnt3    = 1U;
+        pTr->dim1     = pTr->icnt0;
+        pTr->dim2     = (pTr->icnt0 * pTr->icnt1);
+        pTr->dim3     = (pTr->icnt0 * pTr->icnt1 * pTr->icnt2);
+        pTr->addr     = 0U;
+        pTr->fmtflags = 0x00000000U;    /* Linear addressing, 1 byte per elem */
+        pTr->dicnt0   = 0U;
+        pTr->dicnt1   = 1U;
+        pTr->dicnt2   = 1U;
+        pTr->dicnt3   = 1U;
+        pTr->ddim1    = pTr->dicnt0;
+        pTr->ddim2    = (pTr->dicnt0 * pTr->dicnt1);
+        pTr->ddim3    = (pTr->dicnt0 * pTr->dicnt1 * pTr->dicnt2);
+        pTr->daddr    = 0U;
 
-    /* Perform cache writeback */
-    CacheP_wb(trpdMem, trpdMemSize, CacheP_TYPE_ALLD);
+        /* Perform cache writeback */
+        CacheP_wb(trpdMem, trpdMemSize, CacheP_TYPE_ALLD);
+    }
+    else
+    {
+        status = SystemP_FAILURE;
+    }
 
     return status;
 }
@@ -298,25 +305,33 @@ int32_t Bootloader_dmaClose(void* udmaDmaArgs)
     BootloaderDma_UdmaArgs* udmaArgs = (BootloaderDma_UdmaArgs *)udmaDmaArgs;
     Udma_ChHandle chHandle = udmaArgs->chHandle;
 
-    /* Disable Channel */
-    status = Udma_chDisable(chHandle, UDMA_DEFAULT_CH_DISABLE_TIMEOUT);
-    DebugP_assert(UDMA_SOK == status);
-
-    /* Flush any pending request from the free queue */
-    while(1)
+    if(chHandle != NULL)
     {
-        uint64_t        pDesc;
-        int32_t tempRetVal = Udma_ringFlushRaw(
-                         Udma_chGetFqRingHandle(chHandle), &pDesc);
-        if(UDMA_ETIMEOUT == tempRetVal)
-        {
-            break;
-        }
-    }
+        /* Disable Channel */
+        status = Udma_chDisable(chHandle, UDMA_DEFAULT_CH_DISABLE_TIMEOUT);
+        DebugP_assert(UDMA_SOK == status);
 
-    /* Close channel */
-    status = Udma_chClose(chHandle);
-    DebugP_assert(UDMA_SOK == status);
+        /* Flush any pending request from the free queue */
+        while(1)
+        {
+            uint64_t        pDesc;
+            int32_t tempRetVal = Udma_ringFlushRaw(
+                             Udma_chGetFqRingHandle(chHandle), &pDesc);
+            if(UDMA_ETIMEOUT == tempRetVal)
+            {
+                break;
+            }
+        }
+
+        /* Close channel */
+        status = Udma_chClose(chHandle);
+        DebugP_assert(UDMA_SOK == status);
+
+    }
+    else
+    {
+        status = SystemP_FAILURE;
+    }
 
     return status;
 

@@ -159,17 +159,6 @@ Bootloader_socCoreOpModeConfig operatingMode=
 void* operatingMode = NULL;
 %}
 
-%%{
-    let dmaTransfer = `FALSE`;
-    for(let i = 0; i < module.$instances.length; i++) {
-        if(module.$instances[i].bootloaderDma == true)
-        {
-            dmaTransfer = `TRUE`;
-            break;
-        }
-    }
-%%}
-
 % let dmaEnable = false;
 /* Bootloader DMA attributes */
 #include <drivers/udma.h>
@@ -179,6 +168,12 @@ void* operatingMode = NULL;
 % if(module.$instances[i].bootloaderDma == true)
 % {
     % dmaEnable = true;
+    % break;
+% } else {
+    % dmaEnable = false;
+% }
+% }
+
 % let dmaRestrictRegions = module.getDmaRestrictedRegions();
 
 /* Regions restricted for DMA. We should use CPU memcpy in these cases */
@@ -211,6 +206,7 @@ static uint8_t gBootloaderUdmaBlkCpyCh0RingMem[BOOTLOADER_UDMA_BLK_COPY_CH_RING_
 /* BOOTLOADER UDMA Blockcopy Channel TRPD Mem */
 static uint8_t gBootloaderUdmaBlkCpyCh0TrpdMem[BOOTLOADER_UDMA_BLK_COPY_CH_TRPD_MEM_SIZE] __attribute__((aligned(UDMA_CACHELINE_ALIGNMENT)));
 
+% if(dmaEnable == true) {
 BootloaderDma_UdmaArgs gBootloaderUdmaArgs =
 {
     .drvHandle     = &gUdmaDrvObj[CONFIG_UDMA0],
@@ -220,14 +216,8 @@ BootloaderDma_UdmaArgs gBootloaderUdmaArgs =
     .ringMem       = &gBootloaderUdmaBlkCpyCh0RingMem,
     .ringMemSize   = BOOTLOADER_UDMA_BLK_COPY_CH_RING_MEM_SIZE,
     .ringElemCount = BOOTLOADER_UDMA_BLK_COPY_CH_RING_ELEM_CNT,
-    .restrictedRegions = &gDmaRestrictRegions,
-};
-
-% break;
-% }
-% }
-% if(dmaEnable == false)
-% {
+    .restrictedRegions = &gDmaRestrictRegions,};
+% } else {
 BootloaderDma_UdmaArgs gBootloaderUdmaArgs =
 {
     .drvHandle     = NULL,
@@ -247,7 +237,8 @@ Bootloader_MemArgs gMemBootloaderArgs =
     .curOffset = 0,
     .appImageBaseAddr = 0,
     .enableDmaTransfer = `dmaEnable`,
-    .bootloaderDma_UdmaArgs = &gBootloaderUdmaArgs,
+    .bootloaderDmaUdmaArgs = &gBootloaderUdmaArgs,
+    .isDmaOpen = FALSE,
 };
 
 /* Bootloader driver configuration */

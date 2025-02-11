@@ -48,7 +48,8 @@ typedef struct Bootloader_MemArgs_s
     uint32_t curOffset;
     uint32_t appImageBaseAddr;
     uint32_t enableDmaTransfer;
-    BootloaderDma_UdmaArgs* bootloaderDma_UdmaArgs;
+    BootloaderDma_UdmaArgs* bootloaderDmaUdmaArgs;
+    uint32_t isDmaOpen;
 } Bootloader_MemArgs;
 
 extern Bootloader_Fxns gBootloaderMemFxns;

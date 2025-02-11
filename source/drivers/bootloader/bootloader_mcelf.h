@@ -484,6 +484,15 @@ int32_t Bootloader_parseAndLoadMultiCoreELF(Bootloader_Handle handle, Bootloader
  */
 int32_t Bootloader_UartParseAndLoadMultiCoreELF(Bootloader_Handle handle, Bootloader_BootImageInfo *bootImageInfo);
 
+/**
+ *  \brief API to open DMA channel
+ */
+void Bootloader_openDma();
+
+/**
+ *  \brief API to close DMA channel
+ */
+void Bootloader_closeDma();
 /** @} */
 
 #ifdef __cplusplus

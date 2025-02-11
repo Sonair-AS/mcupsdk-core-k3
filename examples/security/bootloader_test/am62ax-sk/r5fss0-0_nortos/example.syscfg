@@ -55,11 +55,13 @@ const udma                                           = scripting.addModule("/dri
 const udma1                                          = udma.addInstance({}, false);
 udma1.$name                                          = "CONFIG_UDMA0";
 flash1.serialFlashDriver.peripheralDriver.udmaDriver = udma1;
+bootloader1.udmaDriver                               = udma1;
 
 const udma_blkcopy_channel                                   = scripting.addModule("/drivers/udma/udma_blkcopy_channel", {}, false);
 const udma_blkcopy_channel1                                  = udma_blkcopy_channel.addInstance({}, false);
 udma_blkcopy_channel1.$name                                  = "CONFIG_UDMA_BLKCOPY_CH0";
 flash1.serialFlashDriver.peripheralDriver.udmaBlkCopyChannel = udma_blkcopy_channel1;
+bootloader1.udmaBlkCopyChannel                               = udma_blkcopy_channel1;
 
 debug_log.enableUartLog                      = true;
 debug_log.enableCssLog                       = false;

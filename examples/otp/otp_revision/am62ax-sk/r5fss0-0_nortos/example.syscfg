@@ -1,8 +1,9 @@
 /**
  * These arguments were used when this file was generated. They will be automatically applied on subsequent loads
  * via the GUI or CLI. Run CLI with '--help' for additional information on how to override these arguments.
- * @cliArgs --device "AM62Ax" --package "AMB" --part "Default" --context "r5fss0-0" --product "MCU_PLUS_SDK@07.03.01"
- * @versions {"tool":"1.18.0+3266"}
+ * @cliArgs --device "AM62Ax" --part "Default" --package "AMB" --context "r5fss0-0" --product "MCU_PLUS_SDK@07.03.01"
+ * @v2CliArgs --device "AM62A7-Q1" --package "FCBGA (AMB)" --variant "AM62A74-M" --context "r5fss0-0" --product "MCU_PLUS_SDK@07.03.01"
+ * @versions {"tool":"1.22.0+3893"}
  */
 
 /**
@@ -31,11 +32,22 @@ bootloader1.bootMedia = "MEM";
 
 i2c1.$name                      = "CONFIG_I2C0";
 i2c1.useWakeupDomainPeripherals = false;
+i2c1.I2C_child.$name            = "drivers_i2c_v0_i2c_v0_template0";
 i2c1.I2C.$assign                = "I2C1";
 
 uart1.$name                      = "CONFIG_UART1";
 uart1.useWakeupDomainPeripherals = false;
 uart1.UART.$assign               = "USART1";
+
+const udma             = scripting.addModule("/drivers/udma/udma", {}, false);
+const udma1            = udma.addInstance({}, false);
+udma1.$name            = "CONFIG_UDMA0";
+bootloader1.udmaDriver = udma1;
+
+const udma_blkcopy_channel     = scripting.addModule("/drivers/udma/udma_blkcopy_channel", {}, false);
+const udma_blkcopy_channel1    = udma_blkcopy_channel.addInstance({}, false);
+udma_blkcopy_channel1.$name    = "CONFIG_UDMA_BLKCOPY_CH0";
+bootloader1.udmaBlkCopyChannel = udma_blkcopy_channel1;
 
 debug_log.enableCssLog         = false;
 debug_log.enableUartLog        = true;

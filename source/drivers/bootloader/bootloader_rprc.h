@@ -540,6 +540,16 @@ void Bootloader_powerOffCpu(Bootloader_Handle handle, Bootloader_CpuInfo *cpuInf
  * \return SystemP_SUCCESS on success, else failure
  */
 int32_t Bootloader_parseAppImage(Bootloader_Handle handle, Bootloader_BootImageInfo *bootImageInfo);
+
+/**
+ *  \brief API to open DMA channel
+ */
+void Bootloader_openDma();
+
+/**
+ *  \brief API to close DMA channel
+ */
+void Bootloader_closeDma();
 /** @} */
 
 #ifdef __cplusplus

@@ -1,8 +1,9 @@
 /**
  * These arguments were used when this file was generated. They will be automatically applied on subsequent loads
  * via the GUI or CLI. Run CLI with '--help' for additional information on how to override these arguments.
- * @cliArgs --device "AM62x" --package "AMC" --part "Default" --context "r5fss0-0" --product "MCU_PLUS_SDK@07.03.01"
- * @versions {"tool":"1.18.0+3266"}
+ * @cliArgs --device "AM62x" --part "Default" --package "AMC" --context "r5fss0-0" --product "MCU_PLUS_SDK@07.03.01"
+ * @v2CliArgs --device "AM625-Q1" --package "FCBGA (AMC)" --variant "AM6254-G" --context "r5fss0-0" --product "MCU_PLUS_SDK@07.03.01"
+ * @versions {"tool":"1.22.0+3893"}
  */
 
 /**
@@ -42,11 +43,17 @@ const udma                                             = scripting.addModule("/d
 const udma1                                            = udma.addInstance({}, false);
 udma1.$name                                            = "CONFIG_UDMA0";
 flash1.parallelFlashDriver.peripheralDriver.udmaDriver = udma1;
+bootloader3.udmaDriver                                 = udma1;
+bootloader2.udmaDriver                                 = udma1;
+bootloader1.udmaDriver                                 = udma1;
 
 const udma_blkcopy_channel                                     = scripting.addModule("/drivers/udma/udma_blkcopy_channel", {}, false);
 const udma_blkcopy_channel1                                    = udma_blkcopy_channel.addInstance({}, false);
 udma_blkcopy_channel1.$name                                    = "CONFIG_UDMA_BLKCOPY_CH0";
 flash1.parallelFlashDriver.peripheralDriver.udmaBlkCopyChannel = udma_blkcopy_channel1;
+bootloader3.udmaBlkCopyChannel                                 = udma_blkcopy_channel1;
+bootloader2.udmaBlkCopyChannel                                 = udma_blkcopy_channel1;
+bootloader1.udmaBlkCopyChannel                                 = udma_blkcopy_channel1;
 
 clock.instance = "TIMER1";
 

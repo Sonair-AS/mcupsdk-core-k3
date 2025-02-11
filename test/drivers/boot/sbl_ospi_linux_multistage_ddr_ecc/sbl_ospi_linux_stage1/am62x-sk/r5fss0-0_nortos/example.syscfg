@@ -65,12 +65,14 @@ const udma                                           = scripting.addModule("/dri
 const udma1                                          = udma.addInstance({}, false);
 udma1.$name                                          = "CONFIG_UDMA0";
 bootloader1.udmaDriver                               = udma1;
+bootloader2.udmaDriver                               = udma1;
 flash1.serialFlashDriver.peripheralDriver.udmaDriver = udma1;
 
 const udma_blkcopy_channel                                   = scripting.addModule("/drivers/udma/udma_blkcopy_channel", {}, false);
 const udma_blkcopy_channel1                                  = udma_blkcopy_channel.addInstance({}, false);
 udma_blkcopy_channel1.$name                                  = "CONFIG_UDMA_BLKCOPY_CH0";
 bootloader1.udmaBlkCopyChannel                               = udma_blkcopy_channel1;
+bootloader2.udmaBlkCopyChannel                               = udma_blkcopy_channel1;
 flash1.serialFlashDriver.peripheralDriver.udmaBlkCopyChannel = udma_blkcopy_channel1;
 
 qos1.$name = "CONFIG_QOS0";

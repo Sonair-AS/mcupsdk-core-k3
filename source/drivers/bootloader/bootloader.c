@@ -49,6 +49,7 @@
 #include <drivers/bootloader/bootloader_mmcsd_raw.h>
 #endif
 #include <drivers/bootloader/soc/bootloader_soc.h>
+#include <drivers/bootloader/bootloader_dma.h>
 #include <drivers/bootloader/bootloader_priv.h>
 #include <string.h>
 
@@ -64,6 +65,7 @@
 
 extern Bootloader_Config gBootloaderConfig[];
 extern uint32_t gBootloaderConfigNum;
+extern Bootloader_Config gMemBootloaderConfig;
 
 /* ========================================================================== */
 /*                          Function Declarations                             */
@@ -334,4 +336,46 @@ void Bootloader_powerOffCpu(Bootloader_Handle handle, Bootloader_CpuInfo *cpuInf
 void Bootloader_ReservedMemInit(uint32_t startAddress, uint32_t regionlength)
 {
     return Bootloader_socSetSBLMem(startAddress, regionlength);
+}
+
+void Bootloader_closeDma(void)
+{
+    int32_t status = SystemP_SUCCESS;
+    Bootloader_MemArgs *memArgs = (Bootloader_MemArgs *)gMemBootloaderConfig.args;
+
+    if((gMemBootloaderConfig.enableDma == TRUE) && (memArgs != NULL))
+    {
+        memArgs->isDmaOpen = FALSE;
+        status = Bootloader_dmaClose(memArgs->bootloaderDmaUdmaArgs);
+
+        if(SystemP_FAILURE == status)
+        {
+            DebugP_log("Failed to exit Bootloader DMA gracefully\r\n");
+        }
+    }
+
+    return;
+}
+
+void Bootloader_openDma(void)
+{
+    int32_t status = SystemP_SUCCESS;
+    Bootloader_MemArgs *memArgs = (Bootloader_MemArgs *)gMemBootloaderConfig.args;
+
+   if((gMemBootloaderConfig.enableDma == TRUE) && (memArgs != NULL))
+    {
+        status = Bootloader_dmaOpen(memArgs->bootloaderDmaUdmaArgs);
+
+        if(status == SystemP_FAILURE)
+        {
+           Bootloader_closeDma();
+           DebugP_log("Failed to open Bootloader DMA\r\n");
+        }
+        else
+        {
+            memArgs->isDmaOpen = TRUE;
+        }
+    }
+
+    return;
 }

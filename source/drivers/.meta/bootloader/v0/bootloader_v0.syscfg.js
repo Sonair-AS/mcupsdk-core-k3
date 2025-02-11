@@ -21,16 +21,13 @@ function getConfig(){
                 /* appImageOffset applicable only for OSPI Flash boot */
                 if(inst.bootMedia == "FLASH") {
                     ui.appImageOffset.hidden = false;
-                    ui.bootloaderDma.hidden = false;
                 }
                 else {
                     ui.appImageOffset.hidden = true;
-                    ui.bootloaderDma.hidden = true;
                 }
                 /* appImageBaseAddress applicable only for Memory boot */
                 if(inst.bootMedia == "MEM") {
                     ui.appImageBaseAddress.hidden = false;
-                    ui.bootloaderDma.hidden = true;
                 }
                 else {
                     ui.appImageBaseAddress.hidden = true;
@@ -38,7 +35,6 @@ function getConfig(){
                 /* EMMCAppImageOffset applicable only for EMMC boot */
                 if(inst.bootMedia == "EMMC") {
                     ui.EMMCAppImageOffset.hidden = false;
-                    ui.bootloaderDma.hidden = true;
                 }
                 else {
                     ui.EMMCAppImageOffset.hidden = true;
@@ -50,8 +46,8 @@ function getConfig(){
             name: "bootloaderDma",
             displayName: "Enable DMA Transfer",
             description: "Use DMA to transfer data at the bootloader layer. Selecting it here enables it for all the added Bootloaders",
-            default: false,
-            hidden: false,
+            default: true,
+            hidden: true,
         },
         {
             name: "appImageOffset",
@@ -115,14 +111,6 @@ let bootloader_module = {
         },
         "/drivers/system/system_config.h.xdt": {
             driver_config: "/drivers/bootloader/templates/bootloader.h.xdt",
-        },
-        "/drivers/system/drivers_open_close.c.xdt": {
-            driver_open_close_config: "/drivers/bootloader/templates/bootloader_open_close_config.c.xdt",
-            driver_open: "/drivers/bootloader/templates/bootloader_open.c.xdt",
-            driver_close: "/drivers/bootloader/templates/bootloader_close.c.xdt",
-        },
-        "/drivers/system/drivers_open_close.h.xdt": {
-            driver_open_close_config: "/drivers/bootloader/templates/bootloader_open_close.h.xdt",
         },
     },
     defaultInstanceName: "CONFIG_BOOTLOADER",
