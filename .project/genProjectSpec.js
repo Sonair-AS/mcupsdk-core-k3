@@ -169,7 +169,7 @@ const utils = {
 
         switch(cgt) {
             case 'ti-arm-clang':
-                toolchainVersion = '3.2.2'
+                toolchainVersion = '4.0.1'
                 break;
             case 'gcc-aarch64':
                 toolchainVersion = '9.2'
@@ -189,19 +189,15 @@ const utils = {
     },
 
     getSysCfgVersionProjectSpec: () => {
-        if (device == "am62dx") {
-            return "1.22.0";
-        } else {
-            return "1.21.0";
-        }
+        return "1.22.0";
     },
 
     getCCSVersionProjectSpec: () => {
-        return "1270";
+        return "2002";
     },
 
     getTiClangVersionProjectSpec: () => {
-        return "3.2.2";
+        return "4.0.1";
     },
 
     getGCCAarch64NoneVersionProjectSpec: () => {

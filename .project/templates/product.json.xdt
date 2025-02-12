@@ -25,32 +25,6 @@
         "../source/networking/enet/core/sysconfig",
     ],
     "components": [
-% if((args.device == "am64x") || (args.device == "am243x")) {
-        "/kernel/dpl",
-        "/drivers/drivers",
-        "/board/board",
-        "/fs/fs",
-        "/networking/networking",
-        "/industrial_comms/industrial_comms",
-        "/security/security",
-        "/usb/usb",
-        "/motor_control/motor_control",
-        "/pru_io/pru_io",
-% }
-% if(args.device == "am263x") {
-        "/kernel/dpl",
-        "/drivers/drivers",
-        "/board/board",
-        "/networking/networking",
-        "/industrial_comms/industrial_comms",
-        "/xbar/xbar",
-% }
-% if((args.device == "am273x") || (args.device == "awr294x")) {
-        "/kernel/dpl",
-        "/drivers/drivers",
-        "/board/board",
-        "/networking/networking",
-% }
 % if((args.device == "j722s")) {
         "/kernel/dpl",
         "/drivers/drivers",
@@ -64,7 +38,6 @@
         "/fs/fs",
         "/networking/networking",
 %}
-
 % if((args.device == "am62ax")) {
         "/kernel/dpl",
         "/drivers/drivers",
@@ -92,22 +65,6 @@
 % }
     ],
     "devices": [
-% if((args.device == "am64x") || (isDevelopmentMode)) {
-        "AM64x_beta",
-% }
-% if((args.device == "am243x") || (isDevelopmentMode)) {
-        "AM243x_ALV_beta",
-        "AM243x_ALX_beta",
-% }
-% if((args.device == "am273x") || (isDevelopmentMode)) {
-        "AM273x",
-% }
-% if((args.device == "awr294x") || (isDevelopmentMode)) {
-        "AWR294X",
-% }
-% if((args.device == "am263x") || (isDevelopmentMode)) {
-        "AM263x_beta",
-% }
 % if((args.device == "am62x") || (isDevelopmentMode)) {
         "AM62x",
         "AM62SIP",
@@ -118,66 +75,17 @@
 % if((args.device == "am62px") || (isDevelopmentMode)) {
         "AM62Px",
 % }
-% if((args.device == "am62dx") || (isDevelopmentMode)) {
-        "AM62D-Q1",
-% }
 % if((args.device == "am275x") || (isDevelopmentMode)) {
         "AM275x",
 % }
 % if((args.device == "j722s") || (isDevelopmentMode)) {
         "J722S",
 % }
+% if((args.device == "am62dx") || (isDevelopmentMode)) {
+        "AM62D-Q1",
+% }
     ],
     "contexts": {
-% if((args.device == "am64x") || (isDevelopmentMode)) {
-        "AM64x_beta": [
-            "r5fss0-0",
-            "r5fss0-1",
-            "r5fss1-0",
-            "r5fss1-1",
-            "m4fss0-0",
-            "a53ss0-0",
-        ],
-% }
-% if((args.device == "am243x") || (isDevelopmentMode)) {
-        "AM243x_ALV_beta": [
-            "r5fss0-0",
-            "r5fss0-1",
-            "r5fss1-0",
-            "r5fss1-1",
-            "m4fss0-0",
-        ],
-        "AM243x_ALX_beta": [
-            "r5fss0-0",
-            "r5fss0-1",
-            "r5fss1-0",
-            "r5fss1-1",
-            "m4fss0-0",
-        ],
-% }
-% if((args.device == "am273x") || (isDevelopmentMode)) {
-        "AM273x": [
-            "r5fss0-0",
-            "r5fss0-1",
-            "c66ss0"
-        ],
-% }
-% if((args.device == "awr294x") || (isDevelopmentMode)) {
-        "AWR294X": [
-            "r5fss0-0",
-            "r5fss0-1",
-            "c66ss0"
-        ],
-% }
-% if((args.device == "am263x") || (isDevelopmentMode)) {
-        "AM263x_beta": [
-            "r5fss0-0",
-            "r5fss0-1",
-            "r5fss1-0",
-            "r5fss1-1",
-            "hsm0-0",
-        ],
-% }
 % if((args.device == "am62x") || (isDevelopmentMode)) {
         "AM62x": [
             "m4fss0-0",
@@ -210,14 +118,6 @@
             "wkup-r5fss0-0",
         ],
 % }
-% if((args.device == "am62dx") || (isDevelopmentMode)) {
-        "AM62D-Q1": [
-            "mcu-r5fss0-0",
-            "r5fss0-0",
-            "c75ss0-0",
-            "a53ss0-0",
-        ],
-% }
 % if((args.device == "am275x") || (isDevelopmentMode)) {
         "AM275x": [
             "r5fss0-0",
@@ -241,6 +141,14 @@
             "a53ss1-0",
             "a53ss1-1",
             "hsm0-0",
+        ],
+% }
+% if((args.device == "am62dx") || (isDevelopmentMode)) {
+        "AM62D-Q1": [
+            "mcu-r5fss0-0",
+            "r5fss0-0",
+            "c75ss0-0",
+            "a53ss0-0",
         ],
 % }
 

@@ -38,9 +38,9 @@ A53 FreeRTOS SMP support and A53 FreeRTOS SMP examples              | DPL, FreeR
 
 Tools                   | Supported CPUs           | Version
 ------------------------|--------------------------|-----------------------
-Code Composer Studio    | MCU-R5F, C75, A53        | 12.8.1
-SysConfig               | MCU-R5F, DM-R5F, C75, A53| 1.20.0, build 3587
-TI ARM CLANG            | MCU-R5F, DM-R5F          | 3.2.2.LTS
+Code Composer Studio    | MCU-R5F, C75, A53        | 20.0.2
+SysConfig               | MCU-R5F, DM-R5F, C75, A53| 1.22.0, build 3893
+TI ARM CLANG            | MCU-R5F, DM-R5F          | 4.0.1.LTS
 GCC AARCH64             | A53                      | 9.2-2019.12
 C7000-CGT               | C75                      | 4.1.0.LTS
 FreeRTOS Kernel         | MCU-R5F, DM-R5F, C75, A53| 11.1.0

@@ -8,68 +8,23 @@
         "../source/networking/enet/core/sysconfig",
     ],
     "components": [
-
         "/kernel/dpl",
         "/drivers/drivers",
         "/board/board",
         "/fs/fs",
         "/networking/networking",
+
     ],
     "devices": [
-        "AM64x_beta",
-        "AM243x_ALV_beta",
-        "AM243x_ALX_beta",
-        "AM273x",
-        "AWR294X",
-        "AM263x_beta",
         "AM62x",
         "AM62SIP",
         "AM62Ax",
         "AM62Px",
-        "AM62D-Q1",
         "AM275x",
         "J722S",
+        "AM62D-Q1",
     ],
     "contexts": {
-        "AM64x_beta": [
-            "r5fss0-0",
-            "r5fss0-1",
-            "r5fss1-0",
-            "r5fss1-1",
-            "m4fss0-0",
-            "a53ss0-0",
-        ],
-        "AM243x_ALV_beta": [
-            "r5fss0-0",
-            "r5fss0-1",
-            "r5fss1-0",
-            "r5fss1-1",
-            "m4fss0-0",
-        ],
-        "AM243x_ALX_beta": [
-            "r5fss0-0",
-            "r5fss0-1",
-            "r5fss1-0",
-            "r5fss1-1",
-            "m4fss0-0",
-        ],
-        "AM273x": [
-            "r5fss0-0",
-            "r5fss0-1",
-            "c66ss0"
-        ],
-        "AWR294X": [
-            "r5fss0-0",
-            "r5fss0-1",
-            "c66ss0"
-        ],
-        "AM263x_beta": [
-            "r5fss0-0",
-            "r5fss0-1",
-            "r5fss1-0",
-            "r5fss1-1",
-            "hsm0-0",
-        ],
         "AM62x": [
             "m4fss0-0",
             "r5fss0-0",
@@ -96,12 +51,6 @@
             "mcu-r5fss0-0",
             "wkup-r5fss0-0",
         ],
-        "AM62D-Q1": [
-            "mcu-r5fss0-0",
-            "r5fss0-0",
-            "c75ss0-0",
-            "a53ss0-0",
-        ],
         "AM275x": [
             "r5fss0-0",
             "r5fss0-1",
@@ -123,6 +72,12 @@
             "a53ss1-1",
             "hsm0-0",
         ],
+        "AM62D-Q1": [
+            "mcu-r5fss0-0",
+            "r5fss0-0",
+            "c75ss0-0",
+            "a53ss0-0",
+        ],
 
     },
     "pinmuxUIOptions": {
@@ -132,5 +87,5 @@
         "showSignals": true,
         "showUsed": true
     },
-    "minToolVersion" : "1.21.0"
+    "minToolVersion" : "1.22.0"
 }
