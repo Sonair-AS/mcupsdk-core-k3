@@ -1424,6 +1424,567 @@
             "example"
         ],
         "resourceSubClass": [
+            "example.general"
+        ],
+        "description": "A Udma Chaining Example. CPU is WKUP-R5FSS0-0 running FREERTOS.",
+        "name": "udma_chaining",
+        "location": "../../examples/drivers/udma/udma_chaining/j722s-evm/wkup-r5fss0-0_freertos/ti-arm-clang/example.projectspec",
+        "devtools": [
+            "J722SXH01EVM"
+        ],
+        "kernel": [
+            "freertos"
+        ],
+        "compiler": [
+            "ticlang"
+        ],
+        "subCategories": [
+            "drivers",
+            "udma",
+            "udma_chaining",
+            "wkup-r5fss0-0_freertos"
+        ],
+        "mainCategories": [
+            [
+                "Examples",
+                "Development Tools"
+            ]
+        ]
+    },
+    {
+        "resourceType": "project.ccs",
+        "resourceClass": [
+            "example"
+        ],
+        "resourceSubClass": [
+            "example.general"
+        ],
+        "description": "A Udma Memcpy Interrupt Example. CPU is MCU-R5FSS0-0 running NORTOS.",
+        "name": "udma_memcpy_interrupt",
+        "location": "../../examples/drivers/udma/udma_memcpy_interrupt/j722s-evm/mcu-r5fss0-0_nortos/ti-arm-clang/example.projectspec",
+        "devtools": [
+            "J722SXH01EVM"
+        ],
+        "kernel": [
+            "nortos"
+        ],
+        "compiler": [
+            "ticlang"
+        ],
+        "subCategories": [
+            "drivers",
+            "udma",
+            "udma_memcpy_interrupt",
+            "mcu-r5fss0-0_nortos"
+        ],
+        "mainCategories": [
+            [
+                "Examples",
+                "Development Tools"
+            ]
+        ]
+    },
+    {
+        "resourceType": "project.ccs",
+        "resourceClass": [
+            "example"
+        ],
+        "resourceSubClass": [
+            "example.general"
+        ],
+        "description": "A Udma Memcpy Interrupt Example. CPU is WKUP-R5FSS0-0 running NORTOS.",
+        "name": "udma_memcpy_interrupt",
+        "location": "../../examples/drivers/udma/udma_memcpy_interrupt/j722s-evm/wkup-r5fss0-0_nortos/ti-arm-clang/example.projectspec",
+        "devtools": [
+            "J722SXH01EVM"
+        ],
+        "kernel": [
+            "nortos"
+        ],
+        "compiler": [
+            "ticlang"
+        ],
+        "subCategories": [
+            "drivers",
+            "udma",
+            "udma_memcpy_interrupt",
+            "wkup-r5fss0-0_nortos"
+        ],
+        "mainCategories": [
+            [
+                "Examples",
+                "Development Tools"
+            ]
+        ]
+    },
+    {
+        "resourceType": "project.ccs",
+        "resourceClass": [
+            "example"
+        ],
+        "resourceSubClass": [
+            "example.general"
+        ],
+        "description": "A Udma Memcpy Interrupt Example. CPU is MAIN-R5FSS0-0 running NORTOS.",
+        "name": "udma_memcpy_interrupt",
+        "location": "../../examples/drivers/udma/udma_memcpy_interrupt/j722s-evm/main-r5fss0-0_nortos/ti-arm-clang/example.projectspec",
+        "devtools": [
+            "J722SXH01EVM"
+        ],
+        "kernel": [
+            "nortos"
+        ],
+        "compiler": [
+            "ticlang"
+        ],
+        "subCategories": [
+            "drivers",
+            "udma",
+            "udma_memcpy_interrupt",
+            "main-r5fss0-0_nortos"
+        ],
+        "mainCategories": [
+            [
+                "Examples",
+                "Development Tools"
+            ]
+        ]
+    },
+    {
+        "resourceType": "project.ccs",
+        "resourceClass": [
+            "example"
+        ],
+        "resourceSubClass": [
+            "example.general"
+        ],
+        "description": "A Udma Memcpy Interrupt Example. CPU is MCU-R5FSS0-0 running FREERTOS.",
+        "name": "udma_memcpy_interrupt",
+        "location": "../../examples/drivers/udma/udma_memcpy_interrupt/j722s-evm/mcu-r5fss0-0_freertos/ti-arm-clang/example.projectspec",
+        "devtools": [
+            "J722SXH01EVM"
+        ],
+        "kernel": [
+            "freertos"
+        ],
+        "compiler": [
+            "ticlang"
+        ],
+        "subCategories": [
+            "drivers",
+            "udma",
+            "udma_memcpy_interrupt",
+            "mcu-r5fss0-0_freertos"
+        ],
+        "mainCategories": [
+            [
+                "Examples",
+                "Development Tools"
+            ]
+        ]
+    },
+    {
+        "resourceType": "project.ccs",
+        "resourceClass": [
+            "example"
+        ],
+        "resourceSubClass": [
+            "example.general"
+        ],
+        "description": "A Udma Memcpy Interrupt Example. CPU is WKUP-R5FSS0-0 running FREERTOS.",
+        "name": "udma_memcpy_interrupt",
+        "location": "../../examples/drivers/udma/udma_memcpy_interrupt/j722s-evm/wkup-r5fss0-0_freertos/ti-arm-clang/example.projectspec",
+        "devtools": [
+            "J722SXH01EVM"
+        ],
+        "kernel": [
+            "freertos"
+        ],
+        "compiler": [
+            "ticlang"
+        ],
+        "subCategories": [
+            "drivers",
+            "udma",
+            "udma_memcpy_interrupt",
+            "wkup-r5fss0-0_freertos"
+        ],
+        "mainCategories": [
+            [
+                "Examples",
+                "Development Tools"
+            ]
+        ]
+    },
+    {
+        "resourceType": "project.ccs",
+        "resourceClass": [
+            "example"
+        ],
+        "resourceSubClass": [
+            "example.general"
+        ],
+        "description": "A Udma Memcpy Interrupt Example. CPU is MAIN-R5FSS0-0 running FREERTOS.",
+        "name": "udma_memcpy_interrupt",
+        "location": "../../examples/drivers/udma/udma_memcpy_interrupt/j722s-evm/main-r5fss0-0_freertos/ti-arm-clang/example.projectspec",
+        "devtools": [
+            "J722SXH01EVM"
+        ],
+        "kernel": [
+            "freertos"
+        ],
+        "compiler": [
+            "ticlang"
+        ],
+        "subCategories": [
+            "drivers",
+            "udma",
+            "udma_memcpy_interrupt",
+            "main-r5fss0-0_freertos"
+        ],
+        "mainCategories": [
+            [
+                "Examples",
+                "Development Tools"
+            ]
+        ]
+    },
+    {
+        "resourceType": "project.ccs",
+        "resourceClass": [
+            "example"
+        ],
+        "resourceSubClass": [
+            "example.general"
+        ],
+        "description": "A Udma Memcpy Interrupt Example. CPU is C75SS0-0 running FREERTOS.",
+        "name": "udma_memcpy_interrupt",
+        "location": "../../examples/drivers/udma/udma_memcpy_interrupt/j722s-evm/c75ss0-0_freertos/ti-c7000/example.projectspec",
+        "devtools": [
+            "J722SXH01EVM"
+        ],
+        "kernel": [
+            "freertos"
+        ],
+        "compiler": [
+            "ccs"
+        ],
+        "subCategories": [
+            "drivers",
+            "udma",
+            "udma_memcpy_interrupt",
+            "c75ss0-0_freertos"
+        ],
+        "mainCategories": [
+            [
+                "Examples",
+                "Development Tools"
+            ]
+        ]
+    },
+    {
+        "resourceType": "project.ccs",
+        "resourceClass": [
+            "example"
+        ],
+        "resourceSubClass": [
+            "example.general"
+        ],
+        "description": "A Udma Memcpy Interrupt Example. CPU is C75SS1-0 running FREERTOS.",
+        "name": "udma_memcpy_interrupt",
+        "location": "../../examples/drivers/udma/udma_memcpy_interrupt/j722s-evm/c75ss1-0_freertos/ti-c7000/example.projectspec",
+        "devtools": [
+            "J722SXH01EVM"
+        ],
+        "kernel": [
+            "freertos"
+        ],
+        "compiler": [
+            "ccs"
+        ],
+        "subCategories": [
+            "drivers",
+            "udma",
+            "udma_memcpy_interrupt",
+            "c75ss1-0_freertos"
+        ],
+        "mainCategories": [
+            [
+                "Examples",
+                "Development Tools"
+            ]
+        ]
+    },
+    {
+        "resourceType": "project.ccs",
+        "resourceClass": [
+            "example"
+        ],
+        "resourceSubClass": [
+            "example.general"
+        ],
+        "description": "A Udma Memcpy Polling Example. CPU is MCU-R5FSS0-0 running NORTOS.",
+        "name": "udma_memcpy_polling",
+        "location": "../../examples/drivers/udma/udma_memcpy_polling/j722s-evm/mcu-r5fss0-0_nortos/ti-arm-clang/example.projectspec",
+        "devtools": [
+            "J722SXH01EVM"
+        ],
+        "kernel": [
+            "nortos"
+        ],
+        "compiler": [
+            "ticlang"
+        ],
+        "subCategories": [
+            "drivers",
+            "udma",
+            "udma_memcpy_polling",
+            "mcu-r5fss0-0_nortos"
+        ],
+        "mainCategories": [
+            [
+                "Examples",
+                "Development Tools"
+            ]
+        ]
+    },
+    {
+        "resourceType": "project.ccs",
+        "resourceClass": [
+            "example"
+        ],
+        "resourceSubClass": [
+            "example.general"
+        ],
+        "description": "A Udma Memcpy Polling Example. CPU is WKUP-R5FSS0-0 running NORTOS.",
+        "name": "udma_memcpy_polling",
+        "location": "../../examples/drivers/udma/udma_memcpy_polling/j722s-evm/wkup-r5fss0-0_nortos/ti-arm-clang/example.projectspec",
+        "devtools": [
+            "J722SXH01EVM"
+        ],
+        "kernel": [
+            "nortos"
+        ],
+        "compiler": [
+            "ticlang"
+        ],
+        "subCategories": [
+            "drivers",
+            "udma",
+            "udma_memcpy_polling",
+            "wkup-r5fss0-0_nortos"
+        ],
+        "mainCategories": [
+            [
+                "Examples",
+                "Development Tools"
+            ]
+        ]
+    },
+    {
+        "resourceType": "project.ccs",
+        "resourceClass": [
+            "example"
+        ],
+        "resourceSubClass": [
+            "example.general"
+        ],
+        "description": "A Udma Memcpy Polling Example. CPU is MAIN-R5FSS0-0 running NORTOS.",
+        "name": "udma_memcpy_polling",
+        "location": "../../examples/drivers/udma/udma_memcpy_polling/j722s-evm/main-r5fss0-0_nortos/ti-arm-clang/example.projectspec",
+        "devtools": [
+            "J722SXH01EVM"
+        ],
+        "kernel": [
+            "nortos"
+        ],
+        "compiler": [
+            "ticlang"
+        ],
+        "subCategories": [
+            "drivers",
+            "udma",
+            "udma_memcpy_polling",
+            "main-r5fss0-0_nortos"
+        ],
+        "mainCategories": [
+            [
+                "Examples",
+                "Development Tools"
+            ]
+        ]
+    },
+    {
+        "resourceType": "project.ccs",
+        "resourceClass": [
+            "example"
+        ],
+        "resourceSubClass": [
+            "example.general"
+        ],
+        "description": "A Udma Memcpy Polling Example. CPU is MCU-R5FSS0-0 running FREERTOS.",
+        "name": "udma_memcpy_polling",
+        "location": "../../examples/drivers/udma/udma_memcpy_polling/j722s-evm/mcu-r5fss0-0_freertos/ti-arm-clang/example.projectspec",
+        "devtools": [
+            "J722SXH01EVM"
+        ],
+        "kernel": [
+            "freertos"
+        ],
+        "compiler": [
+            "ticlang"
+        ],
+        "subCategories": [
+            "drivers",
+            "udma",
+            "udma_memcpy_polling",
+            "mcu-r5fss0-0_freertos"
+        ],
+        "mainCategories": [
+            [
+                "Examples",
+                "Development Tools"
+            ]
+        ]
+    },
+    {
+        "resourceType": "project.ccs",
+        "resourceClass": [
+            "example"
+        ],
+        "resourceSubClass": [
+            "example.general"
+        ],
+        "description": "A Udma Memcpy Polling Example. CPU is WKUP-R5FSS0-0 running FREERTOS.",
+        "name": "udma_memcpy_polling",
+        "location": "../../examples/drivers/udma/udma_memcpy_polling/j722s-evm/wkup-r5fss0-0_freertos/ti-arm-clang/example.projectspec",
+        "devtools": [
+            "J722SXH01EVM"
+        ],
+        "kernel": [
+            "freertos"
+        ],
+        "compiler": [
+            "ticlang"
+        ],
+        "subCategories": [
+            "drivers",
+            "udma",
+            "udma_memcpy_polling",
+            "wkup-r5fss0-0_freertos"
+        ],
+        "mainCategories": [
+            [
+                "Examples",
+                "Development Tools"
+            ]
+        ]
+    },
+    {
+        "resourceType": "project.ccs",
+        "resourceClass": [
+            "example"
+        ],
+        "resourceSubClass": [
+            "example.general"
+        ],
+        "description": "A Udma Memcpy Polling Example. CPU is MAIN-R5FSS0-0 running FREERTOS.",
+        "name": "udma_memcpy_polling",
+        "location": "../../examples/drivers/udma/udma_memcpy_polling/j722s-evm/main-r5fss0-0_freertos/ti-arm-clang/example.projectspec",
+        "devtools": [
+            "J722SXH01EVM"
+        ],
+        "kernel": [
+            "freertos"
+        ],
+        "compiler": [
+            "ticlang"
+        ],
+        "subCategories": [
+            "drivers",
+            "udma",
+            "udma_memcpy_polling",
+            "main-r5fss0-0_freertos"
+        ],
+        "mainCategories": [
+            [
+                "Examples",
+                "Development Tools"
+            ]
+        ]
+    },
+    {
+        "resourceType": "project.ccs",
+        "resourceClass": [
+            "example"
+        ],
+        "resourceSubClass": [
+            "example.general"
+        ],
+        "description": "A Udma Memcpy Polling Example. CPU is C75SS0-0 running FREERTOS.",
+        "name": "udma_memcpy_polling",
+        "location": "../../examples/drivers/udma/udma_memcpy_polling/j722s-evm/c75ss0-0_freertos/ti-c7000/example.projectspec",
+        "devtools": [
+            "J722SXH01EVM"
+        ],
+        "kernel": [
+            "freertos"
+        ],
+        "compiler": [
+            "ccs"
+        ],
+        "subCategories": [
+            "drivers",
+            "udma",
+            "udma_memcpy_polling",
+            "c75ss0-0_freertos"
+        ],
+        "mainCategories": [
+            [
+                "Examples",
+                "Development Tools"
+            ]
+        ]
+    },
+    {
+        "resourceType": "project.ccs",
+        "resourceClass": [
+            "example"
+        ],
+        "resourceSubClass": [
+            "example.general"
+        ],
+        "description": "A Udma Memcpy Polling Example. CPU is C75SS1-0 running FREERTOS.",
+        "name": "udma_memcpy_polling",
+        "location": "../../examples/drivers/udma/udma_memcpy_polling/j722s-evm/c75ss1-0_freertos/ti-c7000/example.projectspec",
+        "devtools": [
+            "J722SXH01EVM"
+        ],
+        "kernel": [
+            "freertos"
+        ],
+        "compiler": [
+            "ccs"
+        ],
+        "subCategories": [
+            "drivers",
+            "udma",
+            "udma_memcpy_polling",
+            "c75ss1-0_freertos"
+        ],
+        "mainCategories": [
+            [
+                "Examples",
+                "Development Tools"
+            ]
+        ]
+    },
+    {
+        "resourceType": "project.ccs",
+        "resourceClass": [
+            "example"
+        ],
+        "resourceSubClass": [
             "example.gettingstarted"
         ],
         "description": "An Empty Example. This example is intended to be a starting point for new development CPU is MCU-R5FSS0-0 running FREERTOS.",

@@ -186,6 +186,7 @@ const files_c75ss0 = {
     common: [
         "csl_bcdma.c",
         "csl_dru.c",
+        "csl_intaggr.c",
         "csl_lcdma_ringacc.c",
         "csl_pktdma.c",
         "csl_sec_proxy.c",

@@ -81,11 +81,6 @@ let udma_module = {
                 hidden: true,
                 default: "NONE"
         },
-        {
-            name: "skipDeinitFromSbl",
-            displayName: "Skip De-Init from SBL",
-            default: false,
-        },
     ],
     validate: validate,
     moduleInstances: moduleInstances,
