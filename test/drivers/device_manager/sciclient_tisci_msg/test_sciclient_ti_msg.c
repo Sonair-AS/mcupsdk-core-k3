@@ -1,5 +1,5 @@
 /*
- *  Copyright (C) 2024 Texas Instruments Incorporated
+ *  Copyright (C) 2024-2025 Texas Instruments Incorporated
  *
  *  Redistribution and use in source and binary forms, with or without
  *  modification, are permitted provided that the following conditions
@@ -41,7 +41,7 @@
 /*                           Macros & Typedefs                                */
 /* ========================================================================== */
 
-#define TEST_SCICLIENT_APP_TISCI_MSG_COUNT 62U
+#define TEST_SCICLIENT_APP_TISCI_MSG_COUNT 63U
 
 /* ========================================================================== */
 /*                           Global Variables                                 */
@@ -84,6 +84,7 @@ const int32_t gTestMessageType[TEST_SCICLIENT_APP_TISCI_MSG_COUNT] =
     TISCI_MSG_LPM_GET_LATENCY_CONSTRAINT,
     TISCI_MSG_LPM_GET_NEXT_SYS_MODE,
     TISCI_MSG_LPM_GET_NEXT_HOST_STATE,
+    TISCI_MSG_LPM_ABORT,
     TISCI_MSG_QUERY_FW_CAPS,
     TISCI_MSG_KEY_WRITER,
     TISCI_MSG_WRITE_OTP_ROW,
