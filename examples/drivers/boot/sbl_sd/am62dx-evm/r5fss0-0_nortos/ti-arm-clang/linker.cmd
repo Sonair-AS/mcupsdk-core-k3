@@ -26,11 +26,11 @@ SECTIONS
         .rodata: {} palign(8)
         .boardcfg_data   : {} palign(8)
     } > HSM_RAM
-    .bss:    {} palign(8) > HSM_RAM
+    .bss:    {} palign(8) > OCRAM
     RUN_START(__BSS_START)
     RUN_END(__BSS_END)
     .sysmem: {} palign(8) > HSM_RAM
-    .stack:  {} palign(8) > HSM_RAM
+    .stack:  {} palign(8) > OCRAM
     GROUP {
         .irqstack: {. = . + __IRQ_STACK_SIZE;} align(8)
         RUN_START(__IRQ_STACK_START)
@@ -74,4 +74,5 @@ MEMORY
     HSM_RAM_VECS: ORIGIN = 0x43C00000 , LENGTH = 0x100
     HSM_RAM  : ORIGIN = 0x43C00100 , LENGTH = 0x3c800 - 0x100
     DDR      : ORIGIN = 0x84000000 , LENGTH = 0x40000000
+    OCRAM    : ORIGIN = 0x70000000 , LENGTH = 0x10000
 }

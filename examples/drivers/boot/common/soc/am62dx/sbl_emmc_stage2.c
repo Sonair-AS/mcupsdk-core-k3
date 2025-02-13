@@ -124,6 +124,8 @@ void App_bootMultipleCoreEMMC()
     status = App_driversOpen_EMMC();
     Bootloader_profileAddProfilePoint("SBL Drivers_open");
 
+    Bootloader_openDma();
+
     Bootloader_BootImageInfo bootImageInfo;
     Bootloader_Params bootParams;
     Bootloader_Handle bootHandle = NULL;
@@ -232,6 +234,8 @@ void App_bootMultipleCoreEMMC()
         status = App_runDSPCpu(bootHandleDSP, &bootImageInfoDSP);
         Bootloader_close(bootHandleDSP);
     }
+
+    Bootloader_closeDma();
 
     Bootloader_profileUpdateAppimageSize(Bootloader_getMulticoreImageSize(bootHandle) + \
                                         Bootloader_getMulticoreImageSize(bootHandleMCU) + \

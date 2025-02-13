@@ -144,6 +144,8 @@ int main()
 
     if(SystemP_SUCCESS == status)
     {
+        Bootloader_openDma();
+
         Bootloader_BootImageInfo bootImageInfoDM;
 		Bootloader_Params bootParamsDM;
         Bootloader_Handle bootHandleDM;
@@ -176,6 +178,7 @@ int main()
 			UART_flushTxFifo(gUartHandle[CONFIG_UART_SBL]);
 		}
 
+        Bootloader_closeDma();
     }
 
     if(status != SystemP_SUCCESS )

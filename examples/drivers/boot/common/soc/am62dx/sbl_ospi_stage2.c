@@ -150,6 +150,8 @@ void App_bootMultipleCoreFlash()
 
     if(SystemP_SUCCESS == status)
     {
+        Bootloader_openDma();
+
         Bootloader_BootImageInfo bootImageInfo;
 		Bootloader_Params bootParams;
         Bootloader_Handle bootHandle = NULL;
@@ -260,6 +262,8 @@ void App_bootMultipleCoreFlash()
             status = App_runDSPCpu(bootHandleDSP, &bootImageInfoDSP);
             Bootloader_close(bootHandleDSP);
         }
+
+        Bootloader_closeDma();
 
         Bootloader_profileUpdateAppimageSize(Bootloader_getMulticoreImageSize(bootHandle) + \
                                             Bootloader_getMulticoreImageSize(bootHandleMCU) + \

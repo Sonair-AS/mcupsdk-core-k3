@@ -239,6 +239,8 @@ int main()
 
     if(SystemP_SUCCESS == status)
     {
+        Bootloader_openDma();
+
         Bootloader_BootImageInfo bootImageInfo;
 		Bootloader_Params bootParams;
         Bootloader_Handle bootHandle;
@@ -272,6 +274,9 @@ int main()
 			status = App_runCpus(bootHandle);
             Bootloader_close(bootHandle);
 		}
+
+        Bootloader_closeDma();
+
         Bootloader_profileUpdateAppimageSize(appImageSize);
         Bootloader_profileUpdateMediaAndClk(BOOTLOADER_MEDIA_SD, 0);
         if(status == SystemP_SUCCESS)
