@@ -2,7 +2,7 @@
 *
 * SOC PBIST PROPERTIES. header file
 *
-* Copyright (C) 2015-2024 Texas Instruments Incorporated.
+* Copyright (C) 2015-2025 Texas Instruments Incorporated.
 *  Redistribution and use in source and binary forms, with or without
 *  modification, are permitted provided that the following conditions
 *  are met:
@@ -175,7 +175,7 @@ extern "C"
 #define SDL_PBIST0_ALGO_BITMAP_0                                                                   (0x0000000000000005U)
 #define SDL_PBIST0_MEM_BITMAP_0                                                                    (0x000000009A38AA40U)
 #define SDL_PBIST0_ALGO_BITMAP_1                                                                   (0x000000000000000AU)
-#define SDL_PBIST0_MEM_BITMAP_1                                                                    (0x2545106000000000U)
+#define SDL_PBIST0_MEM_BITMAP_1                                                                    (0x2545104000000000U)
 #define SDL_PBIST0_FAIL_INSERTION_TEST_VECTOR_CA0                                                  (0x00000000U)
 #define SDL_PBIST0_FAIL_INSERTION_TEST_VECTOR_CA1                                                  (0x00000027U)
 #define SDL_PBIST0_FAIL_INSERTION_TEST_VECTOR_CA2                                                  (0x00000027U)

@@ -1,5 +1,5 @@
 /*
- *  Copyright (C) 2023-2024 Texas Instruments Incorporated
+ *  Copyright (C) 2023-2025 Texas Instruments Incorporated
  *
  *  Redistribution and use in source and binary forms, with or without
  *  modification, are permitted provided that the following conditions
@@ -600,7 +600,7 @@ int32_t PBIST_runTest(uint32_t instanceId, bool runNegTest)
         DebugP_log("  Secondary core: Taking out of local reset the core %s \r\n",
                     PBIST_TestHandleArray[instanceId].secCoreName);
 #endif
-        status = Sciclient_pmSetModuleRst(PBIST_TestHandleArray[instanceId].tisciSecProcId,
+        status = Sciclient_pmSetModuleRst(PBIST_TestHandleArray[instanceId].tisciSecDeviceId,
                                           0x0, /* Local Reset de-asserted */
                                           SystemP_WAIT_FOREVER);
         if (status != SDL_PASS)

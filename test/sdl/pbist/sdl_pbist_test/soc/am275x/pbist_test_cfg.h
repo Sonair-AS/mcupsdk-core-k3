@@ -1,5 +1,5 @@
 /*
- *   Copyright (c) Texas Instruments Incorporated 2024
+ *   Copyright (c) Texas Instruments Incorporated 2024-25
  *
  *  Redistribution and use in source and binary forms, with or without
  *  modification, are permitted provided that the following conditions
@@ -81,7 +81,7 @@ extern "C"
 #endif
 
 #define PBIST_MAX_INSTANCE                (PBIST_INST_MAIN_IP+1U)
-#define PBIST_NUM_INSTANCE                (PBIST_INST_DM_2+1U)
+#define PBIST_NUM_INSTANCE                (PBIST_INST_MAIN_IP+1U)
 
 #define PBIST_MAX_TIMEOUT_VALUE           (10000000u)
 
