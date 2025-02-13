@@ -438,7 +438,7 @@ void MmuP_init()
      *  If not running in SMP mode, Core_getId() always returns 0,
      *  and the below init code will be run.
      */
-#if defined(AMP_A53)
+#if defined(AMP_FREERTOS_A53)
         /* Initialize table array */
         for (i = 0; i < MMUP_TABLE_ARRAY_LEN; i++)
         {
@@ -473,7 +473,7 @@ void MmuP_init()
      * Call init function. This function is part of the application and will
      * add MMU mappings. If in SMP mode, core 0 has already done this.
      */
-#if defined(AMP_A53)
+#if defined(AMP_FREERTOS_A53)
     MmuP_setConfig();
 #else
     if (Armv8_getCoreId() == 0)

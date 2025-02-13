@@ -87,7 +87,7 @@ int32_t HwiP_construct(HwiP_Object *handle, HwiP_Params *params)
     /* Set interrupt priority */
     HwiP_intrPrioritySet(params->intNum, (uint32_t)params->priority, coreId);
 
-    #if defined(AMP_A53)
+    #if defined(AMP_FREERTOS_A53)
     /* Route the spi interrupt */
     if(params->intNum >= HWIP_GICD_SGI_PPI_INTR_ID_MAX)
     {
@@ -339,7 +339,7 @@ void HwiP_init()
     coreId = Armv8_getCoreId();
 
     uint32_t i = 0, j = 0, intrActiveReg = 0;
-    #if !defined(AMP_A53)
+    #if !defined(AMP_FREERTOS_A53)
     uint32_t routingMode = 0;
     uint8_t  aff0 = 0, aff1 = 0;
     #endif
@@ -373,7 +373,7 @@ void HwiP_init()
          * Disable all interrupts at startup
          */
         gicsRegs->ICENABLER0 = CSL_GIC500_GICR_CORE_SGI_PPI_ICENABLER0_ENABLE_MASK;
-    #if !defined(AMP_A53)
+    #if !defined(AMP_FREERTOS_A53)
         if(0 == coreId)
         {
             for (i = 0; i < HWIP_GICD_SPI_INTR_COUNT_MAX/32; i++)
@@ -383,7 +383,7 @@ void HwiP_init()
         }
     #endif
 
-    #if defined(AMP_A53)
+    #if defined(AMP_FREERTOS_A53)
         /*
             * Enable forwarding of interrupts in GIC Distributor and CPU interface
             * Controller.
@@ -422,7 +422,7 @@ void HwiP_init()
                 intrActiveReg = intrActiveReg >> 1;
             }
         }
-    #if defined(AMP_A53)
+    #if defined(AMP_FREERTOS_A53)
         while(SpinlockP_swLock( &gSwSpinLockBuff[SW_SPIN_LOCK_2] ) == SW_SPINLOCK_IN_USE);
         for (i = 0; i < HWIP_GICD_SPI_INTR_COUNT_MAX/32; i++)
         {
@@ -467,7 +467,7 @@ void HwiP_init()
          * Clear any currently pending enabled interrupts
          */
         gicsRegs->ICPENDR0  = CSL_GIC500_GICR_CORE_SGI_PPI_ICPENDR0_PEND_MASK;
-    #if defined(AMP_A53)
+    #if defined(AMP_FREERTOS_A53)
         while(SpinlockP_swLock( &gSwSpinLockBuff[SW_SPIN_LOCK_2] ) == SW_SPINLOCK_IN_USE);
         for (i = 0; i < HWIP_GICD_SPI_INTR_COUNT_MAX/32; i++)
         {
@@ -490,7 +490,7 @@ void HwiP_init()
          * Clear all interrupt active status registers
          */
         gicsRegs->ICACTIVER0 = CSL_GIC500_GICR_CORE_SGI_PPI_ICACTIVER0_SET_MASK;
-    #if defined(AMP_A53)
+    #if defined(AMP_FREERTOS_A53)
         while(SpinlockP_swLock( &gSwSpinLockBuff[SW_SPIN_LOCK_2] ) == SW_SPINLOCK_IN_USE);
         for (i = 0; i < HWIP_GICD_SPI_INTR_COUNT_MAX/32; i++)
         {
@@ -510,7 +510,7 @@ void HwiP_init()
         }
     #endif
 
-    #if !defined(AMP_A53)
+    #if !defined(AMP_FREERTOS_A53)
         if(0 == coreId)
         {
             /*
@@ -540,7 +540,7 @@ void HwiP_init()
         {
            gicsRegs->IPRIORITYR[i]=0x20202020;
         }
-    #if defined(AMP_A53)
+    #if defined(AMP_FREERTOS_A53)
         while(SpinlockP_swLock( &gSwSpinLockBuff[SW_SPIN_LOCK_2] ) == SW_SPINLOCK_IN_USE);
         for (i = 0; i < HWIP_GICD_SPI_INTR_COUNT_MAX/4; i++)
         {
@@ -584,7 +584,7 @@ void HwiP_init()
          *          b10    Interrupt is rising edge-sensitive
          */
         gicsRegs->ICFGR1 = 0;
-    #if defined(AMP_A53)
+    #if defined(AMP_FREERTOS_A53)
         while(SpinlockP_swLock( &gSwSpinLockBuff[SW_SPIN_LOCK_2] ) == SW_SPINLOCK_IN_USE);
         for (i = 0; i < HWIP_GICD_SPI_INTR_COUNT_MAX/16; i++)
         {
@@ -607,7 +607,7 @@ void HwiP_init()
     }
 
     /* Register the default handlers */
-    #if defined(AMP_A53)
+    #if defined(AMP_FREERTOS_A53)
         for(i = 0; i < HwiP_MAX_INTERRUPTS; i++)
         {
             /* Assign default ISR */

@@ -297,6 +297,13 @@ const defines_a53_smp = {
     ],
 };
 
+const defines_a53 = {
+    common: [
+        "SOC_AM62DX",
+        "AMP_FREERTOS_A53",
+    ]
+};
+
 const defines_common = {
     common:[
         "SOC_AM62DX",
@@ -339,6 +346,7 @@ const asmfiles_a53 = {
         // none
         // picked from freertos "portable"
         "portASM.S",
+        "SpinlockP_armv8.S"
     ],
 };
 
@@ -538,7 +546,7 @@ function getComponentBuildProperty(buildOption) {
         build_property.filedirs = filedirs_a53;
         build_property.cflags = cflags_a53;
         build_property.templates = templates_freertos_a53;
-        build_property.defines = defines_common;
+        build_property.defines = defines_a53;
     }
 
     if(buildOption.cpu == "a53-smp")
