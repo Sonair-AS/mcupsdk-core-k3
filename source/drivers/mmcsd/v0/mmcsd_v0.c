@@ -161,6 +161,7 @@ static int32_t MMCSD_initSD(MMCSD_Handle handle);
 static int32_t MMCSD_initEMMC(MMCSD_Handle handle);
 static int32_t MMCSD_transfer(MMCSD_Handle, MMCSD_Transaction *trans);
 static int32_t MMCSD_isReadyForTransfer(MMCSD_Handle handle);
+static int32_t MMCSD_sendStopCmd(MMCSD_Handle handle);
 static int32_t MMCSD_sendCmd23(MMCSD_Handle handle, uint32_t numBlks);
 static int32_t MMCSD_setupADMA2(MMCSD_Handle handle, MMCSD_ADMA2Descriptor *desc, uint64_t bufAddr, uint32_t dataSize);
 static int32_t MMCSD_switchEmmcMode(MMCSD_Handle handle, uint32_t mode);
@@ -505,7 +506,7 @@ int32_t MMCSD_read(MMCSD_Handle handle, uint8_t *buf, uint32_t startBlk, uint32_
     MMCSD_Attrs const *attrs = ((MMCSD_Config *)handle)->attrs;
     MMCSD_Transaction trans;
     uint32_t addr = 0U;
-    uint32_t cmd = 0U, stopCmd = 0U;
+    uint32_t cmd = 0U;
     uint32_t blockSize = MMCSD_getBlockSize(handle);
     if(((obj->emmcData->supportedModes & MMCSD_EMMC_ECSD_DEVICE_TYPE_HS200_200MHZ_1P8V) &&
        (attrs->supportedModes & MMCSD_SUPPORT_MMC_HS200)) ||
@@ -517,25 +518,6 @@ int32_t MMCSD_read(MMCSD_Handle handle, uint8_t *buf, uint32_t startBlk, uint32_
 
     obj->readBufIdx = buf;
     obj->readBlockCount = numBlks;
-
-    if(obj->cardType == MMCSD_CARD_TYPE_EMMC)
-    {
-        stopCmd = MMCSD_MMC_CMD(12);
-    }
-    else
-    {
-        stopCmd = MMCSD_SD_CMD(12);
-    }
-
-    if(SystemP_SUCCESS == status)
-    {
-        status = MMCSD_isReadyForTransfer(handle);
-
-        if(obj->isCmd23)
-        {
-            MMCSD_sendCmd23(handle, numBlks);
-        }
-    }
 
     if(SystemP_SUCCESS == status)
     {
@@ -569,12 +551,32 @@ int32_t MMCSD_read(MMCSD_Handle handle, uint8_t *buf, uint32_t startBlk, uint32_
             uint32_t currNumBlks = numBlks;
             while(status == SystemP_SUCCESS && currNumBlks > CSL_MMC_CTLCFG_BLOCK_COUNT_XFER_BLK_CNT_MAX)
             {
-                if(currNumBlks > CSL_MMC_CTLCFG_BLOCK_COUNT_XFER_BLK_CNT_MAX)
-                {
-                    trans.blockCount = CSL_MMC_CTLCFG_BLOCK_COUNT_XFER_BLK_CNT_MAX;
-                }
+                trans.blockCount = CSL_MMC_CTLCFG_BLOCK_COUNT_XFER_BLK_CNT_MAX;
                 trans.retries = MMCSD_TRANS_RETRIES;
-                status = MMCSD_transfer(handle, &trans);
+
+                status = MMCSD_isReadyForTransfer(handle);
+
+                if(SystemP_SUCCESS == status)
+                {
+                    if(obj->isCmd23 != 0U)
+                    {
+                        MMCSD_sendCmd23(handle, trans.blockCount);
+                    }
+                }
+
+                if(SystemP_SUCCESS == status)
+                {
+                    status = MMCSD_transfer(handle, &trans);
+                }
+
+                if(SystemP_SUCCESS == status)
+                {
+                    if(obj->isCmd23 == 0U)
+                    {
+                        MMCSD_sendStopCmd(handle);
+                    }
+                }
+
                 currNumBlks = currNumBlks - CSL_MMC_CTLCFG_BLOCK_COUNT_XFER_BLK_CNT_MAX;
                 if(obj->isHC == TRUE)
                 {
@@ -591,11 +593,43 @@ int32_t MMCSD_read(MMCSD_Handle handle, uint8_t *buf, uint32_t startBlk, uint32_
             {
                 trans.blockCount = currNumBlks;
                 trans.retries = MMCSD_TRANS_RETRIES;
-                status = MMCSD_transfer(handle, &trans);
+                if(currNumBlks > 1U)
+                {
+                    trans.cmd = MMCSD_MMC_CMD(18);
+                }
+                else
+                {
+                    trans.cmd = MMCSD_MMC_CMD(17);
+                }
+
+                status = MMCSD_isReadyForTransfer(handle);
+
+                if(SystemP_SUCCESS == status)
+                {
+                    if(obj->isCmd23 != 0U)
+                    {
+                        MMCSD_sendCmd23(handle, trans.blockCount);
+                    }
+                }
+
+                if(SystemP_SUCCESS == status)
+                {
+                    status = MMCSD_transfer(handle, &trans);
+                }
             }
         }
         else
         {
+            status = MMCSD_isReadyForTransfer(handle);
+
+            if(SystemP_SUCCESS == status)
+            {
+                if(obj->isCmd23 != 0U)
+                {
+                    MMCSD_sendCmd23(handle, numBlks);
+                }
+            }
+
             MMCSD_initTransaction(&trans);
             trans.dir = MMCSD_CMD_XFER_TYPE_READ;
             trans.arg = addr;
@@ -612,11 +646,7 @@ int32_t MMCSD_read(MMCSD_Handle handle, uint8_t *buf, uint32_t startBlk, uint32_
     {
         if(trans.blockCount > 1U)
         {
-            MMCSD_initTransaction(&trans);
-            trans.cmd = stopCmd;
-            trans.arg = 0U;
-            trans.retries = MMCSD_TRANS_RETRIES;
-            status = MMCSD_transfer(handle, &trans);
+            MMCSD_sendStopCmd(handle);
         }
     }
 
@@ -630,7 +660,7 @@ int32_t MMCSD_write(MMCSD_Handle handle, uint8_t *buf, uint32_t startBlk, uint32
     MMCSD_Attrs const *attrs = ((MMCSD_Config *)handle)->attrs;
     MMCSD_Transaction trans;
     uint32_t addr = 0U;
-    uint32_t cmd = 0U, stopCmd = 0U;
+    uint32_t cmd = 0U;
     uint32_t blockSize = MMCSD_getBlockSize(handle);
     if(((obj->emmcData->supportedModes & MMCSD_EMMC_ECSD_DEVICE_TYPE_HS200_200MHZ_1P8V) &&
        (attrs->supportedModes & MMCSD_SUPPORT_MMC_HS200)) ||
@@ -642,25 +672,6 @@ int32_t MMCSD_write(MMCSD_Handle handle, uint8_t *buf, uint32_t startBlk, uint32
 
     obj->writeBufIdx = buf;
     obj->writeBlockCount = numBlks;
-
-    if(obj->cardType == MMCSD_CARD_TYPE_EMMC)
-    {
-        stopCmd = MMCSD_MMC_CMD(12);
-    }
-    else
-    {
-        stopCmd = MMCSD_SD_CMD(12);
-    }
-
-    if(SystemP_SUCCESS == status)
-    {
-        status = MMCSD_isReadyForTransfer(handle);
-
-        if(obj->isCmd23)
-        {
-            MMCSD_sendCmd23(handle, numBlks);
-        }
-    }
 
     if(SystemP_SUCCESS == status)
     {
@@ -694,12 +705,32 @@ int32_t MMCSD_write(MMCSD_Handle handle, uint8_t *buf, uint32_t startBlk, uint32
             uint32_t currNumBlks = numBlks;
             while(status == SystemP_SUCCESS && currNumBlks > CSL_MMC_CTLCFG_BLOCK_COUNT_XFER_BLK_CNT_MAX)
             {
-                if(currNumBlks > CSL_MMC_CTLCFG_BLOCK_COUNT_XFER_BLK_CNT_MAX)
-                {
-                    trans.blockCount = CSL_MMC_CTLCFG_BLOCK_COUNT_XFER_BLK_CNT_MAX;
-                }
+                trans.blockCount = CSL_MMC_CTLCFG_BLOCK_COUNT_XFER_BLK_CNT_MAX;
                 trans.retries = MMCSD_TRANS_RETRIES;
-                status = MMCSD_transfer(handle, &trans);
+
+                status = MMCSD_isReadyForTransfer(handle);
+
+                if(SystemP_SUCCESS == status)
+                {
+                    if(obj->isCmd23 != 0U)
+                    {
+                        MMCSD_sendCmd23(handle, trans.blockCount);
+                    }
+                }
+
+                if(SystemP_SUCCESS == status)
+                {
+                    status = MMCSD_transfer(handle, &trans);
+                }
+
+                if(SystemP_SUCCESS == status)
+                {
+                    if(obj->isCmd23 == 0U)
+                    {
+                        MMCSD_sendStopCmd(handle);
+                    }
+                }
+
                 currNumBlks = currNumBlks - CSL_MMC_CTLCFG_BLOCK_COUNT_XFER_BLK_CNT_MAX;
                 if(obj->isHC == TRUE)
                 {
@@ -716,11 +747,43 @@ int32_t MMCSD_write(MMCSD_Handle handle, uint8_t *buf, uint32_t startBlk, uint32
             {
                 trans.blockCount = currNumBlks;
                 trans.retries = MMCSD_TRANS_RETRIES;
-                status = MMCSD_transfer(handle, &trans);
+                if(currNumBlks > 1U)
+                {
+                    trans.cmd = MMCSD_MMC_CMD(25);
+                }
+                else
+                {
+                    trans.cmd = MMCSD_MMC_CMD(24);
+                }
+
+                status = MMCSD_isReadyForTransfer(handle);
+
+                if(SystemP_SUCCESS == status)
+                {
+                    if(obj->isCmd23 != 0U)
+                    {
+                        MMCSD_sendCmd23(handle, trans.blockCount);
+                    }
+                }
+
+                if(SystemP_SUCCESS == status)
+                {
+                    status = MMCSD_transfer(handle, &trans);
+                }
             }
         }
         else
         {
+            status = MMCSD_isReadyForTransfer(handle);
+
+            if(SystemP_SUCCESS == status)
+            {
+                if(obj->isCmd23 != 0U)
+                {
+                    MMCSD_sendCmd23(handle, numBlks);
+                }
+            }
+
             MMCSD_initTransaction(&trans);
             trans.dir = MMCSD_CMD_XFER_TYPE_WRITE;
             trans.arg = addr;
@@ -737,11 +800,7 @@ int32_t MMCSD_write(MMCSD_Handle handle, uint8_t *buf, uint32_t startBlk, uint32
     {
         if(trans.blockCount > 1U)
         {
-            MMCSD_initTransaction(&trans);
-            trans.cmd = stopCmd;
-            trans.arg = 0U;
-            trans.retries = MMCSD_TRANS_RETRIES;
-            status = MMCSD_transfer(handle, &trans);
+            MMCSD_sendStopCmd(handle);
         }
     }
 
@@ -1967,6 +2026,31 @@ static int32_t MMCSD_setupADMA2(MMCSD_Handle handle, MMCSD_ADMA2Descriptor *desc
     {
         status = SystemP_FAILURE;
     }
+
+    return status;
+}
+
+static int32_t MMCSD_sendStopCmd(MMCSD_Handle handle)
+{
+    int32_t status = SystemP_SUCCESS;
+    MMCSD_Object *obj = ((MMCSD_Config *)handle)->object;
+    MMCSD_Transaction trans;
+    uint32_t stopCmd = 0U;
+
+    if(obj->cardType == MMCSD_CARD_TYPE_EMMC)
+    {
+        stopCmd = MMCSD_MMC_CMD(12);
+    }
+    else
+    {
+        stopCmd = MMCSD_SD_CMD(12);
+    }
+
+    MMCSD_initTransaction(&trans);
+    trans.cmd = stopCmd;
+    trans.arg = 0;
+    trans.retries = MMCSD_TRANS_RETRIES;
+    status = MMCSD_transfer(handle, &trans);
 
     return status;
 }
