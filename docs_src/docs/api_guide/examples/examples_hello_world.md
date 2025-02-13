@@ -85,6 +85,10 @@ This example just does driver and board initialization and prints the string, He
  ^              | mcu-r5fss0-0 freertos
  ^              | a53ss0-0 nortos
  ^              | a53ss0-0 freertos
+ ^              | a53ss0-1 freertos
+ ^              | a53ss1-0 freertos
+ ^              | a53ss1-1 freertos
+ ^              | a53ss0-0 freertos-smp
  ^              | c75ss0-0 freertos
  ^              | r5fss0-0 nortos
  ^              | r5fss0-0 freertos
@@ -189,5 +193,20 @@ Hello World! from a53_core0
 [a530-1]     0.000100s : Hello World! from a53_core1
 [a531-0]     0.000097s : Hello World! from a53_core2
 [a531-1]     0.000084s : Hello World! from a53_core3
+\endcode
+\endcond
+
+\cond SOC_AM62DX
+
+**FreeRTOS-AMP Sample Output**
+
+\attention Output from  a53ss0-1, a53ss1-0 and a53ss1-1 cores are log to the Shared memory, can be viewed via a53ss0-0 on which log reader is enabled
+
+Shown below is a sample output on UART0 console when the application is run,
+\code
+Hello World! from a53_core0
+[a530-1]     0.002216s : Hello World! from a53_core1
+[a531-0]     0.002184s : Hello World! from a53_core2
+[a531-1]     0.002050s : Hello World! from a53_core3
 \endcode
 \endcond

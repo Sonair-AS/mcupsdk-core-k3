@@ -39,7 +39,7 @@
 
 void hello_world_main(void *args)
 {
-#if defined (AMP_A53)
+#if defined (AMP_FREERTOS_A53)
     DebugP_log("Hello World! from a53_core%d \r\n",Armv8_getCoreId());
 #else
     DebugP_log("Hello World!\r\n");
