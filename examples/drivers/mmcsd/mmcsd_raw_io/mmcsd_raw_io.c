@@ -36,7 +36,12 @@
 #include "ti_drivers_open_close.h"
 #include "ti_board_open_close.h"
 
-#define APP_MMCSD_START_BLK (0x800000U) /* @1.5GB */
+/*
+ * This macro defines the block offset at which MMCSD R/W is tested. It is
+ * equivalent to the raw offset of 4GB assuming the block size of 512B.
+ * Additionally, for eMMC, the offset lies in the UDA partition.
+ */
+#define APP_MMCSD_START_BLK (0x800000U)
 #if defined(SOC_AM275X)
 #define APP_MMCSD_DATA_SIZE (0x1000)
 #else
