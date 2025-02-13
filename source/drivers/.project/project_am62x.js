@@ -1,3 +1,4 @@
+const { debug } = require('console');
 let path = require('path');
 
 let device = "am62x";
@@ -337,6 +338,12 @@ const defines_dm_r5 = {
     ],
 };
 
+const cflags_r5f = {
+    debug: [
+        "-Og",
+    ]
+}
+
 const cflags_a53 = {
     common: [
         "-Wno-maybe-uninitialized",
@@ -377,6 +384,7 @@ function getComponentBuildProperty(buildOption) {
     if(buildOption.cpu.match(/r5f*/)){
         build_property.files=files_r5f;
         build_property.defines = defines_dm_r5;
+        build_property.cflags = cflags_r5f;
     }
     if(buildOption.cpu.match(/a53*/)){
         build_property.files = files_a53;

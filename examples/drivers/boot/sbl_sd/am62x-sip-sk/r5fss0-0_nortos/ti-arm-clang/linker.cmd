@@ -30,7 +30,7 @@ SECTIONS
     RUN_START(__BSS_START)
     RUN_END(__BSS_END)
     .sysmem: {} palign(8) > HSM_RAM
-    .stack:  {} palign(8) > HSM_RAM
+    .stack:  {} palign(8) > OCRAM
     GROUP {
         .irqstack: {. = . + __IRQ_STACK_SIZE;} align(8)
         RUN_START(__IRQ_STACK_START)
@@ -47,7 +47,7 @@ SECTIONS
         .undefinedstack: {. = . + __UNDEFINED_STACK_SIZE;} align(8)
         RUN_START(__UNDEFINED_STACK_START)
         RUN_END(__UNDEFINED_STACK_END)
-    } > HSM_RAM
+    } > OCRAM
 
     .bss.filebuf (NOLOAD) : {} > DDR
 }
@@ -74,4 +74,5 @@ MEMORY
     HSM_RAM_VECS: ORIGIN = 0x43C00000 , LENGTH = 0x100
     HSM_RAM  : ORIGIN = 0x43C00100 , LENGTH = 0x3C800 - 0x100
     DDR      : ORIGIN = 0x84000000 , LENGTH = 0x40000000
+    OCRAM  : ORIGIN = 0x70000000 , LENGTH = 0x10000
 }

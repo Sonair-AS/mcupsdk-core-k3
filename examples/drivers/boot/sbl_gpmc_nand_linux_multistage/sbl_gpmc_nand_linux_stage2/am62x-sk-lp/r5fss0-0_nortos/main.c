@@ -181,6 +181,8 @@ int main()
 
     if(SystemP_SUCCESS == status)
     {
+        Bootloader_openDma();
+
         Bootloader_BootImageInfo bootImageInfo;
 		Bootloader_Params bootParams;
         Bootloader_Handle bootHandle;
@@ -267,6 +269,8 @@ int main()
 		}
 
         Bootloader_close(bootHandle);
+
+        Bootloader_closeDma();
     }
 
     if(status != SystemP_SUCCESS )
