@@ -47,7 +47,7 @@
 
 void empty_main(void *args)
 {
-#if defined(AMP_A53)
+#if defined(AMP_FREERTOS_A53)
     DebugP_log("All tests have passed on a53_core%d !!\r\n",Armv8_getCoreId());
 #else
     DebugP_log("All tests have passed!!\r\n");

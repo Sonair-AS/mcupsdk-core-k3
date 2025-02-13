@@ -119,6 +119,9 @@ For all other cores, CCS prints are used.
  ^              | mcu-r5fss0-0 freertos
  ^              | a53ss0-0 nortos
  ^              | a53ss0-0 freertos
+ ^              | a53ss0-1 freertos
+ ^              | a53ss1-0 freertos
+ ^              | a53ss1-1 freertos
  ^              | c75ss0-0 freertos
  ^              | r5fss0-0 nortos
  ^              | r5fss0-0 freertos
@@ -201,5 +204,20 @@ All tests have passed on a53_core0 !!
 [a530-1]     0.000084s : All tests have passed on a53_core1 !!
 [a531-0]     0.000092s : All tests have passed on a53_core2 !!
 [a531-1]     0.000077s : All tests have passed on a53_core3 !!
+\endcode
+\endcond
+
+\cond SOC_AM62DX
+
+**FreeRTOS-AMP Sample Output**
+
+\attention Output from  a53ss0-1, a53ss1-0 and a53ss1-1 cores are log to the Shared memory, can be viewed via a53ss0-0 on which log reader is enabled
+
+Shown below is a sample output on UART0 console when the application is run,
+\code
+All tests have passed on a53_core0 !!
+[a530-1]     0.002432s : All tests have passed on a53_core1 !!
+[a531-0]     0.002189s : All tests have passed on a53_core2 !!
+[a531-1]     0.002101s : All tests have passed on a53_core3 !!
 \endcode
 \endcond
