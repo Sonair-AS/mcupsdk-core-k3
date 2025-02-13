@@ -180,7 +180,7 @@ function getTimerClockSourceValue(instance) {
                 clkSelMuxValue = 0x9;
                 break;
         }
-    }else if(cpu.match(/a53ss0-0/)) {
+    }else if(cpu.match(/a53*/)) {
         switch(instance.clkSource) {
             default:
             case "HFOSC0_CLKOUT":
@@ -292,9 +292,9 @@ function getStaticConfigArr() {
         }
         staticConfigArr = staticConfig_dm_c75x;
     }
-    else if (cpu.match(/a53ss0-0/)){
+    else if (cpu.match(/a53*/)){
         let staticConfig_a53 = [];
-        for(let i=4; i<8; i++)
+        for(let i=0; i<4; i++)
         {
             staticConfig_a53.push(
                 {
@@ -323,7 +323,7 @@ function getInterfaceName(inst) {
         return "WKUP_TIMER";
     }else if (cpu.match(/c75ss0-0/)){
         return "TIMER";
-    }else if(cpu.match(/a53ss0-0/)){
+    }else if(cpu.match(/a53*/)){
         return "TIMER";
     }
 
@@ -341,7 +341,7 @@ function getTimerClockSourceConfigArr() {
     else if(cpu.match(/c75ss0-0/)) {
         return timerClockSourceConfig_main;
     }
-    else if(cpu.match(/a53ss0-0/)) {
+    else if(cpu.match(/a53*/)) {
         return timerClockSourceConfig_main;
     }
 
@@ -474,7 +474,7 @@ function getTimerClockSourceHz(clkSource) {
                 break;
         }
     }
-    else if(cpu.match(/a53ss0-0*/)) {
+    else if(cpu.match(/a53*/)) {
         /* A53 */
         switch(clkSource) {
             default:clkSourceHz
@@ -524,10 +524,10 @@ function getBlockedTimers() {
         return ['WKUP_DMTIMER1'];
     }
     else if(cpu.match(/c75ss0-0/)) {
-        return ['DMTIMER2', 'DMTIMER3','DMTIMER4', 'DMTIMER5', 'DMTIMER6', 'DMTIMER7'];
+        return ['DMTIMER2', 'DMTIMER4', 'DMTIMER5', 'DMTIMER6', 'DMTIMER7'];
     }
-    else if(cpu.match(/a53ss0-0/)) {
-        return ['DMTIMER0', 'DMTIMER1','DMTIMER2', 'DMTIMER3', 'DMTIMER6', 'DMTIMER7'];
+    else if(cpu.match(/a53*/)) {
+        return ['DMTIMER4', 'DMTIMER5', 'DMTIMER6', 'DMTIMER7'];
     }
 
     return [];

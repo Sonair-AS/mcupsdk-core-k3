@@ -91,6 +91,9 @@ uint32_t Sciclient_getContext(uint32_t contextType, uint32_t coreId)
 
 
     case CSL_CORE_ID_A53SS0_0:
+    case CSL_CORE_ID_A53SS0_1:
+    case CSL_CORE_ID_A53SS1_0:
+    case CSL_CORE_ID_A53SS1_1:
         if(contextType == SCICLIENT_SECURE_CONTEXT)
         {
             retVal = SCICLIENT_CONTEXT_A53_SEC_0;
@@ -128,6 +131,18 @@ uint32_t Sciclient_getDevId(uint32_t coreId)
 
     case CSL_CORE_ID_A53SS0_0:
         retVal = TISCI_DEV_A53SS0_CORE_0;
+        break;
+
+    case CSL_CORE_ID_A53SS0_1:
+        retVal = TISCI_DEV_A53SS0_CORE_1;
+        break;
+
+    case CSL_CORE_ID_A53SS1_0:
+        retVal = TISCI_DEV_A53SS0_CORE_2;
+        break;
+
+    case CSL_CORE_ID_A53SS1_1:
+        retVal = TISCI_DEV_A53SS0_CORE_3;
         break;
 
     case CSL_CORE_ID_C75SS0_0:

@@ -335,6 +335,19 @@ const defines_common = {
     ]
 };
 
+const defines_a53 = {
+    common:[
+        "SOC_AM62DX",
+        "AMP_FREERTOS_A53"
+    ]
+};
+
+const cflags_a53 = {
+    common: [
+        "-Wno-maybe-uninitialized",
+    ],
+};
+
 const filedirs_a53 =  {
     common: [
         "ecap/v0",
@@ -502,7 +515,8 @@ function getComponentBuildProperty(buildOption) {
     }else if(buildOption.cpu.match(/a53*/)) {
         build_property.filedirs = filedirs_a53;
         build_property.files = files_a53;
-        build_property.defines = defines_common;
+        build_property.defines = defines_a53;
+        build_property.cflags = cflags_a53;
     }
 
     return build_property;

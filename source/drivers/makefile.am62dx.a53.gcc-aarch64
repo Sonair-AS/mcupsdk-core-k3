@@ -128,6 +128,7 @@ INCLUDES_common := \
 
 DEFINES_common := \
     -DSOC_AM62DX \
+    -DAMP_FREERTOS_A53 \
     -DSW_VERSION=$(SW_VERSION)
 
 CFLAGS_common := \
@@ -145,6 +146,7 @@ CFLAGS_common := \
     -Wno-unused-but-set-variable \
     -fdata-sections \
     -ffunction-sections \
+    -Wno-maybe-uninitialized \
 
 CFLAGS_debug := \
     -D_DEBUG_=1 \

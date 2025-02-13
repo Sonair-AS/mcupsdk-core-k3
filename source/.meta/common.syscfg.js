@@ -451,6 +451,49 @@ function getDriverOpenOrder()
         "ospi",
     ];
 }
+
+/* Check which device support FreeRTOS-SMP */
+function isSmpSupported()
+{
+    switch(getSocName()) {
+        case "am62x":
+            return false;
+        case "am62ax":
+            return true;
+        case "am62dx":
+            return true;
+        case "am62px":
+            return false;
+        case "am275x":
+            return false;
+        case "j722s":
+            return false;
+        default:
+            return false;
+    }
+}
+
+/* Check which device support FreeRTOS-AMP */
+function isAmpSupported()
+{
+    switch(getSocName()) {
+        case "am62x":
+            return true;
+        case "am62ax":
+            return false;
+        case "am62dx":
+            return true;
+        case "am62px":
+            return false;
+        case "am275x":
+            return false;
+        case "j722s":
+            return false;
+        default:
+            return false;
+    }
+}
+
 exports = {
     getSelfSysCfgCoreName,
     isDMWithBootSupported,
@@ -471,6 +514,8 @@ exports = {
     stringOrEmpty,
     typeMatches,
     getDriverOpenOrder,
+    isSmpSupported,
+    isAmpSupported,
 
     validate: {
         checkSameInstanceName : function (instance, report) {

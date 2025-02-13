@@ -8,7 +8,6 @@
         "../source/networking/enet/core/sysconfig",
     ],
     "components": [
-
         "/kernel/dpl",
         "/drivers/drivers",
         "/board/board",
@@ -77,6 +76,9 @@
             "r5fss0-0",
             "c75ss0-0",
             "a53ss0-0",
+            "a53ss0-1",
+            "a53ss1-0",
+            "a53ss1-1",
         ],
 
     },

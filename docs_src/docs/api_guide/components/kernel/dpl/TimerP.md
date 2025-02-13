@@ -23,6 +23,10 @@ NA
 - Supports continues and oneshot mode
 - When configuring the timer period in micro second the 'periodInNsec' should be set to 0
 
+\cond SOC_AM62DX
+\attention Timer(TIMER2) is used for the system tick functionality in c7x is also availbale to uses as a timer peripheral for a53 core. Hence use TIMER2 for single purpose either system tick functionality in c7x or timer peripheral for a53 core
+
+\endcond
 
 ## Example Usage
 

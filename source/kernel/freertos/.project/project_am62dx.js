@@ -355,6 +355,7 @@ const asmfiles_a53_smp = {
         // none
         // picked from freertos "portable"
         "portASM.S",
+        "SpinlockP_armv8.S"
     ],
 };
 

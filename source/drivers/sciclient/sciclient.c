@@ -46,7 +46,7 @@
 #include <kernel/dpl/AddrTranslateP.h>
 #include <stdbool.h>
 #include <string.h> /*For memcpy*/
-#if defined(AMP_A53)
+#if defined(AMP_FREERTOS_A53)
 #include <kernel/nortos/dpl/a53/SpinlockP_armv8.h>
 #endif
 /* ========================================================================== */
@@ -452,7 +452,7 @@ int32_t Sciclient_service(const Sciclient_ReqPrm_t *pReqPrm,
             status = SystemP_FAILURE;
         }
     }
-#if defined(AMP_A53)
+#if defined(AMP_FREERTOS_A53)
     while(SpinlockP_swLock( &gSwSpinLockBuff[SW_SPIN_LOCK_1]) == SW_SPINLOCK_IN_USE)
     {
 
@@ -508,7 +508,7 @@ int32_t Sciclient_service(const Sciclient_ReqPrm_t *pReqPrm,
         Sciclient_recvMessage(rxThread, pLocalRespPayload, rxPayloadSize);
     }
     HwiP_restore(key);
-#if defined(AMP_A53)
+#if defined(AMP_FREERTOS_A53)
     SpinlockP_swUnlock(&gSwSpinLockBuff[SW_SPIN_LOCK_1]);
 #endif
     return status;

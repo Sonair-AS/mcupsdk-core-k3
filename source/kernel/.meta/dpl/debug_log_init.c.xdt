@@ -8,15 +8,14 @@
         ipc_instance = ipc_module.$static;
     }
     let cpuName = system.getScript('/common').getSelfSysCfgCoreName();
-    let socName = system.getScript("/common").getSocName();
+    let common = system.getScript("/common");
 %%}
-% if(socName != "am62x") {
-    % if(cpuName.match(/a53/)) {
-
-    /* Initialize Debug module from Core0 only */
+% if(cpuName.match(/a53/)) {
+    % if (common.isSmpSupported()) {
+        % if(cpuName.match(/a53ss0-0/)) {
     if(0 == Armv8_getCoreId())
     {
-
+        % }
     % }
 % }
     /* Debug log init */
@@ -51,8 +50,10 @@
     DebugP_uartSetDrvIndex(`instance.uartLog.$name`);
 % }
 
-% if(socName != "am62x") {
-    % if(cpuName.match(/a53/)) {
+% if(cpuName.match(/a53/)) {
+    % if (common.isSmpSupported()) {
+        % if(cpuName.match(/a53ss0-0/)) {
     }
+        % }
     % }
 % }

@@ -39,13 +39,15 @@
 
 void Drivers_open(void)
 {
-% let socName = system.getScript('/common').getSocName();
 % let cpuName = system.getScript('/common').getSelfSysCfgCoreName();
-% if(socName != "am62x") {
-    % if(cpuName.match(/a53/)) {
+% let common = system.getScript("/common");
 
+% if(cpuName.match(/a53/)) {
+    % if (common.isSmpSupported()) {
+        % if(cpuName.match(/a53ss0-0/)) {
     if(0 == Armv8_getCoreId())
     {
+        % }
     % }
 % }
 
@@ -84,10 +86,11 @@ void Drivers_open(void)
 `system.getTemplate(subTemplate.driver_open)()`
     %}
 % }
-% if(socName != "am62x") {
-    % if(cpuName.match(/a53/)) {
-
+% if(cpuName.match(/a53/)) {
+    % if (common.isSmpSupported()) {
+        % if(cpuName.match(/a53ss0-0/)) {
     }
+        % }
     % }
 % }
 
@@ -96,12 +99,12 @@ void Drivers_open(void)
 void Drivers_close(void)
 {
 
-% if(socName != "am62x") {
-    % if(cpuName.match(/a53/)) {
-
+% if(cpuName.match(/a53/)) {
+    % if (common.isSmpSupported()) {
+        % if(cpuName.match(/a53ss0-0/)) {
     if(0 == Armv8_getCoreId())
     {
-
+        % }
     % }
 % }
 % for(let subTemplate of args) {
@@ -114,10 +117,11 @@ void Drivers_close(void)
 `system.getTemplate(subTemplate.driver_close)()`
     %}
 % }
-% if(socName != "am62x") {
-    % if(cpuName.match(/a53/)) {
-
+% if(cpuName.match(/a53/)) {
+    % if (common.isSmpSupported()) {
+        % if(cpuName.match(/a53ss0-0/)) {
     }
+        % }
     % }
 % }
 

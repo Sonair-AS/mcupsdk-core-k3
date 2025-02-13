@@ -71,10 +71,12 @@ void System_init(void)
      * to access SCICLIENT services, hence this needs to happen first
      */
     Dpl_init();
-% if(socName != "am62x") {
-    % if(cpuName.match(/a53/)) {
+% if(cpuName.match(/a53/)) {
+    % if (common.isSmpSupported()) {
+        % if(cpuName.match(/a53ss0-0/)) {
     if(0 == Armv8_getCoreId())
     {
+        % }
     % }
 % }
 % if (common.isSciClientSupported()) {
@@ -116,20 +118,23 @@ void System_init(void)
 `system.getTemplate(subTemplate.driver_init)()`
     % }
 % }
-% if(socName != "am62x") {
-    % if(cpuName.match(/a53/)) {
+% if(cpuName.match(/a53/)) {
+    % if (common.isSmpSupported()) {
+        % if(cpuName.match(/a53ss0-0/)) {
     }
-
+        % }
     % }
 % }
 }
 
 void System_deinit(void)
 {
-% if(socName != "am62x") {
-    % if(cpuName.match(/a53/)) {
+% if(cpuName.match(/a53/)) {
+    % if (common.isSmpSupported()) {
+        % if(cpuName.match(/a53ss0-0/)) {
     if(0 == Armv8_getCoreId())
     {
+        % }
     % }
 % }
 % for(let subTemplate of args) {
@@ -141,10 +146,11 @@ void System_deinit(void)
 % if (common.isSciClientSupported()) {
 `system.getTemplate(sciclientDeInitTemplate)()`
 % }
-% if(socName != "am62x") {
-    % if(cpuName.match(/a53/)) {
+% if(cpuName.match(/a53/)) {
+    % if (common.isSmpSupported()) {
+        % if(cpuName.match(/a53ss0-0/)) {
     }
-
+        % }
     % }
 % }
     Dpl_deinit();
