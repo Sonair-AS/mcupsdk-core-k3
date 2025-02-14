@@ -55,6 +55,7 @@ const example_file_list = [
     "examples/empty/.project/project_nortos.js",
     "examples/empty/.project/project_am275x_freertos_wkupr5.js",
     "examples/empty/.project/project_freertos.js",
+    "examples/drivers/adc/adc_singleshot/.project/project_am275x.js",
     "examples/drivers/gpio/gpio_input_interrupt/.project/project.js",
     "examples/drivers/gpio/gpio_led_blink/.project/project.js",
     "examples/drivers/i2c/i2c_read/.project/project.js",
