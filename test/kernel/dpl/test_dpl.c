@@ -129,7 +129,7 @@ static TaskP_Object gMyTask;
 #if defined(_TMS320C6X)
 void test_c66x(void);
 #endif
-#if defined(AMP_A53)
+#if defined(AMP_FREERTOS_A53)
 #define APP_UART_BUFSIZE              (60U)
 uint8_t gUartBuffer[APP_UART_BUFSIZE];
 volatile uint32_t gNumBytesWritten = 0U;
@@ -157,7 +157,7 @@ static void myISR3(void *args)
     gInISR = 1;
 }
 
-#if defined(AMP_A53)
+#if defined(AMP_FREERTOS_A53)
 void spi_interrupt_callback(UART_Handle handle, UART_Transaction *trans)
 {
     DebugP_assertNoLog(UART_TRANSFER_STATUS_SUCCESS == trans->status);
@@ -1447,7 +1447,7 @@ void test_main(void *args)
 #endif
 
     RUN_TEST(test_addrconversion, 898, NULL);
-#if defined(AMP_A53)
+#if defined(AMP_FREERTOS_A53)
     RUN_TEST(test_spiInterrupt, 3808, NULL);
 #endif
     UNITY_END();

@@ -38,7 +38,7 @@ ENTRY(_c_int00)
 
 MEMORY {
 
-	DDR : ORIGIN =  0x80000000, LENGTH = 0x2000000
+	DDR : ORIGIN =  0x86000000, LENGTH = 0x2000000
 
 	/* shared memory segments */
 	/* On A53,
@@ -62,6 +62,7 @@ SECTIONS {
 				. = ALIGN (8);
 			__data_end__ = .;
 		} > DDR
+
 
     /* this is used when Debug log's to shared memory is enabled, else this is not used */
     .bss.log_shared_mem  (NOLOAD) : { KEEP(*(.bss.log_shared_mem)) } > LOG_SHM_MEM
