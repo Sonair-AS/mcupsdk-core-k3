@@ -1,5 +1,5 @@
 /*
- *  Copyright (C) 2024 Texas Instruments Incorporated
+ *  Copyright (C) 2024-25 Texas Instruments Incorporated
  *
  *  Redistribution and use in source and binary forms, with or without
  *  modification, are permitted provided that the following conditions
@@ -24263,7 +24263,7 @@ static SDL_ecc_aggrRegs * const SDL_ECC_aggrBaseAddressTable[SDL_ECC_BASE_ADDRES
 	((SDL_ecc_aggrRegs *)((uintptr_t)SDL_ECC_AGGR0_ECC_AGGR_BASE)),
 };
 
-SDL_ecc_aggrRegs * SDL_ECC_aggrTransBaseAddressTable[SDL_ECC_MEMTYPE_MAX];
+extern SDL_ecc_aggrRegs * SDL_ECC_aggrTransBaseAddressTable[SDL_ECC_MEMTYPE_MAX];
 /**
  *  SDL_ECC_aggrTable
  *

@@ -1,5 +1,5 @@
 /*
- *  Copyright (C) 2024 Texas Instruments Incorporated
+ *  Copyright (C) 2024-25 Texas Instruments Incorporated
  *
  *  Redistribution and use in source and binary forms, with or without
  *  modification, are permitted provided that the following conditions
@@ -56,6 +56,8 @@
 
 #define SDL_ECC_INVALID_SELF_TEST_RAM_ID (0xffffffffu)
 #define SDL_ECC_INVALID_CHECKER_TYPE     (0xffu)
+
+SDL_ecc_aggrRegs * SDL_ECC_aggrTransBaseAddressTable[SDL_ECC_MEMTYPE_MAX];
 
 /* Event BitMap for ECC ESM callback for MAIN */
 uint32_t eventBitMapMAIN[SDL_ESM_MAX_EVENT_MAP_NUM_WORDS] =

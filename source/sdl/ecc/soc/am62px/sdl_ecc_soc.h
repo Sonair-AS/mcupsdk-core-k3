@@ -1,5 +1,5 @@
 /*
- *  Copyright (C) 2023-2024 Texas Instruments Incorporated
+ *  Copyright (C) 2023-2025 Texas Instruments Incorporated
  *
  *  Redistribution and use in source and binary forms, with or without
  *  modification, are permitted provided that the following conditions
@@ -149,7 +149,7 @@ static SDL_ecc_aggrRegs * const SDL_ECC_aggrBaseAddressTable[SDL_ECC_Base_Addres
 	((SDL_ecc_aggrRegs *)((uintptr_t)SDL_MCU_MCAN0_ECC_AGGR_BASE  )),
 };
 
-SDL_ecc_aggrRegs * SDL_ECC_aggrTransBaseAddressTable[SDL_ECC_MEMTYPE_MAX];
+extern SDL_ecc_aggrRegs * SDL_ECC_aggrTransBaseAddressTable[SDL_ECC_MEMTYPE_MAX];
 
 /** ----------------------------------------------------------------------------------
  * This structure holds the memory config for each memory subtype SDL_WKUP_R5FSS0_PULSAR_UL_CPU0_ECC_AGGR

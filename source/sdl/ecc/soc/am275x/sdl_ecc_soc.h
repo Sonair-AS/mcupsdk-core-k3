@@ -1,5 +1,5 @@
 /*
- *  Copyright (C) 2024 Texas Instruments Incorporated
+ *  Copyright (C) 2024-25 Texas Instruments Incorporated
  *
  *  Redistribution and use in source and binary forms, with or without
  *  modification, are permitted provided that the following conditions
@@ -172,7 +172,7 @@ static SDL_ecc_aggrRegs * const SDL_ECC_aggrBaseAddressTable[SDL_ECC_Base_Addres
     ((SDL_ecc_aggrRegs *)((uintptr_t)SDL_WKUP_PSRAM2KX32E0_REGS_BASE)),
     ((SDL_ecc_aggrRegs *)((uintptr_t)SDL_ECC_AGGR2_ECC_AGGR_BASE)),
 };
-SDL_ecc_aggrRegs * SDL_ECC_aggrTransBaseAddressTable[SDL_ECC_MEMTYPE_MAX];
+extern SDL_ecc_aggrRegs * SDL_ECC_aggrTransBaseAddressTable[SDL_ECC_MEMTYPE_MAX];
 /** ----------------------------------------------------------------------------------
  * This structure holds the memory config for each memory subtype SDL_C7X256V1_ECC_AGGR
  * -----------------------------------------------------------------------------------
