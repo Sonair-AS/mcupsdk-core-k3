@@ -52,7 +52,7 @@
 #define BOOTLOADER_END_OF_FILES_TRANSFER_WORD_LENGTH  (4) /* bytes */
 #define BOOTLOADER_APP_IMAGE_LOADED                   (1)
 
-#define BOOTLOADER_APPIMAGE_MAX_FILE_SIZE (0x40000000) /* Max size of the file that xmodem can receive */
+#define BOOTLOADER_APPIMAGE_MAX_FILE_SIZE (0x2000000) /* Max size of the file that xmodem can receive */
 
 uint8_t gAppImageBuf[BOOTLOADER_APPIMAGE_MAX_FILE_SIZE] __attribute__((aligned(128), section(".bss.filebuf")));
 
@@ -145,6 +145,27 @@ int32_t App_loadImages(void)
                 socCpuCores[CSL_CORE_ID_A53SS0_0] = BOOTLOADER_APP_IMAGE_LOADED;
                 bootCpuInfo[CSL_CORE_ID_A53SS0_0] = bootImageInfo.cpuInfo[CSL_CORE_ID_A53SS0_0];
             }
+		}
+        if((SystemP_SUCCESS == status) && (TRUE == Bootloader_isCorePresent(bootHandle, CSL_CORE_ID_A53SS0_1)))
+		{
+            bootImageInfo.cpuInfo[CSL_CORE_ID_A53SS0_1].clkHz = Bootloader_socCpuGetClkDefault(CSL_CORE_ID_A53SS0_1);
+            status = Bootloader_loadCpu(bootHandle, &(bootImageInfo.cpuInfo[CSL_CORE_ID_A53SS0_1]));
+            socCpuCores[CSL_CORE_ID_A53SS0_1] = BOOTLOADER_APP_IMAGE_LOADED;
+            bootCpuInfo[CSL_CORE_ID_A53SS0_1] = bootImageInfo.cpuInfo[CSL_CORE_ID_A53SS0_1];
+		}
+        if((SystemP_SUCCESS == status) && (TRUE == Bootloader_isCorePresent(bootHandle, CSL_CORE_ID_A53SS1_0)))
+		{
+            bootImageInfo.cpuInfo[CSL_CORE_ID_A53SS1_0].clkHz = Bootloader_socCpuGetClkDefault(CSL_CORE_ID_A53SS1_0);
+            status = Bootloader_loadCpu(bootHandle, &(bootImageInfo.cpuInfo[CSL_CORE_ID_A53SS1_0]));
+            socCpuCores[CSL_CORE_ID_A53SS1_0] = BOOTLOADER_APP_IMAGE_LOADED;
+            bootCpuInfo[CSL_CORE_ID_A53SS1_0] = bootImageInfo.cpuInfo[CSL_CORE_ID_A53SS1_0];
+		}
+        if((SystemP_SUCCESS == status) && (TRUE == Bootloader_isCorePresent(bootHandle, CSL_CORE_ID_A53SS1_1)))
+		{
+            bootImageInfo.cpuInfo[CSL_CORE_ID_A53SS1_1].clkHz = Bootloader_socCpuGetClkDefault(CSL_CORE_ID_A53SS1_1);
+            status = Bootloader_loadCpu(bootHandle, &(bootImageInfo.cpuInfo[CSL_CORE_ID_A53SS1_1]));
+            socCpuCores[CSL_CORE_ID_A53SS1_1] = BOOTLOADER_APP_IMAGE_LOADED;
+            bootCpuInfo[CSL_CORE_ID_A53SS1_1] = bootImageInfo.cpuInfo[CSL_CORE_ID_A53SS1_1];
 		}
         if((SystemP_SUCCESS == status) && (TRUE == Bootloader_isCorePresent(bootHandle, CSL_CORE_ID_C75SS0_0)))
         {
