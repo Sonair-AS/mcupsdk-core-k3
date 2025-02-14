@@ -118,7 +118,7 @@ void gpio_input_interrupt_main(void *args)
     GPIO_setTrigType(gGpioBaseAddr, pinNum, GPIO_TRIG_TYPE_NONE);
     GPIO_clearIntrStatus(gGpioBaseAddr, pinNum);
     HwiP_destruct(&gGpioHwiObject);
-#if defined(AMP_A53)
+#if defined(AMP_FREERTOS_A53)
     DebugP_log("GPIO Input Interrupt Test Passed on a53_core%d !!\r\n", Armv8_getCoreId());
     DebugP_log("All tests have passed on a53_core%d !!\r\n", Armv8_getCoreId());
 #else

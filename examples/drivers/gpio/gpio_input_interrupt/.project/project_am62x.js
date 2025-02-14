@@ -311,7 +311,7 @@ const templates_freertos_a53ss11 =
 
 const defines_a53_amp = {
     common: [
-        "AMP_A53",
+        "AMP_FREERTOS_A53",
     ],
 };
 

@@ -138,7 +138,7 @@ const lnkfiles = {
 
 const defines_a53_amp = {
     common: [
-        "AMP_A53",
+        "AMP_FREERTOS_A53",
     ],
 };
 

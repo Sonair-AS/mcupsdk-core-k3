@@ -55,14 +55,14 @@ const defines_nortos = {
 const defines_freertos_a53 = {
     common: [
         "OS_FREERTOS",
-        "AMP_A53"
+        "AMP_FREERTOS_A53"
     ],
 }
 
 const defines_nortos_a53 = {
     common: [
         "OS_NORTOS",
-        "AMP_A53"
+        "AMP_FREERTOS_A53"
     ],
 }
 
