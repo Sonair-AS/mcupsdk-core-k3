@@ -95,6 +95,9 @@ We also fetch the clock frequency of the current CPU using Sciclient and print t
  ---------------|-----------
  CPU + OS       | a53ss0-0 nortos
  ^              | a53ss0-0 freertos
+ ^              | a53ss0-1 freertos
+ ^              | a53ss1-0 freertos
+ ^              | a53ss1-1 freertos
  ^              | c75ss0-0 freertos
  ^              | mcu-r5fss0-0 nortos
  ^              | mcu-r5fss0-0 freertos
@@ -216,5 +219,36 @@ All tests have passed on a53_core0 !!
 [a531-1]     0.000224s : ABI revision 4.0
 [a531-1]     0.000364s : [SCICLIENT] CPU clock frequency = 1400000000 Hz
 [a531-1]     0.000368s : All tests have passed on a53_core3 !!
+\endcode
+\endcond
+
+\cond SOC_AM62DX
+
+**FreeRTOS-AMP Sample Output**
+
+\attention Output from  a53ss0-1, a53ss1-0 and a53ss1-1 cores are log to the Shared memory, can be viewed via a53ss0-0 on which log reader is enabled
+
+Shown below is a sample output on UART0 console when the application is run,
+\code
+SYSFW Firmware Version 10.1.8--v10.01.08 (Fiery Fox)
+Firmware revision 0xa
+ABI revision 4.0
+[SCICLIENT] CPU clock frequency = 1400000000 Hz
+All tests have passed on a53_core0 !!
+[a530-1]     0.002316s : SYSFW Firmware Version 10.1.8--v10.01.08 (Fiery Fox)
+[a530-1]     0.002327s : Firmware revision 0xa
+[a530-1]     0.002331s : ABI revision 4.0
+[a530-1]     0.002556s : [SCICLIENT] CPU clock frequency = 1400000000 Hz
+[a530-1]     0.002560s : All tests have passed on a53_core1 !!
+[a531-0]     0.002347s : SYSFW Firmware Version 10.1.8--v10.01.08 (Fiery Fox)
+[a531-0]     0.002358s : Firmware revision 0xa
+[a531-0]     0.002361s : ABI revision 4.0
+[a531-0]     0.002561s : [SCICLIENT] CPU clock frequency = 1400000000 Hz
+[a531-0]     0.002565s : All tests have passed on a53_core2 !!
+[a531-1]     0.002284s : SYSFW Firmware Version 10.1.8--v10.01.08 (Fiery Fox)
+[a531-1]     0.002295s : Firmware revision 0xa
+[a531-1]     0.002299s : ABI revision 4.0
+[a531-1]     0.002483s : [SCICLIENT] CPU clock frequency = 1400000000 Hz
+[a531-1]     0.002487s : All tests have passed on a53_core3 !!
 \endcode
 \endcond
