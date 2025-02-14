@@ -274,6 +274,8 @@ MULTI_CORE_APP_PARAMS = \
     --core-img=$(BOOTIMAGE_CORE_ID_`project.cpu`)\:../`project.cpu`_`project.os`/`project.cgt`/`args.project.name`.$(PROFILE).out \
     %}
 % }
+
+MCELF_XIP_RANGE?=0x60100000:0x60200000 
 % } else {
 % if (atf_build == true) {
 ifeq ($(ATF_INTEGRATED_BOOT), yes)
@@ -377,7 +379,7 @@ endif
 % }
 	@echo  Boot multi-core image: $@ ...
 % if (imageFormat == "mcelf") {
-	$(PYTHON) $(MCELF_IMAGE_GEN) $(MULTI_CORE_APP_PARAMS) --output=$(MULTI_CORE_BOOTIMAGE_NAME) --sw_version=$(SW_VERSION)
+	$(PYTHON) $(MCELF_IMAGE_GEN) $(MULTI_CORE_APP_PARAMS) --output=$(MULTI_CORE_BOOTIMAGE_NAME) --xip=$(MCELF_XIP_RANGE) --sw_version=$(SW_VERSION)
 % } else {
 	$(MULTI_CORE_IMAGE_GEN) --devID $(SBL_DEV_ID) --out $(MULTI_CORE_BOOTIMAGE_NAME) $(MULTI_CORE_APP_PARAMS) >> $(BOOTIMAGE_TEMP_OUT_FILE)
 	$(MULTI_CORE_IMAGE_GEN) --devID $(SBL_DEV_ID) --out $(MULTI_CORE_BOOTIMAGE_NAME_XIP) $(MULTI_CORE_APP_PARAMS_XIP) >> $(BOOTIMAGE_TEMP_OUT_FILE)

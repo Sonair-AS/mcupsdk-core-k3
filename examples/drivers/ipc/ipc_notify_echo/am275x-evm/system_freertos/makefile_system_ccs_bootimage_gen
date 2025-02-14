@@ -45,12 +45,14 @@ MULTI_CORE_APP_PARAMS = \
     --core-img=$(BOOTIMAGE_CORE_ID_r5fss1-0)\:../ipc_notify_echo_am275x-evm_r5fss1-0_freertos_ti-arm-clang/$(PROFILE)/ipc_notify_echo_am275x-evm_r5fss1-0_freertos_ti-arm-clang.out \
     --core-img=$(BOOTIMAGE_CORE_ID_r5fss1-1)\:../ipc_notify_echo_am275x-evm_r5fss1-1_freertos_ti-arm-clang/$(PROFILE)/ipc_notify_echo_am275x-evm_r5fss1-1_freertos_ti-arm-clang.out \
 
+MCELF_XIP_RANGE?=0x60100000:0x60200000 
+
 all:
 ifeq ($(CCS_IDE_MODE),cloud)
 #	No post build steps
 else
 	@echo  Boot multi-core image: $(MULTI_CORE_BOOTIMAGE_NAME) ...
-	$(PYTHON) $(MCELF_IMAGE_GEN) $(MULTI_CORE_APP_PARAMS) --output=$(MULTI_CORE_BOOTIMAGE_NAME) --sw_version=$(SW_VERSION)
+	$(PYTHON) $(MCELF_IMAGE_GEN) $(MULTI_CORE_APP_PARAMS) --output=$(MULTI_CORE_BOOTIMAGE_NAME) --xip=$(MCELF_XIP_RANGE) --sw_version=$(SW_VERSION)
 # Sign the appimage for HS-FS using appimage signing script
 	$(PYTHON) $(APP_IMAGE_SIGN_CMD) --bin $(MULTI_CORE_BOOTIMAGE_NAME) --authtype 0  --loadaddr 84000000 --key $(APP_SIGNING_KEY) --output $(MULTI_CORE_BOOTIMAGE_NAME).hs_fs --keyversion $(VERSION)
 ifeq ($(DEVICE_TYPE),HS)

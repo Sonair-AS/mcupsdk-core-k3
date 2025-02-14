@@ -422,6 +422,8 @@ endif
 % if (imageFormat == "mcelf") {
 MULTI_CORE_IMAGE_PARAMS = \
 	$(BOOTIMAGE_CORE_ID_`args.project.cpu`):$(OUTFILE) \
+
+MCELF_XIP_RANGE?=0x60100000:0x60200000 
 % } else {
 % if (atf_build == true) {
 ifeq ($(ATF_INTEGRATED_BOOT), yes)
@@ -491,7 +493,7 @@ ifeq ($(CCS_IDE_MODE),cloud)
 else
 % if (imageFormat == "mcelf") {
 	@echo  Boot image: `args.project.device`:`args.project.cpu`:`args.project.os`:`args.project.cgt` $(BOOTIMAGE_NAME)  ...
-	$(PYTHON) $(MCELF_IMAGE_GEN) --core-img=$(MULTI_CORE_IMAGE_PARAMS) --output=$(BOOTIMAGE_NAME) --sw_version=$(SW_VERSION)
+	$(PYTHON) $(MCELF_IMAGE_GEN) --core-img=$(MULTI_CORE_IMAGE_PARAMS) --output=$(BOOTIMAGE_NAME) --xip=$(MCELF_XIP_RANGE) --sw_version=$(SW_VERSION)
 % }
 % else {
 	@echo  Boot image: `args.project.device`:`args.project.cpu`:`args.project.os`:`args.project.cgt` $(BOOTIMAGE_NAME)  ...

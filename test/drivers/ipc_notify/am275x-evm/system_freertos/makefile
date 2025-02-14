@@ -113,6 +113,8 @@ MULTI_CORE_APP_PARAMS = \
     --core-img=$(BOOTIMAGE_CORE_ID_r5fss1-0)\:../r5fss1-0_freertos/ti-arm-clang/test_ipc_notify.$(PROFILE).out \
     --core-img=$(BOOTIMAGE_CORE_ID_r5fss1-1)\:../r5fss1-1_freertos/ti-arm-clang/test_ipc_notify.$(PROFILE).out \
 
+MCELF_XIP_RANGE?=0x60100000:0x60200000 
+
 MULTI_CORE_BOOTIMAGE_DEPENDENCY = \
     ../c75ss0-0_freertos/ti-c7000/test_ipc_notify.$(PROFILE).out \
     ../c75ss1-0_freertos/ti-c7000/test_ipc_notify.$(PROFILE).out \
@@ -125,7 +127,7 @@ $(MULTI_CORE_BOOTIMAGE_DEPENDENCY):
 
 $(MULTI_CORE_BOOTIMAGE_NAME): $(MULTI_CORE_BOOTIMAGE_DEPENDENCY)
 	@echo  Boot multi-core image: $@ ...
-	$(PYTHON) $(MCELF_IMAGE_GEN) $(MULTI_CORE_APP_PARAMS) --output=$(MULTI_CORE_BOOTIMAGE_NAME) --sw_version=$(SW_VERSION)
+	$(PYTHON) $(MCELF_IMAGE_GEN) $(MULTI_CORE_APP_PARAMS) --output=$(MULTI_CORE_BOOTIMAGE_NAME) --xip=$(MCELF_XIP_RANGE) --sw_version=$(SW_VERSION)
 	@echo  Boot multi-core image: $(MULTI_CORE_BOOTIMAGE_PATH)/$@ Done !!!
 	@echo  .
 	$(PYTHON) $(APP_IMAGE_SIGN_CMD) --bin $(MULTI_CORE_BOOTIMAGE_NAME) --authtype 0  --loadaddr 84000000 --key $(APP_SIGNING_KEY) --output $(MULTI_CORE_BOOTIMAGE_NAME).hs_fs --keyversion $(VERSION)
