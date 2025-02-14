@@ -80,14 +80,17 @@ int32_t App_runA53Cpu(Bootloader_Handle bootHandle, Bootloader_BootImageInfo *bo
 int32_t App_runMCUCpu(Bootloader_Handle bootHandle, Bootloader_BootImageInfo *bootImageInfo);
 
 
-void App_driversOpen_EMMC()
+int32_t App_driversOpen_EMMC()
 {
+    int32_t status = SystemP_SUCCESS;
+    
     gMmcsdHandle[CONFIG_MMCSD_SBL] = NULL;
 
     gMmcsdHandle[CONFIG_MMCSD_SBL] = MMCSD_open(CONFIG_MMCSD_SBL, &gMmcsdParams[CONFIG_MMCSD_SBL]);
     if(NULL == gMmcsdHandle[CONFIG_MMCSD_SBL])
     {
         DebugP_logError("MMCSD open failed for instance %d !!!\r\n", CONFIG_MMCSD_SBL);
+        status = SystemP_FAILURE;
     }
 
     gUartHandle[CONFIG_UART_SBL] = NULL;
@@ -96,7 +99,10 @@ void App_driversOpen_EMMC()
     if(NULL == gUartHandle[CONFIG_UART_SBL])
     {
         DebugP_logError("UART open failed for instance %d !!!\r\n", CONFIG_UART_SBL);
+        status = SystemP_FAILURE;
     }
+
+    return status;
 }
 
 void App_driversClose_EMMC()
@@ -115,7 +121,7 @@ void App_bootMultipleCoreEMMC()
     Module_clockSBLEnable();
     Module_clockSBLSetFrequency();
 
-    App_driversOpen_EMMC();
+    status = App_driversOpen_EMMC();
     Bootloader_profileAddProfilePoint("SBL Drivers_open");
 
     Bootloader_BootImageInfo bootImageInfo;
