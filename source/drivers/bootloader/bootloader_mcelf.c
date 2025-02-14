@@ -195,7 +195,7 @@ int32_t Bootloader_parseAndLoadMultiCoreELF(Bootloader_Handle handle, Bootloader
 
             if(status == SystemP_SUCCESS)
             {
-                Bootloader_parseELFMeta(handle, bootImageInfo, &mcelfMetaInfo);
+                status = Bootloader_parseELFMeta(handle, bootImageInfo, &mcelfMetaInfo);
             }
 
             if(status == SystemP_SUCCESS)

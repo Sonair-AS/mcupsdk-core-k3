@@ -115,6 +115,7 @@ const files_wkup_r5f = {
         "soc.c",
         "sciclient_irq_rm.c",
         "sciclient_fmwSecureProxyMap.c",
+        "tielfup32.c",
         "uart_v0.c",
         "uart_dma.c",
         "udma.c",
@@ -234,6 +235,7 @@ const filedirs_common = {
 const filedirs_wkup_r5f = {
     common: [
         "bootloader/soc/am275x",
+        "bootloader/tiELFuParser",
         "bootloader",
         "gpio/v0",
         "gtc/v0",

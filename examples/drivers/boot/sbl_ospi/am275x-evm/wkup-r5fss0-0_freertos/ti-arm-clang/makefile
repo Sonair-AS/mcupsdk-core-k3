@@ -65,6 +65,7 @@ DEFINES_common := \
 	-DSOC_AM275X \
 	-DSOC_AM275X \
 	-DENABLE_SCICLIENT_DIRECT \
+	-DSBL_BOOT_XIP_IMAGE \
 
 CFLAGS_common := \
 	-mcpu=cortex-r5 \

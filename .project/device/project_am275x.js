@@ -2,6 +2,7 @@ const common = require("../common.js");
 
 const component_file_list = [
     "source/board/.project/project.js",
+    "source/cmsis/.project/project.js",
     "source/drivers/.project/project.js",
     "source/drivers/udma/.project/project.js",
     "source/drivers/device_manager/sciclient_direct/.project/project.js",
@@ -51,6 +52,7 @@ const example_file_list = [
     "examples/drivers/boot/sbl_uart_uniflash/.project/project.js",
     "examples/drivers/boot/sbl_uart/.project/project.js",
     /* Examples */
+    "examples/benchmarks/xip_benchmark/.project/project.js",
     "examples/board/eeprom/eeprom_read_write/.project/project.js",
     "examples/empty/.project/project_nortos.js",
     "examples/empty/.project/project_am275x_freertos_wkupr5.js",

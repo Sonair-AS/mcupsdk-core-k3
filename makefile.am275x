@@ -35,6 +35,7 @@ help:
 	@echo  Library build targets,
 	@echo  ======================
 	@echo  $(MAKE) -s -f makefile.am275x board_r5f.ti-arm-clang board_c75x.ti-c7000
+	@echo  $(MAKE) -s -f makefile.am275x cmsis_r5f.ti-arm-clang
 	@echo  $(MAKE) -s -f makefile.am275x drivers_r5f.ti-arm-clang drivers_wkup-r5f.ti-arm-clang drivers_c75x.ti-c7000
 	@echo  $(MAKE) -s -f makefile.am275x udma_c75x.ti-c7000
 	@echo  $(MAKE) -s -f makefile.am275x sciclient_direct_wkup-r5f.ti-arm-clang
@@ -62,6 +63,7 @@ help:
 	@echo  Library clean targets,
 	@echo  ======================
 	@echo  $(MAKE) -s -f makefile.am275x board_r5f.ti-arm-clang_clean board_c75x.ti-c7000_clean
+	@echo  $(MAKE) -s -f makefile.am275x cmsis_r5f.ti-arm-clang_clean
 	@echo  $(MAKE) -s -f makefile.am275x drivers_r5f.ti-arm-clang_clean drivers_wkup-r5f.ti-arm-clang_clean drivers_c75x.ti-c7000_clean
 	@echo  $(MAKE) -s -f makefile.am275x udma_c75x.ti-c7000_clean
 	@echo  $(MAKE) -s -f makefile.am275x sciclient_direct_wkup-r5f.ti-arm-clang_clean
@@ -94,6 +96,8 @@ help:
 	@echo  $(MAKE) -s -C examples/drivers/boot/sbl_sd/am275x-evm/wkup-r5fss0-0_freertos/ti-arm-clang [all clean syscfg-gui syscfg]
 	@echo  $(MAKE) -s -C examples/drivers/boot/sbl_uart_uniflash/am275x-evm/wkup-r5fss0-0_nortos/ti-arm-clang [all clean syscfg-gui syscfg]
 	@echo  $(MAKE) -s -C examples/drivers/boot/sbl_uart/am275x-evm/wkup-r5fss0-0_freertos/ti-arm-clang [all clean syscfg-gui syscfg]
+	@echo  $(MAKE) -s -C examples/benchmarks/xip_benchmark/am275x-evm/r5fss0-0_nortos/ti-arm-clang [all clean syscfg-gui syscfg]
+	@echo  $(MAKE) -s -C examples/benchmarks/xip_benchmark/am275x-evm/r5fss0-0_freertos/ti-arm-clang [all clean syscfg-gui syscfg]
 	@echo  $(MAKE) -s -C examples/board/eeprom/eeprom_read_write/am275x-evm/r5fss0-0_freertos/ti-arm-clang [all clean syscfg-gui syscfg]
 	@echo  $(MAKE) -s -C examples/empty/am275x-evm/wkup-r5fss0-0_freertos/ti-arm-clang [all clean syscfg-gui syscfg]
 	@echo  $(MAKE) -s -C examples/drivers/adc/adc_singleshot/am275x-evm/r5fss0-0_nortos/ti-arm-clang [all clean syscfg-gui syscfg]
@@ -238,6 +242,7 @@ help:
 
 # Various Component Targets
 BUILD_COMBO_board = board_r5f.ti-arm-clang board_c75x.ti-c7000
+BUILD_COMBO_cmsis = cmsis_r5f.ti-arm-clang
 BUILD_COMBO_drivers = drivers_r5f.ti-arm-clang drivers_wkup-r5f.ti-arm-clang drivers_c75x.ti-c7000
 BUILD_COMBO_udma = udma_c75x.ti-c7000
 BUILD_COMBO_sciclient_direct = sciclient_direct_wkup-r5f.ti-arm-clang
@@ -263,7 +268,7 @@ BUILD_COMBO_sdl = sdl_r5f.ti-arm-clang
 BUILD_COMBO_rm_pm_hal = rm_pm_hal_wkup-r5f.ti-arm-clang
 
 # Combine all Components
-BUILD_COMBO_ALL = $(BUILD_COMBO_board) $(BUILD_COMBO_drivers) $(BUILD_COMBO_udma) $(BUILD_COMBO_sciclient_direct) $(BUILD_COMBO_sciclient_direct_sbl) $(BUILD_COMBO_sciserver) $(BUILD_COMBO_self_reset) $(BUILD_COMBO_dhrystone_benchmark) $(BUILD_COMBO_freertos_fat) $(BUILD_COMBO_nortos) $(BUILD_COMBO_freertos) $(BUILD_COMBO_enet-cpsw) $(BUILD_COMBO_lwipif-cpsw-freertos) $(BUILD_COMBO_lwipif-cpsw-nortos) $(BUILD_COMBO_lwip-contrib-freertos) $(BUILD_COMBO_lwip-contrib-nortos) $(BUILD_COMBO_lwip-freertos) $(BUILD_COMBO_lwip-nortos) $(BUILD_COMBO_tsn_combase-freertos) $(BUILD_COMBO_tsn_gptp-freertos) $(BUILD_COMBO_tsn_uniconf-freertos) $(BUILD_COMBO_tsn_unibase-freertos) $(BUILD_COMBO_sdl) $(BUILD_COMBO_rm_pm_hal)
+BUILD_COMBO_ALL = $(BUILD_COMBO_board) $(BUILD_COMBO_cmsis) $(BUILD_COMBO_drivers) $(BUILD_COMBO_udma) $(BUILD_COMBO_sciclient_direct) $(BUILD_COMBO_sciclient_direct_sbl) $(BUILD_COMBO_sciserver) $(BUILD_COMBO_self_reset) $(BUILD_COMBO_dhrystone_benchmark) $(BUILD_COMBO_freertos_fat) $(BUILD_COMBO_nortos) $(BUILD_COMBO_freertos) $(BUILD_COMBO_enet-cpsw) $(BUILD_COMBO_lwipif-cpsw-freertos) $(BUILD_COMBO_lwipif-cpsw-nortos) $(BUILD_COMBO_lwip-contrib-freertos) $(BUILD_COMBO_lwip-contrib-nortos) $(BUILD_COMBO_lwip-freertos) $(BUILD_COMBO_lwip-nortos) $(BUILD_COMBO_tsn_combase-freertos) $(BUILD_COMBO_tsn_gptp-freertos) $(BUILD_COMBO_tsn_uniconf-freertos) $(BUILD_COMBO_tsn_unibase-freertos) $(BUILD_COMBO_sdl) $(BUILD_COMBO_rm_pm_hal)
 
 # Combine all External Components
 BUILD_COMBO_EXTERNAL_ALL =
@@ -284,6 +289,9 @@ libs-private: $(BUILD_COMBO_PRIVATE_ALL)
 
 $(BUILD_COMBO_board):
 	$(MAKE) -C source/board -f makefile.am275x.$(subst board_,,$@) all
+
+$(BUILD_COMBO_cmsis):
+	$(MAKE) -C source/cmsis -f makefile.am275x.$(subst cmsis_,,$@) all
 
 $(BUILD_COMBO_drivers):
 	$(MAKE) -C source/drivers -f makefile.am275x.$(subst drivers_,,$@) all
@@ -357,6 +365,7 @@ $(BUILD_COMBO_rm_pm_hal):
 
 # Various Component Clean Targets
 BUILD_COMBO_CLEAN_board = board_r5f.ti-arm-clang_clean board_c75x.ti-c7000_clean
+BUILD_COMBO_CLEAN_cmsis = cmsis_r5f.ti-arm-clang_clean
 BUILD_COMBO_CLEAN_drivers = drivers_r5f.ti-arm-clang_clean drivers_wkup-r5f.ti-arm-clang_clean drivers_c75x.ti-c7000_clean
 BUILD_COMBO_CLEAN_udma = udma_c75x.ti-c7000_clean
 BUILD_COMBO_CLEAN_sciclient_direct = sciclient_direct_wkup-r5f.ti-arm-clang_clean
@@ -382,7 +391,7 @@ BUILD_COMBO_CLEAN_sdl = sdl_r5f.ti-arm-clang_clean
 BUILD_COMBO_CLEAN_rm_pm_hal = rm_pm_hal_wkup-r5f.ti-arm-clang_clean
 
 # Combine all Components Clean
-BUILD_COMBO_CLEAN_ALL = $(BUILD_COMBO_CLEAN_board) $(BUILD_COMBO_CLEAN_drivers) $(BUILD_COMBO_CLEAN_udma) $(BUILD_COMBO_CLEAN_sciclient_direct) $(BUILD_COMBO_CLEAN_sciclient_direct_sbl) $(BUILD_COMBO_CLEAN_sciserver) $(BUILD_COMBO_CLEAN_self_reset) $(BUILD_COMBO_CLEAN_dhrystone_benchmark) $(BUILD_COMBO_CLEAN_freertos_fat) $(BUILD_COMBO_CLEAN_nortos) $(BUILD_COMBO_CLEAN_freertos) $(BUILD_COMBO_CLEAN_enet-cpsw) $(BUILD_COMBO_CLEAN_lwipif-cpsw-freertos) $(BUILD_COMBO_CLEAN_lwipif-cpsw-nortos) $(BUILD_COMBO_CLEAN_lwip-contrib-freertos) $(BUILD_COMBO_CLEAN_lwip-contrib-nortos) $(BUILD_COMBO_CLEAN_lwip-freertos) $(BUILD_COMBO_CLEAN_lwip-nortos) $(BUILD_COMBO_CLEAN_tsn_combase-freertos) $(BUILD_COMBO_CLEAN_tsn_gptp-freertos) $(BUILD_COMBO_CLEAN_tsn_uniconf-freertos) $(BUILD_COMBO_CLEAN_tsn_unibase-freertos) $(BUILD_COMBO_CLEAN_sdl) $(BUILD_COMBO_CLEAN_rm_pm_hal)
+BUILD_COMBO_CLEAN_ALL = $(BUILD_COMBO_CLEAN_board) $(BUILD_COMBO_CLEAN_cmsis) $(BUILD_COMBO_CLEAN_drivers) $(BUILD_COMBO_CLEAN_udma) $(BUILD_COMBO_CLEAN_sciclient_direct) $(BUILD_COMBO_CLEAN_sciclient_direct_sbl) $(BUILD_COMBO_CLEAN_sciserver) $(BUILD_COMBO_CLEAN_self_reset) $(BUILD_COMBO_CLEAN_dhrystone_benchmark) $(BUILD_COMBO_CLEAN_freertos_fat) $(BUILD_COMBO_CLEAN_nortos) $(BUILD_COMBO_CLEAN_freertos) $(BUILD_COMBO_CLEAN_enet-cpsw) $(BUILD_COMBO_CLEAN_lwipif-cpsw-freertos) $(BUILD_COMBO_CLEAN_lwipif-cpsw-nortos) $(BUILD_COMBO_CLEAN_lwip-contrib-freertos) $(BUILD_COMBO_CLEAN_lwip-contrib-nortos) $(BUILD_COMBO_CLEAN_lwip-freertos) $(BUILD_COMBO_CLEAN_lwip-nortos) $(BUILD_COMBO_CLEAN_tsn_combase-freertos) $(BUILD_COMBO_CLEAN_tsn_gptp-freertos) $(BUILD_COMBO_CLEAN_tsn_uniconf-freertos) $(BUILD_COMBO_CLEAN_tsn_unibase-freertos) $(BUILD_COMBO_CLEAN_sdl) $(BUILD_COMBO_CLEAN_rm_pm_hal)
 
 # Combine all External Components Clean
 BUILD_COMBO_EXTERNAL_CLEAN_ALL =
@@ -398,6 +407,9 @@ libs-prebuilt-clean: $(BUILD_COMBO_PREBUILT_CLEAN_ALL)
 
 $(BUILD_COMBO_CLEAN_board):
 	$(MAKE) -C source/board -f makefile.am275x.$(subst board_,,$(subst _clean,,$@)) clean
+
+$(BUILD_COMBO_CLEAN_cmsis):
+	$(MAKE) -C source/cmsis -f makefile.am275x.$(subst cmsis_,,$(subst _clean,,$@)) clean
 
 $(BUILD_COMBO_CLEAN_drivers):
 	$(MAKE) -C source/drivers -f makefile.am275x.$(subst drivers_,,$(subst _clean,,$@)) clean
@@ -471,6 +483,7 @@ $(BUILD_COMBO_CLEAN_rm_pm_hal):
 
 # Various Component Scrub Targets
 BUILD_COMBO_SCRUB_board = board_r5f.ti-arm-clang_scrub board_c75x.ti-c7000_scrub_scrub
+BUILD_COMBO_SCRUB_cmsis = cmsis_r5f.ti-arm-clang_scrub_scrub
 BUILD_COMBO_SCRUB_drivers = drivers_r5f.ti-arm-clang_scrub drivers_wkup-r5f.ti-arm-clang_scrub drivers_c75x.ti-c7000_scrub_scrub
 BUILD_COMBO_SCRUB_udma = udma_c75x.ti-c7000_scrub_scrub
 BUILD_COMBO_SCRUB_sciclient_direct = sciclient_direct_wkup-r5f.ti-arm-clang_scrub_scrub
@@ -496,7 +509,7 @@ BUILD_COMBO_SCRUB_sdl = sdl_r5f.ti-arm-clang_scrub_scrub
 BUILD_COMBO_SCRUB_rm_pm_hal = rm_pm_hal_wkup-r5f.ti-arm-clang_scrub_scrub
 
 # Combine all Components Scrub Targets
-BUILD_COMBO_SCRUB_ALL = $(BUILD_COMBO_SCRUB_board) $(BUILD_COMBO_SCRUB_drivers) $(BUILD_COMBO_SCRUB_udma) $(BUILD_COMBO_SCRUB_sciclient_direct) $(BUILD_COMBO_SCRUB_sciclient_direct_sbl) $(BUILD_COMBO_SCRUB_sciserver) $(BUILD_COMBO_SCRUB_self_reset) $(BUILD_COMBO_SCRUB_dhrystone_benchmark) $(BUILD_COMBO_SCRUB_freertos_fat) $(BUILD_COMBO_SCRUB_nortos) $(BUILD_COMBO_SCRUB_freertos) $(BUILD_COMBO_SCRUB_enet-cpsw) $(BUILD_COMBO_SCRUB_lwipif-cpsw-freertos) $(BUILD_COMBO_SCRUB_lwipif-cpsw-nortos) $(BUILD_COMBO_SCRUB_lwip-contrib-freertos) $(BUILD_COMBO_SCRUB_lwip-contrib-nortos) $(BUILD_COMBO_SCRUB_lwip-freertos) $(BUILD_COMBO_SCRUB_lwip-nortos) $(BUILD_COMBO_SCRUB_tsn_combase-freertos) $(BUILD_COMBO_SCRUB_tsn_gptp-freertos) $(BUILD_COMBO_SCRUB_tsn_uniconf-freertos) $(BUILD_COMBO_SCRUB_tsn_unibase-freertos) $(BUILD_COMBO_SCRUB_sdl) $(BUILD_COMBO_SCRUB_rm_pm_hal)
+BUILD_COMBO_SCRUB_ALL = $(BUILD_COMBO_SCRUB_board) $(BUILD_COMBO_SCRUB_cmsis) $(BUILD_COMBO_SCRUB_drivers) $(BUILD_COMBO_SCRUB_udma) $(BUILD_COMBO_SCRUB_sciclient_direct) $(BUILD_COMBO_SCRUB_sciclient_direct_sbl) $(BUILD_COMBO_SCRUB_sciserver) $(BUILD_COMBO_SCRUB_self_reset) $(BUILD_COMBO_SCRUB_dhrystone_benchmark) $(BUILD_COMBO_SCRUB_freertos_fat) $(BUILD_COMBO_SCRUB_nortos) $(BUILD_COMBO_SCRUB_freertos) $(BUILD_COMBO_SCRUB_enet-cpsw) $(BUILD_COMBO_SCRUB_lwipif-cpsw-freertos) $(BUILD_COMBO_SCRUB_lwipif-cpsw-nortos) $(BUILD_COMBO_SCRUB_lwip-contrib-freertos) $(BUILD_COMBO_SCRUB_lwip-contrib-nortos) $(BUILD_COMBO_SCRUB_lwip-freertos) $(BUILD_COMBO_SCRUB_lwip-nortos) $(BUILD_COMBO_SCRUB_tsn_combase-freertos) $(BUILD_COMBO_SCRUB_tsn_gptp-freertos) $(BUILD_COMBO_SCRUB_tsn_uniconf-freertos) $(BUILD_COMBO_SCRUB_tsn_unibase-freertos) $(BUILD_COMBO_SCRUB_sdl) $(BUILD_COMBO_SCRUB_rm_pm_hal)
 
 # Combine all External Components Scrub Targets
 BUILD_COMBO_EXTERNAL_SCRUB_ALL =
@@ -512,6 +525,9 @@ libs-prebuilt-scrub: $(BUILD_COMBO_PREBUILT_SCRUB_ALL)
 
 $(BUILD_COMBO_SCRUB_board):
 	$(MAKE) -C source/board -f makefile.am275x.$(subst board_,,$(subst _scrub,,$@)) scrub
+
+$(BUILD_COMBO_SCRUB_cmsis):
+	$(MAKE) -C source/cmsis -f makefile.am275x.$(subst cmsis_,,$(subst _scrub,,$@)) scrub
 
 $(BUILD_COMBO_SCRUB_drivers):
 	$(MAKE) -C source/drivers -f makefile.am275x.$(subst drivers_,,$(subst _scrub,,$@)) scrub
@@ -585,6 +601,8 @@ $(BUILD_COMBO_SCRUB_rm_pm_hal):
 
 BUILD_COMBO_EXAMPLE_ALL =
 # Various Example Targets
+BUILD_COMBO_EXAMPLE_ALL += xip_benchmark_am275x-evm_r5fss0-0_nortos_ti-arm-clang
+BUILD_COMBO_EXAMPLE_ALL += xip_benchmark_am275x-evm_r5fss0-0_freertos_ti-arm-clang
 BUILD_COMBO_EXAMPLE_ALL += eeprom_read_write_am275x-evm_r5fss0-0_freertos_ti-arm-clang
 BUILD_COMBO_EXAMPLE_ALL += adc_singleshot_am275x-evm_r5fss0-0_nortos_ti-arm-clang
 BUILD_COMBO_EXAMPLE_ALL += adc_singleshot_am275x-evm_r5fss0-0_freertos_ti-arm-clang
@@ -739,6 +757,12 @@ examples-private: $(BUILD_COMBO_EXAMPLE_PRIVATE_ALL)
 
  sbl_uart_am275x-evm_wkup-r5fss0-0_freertos_ti-arm-clang:
 	$(MAKE) -C examples/drivers/boot/sbl_uart/am275x-evm/wkup-r5fss0-0_freertos/ti-arm-clang -f makefile all
+
+ xip_benchmark_am275x-evm_r5fss0-0_nortos_ti-arm-clang:
+	$(MAKE) -C examples/benchmarks/xip_benchmark/am275x-evm/r5fss0-0_nortos/ti-arm-clang -f makefile all
+
+ xip_benchmark_am275x-evm_r5fss0-0_freertos_ti-arm-clang:
+	$(MAKE) -C examples/benchmarks/xip_benchmark/am275x-evm/r5fss0-0_freertos/ti-arm-clang -f makefile all
 
  eeprom_read_write_am275x-evm_r5fss0-0_freertos_ti-arm-clang:
 	$(MAKE) -C examples/board/eeprom/eeprom_read_write/am275x-evm/r5fss0-0_freertos/ti-arm-clang -f makefile all
@@ -1154,6 +1178,8 @@ examples-private: $(BUILD_COMBO_EXAMPLE_PRIVATE_ALL)
 
 BUILD_COMBO_EXAMPLE_CLEAN_ALL =
 # Various Example Clean Targets
+BUILD_COMBO_EXAMPLE_CLEAN_ALL += xip_benchmark_am275x-evm_r5fss0-0_nortos_ti-arm-clang_clean
+BUILD_COMBO_EXAMPLE_CLEAN_ALL += xip_benchmark_am275x-evm_r5fss0-0_freertos_ti-arm-clang_clean
 BUILD_COMBO_EXAMPLE_CLEAN_ALL += eeprom_read_write_am275x-evm_r5fss0-0_freertos_ti-arm-clang_clean
 BUILD_COMBO_EXAMPLE_CLEAN_ALL += adc_singleshot_am275x-evm_r5fss0-0_nortos_ti-arm-clang_clean
 BUILD_COMBO_EXAMPLE_CLEAN_ALL += adc_singleshot_am275x-evm_r5fss0-0_freertos_ti-arm-clang_clean
@@ -1308,6 +1334,12 @@ examples-private-clean: $(BUILD_COMBO_EXAMPLE_PRIVATE_CLEAN_ALL)
 
  sbl_uart_am275x-evm_wkup-r5fss0-0_freertos_ti-arm-clang_clean:
 	$(MAKE) -C examples/drivers/boot/sbl_uart/am275x-evm/wkup-r5fss0-0_freertos/ti-arm-clang -f makefile clean
+
+ xip_benchmark_am275x-evm_r5fss0-0_nortos_ti-arm-clang_clean:
+	$(MAKE) -C examples/benchmarks/xip_benchmark/am275x-evm/r5fss0-0_nortos/ti-arm-clang -f makefile clean
+
+ xip_benchmark_am275x-evm_r5fss0-0_freertos_ti-arm-clang_clean:
+	$(MAKE) -C examples/benchmarks/xip_benchmark/am275x-evm/r5fss0-0_freertos/ti-arm-clang -f makefile clean
 
  eeprom_read_write_am275x-evm_r5fss0-0_freertos_ti-arm-clang_clean:
 	$(MAKE) -C examples/board/eeprom/eeprom_read_write/am275x-evm/r5fss0-0_freertos/ti-arm-clang -f makefile clean
@@ -1723,6 +1755,8 @@ examples-private-clean: $(BUILD_COMBO_EXAMPLE_PRIVATE_CLEAN_ALL)
 
 BUILD_COMBO_EXAMPLE_SCRUB_ALL =
 # Various Example Scrub Targets
+BUILD_COMBO_EXAMPLE_SCRUB_ALL += xip_benchmark_am275x-evm_r5fss0-0_nortos_ti-arm-clang_scrub
+BUILD_COMBO_EXAMPLE_SCRUB_ALL += xip_benchmark_am275x-evm_r5fss0-0_freertos_ti-arm-clang_scrub
 BUILD_COMBO_EXAMPLE_SCRUB_ALL += eeprom_read_write_am275x-evm_r5fss0-0_freertos_ti-arm-clang_scrub
 BUILD_COMBO_EXAMPLE_SCRUB_ALL += adc_singleshot_am275x-evm_r5fss0-0_nortos_ti-arm-clang_scrub
 BUILD_COMBO_EXAMPLE_SCRUB_ALL += adc_singleshot_am275x-evm_r5fss0-0_freertos_ti-arm-clang_scrub
@@ -1877,6 +1911,12 @@ examples-scrub-private: $(BUILD_COMBO_EXAMPLE_PRIVATE_SCRUB_ALL)
 
  sbl_uart_am275x-evm_wkup-r5fss0-0_freertos_ti-arm-clang_scrub:
 	$(MAKE) -C examples/drivers/boot/sbl_uart/am275x-evm/wkup-r5fss0-0_freertos/ti-arm-clang -f makefile scrub
+
+ xip_benchmark_am275x-evm_r5fss0-0_nortos_ti-arm-clang_scrub:
+	$(MAKE) -C examples/benchmarks/xip_benchmark/am275x-evm/r5fss0-0_nortos/ti-arm-clang -f makefile scrub
+
+ xip_benchmark_am275x-evm_r5fss0-0_freertos_ti-arm-clang_scrub:
+	$(MAKE) -C examples/benchmarks/xip_benchmark/am275x-evm/r5fss0-0_freertos/ti-arm-clang -f makefile scrub
 
  eeprom_read_write_am275x-evm_r5fss0-0_freertos_ti-arm-clang_scrub:
 	$(MAKE) -C examples/board/eeprom/eeprom_read_write/am275x-evm/r5fss0-0_freertos/ti-arm-clang -f makefile scrub

@@ -71,6 +71,7 @@ const defines = {
     common:[
         "SOC_AM275X",
         "ENABLE_SCICLIENT_DIRECT",
+        "SBL_BOOT_XIP_IMAGE",
     ]
 }
 

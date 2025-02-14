@@ -214,6 +214,6 @@ MEMORY
     % }
 
     % if(useFlash) {
-    FLASH     : ORIGIN = 0x60200000 , LENGTH = 0x00200000
+    FLASH     : ORIGIN = 0x60100000 , LENGTH = 0x00200000
     % }
 }

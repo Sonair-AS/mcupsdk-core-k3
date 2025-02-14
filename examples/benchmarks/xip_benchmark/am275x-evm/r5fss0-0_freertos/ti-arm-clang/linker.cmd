@@ -1,57 +1,3 @@
-%%{
-    let options = args.options;
-
-    let stackSize = 16*1024;
-    let heapSize =  32*1024;
-    /* with nested interrupts logic added, IRQ stack is only used minimally, instead
-     * SVC stack is used, hence IRQ stack size is less as compared to SVC stack
-     */
-    let irqStackSize = 256;
-    let svcStackSize = 4*1024;
-    let fiqStackSize = 256;
-    let abortStackSize = 256;
-    let undefinedStackSize = 256;
-    let dssFrameBuf = "false";
-    let useFlash = false;
-
-    /* if no options given use defaults */
-    if(options && options.stackSize)
-        stackSize = options.stackSize;
-    if(options && options.heapSize)
-        heapSize = options.heapSize;
-    if(options && options.irqStackSize)
-        irqStackSize = options.irqStackSize;
-    if(options && options.fiqStackSize)
-        fiqStackSize = options.fiqStackSize;
-    if(options && options.svcStackSize)
-        svcStackSize = options.svcStackSize;
-    if(options && options.abortStackSize)
-        abortStackSize = options.abortStackSize;
-    if(options && options.undefinedStackSize)
-        undefinedStackSize = options.undefinedStackSize;
-    if(options && options.dssFrameBuf)
-        dssFrameBuf = options.dssFrameBuf;
-    if(options && options.isXip)
-        useFlash = true;
-
-    let memoryReg = ""
-
-    if(args.project.cpu == "wkup-r5fss0-0") {
-        memoryReg = "WKUP_R5_OCRAM"
-    } else if(args.project.cpu == "r5fss0-0"){
-        memoryReg = "R50_0_OCRAM"
-    } else if(args.project.cpu == "r5fss0-1"){
-        memoryReg = "R50_1_OCRAM"
-    } else if(args.project.cpu == "r5fss1-0"){
-        memoryReg = "R51_0_OCRAM"
-    }  else if(args.project.cpu == "r5fss1-1"){
-        memoryReg = "R51_1_OCRAM"
-    } else if(args.project.cpu == "c75ss0-0"){
-        memoryReg = "C75_0_OCRAM"
-    } else if(args.project.cpu == "c75ss1-0"){
-        memoryReg = "C75_1_OCRAM"
-    }
-%%}
 
 /* This is the stack that is used by code running within main()
  * In case of NORTOS,
@@ -61,11 +7,11 @@
  *   uses this stack.
  * - After vTaskStartScheduler() each task created in FreeRTOS has its own stack
  */
---stack_size=`stackSize`
+--stack_size=16384
 /* This is the heap size for malloc() API in NORTOS and FreeRTOS
  * This is also the heap used by pvPortMalloc in FreeRTOS
  */
---heap_size=`heapSize`
+--heap_size=32768
 -e_vectors  /* This is the entry of the application, _vector MUST be plabed starting address 0x0 */
 
 /* This is the size of stack when R5 is in IRQ mode
@@ -78,14 +24,14 @@
  * - But then the mode is switched to SVC mode and SVC stack is used for all user ISR callbacks
  * - Hence in FreeRTOS, IRQ stack size is less and SVC stack size is more
  */
-__IRQ_STACK_SIZE = `irqStackSize`;
+__IRQ_STACK_SIZE = 256;
 /* This is the size of stack when R5 is in IRQ mode
  * - In both NORTOS and FreeRTOS nesting is disabled for FIQ
  */
-__FIQ_STACK_SIZE = `fiqStackSize`;
-__SVC_STACK_SIZE = `svcStackSize`; /* This is the size of stack when R5 is in SVC mode */
-__ABORT_STACK_SIZE = `abortStackSize`;  /* This is the size of stack when R5 is in ABORT mode */
-__UNDEFINED_STACK_SIZE = `undefinedStackSize`;  /* This is the size of stack when R5 is in UNDEF mode */
+__FIQ_STACK_SIZE = 256;
+__SVC_STACK_SIZE = 4096; /* This is the size of stack when R5 is in SVC mode */
+__ABORT_STACK_SIZE = 256;  /* This is the size of stack when R5 is in ABORT mode */
+__UNDEFINED_STACK_SIZE = 256;  /* This is the size of stack when R5 is in UNDEF mode */
 
 SECTIONS
 {
@@ -93,7 +39,7 @@ SECTIONS
     .vectors:{} palign(8) > R5F_VECS
 
     /* This has the R5F boot code until MPU is enabled,  this MUST be at a address < 0x80000000
-     * i.e this cannot be placed in `memoryReg`
+     * i.e this cannot be placed in R50_0_OCRAM
      */
     GROUP {
         .text.hwi: palign(8)
@@ -103,37 +49,25 @@ SECTIONS
         .text:abort: palign(8) /* this helps in loading symbols when using XIP mode */
     } > R5F_TCMA
 
-    /* This is rest of code. This can be placed in `memoryReg` if `memoryReg` is available and needed */
+    /* This is rest of code. This can be placed in R50_0_OCRAM if R50_0_OCRAM is available and needed */
     GROUP {
         .text:   {} palign(8)   /* This is where code resides */
         .rodata: {} palign(8)   /* This is where const's go */
-    % if(useFlash === true) {
     } > FLASH
-    % } else {
-    } > `memoryReg`
-    % }
 
-    % if(args.project.ipcVringRTOS === true){
-    /* this is used only when IPC RPMessage is enabled, else this is not used */
-    .bss.ipc_vring_mem   (NOLOAD) : {} > IPC_VRING_RTOS
-    % }
-    % if(args.project.isLogSHM === true){
-    /* this is used when Debug log's to shared memory is enabled, else this is not used */
-    .bss.log_shared_mem  (NOLOAD) : {} > LOG_SHM_MEM
-    % }
-    /* This is rest of initialized data. This can be placed in `memoryReg` if `memoryReg` is available and needed */
+    /* This is rest of initialized data. This can be placed in R50_0_OCRAM if R50_0_OCRAM is available and needed */
     GROUP {
         .data:   {} palign(8)   /* This is where initialized globals and static go */
-    } > `memoryReg`
+    } > R50_0_OCRAM
 
-    /* This is rest of uninitialized data. This can be placed in `memoryReg` if `memoryReg` is available and needed */
+    /* This is rest of uninitialized data. This can be placed in R50_0_OCRAM if R50_0_OCRAM is available and needed */
     GROUP {
         .bss:    {} palign(8)   /* This is where uninitialized globals go */
         RUN_START(__BSS_START)
         RUN_END(__BSS_END)
         .sysmem: {} palign(8)   /* This is where the malloc heap goes */
         .stack:  {} palign(8)   /* This is where the main() stack goes */
-    } > `memoryReg`
+    } > R50_0_OCRAM
 
     /* This is where the stacks for different R5F modes go */
     GROUP {
@@ -152,22 +86,14 @@ SECTIONS
         .undefinedstack: {. = . + __UNDEFINED_STACK_SIZE;} align(8)
         RUN_START(__UNDEFINED_STACK_START)
         RUN_END(__UNDEFINED_STACK_END)
-    } > `memoryReg`
+    } > R50_0_OCRAM
 
-    % if(dssFrameBuf == "true") {
-    /* DSS frame buffer region */
-    .dssFrameBuffer (NOLOAD) : {} > `memoryReg`
-    % }
     /* Sections needed for C++ projects */
     GROUP {
         .ARM.exidx:  {} palign(8)   /* Needed for C++ exception handling */
         .init_array: {} palign(8)   /* Contains function pointers called before main */
         .fini_array: {} palign(8)   /* Contains function pointers called after main */
-    % if(useFlash) {
     } > FLASH
-    % } else {
-    } > `memoryReg`
-    % }
 }
 
 MEMORY
@@ -186,16 +112,8 @@ MEMORY
     C75_0_OCRAM   (RWIX)         : ORIGIN = 0x72200000 LENGTH = 0x00080000 // 512 KB for c75ss0-0 core
     C75_1_OCRAM   (RWIX)         : ORIGIN = 0x72400000 LENGTH = 0x00080000 // 512 KB for c75ss1-0 core
 
-    % if(args.project.isLogSHM === true){
-    LOG_SHM_MEM                  : ORIGIN = 0x72380000, LENGTH = 0x40000
-    % }
-    % if(args.project.ipcVringRTOS === true){
-    IPC_VRING_RTOS               : ORIGIN = 0x723C0000, LENGTH = 0xC000   /* IPC VRING for RTOS/NoRTOS */
-    % }
 
-    % if(useFlash) {
     FLASH     : ORIGIN = 0x60100000 , LENGTH = 0x00200000
-    % }
 
 
 }

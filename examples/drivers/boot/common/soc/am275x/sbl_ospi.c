@@ -115,14 +115,18 @@ void App_driversOpen()
 
 void App_boardDriversClose()
 {
+#if !defined (SBL_BOOT_XIP_IMAGE)
     Flash_close(gFlashHandle[CONFIG_FLASH_SBL]);
     gFlashHandle[CONFIG_FLASH_SBL] = NULL;
+#endif
 }
 
 void App_driversClose()
 {
+#if !defined (SBL_BOOT_XIP_IMAGE)
     OSPI_close(gOspiHandle[CONFIG_OSPI_SBL]);
     gOspiHandle[CONFIG_OSPI_SBL] = NULL;
+#endif
 }
 
 void App_bootMultipleCoreFlash()
@@ -171,8 +175,11 @@ void App_bootMultipleCoreFlash()
             }
             else
             {
-                DebugP_logError("App_loadImages failed !!!\r\n");
-                break;
+                DebugP_logWarn("App_loadImages failed for core %s !!!\r\n", \
+                    Bootloader_socGetCoreName(bootArray[inst].bootImageInfo.cpuInfo[inst].cpuId));
+                
+                DebugP_logWarn("App_loadImages failed at address %x !!!\r\n", \
+                    bootArray[inst].bootImageInfo.cpuInfo[inst].entryPoint);
             }
         }
 
@@ -193,15 +200,14 @@ void App_bootMultipleCoreFlash()
         App_boardDriversClose();
         App_driversClose();
 
-        if(SystemP_SUCCESS == status)
+        for(uint8_t inst = 0U; inst < CONFIG_BOOTLOADER_NUM_INSTANCES; inst++)
         {
-            for(uint8_t inst = 0U; inst < CONFIG_BOOTLOADER_NUM_INSTANCES; inst++)
+            if(bootArray[inst].loadStatus == BOOTLOADER_IMAGE_LOADED)
             {
-		        status = App_runCpus(&bootArray[inst]);
+                status = App_runCpus(&bootArray[inst]);
                 if(SystemP_SUCCESS != status)
                 {
                     DebugP_logError("App_runCpus failed !!!\r\n");
-                    break;
                 }
             }
         }

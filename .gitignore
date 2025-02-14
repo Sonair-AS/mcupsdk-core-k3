@@ -24,6 +24,7 @@ docs/datasheet*
 *.tiimage
 *.tiimage.hs
 *.mcelf
+*.mcelf_xip
 *.mcelf.signed
 *.mcelf.hs
 *.mcelf.hs_fs

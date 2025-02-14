@@ -13,6 +13,7 @@
     let undefinedStackSize = 0x0100;
     let dmStubstacksize = 0x0400;
     let dssFrameBuf = "false";
+    let useFlash = false;
 
     /* if no options given use defaults */
     if(options && options.stackSize)
@@ -33,6 +34,8 @@
         dmStubstacksize = options.dmStubstacksize;
     if(options && options.dssFrameBuf)
         dssFrameBuf = options.dssFrameBuf;
+    if(options && options.isXip)
+        useFlash = true;
 
     let memoryReg = ""
 
@@ -119,9 +122,17 @@ SECTIONS
     .bss.ipc_vring_mem   (NOLOAD) : {} > IPC_VRING_RTOS
     % }
 
+    % if(useFlash === true) {
+    .text            : {} palign(8)      > FLASH
+    % } else {
     .text            : {} palign(8)      > `memoryReg`
+    % }
     .const           : {} palign(8)      > `memoryReg`
+    % if(useFlash === true) {
+    .rodata          : {} palign(8)      > FLASH
+    % } else {
     .rodata          : {} palign(8)      > `memoryReg`
+    % }
     .cinit           : {} palign(8)      > `memoryReg`
     .far             : {} align(4)       > `memoryReg`
     .data            : {} palign(128)    > `memoryReg`
@@ -164,7 +175,11 @@ SECTIONS
         .ARM.exidx:  {} palign(8)   /* Needed for C++ exception handling */
         .init_array: {} palign(8)   /* Contains function pointers called before main */
         .fini_array: {} palign(8)   /* Contains function pointers called after main */
+    % if(useFlash) {
+    } > FLASH
+    % } else {
     } > `memoryReg`
+    % }
     % if(dssFrameBuf == "true") {
 
     /* DSS frame buffer region */
@@ -197,4 +212,7 @@ MEMORY
     IPC_VRING_RTOS               : ORIGIN = 0x723C0000, LENGTH = 0xC000   /* IPC VRING for RTOS/NoRTOS */
     % }
 
+    % if(useFlash) {
+    FLASH     : ORIGIN = 0x60100000 , LENGTH = 0x00200000
+    % }
 }
