@@ -127,7 +127,7 @@ void ping_main(void *args)
     uint64_t curTime;
 
     DebugP_log("\r\n");
-    #if defined(AMP_A53)
+    #if defined(AMP_FREERTOS_A53)
     DebugP_log("[FreeRTOS] ping task ... start on a53_core%d !!!\r\n", Armv8_getCoreId());
     #else
     DebugP_log("[FreeRTOS] ping task ... start!!!\r\n");
@@ -193,13 +193,13 @@ void ping_main(void *args)
     vTaskDelay( ClockP_usecToTicks(101*1000) );
 
     DebugP_log("\r\n");
-    #if defined(AMP_A53)
+    #if defined(AMP_FREERTOS_A53)
     DebugP_log("[FreeRTOS] ping task ... done on a53_core%d !!!\r\n", Armv8_getCoreId());
     #else
     DebugP_log("[FreeRTOS] ping task ... done !!!\r\n");
     #endif
     DebugP_log("\r\n");
-    #if defined(AMP_A53)
+    #if defined(AMP_FREERTOS_A53)
     DebugP_log("All tests have passed on a53_core%d !!!\r\n", Armv8_getCoreId());
     #else
     DebugP_log("All tests have passed!!\r\n");

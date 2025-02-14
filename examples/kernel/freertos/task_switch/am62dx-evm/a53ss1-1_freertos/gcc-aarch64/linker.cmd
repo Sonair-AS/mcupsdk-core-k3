@@ -38,13 +38,13 @@ ENTRY(_c_int00)
 
 MEMORY {
 
-	DDR : ORIGIN =  0x80000000, LENGTH = 0x2000000
+	DDR : ORIGIN =  0x8A000000, LENGTH = 0x2000000
 
 	/* shared memory segments */
 	/* On A53,
 	 * - make sure there is a MMU entry which maps below regions as non-cache
 	 */
-    LOG_SHM_MEM : ORIGIN = 0xA1000000, LENGTH = 0x40000
+    LOG_SHM_MEM             : ORIGIN = 0xA1000000, LENGTH = 0x40000
     AMP_SHM : ORIGIN = 0x99000000, LENGTH = 0x4000
 }
 
