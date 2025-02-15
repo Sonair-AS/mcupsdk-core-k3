@@ -191,7 +191,6 @@ sbl-clean:
 sbl-scrub:
 
 
-
 host-emu:
 	$(MAKE) -C source/drivers/dmautils -f makefile.j722s.c75ssx-0.ti-c7x-hostemu all
 

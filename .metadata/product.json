@@ -8,12 +8,12 @@
         "../source/networking/enet/core/sysconfig",
     ],
     "components": [
+
         "/kernel/dpl",
         "/drivers/drivers",
         "/board/board",
         "/fs/fs",
         "/networking/networking",
-
     ],
     "devices": [
         "AM62x",

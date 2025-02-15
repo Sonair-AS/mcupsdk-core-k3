@@ -56,7 +56,7 @@ endif
 
 syscfg:
 	@echo Generating SysConfig files ...
-	$(SYSCFG_NODE) $(SYSCFG_CLI_PATH)/dist/cli.js --product $(SYSCFG_SDKPRODUCT) $(CORES)
+	$(SYSCFG_NODE) $(SYSCFG_CLI_PATH)/dist/cli.js --device J722S_TDA4VEN_TDA4AEN_AM67 --product $(SYSCFG_SDKPRODUCT) $(CORES)
 
 syscfg-gui:
 	$(SYSCFG_NWJS) $(SYSCFG_PATH) --product $(SYSCFG_SDKPRODUCT) --device J722S_TDA4VEN_TDA4AEN_AM67 --part Default --package AMW $(CORES)
@@ -79,9 +79,7 @@ BOOTIMAGE_CORE_ID_a53ss0-1      = 6
 BOOTIMAGE_CORE_ID_a53ss1-0      = 7
 BOOTIMAGE_CORE_ID_a53ss1-1      = 8
 BOOTIMAGE_CORE_ID_hsm-m4fss0-0  = 9
-SBL_RUN_ADDRESS=0x43C00000
 SBL_DEV_ID=55
-
 MULTI_CORE_IMAGE_GEN = $(SYSCFG_NODE) $(MCU_PLUS_SDK_PATH)/tools/boot/multicoreImageGen/multicoreImageGen.js
 OUTRPRC_CMD = $(SYSCFG_NODE) $(MCU_PLUS_SDK_PATH)/tools/boot/out2rprc/elf2rprc.js
 APP_IMAGE_SIGN_CMD = $(MCU_PLUS_SDK_PATH)/tools/boot/signing/appimage_x509_cert_gen.py
