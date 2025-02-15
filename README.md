@@ -9,12 +9,13 @@
 
 ## Introduction
 
-MCU+ SDK is a software development package designed for usage with Sitara MPU/MCU+ class of devices from Texas Instruments. This repository provides MCU+SDK support the following list of Sitara MPU devices.
+MCU+ SDK is a software development package designed for usage with Sitara MPU/MCU+ class of devices from Texas Instruments. This repository provides MCU+SDK support the following list of TI's ARM based processors and microcontrollers.
 
 - [AM623](https://www.ti.com/product/AM623), [AM625](https://www.ti.com/product/AM625), [AM620-Q1](https://www.ti.com/product/AM620-Q1), [AM625-Q1](https://www.ti.com/product/AM625-Q1)
 - [AM62A3](https://www.ti.com/product/AM62A3), [AM62A3-Q1](https://www.ti.com/product/AM62A3-Q1), [AM62A7](https://www.ti.com/product/AM62A7), [AM62A7-Q1](https://www.ti.com/product/AM62A7-Q1)
 - [AM62P](https://www.ti.com/product/AM62P)
 - [AM62D-Q1](https://www.ti.com/product/AM62D-Q1)
+- [AM2754-Q1](https://www.ti.com/product/AM2754-Q1)
 
 Go to [MCU+SDK Core repository](https://github.com/TexasInstruments/mcupsdk-core) for other devices.
 
@@ -62,6 +63,7 @@ Prebuilt SDK installers  for specific devices are available at below links. Plea
 - [AM62X MCU+ SDK](https://www.ti.com/tool/download/MCU-PLUS-SDK-AM62X)
 - [AM62A MCU+ SDK](https://www.ti.com/tool/download/MCU-PLUS-SDK-AM62A)
 - [AM62P MCU+ SDK](https://www.ti.com/tool/download/MCU-PLUS-SDK-AM62P)
+- [AM275 FreeRTOS SDK](https://www.ti.com/tool/download/AM275-FREERTOS-SDK)
 
 ## Usage
 
@@ -228,7 +230,7 @@ Download and install PSDK Linux on **${HOME}/ti** directory corresponding to the
 **NOTE**
 
 - Unless mentioned otherwise, all below commands are invoked from root folder of the "mcu_plus_sdk"  repository.
-- Current supported device names are am62x, am62ax, am62px and am62dx
+- Current supported device names are am62x, am62ax, am62px, am62dx and am275x
 - Pass one of these values to `"DEVICE="`
 - You can also build components (examples, tests or libraries) in `release` or `debug`
   profiles. To do this pass one of these values to `"PROFILE="`
@@ -368,6 +370,7 @@ Note that userguides are specific to a particular device. The links for all the 
 - [AM62A User Guide](https://software-dl.ti.com/mcu-plus-sdk/esd/AM62AX/latest/exports/docs/api_guide_am62ax/index.html)
 - [AM62P User Guide](https://software-dl.ti.com/mcu-plus-sdk/esd/AM62PX/latest/exports/docs/api_guide_am62px/index.html)
 - [AM62D User Guide](https://software-dl.ti.com/mcu-plus-sdk/esd/AM62DX/latest/exports/docs/api_guide_am62dx/index.html)
+- [AM275 User Guide](https://software-dl.ti.com/mcu-plus-sdk/esd/AM275X/latest/exports/docs/api_guide_am275x/index.html)
 
 The documentation can also be generated as mentioned in the below section.
 
