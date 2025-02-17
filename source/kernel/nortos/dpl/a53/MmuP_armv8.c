@@ -368,10 +368,10 @@ int32_t MmuP_map(uint64_t vaddr, uint64_t paddr, uint32_t size, MmuP_MapAttrs *m
     DebugP_assertNoLog((paddr & (MMUP_GRANULE_SIZE - 1)) == 0);
     DebugP_assertNoLog((size & (MMUP_GRANULE_SIZE - 1)) == 0);
 
-    key = HwiP_disable();
+    key = (uint32_t)HwiP_disable();
 
     /* determine the current state of the MMU */
-    enabled = MmuP_isEnabled();
+    enabled = (uint8_t)MmuP_isEnabled();
 
     /* disable the MMU (if already disabled, does nothing) */
     MmuP_disable();

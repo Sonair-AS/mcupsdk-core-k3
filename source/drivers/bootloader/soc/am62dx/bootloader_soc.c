@@ -519,7 +519,7 @@ int32_t Bootloader_socCpuRequest(uint32_t cpuId)
     sciclientCpuProcId = Bootloader_socGetSciclientCpuProcId(cpuId);
     if(sciclientCpuProcId != BOOTLOADER_INVALID_ID)
     {
-        status = Sciclient_procBootRequestProcessor(sciclientCpuProcId, SystemP_WAIT_FOREVER);
+        status = Sciclient_procBootRequestProcessor((uint8_t)sciclientCpuProcId, SystemP_WAIT_FOREVER);
         if(status != SystemP_SUCCESS)
         {
             DebugP_logError("CPU request failed for %s\r\n", Bootloader_socGetCoreName(cpuId));
@@ -536,7 +536,7 @@ int32_t Bootloader_socCpuRelease(uint32_t cpuId)
     sciclientCpuProcId = Bootloader_socGetSciclientCpuProcId(cpuId);
     if(sciclientCpuProcId != BOOTLOADER_INVALID_ID)
     {
-        status = Sciclient_procBootReleaseProcessor(sciclientCpuProcId, TISCI_MSG_FLAG_AOP, SystemP_WAIT_FOREVER);
+        status = Sciclient_procBootReleaseProcessor((uint8_t)sciclientCpuProcId, TISCI_MSG_FLAG_AOP, SystemP_WAIT_FOREVER);
         if(status != SystemP_SUCCESS)
         {
             DebugP_logError("CPU release failed for %s\r\n", Bootloader_socGetCoreName(cpuId));
@@ -614,20 +614,17 @@ int32_t Bootloader_socCpuPowerOnResetHSMM4f(uint32_t cpuId, uint32_t initRam)
 
     sciclientCpuProcId = Bootloader_socGetSciclientCpuProcId(cpuId);
 
-    if(status == SystemP_SUCCESS)
+    status = Sciclient_procBootGetProcessorState((uint8_t)sciclientCpuProcId,
+                &proc_get_status,
+                SystemP_WAIT_FOREVER);
+    if(status != SystemP_SUCCESS)
     {
-        status = Sciclient_procBootGetProcessorState(sciclientCpuProcId,
-                    &proc_get_status,
-                    SystemP_WAIT_FOREVER);
-        if(status != SystemP_SUCCESS)
-        {
-            DebugP_logError("CPU get state failed for %s\r\n", Bootloader_socGetCoreName(cpuId));
-        }
+        DebugP_logError("CPU get state failed for %s\r\n", Bootloader_socGetCoreName(cpuId));
     }
 
     if(status == SystemP_SUCCESS)
     {
-        status =  Sciclient_procBootSetSequenceCtrl(sciclientCpuProcId,
+        status =  Sciclient_procBootSetSequenceCtrl((uint8_t)sciclientCpuProcId,
                             TISCI_MSG_VAL_PROC_BOOT_CTRL_FLAG_HSM_M4_RESET,
                             0,
                             TISCI_MSG_FLAG_AOP,
@@ -689,7 +686,7 @@ int32_t Bootloader_socCpuPowerOnResetR5f(uint32_t cpuId, uintptr_t entry_point, 
 
     if(status == SystemP_SUCCESS)
     {
-        status = Sciclient_procBootGetProcessorState(sciclientCpuProcId,
+        status = Sciclient_procBootGetProcessorState((uint8_t)sciclientCpuProcId,
                     &proc_get_status,
                     SystemP_WAIT_FOREVER);
         if(status != SystemP_SUCCESS)
@@ -716,7 +713,7 @@ int32_t Bootloader_socCpuPowerOnResetR5f(uint32_t cpuId, uintptr_t entry_point, 
     }
     if(status == SystemP_SUCCESS)
     {
-        status =  Sciclient_procBootSetSequenceCtrl(sciclientCpuProcId,
+        status =  Sciclient_procBootSetSequenceCtrl((uint8_t)sciclientCpuProcId,
                             TISCI_MSG_VAL_PROC_BOOT_CTRL_FLAG_R5_CORE_HALT,
                             0,
                             TISCI_MSG_FLAG_AOP,
@@ -871,7 +868,7 @@ int32_t Bootloader_socCpuResetRelease(uint32_t cpuId, uintptr_t entryPoint)
         case CSL_CORE_ID_MCU_R5FSS0_0:
                         /* set boot address */
             {
-                proc_set_config.processor_id = sciclientCpuProcId;
+                proc_set_config.processor_id = (uint8_t)sciclientCpuProcId;
                 proc_set_config.bootvector_lo = entryPoint;
                 proc_set_config.bootvector_hi = 0;
                 proc_set_config.config_flags_1_set = 0;
@@ -885,7 +882,7 @@ int32_t Bootloader_socCpuResetRelease(uint32_t cpuId, uintptr_t entryPoint)
             }
             if(status == SystemP_SUCCESS)
             {
-                status =  Sciclient_procBootSetSequenceCtrl(sciclientCpuProcId,
+                status =  Sciclient_procBootSetSequenceCtrl((uint8_t)sciclientCpuProcId,
                                     0,
                                     TISCI_MSG_VAL_PROC_BOOT_CTRL_FLAG_R5_CORE_HALT,
                                     TISCI_MSG_FLAG_AOP,
@@ -898,7 +895,7 @@ int32_t Bootloader_socCpuResetRelease(uint32_t cpuId, uintptr_t entryPoint)
             break;
         case CSL_CORE_ID_HSM_M4FSS0_0:
             {
-                status =  Sciclient_procBootSetSequenceCtrl(sciclientCpuProcId,
+                status =  Sciclient_procBootSetSequenceCtrl((uint8_t)sciclientCpuProcId,
                                     0,
                                     TISCI_MSG_VAL_PROC_BOOT_CTRL_FLAG_HSM_M4_RESET,
                                     TISCI_MSG_FLAG_AOP,
@@ -920,7 +917,7 @@ int32_t Bootloader_socCpuResetRelease(uint32_t cpuId, uintptr_t entryPoint)
                     /* start A53 pointing to previously loaded while(1) loop */
                     entryPoint = (uintptr_t)BOOTLOADER_A53_WHILELOOP_LOAD_ADDR;
                 }
-                proc_set_config.processor_id = sciclientCpuProcId;
+                proc_set_config.processor_id = (uint8_t)sciclientCpuProcId;
                 proc_set_config.bootvector_lo = entryPoint;
                 proc_set_config.bootvector_hi = 0;
                 proc_set_config.config_flags_1_set = 0;
@@ -958,7 +955,7 @@ int32_t Bootloader_socCpuResetRelease(uint32_t cpuId, uintptr_t entryPoint)
                 {
                     entryPoint = (uintptr_t)CSL_C7X256V0_UMC_MEM_MAIN_BASE;
                 }
-                proc_set_config.processor_id = sciclientCpuProcId;
+                proc_set_config.processor_id = (uint8_t)sciclientCpuProcId;
                 proc_set_config.bootvector_lo = entryPoint;
                 proc_set_config.bootvector_hi = 0;
                 proc_set_config.config_flags_1_set = 0;
@@ -1013,48 +1010,46 @@ int32_t Bootloader_socCpuResetReleaseSelf()
      *   were to be issued and executed prior to WFI, the cluster would enter reset and
      *   bootloader would not be able to tell SYSFW to take itself out of reset.
      */
-    status = Sciclient_procBootWaitProcessorState(sciclientCpuProcIdCore0,
+    status = Sciclient_procBootWaitProcessorState((uint8_t)sciclientCpuProcIdCore0,
                     1, 1, 0, 3, 0, 0, 0, SystemP_WAIT_FOREVER);
     if(status != SystemP_SUCCESS)
     {
         DebugP_logError("CPU boot wait command failed for %s\r\n", Bootloader_socGetCoreName(CSL_CORE_ID_R5FSS0_0));
     }
 
+
+    /* after this point you cannot single step in CCS */
     if(status==SystemP_SUCCESS)
     {
-
-        /* after this point you cannot single step in CCS */
-        if(status==SystemP_SUCCESS)
-        {
-            status = Sciclient_pmSetModuleRst_flags(sciclientCpuDevIdCore0, 1, 0, SystemP_WAIT_FOREVER);
-        }
-
-        /* release the CPUs */
-        if(status==SystemP_SUCCESS)
-        {
-            status = Sciclient_procBootReleaseProcessor(sciclientCpuProcIdCore0, 0, SystemP_WAIT_FOREVER);
-        }
-        /* release the reset for the CPUs */
-        if(status==SystemP_SUCCESS)
-        {
-            status = Sciclient_pmSetModuleRst_flags(sciclientCpuDevIdCore0, 0, 0, SystemP_WAIT_FOREVER);
-        }
-        if(status==SystemP_SUCCESS)
-        {
-            /* disable interrupts if enabled */
-            HwiP_disable();
-
-            /* flush all caches */
-            CacheP_wbInvAll(CacheP_TYPE_ALL);
-
-            /* execute wfi, now SYSFW will execute the above commands and reset core0 and core 1 */
-            __asm__ __volatile__ ("wfi" "\n\t": : : "memory");
-        }
-        if(status != SystemP_SUCCESS)
-        {
-            DebugP_logError("CPU reset sequence failed for %s\r\n", Bootloader_socGetCoreName(CSL_CORE_ID_R5FSS0_0));
-        }
+        status = Sciclient_pmSetModuleRst_flags(sciclientCpuDevIdCore0, 1, 0, SystemP_WAIT_FOREVER);
     }
+
+    /* release the CPUs */
+    if(status==SystemP_SUCCESS)
+    {
+        status = Sciclient_procBootReleaseProcessor((uint8_t)sciclientCpuProcIdCore0, 0, SystemP_WAIT_FOREVER);
+    }
+    /* release the reset for the CPUs */
+    if(status==SystemP_SUCCESS)
+    {
+        status = Sciclient_pmSetModuleRst_flags(sciclientCpuDevIdCore0, 0, 0, SystemP_WAIT_FOREVER);
+    }
+    if(status==SystemP_SUCCESS)
+    {
+        /* disable interrupts if enabled */
+        HwiP_disable();
+
+        /* flush all caches */
+        CacheP_wbInvAll(CacheP_TYPE_ALL);
+
+        /* execute wfi, now SYSFW will execute the above commands and reset core0 and core 1 */
+        __asm__ __volatile__ ("wfi" "\n\t": : : "memory");
+    }
+    if(status != SystemP_SUCCESS)
+    {
+        DebugP_logError("CPU reset sequence failed for %s\r\n", Bootloader_socGetCoreName(CSL_CORE_ID_R5FSS0_0));
+    }
+
     return status;
 }
 
