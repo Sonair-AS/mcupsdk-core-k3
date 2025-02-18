@@ -50,7 +50,7 @@
 #define TEST_MMCSD_EMMC_START_BLK        (0x300000U) /* 1.5GB */
 #define TEST_MMCSD_SD_START_BLK          (0x300000U) /* 1.5GB */
 #if !defined (SOC_AM275X)
-#define TEST_MMCSD_DATA_SIZE             (0x600000U) /* has to be 256 B aligned */
+#define TEST_MMCSD_DATA_SIZE             (0x2800000U) /* has to be 256 B aligned */
 #else
 #define TEST_MMCSD_DATA_SIZE             (0x100000U) /* has to be 256 B aligned */
 #endif
@@ -58,13 +58,15 @@
 #define TEST_MMCSD_1KB_SIZE              (256 * 4U)
 #define TEST_MMCSD_FAT_PARTITION_SIZE    (128U * 1024U * 1024U) /* 128 MB */
 #if !defined (SOC_AM275X)
-#define TEST_MMCSD_PERF_TEST_DATA_COUNT  (3U)   /* Change this value as per testSizes list size */
+#define TEST_MMCSD_PERF_TEST_DATA_COUNT  (5U)   /* Change this value as per testSizes list size */
 #else
 #define TEST_MMCSD_PERF_TEST_DATA_COUNT  (1U)   /* Change this value as per testSizes list size */
 #endif
 #define TEST_MMCSD_1MB_SIZE              (TEST_MMCSD_1KB_SIZE * TEST_MMCSD_1KB_SIZE)
 #define TEST_MMCSD_4MB_SIZE              (TEST_MMCSD_1MB_SIZE * 4U)
 #define TEST_MMCSD_6MB_SIZE              (TEST_MMCSD_1MB_SIZE * 6U)
+#define TEST_MMCSD_32MB_SIZE             (TEST_MMCSD_1MB_SIZE * 32U)
+#define TEST_MMCSD_40MB_SIZE             (TEST_MMCSD_1MB_SIZE * 40U)
 
 
 #if defined (SOC_AM62X) || defined(SOC_AM62AX) || defined(SOC_AM62DX)
@@ -139,8 +141,8 @@ static int32_t test_mmcsd_raw_io(MMCSD_Handle handle);
 /*                            Global Variables                                */
 /* ========================================================================== */
 
-uint8_t gMmcsdTestTxBuf[TEST_MMCSD_DATA_SIZE] __attribute__((aligned(128U), section("globalScratchBuffer")));
-uint8_t gMmcsdTestRxBuf[TEST_MMCSD_DATA_SIZE] __attribute__((aligned(128U), section("globalScratchBuffer")));
+uint8_t gMmcsdTestTxBuf[TEST_MMCSD_DATA_SIZE] __attribute__((aligned(128U), section(".globalScratchBuffer")));
+uint8_t gMmcsdTestRxBuf[TEST_MMCSD_DATA_SIZE] __attribute__((aligned(128U), section(".globalScratchBuffer")));
 extern MMCSD_Attrs gMmcsdAttrs[CONFIG_MMCSD_NUM_INSTANCES];
 
 static Test_MmcModeSettings modeParams;
@@ -431,7 +433,7 @@ static int32_t test_mmcsd_raw_io(MMCSD_Handle handle)
 
 #if !defined (SOC_AM275X)
     /* Please provide size of atleast 1MiB */
-    uint32_t testSizes[TEST_MMCSD_PERF_TEST_DATA_COUNT] = {TEST_MMCSD_1MB_SIZE, TEST_MMCSD_4MB_SIZE, TEST_MMCSD_6MB_SIZE};
+    uint32_t testSizes[TEST_MMCSD_PERF_TEST_DATA_COUNT] = {TEST_MMCSD_1MB_SIZE, TEST_MMCSD_4MB_SIZE, TEST_MMCSD_6MB_SIZE, TEST_MMCSD_32MB_SIZE, TEST_MMCSD_40MB_SIZE};
 #else
     uint32_t testSizes[TEST_MMCSD_PERF_TEST_DATA_COUNT] = {TEST_MMCSD_1MB_SIZE};
 #endif

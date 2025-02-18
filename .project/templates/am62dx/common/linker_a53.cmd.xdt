@@ -70,6 +70,13 @@
     let globalScratchBuf = "false";
     if(options && options.globalScratchBuf)
     globalScratchBuf = options.globalScratchBuf;
+
+	let globalScratchBufSize = 0x2000000;
+	if(options && options.globalScratchBufSize)
+		globalScratchBufSize = options.globalScratchBufSize
+
+	let globalScratchBufSizeInMB = globalScratchBufSize / (1024 * 1024)
+
     let ddr2 = "false"
     if(options && options.ddr2)
     ddr2 = options.ddr2;
@@ -101,8 +108,8 @@ MEMORY {
     RTOS_NORTOS_IPC_SHM_MEM : ORIGIN = 0xA0400000, LENGTH = 0x300000
     %}
     % if(globalScratchBuf == "true") {
-    /* global scratch buffer region in DDR (32 MB) */
-    GLOBAL_SCRATCH_BUFF  (RWIX): ORIGIN = 0x82000080 LENGTH = 0x02000000
+    /* global scratch buffer region in DDR (`globalScratchBufSizeInMB` MB) */
+    GLOBAL_SCRATCH_BUFF  (RWIX): ORIGIN = 0x82000080 LENGTH = 0x0`(globalScratchBufSize).toString(16).toUpperCase()`
     % }
     % if(ddr2 == "true") {
     /* global scratch buffer region in DDR (32 MB) */

@@ -98,6 +98,7 @@ const templates_freertos_wkup_r5f =
             undefinedStackSize: 0x0100,
             dmStubstacksize: 0x0400,
             globalScratchBuf: "true",
+            globalScratchBufSize: 0x8000000,
         },
     },
     {

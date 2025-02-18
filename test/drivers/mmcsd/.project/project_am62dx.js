@@ -183,6 +183,7 @@ const templates_freertos_r5f =
             undefinedStackSize: 0x0100,
             dmStubstacksize: 0x0400,
             globalScratchBuf: "true",
+            globalScratchBufSize: 0x8000000,
         },
     },
     {
@@ -200,7 +201,8 @@ const templates_freertos_a53 =
         input: ".project/templates/am62dx/common/linker_a53.cmd.xdt",
         output: "linker.cmd",
         options: {
-            ddr2: "true",
+            globalScratchBuf: "true",
+            globalScratchBufSize: 0x8000000,
         },
     },
     {
@@ -218,7 +220,8 @@ const templates_nortos_a53 =
         input: ".project/templates/am62dx/common/linker_a53.cmd.xdt",
         output: "linker.cmd",
         options: {
-            ddr2: "true",
+            globalScratchBuf: "true",
+            globalScratchBufSize: 0x8000000,
         },
     },
     {

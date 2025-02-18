@@ -6,6 +6,12 @@
         dmWithBootloader = options.dmWithBootloader;
     if(options && options.globalScratchBuf)
     globalScratchBuf = options.globalScratchBuf;
+
+    let globalScratchBufSize = 0x2000000;
+    if(options && options.globalScratchBufSize)
+        globalScratchBufSize = options.globalScratchBufSize
+
+    let globalScratchBufSizeInMB = globalScratchBufSize / (1024 * 1024)
 %%}
 --retain="*(.irqStack)";
 --retain="*(.fiqStack)";
@@ -213,7 +219,7 @@ MEMORY
     % }
     % if(globalScratchBuf == "true") {
 
-    /* global scratch buffer region in DDR (32 MB) */
-    DDR2           (RWIX)      : ORIGIN = 0xA8000000 LENGTH = 0x02000000
+    /* global scratch buffer region in DDR (`globalScratchBufSizeInMB` MB) */
+    DDR2           (RWIX)      : ORIGIN = 0xA8000000 LENGTH = 0x0`(globalScratchBufSize).toString(16).toUpperCase()`
     % }
 }

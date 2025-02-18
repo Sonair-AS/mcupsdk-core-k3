@@ -40,8 +40,8 @@ mpu_armv72.size              = 7;
 mpu_armv72.$name             = "TCMA_VEC";
 
 mpu_armv73.$name    = "DDR";
-mpu_armv73.baseAddr = 0x90000000;
-mpu_armv73.size     = 28;
+mpu_armv73.baseAddr = 0x80000000;
+mpu_armv73.size     = 31;
 
 mpu_armv74.baseAddr   = 0x41010000;
 mpu_armv74.size       = 15;

@@ -162,6 +162,6 @@ MEMORY
     /* DDR for DM R5F code/data [ size 27MiB + 416 KB ] */
     DDR                         : ORIGIN = 0x9CAA0000 LENGTH = 0x1B68000
 
-    /* global scratch buffer region in DDR (32 MB) */
-    DDR2           (RWIX)      : ORIGIN = 0xA0000000 LENGTH = 0x02000000
+    /* global scratch buffer region in DDR (128 MB) */
+    DDR2           (RWIX)      : ORIGIN = 0xA0000000 LENGTH = 0x08000000
 }
