@@ -1,5 +1,5 @@
 /*
- *  Copyright (C) 2023-2024 Texas Instruments Incorporated
+ *  Copyright (C) 2023-2025 Texas Instruments Incorporated
  *
  *  Redistribution and use in source and binary forms, with or without
  *  modification, are permitted provided that the following conditions
@@ -140,6 +140,7 @@ extern "C"
  */
 #define TISCI_RESASG_SUBTYPE_GLOBAL_EVENT_TRIGGER (0x0002U)
 #define TISCI_RESASG_SUBTYPE_UDMAP_GLOBAL_CONFIG (0x0003U)
+#define TISCI_RESASG_SUBTYPE_BCDMA_BLOCK_COPY_HCCHAN (0x001FU)
 #define TISCI_RESASG_SUBTYPE_BCDMA_BLOCK_COPY_CHAN (0x0020U)
 #define TISCI_RESASG_SUBTYPE_BCDMA_SPLIT_TR_RX_CHAN (0x0021U)
 #define TISCI_RESASG_SUBTYPE_BCDMA_SPLIT_TR_TX_CHAN (0x0022U)
@@ -159,13 +160,13 @@ extern "C"
 #define TISCI_RESASG_SUBTYPE_PKTDMA_FLOW_SAUL_RX_2_CHAN (0x0032U)
 #define TISCI_RESASG_SUBTYPE_PKTDMA_SAUL_RX_3_CHAN (0x0033U)
 #define TISCI_RESASG_SUBTYPE_PKTDMA_FLOW_SAUL_RX_3_CHAN (0x0034U)
-#define TISCI_RESASG_SUBTYPES_UDMAP_CNT (0x0015U)
+#define TISCI_RESASG_SUBTYPES_UDMAP_CNT (0x0016U)
 
 
 /**
  * Total number of unique resource types for SoC
  */
-#define TISCI_RESASG_UTYPE_CNT 68U
+#define TISCI_RESASG_UTYPE_CNT 69U
 
 /**
  * Total number of resource entries allowed for SoC
