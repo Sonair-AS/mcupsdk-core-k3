@@ -1,5 +1,5 @@
 /*
- *  Copyright (C) 2024-2025 Texas Instruments Incorporated
+ *  Copyright (C) 2025 Texas Instruments Incorporated
  *
  *  Redistribution and use in source and binary forms, with or without
  *  modification, are permitted provided that the following conditions
@@ -31,41 +31,18 @@
  */
 
 /**
- *  \file rtc_soc.h
+ *  \file   rtc_soc.c
  *
- *  \brief RTC Driver SOC specific file.
+ *  \brief  File containing SOC related APIs.
+ *
  */
-
-#ifndef RTC_SOC_TOP_H_
-#define RTC_SOC_TOP_H_
 
 /* ========================================================================== */
 /*                             Include Files                                  */
 /* ========================================================================== */
 
-#if defined (SOC_AM275X)
-#include <drivers/rtc/v0/soc/am275x/rtc_soc.h>
-#endif
-
-#if defined (SOC_AM62X)
-#include <drivers/rtc/v0/soc/am62x/rtc_soc.h>
-#endif
-
-#if defined (SOC_AM62AX)
-#include <drivers/rtc/v0/soc/am62ax/rtc_soc.h>
-#endif
-
-#if defined (SOC_AM62DX)
-#include <drivers/rtc/v0/soc/am62dx/rtc_soc.h>
-#endif
-
-#if defined (SOC_AM62PX)
-#include <drivers/rtc/v0/soc/am62px/rtc_soc.h>
-#endif
-
-#ifdef __cplusplus
-extern "C" {
-#endif
+#include <drivers/rtc/v0/soc/rtc_soc.h>
+#include <kernel/dpl/SystemP.h>
 
 /* ========================================================================== */
 /*                           Macros & Typedefs                                */
@@ -80,25 +57,22 @@ extern "C" {
 /* None */
 
 /* ========================================================================== */
-/*                  Internal/Private Function Declarations                    */
-/* ========================================================================== */
-
-/* None */
-
-/* ========================================================================== */
 /*                          Function Declarations                             */
 /* ========================================================================== */
 
 /* None */
 
 /* ========================================================================== */
-/*                       Static Function Definitions                          */
+/*                            Global Variables                                */
 /* ========================================================================== */
 
-/* None */
+/* ========================================================================== */
+/*                          Function Definitions                              */
+/* ========================================================================== */
 
-#ifdef __cplusplus
+bool RTC_socErratumi2327Applicable(void)
+{
+    bool status = false;
+
+    return status;
 }
-#endif
-
-#endif /* #ifndef RTC_SOC_TOP_H_ */

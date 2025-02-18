@@ -41,6 +41,9 @@ const driverVer = {
     "ospi": {
         version: "v0",
     },
+    "rtc": {
+        version: "v0",
+    },
     "sciclient": {
         version: "v0",
     },
@@ -78,6 +81,7 @@ const topModules_main = [
     "/drivers/mcspi/mcspi",
     "/drivers/mmcsd/mmcsd",
     "/drivers/ospi/ospi",
+    "/drivers/rtc/rtc",
     "/drivers/uart/uart",
     "/drivers/udma/udma",
     "/drivers/watchdog/watchdog",
