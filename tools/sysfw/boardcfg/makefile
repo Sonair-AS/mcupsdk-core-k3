@@ -58,7 +58,7 @@ SYSFW_PATH=$(MCU_PLUS_SDK_PATH)/source/drivers/sciclient/soc/$(SOC_FOLDER)
 SYSFW_BIN_NAME=sysfw_signed.bin
 SYSFW_HEADER_NAME=$(subst .bin,.h,$(SYSFW_BIN_NAME))
 SYSFW_ARRAY_NAME=sysfw
-COPYRIGHT_YEAR=2022-2024
+COPYRIGHT_YEAR=2022-2025
 
 OBJDIR=$(MCU_PLUS_SDK_PATH)/tools/sysfw/boardcfg/obj
 OBJEXT=o
