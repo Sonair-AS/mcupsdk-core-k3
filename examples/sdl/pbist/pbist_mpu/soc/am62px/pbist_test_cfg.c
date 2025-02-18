@@ -1,5 +1,5 @@
 /*
- *   Copyright (c) Texas Instruments Incorporated 2020-2023
+ *   Copyright (c) Texas Instruments Incorporated 2020-2025
  *
  *  Redistribution and use in source and binary forms, with or without
  *  modification, are permitted provided that the following conditions
@@ -69,10 +69,6 @@
     init : TRUE  --> Initialize
     init : FALSE --> Restore
 */
-int32_t PBIST_MPUAuxInitRestore(bool init);
-int32_t PBIST_MainAuxInitRestore(bool init);
-int32_t PBIST_McuAuxInitRestore(bool init);
-int32_t PBIST_EncodeAuxInitRestore(bool init);
 int32_t PBIST_AuxInitRestore(bool init);
 int32_t PBIST_GPUAuxInitRestore(bool init);
 
@@ -225,7 +221,7 @@ PBIST_TestHandle_t PBIST_TestHandleArray[PBIST_MAX_INSTANCE+1] =
         .coreCustPwrSeqNeeded   = false,
         .numAuxDevices          = MPU_NUM_AUX_DEVICES,     /* Number of Aux devices   */
         .auxDeviceIdsP          = &PBIST_MPUAuxDevList[0], /* Array of Aux device ids */
-        .auxInitRestoreFunction = PBIST_MPUAuxInitRestore, /* Auxilliary init function */
+        .auxInitRestoreFunction = PBIST_AuxInitRestore, /* Auxilliary init function */
         .doneFlag               = false,                /* Initialize done flag  */
     },
 
@@ -280,7 +276,7 @@ PBIST_TestHandle_t PBIST_TestHandleArray[PBIST_MAX_INSTANCE+1] =
         .coreCustPwrSeqNeeded   = false,
         .numAuxDevices          = CODEC_NUM_AUX_DEVICES,     			/* Number of Aux devices   */
         .auxDeviceIdsP          = &PBIST_CodecAuxDevList[0], 				/* Array of Aux device ids */
-        .auxInitRestoreFunction = PBIST_EncodeAuxInitRestore, 				/* Auxilliary init function */
+        .auxInitRestoreFunction = PBIST_AuxInitRestore, 				/* Auxilliary init function */
         .doneFlag               = false,                /* Initialize done flag  */
     },
 
@@ -562,7 +558,7 @@ PBIST_TestHandle_t PBIST_TestHandleArray[PBIST_MAX_INSTANCE+1] =
         .coreCustPwrSeqNeeded   = false,
         .numAuxDevices          = MCU_NUM_AUX_DEVICES,    				/* No Aux devices */
         .auxDeviceIdsP          = &PBIST_McuAuxDevList[0], 				/* Array of Aux device ids */
-        .auxInitRestoreFunction = PBIST_McuAuxInitRestore, 				/* Auxilliary init function */
+        .auxInitRestoreFunction = PBIST_AuxInitRestore, 				/* Auxilliary init function */
         .doneFlag               = false,               					/* Initialize done flag */
     },
 };
@@ -599,76 +595,6 @@ void PBIST_eventHandler( uint32_t instanceId)
     init : TRUE  --> Initialize
     init : FALSE --> Restore
 */
-int32_t PBIST_MPUAuxInitRestore(bool init)
-{
-    int32_t testResult = 0;
-    uint32_t baseAddr;
-
-	baseAddr = (uint32_t) AddrTranslateP_getLocalAddr(CSL_MCU_CTRL_MMR0_CFG0_BASE);
-
-    *((uint32_t *)(((uint32_t)baseAddr) + CSL_WKUP_CTRL_MMR_CFG0_LOCK4_KICK0)) = KICK0_UNLOCK_VAL;
-    *((uint32_t *)(((uint32_t)baseAddr) + CSL_WKUP_CTRL_MMR_CFG0_LOCK4_KICK1)) = KICK1_UNLOCK_VAL;
-    /* BISOR override is needed to verify DC memories in cfg */
-    if (init)
-    {
-        *((uint32_t *)(((uint32_t)baseAddr) + CSL_WKUP_CTRL_MMR_CFG0_A53SS_DFT_CTL)) = 0x0001;
-    }
-    else
-    {
-        *((uint32_t *)(((uint32_t)baseAddr) + CSL_WKUP_CTRL_MMR_CFG0_A53SS_DFT_CTL)) = 0x0001;
-    }
-
-    return testResult;
-}
-
-int32_t PBIST_MainAuxInitRestore(bool init)
-{
-    int32_t testResult = 0;
-    uint32_t baseAddr;
-
-    baseAddr = (uint32_t) AddrTranslateP_getLocalAddr(CSL_WKUP_CTRL_MMR0_CFG0_BASE);
-    *((uint32_t *)(baseAddr + CSL_WKUP_CTRL_MMR_CFG0_LOCK6_KICK0)) = KICK0_UNLOCK_VAL;
-    *((uint32_t *)(baseAddr + CSL_WKUP_CTRL_MMR_CFG0_LOCK6_KICK1)) = KICK1_UNLOCK_VAL;
-    *((uint32_t *)(baseAddr + CSL_WKUP_CTRL_MMR_CFG0_LOCK3_KICK0)) = KICK0_UNLOCK_VAL;
-    *((uint32_t *)(baseAddr + CSL_WKUP_CTRL_MMR_CFG0_LOCK3_KICK1)) = KICK1_UNLOCK_VAL;
-
-    if (init)
-    {
-
-        *((uint32_t *)(baseAddr + CSL_WKUP_CTRL_MMR_CFG0_CLKGATE_CTRL0)) = 0x1;
-		*((uint32_t *)(baseAddr + CSL_WKUP_CTRL_MMR_CFG0_CLKGATE_CTRL1)) = 0x1;
-
-    }
-    else
-    {
-        /* do nothing */
-    }
-
-    return testResult;
-}
-
-int32_t PBIST_McuAuxInitRestore(bool init)
-{
-    int32_t testResult = 0;
-
-    return testResult;
-}
-
-int32_t PBIST_EncodeAuxInitRestore(bool init)
-{
-    int32_t testResult = 0;
-	uint32_t baseAddr;
-    baseAddr = (uint32_t) AddrTranslateP_getLocalAddr(CSL_WKUP_CTRL_MMR0_CFG0_BASE);
-
-    *((uint32_t *)(baseAddr + CSL_WKUP_CTRL_MMR_CFG0_LOCK2_KICK0)) = KICK0_UNLOCK_VAL;
-    *((uint32_t *)(baseAddr + CSL_WKUP_CTRL_MMR_CFG0_LOCK2_KICK1)) = KICK1_UNLOCK_VAL;
-    *((uint32_t *)(baseAddr + CSL_WKUP_CTRL_MMR_CFG0_LOCK6_KICK0)) = KICK0_UNLOCK_VAL;
-    *((uint32_t *)(baseAddr + CSL_WKUP_CTRL_MMR_CFG0_LOCK6_KICK1)) = KICK1_UNLOCK_VAL;
-    *((uint32_t *)(baseAddr + CSL_WKUP_CTRL_MMR_CFG0_CLKGATE_CTRL1)) = 0x00000008;
-
-	return testResult;
-}
-
 int32_t PBIST_AuxInitRestore(bool init)
 {
     int32_t testResult = 0;

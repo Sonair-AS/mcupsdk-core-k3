@@ -1,5 +1,5 @@
 /*
- *  Copyright (C) 2023 Texas Instruments Incorporated
+ *  Copyright (C) 2023-25 Texas Instruments Incorporated
  *
  *  Redistribution and use in source and binary forms, with or without
  *  modification, are permitted provided that the following conditions
@@ -96,14 +96,13 @@ int32_t PBIST_appTest(uint32_t testId)
     {
         case PBIST_FUNC_TEST_ID:
             testResult = PBIST_funcTest();
-            DebugP_log("\r\n PBIST Functionality Test");
             if (testResult == SDL_PASS)
             {
-                DebugP_log(" Passed.\r\n");
+               DebugP_log("PBIST Functionality Test Passed.\r\n");
             }
             else
             {
-                DebugP_log(" Failed.\r\n");
+                DebugP_log("PBIST Functionality Test Failed.\r\n");
             }
             break;
 
