@@ -153,6 +153,8 @@ void App_bootMultipleCoreFlash()
 
     if(SystemP_SUCCESS == status)
     {
+        Bootloader_openDma();
+
         Bootloader_LoadImageParams bootArray[CONFIG_BOOTLOADER_NUM_INSTANCES];
         uint32_t imageSize = 0U;
 
@@ -177,7 +179,7 @@ void App_bootMultipleCoreFlash()
             {
                 DebugP_logWarn("App_loadImages failed for core %s !!!\r\n", \
                     Bootloader_socGetCoreName(bootArray[inst].bootImageInfo.cpuInfo[inst].cpuId));
-                
+
                 DebugP_logWarn("App_loadImages failed at address %x !!!\r\n", \
                     bootArray[inst].bootImageInfo.cpuInfo[inst].entryPoint);
             }
@@ -211,6 +213,8 @@ void App_bootMultipleCoreFlash()
                 }
             }
         }
+
+        Bootloader_closeDma();
     }
 
     if(status != SystemP_SUCCESS )

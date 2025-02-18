@@ -154,6 +154,10 @@ int32_t App_runCpus(Bootloader_Handle bootHandle,Bootloader_BootImageInfo *bootI
                 DebugP_logError("App_runCpus failed for %s !!!\r\n", Bootloader_socGetCoreName(cpuId));
             }
         }
+        else
+        {
+            Bootloader_powerOffCpu(bootHandle, &bootCpuInfo[cpuId]);
+        }
     }
 
     return status;
@@ -179,6 +183,8 @@ void App_bootMultipleCoreSD()
 
     if(SystemP_SUCCESS == status)
     {
+        Bootloader_openDma();
+
         Bootloader_BootImageInfo bootImageInfo;
 		Bootloader_Params bootParams;
         Bootloader_Handle bootHandle;
@@ -241,6 +247,8 @@ void App_bootMultipleCoreSD()
             /* Restore CONFIG_UART_APP (WKUP_UART) for application logs */
             DebugP_uartSetDrvIndex(CONFIG_UART_APP);
         }
+
+        Bootloader_closeDma();
     }
 
     if(status != SystemP_SUCCESS)

@@ -139,6 +139,8 @@ void App_bootMultipleCoreEmmc()
 
     if(SystemP_SUCCESS == status)
     {
+        Bootloader_openDma();
+
         Bootloader_LoadImageParams bootArray[CONFIG_BOOTLOADER_NUM_INSTANCES];
         uint32_t imageSize = 0U;
 
@@ -199,6 +201,8 @@ void App_bootMultipleCoreEmmc()
                 }
             }
         }
+
+        Bootloader_closeDma();
     }
 
     if(status != SystemP_SUCCESS )
