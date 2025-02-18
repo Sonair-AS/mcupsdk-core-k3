@@ -22,6 +22,18 @@ The application toggles the LED ON/OFF for 10 times using RTC Timer.
 
 \endcond
 
+\cond SOC_AM275X
+
+ Parameter      | Value
+ ---------------|-----------
+ CPU + OS       | r5fss0-0 freertos
+ ^              | r5fss0-0 nortos
+ Toolchain      | ti-arm-clang
+ Board          | @VAR_BOARD_NAME_LOWER
+ Example folder | examples/drivers/rtc/rtc_led_blink
+
+\endcond
+
 \cond SOC_AM62AX
 
  Parameter      | Value
