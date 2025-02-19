@@ -223,46 +223,50 @@ int32_t Bootloader_rprcImageLoad(Bootloader_Handle handle, Bootloader_CpuInfo *c
 
     if(config)
     {
-      config->fxns->imgSeekFxn(cpuInfo->rprcOffset, config->args);
-      status = config->fxns->imgReadFxn(&header, sizeof(Bootloader_RprcFileHeader), config->args);
+        config->fxns->imgSeekFxn(cpuInfo->rprcOffset, config->args);
+        status = config->fxns->imgReadFxn(&header, sizeof(Bootloader_RprcFileHeader), config->args);
 
-      if(header.magic != (uint32_t)BOOTLOADER_RPRC_MAGIC_NUMBER)
-      {
-          status = SystemP_FAILURE;
-      }
-      else
-      {
-          cpuInfo->entryPoint = (uintptr_t)header.entry;
+        if((header.magic != (uint32_t)BOOTLOADER_RPRC_MAGIC_NUMBER) || (header.version != SW_VERSION))
+        {
+            if(header.version != SW_VERSION)
+            {
+                DebugP_logWarn("Software version mismatch, Installer version 0x%x, AppImage version 0x%x\n\r", SW_VERSION, header.version);
+            }
+            status = SystemP_FAILURE;
+        }
+        else
+        {
+            cpuInfo->entryPoint = (uintptr_t)header.entry;
 
-          uint32_t i;
+            uint32_t i;
 
-          for(i=0; i<header.sectionCount; i++)
-          {
-              status = config->fxns->imgReadFxn(&section, sizeof(Bootloader_RprcSectionHeader), config->args);
+            for(i=0; i<header.sectionCount; i++)
+            {
+                status = config->fxns->imgReadFxn(&section, sizeof(Bootloader_RprcSectionHeader), config->args);
 
-              section.addr = Bootloader_socTranslateSectionAddr(cpuInfo->cpuId, section.addr);
+                section.addr = Bootloader_socTranslateSectionAddr(cpuInfo->cpuId, section.addr);
 
-              /* Add check for SBL reserved memory */
-              Bootloader_resMemSections *resMem;
-              uint32_t resSectionCnt, start, end;
-              resMem = Bootloader_socGetSBLMem();
-              for (resSectionCnt = 0; resSectionCnt < resMem->numSections; resSectionCnt++)
-              {
-                  start = resMem->memSection[resSectionCnt].memStart;
-                  end = resMem->memSection[resSectionCnt].memEnd;
-                  if((section.addr > start) && (section.addr < end))
-                  {
-                      status = SystemP_FAILURE;
-                      DebugP_logError("Application image has a load address (0x%08X) in the SBL reserved memory range!!\r\n", section.addr);
-                      break;
-                  }
-              }
-              if (status == SystemP_SUCCESS)
-              {
-                  status = config->fxns->imgReadFxn((void *)(uintptr_t)(section.addr), section.size, config->args);
-                  ((Bootloader_Config *)handle)->bootImageSize += section.size;
-              }
-          }
+                /* Add check for SBL reserved memory */
+                Bootloader_resMemSections *resMem;
+                uint32_t resSectionCnt, start, end;
+                resMem = Bootloader_socGetSBLMem();
+                for (resSectionCnt = 0; resSectionCnt < resMem->numSections; resSectionCnt++)
+                {
+                    start = resMem->memSection[resSectionCnt].memStart;
+                    end = resMem->memSection[resSectionCnt].memEnd;
+                    if((section.addr > start) && (section.addr < end))
+                    {
+                        status = SystemP_FAILURE;
+                        DebugP_logError("Application image has a load address (0x%08X) in the SBL reserved memory range!!\r\n", section.addr);
+                        break;
+                    }
+                }
+                if (status == SystemP_SUCCESS)
+                {
+                    status = config->fxns->imgReadFxn((void *)(uintptr_t)(section.addr), section.size, config->args);
+                    ((Bootloader_Config *)handle)->bootImageSize += section.size;
+                }
+            }
         }
       }
       else{/* do nothing */}
@@ -273,6 +277,7 @@ int32_t Bootloader_rprcImageLoad(Bootloader_Handle handle, Bootloader_CpuInfo *c
 int32_t Bootloader_verifyMulticoreImage(Bootloader_Handle handle)
 {
     int32_t status = SystemP_SUCCESS, authStatus = SystemP_FAILURE;
+    static int32_t flashAuthStatus = SystemP_SUCCESS;
     uint32_t certLen = 0U, imageLen = 0U, ddrCopy = 1U;
     uint32_t certLoadAddr = 0xFFFFFFFFU;
 
@@ -312,7 +317,7 @@ int32_t Bootloader_verifyMulticoreImage(Bootloader_Handle handle)
             {
                 Bootloader_FlashArgs *flashArgs = (Bootloader_FlashArgs *)(config->args);
 
-                if(flashArgs->flashType == CONFIG_FLASH_TYPE_SERIAL_NOR)
+                if((flashArgs->flashType == CONFIG_FLASH_TYPE_SERIAL_NOR) && (flashAuthStatus == SystemP_SUCCESS))
                 {
                     ddrCopy = 0;
 
@@ -325,6 +330,18 @@ int32_t Bootloader_verifyMulticoreImage(Bootloader_Handle handle)
                     /* Enable OSPI Phy if configured to do so*/
                     flashArgs->enablePhyPipeline = TRUE;
                     status = config->fxns->imgCustomFxn(config->args);
+
+                    flashAuthStatus = Bootloader_socAuthImage(certLoadAddr);
+
+                    if(flashAuthStatus == SystemP_FAILURE)
+                    {
+                        DebugP_logWarn("Failed to authenticate and copy on the go, reading the image to DDR.\n\r");
+                        ddrCopy = 1;
+                    }
+                    else
+                    {
+                        authStatus = SystemP_SUCCESS;
+                    }
                 }
                 else
                 {
@@ -339,7 +356,7 @@ int32_t Bootloader_verifyMulticoreImage(Bootloader_Handle handle)
             }
 #endif
 
-            if(config->scratchMemPtr != NULL && ddrCopy == 1U)
+            if((config->scratchMemPtr != NULL) && (ddrCopy == 1U))
             {
                 config->fxns->imgReadFxn((void *)config->scratchMemPtr, 0x800, config->args);
 
@@ -363,9 +380,12 @@ int32_t Bootloader_verifyMulticoreImage(Bootloader_Handle handle)
         }
 
         /* Check if the certificate length is within valid range */
-        if((certLen > (uint32_t)0x100) && (certLen < (uint32_t)0x800) && status == SystemP_SUCCESS)
+        if((certLen > (uint32_t)0x100) && (certLen < (uint32_t)0x800) && (status == SystemP_SUCCESS))
         {
-            authStatus = Bootloader_socAuthImage(certLoadAddr);
+            if(authStatus != SystemP_SUCCESS)
+            {
+                authStatus = Bootloader_socAuthImage(certLoadAddr);
+            }
 
             if(config->bootMedia == BOOTLOADER_MEDIA_BUFIO)
             {
@@ -427,117 +447,115 @@ int32_t Bootloader_parseMultiCoreAppImage(Bootloader_Handle handle, Bootloader_B
 
     if(config)
     {
-      if(config->fxns->imgReadFxn == NULL || config->fxns->imgSeekFxn == NULL)
-      {
-          status = SystemP_FAILURE;
-      }
-      else
-      {
-          Bootloader_MetaHeaderStart mHdrStr;
-          Bootloader_MetaHeaderCore  mHdrCore[BOOTLOADER_MAX_INPUT_FILES];
+        if(config->fxns->imgReadFxn == NULL || config->fxns->imgSeekFxn == NULL)
+        {
+            status = SystemP_FAILURE;
+        }
+        else
+        {
+            Bootloader_MetaHeaderStart mHdrStr;
+            Bootloader_MetaHeaderCore  mHdrCore[BOOTLOADER_MAX_INPUT_FILES];
 
-          /* Verify the multicore image if authentication is required */
-          if(Bootloader_socIsAuthRequired() == (uint32_t)1)
-          {
-              /* Device is HS, verify image. */
-              status = Bootloader_verifyMulticoreImage(handle);
-          }
-          else
-          {
-              /* Device is GP, no authentication required */
-              status = SystemP_SUCCESS;
-          }
+            /* Verify the multicore image if authentication is required */
+            if(Bootloader_socIsAuthRequired() == (uint32_t)1)
+            {
+                /* Device is HS, verify image. */
+                status = Bootloader_verifyMulticoreImage(handle);
+            }
+            else
+            {
+                /* Device is GP, no authentication required */
+                status = SystemP_SUCCESS;
+            }
 
-          if(SystemP_SUCCESS == status)
-          {
-              if(config && config->bootMedia != BOOTLOADER_MEDIA_MEM && Bootloader_socIsAuthRequired() == (uint32_t)1)
-              {
-                  config = Bootloader_getMemBootloaderConfig(handle);
-                  config->coresPresentMap = 0;
-                  gMemBootloaderConfig.fxns->imgSeekFxn(0, gMemBootloaderConfig.args);
-              }
-
-              memset(&mHdrCore[0], 0xFF, BOOTLOADER_MAX_INPUT_FILES*sizeof(Bootloader_MetaHeaderCore));
-
-              if(config)
-              {
-                status = config->fxns->imgReadFxn(&mHdrStr, sizeof(Bootloader_MetaHeaderStart), config->args);
-
-                if(mHdrStr.magicStr != (uint32_t)BOOTLOADER_META_HDR_MAGIC_STR)
+            if(SystemP_SUCCESS == status)
+            {
+                if(config && config->bootMedia != BOOTLOADER_MEDIA_MEM && Bootloader_socIsAuthRequired() == (uint32_t)1)
                 {
-                    status = SystemP_FAILURE;
+                    config = Bootloader_getMemBootloaderConfig(handle);
+                    config->coresPresentMap = 0;
+                    gMemBootloaderConfig.fxns->imgSeekFxn(0, gMemBootloaderConfig.args);
                 }
-                else
+
+                memset(&mHdrCore[0], 0xFF, BOOTLOADER_MAX_INPUT_FILES*sizeof(Bootloader_MetaHeaderCore));
+
+                if(config)
                 {
-                    /* TODO */
-                    /* Check for device Id later if needed, just a warning */
+                    status = config->fxns->imgReadFxn(&mHdrStr, sizeof(Bootloader_MetaHeaderStart), config->args);
 
-                    /* Read all the core offset addresses */
-                    uint32_t i;
-
-                    for(i=0U; i<mHdrStr.numFiles; i++)
+                    if(mHdrStr.magicStr != (uint32_t)BOOTLOADER_META_HDR_MAGIC_STR)
                     {
-                        status = config->fxns->imgReadFxn(&mHdrCore[i], sizeof(Bootloader_MetaHeaderCore), config->args);
-                        /* TODO: Figure out how to add boot media specific offset */
+                        status = SystemP_FAILURE;
                     }
-
-                    /* Parse individual rprc files */
-                    for(i=0U; i<mHdrStr.numFiles; i++)
+                    else
                     {
-                        /* Load the load only linux images */
-                        rprcCoreId = mHdrCore[i].coreId;
-                        if(mHdrCore[i].coreId == RPRC_LINUX_LOAD_ONLY_IMAGE_ID)
+                        /* TODO */
+                        /* Check for device Id later if needed, just a warning */
+
+                        /* Read all the core offset addresses */
+                        uint32_t i;
+
+                        for(i=0U; i<mHdrStr.numFiles; i++)
                         {
-                            Bootloader_CpuInfo load_only_image;
-                            load_only_image.rprcOffset = mHdrCore[i].imageOffset;
-                            load_only_image.entryPoint = 0;
+                            status = config->fxns->imgReadFxn(&mHdrCore[i], sizeof(Bootloader_MetaHeaderCore), config->args);
+                            /* TODO: Figure out how to add boot media specific offset */
+                        }
 
-                            /* Set CPU ID as A53 as linux runs on A53 */
-                            load_only_image.cpuId = CSL_CORE_ID_A53SS0_0;
-
-                            if (status == SystemP_SUCCESS)
+                        /* Parse individual rprc files */
+                        for(i=0U; i<mHdrStr.numFiles; i++)
+                        {
+                            /* Load the load only linux images */
+                            rprcCoreId = mHdrCore[i].coreId;
+                            if(mHdrCore[i].coreId == RPRC_LINUX_LOAD_ONLY_IMAGE_ID)
                             {
-                                status = Bootloader_rprcImageLoad(handle, &load_only_image);
+                                Bootloader_CpuInfo load_only_image;
+                                load_only_image.rprcOffset = mHdrCore[i].imageOffset;
+                                load_only_image.entryPoint = 0;
+
+                                /* Set CPU ID as A53 as linux runs on A53 */
+                                load_only_image.cpuId = CSL_CORE_ID_A53SS0_0;
+
+                                if (status == SystemP_SUCCESS)
+                                {
+                                    status = Bootloader_rprcImageLoad(handle, &load_only_image);
+                                }
+
+                                continue;
                             }
 
-                            continue;
-                        }
-
-                        if(mHdrCore[i].coreId != (0xFFFFFFFFU))
-                        {
-                            uint32_t cslCoreId = Bootloader_socRprcToCslCoreId(mHdrCore[i].coreId);
-                            Bootloader_CpuInfo *cpuInfo = &bootImageInfo->cpuInfo[cslCoreId];
-                            cpuInfo->rprcOffset = mHdrCore[i].imageOffset;
-                            cpuInfo->entryPoint = 0;
-                            cpuInfo->cpuId      = cslCoreId;
-                            if(Bootloader_socIsSmpEnable(mHdrCore[i].coreId) == true)
+                            if(mHdrCore[i].coreId != (0xFFFFFFFFU))
                             {
-                                cpuInfo->smpEnable = true;
+                                uint32_t cslCoreId = Bootloader_socRprcToCslCoreId(mHdrCore[i].coreId);
+                                Bootloader_CpuInfo *cpuInfo = &bootImageInfo->cpuInfo[cslCoreId];
+                                cpuInfo->rprcOffset = mHdrCore[i].imageOffset;
+                                cpuInfo->entryPoint = 0;
+                                cpuInfo->cpuId      = cslCoreId;
+                                if(Bootloader_socIsSmpEnable(mHdrCore[i].coreId) == true)
+                                {
+                                    cpuInfo->smpEnable = true;
+                                }
+                                config->coresPresentMap |= ((uint32_t)1 << cslCoreId);
                             }
-                            config->coresPresentMap |= ((uint32_t)1 << cslCoreId);
                         }
-
-                    }
-                    if(Bootloader_socIsSmpEnable(rprcCoreId) == true)
-                    {
-                        for( i = CSL_CORE_ID_A53SS0_1; i < FREERTOS_SMP_CSL_CORE_ID_MAX; i ++)
+                        if(Bootloader_socIsSmpEnable(rprcCoreId) == true)
                         {
-                            Bootloader_CpuInfo *cpuInfo = &bootImageInfo->cpuInfo[i];
-                            cpuInfo->rprcOffset = bootImageInfo->cpuInfo[CSL_CORE_ID_A53SS0_0].rprcOffset;
-                            cpuInfo->entryPoint = 0;
-                            cpuInfo->cpuId      = i;
+                            for( i = CSL_CORE_ID_A53SS0_1; i < FREERTOS_SMP_CSL_CORE_ID_MAX; i ++)
+                            {
+                                Bootloader_CpuInfo *cpuInfo = &bootImageInfo->cpuInfo[i];
+                                cpuInfo->rprcOffset = bootImageInfo->cpuInfo[CSL_CORE_ID_A53SS0_0].rprcOffset;
+                                cpuInfo->entryPoint = 0;
+                                cpuInfo->cpuId      = i;
+                            }
                         }
                     }
-
                 }
-              }
-              else{/* do nothing */}
-          }
-          else
-          {
-              status = SystemP_FAILURE;
-          }
-      }
+                else{/* do nothing */}
+            }
+            else
+            {
+                status = SystemP_FAILURE;
+            }
+        }
     }
     else{/* do nothing */}
 
