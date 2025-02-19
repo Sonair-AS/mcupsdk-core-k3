@@ -4,6 +4,40 @@
 
 The Bootloader module provides APIs to write bootloader applications for various boot media like OSPI, UART, SOC memory etc.
 
+## Bootloader Migration Guidelines {#BOOTLOADER_MIGRATION_GUIDELINE}
+While migrating to 11.00.00 @VAR_SDK_NAME, using the older example.syscfg file for bootloader examples with ospi dma enabled, can throw following error in gui, while running the command make syscfg-gui
+\imageStyle{bootloader_udma_multiple_instances.png,width:60%}
+\image html bootloader_udma_multiple_instances.png "Bootloader adds multiple udma instances"
+
+While using make command to build the example, it will throw following error
+\code
+error: CONFIG_BOOTLOADER_FLASH_LINUX(/drivers/bootloader/bootloader) udmaDriver.$name: Duplicate name: 'CONFIG_UDMA0' also exists on instance(s) of UDMA
+error: CONFIG_FLASH0(/board/flash/flash) serialFlashDriver.peripheralDriver.udmaDriver.$name: Duplicate name: 'CONFIG_UDMA0' also exists on instance(s) of UDMA
+error: CONFIG_BOOTLOADER_FLASH_LINUX(/drivers/bootloader/bootloader) udmaBlkCopyChannel.$name: Duplicate name: 'CONFIG_UDMA_BLKCOPY_CH0' also exists on instance(s) of UDMA Block Copy Channel Configuration
+error: CONFIG_FLASH0(/board/flash/flash) serialFlashDriver.peripheralDriver.udmaBlkCopyChannel.$name: Duplicate name: 'CONFIG_UDMA_BLKCOPY_CH0' also exists on instance(s) of UDMA Block Copy Channel Configuration
+error: CONFIG_BOOTLOADER_FLASH_LINUX(/drivers/bootloader/bootloader) udmaDriver.instance: Same instance cannot be selected
+error: CONFIG_FLASH0(/board/flash/flash) serialFlashDriver.peripheralDriver.udmaDriver.instance: Same instance cannot be selected
+\endcode
+
+To fix this, update the example.syscfg, for every instance of bootloader define udma driver and udma block copy channel, refer the below lines to update example.syscfg
+\code
+const udma                                           = scripting.addModule("/drivers/udma/udma", {}, false);
+const udma1                                          = udma.addInstance({}, false);
+udma1.$name                                          = "CONFIG_UDMA0";
+flash1.serialFlashDriver.peripheralDriver.udmaDriver = udma1;
+bootloader1.udmaDriver                               = udma1;
+bootloader2.udmaDriver                               = udma1;
+bootloader3.udmaDriver                               = udma1;
+
+const udma_blkcopy_channel                                   = scripting.addModule("/drivers/udma/udma_blkcopy_channel", {}, false);
+const udma_blkcopy_channel1                                  = udma_blkcopy_channel.addInstance({}, false);
+udma_blkcopy_channel1.$name                                  = "CONFIG_UDMA_BLKCOPY_CH0";
+flash1.serialFlashDriver.peripheralDriver.udmaBlkCopyChannel = udma_blkcopy_channel1;
+bootloader1.udmaBlkCopyChannel                               = udma_blkcopy_channel1;
+bootloader2.udmaBlkCopyChannel                               = udma_blkcopy_channel1;
+bootloader3.udmaBlkCopyChannel                               = udma_blkcopy_channel1;
+\endcode
+
 ## Features Supported
 
 - OSPI Boot

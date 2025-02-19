@@ -149,10 +149,10 @@ ROM_CHECKSUM     |  R5F           | No
     <th> Applicable Releases
 </tr>
 <tr>
-    <td> TBD
-    <td> TBD
-    <td> TBD
-    <td> TBD
+    <td> SITSW-5829
+    <td> No synchronization wrt DMA between main & boot thread of the Stage2/DM application
+    <td> Bootloader
+    <td> 11.00.00
 </tr>
 </table>
 
@@ -191,3 +191,12 @@ ROM_CHECKSUM     |  R5F           | No
 </tr>
 </table>
 </table>
+
+## Upgrade and Compatibility Information
+
+\attention When migrating from oldder version to 11.00.00, see \ref BOOTLOADER_MIGRATION_GUIDELINE for more details
+
+This section lists changes which could affect user applications developed using older SDK versions.
+Read this carefully to see if you need to do any changes in your existing application when migrating to this SDK version relative to
+previous SDK version. Also refer to older SDK version release notes to see changes in
+earlier SDKs.

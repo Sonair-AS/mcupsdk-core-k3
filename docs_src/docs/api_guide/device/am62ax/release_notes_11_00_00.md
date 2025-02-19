@@ -20,7 +20,7 @@ AM62Ax | MCU R5F, DM R5F, C75   | @VAR_BOARD_NAME EVM (referred to as am62ax-sk 
 Feature                                                                                        | Module
 -----------------------------------------------------------------------------------------------|-----------------------------------
 Safety qualification for IPC driver                                                            | IPC
-Exmaple for Key Revision update                                                                | OTP 
+Exmaple for Key Revision update                                                                | OTP
 RTC driver on R5F                                                                              | RTC
 LPM example for MCU only with Timer and MCAN as wakeup sources                                 | LPM
 
@@ -299,6 +299,12 @@ ROM Checksum |MCU-R5F         | No
     <td> MCSPI
     <td> 08.06.00
 </tr>
+<tr>
+    <td> \htmllink{https://sir.ext.ti.com/jira/browse/EXT_SITMPUSW-60, EXT_SITMPUSW-60}
+    <td> No synchronization wrt DMA between main & boot thread of the Stage2/DM application
+    <td> Bootloader
+    <td> 11.00.00
+</tr>
 </table>
 
 ## Known Issues
@@ -341,3 +347,12 @@ ROM Checksum |MCU-R5F         | No
 </tr>
 </table>
 </table>
+
+## Upgrade and Compatibility Information
+
+\attention When migrating from oldder version to 11.00.00, see \ref BOOTLOADER_MIGRATION_GUIDELINE for more details
+
+This section lists changes which could affect user applications developed using older SDK versions.
+Read this carefully to see if you need to do any changes in your existing application when migrating to this SDK version relative to
+previous SDK version. Also refer to older SDK version release notes to see changes in
+earlier SDKs.
