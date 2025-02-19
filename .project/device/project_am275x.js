@@ -159,6 +159,7 @@ const example_file_list = [
     "test/drivers/mmcsd/.project/project.js",
     "test/drivers/ospi/.project/project.js",
     "test/drivers/sciclient/sciclient_get_version/.project/project_am275x_wkupr5.js",
+    "test/drivers/sciclient/sciclient_get_version/.project/project.js",
     "test/drivers/uart/.project/project.js",
     "test/kernel/dpl/.project/project_am275x_wkupr5.js",
     "test/kernel/dpl/.project/project.js",
