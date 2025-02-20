@@ -24,6 +24,9 @@ const device_defines = {
 
 const example_file_list = [
     "examples/empty/.project/project_freertos.js",
+    "examples/drivers/sciclient/sciclient_ccs_init/.project/project.js",
+    "examples/drivers/sciclient/sciclient_get_version/.project/project.js",
+    "examples/drivers/sciclient/sciclient_unit_test/.project/project.js",
 ];
 
 function getProjectSpecCpu(cpu) {
