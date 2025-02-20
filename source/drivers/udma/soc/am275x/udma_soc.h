@@ -236,11 +236,9 @@ extern "C" {
 #define UDMA_UTC_START_THREAD_ID_VPAC_TC0   (CSL_PSILCFG_DMSS_MAIN_VPAC_TC0_CC_PSILD_THREAD_OFFSET)
 
 /** \brief DRU0 UTC baseaddress */
-#if defined(__C7504__)
-#define UDMA_UTC_BASE_DRU0                  (CSL_C7X256V0_DRU_BASE)
-#else
-#define UDMA_UTC_BASE_DRU0                  (CSL_VPAC0_IVPAC_TOP_0_CFG_SLV_DRU_UTC_VPAC0_DRU_MMR_CFG_DRU_DRU_BASE)
-#endif
+#define  UDMA_UTC_BASE_DRU0                  (CSL_C7X256V0_DRU_BASE)
+#define  UDMA_UTC_BASE_DRU1                  (CSL_C7X256V1_DRU_BASE)
+
 
 /**
  *  \anchor Udma_CoreId
@@ -630,6 +628,8 @@ extern "C" {
  */
 uint32_t Udma_isCacheCoherent(void);
 
+void *Udma_defaultPhyToVirtFxnC7x(uint64_t phyAddr, uint32_t chNum, void *appData);
+uint64_t Udma_defaultVirtToPhyFxnC7x(const void *virtAddr, uint32_t chNum, void *appData);
 /* ========================================================================== */
 /*                       Static Function Definitions                          */
 /* ========================================================================== */

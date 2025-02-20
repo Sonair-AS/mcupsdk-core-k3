@@ -4,6 +4,7 @@ let device = "am275x";
 
 const files_c75 = {
     common: [
+        "csl_dru.c",
         "csl_bcdma.c",
         "csl_intaggr.c",
         "csl_lcdma_ringacc.c",
@@ -28,6 +29,8 @@ const filedirs = {
         "../udma/hw_include",
         "../udma/soc",
         "../udma/soc/am275x",
+        "../hw_include/dru/v2/",
+
     ],
 };
 

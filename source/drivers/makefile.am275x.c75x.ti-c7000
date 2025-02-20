@@ -16,7 +16,6 @@ ConfigName:=$(PROFILE)
 LIBNAME:=drivers.am275x.c75x.ti-c7000.$(PROFILE).lib
 
 FILES_common := \
-    csl_dru.c \
     csl_sec_proxy.c \
     gpio.c \
     gtc.c \

@@ -99,6 +99,7 @@ int32_t Udma_init(Udma_DrvHandle drvHandle, const Udma_InitPrms *initPrms)
         }
         else
         {
+            (void) memset(&drvHandleInt->initPrms.rmInitPrms, 0, sizeof(Udma_RmInitPrms));
             (void) memcpy(&drvHandleInt->rmInitPrms, Udma_rmGetDefaultCfg(), sizeof (Udma_RmInitPrms));
         }
         Udma_initDrvHandle(drvHandleInt);

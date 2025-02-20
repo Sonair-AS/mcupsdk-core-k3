@@ -137,7 +137,6 @@ const files_wkup_r5f = {
 
 const files_c75 = {
     common: [
-        "csl_dru.c",
         "csl_sec_proxy.c",
         "gpio.c",
         "gtc.c",

@@ -43,7 +43,7 @@
 
 #include <drivers/udma/udma_priv.h>
 #include <drivers/hw_include/cslr_soc.h>
-
+#include <drivers/hw_include/csl_clec.h>
 /* ========================================================================== */
 /*                           Macros & Typedefs                                */
 /* ========================================================================== */
@@ -54,7 +54,7 @@
 
 
 #define UDMA_SOC_TX_MAPPED_FLOW_ENTRY(base, index, size) {base+(size*index), \
-                                                    base+(size*index)+1, size-1}
+                                                    base+(size*index)+1U, size-1U}
 
 /* ========================================================================== */
 /*                         Structure Declarations                             */
@@ -75,16 +75,16 @@
 const Udma_MappedChRingAttributes gUdmaTxMappedChRingAttributes[CSL_DMSS_PKTDMA_NUM_TX_CHANS - CSL_DMSS_PKTDMA_TX_CHANS_UNMAPPED_CNT] =
 {
     /* defaultRing, startFreeRing, numFreeRing */
-    UDMA_SOC_TX_MAPPED_FLOW_ENTRY(CSL_DMSS_PKTDMA_TX_FLOWS_CPSW_START,  0, 8), /* Channel 27 - UDMA_MAPPED_TX_GROUP_CPSW Ch 0 */
-    UDMA_SOC_TX_MAPPED_FLOW_ENTRY(CSL_DMSS_PKTDMA_TX_FLOWS_CPSW_START,  1, 8), /* Channel 28 - UDMA_MAPPED_TX_GROUP_CPSW Ch 1 */
-    UDMA_SOC_TX_MAPPED_FLOW_ENTRY(CSL_DMSS_PKTDMA_TX_FLOWS_CPSW_START,  2, 8), /* Channel 29 - UDMA_MAPPED_TX_GROUP_CPSW Ch 2 */
-    UDMA_SOC_TX_MAPPED_FLOW_ENTRY(CSL_DMSS_PKTDMA_TX_FLOWS_CPSW_START,  3, 8), /* Channel 30 - UDMA_MAPPED_TX_GROUP_CPSW Ch 3 */
-    UDMA_SOC_TX_MAPPED_FLOW_ENTRY(CSL_DMSS_PKTDMA_TX_FLOWS_CPSW_START,  4, 8), /* Channel 31 - UDMA_MAPPED_TX_GROUP_CPSW Ch 4 */
-    UDMA_SOC_TX_MAPPED_FLOW_ENTRY(CSL_DMSS_PKTDMA_TX_FLOWS_CPSW_START,  5, 8), /* Channel 32 - UDMA_MAPPED_TX_GROUP_CPSW Ch 5 */
-    UDMA_SOC_TX_MAPPED_FLOW_ENTRY(CSL_DMSS_PKTDMA_TX_FLOWS_CPSW_START,  6, 8), /* Channel 33 - UDMA_MAPPED_TX_GROUP_CPSW Ch 6 */
-    UDMA_SOC_TX_MAPPED_FLOW_ENTRY(CSL_DMSS_PKTDMA_TX_FLOWS_CPSW_START,  7, 8), /* Channel 34 - UDMA_MAPPED_TX_GROUP_CPSW Ch 7 */
-    UDMA_SOC_TX_MAPPED_FLOW_ENTRY(CSL_DMSS_PKTDMA_TX_FLOWS_SAUL0_START, 0, 7), /* Channel 35 - UDMA_MAPPED_TX_GROUP_SAUL Ch 0 */
-    UDMA_SOC_TX_MAPPED_FLOW_ENTRY(CSL_DMSS_PKTDMA_TX_FLOWS_SAUL1_START, 0, 7)  /* Channel 36 - UDMA_MAPPED_TX_GROUP_SAUL Ch 1 */
+    UDMA_SOC_TX_MAPPED_FLOW_ENTRY(CSL_DMSS_PKTDMA_TX_FLOWS_CPSW_START,  0U, 8U), /* Channel 27 - UDMA_MAPPED_TX_GROUP_CPSW Ch 0 */
+    UDMA_SOC_TX_MAPPED_FLOW_ENTRY(CSL_DMSS_PKTDMA_TX_FLOWS_CPSW_START,  1U, 8U), /* Channel 28 - UDMA_MAPPED_TX_GROUP_CPSW Ch 1 */
+    UDMA_SOC_TX_MAPPED_FLOW_ENTRY(CSL_DMSS_PKTDMA_TX_FLOWS_CPSW_START,  2U, 8U), /* Channel 29 - UDMA_MAPPED_TX_GROUP_CPSW Ch 2 */
+    UDMA_SOC_TX_MAPPED_FLOW_ENTRY(CSL_DMSS_PKTDMA_TX_FLOWS_CPSW_START,  3U, 8U), /* Channel 30 - UDMA_MAPPED_TX_GROUP_CPSW Ch 3 */
+    UDMA_SOC_TX_MAPPED_FLOW_ENTRY(CSL_DMSS_PKTDMA_TX_FLOWS_CPSW_START,  4U, 8U), /* Channel 31 - UDMA_MAPPED_TX_GROUP_CPSW Ch 4 */
+    UDMA_SOC_TX_MAPPED_FLOW_ENTRY(CSL_DMSS_PKTDMA_TX_FLOWS_CPSW_START,  5U, 8U), /* Channel 32 - UDMA_MAPPED_TX_GROUP_CPSW Ch 5 */
+    UDMA_SOC_TX_MAPPED_FLOW_ENTRY(CSL_DMSS_PKTDMA_TX_FLOWS_CPSW_START,  6U, 8U), /* Channel 33 - UDMA_MAPPED_TX_GROUP_CPSW Ch 6 */
+    UDMA_SOC_TX_MAPPED_FLOW_ENTRY(CSL_DMSS_PKTDMA_TX_FLOWS_CPSW_START,  7U, 8U), /* Channel 34 - UDMA_MAPPED_TX_GROUP_CPSW Ch 7 */
+    UDMA_SOC_TX_MAPPED_FLOW_ENTRY(CSL_DMSS_PKTDMA_TX_FLOWS_SAUL0_START, 0U, 7U), /* Channel 35 - UDMA_MAPPED_TX_GROUP_SAUL Ch 0 */
+    UDMA_SOC_TX_MAPPED_FLOW_ENTRY(CSL_DMSS_PKTDMA_TX_FLOWS_SAUL1_START, 0U, 7U)  /* Channel 36 - UDMA_MAPPED_TX_GROUP_SAUL Ch 1 */
 };
 
 const Udma_MappedChRingAttributes gUdmaRxMappedChRingAttributes[CSL_DMSS_PKTDMA_NUM_RX_CHANS - CSL_DMSS_PKTDMA_RX_CHANS_UNMAPPED_CNT] =
@@ -109,8 +109,13 @@ void Udma_initDrvHandle(Udma_DrvHandleInt drvHandle)
     CSL_PktdmaCfg            *pPktdmaRegs;
     CSL_LcdmaRingaccCfg      *pLcdmaRaRegs;
     CSL_IntaggrCfg           *pIaRegs;
+    Udma_UtcInstInfo         *utcInfo;
 
     instId = drvHandle->initPrms.instId;
+    #if (defined(__C7524__))
+    uint32_t                 clusterId;
+    clusterId = CSL_clecGetC7xClusterId();
+    #endif
     /*
      * BCDMA/PKTDMA config init
      */
@@ -198,10 +203,35 @@ void Udma_initDrvHandle(Udma_DrvHandleInt drvHandle)
     pIaRegs->pGcntCfgRegs   = (CSL_intaggr_gcntcfgRegs *) CSL_DMASS0_INTAGGR_GCNTCFG_BASE;
     pIaRegs->pGcntRtiRegs   = (CSL_intaggr_gcntrtiRegs *) CSL_DMASS0_INTAGGR_GCNTRTI_BASE;
     CSL_intaggrGetCfg(pIaRegs);
-
     drvHandle->iaGemOffset  = CSL_DMSS_GEM_INTA0_SEVI_OFFSET;
     drvHandle->devIdIa      = TISCI_DEV_DMASS0_INTAGGR_0;
     drvHandle->devIdCore    = (uint16_t)Sciclient_getSelfDevIdCore();
+    drvHandle->druCoreId    = UDMA_DRU_CORE_ID_C7X_1;
+    /*
+     * UTC config init
+     */
+    utcInfo                = &drvHandle->utcInfo[UDMA_UTC_ID_MSMC_DRU0];
+    utcInfo->utcId         = UDMA_UTC_ID_MSMC_DRU0;
+    utcInfo->utcType       = UDMA_UTC_TYPE_DRU;
+    utcInfo->startCh       = UDMA_UTC_START_CH_DRU0;
+    utcInfo->numCh         = UDMA_UTC_NUM_CH_DRU0;
+    utcInfo->startThreadId = UDMA_UTC_START_THREAD_ID_DRU0;
+    utcInfo->txCredit      = 2U;
+    #if (defined(__C7524__))
+    if(clusterId == CSL_C75_CPU_CLUSTER_NUM_C75_1)
+    {
+        utcInfo->druRegs   = ((CSL_DRU_t *) UDMA_UTC_BASE_DRU0);
+    }
+    else if (clusterId == CSL_C75_CPU_CLUSTER_NUM_C75_2)
+    {
+        utcInfo->druRegs   = ((CSL_DRU_t *) UDMA_UTC_BASE_DRU1);
+    }
+    else
+    {
+        utcInfo->druRegs   = (CSL_DRU_t*) NULL;
+    }
+    #endif
+    utcInfo->numQueue      = CSL_DMSS_UTC_MSMC_DRU_QUEUE_CNT;
 
     /* Init other variables */
     if(UDMA_INST_ID_BCDMA_0 == instId)
@@ -321,7 +351,7 @@ void *Udma_defaultPhyToVirtFxnC7x(uint64_t phyAddr,
                                void *appData)
 {
     void* temp = 0;
-    if(phyAddr > UDMA_SRAM_BASE_ADDR && phyAddr < (UDMA_SRAM_BASE_ADDR + UDMA_C7X0_0_SRAM_ALIAS_SIZE - 1))
+    if((phyAddr > UDMA_SRAM_BASE_ADDR) && (phyAddr < (UDMA_SRAM_BASE_ADDR + UDMA_C7X0_0_SRAM_ALIAS_SIZE - 1)))
     {
         temp = (void*)((uintptr_t)phyAddr + (uintptr_t)(UDMA_C7X0_0_SRAM_ALIAS - UDMA_SRAM_BASE_ADDR));
     }
@@ -338,7 +368,7 @@ uint64_t Udma_defaultVirtToPhyFxnC7x(const void *virtAddr,
                                   void *appData)
 {
     uint64_t addr = 0;
-    if((uint64_t)virtAddr > UDMA_C7X0_0_SRAM_ALIAS && (uint64_t)virtAddr < (UDMA_C7X0_0_SRAM_ALIAS + UDMA_C7X0_0_SRAM_ALIAS_SIZE -1))
+    if(((uint64_t)virtAddr > UDMA_C7X0_0_SRAM_ALIAS) && ((uint64_t)virtAddr < (UDMA_C7X0_0_SRAM_ALIAS + UDMA_C7X0_0_SRAM_ALIAS_SIZE -1)))
     {
         addr = (uint64_t)((uintptr_t)virtAddr - (uintptr_t)(UDMA_C7X0_0_SRAM_ALIAS - UDMA_SRAM_BASE_ADDR));
     }
