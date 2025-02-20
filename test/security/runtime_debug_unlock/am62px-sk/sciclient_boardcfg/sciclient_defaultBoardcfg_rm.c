@@ -40,6 +40,8 @@
 #include <drivers/sciclient/include/tisci/am62px/tisci_boardcfg_constraints.h>
 #include <drivers/sciclient/include/tisci/am62px/tisci_devices.h>
 
+#define TISCI_RESASG_ENTRIES                                 123
+
 /* ========================================================================== */
 /*                            Global Variables                                */
 /* ========================================================================== */
@@ -47,7 +49,7 @@
 struct tisci_local_rm_boardcfg {
     struct tisci_boardcfg_rm      rm_boardcfg;
     /**< Board configuration parameter */
-    struct tisci_boardcfg_rm_resasg_entry resasg_entries[TISCI_RESASG_ENTRIES_MAX];
+    struct tisci_boardcfg_rm_resasg_entry resasg_entries[TISCI_RESASG_ENTRIES];
     /**< Resource assignment entries */
 };
 
@@ -96,7 +98,7 @@ __attribute__(( aligned(128), section(".boardcfg_data") )) =
                 .magic = TISCI_BOARDCFG_RM_RESASG_MAGIC_NUM,
                 .size = (uint16_t) sizeof(struct tisci_boardcfg_rm_resasg),
             },
-            .resasg_entries_size = 123 * sizeof(struct tisci_boardcfg_rm_resasg_entry),
+            .resasg_entries_size = TISCI_RESASG_ENTRIES * sizeof(struct tisci_boardcfg_rm_resasg_entry),
         },
     },
     .resasg_entries = {
@@ -155,9 +157,9 @@ __attribute__(( aligned(128), section(".boardcfg_data") )) =
             .host_id = TISCI_HOST_ID_ALL,
         },
         {
-            .num_resource = 18,
+            .num_resource = 14,
             .type = TISCI_RESASG_UTYPE (TISCI_DEV_DMASS0_BCDMA_0, TISCI_RESASG_SUBTYPE_BCDMA_RING_BLOCK_COPY_CHAN),
-            .start_resource = 0,
+            .start_resource = 4,
             .host_id = TISCI_HOST_ID_A53_2,
         },
         {
@@ -239,9 +241,9 @@ __attribute__(( aligned(128), section(".boardcfg_data") )) =
             .host_id = TISCI_HOST_ID_ALL,
         },
         {
-            .num_resource = 18,
+            .num_resource = 14,
             .type = TISCI_RESASG_UTYPE (TISCI_DEV_DMASS0_BCDMA_0, TISCI_RESASG_SUBTYPE_BCDMA_BLOCK_COPY_CHAN),
-            .start_resource = 0,
+            .start_resource = 4,
             .host_id = TISCI_HOST_ID_A53_2,
         },
         {
