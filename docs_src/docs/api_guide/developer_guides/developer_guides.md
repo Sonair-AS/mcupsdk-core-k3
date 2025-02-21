@@ -79,6 +79,7 @@ SDK features and tools.
 - \subpage SYSCONFIG_INTRO_PAGE
 - \subpage TIREX_INTRO_PAGE
 - \subpage RESOURCE_ALLOCATION_GUIDE
+- \subpage APPIMAGE_SW_VERSION
 \endcond
 
 \cond SOC_AM62AX || SOC_AM62DX
