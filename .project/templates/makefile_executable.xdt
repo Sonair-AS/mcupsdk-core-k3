@@ -1047,7 +1047,7 @@ $(BOOTIMAGE_NAME): $(OUTNAME)
 ifneq ($(OS),Windows_NT)
 	$(CHMOD) a+x $(XIPGEN_CMD)
 endif
-	$(PYTHON) $(MCELF_IMAGE_GEN) --core-img=$(MULTI_CORE_IMAGE_PARAMS) --output=$(BOOTIMAGE_NAME)
+	$(PYTHON) $(MCELF_IMAGE_GEN) --core-img=$(MULTI_CORE_IMAGE_PARAMS) --output=$(BOOTIMAGE_NAME) --sw_version=$(SW_VERSION)
 % }
 % else {
 $(BOOTIMAGE_NAME): $(OUTNAME)

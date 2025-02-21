@@ -260,7 +260,7 @@ $(BOOTIMAGE_NAME): $(OUTNAME)
 ifneq ($(OS),Windows_NT)
 	$(CHMOD) a+x $(XIPGEN_CMD)
 endif
-	$(PYTHON) $(MCELF_IMAGE_GEN) --core-img=$(MULTI_CORE_IMAGE_PARAMS) --output=$(BOOTIMAGE_NAME)
+	$(PYTHON) $(MCELF_IMAGE_GEN) --core-img=$(MULTI_CORE_IMAGE_PARAMS) --output=$(BOOTIMAGE_NAME) --sw_version=$(SW_VERSION)
 # Sign the appimage for HS-FS using appimage signing script
     #
     #   Authentication type 0 with load address 0x84000000
