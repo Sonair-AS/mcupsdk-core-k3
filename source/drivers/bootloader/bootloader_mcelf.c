@@ -438,6 +438,13 @@ int32_t Bootloader_parseAndLoadMultiCoreELF(Bootloader_Handle handle, Bootloader
                         status = SystemP_FAILURE;
                     }
 
+                    if(elfPtr64->eVersion != (uint32_t)SW_VERSION)
+                    {
+                        DebugP_logWarn("Software version mismatch, Installer version 0x%x, \
+                        AppImage version 0x%x\n\r", SW_VERSION, elfPtr64->eVersion);
+                        status = SystemP_FAILURE;
+                    }
+
                     if(status == SystemP_SUCCESS)
                     {
                         elfPhdrPtr64 = (Bootloader_ELFPH64*) &gElfBuffer[elfPtr64->ePhoff];
@@ -459,6 +466,13 @@ int32_t Bootloader_parseAndLoadMultiCoreELF(Bootloader_Handle handle, Bootloader
                         status = SystemP_FAILURE;
                     }
 
+                    if(elfPtr32->eVersion != (uint32_t)SW_VERSION)
+                    {
+                        DebugP_logWarn("Software version mismatch, Installer version 0x%x, \
+                        AppImage version 0x%x\n\r", SW_VERSION, elfPtr32->eVersion);
+                        status = SystemP_FAILURE;
+                    }
+                    
                     if(status == SystemP_SUCCESS)
                     {
                         elfPhdrPtr32 = (Bootloader_ELFPH32 *) &gElfBuffer[elfPtr32->ePhoff];
@@ -1363,6 +1377,13 @@ int32_t Bootloader_parseELFMeta(Bootloader_Handle handle, Bootloader_BootImageIn
                 status = SystemP_FAILURE;
             }
 
+            if(mcelfMetaInfo->elfPtr64->eVersion != (uint32_t)SW_VERSION)
+            {
+                DebugP_logWarn("Software version mismatch, Installer version 0x%x, \
+                 AppImage version 0x%x\n\r", SW_VERSION, mcelfMetaInfo->elfPtr64->eVersion);
+                status = SystemP_FAILURE;
+            }
+
             if(status == SystemP_SUCCESS)
             {
                 mcelfMetaInfo->elfPhdrPtr64 = (Bootloader_ELFPH64*) &gElfBuffer[mcelfMetaInfo->elfPtr64->ePhoff];
@@ -1388,6 +1409,13 @@ int32_t Bootloader_parseELFMeta(Bootloader_Handle handle, Bootloader_BootImageIn
             /* Check if number of PHT entries are <= MAX */
             if (mcelfMetaInfo->numSegments > ELF_MAX_SEGMENTS)
             {
+                status = SystemP_FAILURE;
+            }
+            
+            if(mcelfMetaInfo->elfPtr32->eVersion != (uint32_t)SW_VERSION)
+            {
+                DebugP_logWarn("Software version mismatch, Installer version 0x%x, \
+                 AppImage version 0x%x\n\r", SW_VERSION, mcelfMetaInfo->elfPtr32->eVersion);
                 status = SystemP_FAILURE;
             }
 
