@@ -309,18 +309,18 @@ uint32_t RPMessage_vringGetSize(uint32_t numBuf, uint16_t msgSize, uint32_t alig
     uint32_t msg_align;
     if (gIpcRpmsgCtrl.vringAllocationPDK == 0U)
     {
-        msg_align =  RPMessage_align(
-                    (sizeof(struct vring_desc) * numBuf) /* buffer descriptors for each buffer */
-                    + (sizeof(uint16_t) * (uint16_t)(2U + numBuf))    /* avail queue */
+        msg_align = RPMessage_align(
+                    ((uint32_t)sizeof(struct vring_desc) * numBuf) /* buffer descriptors for each buffer */
+                    + ((uint32_t)sizeof(uint16_t) * (uint16_t)(2U + numBuf))    /* avail queue */
                     , align) + RPMessage_align(
-                    (sizeof(uint16_t) * 2U) + (sizeof(struct vring_used_elem) * numBuf) /* used queue */
+                    ((uint32_t)sizeof(uint16_t) * 2U) + ((uint32_t)sizeof(struct vring_used_elem) * numBuf) /* used queue */
                     , align) + (numBuf * msgSize); /* message buffers */
     }
     else
     {
-        msg_align =  (((sizeof(struct vring_desc) * numBuf) + (sizeof(uint16_t) * (2U + numBuf)))
+        msg_align =  ((((uint32_t)sizeof(struct vring_desc) * numBuf) + ((uint32_t)sizeof(uint16_t) * (2U + numBuf)))
                     + (((uintptr_t)0x1000 - 1U) & ~((uintptr_t)0x1000 - 1U))
-                    + (sizeof(uint16_t) * 2U) + (sizeof(struct vring_used_elem) * numBuf));
+                    + ((uint32_t)sizeof(uint16_t) * 2U) + ((uint32_t)sizeof(struct vring_used_elem) * numBuf));
     }
 
     return msg_align;
