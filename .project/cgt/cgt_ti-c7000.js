@@ -32,6 +32,8 @@ const cgt_common = {
             "--diag_suppress=770", // to suppress pointer to small int conversion error
             "--diag_suppress=69", // to suppress -1 to uint32t error
             "--diag_suppress=70", // to suppress char pointer to uint32t error
+            "-DBUILD_C7X",
+            "-DBUILD_C7X_1",
         ],
         debug: [
             "-Dxdc_target_name__=C71",
@@ -39,16 +41,12 @@ const cgt_common = {
             //"-Dxdc_target_types__=ti/targets/elf/std.h",
             "--opt_level=0",
             "--symdebug:dwarf",
-            "-DBUILD_C7X_1",
-            "-DBUILD_C7X",
         ],
         release: [
             "-Dxdc_target_name__=C71",
             //"-Dxdc_target_types__=ti/targets/elf/std.h",
             "--opt_level=3",
             "--symdebug:none",
-            "-DBUILD_C7X_1",
-            "-DBUILD_C7X",
         ],
     },
     arflags: {
@@ -66,7 +64,6 @@ const cgt_common = {
             "--warn_sections",
             "-q",
             "-x",
-            ""
         ],
     },
     libdirs: {

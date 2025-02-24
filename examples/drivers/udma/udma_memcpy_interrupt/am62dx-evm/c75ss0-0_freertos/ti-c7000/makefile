@@ -80,21 +80,19 @@ CFLAGS_common := \
 	--diag_suppress=770 \
 	--diag_suppress=69 \
 	--diag_suppress=70 \
+	-DBUILD_C7X \
+	-DBUILD_C7X_1 \
 
 CFLAGS_debug := \
 	-Dxdc_target_name__=C71 \
 	-D_DEBUG_=1 \
 	--opt_level=0 \
 	--symdebug:dwarf \
-	-DBUILD_C7X_1 \
-	-DBUILD_C7X \
 
 CFLAGS_release := \
 	-Dxdc_target_name__=C71 \
 	--opt_level=3 \
 	--symdebug:none \
-	-DBUILD_C7X_1 \
-	-DBUILD_C7X \
 
 LNK_FILES_common = \
 	linker.cmd \
@@ -120,7 +118,6 @@ LFLAGS_common = \
 	--warn_sections \
 	-q \
 	-x \
-	 \
 
 
 LIBS_NAME = \

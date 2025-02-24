@@ -49,6 +49,8 @@
             --diag_suppress=770
             --diag_suppress=69
             --diag_suppress=70
+            -DBUILD_C7X
+            -DBUILD_C7X_1
             -DSOC_AM62DX
         "
         linkerBuildOptions="
@@ -65,7 +67,6 @@
             --warn_sections
             -q
             -x
-            
         "
 
         postBuildStep="$(MAKE) -C ${CCS_PROJECT_DIR} -f makefile_ccs_bootimage_gen OUTNAME=${BuildArtifactFileBaseName} PROFILE=${ConfigName} MCU_PLUS_SDK_PATH=${MCU_PLUS_SDK_PATH} CG_TOOL_ROOT=${CG_TOOL_ROOT} CCS_INSTALL_DIR=${CCS_INSTALL_DIR} CCS_IDE_MODE=${CCS_IDE_MODE}"
@@ -83,8 +84,6 @@
                 -D_DEBUG_=1
                 --opt_level=0
                 --symdebug:dwarf
-                -DBUILD_C7X_1
-                -DBUILD_C7X
             "
             linkerBuildOptions="
                 -lfreertos.am62dx.c75x.ti-c7000.debug.lib
@@ -98,8 +97,6 @@
                 -Dxdc_target_name__=C71
                 --opt_level=3
                 --symdebug:none
-                -DBUILD_C7X_1
-                -DBUILD_C7X
             "
             linkerBuildOptions="
                 -lfreertos.am62dx.c75x.ti-c7000.release.lib
