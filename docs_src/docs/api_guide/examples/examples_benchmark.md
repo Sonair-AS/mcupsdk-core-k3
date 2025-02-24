@@ -4,4 +4,5 @@ This page lists all the examples related to benchmarks of SOC and board peripher
 
 \cond  SOC_AM62X
    -# \subpage EXAMPLES_DHRYSTONE
+   -# \subpage EXAMPLES_INTERRUPT_LATENCY
 \endcond

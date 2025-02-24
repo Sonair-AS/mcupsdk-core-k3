@@ -97,6 +97,17 @@ cpu_clock (MHz)                 |   1400        |  1400          |  1400        
 dhrystone_per_mhz (DMIPS/MHz)   |   2.8577      |  2.8577        |  2.8577      |
 dhrystone_per_second            |   7029351.2   |  7029351.2     |  7029351.2   |
 
+### AM62X Interrupt Latency Benchmark performance
+
+The latency measurements include IRQ entry handling latency + ISR + IRQ exit handling latency.
+
+Core : **a530-0**
+
+Benchmarks                      | am62x-sk      | am62x-sk-lp   | am62x-sip-sk   |
+--------------------------------|---------------|---------------|----------------|
+cpu_clock (MHz)                 |   1400        |  1400         |  1400          |
+interrupt latency (ns)          |   620         |  622          |  628           |
+
 ### AM62X-SK SBL OSPI performance (HS-FS)
 
 - Software/Application used        : sbl_ospi_linux_multistage, ipc_rpmsg_echo_linux, linux and HSM App Images
