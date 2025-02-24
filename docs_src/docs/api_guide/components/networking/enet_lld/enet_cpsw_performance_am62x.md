@@ -62,13 +62,13 @@ Number of Tx packet buffers     | 16                                            
         <td style="text-align: center;"><b>CPU Load \n (%) </b></td>
     </tr>
     <tr>
-        <td>TCP RX</td><td>77</td><td>12</td>
+        <td>TCP RX</td><td>93</td><td>11</td>
     </tr>
     <tr>
-        <td>TCP TX</td><td>76.5</td><td>16</td>
+        <td>TCP TX</td><td>93</td><td>11</td>
     </tr>
     <tr>
-        <td>TCP Bidirectional</td><td>RX=51.4 \n TX=50</td><td>22</td>
+        <td>TCP Bidirectional</td><td>RX=93 \n TX=93</td><td>24</td>
     </tr>
 </table>
 
@@ -97,31 +97,38 @@ Number of Tx packet buffers     | 16                                            
         
     </tr>
    <tr>
-        <td rowspan="2">UDP RX</td>
-        <td>25</td><td>19</td><td>11</td>
-        <td>25</td><td>10</td><td>11</td>
-        <td>25</td><td>5</td><td>51</td>
+        <td rowspan="3">UDP RX</td>
+        <td>5</td><td>4</td><td>0</td>
+        <td>25</td><td>9</td><td>0.016</td>
+        <td>50</td><td>7.44</td><td>0</td>
         
     </tr>
     <tr>
-        <td>50</td><td>36.26</td><td>11</td>
-        <td>50</td><td>20</td><td>11</td>
-        <td>50</td><td>9</td><td>52</td>
+        <td>10</td><td>7</td><td>0</td>
+        <td>50</td><td>17.2</td><td>0.11</td>
+        <td>65</td><td>9.27</td><td>0.01</td>
+        
+    </tr>
+
+    <tr>
+        <td>25</td><td>16.6</td><td>0.06</td>
+        <td>65</td><td>21</td><td>4.8</td>
+        <td>95</td><td>13.14</td><td>0.66</td>
         
     </tr>
 
     <tr>
         <td>UDP RX (Max)</td>
-        <td>100</td><td>69.6</td><td>12</td>
-        <td>100</td><td>39</td><td>11</td>
-        <td>100</td><td>16</td><td>53</td>
+        <td>30</td><td>19.7</td><td>0.1</td>
+        <td>60</td><td>20</td><td>0.1</td>
+        <td>175</td><td>23.4</td><td>0.59</td>
         
     </tr>
     <tr>
         <td>UDP TX (Max)</td>
-        <td>25</td><td>100</td><td>0.0</td>
-        <td>50</td><td>100</td><td>0.0</td>
-        <td>100</td><td>100</td><td>0.0025</td>
+        <td>175</td><td>100</td><td>0.05</td>
+        <td>350</td><td>100</td><td>0.0</td>
+        <td>957</td><td>100</td><td>0.0</td>
        
     </tr>
 </table>
