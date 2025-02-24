@@ -112,6 +112,8 @@ const cgt_common_am275x = {
             "--diag_suppress=770", // to suppress pointer to small int conversion error
             "--diag_suppress=69", // to suppress -1 to uint32t error
             "--diag_suppress=70", // to suppress char pointer to uint32t error
+            "-DBUILD_C7X",
+            "-DBUILD_C7X_1",
         ],
         debug: [
             "-Dxdc_target_name__=C71",
@@ -119,16 +121,12 @@ const cgt_common_am275x = {
             //"-Dxdc_target_types__=ti/targets/elf/std.h",
             "--opt_level=0",
             "--symdebug:dwarf",
-            "-DBUILD_C7X_1",
-            "-DBUILD_C7X",
         ],
         release: [
             "-Dxdc_target_name__=C71",
             //"-Dxdc_target_types__=ti/targets/elf/std.h",
             "--opt_level=3",
             "--symdebug:none",
-            "-DBUILD_C7X_1",
-            "-DBUILD_C7X",
         ],
     },
     arflags: {
@@ -146,7 +144,6 @@ const cgt_common_am275x = {
             "--warn_sections",
             "-q",
             "-x",
-            ""
         ],
     },
     libdirs: {
@@ -161,12 +158,48 @@ const cgt_common_am275x = {
     },
 };
 
+const cgt_common_j722s = {
+    cflags: {
+        common: [
+            "--advice:performance=none", // to suppress optimization advice
+        ],
+    },
+};
+
+const cgt_common_c75ss0 = {
+    cflags: {
+        common: [
+            "-DBUILD_C75X_1",
+        ],
+    },
+};
+
+const cgt_common_c75ss1 = {
+    cflags: {
+        common: [
+            "-DBUILD_C75X_2",
+        ],
+    },
+};
+
 function getCgtOptions(cpu)
 {
     let cgtOptions = {};
     if(buildOption.device=="am275x")
     {
         cgtOptions = cgt_common_am275x;
+    }
+    else if(buildOption.device=="j722s")
+    {
+        cgtOptions = common.mergeCgtOptions(cgt_common_am275x, cgt_common_j722s);
+        if(cpu.match(/c75ss0-0*/))
+        {
+            cgtOptions = common.mergeCgtOptions(cgtOptions, cgt_common_c75ss0);
+        }
+        else if(cpu.match(/c75ss1-0*/))
+        {
+            cgtOptions = common.mergeCgtOptions(cgtOptions, cgt_common_c75ss1);
+        }
     }
     else
     {
