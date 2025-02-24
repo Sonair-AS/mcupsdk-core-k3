@@ -360,7 +360,7 @@ I2C_Handle I2C_open(uint32_t idx, const I2C_Params *params)
                         handle = NULL;
                     }
                 }
-                else
+                if(status == SystemP_FAILURE)
                 {
                     handle = NULL;
                 }
