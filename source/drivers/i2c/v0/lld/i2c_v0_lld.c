@@ -2668,9 +2668,9 @@ static int32_t I2C_lld_primeTransferPoll(I2CLLD_Handle handle)
                 {
                     /* No Error happened; Read executed successfully */
                     /* Wait for stop to happen */
-                    status = I2C_waitForPin(    handle,
-                                                I2C_INT_STOP_CONDITION,
-                                                &(object->currentMsg->timeout));
+                    (void)I2C_waitForPin(    handle,
+                                             I2C_INT_STOP_CONDITION,
+                                             &(object->currentMsg->timeout));
 
                     /* Wait for register access ready */
                     status = I2C_waitForPin(    handle,
