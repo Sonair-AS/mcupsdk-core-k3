@@ -219,6 +219,7 @@ const example_file_list = [
     // SDL Examples and tests
     "examples/sdl/dcc/dcc_modes/.project/project.js",
     "examples/sdl/ecc/.project/project.js",
+    "examples/sdl/ecc_r5f_cache/.project/project.js",
     "examples/sdl/esm/mcu_esm0/.project/project.js",
     "examples/sdl/mcrc/mcrc_full_cpu/.project/project.js",
     "examples/sdl/mcrc/mcrc_auto/.project/project.js",
