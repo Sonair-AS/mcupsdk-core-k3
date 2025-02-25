@@ -185,7 +185,7 @@ void test_main(void *args)
     test_i2c_set_test_params(&testParams, 0);
     RUN_TEST(test_i2c_write_read, 6248, (void*)&testParams);
 
-    RUN_TEST(test_i2c_dynamic_coverage, 5866, NULL);
+    RUN_TEST(test_i2c_dynamic_coverage, 6605, NULL);
 
     I2C_deinit();
 
