@@ -26,6 +26,8 @@ const device_defines = {
 
 const example_file_list = [
     "examples/drivers/i2c/i2c_led_blink/.project/project.js",
+    "examples/drivers/i2c/i2c_read/.project/project.js",
+    "examples/drivers/i2c/i2c_temperature/.project/project.js",
     "examples/empty/.project/project_freertos.js",
     "examples/drivers/sciclient/sciclient_ccs_init/.project/project.js",
     "examples/drivers/sciclient/sciclient_get_version/.project/project.js",
