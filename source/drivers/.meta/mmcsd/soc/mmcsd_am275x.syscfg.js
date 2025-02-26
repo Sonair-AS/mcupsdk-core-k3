@@ -10,7 +10,7 @@ const mmcsd_config_r5f = [
 		inputClkFreq      : mmcsd_input_clk_freq,
 		intrNum           : 161,
 		busWidth          : "MMCSD_BUS_WIDTH_8BIT",
-		tuningType        : "MMCSD_PHY_TUNING_TYPE_AUTO", /* Make this configurable later */
+		tuningType        : "MMCSD_PHY_TUNING_TYPE_MANUAL",
 		clockIds          : [ "TISCI_DEV_MMCSD0" ],
 		clockFrequencies  : [
 			{
@@ -31,7 +31,7 @@ const mmcsd_config_c7x = [
 		intrNum           : 14,
         eventId           : 133 + 256,
 		busWidth          : "MMCSD_BUS_WIDTH_8BIT",
-		tuningType        : "MMCSD_PHY_TUNING_TYPE_AUTO", /* Make this configurable later */
+		tuningType        : "MMCSD_PHY_TUNING_TYPE_MANUAL",
 		clockIds          : [ "TISCI_DEV_MMCSD0" ],
 		clockFrequencies  : [
 			{
