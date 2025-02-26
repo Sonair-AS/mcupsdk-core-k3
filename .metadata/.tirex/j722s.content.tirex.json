@@ -337,6 +337,699 @@
         "resourceSubClass": [
             "example.gettingstarted"
         ],
+        "description": "A simple UART echo Example.  CPU is MCU-R5FSS0-0 running FREERTOS.",
+        "name": "uart_echo",
+        "location": "../../examples/drivers/uart/uart_echo/j722s-evm/mcu-r5fss0-0_freertos/ti-arm-clang/example.projectspec",
+        "devtools": [
+            "J722SXH01EVM"
+        ],
+        "kernel": [
+            "freertos"
+        ],
+        "compiler": [
+            "ticlang"
+        ],
+        "subCategories": [
+            "drivers",
+            "uart",
+            "uart_echo",
+            "mcu-r5fss0-0_freertos"
+        ],
+        "mainCategories": [
+            [
+                "Examples",
+                "Development Tools"
+            ]
+        ]
+    },
+    {
+        "resourceType": "project.ccs",
+        "resourceClass": [
+            "example"
+        ],
+        "resourceSubClass": [
+            "example.gettingstarted"
+        ],
+        "description": "A simple UART echo Example.  CPU is WKUP-R5FSS0-0 running FREERTOS.",
+        "name": "uart_echo",
+        "location": "../../examples/drivers/uart/uart_echo/j722s-evm/wkup-r5fss0-0_freertos/ti-arm-clang/example.projectspec",
+        "devtools": [
+            "J722SXH01EVM"
+        ],
+        "kernel": [
+            "freertos"
+        ],
+        "compiler": [
+            "ticlang"
+        ],
+        "subCategories": [
+            "drivers",
+            "uart",
+            "uart_echo",
+            "wkup-r5fss0-0_freertos"
+        ],
+        "mainCategories": [
+            [
+                "Examples",
+                "Development Tools"
+            ]
+        ]
+    },
+    {
+        "resourceType": "project.ccs",
+        "resourceClass": [
+            "example"
+        ],
+        "resourceSubClass": [
+            "example.gettingstarted"
+        ],
+        "description": "A simple UART echo Example.  CPU is MAIN-R5FSS0-0 running FREERTOS.",
+        "name": "uart_echo",
+        "location": "../../examples/drivers/uart/uart_echo/j722s-evm/main-r5fss0-0_freertos/ti-arm-clang/example.projectspec",
+        "devtools": [
+            "J722SXH01EVM"
+        ],
+        "kernel": [
+            "freertos"
+        ],
+        "compiler": [
+            "ticlang"
+        ],
+        "subCategories": [
+            "drivers",
+            "uart",
+            "uart_echo",
+            "main-r5fss0-0_freertos"
+        ],
+        "mainCategories": [
+            [
+                "Examples",
+                "Development Tools"
+            ]
+        ]
+    },
+    {
+        "resourceType": "project.ccs",
+        "resourceClass": [
+            "example"
+        ],
+        "resourceSubClass": [
+            "example.gettingstarted"
+        ],
+        "description": "A simple UART echo Example.  CPU is C75SS0-0 running FREERTOS.",
+        "name": "uart_echo",
+        "location": "../../examples/drivers/uart/uart_echo/j722s-evm/c75ss0-0_freertos/ti-c7000/example.projectspec",
+        "devtools": [
+            "J722SXH01EVM"
+        ],
+        "kernel": [
+            "freertos"
+        ],
+        "compiler": [
+            "ccs"
+        ],
+        "subCategories": [
+            "drivers",
+            "uart",
+            "uart_echo",
+            "c75ss0-0_freertos"
+        ],
+        "mainCategories": [
+            [
+                "Examples",
+                "Development Tools"
+            ]
+        ]
+    },
+    {
+        "resourceType": "project.ccs",
+        "resourceClass": [
+            "example"
+        ],
+        "resourceSubClass": [
+            "example.gettingstarted"
+        ],
+        "description": "A simple UART echo Example.  CPU is C75SS1-0 running FREERTOS.",
+        "name": "uart_echo",
+        "location": "../../examples/drivers/uart/uart_echo/j722s-evm/c75ss1-0_freertos/ti-c7000/example.projectspec",
+        "devtools": [
+            "J722SXH01EVM"
+        ],
+        "kernel": [
+            "freertos"
+        ],
+        "compiler": [
+            "ccs"
+        ],
+        "subCategories": [
+            "drivers",
+            "uart",
+            "uart_echo",
+            "c75ss1-0_freertos"
+        ],
+        "mainCategories": [
+            [
+                "Examples",
+                "Development Tools"
+            ]
+        ]
+    },
+    {
+        "resourceType": "project.ccs",
+        "resourceClass": [
+            "example"
+        ],
+        "resourceSubClass": [
+            "example.gettingstarted"
+        ],
+        "description": "A simple UART echo Example.  CPU is MCU-R5FSS0-0 running FREERTOS.",
+        "name": "uart_echo_callback",
+        "location": "../../examples/drivers/uart/uart_echo_callback/j722s-evm/mcu-r5fss0-0_freertos/ti-arm-clang/example.projectspec",
+        "devtools": [
+            "J722SXH01EVM"
+        ],
+        "kernel": [
+            "freertos"
+        ],
+        "compiler": [
+            "ticlang"
+        ],
+        "subCategories": [
+            "drivers",
+            "uart",
+            "uart_echo_callback",
+            "mcu-r5fss0-0_freertos"
+        ],
+        "mainCategories": [
+            [
+                "Examples",
+                "Development Tools"
+            ]
+        ]
+    },
+    {
+        "resourceType": "project.ccs",
+        "resourceClass": [
+            "example"
+        ],
+        "resourceSubClass": [
+            "example.gettingstarted"
+        ],
+        "description": "A simple UART echo Example.  CPU is WKUP-R5FSS0-0 running FREERTOS.",
+        "name": "uart_echo_callback",
+        "location": "../../examples/drivers/uart/uart_echo_callback/j722s-evm/wkup-r5fss0-0_freertos/ti-arm-clang/example.projectspec",
+        "devtools": [
+            "J722SXH01EVM"
+        ],
+        "kernel": [
+            "freertos"
+        ],
+        "compiler": [
+            "ticlang"
+        ],
+        "subCategories": [
+            "drivers",
+            "uart",
+            "uart_echo_callback",
+            "wkup-r5fss0-0_freertos"
+        ],
+        "mainCategories": [
+            [
+                "Examples",
+                "Development Tools"
+            ]
+        ]
+    },
+    {
+        "resourceType": "project.ccs",
+        "resourceClass": [
+            "example"
+        ],
+        "resourceSubClass": [
+            "example.gettingstarted"
+        ],
+        "description": "A simple UART echo Example.  CPU is MAIN-R5FSS0-0 running FREERTOS.",
+        "name": "uart_echo_callback",
+        "location": "../../examples/drivers/uart/uart_echo_callback/j722s-evm/main-r5fss0-0_freertos/ti-arm-clang/example.projectspec",
+        "devtools": [
+            "J722SXH01EVM"
+        ],
+        "kernel": [
+            "freertos"
+        ],
+        "compiler": [
+            "ticlang"
+        ],
+        "subCategories": [
+            "drivers",
+            "uart",
+            "uart_echo_callback",
+            "main-r5fss0-0_freertos"
+        ],
+        "mainCategories": [
+            [
+                "Examples",
+                "Development Tools"
+            ]
+        ]
+    },
+    {
+        "resourceType": "project.ccs",
+        "resourceClass": [
+            "example"
+        ],
+        "resourceSubClass": [
+            "example.gettingstarted"
+        ],
+        "description": "A simple UART echo Example.  CPU is C75SS0-0 running FREERTOS.",
+        "name": "uart_echo_callback",
+        "location": "../../examples/drivers/uart/uart_echo_callback/j722s-evm/c75ss0-0_freertos/ti-c7000/example.projectspec",
+        "devtools": [
+            "J722SXH01EVM"
+        ],
+        "kernel": [
+            "freertos"
+        ],
+        "compiler": [
+            "ccs"
+        ],
+        "subCategories": [
+            "drivers",
+            "uart",
+            "uart_echo_callback",
+            "c75ss0-0_freertos"
+        ],
+        "mainCategories": [
+            [
+                "Examples",
+                "Development Tools"
+            ]
+        ]
+    },
+    {
+        "resourceType": "project.ccs",
+        "resourceClass": [
+            "example"
+        ],
+        "resourceSubClass": [
+            "example.gettingstarted"
+        ],
+        "description": "A simple UART echo Example.  CPU is C75SS1-0 running FREERTOS.",
+        "name": "uart_echo_callback",
+        "location": "../../examples/drivers/uart/uart_echo_callback/j722s-evm/c75ss1-0_freertos/ti-c7000/example.projectspec",
+        "devtools": [
+            "J722SXH01EVM"
+        ],
+        "kernel": [
+            "freertos"
+        ],
+        "compiler": [
+            "ccs"
+        ],
+        "subCategories": [
+            "drivers",
+            "uart",
+            "uart_echo_callback",
+            "c75ss1-0_freertos"
+        ],
+        "mainCategories": [
+            [
+                "Examples",
+                "Development Tools"
+            ]
+        ]
+    },
+    {
+        "resourceType": "project.ccs",
+        "resourceClass": [
+            "example"
+        ],
+        "resourceSubClass": [
+            "example.gettingstarted"
+        ],
+        "description": "A simple UART DMA echo Example.  CPU is MAIN-R5FSS0-0 running FREERTOS.",
+        "name": "uart_echo_dma",
+        "location": "../../examples/drivers/uart/uart_echo_dma/j722s-evm/main-r5fss0-0_freertos/ti-arm-clang/example.projectspec",
+        "devtools": [
+            "J722SXH01EVM"
+        ],
+        "kernel": [
+            "freertos"
+        ],
+        "compiler": [
+            "ticlang"
+        ],
+        "subCategories": [
+            "drivers",
+            "uart",
+            "uart_echo_dma",
+            "main-r5fss0-0_freertos"
+        ],
+        "mainCategories": [
+            [
+                "Examples",
+                "Development Tools"
+            ]
+        ]
+    },
+    {
+        "resourceType": "project.ccs",
+        "resourceClass": [
+            "example"
+        ],
+        "resourceSubClass": [
+            "example.gettingstarted"
+        ],
+        "description": "A simple UART echo Example.  CPU is MCU-R5FSS0-0 running FREERTOS.",
+        "name": "uart_echo_low_latency_interrupt",
+        "location": "../../examples/drivers/uart/uart_echo_low_latency_interrupt/j722s-evm/mcu-r5fss0-0_freertos/ti-arm-clang/example.projectspec",
+        "devtools": [
+            "J722SXH01EVM"
+        ],
+        "kernel": [
+            "freertos"
+        ],
+        "compiler": [
+            "ticlang"
+        ],
+        "subCategories": [
+            "drivers",
+            "uart",
+            "uart_echo_low_latency_interrupt",
+            "mcu-r5fss0-0_freertos"
+        ],
+        "mainCategories": [
+            [
+                "Examples",
+                "Development Tools"
+            ]
+        ]
+    },
+    {
+        "resourceType": "project.ccs",
+        "resourceClass": [
+            "example"
+        ],
+        "resourceSubClass": [
+            "example.gettingstarted"
+        ],
+        "description": "A simple UART echo Example.  CPU is WKUP-R5FSS0-0 running FREERTOS.",
+        "name": "uart_echo_low_latency_interrupt",
+        "location": "../../examples/drivers/uart/uart_echo_low_latency_interrupt/j722s-evm/wkup-r5fss0-0_freertos/ti-arm-clang/example.projectspec",
+        "devtools": [
+            "J722SXH01EVM"
+        ],
+        "kernel": [
+            "freertos"
+        ],
+        "compiler": [
+            "ticlang"
+        ],
+        "subCategories": [
+            "drivers",
+            "uart",
+            "uart_echo_low_latency_interrupt",
+            "wkup-r5fss0-0_freertos"
+        ],
+        "mainCategories": [
+            [
+                "Examples",
+                "Development Tools"
+            ]
+        ]
+    },
+    {
+        "resourceType": "project.ccs",
+        "resourceClass": [
+            "example"
+        ],
+        "resourceSubClass": [
+            "example.gettingstarted"
+        ],
+        "description": "A simple UART echo Example.  CPU is MAIN-R5FSS0-0 running FREERTOS.",
+        "name": "uart_echo_low_latency_interrupt",
+        "location": "../../examples/drivers/uart/uart_echo_low_latency_interrupt/j722s-evm/main-r5fss0-0_freertos/ti-arm-clang/example.projectspec",
+        "devtools": [
+            "J722SXH01EVM"
+        ],
+        "kernel": [
+            "freertos"
+        ],
+        "compiler": [
+            "ticlang"
+        ],
+        "subCategories": [
+            "drivers",
+            "uart",
+            "uart_echo_low_latency_interrupt",
+            "main-r5fss0-0_freertos"
+        ],
+        "mainCategories": [
+            [
+                "Examples",
+                "Development Tools"
+            ]
+        ]
+    },
+    {
+        "resourceType": "project.ccs",
+        "resourceClass": [
+            "example"
+        ],
+        "resourceSubClass": [
+            "example.gettingstarted"
+        ],
+        "description": "A simple UART echo Example.  CPU is C75SS0-0 running FREERTOS.",
+        "name": "uart_echo_low_latency_interrupt",
+        "location": "../../examples/drivers/uart/uart_echo_low_latency_interrupt/j722s-evm/c75ss0-0_freertos/ti-c7000/example.projectspec",
+        "devtools": [
+            "J722SXH01EVM"
+        ],
+        "kernel": [
+            "freertos"
+        ],
+        "compiler": [
+            "ccs"
+        ],
+        "subCategories": [
+            "drivers",
+            "uart",
+            "uart_echo_low_latency_interrupt",
+            "c75ss0-0_freertos"
+        ],
+        "mainCategories": [
+            [
+                "Examples",
+                "Development Tools"
+            ]
+        ]
+    },
+    {
+        "resourceType": "project.ccs",
+        "resourceClass": [
+            "example"
+        ],
+        "resourceSubClass": [
+            "example.gettingstarted"
+        ],
+        "description": "A simple UART echo Example.  CPU is C75SS1-0 running FREERTOS.",
+        "name": "uart_echo_low_latency_interrupt",
+        "location": "../../examples/drivers/uart/uart_echo_low_latency_interrupt/j722s-evm/c75ss1-0_freertos/ti-c7000/example.projectspec",
+        "devtools": [
+            "J722SXH01EVM"
+        ],
+        "kernel": [
+            "freertos"
+        ],
+        "compiler": [
+            "ccs"
+        ],
+        "subCategories": [
+            "drivers",
+            "uart",
+            "uart_echo_low_latency_interrupt",
+            "c75ss1-0_freertos"
+        ],
+        "mainCategories": [
+            [
+                "Examples",
+                "Development Tools"
+            ]
+        ]
+    },
+    {
+        "resourceType": "project.ccs",
+        "resourceClass": [
+            "example"
+        ],
+        "resourceSubClass": [
+            "example.gettingstarted"
+        ],
+        "description": "A simple UART echo Example.  CPU is MCU-R5FSS0-0 running FREERTOS.",
+        "name": "uart_echo_low_latency_polling",
+        "location": "../../examples/drivers/uart/uart_echo_low_latency_polling/j722s-evm/mcu-r5fss0-0_freertos/ti-arm-clang/example.projectspec",
+        "devtools": [
+            "J722SXH01EVM"
+        ],
+        "kernel": [
+            "freertos"
+        ],
+        "compiler": [
+            "ticlang"
+        ],
+        "subCategories": [
+            "drivers",
+            "uart",
+            "uart_echo_low_latency_polling",
+            "mcu-r5fss0-0_freertos"
+        ],
+        "mainCategories": [
+            [
+                "Examples",
+                "Development Tools"
+            ]
+        ]
+    },
+    {
+        "resourceType": "project.ccs",
+        "resourceClass": [
+            "example"
+        ],
+        "resourceSubClass": [
+            "example.gettingstarted"
+        ],
+        "description": "A simple UART echo Example.  CPU is WKUP-R5FSS0-0 running FREERTOS.",
+        "name": "uart_echo_low_latency_polling",
+        "location": "../../examples/drivers/uart/uart_echo_low_latency_polling/j722s-evm/wkup-r5fss0-0_freertos/ti-arm-clang/example.projectspec",
+        "devtools": [
+            "J722SXH01EVM"
+        ],
+        "kernel": [
+            "freertos"
+        ],
+        "compiler": [
+            "ticlang"
+        ],
+        "subCategories": [
+            "drivers",
+            "uart",
+            "uart_echo_low_latency_polling",
+            "wkup-r5fss0-0_freertos"
+        ],
+        "mainCategories": [
+            [
+                "Examples",
+                "Development Tools"
+            ]
+        ]
+    },
+    {
+        "resourceType": "project.ccs",
+        "resourceClass": [
+            "example"
+        ],
+        "resourceSubClass": [
+            "example.gettingstarted"
+        ],
+        "description": "A simple UART echo Example.  CPU is MAIN-R5FSS0-0 running FREERTOS.",
+        "name": "uart_echo_low_latency_polling",
+        "location": "../../examples/drivers/uart/uart_echo_low_latency_polling/j722s-evm/main-r5fss0-0_freertos/ti-arm-clang/example.projectspec",
+        "devtools": [
+            "J722SXH01EVM"
+        ],
+        "kernel": [
+            "freertos"
+        ],
+        "compiler": [
+            "ticlang"
+        ],
+        "subCategories": [
+            "drivers",
+            "uart",
+            "uart_echo_low_latency_polling",
+            "main-r5fss0-0_freertos"
+        ],
+        "mainCategories": [
+            [
+                "Examples",
+                "Development Tools"
+            ]
+        ]
+    },
+    {
+        "resourceType": "project.ccs",
+        "resourceClass": [
+            "example"
+        ],
+        "resourceSubClass": [
+            "example.gettingstarted"
+        ],
+        "description": "A simple UART echo Example.  CPU is C75SS0-0 running FREERTOS.",
+        "name": "uart_echo_low_latency_polling",
+        "location": "../../examples/drivers/uart/uart_echo_low_latency_polling/j722s-evm/c75ss0-0_freertos/ti-c7000/example.projectspec",
+        "devtools": [
+            "J722SXH01EVM"
+        ],
+        "kernel": [
+            "freertos"
+        ],
+        "compiler": [
+            "ccs"
+        ],
+        "subCategories": [
+            "drivers",
+            "uart",
+            "uart_echo_low_latency_polling",
+            "c75ss0-0_freertos"
+        ],
+        "mainCategories": [
+            [
+                "Examples",
+                "Development Tools"
+            ]
+        ]
+    },
+    {
+        "resourceType": "project.ccs",
+        "resourceClass": [
+            "example"
+        ],
+        "resourceSubClass": [
+            "example.gettingstarted"
+        ],
+        "description": "A simple UART echo Example.  CPU is C75SS1-0 running FREERTOS.",
+        "name": "uart_echo_low_latency_polling",
+        "location": "../../examples/drivers/uart/uart_echo_low_latency_polling/j722s-evm/c75ss1-0_freertos/ti-c7000/example.projectspec",
+        "devtools": [
+            "J722SXH01EVM"
+        ],
+        "kernel": [
+            "freertos"
+        ],
+        "compiler": [
+            "ccs"
+        ],
+        "subCategories": [
+            "drivers",
+            "uart",
+            "uart_echo_low_latency_polling",
+            "c75ss1-0_freertos"
+        ],
+        "mainCategories": [
+            [
+                "Examples",
+                "Development Tools"
+            ]
+        ]
+    },
+    {
+        "resourceType": "project.ccs",
+        "resourceClass": [
+            "example"
+        ],
+        "resourceSubClass": [
+            "example.gettingstarted"
+        ],
         "description": "An Empty Example. This example is intended to be a starting point for new development CPU is MCU-R5FSS0-0 running FREERTOS.",
         "name": "empty",
         "location": "../../examples/empty/j722s-evm/mcu-r5fss0-0_freertos/ti-arm-clang/example.projectspec",

@@ -36,6 +36,7 @@ FILES_common := \
     uart_v0.c \
     uart_dma.c \
     uart_dma_udma.c \
+    spinlock.c \
 
 FILES_PATH_common = \
     dss \

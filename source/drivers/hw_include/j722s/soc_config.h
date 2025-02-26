@@ -79,6 +79,7 @@ extern "C"
 #define DRV_VERSION_CSIRX_V1
 #define DRV_VERSION_CSITX_V0
 #define DRV_VERSION_SPINLOCK_V0
+#define DRV_VERSION_QOS_V0
 
 /* Driver DMA integration */
 #define DMA_VERSION_MCSPI_UDMA

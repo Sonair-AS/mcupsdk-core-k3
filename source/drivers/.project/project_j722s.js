@@ -42,6 +42,7 @@ const files_wkup_r5f = {
         "i2c_v0_lld.c",
         "i2c_soc.c",
         "pinmux.c",
+        "qos.c",
         "soc.c",
         "sciclient_irq_rm.c",
         "sciclient_fmwSecureProxyMap.c",
@@ -74,6 +75,7 @@ const files_main_r5f = {
         "uart_v0.c",
         "uart_dma.c",
         "uart_dma_udma.c",
+        "spinlock.c",
     ]
 };
 
@@ -244,6 +246,8 @@ const filedirs_wkup_r5f = {
         "mcspi/v0/dma/udma",
         "mmcsd",
         "mmcsd/v0",
+        "qos",
+        "qos/v0",
         "pinmux/j722s",
         "sciclient",
         "sciclient/soc/j722s",
