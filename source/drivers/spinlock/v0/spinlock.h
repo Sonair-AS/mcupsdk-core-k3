@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2024 Texas Instruments Incorporated
+ * Copyright (C) 2024-25 Texas Instruments Incorporated
  *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions
@@ -127,6 +127,14 @@ int32_t Spinlock_lock(uint32_t baseAddr, uint32_t lockNumber);
  *                          released
  */
 void Spinlock_unlock(uint32_t baseAddr, uint32_t lockNumber);
+/**
+ * \brief   This API performs the module reset of the Spinlock module. It also
+ *          waits until the reset process is complete.\n
+ *
+ * \param   baseAddr       Memory address of SPINLOCK module.\n
+ *
+ */
+void Spinlock_moduleReset(uint32_t baseAddr);
 
 /* ========================================================================== */
 /*                       Static Function Definitions                          */

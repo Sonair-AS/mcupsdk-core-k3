@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2024 Texas Instruments Incorporated
+ * Copyright (C) 2024-25 Texas Instruments Incorporated
  *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions
@@ -52,6 +52,7 @@
 
 #define CSL_SPINLOCK_LOCK_REG_TAKEN_FREE                        (0x00000000U)
 #define CSL_SPINLOCK_LOCK_REG_TAKEN_BUSY                        (0x00000001U)
+#define CSL_SPINLOCK_SYSCONFIG_SOFTRESET_DORESET                (0x00000001U)
 
 /* ========================================================================== */
 /*                         Structures and Enums                               */
@@ -109,4 +110,16 @@ void Spinlock_unlock(uint32_t baseAddr, uint32_t lockNumber)
     }
 
     return;
+}
+
+void Spinlock_moduleReset(uint32_t baseAddr)
+{
+    CSL_spinlockRegs *pSpinlockRegs = (CSL_spinlockRegs *)((uintptr_t)baseAddr);
+    /*
+     * Set the SOFTRESET bit in System Configuration register.
+     * Doing so would reset the Spinlock module.
+     */
+    CSL_REG32_FINS(&pSpinlockRegs->SYSCONFIG,
+        SPINLOCK_SYSCONFIG_SOFTRESET,
+        CSL_SPINLOCK_SYSCONFIG_SOFTRESET_DORESET);
 }

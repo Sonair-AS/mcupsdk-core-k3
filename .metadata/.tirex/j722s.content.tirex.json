@@ -269,6 +269,72 @@
             "example"
         ],
         "resourceSubClass": [
+            "example.general"
+        ],
+        "description": "Spinlock app to demonstrate functionality by acquiring and releasing different locks. CPU is C75SS0-0 running FREERTOS.",
+        "name": "spinlock_demo",
+        "location": "../../examples/drivers/spinlock/spinlock_demo/j722s-evm/c75ss0-0_freertos/ti-c7000/example.projectspec",
+        "devtools": [
+            "J722SXH01EVM"
+        ],
+        "kernel": [
+            "freertos"
+        ],
+        "compiler": [
+            "ccs"
+        ],
+        "subCategories": [
+            "drivers",
+            "spinlock",
+            "spinlock_demo",
+            "c75ss0-0_freertos"
+        ],
+        "mainCategories": [
+            [
+                "Examples",
+                "Development Tools"
+            ]
+        ]
+    },
+    {
+        "resourceType": "project.ccs",
+        "resourceClass": [
+            "example"
+        ],
+        "resourceSubClass": [
+            "example.general"
+        ],
+        "description": "Spinlock app to demonstrate functionality by acquiring and releasing different locks. CPU is C75SS1-0 running FREERTOS.",
+        "name": "spinlock_demo",
+        "location": "../../examples/drivers/spinlock/spinlock_demo/j722s-evm/c75ss1-0_freertos/ti-c7000/example.projectspec",
+        "devtools": [
+            "J722SXH01EVM"
+        ],
+        "kernel": [
+            "freertos"
+        ],
+        "compiler": [
+            "ccs"
+        ],
+        "subCategories": [
+            "drivers",
+            "spinlock",
+            "spinlock_demo",
+            "c75ss1-0_freertos"
+        ],
+        "mainCategories": [
+            [
+                "Examples",
+                "Development Tools"
+            ]
+        ]
+    },
+    {
+        "resourceType": "project.ccs",
+        "resourceClass": [
+            "example"
+        ],
+        "resourceSubClass": [
             "example.gettingstarted"
         ],
         "description": "An Empty Example. This example is intended to be a starting point for new development CPU is MCU-R5FSS0-0 running FREERTOS.",
