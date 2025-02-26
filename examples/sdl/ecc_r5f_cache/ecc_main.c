@@ -63,7 +63,7 @@
 
 /*SDL ECC R5F Registers containing ECC error control bits */
 
-#if defined (SOC_AM62DX) || defined (SOC_AM62AX)
+#if defined (SOC_AM62DX) || defined (SOC_AM62AX) || defined (SOC_AM62PX)
 #define SDL_R5F_EVNT_BUS_ESM_CLR                                            (0x440001Cu)
 #define SDL_R5F_VEC_REG                                                     (0x4707008u)
 #define SDL_R5F_CTRL_REG                                                    (0x4707014u)
