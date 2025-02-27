@@ -61,6 +61,51 @@ DSP 1 Image Load                 |       6794
 ---------------------------------|--------------
 SBL Total Time Taken             |      54107
 
+### SBL Fast-xSPI NOR performance (HS-FS)
+
+- Software/Application used        : sbl_ospi, ipc_rpmsg_echo
+- Cores booted by SBL              : r5fss0-0 r5fss0-1 r5fss1-0 r5fss1-1 c75ss0-0 c75ss1-0
+- Size of images loaded            : 460 KB
+- Boot Media Clock                 : 133.333 MHz
+- Mode                             : PHY enabled, DMA enabled
+- Protocol                         : 8D-8D-8D
+
+SBL boot time breakdown          |   Time (us)
+---------------------------------|--------------
+TIFS init                        |        765
+System_init                      |       1877
+Board_init                       |          2
+FreeRtosTask Create              |        256
+Drivers_open                     |         98
+Board_driversOpen                |          0
+sciServer_init                   |      15070
+SBL Drivers_open                 |       3170
+SBL Board_driversOpen            |        112
+Sciclient Get Version            |      10019
+R5FSS0_0 Image Load              |       1656
+R5FSS0_1 Image Load              |       1599
+R5FSS1_0 Image Load              |       1603
+R5FSS1_1 Image Load              |       1585
+DSP 0 Image Load                 |       7075
+DSP 1 Image Load                 |       6908
+---------------------------------|--------------
+SBL Total Time Taken             |      51801
+
+#### R5FSS0_0 boot time using Fast-xSPI Bootmode
+ - GPIO toggle time from R5FSS0_0 (Measured from PORz)
+   - 37.52524 ms
+
+ - Cores booted by SBL : r5fss0-0, r5fss0-1, r5fss1-0, r5fss1-1, c75ss0-0, c75ss1-0
+ - R5FSS0-0 image size = ~ 1 MB and remaining cores by default ipc rpmsg images
+
+#### C7x audio chime time using Fast-xSPI Bootmode
+ - C7x audio out time (Measured from PORz)
+   - 72.69178 ms
+
+ - Cores booted by SBL : r5fss0-0, r5fss0-1, r5fss1-0, r5fss1-1, c75ss0-0, c75ss1-0
+ - C75SS0-0 image size = ~ 1 MB and remaining cores by default ipc rpmsg images
+ - Includes DAC configuration time
+
 
 ### SBL EMMC performance (HS-FS)
 

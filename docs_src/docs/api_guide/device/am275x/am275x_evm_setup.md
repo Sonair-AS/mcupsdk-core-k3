@@ -217,6 +217,15 @@ This mode is used to boot flashed applications via EVM flash like OSPI NOR flash
   \imageStyle{boot_pins_ospi_mode.png,width:30%}
   \image html boot_pins_ospi_mode.png "OSPI BOOT MODE"
 
+#### Fast-xSPI BOOT MODE  {#BOOTMODE_FASTxSPI}
+This mode is used to boot flashed applications via EVM flash like OSPI NOR flash in Fast-xSPI mode
+    \code
+    BOOTMODE [ 8 : 15 ] (SW1) = 0000 0000
+    BOOTMODE [ 0 :  7 ] (SW2) = 1101 0110
+    \endcode
+  \imageStyle{boot_pins_fastxSPI.png,width:30%}
+  \image html boot_pins_fastxSPI.png "Fast-xSPI BOOT MODE"
+
 #### SD BOOT MODE  {#BOOTMODE_SD}
 This mode is used to boot applications via SD card on the EVM.
     \code

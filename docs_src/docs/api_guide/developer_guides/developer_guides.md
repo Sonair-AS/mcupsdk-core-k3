@@ -81,6 +81,7 @@ SDK features and tools.
 - \subpage TIREX_INTRO_PAGE
 - \subpage RESOURCE_ALLOCATION_GUIDE
 - \subpage APPIMAGE_SW_VERSION
+- \subpage FAST_XSPI_BOOTMODE_GUIDE
 \endcond
 
 \cond SOC_AM62DX
