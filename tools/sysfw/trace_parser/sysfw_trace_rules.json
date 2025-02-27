@@ -4575,7 +4575,7 @@
                                     "msg": "Unlocked MMRs"
                                 },
                                 "0x03":{
-                                    "msg": "Putting DDR into self refresh"
+                                    "msg": "Kept DDR in self refresh"
                                 },
                                 "0x04":{
                                     "msg": "DDR in reset isolation"
@@ -4656,10 +4656,10 @@
                                     "msg": "Restored MCU PLL"
                                 },
                                 "0x1E":{
-                                    "msg": "unmasked WWD clock"
+                                    "msg": "Unmasked WWD clock"
                                 },
                                 "0x1F":{
-                                    "msg": "Disabling MCU IO isolation"
+                                    "msg": "Disabled MCU IO isolation"
                                 },
                                 "0x20":{
                                     "msg": "Wrote stub magic word"
@@ -4668,10 +4668,10 @@
                                     "msg": "Powered on main domain"
                                 },
                                 "0x22":{
-                                    "msg": "Reset status"
+                                    "msg": "Released main reset"
                                 },
                                 "0x23":{
-                                    "msg": "Moving to SMS PLL from MCU PLL"
+                                    "msg": "Switched to SMS PLL from MCU PLL"
                                 },
                                 "0x24":{
                                     "msg": "Enabled remaining MCU PLL"
@@ -4731,13 +4731,13 @@
                                     "msg": "Ungated clock of legacy peripherals"
                                 },
                                 "0x37":{
-                                    "msg": "Unload CAN magic words in MMR"
+                                    "msg": "Unloaded CAN magic words in MMR"
                                 },
                                 "0x38":{
-                                    "msg": "Load CAN magic words in MMR"
+                                    "msg": "Loaded CAN magic words in MMR"
                                 },
                                 "0x51":{
-                                    "msg": "Enabling main LPSC"
+                                    "msg": "Enabled main LPSC"
                                 }
                             }
                         },
