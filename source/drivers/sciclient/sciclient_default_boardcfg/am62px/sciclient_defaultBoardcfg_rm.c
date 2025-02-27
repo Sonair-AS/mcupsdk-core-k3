@@ -48,7 +48,7 @@
 #include <drivers/sciclient/include/tisci/am62px/tisci_boardcfg_constraints.h>
 #include <drivers/sciclient/include/tisci/am62px/tisci_devices.h>
 
-#define TISCI_RESASG_ENTRIES                                 135
+#define TISCI_RESASG_ENTRIES                                 139
 /* ========================================================================== */
 /*                            Global Variables                                */
 /* ========================================================================== */
@@ -163,6 +163,30 @@ __attribute__(( aligned(128), section(".boardcfg_data") )) =
             .type = TISCI_RESASG_UTYPE (TISCI_DEV_DMASS0_BCDMA_0, TISCI_RESASG_SUBTYPE_UDMAP_GLOBAL_CONFIG),
             .start_resource = 0,
             .host_id = TISCI_HOST_ID_ALL,
+        },
+        {
+            .num_resource = 2,
+            .type = TISCI_RESASG_UTYPE (TISCI_DEV_DMASS0_BCDMA_0, TISCI_RESASG_SUBTYPE_BCDMA_RING_BLOCK_COPY_HCCHAN),
+            .start_resource = 0,
+            .host_id = TISCI_HOST_ID_A53_2,
+        },
+        {
+            .num_resource = 1,
+            .type = TISCI_RESASG_UTYPE (TISCI_DEV_DMASS0_BCDMA_0, TISCI_RESASG_SUBTYPE_BCDMA_RING_BLOCK_COPY_HCCHAN),
+            .start_resource = 2,
+            .host_id = TISCI_HOST_ID_WKUP_0_R5_0,
+        },
+        {
+            .num_resource = 1,
+            .type = TISCI_RESASG_UTYPE (TISCI_DEV_DMASS0_BCDMA_0, TISCI_RESASG_SUBTYPE_BCDMA_RING_BLOCK_COPY_HCCHAN),
+            .start_resource = 2,
+            .host_id = TISCI_HOST_ID_WKUP_0_R5_1,
+        },
+        {
+            .num_resource = 1,
+            .type = TISCI_RESASG_UTYPE (TISCI_DEV_DMASS0_BCDMA_0, TISCI_RESASG_SUBTYPE_BCDMA_RING_BLOCK_COPY_HCCHAN),
+            .start_resource = 3,
+            .host_id = TISCI_HOST_ID_MCU_0_R5_0,
         },
         {
             .num_resource = 18,

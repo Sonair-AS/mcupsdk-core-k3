@@ -3991,10 +3991,16 @@
                         "num_resource": 1
                     },
                     {
+                        "name": "RESASG_UTYPE(AM62PX_DEV_DMASS0_BCDMA_0, RESASG_SUBTYPE_BCDMA_RING_BLOCK_COPY_HCCHAN)",
+                        "type": 1676,
+                        "start_resource": 0,
+                        "num_resource": 4
+                    },
+                    {
                         "name": "RESASG_UTYPE(AM62PX_DEV_DMASS0_BCDMA_0, RESASG_SUBTYPE_BCDMA_RING_BLOCK_COPY_CHAN)",
                         "type": 1677,
-                        "start_resource": 0,
-                        "num_resource": 32
+                        "start_resource": 4,
+                        "num_resource": 28
                     },
                     {
                         "name": "RESASG_UTYPE(AM62PX_DEV_DMASS0_BCDMA_0, RESASG_SUBTYPE_BCDMA_RING_SPLIT_TR_RX_CHAN)",
@@ -4389,7 +4395,7 @@
                 ],
                 "constraints": [
                     {
-                        "max_resource_entries": 345
+                        "max_resource_entries": 350
                     }
                 ]
             },
