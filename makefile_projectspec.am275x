@@ -18,6 +18,8 @@ BUILD_COMBO_EXAMPLE_PROJECTSPEC_BUILD_ALL += adc_singleshot_am275x-evm_r5fss0-0_
 BUILD_COMBO_EXAMPLE_PROJECTSPEC_BUILD_ALL += adc_singleshot_am275x-evm_r5fss0-0_freertos_ti-arm-clang_build
 BUILD_COMBO_EXAMPLE_PROJECTSPEC_BUILD_ALL += dmautils_autoinc_1d2d3d_am275x-evm_c75ss0-0_freertos_ti-c7000_build
 BUILD_COMBO_EXAMPLE_PROJECTSPEC_BUILD_ALL += dmautils_autoinc_1d2d3d_am275x-evm_c75ss1-0_freertos_ti-c7000_build
+BUILD_COMBO_EXAMPLE_PROJECTSPEC_BUILD_ALL += dmautils_autoinc_circular_am275x-evm_c75ss0-0_freertos_ti-c7000_build
+BUILD_COMBO_EXAMPLE_PROJECTSPEC_BUILD_ALL += dmautils_autoinc_circular_am275x-evm_c75ss1-0_freertos_ti-c7000_build
 BUILD_COMBO_EXAMPLE_PROJECTSPEC_BUILD_ALL += gpio_input_interrupt_am275x-evm_r5fss0-0_nortos_ti-arm-clang_build
 BUILD_COMBO_EXAMPLE_PROJECTSPEC_BUILD_ALL += gpio_input_interrupt_am275x-evm_r5fss0-0_freertos_ti-arm-clang_build
 BUILD_COMBO_EXAMPLE_PROJECTSPEC_BUILD_ALL += gpio_input_interrupt_am275x-evm_c75ss0-0_freertos_ti-c7000_build
@@ -203,6 +205,12 @@ all-private: $(BUILD_COMBO_EXAMPLE_PROJECTSPEC_BUILD_PRIVATE_ALL)
 
  dmautils_autoinc_1d2d3d_am275x-evm_c75ss1-0_freertos_ti-c7000_build:
 	$(MAKE) -C examples/dmautils/dmautils_autoinc_1d2d3d/am275x-evm/c75ss1-0_freertos/ti-c7000 -f makefile_projectspec all
+
+ dmautils_autoinc_circular_am275x-evm_c75ss0-0_freertos_ti-c7000_build:
+	$(MAKE) -C examples/dmautils/dmautils_autoinc_circular/am275x-evm/c75ss0-0_freertos/ti-c7000 -f makefile_projectspec all
+
+ dmautils_autoinc_circular_am275x-evm_c75ss1-0_freertos_ti-c7000_build:
+	$(MAKE) -C examples/dmautils/dmautils_autoinc_circular/am275x-evm/c75ss1-0_freertos/ti-c7000 -f makefile_projectspec all
 
  gpio_input_interrupt_am275x-evm_r5fss0-0_nortos_ti-arm-clang_build:
 	$(MAKE) -C examples/drivers/gpio/gpio_input_interrupt/am275x-evm/r5fss0-0_nortos/ti-arm-clang -f makefile_projectspec all
@@ -624,6 +632,8 @@ BUILD_COMBO_EXAMPLE_PROJECTSPEC_CLEAN_ALL += adc_singleshot_am275x-evm_r5fss0-0_
 BUILD_COMBO_EXAMPLE_PROJECTSPEC_CLEAN_ALL += adc_singleshot_am275x-evm_r5fss0-0_freertos_ti-arm-clang_clean
 BUILD_COMBO_EXAMPLE_PROJECTSPEC_CLEAN_ALL += dmautils_autoinc_1d2d3d_am275x-evm_c75ss0-0_freertos_ti-c7000_clean
 BUILD_COMBO_EXAMPLE_PROJECTSPEC_CLEAN_ALL += dmautils_autoinc_1d2d3d_am275x-evm_c75ss1-0_freertos_ti-c7000_clean
+BUILD_COMBO_EXAMPLE_PROJECTSPEC_CLEAN_ALL += dmautils_autoinc_circular_am275x-evm_c75ss0-0_freertos_ti-c7000_clean
+BUILD_COMBO_EXAMPLE_PROJECTSPEC_CLEAN_ALL += dmautils_autoinc_circular_am275x-evm_c75ss1-0_freertos_ti-c7000_clean
 BUILD_COMBO_EXAMPLE_PROJECTSPEC_CLEAN_ALL += gpio_input_interrupt_am275x-evm_r5fss0-0_nortos_ti-arm-clang_clean
 BUILD_COMBO_EXAMPLE_PROJECTSPEC_CLEAN_ALL += gpio_input_interrupt_am275x-evm_r5fss0-0_freertos_ti-arm-clang_clean
 BUILD_COMBO_EXAMPLE_PROJECTSPEC_CLEAN_ALL += gpio_input_interrupt_am275x-evm_c75ss0-0_freertos_ti-c7000_clean
@@ -809,6 +819,12 @@ clean-private: $(BUILD_COMBO_EXAMPLE_PROJECTSPEC_CLEAN_PRIVATE_ALL)
 
  dmautils_autoinc_1d2d3d_am275x-evm_c75ss1-0_freertos_ti-c7000_clean:
 	$(MAKE) -C examples/dmautils/dmautils_autoinc_1d2d3d/am275x-evm/c75ss1-0_freertos/ti-c7000 -f makefile_projectspec clean
+
+ dmautils_autoinc_circular_am275x-evm_c75ss0-0_freertos_ti-c7000_clean:
+	$(MAKE) -C examples/dmautils/dmautils_autoinc_circular/am275x-evm/c75ss0-0_freertos/ti-c7000 -f makefile_projectspec clean
+
+ dmautils_autoinc_circular_am275x-evm_c75ss1-0_freertos_ti-c7000_clean:
+	$(MAKE) -C examples/dmautils/dmautils_autoinc_circular/am275x-evm/c75ss1-0_freertos/ti-c7000 -f makefile_projectspec clean
 
  gpio_input_interrupt_am275x-evm_r5fss0-0_nortos_ti-arm-clang_clean:
 	$(MAKE) -C examples/drivers/gpio/gpio_input_interrupt/am275x-evm/r5fss0-0_nortos/ti-arm-clang -f makefile_projectspec clean
@@ -1230,6 +1246,8 @@ BUILD_COMBO_EXAMPLE_PROJECTSPEC_EXPORT_ALL += adc_singleshot_am275x-evm_r5fss0-0
 BUILD_COMBO_EXAMPLE_PROJECTSPEC_EXPORT_ALL += adc_singleshot_am275x-evm_r5fss0-0_freertos_ti-arm-clang_export
 BUILD_COMBO_EXAMPLE_PROJECTSPEC_EXPORT_ALL += dmautils_autoinc_1d2d3d_am275x-evm_c75ss0-0_freertos_ti-c7000_export
 BUILD_COMBO_EXAMPLE_PROJECTSPEC_EXPORT_ALL += dmautils_autoinc_1d2d3d_am275x-evm_c75ss1-0_freertos_ti-c7000_export
+BUILD_COMBO_EXAMPLE_PROJECTSPEC_EXPORT_ALL += dmautils_autoinc_circular_am275x-evm_c75ss0-0_freertos_ti-c7000_export
+BUILD_COMBO_EXAMPLE_PROJECTSPEC_EXPORT_ALL += dmautils_autoinc_circular_am275x-evm_c75ss1-0_freertos_ti-c7000_export
 BUILD_COMBO_EXAMPLE_PROJECTSPEC_EXPORT_ALL += gpio_input_interrupt_am275x-evm_r5fss0-0_nortos_ti-arm-clang_export
 BUILD_COMBO_EXAMPLE_PROJECTSPEC_EXPORT_ALL += gpio_input_interrupt_am275x-evm_r5fss0-0_freertos_ti-arm-clang_export
 BUILD_COMBO_EXAMPLE_PROJECTSPEC_EXPORT_ALL += gpio_input_interrupt_am275x-evm_c75ss0-0_freertos_ti-c7000_export
@@ -1415,6 +1433,12 @@ export-private: $(BUILD_COMBO_EXAMPLE_PROJECTSPEC_EXPORT_PRIVATE_ALL)
 
  dmautils_autoinc_1d2d3d_am275x-evm_c75ss1-0_freertos_ti-c7000_export:
 	$(MAKE) -C examples/dmautils/dmautils_autoinc_1d2d3d/am275x-evm/c75ss1-0_freertos/ti-c7000 -f makefile_projectspec export
+
+ dmautils_autoinc_circular_am275x-evm_c75ss0-0_freertos_ti-c7000_export:
+	$(MAKE) -C examples/dmautils/dmautils_autoinc_circular/am275x-evm/c75ss0-0_freertos/ti-c7000 -f makefile_projectspec export
+
+ dmautils_autoinc_circular_am275x-evm_c75ss1-0_freertos_ti-c7000_export:
+	$(MAKE) -C examples/dmautils/dmautils_autoinc_circular/am275x-evm/c75ss1-0_freertos/ti-c7000 -f makefile_projectspec export
 
  gpio_input_interrupt_am275x-evm_r5fss0-0_nortos_ti-arm-clang_export:
 	$(MAKE) -C examples/drivers/gpio/gpio_input_interrupt/am275x-evm/r5fss0-0_nortos/ti-arm-clang -f makefile_projectspec export
@@ -1852,6 +1876,8 @@ help:
 	@echo  $(MAKE) -s -C examples/drivers/adc/adc_singleshot/am275x-evm/r5fss0-0_freertos/ti-arm-clang -f makefile_projectspec [export all clean]
 	@echo  $(MAKE) -s -C examples/dmautils/dmautils_autoinc_1d2d3d/am275x-evm/c75ss0-0_freertos/ti-c7000 -f makefile_projectspec [export all clean]
 	@echo  $(MAKE) -s -C examples/dmautils/dmautils_autoinc_1d2d3d/am275x-evm/c75ss1-0_freertos/ti-c7000 -f makefile_projectspec [export all clean]
+	@echo  $(MAKE) -s -C examples/dmautils/dmautils_autoinc_circular/am275x-evm/c75ss0-0_freertos/ti-c7000 -f makefile_projectspec [export all clean]
+	@echo  $(MAKE) -s -C examples/dmautils/dmautils_autoinc_circular/am275x-evm/c75ss1-0_freertos/ti-c7000 -f makefile_projectspec [export all clean]
 	@echo  $(MAKE) -s -C examples/drivers/gpio/gpio_input_interrupt/am275x-evm/r5fss0-0_nortos/ti-arm-clang -f makefile_projectspec [export all clean]
 	@echo  $(MAKE) -s -C examples/drivers/gpio/gpio_input_interrupt/am275x-evm/r5fss0-0_freertos/ti-arm-clang -f makefile_projectspec [export all clean]
 	@echo  $(MAKE) -s -C examples/drivers/gpio/gpio_input_interrupt/am275x-evm/c75ss0-0_freertos/ti-c7000 -f makefile_projectspec [export all clean]
