@@ -711,6 +711,70 @@
             "example"
         ],
         "resourceSubClass": [
+            "example.gettingstarted"
+        ],
+        "description": "Dmautils autoinc autoincrement example CPU is C75SS0-0 running FREERTOS.",
+        "name": "dmautils_autoincrement",
+        "location": "../../examples/dmautils/dmautils_autoincrement/am275x-evm/c75ss0-0_freertos/ti-c7000/example.projectspec",
+        "devtools": [
+            "AUDIO-AM275-EVM"
+        ],
+        "kernel": [
+            "freertos"
+        ],
+        "compiler": [
+            "ccs"
+        ],
+        "subCategories": [
+            "dmautils",
+            "dmautils_autoincrement",
+            "c75ss0-0_freertos"
+        ],
+        "mainCategories": [
+            [
+                "Examples",
+                "Development Tools"
+            ]
+        ]
+    },
+    {
+        "resourceType": "project.ccs",
+        "resourceClass": [
+            "example"
+        ],
+        "resourceSubClass": [
+            "example.gettingstarted"
+        ],
+        "description": "Dmautils autoinc autoincrement example CPU is C75SS1-0 running FREERTOS.",
+        "name": "dmautils_autoincrement",
+        "location": "../../examples/dmautils/dmautils_autoincrement/am275x-evm/c75ss1-0_freertos/ti-c7000/example.projectspec",
+        "devtools": [
+            "AUDIO-AM275-EVM"
+        ],
+        "kernel": [
+            "freertos"
+        ],
+        "compiler": [
+            "ccs"
+        ],
+        "subCategories": [
+            "dmautils",
+            "dmautils_autoincrement",
+            "c75ss1-0_freertos"
+        ],
+        "mainCategories": [
+            [
+                "Examples",
+                "Development Tools"
+            ]
+        ]
+    },
+    {
+        "resourceType": "project.ccs",
+        "resourceClass": [
+            "example"
+        ],
+        "resourceSubClass": [
             "example.general"
         ],
         "description": "A Gpio Input Interrupt Example. CPU is R5FSS0-0 running NORTOS.",

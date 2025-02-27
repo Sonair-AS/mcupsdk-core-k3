@@ -710,7 +710,7 @@ static int32_t App_dmautilsCompareBuffers(uint8_t* buffer1, uint8_t* buffer2, in
   return fail;
 }
 
-#if !defined(SOC_AM62A) && !defined(SOC_AM62DX)
+#if !defined(SOC_AM62A) && !defined(SOC_AM62DX) && !defined(SOC_AM275X)
 static int32_t App_dmautilsTestSciclientDmscGetVersion(char *versionStr, uint32_t versionStrSize)
 {
     int32_t retVal = 0;

@@ -60,6 +60,7 @@ const example_file_list = [
     "examples/drivers/adc/adc_singleshot/.project/project_am275x.js",
     "examples/dmautils/dmautils_autoinc_1d2d3d/.project/project.js",
     "examples/dmautils/dmautils_autoinc_circular/.project/project.js",
+    "examples/dmautils/dmautils_autoincrement/.project/project.js",
     "examples/drivers/gpio/gpio_input_interrupt/.project/project.js",
     "examples/drivers/gpio/gpio_led_blink/.project/project.js",
     "examples/drivers/i2c/i2c_read/.project/project.js",
