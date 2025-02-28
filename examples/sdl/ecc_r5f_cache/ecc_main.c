@@ -77,6 +77,13 @@
 #define SDL_R5F_ERR_CTRL2_REG                                               (0x3f00d01Cu)
 #endif
 
+#if defined (SOC_AM275X)
+#define SDL_R5F_EVNT_BUS_ESM_CLR                                            (0x5B0101Cu)
+#define SDL_R5F_VEC_REG                                                     (0x730008u)
+#define SDL_R5F_CTRL_REG                                                    (0x730014u)
+#define SDL_R5F_ERR_CTRL2_REG                                               (0x73001Cu)
+#endif
+
 #define SDL_CLEAR_STATUS									(0x10u)
 #define SDL_CLEAR_ALL_STATUS                                (0xffu)
 #define SDL_ECC_SPECIFIC_VECTOR_VALUE                       (0x148000u)

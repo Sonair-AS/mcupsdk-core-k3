@@ -74,6 +74,10 @@
 #include "soc/am62x-sk/ecc_func.h"
 #endif
 
+#if defined(SOC_AM275X)
+#include "soc/am275x-evm/ecc_func.h"
+#endif
+
 /* ========================================================================== */
 /*                                Macros                                      */
 /* ========================================================================== */
@@ -189,10 +193,10 @@ int32_t ECC_Memory_init (SDL_Test_EccConfig test_config)
         result = SDL_ESM_init(ECC_Test_config.instance, ECC_Test_config.pConfig, SDL_ESM_applicationCallbackFunction, ptr);
         if (result != SDL_PASS) {
             /* print error and quit */
-            DebugP_log("\r\nESM_Memory_init: Error initializing WKUP ESM: result = %d\r\n", result);
+            DebugP_log("\r\nESM_Memory_init: Error initializing ESM: result = %d\r\n", result);
             retValue = -1;
         } else {
-            DebugP_log("\r\nESM_Memory_init: Init WKUP ESM complete \r\n");
+            DebugP_log("\r\nESM_Memory_init: Init ESM complete \r\n");
 			uknownErr = false;
 			esmError = false;
         }
