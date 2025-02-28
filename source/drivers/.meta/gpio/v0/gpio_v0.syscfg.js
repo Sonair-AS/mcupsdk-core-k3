@@ -115,9 +115,9 @@ function getConfigurables()
     if(common.isMcuDomainSupported())
     {
         let mcu_config = common.getUseMcuDomainPeripheralsConfig();
-        if(common.getSocName().match(/am62x/) || common.getSocName().match(/am62ax/)|| common.getSocName().match(/am62px/))
+        if(common.getSocName().match(/am62x/) || common.getSocName().match(/am62ax/)|| common.getSocName().match(/am62px/) || common.getSocName().match(/j722s/))
         {
-            /* Enable main GPIO access for AM62x and AM62Ax */
+            /* Enable main GPIO access for AM62x, AM62Ax, AM62Px an J722S */
             mcu_config.readOnly = false;
         }
         config.push(mcu_config);
