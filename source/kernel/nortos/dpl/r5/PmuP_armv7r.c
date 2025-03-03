@@ -1,5 +1,5 @@
 /*
- *  Copyright (C) 2018-2024 Texas Instruments Incorporated
+ *  Copyright (C) 2018-2025 Texas Instruments Incorporated
  *
  *  Redistribution and use in source and binary forms, with or without
  *  modification, are permitted provided that the following conditions
@@ -32,6 +32,7 @@
 
 
 #include <kernel/dpl/CycleCounterP.h>
+#include <kernel/nortos/dpl/r5/PmuP_armv7r.h>
 
 /* NOTE: CycleCounterP_getCount32 is implmented in PmuP_armv7r_asm.S */
 
@@ -64,10 +65,7 @@ static uint64_t gCounterFreqHz = 0;
 #ifdef __cplusplus
 extern "C" {
 #endif
-void PmuP_enableCounters(uint32_t counterMask);
-void PmuP_disableCounters(uint32_t counterMask);
 void PmuP_clearOverflowStatus(uint32_t counterMask);
-void PmuP_setup(uint32_t setupFlags);
 #ifdef __cplusplus
 }
 #endif

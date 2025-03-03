@@ -7,9 +7,10 @@ const component_file_list = [
     "source/drivers/device_manager/sciclient_direct/sbl/.project/project.js",
     "source/drivers/device_manager/sciserver/.project/project.js",
     "source/drivers/device_manager/self_reset/.project/project.js",
-    //"source/kernel/nortos/.project/project.js",
     "source/drivers/dmautils/.project/project.js",
+    "source/kernel/nortos/.project/project.js",
     "source/kernel/freertos/.project/project.js",
+    "source/kernel/safertos/.project/project.js",
 ];
 
 // List of components where makefile is not generated.

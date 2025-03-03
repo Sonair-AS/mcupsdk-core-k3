@@ -1,5 +1,5 @@
 /*
- *  Copyright (C) 2018-2021 Texas Instruments Incorporated
+ *  Copyright (C) 2018-2025 Texas Instruments Incorporated
  *
  *  Redistribution and use in source and binary forms, with or without
  *  modification, are permitted provided that the following conditions
@@ -119,5 +119,117 @@ MpuP_setRegionAsm:
         mcr     p15, #0, r3, c6, c1, #4  // set protection attributes
         bx      LR
 
+/* FUNCTION DEF: uint32_t MpuP_GetNumRegions() */
+        .global MpuP_GetNumRegions
+        .type MpuP_GetNumRegions,%function
+        .section ".text","ax",%progbits
+        .arm
+        .align 2
+MpuP_GetNumRegions:
+        MRC     p15, #0, r0, c0, c0, #4         // Read MPUIR (MPU Type Register)
+        LSR     r0, r0, #8                      // Shift and
+        AND     r0, r0, #0xFF                   //   mask to get DRegion
+        BX      lr
+
+/* FUNCTION DEF:
+*       void MpuP_EnableRegion( uint32_t regionNum, uint32_t enable );
+*/
+        .global MpuP_EnableRegion
+        .type MpuP_EnableRegion,%function
+        .section ".text","ax",%progbits
+        .arm
+        .align 2
+MpuP_EnableRegion:
+        AND     r0, r0, #0xF
+        MCR     p15, #0, r0, c6, c2, #0         // Write RGNR (MPU Region Number Register)
+        MRC     p15, #0, r2, c6, c1, #2         // Read Data MPU Region Size and Enable Register
+        CMP     r1, #0
+        BEQ     armR5MpuEnableRegion_disable
+        ORR     r2, r2, #0x1                    // Set Enable bit to enable MPU region
+        B       armR5MpuEnableRegion_00
+armR5MpuEnableRegion_disable:
+        BIC     r2, r2, #0x1                    // Clr Enable bit to disable MPU region
+armR5MpuEnableRegion_00:
+        DSB
+        MCR     p15, #0, r2, c6, c1, #2         // Write modified Data MPU Region Size and Enable Register
+        ISB
+        BX      lr
+
+/* FUNCTION DEF:
+*   int32_t MpuP_VerifyEnableRegion( uint32_t regionNum, uint32_t enable );
+*/
+        .global MpuP_VerifyEnableRegion
+        .type MpuP_VerifyEnableRegion,%function
+        .section ".text","ax",%progbits
+        .arm
+        .align 2
+MpuP_VerifyEnableRegion:
+        MRC     p15, #0, r2, c6, c2, #0         // Read RGNR (MPU Region Number Register)
+        AND     r2, r2, #0xF                    // get the Region number
+
+        SUBS    r0, r0, r2
+        BEQ     armR5MpuVerifyRegion_pass
+        MVN     r0, #0x0                        // -1 in return value
+        B       armR5MpuVerifyRegion_done
+armR5MpuVerifyRegion_pass:
+
+        MRC     p15, #0, r2, c6, c1, #2         // Read Data MPU Region Size and Enable Register
+        AND     r2, r2, #0x1                    // Get the enable bit
+
+        SUBS    r0, r1, r2
+        BEQ     armR5MpuVerifyRegion_done
+        MVN     r0, #0x0                        // -1 in return value
+armR5MpuVerifyRegion_done:
+        ISB
+        BX      lr
+
+/* FUNCTION DEF:
+*   int32_t MpuP_VerifyCfgRegion( uint32_t regionNum, uint32_t baseAddrRegVal, uint32_t sizeRegVal, uint32_t accessCtrlRegVal )
+*/
+
+        .global MpuP_VerifyCfgRegion
+        .type MpuP_VerifyCfgRegion,%function
+        .section ".text","ax",%progbits
+        .arm
+        .align 2
+MpuP_VerifyCfgRegion:
+        PUSH    {r4}
+        MRC     p15, #0, r4, c6, c2, #0         // Read RGNR (MPU Region Number Register)
+        AND     r4, r4, #0xF
+        SUBS    r0, r4, r0
+        BEQ     armR5MpuVerifyCfgRegion_pass1
+        MVN     r0, #0x0                        // -1 in return value
+        B       armR5MpuVerifyCfgRegion_done
+
+armR5MpuVerifyCfgRegion_pass1:
+        MRC     p15, #0, r4, c6, c1, #0         // Read MPU Region Base Address Register
+        BIC     r4, r4, #0x1F                   // Base address must be 16-bit aligned
+        CMP     r1, r4
+        BEQ     armR5MpuVerifyCfgRegion_pass2
+        MVN     r0, #0x0                        // -1 in return value
+        B       armR5MpuVerifyCfgRegion_done
+
+armR5MpuVerifyCfgRegion_pass2:
+        MRC     p15, #0, r4, c6, c1, #2         // Read Data MPU Region Size and Enable Register
+        BFC     r4,  #16, #16
+        BFC     r4,  #6,  #2
+        CMP     r2, r4
+        BEQ     armR5MpuVerifyCfgRegion_pass3
+        MVN     r0, #0x0                        // -1 in return value
+        B       armR5MpuVerifyCfgRegion_done
+
+armR5MpuVerifyCfgRegion_pass3:
+        MRC     p15, #0, r4, c6, c1, #4         // Read MPU Region Access Control Register
+        BFC     r4,  #13, #18
+        BFC     r4,  #11, #1
+        BFC     r4,  #6, #2
+        CMP     r3, r4
+        BEQ     armR5MpuVerifyCfgRegion_done
+        MVN     r0, #0x0                        // -1 in return value
+
+armR5MpuVerifyCfgRegion_done:
+       ISB
+       POP     {r4}
+       BX      lr
 	.end
 

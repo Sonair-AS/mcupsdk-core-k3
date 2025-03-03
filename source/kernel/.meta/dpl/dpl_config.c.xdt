@@ -41,6 +41,33 @@
 #include <kernel/dpl/AddrTranslateP.h>
 #include "ti_dpl_config.h"
 #include "ti_drivers_config.h"
+% if (common.isSafeRTOSSupported()) {
+#if defined(OS_SAFERTOS)
+#include "SafeRTOS_API.h"
+
+extern const xPORT_INIT_PARAMETERS xPortInit;
+
+portBaseType Dpl_kernelInit(void)
+{
+    portBaseType xInitSchedResult;
+
+    /* Initialise the kernel by passing in a pointer to the xPortInit structure
+     * and return the resulting error code. */
+    xInitSchedResult = xTaskInitializeScheduler( &xPortInit );
+
+    if( pdPASS == xInitSchedResult )
+    {
+#if ( configQUEUE_REGISTRY_SIZE > 0 )
+        vQueueAddToRegistry( acTimerCommandQueueBuffer, "Timer Command Q" );
+#endif
+    }
+
+    return xInitSchedResult;
+}
+#endif
+% }
+
+
 % if(cpuName.match(/a53/)) {
     % if (common.isAmpSupported()) {
 #include <kernel/nortos/dpl/a53/SpinlockP_armv8.h>
@@ -60,6 +87,12 @@ uint32_t gSwSpinLockBuff[NO_OF_SW_SPIN_LOCKS] __attribute__((aligned(128), secti
 % }
 void Dpl_init(void)
 {
+% if (common.isSafeRTOSSupported()) {
+#if defined (OS_SAFERTOS)
+    portBaseType xInitSchedResult;
+#endif
+% }
+
 % for(let subTemplate of args) {
     % if (subTemplate.dpl_init && subTemplate.dpl_init.match(/cache*/)) {
     /* Cache and MAR program need to happen early */
@@ -86,6 +119,12 @@ void Dpl_init(void)
 % }
     /* Enable interrupt handling */
     HwiP_enable();
+% if (common.isSafeRTOSSupported()) {
+#if defined(OS_SAFERTOS)
+    xInitSchedResult = Dpl_kernelInit();
+    DebugP_assertNoLog(xInitSchedResult == pdPASS);
+#endif
+% }
 }
 
 void Dpl_deinit(void)

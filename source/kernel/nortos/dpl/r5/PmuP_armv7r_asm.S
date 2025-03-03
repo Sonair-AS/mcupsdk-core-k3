@@ -1,5 +1,5 @@
 /*
- *  Copyright (C) 2018-2021 Texas Instruments Incorporated
+ *  Copyright (C) 2018-2025 Texas Instruments Incorporated
  *
  *  Redistribution and use in source and binary forms, with or without
  *  modification, are permitted provided that the following conditions
@@ -233,6 +233,74 @@ PmuP_getOverflowStatus:
 PmuP_clearOverflowStatus:
         MCR     p15, 0, r0, c9, c12, 3  // write PMOVSR
         bx      LR
+
+/* FUNCTION DEF: uint32_t PmuP_GetNumCntrs( void ) */
+
+        .global PmuP_GetNumCntrs
+        .type PmuP_GetNumCntrs,%function
+        .section ".text.pmu","ax",%progbits
+        .arm
+        .align 2
+PmuP_GetNumCntrs:
+    MRC     p15, #0, r0, c9, c12, #0        // Read PMCR (Performance Monitor Control Register)
+    LSR     r0, r0, #11                     // Shift and
+    AND     r0, r0, #0x1F                   //   mask to get N
+    BX      lr
+
+/* FUNCTION DEF: void  PmuP_SetCntr( uint32_t cntrNum, uint32_t cntrVal ); */
+
+        .global PmuP_SetCntr
+        .type PmuP_SetCntr,%function
+        .section ".text.pmu","ax",%progbits
+        .arm
+        .align 2
+PmuP_SetCntr:
+    PUSH    {lr}
+    CMP     r0, 0x1F
+    BEQ     armR5SetCntr_cycles
+    BL      PmuP_SelectCounter              // Select register
+    MCR     p15, #0, r1, c9, c13, #2        // Write current PMNx Register
+    B       armR5SetCntr_00
+armR5SetCntr_cycles:
+    MCR     p15, #0, r1, c9, c13, #0        // Write PMCCNTR Register
+armR5SetCntr_00:
+    POP     {lr}
+    BX      lr
+
+/* FUNCTION DEF: uint32_t PmuP_ReadCntrOverflowStatus( void ) */
+
+        .global PmuP_ReadCntrOverflowStatus
+        .type PmuP_ReadCntrOverflowStatus,%function
+        .section ".text.pmu","ax",%progbits
+        .arm
+        .align 2
+PmuP_ReadCntrOverflowStatus:
+    MRC     p15, #0, r0, c9, c12, #3        // Read PMOVSR Register
+    BX      lr
+
+/* FUNCTION DEF: void PmuP_ClearCntrOverflowStatus( uint32_t cntrMask ) */
+
+        .global PmuP_ClearCntrOverflowStatus
+        .type PmuP_ClearCntrOverflowStatus,%function
+        .section ".text.pmu","ax",%progbits
+        .arm
+        .align 2
+PmuP_ClearCntrOverflowStatus:
+    MCR     p15, #0, r0, c9, c12, #3        // Write PMOVSR Register
+    BX      lr
+
+/* FUNCTION DEF: void PmuP_ResetCycleCnt( void ) */
+
+        .global PmuP_ResetCycleCnt
+        .type PmuP_ResetCycleCnt,%function
+        .section ".text.pmu","ax",%progbits
+        .arm
+        .align 2
+PmuP_ResetCycleCnt:
+    MRC     p15, #0, r0, c9, c12, #0        // Read PMCR
+    ORR     r0, r0, #(1<<2)                 // Set C bit to reset the cycle counter, PMCCNTR, to zero
+    MCR     p15, #0, r0, c9, c12, #0        // Write modified PMCR
+    BX      lr
 
 	.end
 

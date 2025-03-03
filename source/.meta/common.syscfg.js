@@ -81,6 +81,29 @@ function isSciClientSupported() {
     }
 };
 
+function isSafeRTOSSupported() {
+    switch(getSocName()) {
+        case "am243x":
+            return false;
+        case "am64x":
+            return false;
+        case "am62x":
+            return false;
+        case "am62ax":
+            return false;
+        case "am62dx":
+            return false;
+        case "am62px":
+            return false;
+        case "am275x":
+            return false;
+        case "j722s":
+            return true;
+        default:
+            return false;
+    }
+};
+
 function getSocName() {
     if(system.deviceData.device == "AM64x_beta")
         return "am64x";
@@ -498,6 +521,7 @@ exports = {
     getSelfSysCfgCoreName,
     isDMWithBootSupported,
     isSciClientSupported,
+    isSafeRTOSSupported,
     getSocName,
     getDeviceName,
     camelSentence,

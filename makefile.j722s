@@ -41,7 +41,9 @@ help:
 	@echo  $(MAKE) -s -f makefile.j722s sciserver_wkup-r5f.ti-arm-clang
 	@echo  $(MAKE) -s -f makefile.j722s self_reset_wkup-r5f.ti-arm-clang
 	@echo  $(MAKE) -s -f makefile.j722s dmautils_c75ss0-0.ti-c7000 dmautils_c75ss1-0.ti-c7000
+	@echo  $(MAKE) -s -f makefile.j722s nortos_r5f.ti-arm-clang
 	@echo  $(MAKE) -s -f makefile.j722s freertos_r5f.ti-arm-clang freertos_c75x.ti-c7000
+	@echo  $(MAKE) -s -f makefile.j722s safertos_r5f.ti-arm-clang safertos_c75x.ti-c7000
 	@echo  $(MAKE) -s -f makefile.j722s rm_pm_hal_wkup-r5f.ti-arm-clang
 	@echo  $(MAKE) -s -f makefile.j722s rm_pm_hal_sbl_wkup-r5f.ti-arm-clang
 	@echo  .
@@ -54,7 +56,9 @@ help:
 	@echo  $(MAKE) -s -f makefile.j722s sciserver_wkup-r5f.ti-arm-clang_clean
 	@echo  $(MAKE) -s -f makefile.j722s self_reset_wkup-r5f.ti-arm-clang_clean
 	@echo  $(MAKE) -s -f makefile.j722s dmautils_c75ss0-0.ti-c7000_clean dmautils_c75ss1-0.ti-c7000_clean
+	@echo  $(MAKE) -s -f makefile.j722s nortos_r5f.ti-arm-clang_clean
 	@echo  $(MAKE) -s -f makefile.j722s freertos_r5f.ti-arm-clang_clean freertos_c75x.ti-c7000_clean
+	@echo  $(MAKE) -s -f makefile.j722s safertos_r5f.ti-arm-clang_clean safertos_c75x.ti-c7000_clean
 	@echo  $(MAKE) -s -f makefile.j722s rm_pm_hal_wkup-r5f.ti-arm-clang_clean
 	@echo  $(MAKE) -s -f makefile.j722s rm_pm_hal_sbl_wkup-r5f.ti-arm-clang_clean
 	@echo  .
@@ -125,12 +129,14 @@ BUILD_COMBO_sciclient_direct_sbl = sciclient_direct_sbl_wkup-r5f.ti-arm-clang
 BUILD_COMBO_sciserver = sciserver_wkup-r5f.ti-arm-clang
 BUILD_COMBO_self_reset = self_reset_wkup-r5f.ti-arm-clang
 BUILD_COMBO_dmautils = dmautils_c75ss0-0.ti-c7000 dmautils_c75ss1-0.ti-c7000
+BUILD_COMBO_nortos = nortos_r5f.ti-arm-clang
 BUILD_COMBO_freertos = freertos_r5f.ti-arm-clang freertos_c75x.ti-c7000
+BUILD_COMBO_safertos = safertos_r5f.ti-arm-clang safertos_c75x.ti-c7000
 BUILD_COMBO_rm_pm_hal = rm_pm_hal_wkup-r5f.ti-arm-clang
 BUILD_COMBO_rm_pm_hal_sbl = rm_pm_hal_sbl_wkup-r5f.ti-arm-clang
 
 # Combine all Components
-BUILD_COMBO_ALL = $(BUILD_COMBO_board) $(BUILD_COMBO_drivers) $(BUILD_COMBO_sciclient_direct) $(BUILD_COMBO_sciclient_direct_sbl) $(BUILD_COMBO_sciserver) $(BUILD_COMBO_self_reset) $(BUILD_COMBO_dmautils) $(BUILD_COMBO_freertos) $(BUILD_COMBO_rm_pm_hal) $(BUILD_COMBO_rm_pm_hal_sbl)
+BUILD_COMBO_ALL = $(BUILD_COMBO_board) $(BUILD_COMBO_drivers) $(BUILD_COMBO_sciclient_direct) $(BUILD_COMBO_sciclient_direct_sbl) $(BUILD_COMBO_sciserver) $(BUILD_COMBO_self_reset) $(BUILD_COMBO_dmautils) $(BUILD_COMBO_nortos) $(BUILD_COMBO_freertos) $(BUILD_COMBO_rm_pm_hal) $(BUILD_COMBO_rm_pm_hal_sbl)
 
 # Combine all External Components
 BUILD_COMBO_EXTERNAL_ALL =
@@ -139,7 +145,7 @@ BUILD_COMBO_EXTERNAL_ALL =
 BUILD_COMBO_PREBUILT_ALL =
 
 # Combine all Private Components
-BUILD_COMBO_PRIVATE_ALL =
+BUILD_COMBO_PRIVATE_ALL = $(BUILD_COMBO_safertos)
 
 libs: $(BUILD_COMBO_ALL)
 
@@ -170,8 +176,14 @@ $(BUILD_COMBO_self_reset):
 $(BUILD_COMBO_dmautils):
 	$(MAKE) -C source/drivers/dmautils -f makefile.j722s.$(subst dmautils_,,$@) all
 
+$(BUILD_COMBO_nortos):
+	$(MAKE) -C source/kernel/nortos -f makefile.j722s.$(subst nortos_,,$@) all
+
 $(BUILD_COMBO_freertos):
 	$(MAKE) -C source/kernel/freertos -f makefile.j722s.$(subst freertos_,,$@) all
+
+$(BUILD_COMBO_safertos):
+	$(MAKE) -C source/kernel/safertos -f makefile.j722s.$(subst safertos_,,$@) all
 
 $(BUILD_COMBO_rm_pm_hal):
 	$(MAKE) -C source/drivers/device_manager/rm_pm_hal -f makefile.j722s.$(subst rm_pm_hal_,,$@) all
@@ -188,12 +200,14 @@ BUILD_COMBO_CLEAN_sciclient_direct_sbl = sciclient_direct_sbl_wkup-r5f.ti-arm-cl
 BUILD_COMBO_CLEAN_sciserver = sciserver_wkup-r5f.ti-arm-clang_clean
 BUILD_COMBO_CLEAN_self_reset = self_reset_wkup-r5f.ti-arm-clang_clean
 BUILD_COMBO_CLEAN_dmautils = dmautils_c75ss0-0.ti-c7000_clean dmautils_c75ss1-0.ti-c7000_clean
+BUILD_COMBO_CLEAN_nortos = nortos_r5f.ti-arm-clang_clean
 BUILD_COMBO_CLEAN_freertos = freertos_r5f.ti-arm-clang_clean freertos_c75x.ti-c7000_clean
+BUILD_COMBO_CLEAN_safertos = safertos_r5f.ti-arm-clang_clean safertos_c75x.ti-c7000_clean
 BUILD_COMBO_CLEAN_rm_pm_hal = rm_pm_hal_wkup-r5f.ti-arm-clang_clean
 BUILD_COMBO_CLEAN_rm_pm_hal_sbl = rm_pm_hal_sbl_wkup-r5f.ti-arm-clang_clean
 
 # Combine all Components Clean
-BUILD_COMBO_CLEAN_ALL = $(BUILD_COMBO_CLEAN_board) $(BUILD_COMBO_CLEAN_drivers) $(BUILD_COMBO_CLEAN_sciclient_direct) $(BUILD_COMBO_CLEAN_sciclient_direct_sbl) $(BUILD_COMBO_CLEAN_sciserver) $(BUILD_COMBO_CLEAN_self_reset) $(BUILD_COMBO_CLEAN_dmautils) $(BUILD_COMBO_CLEAN_freertos) $(BUILD_COMBO_CLEAN_rm_pm_hal) $(BUILD_COMBO_CLEAN_rm_pm_hal_sbl)
+BUILD_COMBO_CLEAN_ALL = $(BUILD_COMBO_CLEAN_board) $(BUILD_COMBO_CLEAN_drivers) $(BUILD_COMBO_CLEAN_sciclient_direct) $(BUILD_COMBO_CLEAN_sciclient_direct_sbl) $(BUILD_COMBO_CLEAN_sciserver) $(BUILD_COMBO_CLEAN_self_reset) $(BUILD_COMBO_CLEAN_dmautils) $(BUILD_COMBO_CLEAN_nortos) $(BUILD_COMBO_CLEAN_freertos) $(BUILD_COMBO_CLEAN_safertos) $(BUILD_COMBO_CLEAN_rm_pm_hal) $(BUILD_COMBO_CLEAN_rm_pm_hal_sbl)
 
 # Combine all External Components Clean
 BUILD_COMBO_EXTERNAL_CLEAN_ALL =
@@ -228,8 +242,14 @@ $(BUILD_COMBO_CLEAN_self_reset):
 $(BUILD_COMBO_CLEAN_dmautils):
 	$(MAKE) -C source/drivers/dmautils -f makefile.j722s.$(subst dmautils_,,$(subst _clean,,$@)) clean
 
+$(BUILD_COMBO_CLEAN_nortos):
+	$(MAKE) -C source/kernel/nortos -f makefile.j722s.$(subst nortos_,,$(subst _clean,,$@)) clean
+
 $(BUILD_COMBO_CLEAN_freertos):
 	$(MAKE) -C source/kernel/freertos -f makefile.j722s.$(subst freertos_,,$(subst _clean,,$@)) clean
+
+$(BUILD_COMBO_CLEAN_safertos):
+	$(MAKE) -C source/kernel/safertos -f makefile.j722s.$(subst safertos_,,$(subst _clean,,$@)) clean
 
 $(BUILD_COMBO_CLEAN_rm_pm_hal):
 	$(MAKE) -C source/drivers/device_manager/rm_pm_hal -f makefile.j722s.$(subst rm_pm_hal_,,$(subst _clean,,$@)) clean
@@ -246,12 +266,14 @@ BUILD_COMBO_SCRUB_sciclient_direct_sbl = sciclient_direct_sbl_wkup-r5f.ti-arm-cl
 BUILD_COMBO_SCRUB_sciserver = sciserver_wkup-r5f.ti-arm-clang_scrub_scrub
 BUILD_COMBO_SCRUB_self_reset = self_reset_wkup-r5f.ti-arm-clang_scrub_scrub
 BUILD_COMBO_SCRUB_dmautils = dmautils_c75ss0-0.ti-c7000_scrub dmautils_c75ss1-0.ti-c7000_scrub_scrub
+BUILD_COMBO_SCRUB_nortos = nortos_r5f.ti-arm-clang_scrub_scrub
 BUILD_COMBO_SCRUB_freertos = freertos_r5f.ti-arm-clang_scrub freertos_c75x.ti-c7000_scrub_scrub
+BUILD_COMBO_SCRUB_safertos = safertos_r5f.ti-arm-clang_scrub safertos_c75x.ti-c7000_scrub_scrub
 BUILD_COMBO_SCRUB_rm_pm_hal = rm_pm_hal_wkup-r5f.ti-arm-clang_scrub_scrub
 BUILD_COMBO_SCRUB_rm_pm_hal_sbl = rm_pm_hal_sbl_wkup-r5f.ti-arm-clang_scrub_scrub
 
 # Combine all Components Scrub Targets
-BUILD_COMBO_SCRUB_ALL = $(BUILD_COMBO_SCRUB_board) $(BUILD_COMBO_SCRUB_drivers) $(BUILD_COMBO_SCRUB_sciclient_direct) $(BUILD_COMBO_SCRUB_sciclient_direct_sbl) $(BUILD_COMBO_SCRUB_sciserver) $(BUILD_COMBO_SCRUB_self_reset) $(BUILD_COMBO_SCRUB_dmautils) $(BUILD_COMBO_SCRUB_freertos) $(BUILD_COMBO_SCRUB_rm_pm_hal) $(BUILD_COMBO_SCRUB_rm_pm_hal_sbl)
+BUILD_COMBO_SCRUB_ALL = $(BUILD_COMBO_SCRUB_board) $(BUILD_COMBO_SCRUB_drivers) $(BUILD_COMBO_SCRUB_sciclient_direct) $(BUILD_COMBO_SCRUB_sciclient_direct_sbl) $(BUILD_COMBO_SCRUB_sciserver) $(BUILD_COMBO_SCRUB_self_reset) $(BUILD_COMBO_SCRUB_dmautils) $(BUILD_COMBO_SCRUB_nortos) $(BUILD_COMBO_SCRUB_freertos) $(BUILD_COMBO_SCRUB_safertos) $(BUILD_COMBO_SCRUB_rm_pm_hal) $(BUILD_COMBO_SCRUB_rm_pm_hal_sbl)
 
 # Combine all External Components Scrub Targets
 BUILD_COMBO_EXTERNAL_SCRUB_ALL =
@@ -286,8 +308,14 @@ $(BUILD_COMBO_SCRUB_self_reset):
 $(BUILD_COMBO_SCRUB_dmautils):
 	$(MAKE) -C source/drivers/dmautils -f makefile.j722s.$(subst dmautils_,,$(subst _scrub,,$@)) scrub
 
+$(BUILD_COMBO_SCRUB_nortos):
+	$(MAKE) -C source/kernel/nortos -f makefile.j722s.$(subst nortos_,,$(subst _scrub,,$@)) scrub
+
 $(BUILD_COMBO_SCRUB_freertos):
 	$(MAKE) -C source/kernel/freertos -f makefile.j722s.$(subst freertos_,,$(subst _scrub,,$@)) scrub
+
+$(BUILD_COMBO_SCRUB_safertos):
+	$(MAKE) -C source/kernel/safertos -f makefile.j722s.$(subst safertos_,,$(subst _scrub,,$@)) scrub
 
 $(BUILD_COMBO_SCRUB_rm_pm_hal):
 	$(MAKE) -C source/drivers/device_manager/rm_pm_hal -f makefile.j722s.$(subst rm_pm_hal_,,$(subst _scrub,,$@)) scrub

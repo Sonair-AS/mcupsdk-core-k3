@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2016-2024, Texas Instruments Incorporated
+ * Copyright (c) 2016-2025, Texas Instruments Incorporated
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -46,6 +46,8 @@
 #endif
 #if defined(SOC_AM275X)
 #include <drivers/hw_include/am275x/cslr_soc_baseaddress.h>
+#elif defined(SOC_J722S)
+#include <drivers/hw_include/j722s/cslr_soc_baseaddress.h>
 #endif
 
 #include "MmuP_c75.h"

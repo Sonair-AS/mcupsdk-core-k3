@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2015-2024, Texas Instruments Incorporated
+ * Copyright (C) 2025 Texas Instruments Incorporated
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -30,8 +30,12 @@
  * EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 /*
- *  ======== HwiP_freeRtos_c7x.c ========
+ *  ======== HwiP_safertos_c7x.c ========
  */
+
+/* ========================================================================== */
+/*                             Include Files                                  */
+/* ========================================================================== */
 
 #include <stdint.h>
 #include <stdbool.h>
@@ -40,34 +44,37 @@
 #include <stdarg.h>
 #include <stddef.h>
 
-
+#include <SafeRTOS_API.h>
+#include <portmacro.h>
 #include <kernel/dpl/HwiP.h>
 #include <drivers/hw_include/cslr_soc.h>
 #include <kernel/nortos/dpl/c75/csl_clec.h>
-#include <c75_clec_base_address.h>
-#include "HwiP_c75.h"
+#include <kernel/nortos/dpl/c75/HwiP_c75.h>
 
-#include <FreeRTOS.h>
-#include <task.h>
+/* ========================================================================== */
+/*                           Macros & Typedefs                                */
+/* ========================================================================== */
 
-#define OSAL_FREERTOS_C7X_CONFIGNUM_HWI                 (64U)
+#define OSAL_SAFERTOS_C7X_CONFIGNUM_HWI      (64U)
 
 #ifndef OSAL_TARGET_PROC_MASK_DEFAULT
-#define OSAL_TARGET_PROC_MASK_DEFAULT (0xFFFFU)
+#define OSAL_TARGET_PROC_MASK_DEFAULT        (0xFFFFU)
 #endif
 
 #ifndef NULL_PTR
 #define NULL_PTR ((void *)0x0)
 #endif
 
-#define  HWIP_USE_DEFAULT_PRIORITY   (~((uint8_t)0))
+#define  HWIP_USE_DEFAULT_PRIORITY           (~((uint8_t)0))
 
-uint32_t  gOsalHwiAllocCnt   = 0U, gOsalHwiPeak = 0U;
+/* ========================================================================== */
+/*                         Structure Declarations                             */
+/* ========================================================================== */
 
-typedef struct HwiP_freeRtos_s {
+typedef struct HwiP_safertos_s {
     bool              used;
     HwiC7x_Struct        hwi;
-} HwiP_freeRtos;
+} HwiP_safertos;
 
 typedef struct HwiP_Struct_s {
 
@@ -75,34 +82,63 @@ typedef struct HwiP_Struct_s {
 
 } HwiP_Struct;
 
-/* global pool of statically allocated semaphore pools */
-static HwiP_freeRtos gOsalHwiPFreeRtosPool[OSAL_FREERTOS_C7X_CONFIGNUM_HWI];
-static CSL_CLEC_EVTRegs* Hwip_getClecBaseAddr();
+/* ========================================================================== */
+/*                          Function Declarations                             */
+/* ========================================================================== */
+
+/**
+ * Global pool of statically allocated semaphore pools
+ */
+static HwiP_safertos gOsalHwiPSafeRtosPool[OSAL_SAFERTOS_C7X_CONFIGNUM_HWI];
+
+portBaseType xPortInIsrContext(void);
+
+/* ========================================================================== */
+/*                            Global Variables                                */
+/* ========================================================================== */
+
+uint32_t gOsalHwiAllocCnt = 0U, gOsalHwiPeak = 0U;
+/* --> axEventVectorTable */
+extern void* axEventVectorTable;
+
+/* vectorTableBase__C */
+#pragma DATA_SECTION(Hwi_vectorTableBase, ".const:Hwi_vectorTableBase");
+extern const void *Hwi_vectorTableBase;
+extern void (*soft_reset)(void);
+const void * Hwi_vectorTableBase = ((const void *)((void*)&axEventVectorTable));
+
+/* vectorTableBase_SS__C */
+#pragma DATA_SECTION(Hwi_vectorTableBase_SS, ".const:Hwi_vectorTableBase_SS");
+extern const void * Hwi_vectorTableBase_SS;
+const void * Hwi_vectorTableBase_SS = NULL;
+
+/* ========================================================================== */
+/*                          Function Definitions                              */
+/* ========================================================================== */
 
 int32_t HwiP_construct(HwiP_Object *object, HwiP_Params *params)
 {
     HwiP_Struct *obj = (HwiP_Struct *)object;
-    HwiP_freeRtos *handle = (HwiP_freeRtos *) NULL_PTR;
+    HwiP_safertos *handle = (HwiP_safertos *) NULL_PTR;
     Hwi_Params  hwiParams;
     uint32_t          i;
     uintptr_t         key;
-    HwiP_freeRtos      *hwiPool;
+    HwiP_safertos      *hwiPool;
     uint32_t          maxHwi;
     int32_t status;
     int iStat;
 
     DebugP_assertNoLog( sizeof(HwiP_Struct) <= sizeof(HwiP_Object) );
     DebugP_assertNoLog( params->callback != NULL );
-    DebugP_assertNoLog( params->intNum < OSAL_FREERTOS_C7X_CONFIGNUM_HWI );
+    DebugP_assertNoLog( params->intNum < OSAL_SAFERTOS_C7X_CONFIGNUM_HWI );
 
-    hwiPool        = (HwiP_freeRtos *) &gOsalHwiPFreeRtosPool[0];
-    maxHwi         = OSAL_FREERTOS_C7X_CONFIGNUM_HWI;
+    hwiPool        = (HwiP_safertos *) &gOsalHwiPSafeRtosPool[0];
+    maxHwi         = OSAL_SAFERTOS_C7X_CONFIGNUM_HWI;
 
     if(gOsalHwiAllocCnt==0U)
     {
-        (void)memset((void *)gOsalHwiPFreeRtosPool,0,sizeof(gOsalHwiPFreeRtosPool));
+        (void)memset((void *)gOsalHwiPSafeRtosPool,0,sizeof(gOsalHwiPSafeRtosPool));
     }
-
 
     /* Grab the memory */
     key = HwiP_disable();
@@ -126,7 +162,7 @@ int32_t HwiP_construct(HwiP_Object *object, HwiP_Params *params)
     if (i < maxHwi)
     {
         /* Grab the memory */
-        handle = (HwiP_freeRtos *) &hwiPool[i];
+        handle = (HwiP_safertos *) &hwiPool[i];
     }
 
     if (handle != NULL_PTR)
@@ -158,7 +194,7 @@ int32_t HwiP_construct(HwiP_Object *object, HwiP_Params *params)
             {
                 /* Free the allocated memory and return null */
                 handle->used = false;
-                handle = (HwiP_freeRtos *) NULL_PTR;
+                handle = (HwiP_safertos *) NULL_PTR;
             }
         }
     }
@@ -168,47 +204,106 @@ int32_t HwiP_construct(HwiP_Object *object, HwiP_Params *params)
     return SystemP_SUCCESS;
 }
 
-
 void HwiP_destruct(HwiP_Object *handle)
 {
     HwiP_Struct *obj = (HwiP_Struct *)handle;
-    HwiP_freeRtos      *hwiPool;
-    DebugP_assertNoLog( obj->intNum < OSAL_FREERTOS_C7X_CONFIGNUM_HWI );
+    DebugP_assertNoLog( obj->intNum < OSAL_SAFERTOS_C7X_CONFIGNUM_HWI );
 
     uintptr_t   key;
-    uint32_t    i;
-    uint32_t    maxHwi;
-    hwiPool        = (HwiP_freeRtos *) &gOsalHwiPFreeRtosPool[0];
-    maxHwi         = OSAL_FREERTOS_C7X_CONFIGNUM_HWI;
 
-    if( Hwi_Module_state.dispatchTable[obj->intNum] != NULL)
+    Hwi_destruct(obj->intNum);
+    key = HwiP_disable();
+    /* Found the osal hwi object to delete */
+    if (gOsalHwiAllocCnt > 0U)
     {
-        Hwi_destruct(obj->intNum);
-        key = HwiP_disable();
-        /* Found the osal hwi object to delete */
-        if (gOsalHwiAllocCnt > 0U)
-        {
-            gOsalHwiAllocCnt--;
-            for (i=0; i<maxHwi; i++)
-            {
-                if (hwiPool[i].hwi.intNum == obj->intNum)
-                {
-                    hwiPool[i].used = false;
-                    break;
-                }
-            }
-        }
-
-        HwiP_restore(key);
+        gOsalHwiAllocCnt--;
     }
+
+    HwiP_restore(key);
+
     return;
+}
+
+uintptr_t HwiP_disable(void)
+{
+    uintptr_t key = (uintptr_t)NULL_PTR;
+
+    if(( 1 == xPortInIsrContext() ) ||
+       ( pdFALSE    == xTaskIsSchedulerStarted() ))
+    {
+        key = Hwi_disable();
+    }
+    else
+    {
+        portENTER_CRITICAL_WITHIN_API();
+    }
+
+    return (key);
+}
+
+void HwiP_restore(uintptr_t key)
+{
+    if(( xPortInIsrContext() ) ||
+       ( xTaskIsSchedulerStarted() == pdTRUE ))
+    {
+        (void)Hwi_restore((uint32_t)key);
+    }
+    else
+    {
+        portEXIT_CRITICAL_WITHIN_API();
+    }
+
+    return;
+}
+
+void HwiP_post(uint32_t intrNum)
+{
+
+    __set_indexed(__EFSET, 0, 1L << intrNum);
+
+    return;
+
+    /* Please note that in future,for targets which do not support Hwi_Post,
+       add #ifdefs appropriately to return osal_UNSUPPORTED */
+}
+
+uint32_t HwiP_disableInt(uint32_t intNum)
+{
+    unsigned long mask = 1L << intNum;
+
+    /* Hwi_disableIER() returns old EER */
+    return ((Hwi_disableIER(mask) & mask) != 0L);
+}
+
+void HwiP_enableInt(uint32_t intNum)
+{
+    unsigned long mask = 1L << intNum;
+
+    Hwi_enableIER(mask);
+
+    return;
+}
+
+void HwiP_restoreInt(uint32_t intNum, uint32_t key)
+{
+    if (key) {
+        HwiP_enableInt(intNum);
+    }
+    else {
+        HwiP_disableInt(intNum);
+    }
+}
+
+void HwiP_clearInt(uint32_t intNum)
+{
+    __set_indexed(__EFCLR, 0, 1L << intNum);
 }
 
 int32_t HwiP_setArgs(HwiP_Object *handle, void *args)
 {
     HwiP_Struct *obj = (HwiP_Struct *)handle;
 
-    DebugP_assertNoLog( obj->intNum < OSAL_FREERTOS_C7X_CONFIGNUM_HWI );
+    DebugP_assertNoLog( obj->intNum < OSAL_SAFERTOS_C7X_CONFIGNUM_HWI );
 
     Hwi_Module_state.dispatchTable[obj->intNum]->arg = (uintptr_t)args;
 
@@ -237,17 +332,26 @@ int32_t HwiP_configClec(uint16_t eventId, uint32_t intNum, uint8_t isPulse)
     else
     {
         CSL_ClecEventConfig   cfgClec;
-#if (CSL_C7X256V_CLEC_MAIN_CNT == 1U)
-        CSL_CLEC_EVTRegs     *clecBaseAddr = (CSL_CLEC_EVTRegs*)CSL_C7X256V0_CLEC_BASE;
-#elif (CSL_C7X256V_CLEC_MAIN_CNT > 1U)
-        CSL_CLEC_EVTRegs     *clecBaseAddr = Hwip_getClecBaseAddr();
-        if (clecBaseAddr == (CSL_CLEC_EVTRegs*) NULL)
+        CSL_CLEC_EVTRegs     *clecBaseAddr;
+        uint32_t clusterId;
+
+        clusterId=CSL_clecGetC7xClusterId();
+
+        if (clusterId == CSL_C75_CPU_CLUSTER_NUM_C75_1)
+        {
+            clecBaseAddr = (CSL_CLEC_EVTRegs*)CSL_C7X256V0_CLEC_BASE;
+        }
+        else if (clusterId == CSL_C75_CPU_CLUSTER_NUM_C75_2)
+        {
+            clecBaseAddr = (CSL_CLEC_EVTRegs*)CSL_C7X256V1_CLEC_BASE;
+        }
+        else
         {
             status = SystemP_FAILURE;
         }
+
         if (SystemP_SUCCESS == status)
         {
-#endif
             /* Configure CLEC */
             cfgClec.secureClaimEnable = FALSE;
             cfgClec.evtSendEnable     = TRUE;
@@ -257,62 +361,17 @@ int32_t HwiP_configClec(uint16_t eventId, uint32_t intNum, uint8_t isPulse)
             CSL_clecClearEvent(clecBaseAddr, eventId);
             CSL_clecConfigEventLevel(clecBaseAddr, eventId, !(isPulse)); /* configure interrupt as pulse/level */
             status = CSL_clecConfigEvent(clecBaseAddr, eventId, &cfgClec);
-#if (CSL_C7X256V_CLEC_MAIN_CNT > 1U)
         }
-#endif
+
     }
 
     return status;
+
 }
 
-/* The C7x CLEC should be initialized to allow config/re config.
- * This function configures all inputs to given level.
- */
-void HwiP_configClecAccessCtrl()
+/* Dispatch handler for TI MCU+ style interrupts. */
+void vApplicationInterruptHandlerHook( portUInt32Type intNum )
 {
-    CSL_ClecEventConfig cfgClec;
-    CSL_CLEC_EVTRegs   *clecBaseAddr = Hwip_getClecBaseAddr();
-    uint32_t            i, maxInputs = 511U;
-
-    cfgClec.secureClaimEnable = FALSE;
-    cfgClec.evtSendEnable     = FALSE;
-    cfgClec.rtMap             = CSL_CLEC_RTMAP_DISABLE;
-    cfgClec.extEvtNum         = 0U;
-    cfgClec.c7xEvtNum         = 0U;
-    for(i = 1U; i < maxInputs; i++)
-    {
-        CSL_clecConfigEvent(clecBaseAddr, i, &cfgClec);
-    }
-}
-
-/*
- * Returns the C7x clec base address for the current C7x cluster
-*/
-static CSL_CLEC_EVTRegs* Hwip_getClecBaseAddr()
-{
-    CSL_CLEC_EVTRegs     *clecBaseAddr = (CSL_CLEC_EVTRegs*) NULL;
-
-#if (CSL_C7X256V_CLEC_MAIN_CNT == 1U)
-    clecBaseAddr = (CSL_CLEC_EVTRegs*)CSL_C75_CPU_CLUSTER_C75_1_BASE_ADDR;
-#elif (CSL_C7X256V_CLEC_MAIN_CNT == 2U)
-    uint32_t clusterId;
-
-    clusterId=CSL_clecGetC7xClusterId();
-
-    if (clusterId == CSL_C75_CPU_CLUSTER_NUM_C75_1)
-    {
-        clecBaseAddr = (CSL_CLEC_EVTRegs*)CSL_C75_CPU_CLUSTER_C75_1_BASE_ADDR;
-    }
-    else if (clusterId == CSL_C75_CPU_CLUSTER_NUM_C75_2)
-    {
-        clecBaseAddr = (CSL_CLEC_EVTRegs*)CSL_C75_CPU_CLUSTER_C75_2_BASE_ADDR;
-    }
-    else
-    {
-        clecBaseAddr = (CSL_CLEC_EVTRegs*) NULL;
-    }
-#else
-#error "Invalid CLEC Count"
-#endif
-    return clecBaseAddr;
+    /* Call the ISR callback function */
+    Hwi_dispatchCore(intNum);
 }

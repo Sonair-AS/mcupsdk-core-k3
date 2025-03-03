@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2013-2024, Texas Instruments Incorporated
+ * Copyright (c) 2013-2025, Texas Instruments Incorporated
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -46,8 +46,6 @@
 /* Object__sizingError */
 typedef char Hwi_Object__sizingError[(sizeof(Hwi_Object) > sizeof(HwiC7x_Struct)) ? -1 : 1];
 
-#pragma FUNC_EXT_CALLED(Hwi_dispatchC);
-
 extern void Hwi_dispatchAlways(void);
 extern void Hwi_switchAndRunFunc(void (*func)());
 
@@ -66,7 +64,6 @@ extern void Hwi_switchToNS();
 #endif
 
 extern const Hwi_Params Hwi_Object__PARAMS__C;
-extern uint32_t ulPortInterruptNesting;
 
 void Hwi_secureStart()
 {
@@ -340,41 +337,6 @@ void Hwi_setPriority(unsigned int intNum, unsigned int priority)
     __set_indexed(__EPRI, intNum, priority << 5);
 }
 
-
-#include <FreeRTOS.h>
-#include <task.h>
-
-uintptr_t HwiP_disable(void)
-{
-    uintptr_t key = (uintptr_t)NULL_PTR;
-
-    if(( xPortInIsrContext() ) ||
-       ( xTaskGetSchedulerState() == taskSCHEDULER_NOT_STARTED ))
-    {
-        key = Hwi_disable();
-    }
-    else
-    {
-        portENTER_CRITICAL();
-    }
-
-    return (key);
-}
-
-void HwiP_restore(uintptr_t key)
-{
-    if(( xPortInIsrContext() ) ||
-       ( xTaskGetSchedulerState() == taskSCHEDULER_NOT_STARTED ))
-    {
-        (void)Hwi_restore((uint32_t)key);
-    }
-    else
-    {
-        portEXIT_CRITICAL();
-    }
-
-    return;
-}
 
 void HwiP_post(uint32_t intrNum)
 {
@@ -662,53 +624,9 @@ void Hwi_Params_init( Hwi_Params *prms )
     }
 }
 
-uint32_t HwiP_inISR(void)
-{
-    uint32_t stat = 0U;
-
-    if (ulPortInterruptNesting != 0)
-    {
-        stat =  1U;
-    }
-    return stat;
-}
-
 void HwiP_init(void)
 {
     return;
-}
-
-void HwiP_enable()
-{
-
-}
-
-#include <FreeRTOS.h>
-#include "portmacro.h"
-/*
- *  ======== Hwi_dispatchC ========
- *  Configurable dispatcher.
- */
-void Hwi_dispatchC(int intNum)
-{
-    extern uint32_t ulPortInterruptNesting;
-    extern uint32_t ulPortYieldRequired;
-
-    ulPortInterruptNesting++;
-
-    Hwi_switchAndDispatch(intNum);
-
-    ulPortInterruptNesting--;
-    if (ulPortInterruptNesting == 0)
-    {
-        if (ulPortYieldRequired != pdFALSE)
-        {
-            ulPortYieldRequired = pdFALSE;
-            vPortYieldAsyncFromISR();
-        }
-
-    }
-
 }
 
 /* bootToNonSecure */

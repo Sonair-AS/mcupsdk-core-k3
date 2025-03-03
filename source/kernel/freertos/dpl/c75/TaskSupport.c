@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2015-2021, Texas Instruments Incorporated
+ * Copyright (c) 2015-2025, Texas Instruments Incorporated
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -38,12 +38,9 @@
 #include <stdarg.h>
 #include <stddef.h>
 
-#include "TaskSupport_c75.h"
+#include <kernel/freertos/dpl/c75/TaskSupport_c75.h>
 
 #include <kernel/dpl/DebugP.h>
-
-
-
 
 /*
  *

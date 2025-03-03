@@ -22,7 +22,6 @@ FILES_common := \
     CycleCounterP_c75.c \
     Exception.c \
     HwiP_c75.c \
-    HwiP_freertos_c7x.c \
     IntrinsicsSupport.c \
     MmuP_c75.c \
     Startup.c \
@@ -40,6 +39,7 @@ FILES_common := \
     QueueP_nortos.c \
     ClockP_freertos.c \
     ClockP_freertos_c75.c \
+    HwiP_freertos_c7x.c \
     SemaphoreP_freertos.c \
     HeapP_freertos.c \
     DebugP_freertos.c \

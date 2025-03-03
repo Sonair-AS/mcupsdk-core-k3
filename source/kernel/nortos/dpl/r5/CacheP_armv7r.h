@@ -1,5 +1,5 @@
 /*
- *  Copyright (C) 2024 Texas Instruments Incorporated
+ *  Copyright (C) 2024-25 Texas Instruments Incorporated
  *
  *  Redistribution and use in source and binary forms, with or without
  *  modification, are permitted provided that the following conditions
@@ -83,6 +83,76 @@ void CacheP_invL1pAll(void);
  *  \return None
  */
 void CacheP_invL1dAll(void);
+
+/**
+ *  \brief Get the instruction cache line size
+ *
+ *  This function is used to get the instruction cache line size for MCU.
+ *  Implementation of this API/code is use-case specific.
+ *
+ *  \param None
+ *
+ *  \return the instruction cache line size in bytes
+ */
+uint32_t CacheP_GetIcacheLineSize( void );
+
+/**
+ *  \brief Invalidate an instruction cache line by MVA
+ *  This function is used to invalidate an instruction cache Line by MVA.
+ *
+ *  \param address  [IN]    Modified virtual address
+ *
+ *  \return None
+ *
+ */
+void CacheP_InvalidateIcacheMva( uint32_t address );
+
+/**
+ *  \brief Invalidate a data cache line by set and way
+ *
+ *  This function is used to invalidate a data cache line by set and way.
+ *
+ *  \param set      [IN]    Indicates the cache set to invalidate
+ *  \param way      [IN]    Indicates the cache way to invalidate
+ *
+ *  \return None
+ */
+void CacheP_InvalidateDcacheSetWay( uint32_t set, uint32_t way );
+
+/**
+ *  \brief Clean a data cache line by set and way
+ *
+ *  This function is used to clean a data cache line by set and way.
+ *
+ *  \param set      [IN]    Indicates the cache set to clean
+ *  \param way      [IN]    Indicates the cache way to clean
+ *
+ *  \return None
+ *
+ */
+void CacheP_CleanDcacheSetWay( uint32_t set, uint32_t way );
+
+/**
+ *  \brief Disable ECC (parity) checking on cache rams
+ *
+ *  This function is used to disable ECC (parity) checking on cache rams.
+ *
+ *  \param None
+ *
+ *  \return None
+ */
+void CacheP_DisableEcc( void );
+
+/**
+ *  \brief Enable AXI slave access to cache RAM
+ *
+ *  This function is used to enable AXI slave access to cache RAM.
+ *
+ *  \param None
+ *
+ *  \return None
+ */
+void CacheP_EnableAxiAccess( void );
 
 #ifdef __cplusplus
 }

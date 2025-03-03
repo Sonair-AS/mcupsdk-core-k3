@@ -1,5 +1,5 @@
 /*
- *  Copyright (C) 2018-2021 Texas Instruments Incorporated
+ *  Copyright (C) 2018-2025 Texas Instruments Incorporated
  *
  *  Redistribution and use in source and binary forms, with or without
  *  modification, are permitted provided that the following conditions
@@ -37,8 +37,16 @@
 extern "C" {
 #endif
 
+/* ========================================================================== */
+/*                             Include Files                                  */
+/* ========================================================================== */
+
 #include <stdint.h>
 #include <stdbool.h>
+
+/* ========================================================================== */
+/*                           Macros & Typedefs                                */
+/* ========================================================================== */
 
 /**
  * \defgroup KERNEL_DPL_DEBUG APIs for Debug log's and assert's
@@ -273,6 +281,10 @@ void _DebugP_logZone(uint32_t logZone, char *format, ...);
 #define DebugP_logWarn(format, ...)
 #define DebugP_logInfo(format, ...)
 #endif
+
+/* ========================================================================== */
+/*                          Function Declarations                             */
+/* ========================================================================== */
 
 /**
  * \brief Enable log zones

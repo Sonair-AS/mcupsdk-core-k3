@@ -64,7 +64,6 @@ const files_c75x = {
         "CycleCounterP_c75.c",
         "Exception.c",
         "HwiP_c75.c",
-        "HwiP_freertos_c7x.c",
         "IntrinsicsSupport.c",
         "MmuP_c75.c",
         "Startup.c",
@@ -84,6 +83,7 @@ const files_c75x = {
         // picked from freertos DPL
         "ClockP_freertos.c",
         "ClockP_freertos_c75.c",
+        "HwiP_freertos_c7x.c",
         //"freertos_mmu.c",  //defined in sysconfig hence not required
         "SemaphoreP_freertos.c",
         "HeapP_freertos.c",

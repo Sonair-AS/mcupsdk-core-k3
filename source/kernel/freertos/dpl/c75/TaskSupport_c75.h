@@ -1,5 +1,5 @@
 /*
- *  Copyright (C) 2018-2021 Texas Instruments Incorporated
+ *  Copyright (C) 2018-2025 Texas Instruments Incorporated
  *
  *  Redistribution and use in source and binary forms, with or without
  *  modification, are permitted provided that the following conditions
@@ -48,15 +48,12 @@
  *     PREFIX ALIASES
  */
 
-
 /*
  * ======== PROLOGUE ========
  */
 
-#ifndef TaskSupport__include
-#define TaskSupport__include
-
-
+#ifndef TaskSupport_freertos__include
+#define TaskSupport_freertos__include
 
 /*
  * ======== INCLUDES ========
@@ -73,7 +70,6 @@
 extern "C" {
 #endif
 
-
 /*
  * ======== AUXILIARY DEFINITIONS ========
  */
@@ -83,36 +79,25 @@ typedef void (*TaskSupport_FuncPtr)(void);
 
 typedef void (*Task_FuncPtr)(uint32_t arg1, uint32_t arg2);
 
-
-
-
-
 /*
  * ======== MODULE-WIDE CONFIGS ========
  */
 
-
 /* defaultStackSize */
 extern const size_t TaskSupport_defaultStackSize;
 
-
 /* stackAlignment */
 extern const unsigned int TaskSupport_stackAlignment;
-
-
-
 
 /*
  * ======== FUNCTION DECLARATIONS ========
  */
 
-
-/* swap */
+/* Swap */
 void TaskSupport_swap( void **oldtskContext, void **newtskContext);
 
 /* getStackAlignment */
 unsigned int TaskSupport_getStackAlignment( void);
-
 
 extern void * TaskSupport_buildTaskStack(void * stack, Task_FuncPtr fxn, TaskSupport_FuncPtr exit, TaskSupport_FuncPtr enter, void* arg0, TaskFunction_t arg1, void * TCSP, bool privileged);
 
@@ -122,4 +107,4 @@ extern void * TaskSupport_setupTaskStack(StackType_t * pxTopOfStack, StackType_t
     } /* extern C */
 #endif
 
-#endif
+#endif  /* TaskSupport_freertos__include */

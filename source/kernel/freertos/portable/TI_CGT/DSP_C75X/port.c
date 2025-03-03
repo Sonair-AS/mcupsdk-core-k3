@@ -62,10 +62,10 @@
 #include <task.h>
 #include <kernel/dpl/DebugP.h>
 #include <kernel/nortos/dpl/c75/CycleCounterP_c75.h>
-#include <kernel/nortos/dpl/c75/TaskSupport_c75.h>
 #include <kernel/nortos/dpl/c75/CacheP_c75.h>
 #include <drivers/hw_include/cslr_soc.h>
 #include <kernel/freertos/dpl/common/ClockP_freertos_priv.h>
+#include <kernel/freertos/dpl/c75/TaskSupport_c75.h>
 #include <kernel/nortos/dpl/c75/csl_clec.h>
 
 /* Let the user override the pre-loading of the initial LR with the address of
