@@ -121,6 +121,7 @@ uint32_t gMainCoreId = CSL_CORE_ID_R5FSS0_0;
 uint32_t gRemoteCoreId[] = {
     CSL_CORE_ID_M4FSS0_0,
     CSL_CORE_ID_A53SS0_0,
+    CSL_CORE_ID_A53SS0_1,
     CSL_CORE_ID_MAX /* this value indicates the end of the array */
 };
 #endif
