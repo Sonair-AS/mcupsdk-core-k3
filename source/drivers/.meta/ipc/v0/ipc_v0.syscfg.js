@@ -31,8 +31,17 @@ function getConfigurables()
             element.default = ipc_options_default;
             element.options = [ ...ipc_options ];
         }
-        if((element.name == "a53ss0_0") && (getSelfIpcCoreName() != "a53ss0_0")) {
-            element.default = "NONE";
+        if(common.getSocName() == "am62x")
+        {
+            if((element.name == "a53ss0_0" || element.name == "a53ss0_1") && (getSelfIpcCoreName() != "a53ss0_0" && getSelfIpcCoreName() != "a53ss0_1")) {
+                element.default = "NONE";
+            }
+        }
+        else
+        {
+            if((element.name == "a53ss0_0") && (getSelfIpcCoreName() != "a53ss0_0")) {
+                element.default = "NONE";
+            }
         }
       });
 
