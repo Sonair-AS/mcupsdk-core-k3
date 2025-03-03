@@ -327,7 +327,7 @@ static int32_t Bootloader_uniflashFlashVerifyFile(uint32_t flashIndex, uint8_t *
 	    memset(verifyBuf, 0, (size_t)fileSize);
 
 	    status = Flash_read(flashHandle, flashOffset, verifyBuf, fileSize);
-        CacheP_inv(verifyBuf, fileSize, CacheP_TYPE_ALL);
+
 	    if(status == SystemP_SUCCESS)
 	    {
 	        /* check if data read from flash matches, data read from file */
