@@ -46,6 +46,10 @@
  *  OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
+/* ========================================================================== */
+/*                             Include Files                                  */
+/* ========================================================================== */
+
 #include <stdlib.h>
 #include <kernel/dpl/DebugP.h>
 #include <kernel/dpl/ClockP.h>
@@ -57,16 +61,37 @@
 #include "task.h"
 #include <drivers/device_manager/sciserver/sciserver_init.h>
 
+/* ========================================================================== */
+/*                           Macros & Typedefs                                */
+/* ========================================================================== */
+
 #define TASK_PRI_MAIN_THREAD  (`taskPriThread`)
 
-
 #define TASK_SIZE (`stackSize`U/sizeof(configSTACK_DEPTH_TYPE))
+
+/* ========================================================================== */
+/*                         Structure Declarations                             */
+/* ========================================================================== */
+
+/* None */
+
+/* ========================================================================== */
+/*                          Function Declarations                             */
+/* ========================================================================== */
+
+void `entryFunction`(void *args);
+
+/* ========================================================================== */
+/*                            Global Variables                                */
+/* ========================================================================== */
 
 StackType_t gMainTaskStack[TASK_SIZE] __attribute__((aligned(32)));
 StaticTask_t gMainTaskObj;
 TaskHandle_t gMainTask;
 
-void `entryFunction`(void *args);
+/* ========================================================================== */
+/*                          Function Definitions                              */
+/* ========================================================================== */
 
 void main_thread(void *args)
 {
@@ -82,7 +107,6 @@ void main_thread(void *args)
 
     vTaskDelete(NULL);
 }
-
 
 int main()
 {

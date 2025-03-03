@@ -46,6 +46,10 @@
  *  OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
+/* ========================================================================== */
+/*                             Include Files                                  */
+/* ========================================================================== */
+
 #include <stdlib.h>
 #include <kernel/dpl/DebugP.h>
 #include "ti_drivers_open_close.h"
@@ -54,20 +58,43 @@
 #include "taskAPI.h"
 #include <drivers/device_manager/sciserver/sciserver_init.h>
 
+/* ========================================================================== */
+/*                           Macros & Typedefs                                */
+/* ========================================================================== */
+
 #define TASK_PRI_MAIN_THREAD  (`taskPriThread`)
 
 #define configASSERT(x)                        DebugP_assert( (uint32_t)((x) != 0))
 
 #define TASK_STACK_SIZE (`stackSize`U)
 
-portInt8Type gMainTaskStack[TASK_STACK_SIZE] __attribute__((aligned(TASK_STACK_SIZE)));
-xTCB gTaskTCB;
+/* ========================================================================== */
+/*                         Structure Declarations                             */
+/* ========================================================================== */
+
+/* None */
+
+/* ========================================================================== */
+/*                          Function Declarations                             */
+/* ========================================================================== */
 
 #if defined(OS_SAFERTOS)
 void System_lateInit(void);
 #endif
 
 void `entryFunction`(void *args);
+
+/* ========================================================================== */
+/*                            Global Variables                                */
+/* ========================================================================== */
+
+portInt8Type gMainTaskStack[TASK_STACK_SIZE] __attribute__(
+                                                    (aligned(TASK_STACK_SIZE)));
+xTCB gTaskTCB;
+
+/* ========================================================================== */
+/*                            Function Definitions                            */
+/* ========================================================================== */
 
 void main_thread(void *args)
 {

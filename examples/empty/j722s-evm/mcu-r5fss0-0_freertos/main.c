@@ -30,6 +30,10 @@
  *  OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
+/* ========================================================================== */
+/*                             Include Files                                  */
+/* ========================================================================== */
+
 #include <stdlib.h>
 #include <kernel/dpl/DebugP.h>
 #include "ti_drivers_config.h"
@@ -39,15 +43,38 @@
 #include "FreeRTOS.h"
 #include "task.h"
 
+/* ========================================================================== */
+/*                           Macros & Typedefs                                */
+/* ========================================================================== */
+
 #define MAIN_TASK_PRI  (configMAX_PRIORITIES-1)
 
 #define MAIN_TASK_SIZE (16384U/sizeof(configSTACK_DEPTH_TYPE))
+
+/* ========================================================================== */
+/*                         Structure Declarations                             */
+/* ========================================================================== */
+
+/* None */
+
+/* ========================================================================== */
+/*                          Function Declarations                             */
+/* ========================================================================== */
+
+void empty_main(void *args);
+
+/* ========================================================================== */
+/*                            Global Variables                                */
+/* ========================================================================== */
+
 StackType_t gMainTaskStack[MAIN_TASK_SIZE] __attribute__((aligned(32)));
 
 StaticTask_t gMainTaskObj;
 TaskHandle_t gMainTask;
 
-void empty_main(void *args);
+/* ========================================================================== */
+/*                          Function Definitions                              */
+/* ========================================================================== */
 
 void freertos_main(void *args)
 {
