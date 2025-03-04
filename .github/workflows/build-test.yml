@@ -7,9 +7,9 @@ env:
 on:
   # Triggers the workflow on push or pull request events but only for the $default-branch branch
   push:
-    branches: [ "k3_next", "k3_next_stage" ]
+    branches: [ "k3_next", "k3_next_stage", "k3_main" ]
   pull_request:
-    branches: [ "k3_next", "k3_next_stage" ]
+    branches: [ "k3_next", "k3_next_stage", "k3_main" ]
 
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 # This workflow contains a build jobs for all the SOCs in the repo

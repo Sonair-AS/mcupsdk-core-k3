@@ -110,7 +110,7 @@ repo_init() {
     sudo apt-get update
     sudo apt-get -y install repo
     
-    repo init -u https://github.com/TexasInstruments/mcupsdk-manifests.git -m ${device}/dev.xml -b main  --depth=1
+    repo init -u https://github.com/TexasInstruments/mcupsdk-manifests.git -m ${device}/dev.xml -b k3_main  --depth=1
     repo sync -j${proc} -q
 
     #Show the current branch/git status
