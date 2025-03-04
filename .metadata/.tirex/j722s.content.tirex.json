@@ -11,7 +11,7 @@
         "name": "empty",
         "location": "../../examples/empty/j722s-evm/mcu-r5fss0-0_freertos/ti-arm-clang/example.projectspec",
         "devtools": [
-            "J722S_EVM"
+            "J722SXH01EVM"
         ],
         "kernel": [
             "freertos"
@@ -42,7 +42,7 @@
         "name": "empty",
         "location": "../../examples/empty/j722s-evm/system_freertos/system.projectspec",
         "devtools": [
-            "J722S_EVM"
+            "J722SXH01EVM"
         ],
         "kernel": [
             "freertos"
@@ -66,7 +66,7 @@
         "name": "User Guide",
         "location": "../../docs/api_guide_j722s/index.html",
         "devtools": [
-            "J722S_EVM"
+            "J722SXH01EVM"
         ],
         "mainCategories": [
             [

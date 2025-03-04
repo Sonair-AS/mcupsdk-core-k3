@@ -71,7 +71,7 @@ function getSysCfgPart(board) {
 }
 
 function getDevToolTirex(board) {
-    return "J722S_EVM";
+    return "J722SXH01EVM";
 }
 
 function getProperty() {
