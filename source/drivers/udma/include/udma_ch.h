@@ -1079,6 +1079,18 @@ void UdmaChPdmaPrms_init(Udma_ChPdmaPrms *pdmaPrms);
 int32_t Udma_chGetStats(Udma_ChHandle chHandle, Udma_ChStats *chStats);
 
 /**
+ *  \brief Decrement real-time channel statistics.
+ *
+ *  \param chHandle     [IN] UDMA channel handle.
+ *                           This parameter can't be NULL.
+ *  \param chStats      [IN] Pointer to #Udma_ChStats.
+ *                           This parameter can't be NULL.
+ *
+ *  \return \ref Udma_ErrorCodes
+ */
+int32_t Udma_chDecStats(Udma_ChHandle chHandle, Udma_ChStats *chStats);
+
+/**
  *  \brief Get real-time peer data which contains number of bytes written.
  *
  *  \param chHandle     [IN]    UDMA channel handle.

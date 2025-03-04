@@ -2017,6 +2017,111 @@ int32_t Udma_chGetStats(Udma_ChHandle chHandle, Udma_ChStats *chStats)
     return (retVal);
 }
 
+int32_t Udma_chDecStats(Udma_ChHandle chHandle, Udma_ChStats *chStats)
+{
+    int32_t             retVal = UDMA_SOK;
+    Udma_DrvHandleInt   drvHandle;
+    Udma_ChHandleInt    chHandleInt = (Udma_ChHandleInt) chHandle;
+    uint32_t            chNum;
+#if (UDMA_SOC_CFG_LCDMA_PRESENT == 1)
+    CSL_BcdmaChanStats  bcdmaChanStats = {0};
+    CSL_BcdmaChanDir    bcdmaChDir;
+    CSL_PktdmaChanStats pktdmaChanStats = {0};
+    CSL_PktdmaChanDir   pktdmaChDir;
+#endif
+
+    /* Error check */
+    if ((NULL_PTR == chHandleInt)                   ||
+        (chHandleInt->chInitDone != UDMA_INIT_DONE) ||
+        (chStats == NULL))
+    {
+        retVal = UDMA_EBADARGS;
+    }
+    if(UDMA_SOK == retVal)
+    {
+        drvHandle = chHandleInt->drvHandle;
+        if((NULL_PTR == drvHandle) || (drvHandle->drvInitDone != UDMA_INIT_DONE))
+        {
+            retVal = UDMA_EFAIL;
+        }
+    }
+
+    if(UDMA_SOK == retVal)
+    {
+#if (UDMA_SOC_CFG_LCDMA_PRESENT == 1)
+        if(UDMA_INST_TYPE_LCDMA_BCDMA == drvHandle->instType)
+        {
+            if((chHandleInt->chType & UDMA_CH_FLAG_BLK_COPY) == UDMA_CH_FLAG_BLK_COPY)
+            {
+                chNum       = chHandleInt->txChNum;
+                bcdmaChDir = CSL_BCDMA_CHAN_DIR_TX;
+            }
+            else if(UDMA_CH_FLAG_UTC == (chHandleInt->chType & UDMA_CH_FLAG_UTC))
+            {
+                chNum       = chHandleInt->extChNum + drvHandle->extChOffset;
+                bcdmaChDir = CSL_BCDMA_CHAN_DIR_TX;
+            }
+            else
+            {
+                if((chHandleInt->chType & UDMA_CH_FLAG_TX) == UDMA_CH_FLAG_TX)
+                {
+                    /* Add offset to chNum, so that BCDMA can identify it as Tx channel*/
+                    chNum       = chHandleInt->txChNum + drvHandle->txChOffset;
+                    bcdmaChDir = CSL_BCDMA_CHAN_DIR_TX;
+                }
+                else
+                {
+                    /* Add offset to chNum, so that BCDMA can identify it as Rx channel*/
+                    chNum       = chHandleInt->rxChNum + drvHandle->rxChOffset;
+                    bcdmaChDir = CSL_BCDMA_CHAN_DIR_RX;
+                }
+            }
+            bcdmaChanStats.packetCnt = chStats->packetCnt;
+            bcdmaChanStats.completedByteCnt = chStats->completedByteCnt;
+            bcdmaChanStats.startedByteCnt = chStats->startedByteCnt;
+            CSL_bcdmaDecChanStats(&drvHandle->bcdmaRegs, chNum, bcdmaChDir, &bcdmaChanStats);
+
+        }
+        else if(UDMA_INST_TYPE_LCDMA_PKTDMA == drvHandle->instType)
+        {
+            if((chHandleInt->chType & UDMA_CH_FLAG_BLK_COPY) == UDMA_CH_FLAG_BLK_COPY)
+            {
+                chNum       = chHandleInt->txChNum;
+                pktdmaChDir = CSL_PKTDMA_CHAN_DIR_TX;
+            }
+            else if(UDMA_CH_FLAG_UTC == (chHandleInt->chType & UDMA_CH_FLAG_UTC))
+            {
+                chNum       = chHandleInt->extChNum + drvHandle->extChOffset;
+                pktdmaChDir = CSL_PKTDMA_CHAN_DIR_TX;
+            }
+            else
+            {
+                if((chHandleInt->chType & UDMA_CH_FLAG_TX) == UDMA_CH_FLAG_TX)
+                {
+                    chNum       = chHandleInt->txChNum;
+                    pktdmaChDir = CSL_PKTDMA_CHAN_DIR_TX;
+                }
+                else
+                {
+                    chNum       = chHandleInt->rxChNum;
+                    pktdmaChDir = CSL_PKTDMA_CHAN_DIR_RX;
+                }
+            }
+            pktdmaChanStats.packetCnt = chStats->packetCnt;
+            pktdmaChanStats.completedByteCnt = chStats->completedByteCnt;
+            pktdmaChanStats.startedByteCnt = chStats->startedByteCnt;
+            CSL_pktdmaDecChanStats(&drvHandle->pktdmaRegs, chNum, pktdmaChDir, &pktdmaChanStats);
+        }
+        else
+        {
+          /* Do Nothing */
+        }
+#endif
+    }
+
+    return (retVal);
+}
+
 int32_t Udma_getPeerData(Udma_ChHandle chHandle, uint32_t *peerData)
 {
     int32_t             retVal = UDMA_SOK;
