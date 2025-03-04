@@ -194,6 +194,7 @@ help:
 	@echo  $(MAKE) -s -C examples/kernel/freertos/posix_demo/am62px-sk/mcu-r5fss0-0_freertos/ti-arm-clang [all clean syscfg-gui syscfg]
 	@echo  $(MAKE) -s -C examples/kernel/freertos/task_switch/am62px-sk/mcu-r5fss0-0_freertos/ti-arm-clang [all clean syscfg-gui syscfg]
 	@echo  $(MAKE) -s -C examples/lpm/lpm_mcu_mcan_wakeup/am62px-sk/mcu-r5fss0-0_freertos/ti-arm-clang [all clean syscfg-gui syscfg]
+	@echo  $(MAKE) -s -C examples/lpm/lpm_mcu_dmtimer_wakeup/am62px-sk/mcu-r5fss0-0_freertos/ti-arm-clang [all clean syscfg-gui syscfg]
 	@echo  $(MAKE) -s -C source/networking/enet/core/examples/enet_layer2_cpsw_switch/am62px-sk/wkup-r5fss0-0_freertos/ti-arm-clang [all clean syscfg-gui syscfg]
 	@echo  $(MAKE) -s -C source/networking/enet/core/examples/enet_loopback/enet_cpsw_loopback/loopback_phy_end/am62px-sk/wkup-r5fss0-0_freertos/ti-arm-clang [all clean syscfg-gui syscfg]
 	@echo  $(MAKE) -s -C source/networking/enet/core/examples/enet_loopback/enet_cpsw_loopback/loopback_mac_end/am62px-sk/wkup-r5fss0-0_freertos/ti-arm-clang [all clean syscfg-gui syscfg]
@@ -732,6 +733,7 @@ BUILD_COMBO_EXAMPLE_ALL += memcpy_benchmark_am62px-sk_wkup-r5fss0-0_freertos_ti-
 BUILD_COMBO_EXAMPLE_ALL += posix_demo_am62px-sk_mcu-r5fss0-0_freertos_ti-arm-clang
 BUILD_COMBO_EXAMPLE_ALL += task_switch_am62px-sk_mcu-r5fss0-0_freertos_ti-arm-clang
 BUILD_COMBO_EXAMPLE_ALL += lpm_mcu_mcan_wakeup_am62px-sk_mcu-r5fss0-0_freertos_ti-arm-clang
+BUILD_COMBO_EXAMPLE_ALL += lpm_mcu_dmtimer_wakeup_am62px-sk_mcu-r5fss0-0_freertos_ti-arm-clang
 BUILD_COMBO_EXAMPLE_ALL += enet_l2_cpsw_switch_am62px-sk_wkup-r5fss0-0_freertos_ti-arm-clang
 BUILD_COMBO_EXAMPLE_ALL += enet_cpsw_loopback_phy_end_am62px-sk_wkup-r5fss0-0_freertos_ti-arm-clang
 BUILD_COMBO_EXAMPLE_ALL += enet_cpsw_loopback_mac_end_am62px-sk_wkup-r5fss0-0_freertos_ti-arm-clang
@@ -1077,6 +1079,9 @@ examples-private: $(BUILD_COMBO_EXAMPLE_PRIVATE_ALL)
  lpm_mcu_mcan_wakeup_am62px-sk_mcu-r5fss0-0_freertos_ti-arm-clang:
 	$(MAKE) -C examples/lpm/lpm_mcu_mcan_wakeup/am62px-sk/mcu-r5fss0-0_freertos/ti-arm-clang -f makefile all
 
+ lpm_mcu_dmtimer_wakeup_am62px-sk_mcu-r5fss0-0_freertos_ti-arm-clang:
+	$(MAKE) -C examples/lpm/lpm_mcu_dmtimer_wakeup/am62px-sk/mcu-r5fss0-0_freertos/ti-arm-clang -f makefile all
+
  enet_l2_cpsw_switch_am62px-sk_wkup-r5fss0-0_freertos_ti-arm-clang:
 	$(MAKE) -C source/networking/enet/core/examples/enet_layer2_cpsw_switch/am62px-sk/wkup-r5fss0-0_freertos/ti-arm-clang -f makefile all
 
@@ -1306,6 +1311,7 @@ BUILD_COMBO_EXAMPLE_CLEAN_ALL += memcpy_benchmark_am62px-sk_wkup-r5fss0-0_freert
 BUILD_COMBO_EXAMPLE_CLEAN_ALL += posix_demo_am62px-sk_mcu-r5fss0-0_freertos_ti-arm-clang_clean
 BUILD_COMBO_EXAMPLE_CLEAN_ALL += task_switch_am62px-sk_mcu-r5fss0-0_freertos_ti-arm-clang_clean
 BUILD_COMBO_EXAMPLE_CLEAN_ALL += lpm_mcu_mcan_wakeup_am62px-sk_mcu-r5fss0-0_freertos_ti-arm-clang_clean
+BUILD_COMBO_EXAMPLE_CLEAN_ALL += lpm_mcu_dmtimer_wakeup_am62px-sk_mcu-r5fss0-0_freertos_ti-arm-clang_clean
 BUILD_COMBO_EXAMPLE_CLEAN_ALL += enet_l2_cpsw_switch_am62px-sk_wkup-r5fss0-0_freertos_ti-arm-clang_clean
 BUILD_COMBO_EXAMPLE_CLEAN_ALL += enet_cpsw_loopback_phy_end_am62px-sk_wkup-r5fss0-0_freertos_ti-arm-clang_clean
 BUILD_COMBO_EXAMPLE_CLEAN_ALL += enet_cpsw_loopback_mac_end_am62px-sk_wkup-r5fss0-0_freertos_ti-arm-clang_clean
@@ -1651,6 +1657,9 @@ examples-private-clean: $(BUILD_COMBO_EXAMPLE_PRIVATE_CLEAN_ALL)
  lpm_mcu_mcan_wakeup_am62px-sk_mcu-r5fss0-0_freertos_ti-arm-clang_clean:
 	$(MAKE) -C examples/lpm/lpm_mcu_mcan_wakeup/am62px-sk/mcu-r5fss0-0_freertos/ti-arm-clang -f makefile clean
 
+ lpm_mcu_dmtimer_wakeup_am62px-sk_mcu-r5fss0-0_freertos_ti-arm-clang_clean:
+	$(MAKE) -C examples/lpm/lpm_mcu_dmtimer_wakeup/am62px-sk/mcu-r5fss0-0_freertos/ti-arm-clang -f makefile clean
+
  enet_l2_cpsw_switch_am62px-sk_wkup-r5fss0-0_freertos_ti-arm-clang_clean:
 	$(MAKE) -C source/networking/enet/core/examples/enet_layer2_cpsw_switch/am62px-sk/wkup-r5fss0-0_freertos/ti-arm-clang -f makefile clean
 
@@ -1880,6 +1889,7 @@ BUILD_COMBO_EXAMPLE_SCRUB_ALL += memcpy_benchmark_am62px-sk_wkup-r5fss0-0_freert
 BUILD_COMBO_EXAMPLE_SCRUB_ALL += posix_demo_am62px-sk_mcu-r5fss0-0_freertos_ti-arm-clang_scrub
 BUILD_COMBO_EXAMPLE_SCRUB_ALL += task_switch_am62px-sk_mcu-r5fss0-0_freertos_ti-arm-clang_scrub
 BUILD_COMBO_EXAMPLE_SCRUB_ALL += lpm_mcu_mcan_wakeup_am62px-sk_mcu-r5fss0-0_freertos_ti-arm-clang_scrub
+BUILD_COMBO_EXAMPLE_SCRUB_ALL += lpm_mcu_dmtimer_wakeup_am62px-sk_mcu-r5fss0-0_freertos_ti-arm-clang_scrub
 BUILD_COMBO_EXAMPLE_SCRUB_ALL += enet_l2_cpsw_switch_am62px-sk_wkup-r5fss0-0_freertos_ti-arm-clang_scrub
 BUILD_COMBO_EXAMPLE_SCRUB_ALL += enet_cpsw_loopback_phy_end_am62px-sk_wkup-r5fss0-0_freertos_ti-arm-clang_scrub
 BUILD_COMBO_EXAMPLE_SCRUB_ALL += enet_cpsw_loopback_mac_end_am62px-sk_wkup-r5fss0-0_freertos_ti-arm-clang_scrub
@@ -2224,6 +2234,9 @@ examples-scrub-private: $(BUILD_COMBO_EXAMPLE_PRIVATE_SCRUB_ALL)
 
  lpm_mcu_mcan_wakeup_am62px-sk_mcu-r5fss0-0_freertos_ti-arm-clang_scrub:
 	$(MAKE) -C examples/lpm/lpm_mcu_mcan_wakeup/am62px-sk/mcu-r5fss0-0_freertos/ti-arm-clang -f makefile scrub
+
+ lpm_mcu_dmtimer_wakeup_am62px-sk_mcu-r5fss0-0_freertos_ti-arm-clang_scrub:
+	$(MAKE) -C examples/lpm/lpm_mcu_dmtimer_wakeup/am62px-sk/mcu-r5fss0-0_freertos/ti-arm-clang -f makefile scrub
 
  enet_l2_cpsw_switch_am62px-sk_wkup-r5fss0-0_freertos_ti-arm-clang_scrub:
 	$(MAKE) -C source/networking/enet/core/examples/enet_layer2_cpsw_switch/am62px-sk/wkup-r5fss0-0_freertos/ti-arm-clang -f makefile scrub

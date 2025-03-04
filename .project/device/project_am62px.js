@@ -110,6 +110,7 @@ const example_file_list = [
     "examples/kernel/freertos/posix_demo/.project/project.js",
     "examples/kernel/freertos/task_switch/.project/project.js",
     "examples/lpm/lpm_mcu_mcan_wakeup/.project/project.js",
+    "examples/lpm/lpm_mcu_dmtimer_wakeup/.project/project.js",
     "source/networking/enet/core/examples/enet_layer2_cpsw_switch/.project/project.js",
     "source/networking/enet/core/examples/enet_loopback/enet_cpsw_loopback/loopback_phy_end/.project/project.js",
     "source/networking/enet/core/examples/enet_loopback/enet_cpsw_loopback/loopback_mac_end/.project/project.js",
