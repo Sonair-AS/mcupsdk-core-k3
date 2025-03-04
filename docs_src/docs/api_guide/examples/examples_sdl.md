@@ -19,6 +19,8 @@ This page lists all the examples related to usage of SDL.
    -# \subpage EXAMPLES_SDL_DCC
 -# ECC
    -# \subpage EXAMPLES_SDL_ECC
+-# ECC_R5F_CACHE
+   -# \subpage EXAMPLES_SDL_ECC_R5F_CACHE
 -# ESM
    -# \subpage EXAMPLES_SDL_MCU_ESM
 -# MCRC
@@ -46,6 +48,8 @@ This page lists all the examples related to usage of SDL.
    -# \subpage EXAMPLES_SDL_DCC
 -# ECC
    -# \subpage EXAMPLES_SDL_ECC
+-# ECC_R5F_CACHE
+   -# \subpage EXAMPLES_SDL_ECC_R5F_CACHE
 -# ESM
    -# \subpage EXAMPLES_SDL_MCU_ESM
 -# MCRC
