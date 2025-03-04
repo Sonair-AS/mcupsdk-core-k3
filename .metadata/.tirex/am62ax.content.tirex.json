@@ -5529,6 +5529,38 @@
         "resourceSubClass": [
             "example.general"
         ],
+        "description": "A Lpm Mcu Uart Wakeup Example. CPU is MCU-R5FSS0-0 running FREERTOS.",
+        "name": "lpm_mcu_uart_wakeup",
+        "location": "../../examples/lpm/lpm_mcu_uart_wakeup/am62ax-sk/mcu-r5fss0-0_freertos/ti-arm-clang/example.projectspec",
+        "devtools": [
+            "SK-AM62A-LP"
+        ],
+        "kernel": [
+            "freertos"
+        ],
+        "compiler": [
+            "ticlang"
+        ],
+        "subCategories": [
+            "lpm",
+            "lpm_mcu_uart_wakeup",
+            "mcu-r5fss0-0_freertos"
+        ],
+        "mainCategories": [
+            [
+                "Examples",
+                "Development Tools"
+            ]
+        ]
+    },
+    {
+        "resourceType": "project.ccs",
+        "resourceClass": [
+            "example"
+        ],
+        "resourceSubClass": [
+            "example.general"
+        ],
         "description": "A Ext Otp Example. CPU is R5FSS0-0 running NORTOS.",
         "name": "ext_otp",
         "location": "../../examples/otp/ext_otp/am62ax-sk/r5fss0-0_nortos/ti-arm-clang/example.projectspec",

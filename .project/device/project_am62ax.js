@@ -143,6 +143,7 @@ const example_file_list = [
     "examples/kernel/freertos/smp_task_switch/.project/project.js",
     "examples/lpm/lpm_mcu_mcan_wakeup/.project/project.js",
     "examples/lpm/lpm_mcu_dmtimer_wakeup/.project/project.js",
+    "examples/lpm/lpm_mcu_uart_wakeup/.project/project.js",
     "source/networking/enet/core/examples/enet_cpsw_est/.project/project.js",
     "source/networking/enet/core/examples/enet_layer2_cpsw/.project/project.js",
     "source/networking/enet/core/examples/enet_layer2_cpsw_switch/.project/project.js",
