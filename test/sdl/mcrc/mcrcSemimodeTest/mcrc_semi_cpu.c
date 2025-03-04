@@ -1,5 +1,5 @@
 /*
- *  Copyright (C) 2022-2024 Texas Instruments Incorporated
+ *  Copyright (C) 2022-2025 Texas Instruments Incorporated
  *
  *  Redistribution and use in source and binary forms, with or without
  *  modification, are permitted provided that the following conditions
@@ -411,6 +411,32 @@ int32_t mcrcSemiCPU_main(void)
             SDL_MCRC_clearIntr(instance, mcrcChannel, SDL_MCRC_CHANNEL_IRQSTATUS_RAW_MAIN_ALL);
         }
     }
+
+    /* Channel disable */
+    retVal = Udma_chDisable(chHandle, UDMA_DEFAULT_CH_DISABLE_TIMEOUT);
+    DebugP_assert(UDMA_SOK == retVal);
+
+    /* UnRegister Event */
+    retVal = Udma_eventUnRegister(eventHandle);
+    DebugP_assert(UDMA_SOK == retVal);
+
+    /* Flush any pending request from the free queue */
+    while(1)
+    {
+        uint64_t pDesc;
+        int32_t  tempRetVal;
+
+        tempRetVal = Udma_ringFlushRaw(
+                         Udma_chGetFqRingHandle(chHandle), &pDesc);
+        if(UDMA_ETIMEOUT == tempRetVal)
+        {
+            break;
+        }
+    }
+
+    retVal = Udma_chClose(chHandle);
+    DebugP_assert(UDMA_SOK == retVal);
+
     SemaphoreP_destruct(&gUdmaAppDoneSem);
     return (retVal);
 }
