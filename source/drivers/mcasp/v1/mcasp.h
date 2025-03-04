@@ -543,8 +543,6 @@ typedef struct
 
     void *mcaspDmaDrvObj;
     /**< BCDMA Handle */
-    void *mcaspPktDmaDrvObj;
-    /**< PKTDMA Handle */
 
     uint8_t skipDriverOpen;
     /**< Flag to indicate if driver open should be skipped */
@@ -602,6 +600,22 @@ typedef struct
     /**< Flag to enable loopjob. when enabled loopjob buffer is transmitted if application fails to load buffers.
      *   If disabled minimum of 2 buffers need to be submitted before start and atleast one buffer should be queued before each ISR call. */
 } MCASP_TransferObj;
+
+typedef struct
+{
+    uint8_t initDone;
+    /**< Flag to indicate if the ICNT is initialized */
+    uint32_t txnByteCnt;
+    /**< Byte count for the TR */
+    uint16_t icnt0;
+    /**< ICNT0 value for the TR */
+    uint16_t icnt1;
+    /**< ICNT1 value for the TR */
+    uint16_t icnt2;
+    /**< ICNT2 value for the TR */
+    uint16_t icnt3;
+    /**< ICNT3 value for the TR */
+} MCASP_DmaIcnt;
 
 /**
  *  \brief MCASP driver object
@@ -674,6 +688,10 @@ typedef struct
     uint8_t rxFifoEnable;
     /**< Flag to indicate Rx fifo enable */
 
+    MCASP_DmaIcnt txDmaIcnt;
+    /**< DMA Icnt values for Tx */
+    MCASP_DmaIcnt rxDmaIcnt;
+    /**< DMA Icnt values for Rx */
 } MCASP_Object;
 
 /** \brief MCASP instance attributes - used during init time */
@@ -704,6 +722,10 @@ typedef struct
     /**< slot size for transmission */
     uint32_t rxSlotSize;
     /**< slot size for reception */
+    uint8_t txFifoWaterLevel;
+    /**< FIFO waterlevel for TX */
+    uint8_t rxFifoWaterLevel;
+    /**< FIFO waterlevel for RX */
 } MCASP_Attrs;
 
 typedef struct
@@ -860,6 +882,8 @@ int32_t MCASP_startTransferRx(MCASP_Handle handle);
  *
  * \return  Success/Failure for configuration
  *
+ *  Caution: This API is blocking. Hence cannot be called from ISR context!!
+ *
  */
 int32_t MCASP_stopTransferTx(MCASP_Handle handle);
 
@@ -869,6 +893,8 @@ int32_t MCASP_stopTransferTx(MCASP_Handle handle);
  * \param handle MCASP_Handle
  *
  * \return  Success/Failure for configuration
+ *
+ *  Caution: This API is blocking. Hence cannot be called from ISR context!!
  *
  */
 int32_t MCASP_stopTransferRx(MCASP_Handle handle);

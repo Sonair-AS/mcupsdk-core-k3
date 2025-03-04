@@ -103,6 +103,16 @@ void MCASP_disableDmaTx(MCASP_Config *config);
  */
 void MCASP_disableDmaRx(MCASP_Config *config);
 
+/**
+ * \brief   Function for preparing the DMA transfer
+ *
+ * \param config pointer to #MCASP_Config.
+ * \param byteCnt number of bytes to be transferred
+ * \param isTx 0 for reception and 1 for transmission
+ *
+ */
+int32_t MCASP_prepareDmaIcnts(MCASP_Handle handle, uint64_t byteCnt, uint8_t isTx);
+
 #ifdef __cplusplus
 }
 #endif

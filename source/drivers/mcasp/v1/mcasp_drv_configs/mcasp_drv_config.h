@@ -28,7 +28,7 @@
  *  THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
  *  (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
  *  OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
- */
+*/
 
 #ifndef MCASP_DRV_CONFIG_H_
 #define MCASP_DRV_CONFIG_H_
@@ -38,10 +38,16 @@ extern "C" {
 #endif
 
 /* Element count in Tx Ring */
-#define MCASP_TX_DMA_RING_ELEM_CNT       (64U)
+#define MCASP_TX_DMA_RING_ELEM_CNT       (1U)
+
+/* TR count in TX TRPD */
+#define  MCASP_TX_DMA_TR_COUNT           (64U)
 
 /* Element count in Rx Ring */
-#define MCASP_RX_DMA_RING_ELEM_CNT       (64U)
+#define MCASP_RX_DMA_RING_ELEM_CNT       (1U)
+
+/* TR count in RX TRPD */
+#define  MCASP_RX_DMA_TR_COUNT           (64U)
 
 #ifdef __cplusplus
 }

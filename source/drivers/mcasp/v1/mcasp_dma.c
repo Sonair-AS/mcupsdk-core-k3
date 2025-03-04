@@ -1,5 +1,5 @@
 /*
- *  Copyright (C) 2023 Texas Instruments Incorporated
+ *  Copyright (C) 2023-2025 Texas Instruments Incorporated
  *
  *  Redistribution and use in source and binary forms, with or without
  *  modification, are permitted provided that the following conditions
@@ -47,7 +47,9 @@
 
 #define MCASP_BCDMA_TX_CH_DEPTH                         (64U)
 
-#define MCASP_UDMA_TR3_TRPD_SIZE         (UDMA_GET_TRPD_TR3_SIZE(1))
+#define MCASP_UDMA_TR3_TRPD_SIZE_TX         (UDMA_GET_TRPD_TR3_SIZE(MCASP_TX_DMA_TR_COUNT))
+#define MCASP_UDMA_TR3_TRPD_SIZE_RX         (UDMA_GET_TRPD_TR3_SIZE(MCASP_RX_DMA_TR_COUNT))
+
 #define MCASP_UDMA_HPD_SIZE              (UDMA_ALIGN_SIZE((sizeof(CSL_UdmapCppi5HMPD))))
 
 #define MCASP_UDMA_RING_ENTRY_SIZE       (sizeof(uint64_t))
@@ -55,6 +57,15 @@
 #define MCASP_UDMA_RING_MEM_SIZE_RX      (MCASP_RX_DMA_RING_ELEM_CNT * MCASP_UDMA_RING_ENTRY_SIZE)
 
 #define MCASP_PDMA_ELEM_CNT_WITH_FIFO    (32U)
+
+/* DMA perpertual reload count */
+#define MCASP_DMA_PERPETUAL_RELOAD_CNT                  (0x1FFU)
+
+#define WORD_BYTE_COUNT                                 (4U)
+
+#define MCASP_INVALID_TXN_IDX                           (0xDEADBEEFU)
+
+#define MCASP_ICNT2_MAX                                 (65535U)
 
 /* ========================================================================== */
 /*                          Function Declarations                             */
@@ -67,13 +78,7 @@ static void MCASP_udmaIsrRx(Udma_EventHandle eventHandle, uint32_t eventType,
 
 static int32_t MCASP_primeTxTrpd(MCASP_Config *config);
 
-static int32_t MCASP_primeRxHpd(MCASP_Config *config);
-
-static void MCASP_udmaTrInit(uint8_t *pTrpd, uint64_t pBuf, uint32_t bufSize);
-
-static void MCASP_udmaHpdInit(Udma_ChHandle chHandle, uint8_t *pHpdMem,
-                              const void *destBuf, uint32_t length);
-
+static int32_t MCASP_primeRxTrpd(MCASP_Config *config);
 
 extern uint64_t Udma_virtToPhyFxn(const void *virtAddr,
                            Udma_DrvHandle drvHandle,
@@ -82,7 +87,6 @@ extern uint64_t Udma_virtToPhyFxn(const void *virtAddr,
 extern void *Udma_phyToVirtFxn(uint64_t phyAddr,
                         Udma_DrvHandle drvHandle,
                         Udma_ChHandle chHandle);
-
 
 /* ========================================================================== */
 /*                          Function Definitions                              */
@@ -93,17 +97,15 @@ int32_t MCASP_openDma(MCASP_Config *config, MCASP_DmaChConfig *dmaChCfg)
     int32_t status = SystemP_SUCCESS;
     MCASP_Object *obj = NULL;
     Udma_DrvHandle drvHandle = NULL;
-    Udma_DrvHandle drvPktHandle = NULL;
 
     if(config != NULL)
     {
         obj = config->object;
         drvHandle = (Udma_DrvHandle)obj->mcaspDmaHandle;
-        drvPktHandle = (Udma_DrvHandle)obj->mcaspPktDmaHandle;
     }
     else
     {
-        status = SystemP_SUCCESS;
+        status = SystemP_FAILURE;
     }
 
     if(obj != NULL)
@@ -134,7 +136,7 @@ int32_t MCASP_openDma(MCASP_Config *config, MCASP_DmaChConfig *dmaChCfg)
             /* Config TX channel */
             UdmaChTxPrms_init(&txPrms, chType);
 
-            /* TODO: check configurable values ? */
+            /* Set TX FIFO depth */
             txPrms.fifoDepth = MCASP_BCDMA_TX_CH_DEPTH;
 
             status = Udma_chConfigTx(txChHandle, &txPrms);
@@ -143,7 +145,7 @@ int32_t MCASP_openDma(MCASP_Config *config, MCASP_DmaChConfig *dmaChCfg)
             /* Register ring completion callback */
             eventHandle = dmaChCfg->cqTxEvtHandle;
             UdmaEventPrms_init(&eventPrms);
-            eventPrms.eventType             = UDMA_EVENT_TYPE_DMA_COMPLETION;
+            eventPrms.eventType             = UDMA_EVENT_TYPE_TR;
             eventPrms.eventMode             = UDMA_EVENT_MODE_SHARED;
             eventPrms.chHandle              = txChHandle;
             eventPrms.masterEventHandle     = Udma_eventGetGlobalHandle(drvHandle);
@@ -153,9 +155,9 @@ int32_t MCASP_openDma(MCASP_Config *config, MCASP_DmaChConfig *dmaChCfg)
             DebugP_assert(SystemP_SUCCESS == status);
 
             /* Set lastPlayed index as MCASP_TX_DMA_RING_ELEM_CNT-1. (So on playing first TRPD will be updated to 0) */
-            obj->lastPlayed = MCASP_TX_DMA_RING_ELEM_CNT-1;
+            obj->lastPlayed = MCASP_TX_DMA_TR_COUNT-1U;
 
-            obj->lastFilled = MCASP_TX_DMA_RING_ELEM_CNT-1;
+            obj->lastFilled = MCASP_TX_DMA_TR_COUNT-1U;
         }
 
         /* Congfig RX side PDMA -> PKTDMA pair */
@@ -178,33 +180,31 @@ int32_t MCASP_openDma(MCASP_Config *config, MCASP_DmaChConfig *dmaChCfg)
             chPrms.fqRingPrms.elemCnt       = MCASP_RX_DMA_RING_ELEM_CNT;
             rxChHandle                      = dmaChCfg->rxChHandle;
 
-            status = Udma_chOpen(drvPktHandle, rxChHandle, chType, &chPrms);
+            status = Udma_chOpen(drvHandle, rxChHandle, chType, &chPrms);
             DebugP_assert(SystemP_SUCCESS == status);
 
             UdmaChRxPrms_init(&rxPrms, chType);
-
-            rxPrms.chanType = TISCI_MSG_VALUE_RM_UDMAP_CH_TYPE_PACKET_SINGLE_BUF;
             rxPrms.configDefaultFlow = FALSE;
+
             status = Udma_chConfigRx(rxChHandle, &rxPrms);
             DebugP_assert(SystemP_SUCCESS == status);
 
             /* Register ring completion callback */
             eventHandle = dmaChCfg->cqRxEvtHandle;
             UdmaEventPrms_init(&eventPrms);
-            eventPrms.eventType             = UDMA_EVENT_TYPE_DMA_COMPLETION;
+            eventPrms.eventType             = UDMA_EVENT_TYPE_TR;
             eventPrms.eventMode             = UDMA_EVENT_MODE_SHARED;
             eventPrms.chHandle              = rxChHandle;
-            eventPrms.masterEventHandle     = Udma_eventGetGlobalHandle(drvPktHandle);
+            eventPrms.masterEventHandle     = Udma_eventGetGlobalHandle(drvHandle);
             eventPrms.eventCb               = &MCASP_udmaIsrRx;
             eventPrms.appData               = config;
-            status = Udma_eventRegister(drvPktHandle, eventHandle, &eventPrms);
+            status = Udma_eventRegister(drvHandle, eventHandle, &eventPrms);
             DebugP_assert(SystemP_SUCCESS == status);
 
             /* Set last record queued index */
-            obj->lastRecQueued = MCASP_RX_DMA_RING_ELEM_CNT-1;
+            obj->lastRecQueued = MCASP_RX_DMA_TR_COUNT-1U;
 
-            /* Set lastReceived index as 63. (So on playing first TRPD will be updated to 0) */
-            obj->lastReceived = MCASP_RX_DMA_RING_ELEM_CNT-1;
+            obj->lastReceived = MCASP_RX_DMA_TR_COUNT-1U;
         }
     }
 
@@ -226,40 +226,46 @@ static int32_t MCASP_primeTxTrpd(MCASP_Config *config)
     }
     else
     {
-        status = SystemP_SUCCESS;
+        status = SystemP_FAILURE;
     }
     if(obj != NULL)
     {
+        Udma_ChHandle txChHandle = obj->dmaChCfg->txChHandle;
+
         if(status == SystemP_SUCCESS)
         {
-            Udma_ChHandle txChHandle = obj->dmaChCfg->txChHandle;
-
             uint32_t cqRingNum = Udma_chGetCqRingNum(txChHandle);
 
             drvHandle = obj->mcaspDmaHandle;
 
-            memset(obj->dmaChCfg->txCbParams, 0, sizeof(MCASP_Transaction *)*MCASP_TX_DMA_RING_ELEM_CNT);
+            memset(obj->dmaChCfg->txCbParams, 0, sizeof(MCASP_Transaction *)*MCASP_TX_DMA_TR_COUNT);
 
-            memset(obj->dmaChCfg->txTrpdMem, 0, MCASP_UDMA_TR3_TRPD_SIZE*MCASP_TX_DMA_RING_ELEM_CNT);
+            memset(obj->dmaChCfg->txTrpdMem, 0, MCASP_UDMA_TR3_TRPD_SIZE_TX*MCASP_TX_DMA_RING_ELEM_CNT);
 
-            CacheP_wb(obj->dmaChCfg->txTrpdMem, MCASP_UDMA_TR3_TRPD_SIZE*MCASP_TX_DMA_RING_ELEM_CNT, CacheP_TYPE_ALLD);
+            CacheP_wb(obj->dmaChCfg->txTrpdMem, MCASP_UDMA_TR3_TRPD_SIZE_TX*MCASP_TX_DMA_RING_ELEM_CNT, CacheP_TYPE_ALLD);
 
-            /* Prime TRPD mem with the TRPDs all containing loopjobs */
-            for(i = 0; i < MCASP_TX_DMA_RING_ELEM_CNT; i++)
+            UdmaUtils_makeTrpd((uint8_t *)obj->dmaChCfg->txTrpdMem, UDMA_TR_TYPE_3, MCASP_TX_DMA_TR_COUNT, cqRingNum);
+
+            /* Perpetual reload */
+            UdmaUtils_setTrpdReload((uint8_t *)obj->dmaChCfg->txTrpdMem, MCASP_DMA_PERPETUAL_RELOAD_CNT, 0U);
+
+            /* Prime TRs in TRPD with loopjobs */
+            for(i = 0; i < MCASP_TX_DMA_TR_COUNT; i++)
             {
-                UdmaUtils_makeTrpd(((uint8_t *)obj->dmaChCfg->txTrpdMem + (MCASP_UDMA_TR3_TRPD_SIZE*i)), UDMA_TR_TYPE_3, 1, cqRingNum);
-
-                CacheP_wb(((uint8_t *)obj->dmaChCfg->txTrpdMem + (MCASP_UDMA_TR3_TRPD_SIZE*i)), MCASP_UDMA_TR3_TRPD_SIZE, CacheP_TYPE_ALLD);
-
-                pTr = UdmaUtils_getTrpdTr3Pointer(((uint8_t *)obj->dmaChCfg->txTrpdMem + (MCASP_UDMA_TR3_TRPD_SIZE*i)), 0);
+                pTr = UdmaUtils_getTrpdTr3Pointer((uint8_t *)obj->dmaChCfg->txTrpdMem, i);
 
                 pTr->flags = CSL_FMK(UDMAP_TR_FLAGS_TYPE, CSL_UDMAP_TR_FLAGS_TYPE_4D_DATA_MOVE);
-                pTr->flags |= CSL_FMK(UDMAP_TR_FLAGS_EOP, 1U);
+
                 pTr->addr = (uint64_t)Udma_virtToPhyFxn(obj->XmtObj.txnLoopjob.buf, drvHandle, txChHandle);
-                pTr->icnt0 = (uint16_t)(obj->XmtObj.txnLoopjob.count*sizeof(uint32_t));
-                pTr->icnt1 = 1;
-                pTr->icnt2 = 1;
-                pTr->icnt3 = 1;
+
+                status = MCASP_prepareDmaIcnts((MCASP_Handle)config, (obj->XmtObj.txnLoopjob.count * WORD_BYTE_COUNT),
+                                                                1U);
+                DebugP_assert(status == SystemP_SUCCESS);
+
+                pTr->icnt0 = obj->txDmaIcnt.icnt0;
+                pTr->icnt1 = obj->txDmaIcnt.icnt1;
+                pTr->icnt2 = obj->txDmaIcnt.icnt2;
+                pTr->icnt3 = obj->txDmaIcnt.icnt3;
 
                 pTr->dim1     = pTr->icnt0;
                 pTr->dim2     = (pTr->icnt0 * pTr->icnt1);
@@ -267,87 +273,53 @@ static int32_t MCASP_primeTxTrpd(MCASP_Config *config)
             }
 
             /* Writeback the TRPD memory */
-            CacheP_wb(obj->dmaChCfg->txTrpdMem, MCASP_UDMA_TR3_TRPD_SIZE*MCASP_TX_DMA_RING_ELEM_CNT, CacheP_TYPE_ALLD);
+            CacheP_wb(obj->dmaChCfg->txTrpdMem, MCASP_UDMA_TR3_TRPD_SIZE_TX*MCASP_TX_DMA_RING_ELEM_CNT, CacheP_TYPE_ALLD);
 
             /* Prime ring memory with pointers to TRPD */
-            for(i = 0; i < MCASP_TX_DMA_RING_ELEM_CNT; i++)
-            {
-                uint64_t *ringPtr = (uint64_t *)((uint8_t *)obj->dmaChCfg->txRingMem + (i*sizeof(uint64_t)));
-                *ringPtr = (uint64_t)Udma_virtToPhyFxn((uint8_t *)obj->dmaChCfg->txTrpdMem + (MCASP_UDMA_TR3_TRPD_SIZE*i), drvHandle, txChHandle);
-            }
+            uint64_t *ringPtr = (uint64_t *)obj->dmaChCfg->txRingMem;
+            *ringPtr = (uint64_t)Udma_virtToPhyFxn((uint8_t *)obj->dmaChCfg->txTrpdMem, drvHandle, txChHandle);
 
             /* Writeback ring memory */
             CacheP_wb(obj->dmaChCfg->txRingMem, MCASP_UDMA_RING_ENTRY_SIZE * MCASP_TX_DMA_RING_ELEM_CNT, CacheP_TYPE_ALLD);
 
             /* Check if there are txn already submitted */
-            if(!QueueP_isEmpty(obj->reqQueueHandleTx))
+            if(QueueP_isEmpty(obj->reqQueueHandleTx) == QueueP_NOTEMPTY)
             {
                 MCASP_Transaction *txn = NULL;
                 uint64_t txCnt = 0;
-                uint32_t quotient = 0U;
-                uint32_t remainder = 0U;
-                uint16_t icnt[4] = { 0U, 0U, 0U, 0U };
 
-                for(i = 0; i < MCASP_TX_DMA_RING_ELEM_CNT; i++)
+                txCbParam = obj->dmaChCfg->txCbParams;
+
+                for(i = 0; i < MCASP_TX_DMA_TR_COUNT; i++)
                 {
                     txn = QueueP_get(obj->reqQueueHandleTx);
 
                     if(txn != obj->reqQueueHandleTx)
                     {
                         /* Update last filled index */
-                        obj->lastFilled = (obj->lastFilled + 1)%(MCASP_TX_DMA_RING_ELEM_CNT);
+                        obj->lastFilled = (obj->lastFilled + 1U)%(MCASP_TX_DMA_TR_COUNT);
 
-                        pTr = UdmaUtils_getTrpdTr3Pointer(((uint8_t *)obj->dmaChCfg->txTrpdMem + (MCASP_UDMA_TR3_TRPD_SIZE*obj->lastFilled)), 0);
+                        pTr = UdmaUtils_getTrpdTr3Pointer((uint8_t *)obj->dmaChCfg->txTrpdMem, obj->lastFilled);
 
-                        txCnt = (uint64_t)(txn->count*4);
-                        if(txCnt < MCASP_DMA_L0_MAX_XFER_SIZE)
-                        {
-                            icnt[0] = (uint16_t)(txCnt);
-                            icnt[1] = 1;
-                        }
-                        else
-                        {
-                            icnt[0] = (uint16_t)MCASP_DMA_UDMA_XFER_SIZE;
-                            quotient = (uint32_t)(txCnt / MCASP_DMA_UDMA_XFER_SIZE);
-                            remainder = (uint32_t)(txCnt % MCASP_DMA_UDMA_XFER_SIZE);
-                            icnt[1] = (uint16_t)quotient;
-                        }
+                        txCnt = (uint32_t)(txn->count*WORD_BYTE_COUNT);
 
-                        icnt[2] = (uint16_t)1U;
-                        icnt[3] = (uint16_t)1U;
+                        status = MCASP_prepareDmaIcnts((MCASP_Handle)config, (txCnt),
+                                                                1U);
 
-                        pTr->addr = (uint64_t)Udma_virtToPhyFxn(txn->buf, drvHandle, txChHandle);
-                        pTr->icnt0 = icnt[0];
-                        pTr->icnt1 = icnt[1];
-                        pTr->icnt2 = icnt[2];
-                        pTr->icnt3 = icnt[3];
+                        DebugP_assert(status == SystemP_SUCCESS);
+
+                        pTr->addr =(uint64_t)Udma_virtToPhyFxn(txn->buf, drvHandle, txChHandle);
+
+                        pTr->icnt0 = obj->txDmaIcnt.icnt0;
+                        pTr->icnt1 = obj->txDmaIcnt.icnt1;
+                        pTr->icnt2 = obj->txDmaIcnt.icnt2;
+                        pTr->icnt3 = obj->txDmaIcnt.icnt3;
 
                         pTr->dim1     = pTr->icnt0;
                         pTr->dim2     = (pTr->icnt0 * pTr->icnt1);
                         pTr->dim3     = (pTr->icnt0 * pTr->icnt1 * pTr->icnt2);
 
                         CacheP_wb(pTr, sizeof(CSL_UdmapTR3), CacheP_TYPE_ALLD);
-
-                        if(remainder != 0)
-                        {
-                            i++;
-
-                            obj->lastFilled = (obj->lastFilled + 1)%(MCASP_TX_DMA_RING_ELEM_CNT);
-
-                            pTr = UdmaUtils_getTrpdTr3Pointer(((uint8_t *)obj->dmaChCfg->txTrpdMem + (MCASP_UDMA_TR3_TRPD_SIZE*obj->lastFilled)), 0);
-
-                            pTr->addr = (uint64_t)Udma_virtToPhyFxn((uint8_t *)txn->buf + (txCnt- remainder), drvHandle, txChHandle);
-                            pTr->icnt0 = (uint16_t)remainder;
-                            pTr->icnt1 = (uint16_t)1U;
-                            pTr->icnt2 = (uint16_t)1U;
-                            pTr->icnt3 = (uint16_t)1U;
-
-                            pTr->dim1     = pTr->icnt0;
-                            pTr->dim2     = (pTr->icnt0 * pTr->icnt1);
-                            pTr->dim3     = (pTr->icnt0 * pTr->icnt1 * pTr->icnt2);
-
-                            CacheP_wb(pTr, sizeof(CSL_UdmapTR3), CacheP_TYPE_ALLD);
-                        }
 
                         txCbParam = obj->dmaChCfg->txCbParams;
                         txCbParam = txCbParam + (obj->lastFilled);
@@ -359,10 +331,10 @@ static int32_t MCASP_primeTxTrpd(MCASP_Config *config)
                     }
                 }
             }
-
-            /* Set doorbell to push the number of TRPDs queued */
-            Udma_ringSetDoorBell(Udma_chGetFqRingHandle(txChHandle), i);
         }
+
+        /* Set doorbell to push the TRPD  */
+        Udma_ringSetDoorBell(Udma_chGetFqRingHandle(txChHandle), MCASP_TX_DMA_RING_ELEM_CNT);
     }
 
     return status;
@@ -380,7 +352,7 @@ void MCASP_closeDma(MCASP_Config *config, MCASP_DmaChConfig *dmaChCfg)
 
         status = Udma_chDisable(txChHandle, UDMA_DEFAULT_CH_DISABLE_TIMEOUT);
 
-        while(1)
+        while(TRUE)
         {
             int32_t  tempRetVal;
             uint64_t pDesc;
@@ -401,7 +373,7 @@ void MCASP_closeDma(MCASP_Config *config, MCASP_DmaChConfig *dmaChCfg)
         status = Udma_chDisable(rxChHandle, UDMA_DEFAULT_CH_DISABLE_TIMEOUT);
         DebugP_assert(SystemP_SUCCESS == status);
 
-        while(1)
+        while(TRUE)
         {
             int32_t  tempRetVal;
             uint64_t pDesc;
@@ -419,7 +391,7 @@ void MCASP_closeDma(MCASP_Config *config, MCASP_DmaChConfig *dmaChCfg)
         DebugP_assert(SystemP_SUCCESS == status);
 
         /* Flush any pending request from the free queue */
-        while(1U)
+        while(TRUE)
         {
             uint64_t pDesc;
             int32_t  tempRetVal;
@@ -433,7 +405,7 @@ void MCASP_closeDma(MCASP_Config *config, MCASP_DmaChConfig *dmaChCfg)
         }
 
         /* Flush any pending request from the free queue */
-        while(1U)
+        while(TRUE)
         {
             uint64_t pDesc;
             int32_t  tempRetVal;
@@ -462,6 +434,8 @@ int32_t MCASP_enableDmaTx(MCASP_Config *config)
 {
     int32_t status = SystemP_SUCCESS;
     MCASP_Object *obj = NULL;
+    const MCASP_Attrs *attrs = NULL;
+    Udma_ChStats chStats;
 
     if(NULL == config)
     {
@@ -470,6 +444,7 @@ int32_t MCASP_enableDmaTx(MCASP_Config *config)
     else
     {
         obj = config->object;
+        attrs = config->attrs;
     }
 
     if(status == SystemP_SUCCESS)
@@ -482,18 +457,23 @@ int32_t MCASP_enableDmaTx(MCASP_Config *config)
         pdmaPrms.elemSize = UDMA_PDMA_ES_32BITS;
 
         /* Number of words received in each transfer */
-        if(obj->txFifoEnable == 1)
+        if(obj->txFifoEnable == 1U)
         {
-            pdmaPrms.elemCnt = MCASP_PDMA_ELEM_CNT_WITH_FIFO;
+            pdmaPrms.elemCnt = attrs->txFifoWaterLevel;
         }
         else
         {
             pdmaPrms.elemCnt = 1;
         }
-        pdmaPrms.fifoCnt = 0U;
 
         pdmaPrms.acc32 = 1U;
         pdmaPrms.burst = 1U;
+
+        status = MCASP_primeTxTrpd(config);
+        DebugP_assert(status == SystemP_SUCCESS);
+
+        uint32_t txnByteCnt = obj->txDmaIcnt.txnByteCnt;
+        pdmaPrms.fifoCnt = txnByteCnt/(WORD_BYTE_COUNT * pdmaPrms.elemCnt);
 
         status = Udma_chConfigPdma(txChHandle, &pdmaPrms);
         DebugP_assert(SystemP_SUCCESS == status);
@@ -501,8 +481,17 @@ int32_t MCASP_enableDmaTx(MCASP_Config *config)
         status = Udma_chEnable(txChHandle);
         DebugP_assert(status == SystemP_SUCCESS);
 
-        status = MCASP_primeTxTrpd(config);
-        DebugP_assert(status == SystemP_SUCCESS);
+        obj->lastPlayed = MCASP_TX_DMA_TR_COUNT-1U;
+
+        /* Reset BCDMA RT Pkt Count */
+        do {
+            status += Udma_chGetStats(txChHandle, &chStats);
+
+            /* Reset/Decrement the number of processed packets */
+            status += Udma_chDecStats(txChHandle, &chStats);
+
+            status += Udma_chGetStats(txChHandle, &chStats);
+        }while(chStats.packetCnt != 0U);
     }
 
     return status;
@@ -512,6 +501,8 @@ int32_t MCASP_enableDmaRx(MCASP_Config *config)
 {
     int32_t status = SystemP_SUCCESS;
     MCASP_Object *obj = NULL;
+    const MCASP_Attrs *attrs = NULL;
+    Udma_ChStats chStats;
 
     if(NULL == config)
     {
@@ -520,8 +511,8 @@ int32_t MCASP_enableDmaRx(MCASP_Config *config)
     else
     {
         obj = config->object;
+        attrs = config->attrs;
     }
-
 
     if(status == SystemP_SUCCESS)
     {
@@ -533,79 +524,53 @@ int32_t MCASP_enableDmaRx(MCASP_Config *config)
         pdmaPrms.elemSize = UDMA_PDMA_ES_32BITS;
 
         /* Number of words received in each transfer */
-        if(obj->rxFifoEnable == 1)
+        if(obj->rxFifoEnable == 1U)
         {
-            pdmaPrms.elemCnt = MCASP_PDMA_ELEM_CNT_WITH_FIFO;
+            pdmaPrms.elemCnt = attrs->rxFifoWaterLevel;
         }
         else
         {
             pdmaPrms.elemCnt = 1;
         }
-        pdmaPrms.fifoCnt = 0U;
 
         pdmaPrms.acc32 = 1U;
         pdmaPrms.burst = 1U;
+
+        status = MCASP_primeRxTrpd(config);
+        DebugP_assert(SystemP_SUCCESS == status);
+
+        uint32_t txnByteCnt = obj->rxDmaIcnt.txnByteCnt;
+        pdmaPrms.fifoCnt = txnByteCnt/(WORD_BYTE_COUNT * pdmaPrms.elemCnt);
 
         status = Udma_chConfigPdma(rxChHandle, &pdmaPrms);
         DebugP_assert(SystemP_SUCCESS == status);
 
         status = Udma_chEnable(rxChHandle);
-        DebugP_assert(status == SystemP_SUCCESS);
-
-        /* Prime Rx host packet descriptors */
-        MCASP_primeRxHpd(config);
-
         DebugP_assert(SystemP_SUCCESS == status);
 
+        obj->lastReceived = MCASP_RX_DMA_TR_COUNT-1U;
+
+        /* Reset BCDMA RT Pkt Count */
+        do {
+            status += Udma_chGetStats(rxChHandle, &chStats);
+
+            /* Reset/Decrement the number of processed packets */
+            status += Udma_chDecStats(rxChHandle, &chStats);
+
+            status += Udma_chGetStats(rxChHandle, &chStats);
+        }while(chStats.packetCnt != 0U);
     }
 
     return status;
 }
 
-static void MCASP_udmaHpdInit(Udma_ChHandle chHandle,
-                              uint8_t       *pHpdMem,
-                              const void    *destBuf,
-                              uint32_t      length)
-{
-    CSL_UdmapCppi5HMPD *pHpd = (CSL_UdmapCppi5HMPD *) pHpdMem;
-    uint32_t descType = (uint32_t)CSL_UDMAP_CPPI5_PD_DESCINFO_DTYPE_VAL_HOST;
-
-    /* Setup descriptor */
-    CSL_udmapCppi5SetDescType(pHpd, descType);
-    CSL_udmapCppi5SetEpiDataPresent(pHpd, FALSE);
-    CSL_udmapCppi5SetPsDataLoc(pHpd, 0U);
-    CSL_udmapCppi5SetPsDataLen(pHpd, 0U);
-    CSL_udmapCppi5SetPktLen(pHpd, descType, length);
-    CSL_udmapCppi5SetPsFlags(pHpd, 0U);
-    CSL_udmapCppi5SetIds(pHpd, descType, 0x321, UDMA_DEFAULT_FLOW_ID);
-    CSL_udmapCppi5SetSrcTag(pHpd, 0x0000);     /* Not used */
-    CSL_udmapCppi5SetDstTag(pHpd, 0x0000);     /* Not used */
-    /* Return Policy descriptors are reserved in case of AM243X/Am64X */
-    CSL_udmapCppi5SetReturnPolicy(
-        pHpd,
-        descType,
-        0U,
-        0U,
-        0U,
-        0U);
-    CSL_udmapCppi5LinkDesc(pHpd, 0U);
-    CSL_udmapCppi5SetBufferAddr(pHpd, (uint64_t) Udma_defaultVirtToPhyFxn(destBuf, 0U, NULL));
-    CSL_udmapCppi5SetBufferLen(pHpd, length);
-    CSL_udmapCppi5SetOrgBufferAddr(pHpd, (uint64_t) Udma_defaultVirtToPhyFxn(destBuf, 0U, NULL));
-    CSL_udmapCppi5SetOrgBufferLen(pHpd, length);
-
-    /* Writeback cache */
-    CacheP_wb(pHpdMem, sizeof(CSL_UdmapCppi5HMPD), CacheP_TYPE_ALLD);
-
-    return;
-}
-
-static int32_t MCASP_primeRxHpd(MCASP_Config *config)
+static int32_t MCASP_primeRxTrpd(MCASP_Config *config)
 {
     int32_t status = SystemP_SUCCESS;
     MCASP_Object *obj = NULL;
-    uint32_t i;
-    MCASP_Transaction **rxCbParam = NULL;
+    CSL_UdmapTR3 *pTr = NULL;
+    uint32_t i = 0;
+    MCASP_Transaction **rxCbParam;
     Udma_DrvHandle drvHandle;
 
     if(config != NULL)
@@ -614,54 +579,102 @@ static int32_t MCASP_primeRxHpd(MCASP_Config *config)
     }
     else
     {
-        status = SystemP_SUCCESS;
+        status = SystemP_FAILURE;
     }
     if(obj != NULL)
     {
+        Udma_ChHandle rxChHandle = obj->dmaChCfg->rxChHandle;
+
         if(status == SystemP_SUCCESS)
         {
-            Udma_ChHandle rxChHandle = obj->dmaChCfg->rxChHandle;
-            drvHandle = obj->mcaspPktDmaHandle;
+            uint32_t cqRingNum = Udma_chGetCqRingNum(rxChHandle);
 
-            memset(obj->dmaChCfg->rxCbParams, 0, sizeof(MCASP_Transaction *)*MCASP_RX_DMA_RING_ELEM_CNT);
+            drvHandle = obj->mcaspDmaHandle;
 
-            /* Prime TRPD mem with the TRPDs all containing loopjobs */
-            for(i = 0; i < MCASP_RX_DMA_RING_ELEM_CNT; i++)
+            memset(obj->dmaChCfg->rxCbParams, 0, sizeof(MCASP_Transaction *)*MCASP_RX_DMA_TR_COUNT);
+
+            memset(obj->dmaChCfg->rxTrpdMem, 0, MCASP_UDMA_TR3_TRPD_SIZE_RX*MCASP_RX_DMA_RING_ELEM_CNT);
+
+            CacheP_wb(obj->dmaChCfg->rxTrpdMem, MCASP_UDMA_TR3_TRPD_SIZE_RX*MCASP_RX_DMA_RING_ELEM_CNT, CacheP_TYPE_ALLD);
+
+            UdmaUtils_makeTrpd((uint8_t *)obj->dmaChCfg->rxTrpdMem, UDMA_TR_TYPE_3, MCASP_RX_DMA_TR_COUNT, cqRingNum);
+
+            /* Perpetual reload */
+            UdmaUtils_setTrpdReload((uint8_t *)obj->dmaChCfg->rxTrpdMem, MCASP_DMA_PERPETUAL_RELOAD_CNT, 0U);
+
+            /* Prime TRs in TRPD with loopjobs */
+            for(i = 0; i < MCASP_RX_DMA_TR_COUNT; i++)
             {
-                MCASP_udmaHpdInit(rxChHandle,
-                                ((uint8_t *)obj->dmaChCfg->rxTrpdMem + (MCASP_UDMA_HPD_SIZE*i)),
-                                (void *)Udma_virtToPhyFxn(obj->RcvObj.txnLoopjob.buf, drvHandle, rxChHandle),
-                                obj->RcvObj.txnLoopjob.count*sizeof(uint32_t));
+                pTr = UdmaUtils_getTrpdTr3Pointer((uint8_t *)obj->dmaChCfg->rxTrpdMem, i);
+
+                pTr->flags = CSL_FMK(UDMAP_TR_FLAGS_TYPE, CSL_UDMAP_TR_FLAGS_TYPE_4D_DATA_MOVE);
+                pTr->flags |= CSL_FMK(UDMAP_TR_FLAGS_EOP, 1U);
+                pTr->addr = (uint64_t)Udma_virtToPhyFxn(obj->RcvObj.txnLoopjob.buf, drvHandle, rxChHandle);
+
+                status = MCASP_prepareDmaIcnts((MCASP_Handle)config, (obj->RcvObj.txnLoopjob.count * WORD_BYTE_COUNT),
+                                                                0U);
+                DebugP_assert(status == SystemP_SUCCESS);
+
+                pTr->icnt0 = obj->rxDmaIcnt.icnt0;
+                pTr->icnt1 = obj->rxDmaIcnt.icnt1;
+                pTr->icnt2 = obj->rxDmaIcnt.icnt2;
+                pTr->icnt3 = obj->rxDmaIcnt.icnt3;
+
+                pTr->dim1     = pTr->icnt0;
+                pTr->dim2     = (pTr->icnt0 * pTr->icnt1);
+                pTr->dim3     = (pTr->icnt0 * pTr->icnt1 * pTr->icnt2);
             }
+
+            /* Writeback the TRPD memory */
+            CacheP_wb(obj->dmaChCfg->rxTrpdMem, MCASP_UDMA_TR3_TRPD_SIZE_RX*MCASP_RX_DMA_RING_ELEM_CNT, CacheP_TYPE_ALLD);
 
             /* Prime ring memory with pointers to TRPD */
-            for(i = 0; i < MCASP_RX_DMA_RING_ELEM_CNT; i++)
-            {
-                uint64_t *ringPtr = (uint64_t *)((uint8_t *)obj->dmaChCfg->rxRingMem + (i*sizeof(uint64_t)));
-                *ringPtr = (uint64_t)Udma_virtToPhyFxn((uint8_t *)obj->dmaChCfg->rxTrpdMem + (MCASP_UDMA_HPD_SIZE*i), drvHandle, rxChHandle);
-            }
+            uint64_t *ringPtr = (uint64_t *)obj->dmaChCfg->rxRingMem;
+            *ringPtr = (uint64_t)Udma_virtToPhyFxn((uint8_t *)obj->dmaChCfg->rxTrpdMem, drvHandle, rxChHandle);
 
-            CacheP_wb(obj->dmaChCfg->rxRingMem, MCASP_RX_DMA_RING_ELEM_CNT * MCASP_UDMA_RING_ENTRY_SIZE, CacheP_TYPE_ALLD);
+            /* Writeback ring memory */
+            CacheP_wb(obj->dmaChCfg->rxRingMem, MCASP_UDMA_RING_ENTRY_SIZE * MCASP_RX_DMA_RING_ELEM_CNT, CacheP_TYPE_ALLD);
 
-            /* Check if there are txn already submitted for receiving */
-            if(!QueueP_isEmpty(obj->reqQueueHandleRx))
+            /* Check if there are txn already submitted */
+            if(QueueP_isEmpty(obj->reqQueueHandleRx) == QueueP_NOTEMPTY)
             {
                 MCASP_Transaction *txn = NULL;
+                uint32_t txCnt = 0U;
 
-                for(i = 0; i < MCASP_RX_DMA_RING_ELEM_CNT; i++)
+                for(i = 0; i < MCASP_RX_DMA_TR_COUNT; i++)
                 {
                     txn = QueueP_get(obj->reqQueueHandleRx);
 
                     if(txn != obj->reqQueueHandleRx)
                     {
-                        obj->lastRecQueued = (obj->lastRecQueued+1)%MCASP_RX_DMA_RING_ELEM_CNT;
-                        MCASP_udmaHpdInit(rxChHandle,
-                                ((uint8_t *)obj->dmaChCfg->rxTrpdMem + (MCASP_UDMA_HPD_SIZE*obj->lastRecQueued)),
-                                (void *)Udma_virtToPhyFxn(txn->buf, drvHandle, rxChHandle),
-                                txn->count*sizeof(uint32_t));
+                        /* Update last receive queued index */
+                        obj->lastRecQueued= (obj->lastRecQueued + 1U)%(MCASP_RX_DMA_TR_COUNT);
 
-                        rxCbParam = (MCASP_Transaction **)obj->dmaChCfg->rxCbParams + obj->lastRecQueued;
-                        *(rxCbParam) = txn;
+                        pTr = UdmaUtils_getTrpdTr3Pointer((uint8_t *)obj->dmaChCfg->rxTrpdMem, obj->lastRecQueued);
+
+                        txCnt = (uint32_t)(txn->count * WORD_BYTE_COUNT);
+
+                        status = MCASP_prepareDmaIcnts((MCASP_Handle)config, (txCnt),
+                                                                0U);
+
+                        DebugP_assert(status == SystemP_SUCCESS);
+
+                        pTr->addr =(uint64_t)Udma_virtToPhyFxn(txn->buf, drvHandle, rxChHandle);
+
+                        pTr->icnt0 = obj->rxDmaIcnt.icnt0;
+                        pTr->icnt1 = obj->rxDmaIcnt.icnt1;
+                        pTr->icnt2 = obj->rxDmaIcnt.icnt2;
+                        pTr->icnt3 = obj->rxDmaIcnt.icnt3;
+
+                        pTr->dim1     = pTr->icnt0;
+                        pTr->dim2     = (pTr->icnt0 * pTr->icnt1);
+                        pTr->dim3     = (pTr->icnt0 * pTr->icnt1 * pTr->icnt2);
+
+                        CacheP_wb(pTr, sizeof(CSL_UdmapTR3), CacheP_TYPE_ALLD);
+
+                        rxCbParam = obj->dmaChCfg->rxCbParams;
+                        rxCbParam = rxCbParam + (obj->lastRecQueued);
+                        *rxCbParam = txn;
                     }
                     else
                     {
@@ -669,10 +682,10 @@ static int32_t MCASP_primeRxHpd(MCASP_Config *config)
                     }
                 }
             }
-
-            /* Set doorbell to inform the number of TRPDs queued */
-            Udma_ringSetDoorBell(Udma_chGetFqRingHandle(rxChHandle), i);
         }
+
+        /* Set doorbell to push the TRPD  */
+        Udma_ringSetDoorBell(Udma_chGetFqRingHandle(rxChHandle), MCASP_RX_DMA_RING_ELEM_CNT);
     }
 
     return status;
@@ -680,334 +693,614 @@ static int32_t MCASP_primeRxHpd(MCASP_Config *config)
 
 void MCASP_disableDmaTx(MCASP_Config *config)
 {
+    int32_t status = SystemP_SUCCESS;
+    MCASP_Object *obj = NULL;
+    Udma_ChHandle txChHandle = NULL;
+
+    if(NULL != config)
+    {
+        obj = config->object;
+        txChHandle = obj->dmaChCfg->txChHandle;
+
+        status = Udma_chReset(txChHandle);
+
+        while(TRUE)
+        {
+            int32_t  tempRetVal;
+            uint64_t pDesc;
+            tempRetVal = Udma_ringFlushRaw(Udma_chGetFqRingHandle(txChHandle), &pDesc);
+            if(UDMA_ETIMEOUT == tempRetVal)
+            {
+                break;
+            }
+        }
+
+        /* Set lastPlayed index as MCASP_TX_DMA_RING_ELEM_CNT-1. (So on playing first TRPD will be updated to 0) */
+        obj->lastPlayed = MCASP_TX_DMA_TR_COUNT-1U;
+        obj->lastFilled = MCASP_TX_DMA_TR_COUNT-1U;
+
+        obj->txDmaIcnt.initDone = 0U;
+
+        DebugP_assert(SystemP_SUCCESS == status);
+    }
+    else
+    {
+        /* Do nothing */
+    }
+
     return;
 }
 
 void MCASP_disableDmaRx(MCASP_Config *config)
 {
-    return;
-}
+    int32_t status = SystemP_SUCCESS;
+    MCASP_Object *obj = NULL;
+    Udma_ChHandle rxChHandle = NULL;
 
-static void MCASP_udmaTrInit(uint8_t *pTrpd, uint64_t pBuf, uint32_t bufSize)
-{
-    CSL_UdmapTR3 *pTr = NULL;
-    uint16_t icnt[4] = { 0U, 0U, 0U, 0U };
-    uint32_t quotient = 0U;
-
-    if(pTrpd != NULL)
+    if(NULL != config)
     {
-        pTr = UdmaUtils_getTrpdTr3Pointer(pTrpd, 0);
+        obj = config->object;
+        rxChHandle = obj->dmaChCfg->rxChHandle;
 
-        if(bufSize < MCASP_DMA_L0_MAX_XFER_SIZE)
+        status = Udma_chDisable(rxChHandle, UDMA_DEFAULT_CH_DISABLE_TIMEOUT);
+
+        while(TRUE)
         {
-            icnt[0] = (uint16_t)(bufSize);
-            icnt[1] = 0;
+            int32_t  tempRetVal;
+            uint64_t pDesc;
+            tempRetVal = Udma_ringFlushRaw(Udma_chGetFqRingHandle(rxChHandle), &pDesc);
+            if(UDMA_ETIMEOUT == tempRetVal)
+            {
+                break;
+            }
         }
-        else
+
+        /* Reset the rx channel if channel teardown fails */
+        if(SystemP_SUCCESS != status)
         {
-            icnt[0] = (uint16_t)MCASP_DMA_UDMA_XFER_SIZE;
-            quotient = bufSize / MCASP_DMA_UDMA_XFER_SIZE;
-            icnt[1] = (uint16_t)(quotient);
+            status = Udma_chReset(rxChHandle);
         }
 
-        icnt[2] = (uint16_t)1U;
-        icnt[3] = (uint16_t)1U;
+        /* Set last record queued index */
+        obj->lastRecQueued = MCASP_RX_DMA_TR_COUNT-1U;
+        obj->lastReceived = MCASP_RX_DMA_TR_COUNT-1U;
 
-        pTr->addr = pBuf;
-        pTr->icnt0 = icnt[0];
-        pTr->icnt1 = icnt[1];
-        pTr->icnt2 = icnt[2];
-        pTr->icnt3 = icnt[3];
+        obj->rxDmaIcnt.initDone = 0U;
 
-        pTr->dim1     = pTr->icnt0;
-        pTr->dim2     = (pTr->icnt0 * pTr->icnt1);
-        pTr->dim3     = (pTr->icnt0 * pTr->icnt1 * pTr->icnt2);
-
-        CacheP_wb(pTr, sizeof(CSL_UdmapTR3), CacheP_TYPE_ALLD);
+        DebugP_assert(SystemP_SUCCESS == status);
     }
+    else
+    {
+        /* Do nothing */
+    }
+
+    return;
 }
 
 static void MCASP_udmaIsrTx(Udma_EventHandle eventHandle,
                                  uint32_t eventType,
                                  void *args)
 {
-    uint64_t pDesc;
-    MCASP_Object *object;
-    Udma_ChHandle txChHandle;
-    Udma_DrvHandle drvHandle;
-    MCASP_Transaction **txCbParam;
-
-    object = ((MCASP_Config *)args)->object;
-
-    MCASP_DmaChConfig *dmaChCfg = object->dmaChCfg;
-    txChHandle = dmaChCfg->txChHandle;
-    drvHandle = (Udma_DrvHandle)object->mcaspDmaHandle;
-
-    Udma_RingHandle ringHandle = Udma_chGetFqRingHandle(txChHandle);
-
-    uint32_t ringOccPopCnt = 0;
-
-    while(Udma_ringGetReverseRingOcc(ringHandle))
-    {
-        ringOccPopCnt++;
-
-        int32_t status = Udma_ringDequeueRaw(Udma_chGetCqRingHandle(txChHandle), &pDesc);
-        DebugP_assert(SystemP_SUCCESS == status);
-
-        pDesc = (uint64_t)Udma_phyToVirtFxn(pDesc, drvHandle, ringHandle);
-
-        /* Update current Processed TRPD with loopjob */
-        {
-            CSL_UdmapTR3 *pTr = (CSL_UdmapTR3 *)Udma_phyToVirtFxn((uint64_t)UdmaUtils_getTrpdTr3Pointer((uint8_t *)pDesc, 0), drvHandle, txChHandle);
-            pTr->addr =(uint64_t)Udma_virtToPhyFxn(object->XmtObj.txnLoopjob.buf, drvHandle, txChHandle);
-            pTr->icnt0 = (uint16_t)(object->XmtObj.txnLoopjob.count * sizeof(uint32_t));
-            pTr->icnt1 = 1;
-            pTr->icnt2 = 1;
-            pTr->icnt3 = 1;
-
-            pTr->dim1     = pTr->icnt0;
-            pTr->dim2     = (pTr->icnt0 * pTr->icnt1);
-            pTr->dim3     = (pTr->icnt0 * pTr->icnt1 * pTr->icnt2);
-
-            CacheP_wb((uint8_t *)pDesc, MCASP_UDMA_TR3_TRPD_SIZE, CacheP_TYPE_ALLD);
-        }
-
-        /* Update last played index */
-        uint32_t tmpLastPlayed = object->lastPlayed +1;
-        object->lastPlayed = (tmpLastPlayed)%MCASP_TX_DMA_RING_ELEM_CNT;
-
-        txCbParam = object->dmaChCfg->txCbParams;
-        txCbParam = txCbParam + (object->lastPlayed);
-
-        if(NULL != *(txCbParam))
-        {
-            MCASP_TransferObj *xfrObj = &(object->XmtObj);
-            if(xfrObj->cbFxn != NULL)
-            {
-                xfrObj->cbFxn((MCASP_Handle *)args, *(txCbParam));
-            }
-        }
-
-        *(txCbParam) = NULL;
-    }
-
-    uint32_t txnPushed = 0;
-
-    while(ringOccPopCnt > 0)
-    {
-        ringOccPopCnt--;
-
-        MCASP_Transaction *txn = NULL;
-        CSL_UdmapTR3 *pTr;
-        uint32_t nextCandidate;
-        uint32_t txCnt = 0;
-
-        nextCandidate = (object->lastFilled+1)%MCASP_TX_DMA_RING_ELEM_CNT;
-
-        pTr = UdmaUtils_getTrpdTr3Pointer(((uint8_t *)object->dmaChCfg->txTrpdMem + (MCASP_UDMA_TR3_TRPD_SIZE*nextCandidate)), 0);
-
-        pTr = (CSL_UdmapTR3 *)Udma_phyToVirtFxn((uint64_t)pTr, drvHandle, txChHandle);
-
-        /* If nextCandidate has relevant buffer to send; continue, else fill up with next buffer */
-        if(pTr->addr == (uint64_t)Udma_virtToPhyFxn(object->XmtObj.txnLoopjob.buf, drvHandle, txChHandle))
-        {
-            txn = QueueP_get(object->reqQueueHandleTx);
-
-            if(txn != object->reqQueueHandleTx)
-            {
-                txCnt = (txn->count*4);
-
-                if(txCnt < MCASP_DMA_L0_MAX_XFER_SIZE)
-                {
-                    MCASP_udmaTrInit(((uint8_t *)object->dmaChCfg->txTrpdMem + (MCASP_UDMA_TR3_TRPD_SIZE*nextCandidate)),
-                                        (uint64_t)Udma_virtToPhyFxn(txn->buf, drvHandle, txChHandle), txCnt);
-
-                    object->lastFilled = nextCandidate;
-
-                    txCbParam = object->dmaChCfg->txCbParams;
-                    txCbParam = txCbParam + (object->lastFilled);
-                    *(txCbParam) = txn;
-
-                    txnPushed++;
-                }
-                else
-                {
-                    if(txCnt % MCASP_DMA_UDMA_XFER_SIZE)
-                    {
-                        MCASP_udmaTrInit(((uint8_t *)object->dmaChCfg->txTrpdMem + (MCASP_UDMA_TR3_TRPD_SIZE*nextCandidate)),
-                                        (uint64_t)Udma_virtToPhyFxn(txn->buf, drvHandle, txChHandle), txCnt);
-
-                        object->lastFilled = nextCandidate;
-
-                        txnPushed++;
-
-                        nextCandidate = (object->lastFilled+1)%MCASP_TX_DMA_RING_ELEM_CNT;
-                        object->lastFilled = nextCandidate;
-
-                        MCASP_udmaTrInit(((uint8_t *)object->dmaChCfg->txTrpdMem + (MCASP_UDMA_TR3_TRPD_SIZE*nextCandidate)),
-                                        (uint64_t)Udma_virtToPhyFxn((uint8_t *)txn->buf + (txCnt- (txCnt % MCASP_DMA_UDMA_XFER_SIZE)), drvHandle, txChHandle),
-                                         txCnt % MCASP_DMA_UDMA_XFER_SIZE);
-
-                        txCbParam = object->dmaChCfg->txCbParams;
-                        txCbParam = txCbParam + (object->lastFilled);
-                        *(txCbParam) = txn;
-
-                        txnPushed++;
-                    }
-                    else
-                    {
-                        MCASP_udmaTrInit(((uint8_t *)object->dmaChCfg->txTrpdMem + (MCASP_UDMA_TR3_TRPD_SIZE*nextCandidate)),
-                                        (uint64_t)Udma_virtToPhyFxn(txn->buf, drvHandle, txChHandle), txCnt);
-
-                        object->lastFilled = nextCandidate;
-
-                        txCbParam = object->dmaChCfg->txCbParams;
-                        txCbParam = txCbParam + (object->lastFilled);
-                        *(txCbParam) = txn;
-
-                        txnPushed++;
-                    }
-                }
-            }
-            else
-            {
-                int32_t diff = ((object->lastFilled - object->lastPlayed)%MCASP_TX_DMA_RING_ELEM_CNT);
-                if(diff < 2)
-                {
-                    object->lastFilled = (object->lastFilled+1)%MCASP_TX_DMA_RING_ELEM_CNT;
-                    txnPushed++;
-                }
-            }
-        }
-    }
-
-    Udma_ringSetDoorBell(Udma_chGetFqRingHandle(txChHandle), txnPushed);
-}
-
-static void MCASP_udmaIsrRx(Udma_EventHandle eventHandle, uint32_t eventType, void *args)
-{
-    int32_t status;
-    uint64_t pDesc;
+    int32_t status = SystemP_SUCCESS;
     MCASP_Object *object = NULL;
+    Udma_ChHandle txChHandle = NULL;
+    Udma_DrvHandle drvHandle = NULL;
+    MCASP_Transaction **txCbParam = NULL;
     MCASP_DmaChConfig *dmaChCfg = NULL;
-    Udma_ChHandle rxChHandle;
-    Udma_RingHandle ringHandle;
-    uint32_t ringOccPopCnt = 0;
-    MCASP_TransferObj *xfrObj;
-    MCASP_Transaction *txn = NULL;
-    uint32_t nextCandidate;
-    CSL_UdmapCppi5HMPD *pHpd;
-    uint32_t txnPushed = 0;
-    int32_t diff;
-    MCASP_Transaction **rxCbParam = NULL;
-    Udma_DrvHandle drvHandle;
+    Udma_ChStats chStats;
+    uint32_t pCnt = 0;
+    void *trpdMem = NULL;
+    uint32_t tempLastPlayed = 0;
+    uint32_t totalPktCnt = 0;
 
     if(args != NULL)
     {
         object = ((MCASP_Config *)args)->object;
-        dmaChCfg = object->dmaChCfg;
-        rxChHandle = dmaChCfg->rxChHandle;
-        ringHandle = Udma_chGetFqRingHandle(rxChHandle);
-        xfrObj = &(object->RcvObj);
-        drvHandle = (Udma_DrvHandle)object->mcaspPktDmaHandle;
-
-        status = SystemP_SUCCESS;
     }
     else
     {
         status = SystemP_FAILURE;
     }
 
+    /*
+     * The ISR for the Tx DMA channel.
+     *
+     * This function is called from the UDMA ISR. It first retrieves the
+     * statistics for the Tx DMA channel. Then it loops through the number of
+     * packets that have been processed. For each packet, it updates the last
+     * played index, updates the TR with the loop job, and calls the user
+     * registered callback function. Finally, it resets the callback parameter
+     * for the current packet.
+     */
     if(status == SystemP_SUCCESS)
     {
-        while(Udma_ringGetReverseRingOcc(ringHandle))
+        dmaChCfg = object->dmaChCfg;
+        txChHandle = dmaChCfg->txChHandle;
+        drvHandle = (Udma_DrvHandle)object->mcaspDmaHandle;
+
+        tempLastPlayed = object->lastPlayed;
+
+        do
         {
-            ringOccPopCnt++;
-            status = Udma_ringDequeueRaw(Udma_chGetCqRingHandle(rxChHandle), &pDesc);
-            DebugP_assert(SystemP_SUCCESS == status);
+            status = Udma_chGetStats(txChHandle, &chStats);
 
-            /* update last received index */
-            uint32_t tmpLastReceived = object->lastReceived+1;
-            object->lastReceived = (tmpLastReceived)%MCASP_RX_DMA_RING_ELEM_CNT;
+            /* Reset/Decrement the number of processed packets */
+            status += Udma_chDecStats(txChHandle, &chStats);
 
-            /* Update current processed TRPD with loopjob */
+            pCnt = chStats.packetCnt;
+            totalPktCnt += pCnt;
+
+            while (pCnt != 0U)
             {
-                MCASP_udmaHpdInit(rxChHandle,
-                                (uint8_t *)Udma_phyToVirtFxn(pDesc, drvHandle, rxChHandle),
-                                (void *)Udma_virtToPhyFxn(object->RcvObj.txnLoopjob.buf, drvHandle, rxChHandle),
-                                object->RcvObj.txnLoopjob.count*sizeof(uint32_t));
-            }
+                pCnt--;
 
-            rxCbParam = (MCASP_Transaction **)object->dmaChCfg->rxCbParams + object->lastReceived;
+                trpdMem = object->dmaChCfg->txTrpdMem;
 
-            if(NULL != *(rxCbParam))
-            {
-                if(xfrObj->cbFxn != NULL)
+                /* Update last played index */
+                object->lastPlayed = (object->lastPlayed + 1U)%MCASP_TX_DMA_TR_COUNT;
+
+                /* Update current Processed TR with loopjob */
                 {
-                    xfrObj->cbFxn((MCASP_Handle *)args, *rxCbParam);
+                    CSL_UdmapTR3 *pTr = UdmaUtils_getTrpdTr3Pointer((uint8_t *)trpdMem, object->lastPlayed);
+                    pTr = (CSL_UdmapTR3 *)Udma_phyToVirtFxn((uint64_t)pTr, drvHandle, txChHandle);
+                    pTr->addr =(uint64_t)Udma_virtToPhyFxn(object->XmtObj.txnLoopjob.buf, drvHandle, txChHandle);
+
+                    pTr->icnt0 = object->txDmaIcnt.icnt0;
+                    pTr->icnt1 = object->txDmaIcnt.icnt1;
+                    pTr->icnt2 = object->txDmaIcnt.icnt2;
+                    pTr->icnt3 = object->txDmaIcnt.icnt3;
+
+                    pTr->dim1     = pTr->icnt0;
+                    pTr->dim2     = (pTr->icnt0 * pTr->icnt1);
+                    pTr->dim3     = (pTr->icnt0 * pTr->icnt1 * pTr->icnt2);
                 }
+
+                txCbParam = object->dmaChCfg->txCbParams;
+                txCbParam = txCbParam + (object->lastPlayed);
+
+                /* Call the user registered callback function */
+                if(NULL != *(txCbParam))
+                {
+                    MCASP_TransferObj *xfrObj = &(object->XmtObj);
+                    if(xfrObj->cbFxn != NULL)
+                    {
+                        xfrObj->cbFxn((MCASP_Handle *)args, *(txCbParam));
+                    }
+                }
+
+                /* Update the callback param to NULL */
+                *(txCbParam) = NULL;
             }
-            *rxCbParam = NULL;
+
+            status += Udma_chGetStats(txChHandle, &chStats);
+        } while(chStats.packetCnt != 0U);
+
+        CacheP_wb((uint8_t *) UdmaUtils_getTrpdTr3Pointer((uint8_t *)object->dmaChCfg->txTrpdMem, 0),
+                                        MCASP_TX_DMA_TR_COUNT*sizeof(CSL_UdmapTR3), CacheP_TYPE_ALLD);
+    }
+
+    if(status == SystemP_SUCCESS)
+    {
+        uint32_t diff = 0;
+        uint32_t nextCandidate = 0;
+
+        if(tempLastPlayed < object->lastFilled)
+        {
+            diff = object->lastFilled - tempLastPlayed;
+        }
+        else
+        {
+            diff = (MCASP_TX_DMA_TR_COUNT-1U) - tempLastPlayed + object->lastFilled + 1U;
         }
 
-        while (ringOccPopCnt > 0)
+        if(diff >= (totalPktCnt+2U))
         {
-            ringOccPopCnt--;
+            nextCandidate = (object->lastFilled + 1U)%MCASP_TX_DMA_TR_COUNT;
+        }
+        else
+        {
+            nextCandidate = (object->lastPlayed + 2U)%MCASP_TX_DMA_TR_COUNT;
+            object->lastFilled = MCASP_INVALID_TXN_IDX;
+        }
 
-            nextCandidate = (object->lastRecQueued+1)%MCASP_RX_DMA_RING_ELEM_CNT;
+        if(MCASP_INVALID_TXN_IDX == object->lastFilled)
+        {
+            nextCandidate = (object->lastPlayed + 2U)%MCASP_TX_DMA_TR_COUNT;
+        }
 
-            pHpd = (CSL_UdmapCppi5HMPD *)((uint8_t *)object->dmaChCfg->rxTrpdMem + (MCASP_UDMA_HPD_SIZE*nextCandidate));
+        while (TRUE)
+        {
+            MCASP_Transaction *txn = NULL;
+            CSL_UdmapTR3 *pTr = NULL;
 
-            if(!QueueP_isEmpty(object->reqQueueHandleRx))
+            txn = QueueP_get(object->reqQueueHandleTx);
+
+            if(txn != object->reqQueueHandleTx)
             {
-                if(CSL_udmapCppi5GetBufferAddr(pHpd) == (uint64_t)Udma_phyToVirtFxn((uint64_t)object->RcvObj.txnLoopjob.buf, drvHandle, rxChHandle))
+                object->lastFilled = nextCandidate;
+
+                txCbParam = object->dmaChCfg->txCbParams;
+                txCbParam = txCbParam + (object->lastFilled);
+                *(txCbParam) = txn;
+
+                pTr = UdmaUtils_getTrpdTr3Pointer((uint8_t *)object->dmaChCfg->txTrpdMem, object->lastFilled);
+
+                pTr->addr =(uint64_t)Udma_virtToPhyFxn(txn->buf, drvHandle, txChHandle);
+
+                pTr->icnt0 = object->txDmaIcnt.icnt0;
+                pTr->icnt1 = object->txDmaIcnt.icnt1;
+                pTr->icnt2 = object->txDmaIcnt.icnt2;
+                pTr->icnt3 = object->txDmaIcnt.icnt3;
+
+                CacheP_wb(pTr, sizeof(CSL_UdmapTR3), CacheP_TYPE_ALLD);
+
+                nextCandidate = (nextCandidate+1U)%MCASP_TX_DMA_TR_COUNT;
+            }
+            else
+            {
+                break;
+            }
+        }
+    }
+
+    return;
+}
+
+static void MCASP_udmaIsrRx(Udma_EventHandle eventHandle,
+                                 uint32_t eventType,
+                                 void *args)
+{
+    int32_t status = SystemP_SUCCESS;
+    MCASP_Object *object = NULL;
+    Udma_ChHandle rxChHandle = NULL;
+    Udma_DrvHandle drvHandle = NULL;
+    MCASP_Transaction **rxCbParam = NULL;
+    MCASP_DmaChConfig *dmaChCfg = NULL;
+    Udma_ChStats chStats;
+    uint32_t pCnt = 0;
+    void *trpdMem = NULL;
+    uint32_t tempLastReceived = 0;
+    uint32_t totalPktCnt = 0;
+
+    if(args != NULL)
+    {
+        object = ((MCASP_Config *)args)->object;
+    }
+    else
+    {
+        status = SystemP_FAILURE;
+    }
+
+    /*
+     * The ISR for the Rx DMA channel.
+     *
+     * This function is called from the UDMA ISR. It first retrieves the
+     * statistics for the Rx DMA channel. Then it loops through the number of
+     * packets that have been processed. For each packet, it updates the last
+     * played index, updates the TR with the loop job, and calls the user
+     * registered callback function. Finally, it resets the callback parameter
+     * for the current packet.
+     */
+    if(status == SystemP_SUCCESS)
+    {
+        dmaChCfg = object->dmaChCfg;
+        rxChHandle = dmaChCfg->rxChHandle;
+        drvHandle = (Udma_DrvHandle)object->mcaspDmaHandle;
+
+        tempLastReceived = object->lastReceived;
+
+        do
+        {
+            status = Udma_chGetStats(rxChHandle, &chStats);
+
+            pCnt = chStats.packetCnt;
+            totalPktCnt += pCnt;
+
+            /* Reset/Decrement the number of processed packets */
+            status += Udma_chDecStats(rxChHandle, &chStats);
+
+            while (pCnt != 0U)
+            {
+                pCnt--;
+
+                trpdMem = object->dmaChCfg->rxTrpdMem;
+
+                /* Update last received index */
+                object->lastReceived = (object->lastReceived + 1U)%MCASP_RX_DMA_TR_COUNT;
+
+                /* Update current Processed TR with loopjob */
                 {
-                    txn = QueueP_get(object->reqQueueHandleRx);
+                    CSL_UdmapTR3 *pTr = UdmaUtils_getTrpdTr3Pointer((uint8_t *)trpdMem, object->lastReceived);
+                    pTr = (CSL_UdmapTR3 *)Udma_phyToVirtFxn((uint64_t)pTr, drvHandle, rxChHandle);
+                    pTr->addr =(uint64_t)Udma_virtToPhyFxn(object->RcvObj.txnLoopjob.buf, drvHandle, rxChHandle);
 
-                    MCASP_udmaHpdInit(rxChHandle,
-                                (uint8_t *)Udma_phyToVirtFxn((uint64_t)pHpd, drvHandle, rxChHandle),
-                                (void *)Udma_virtToPhyFxn(txn->buf, drvHandle, rxChHandle),
-                                txn->count *sizeof(uint32_t));
-                    rxCbParam = (MCASP_Transaction **)object->dmaChCfg->rxCbParams + nextCandidate;
-                    *rxCbParam = txn;
+                    pTr->icnt0 = object->rxDmaIcnt.icnt0;
+                    pTr->icnt1 = object->rxDmaIcnt.icnt1;
+                    pTr->icnt2 = object->rxDmaIcnt.icnt2;
+                    pTr->icnt3 = object->rxDmaIcnt.icnt3;
 
-                    object->lastRecQueued = (object->lastRecQueued+1)%MCASP_RX_DMA_RING_ELEM_CNT;
-                    txnPushed++;
+                    pTr->dim1     = pTr->icnt0;
+                    pTr->dim2     = (pTr->icnt0 * pTr->icnt1);
+                    pTr->dim3     = (pTr->icnt0 * pTr->icnt1 * pTr->icnt2);
+                }
+
+                rxCbParam = object->dmaChCfg->rxCbParams;
+                rxCbParam = rxCbParam + (object->lastReceived);
+
+                /* Call the user registered callback function */
+                if(NULL != *(rxCbParam))
+                {
+                    MCASP_TransferObj *xfrObj = &(object->RcvObj);
+                    if(xfrObj->cbFxn != NULL)
+                    {
+                        xfrObj->cbFxn((MCASP_Handle *)args, *(rxCbParam));
+                    }
+                }
+
+                /* Update the callback param to NULL */
+                *(rxCbParam) = NULL;
+            }
+
+            status += Udma_chGetStats(rxChHandle, &chStats);
+        } while(chStats.packetCnt != 0U);
+
+        CacheP_wb((uint8_t *) UdmaUtils_getTrpdTr3Pointer((uint8_t *)object->dmaChCfg->rxTrpdMem, 0),
+                                        MCASP_RX_DMA_TR_COUNT*sizeof(CSL_UdmapTR3), CacheP_TYPE_ALLD);
+    }
+
+    if(status == SystemP_SUCCESS)
+    {
+        uint32_t diff = 0;
+        uint32_t nextCandidate = 0;
+
+        if(tempLastReceived < object->lastRecQueued)
+        {
+            diff = object->lastRecQueued - tempLastReceived;
+        }
+        else
+        {
+            diff = (MCASP_RX_DMA_TR_COUNT-1U) - tempLastReceived + object->lastRecQueued + 1U;
+        }
+
+        if(diff >= (totalPktCnt+2U))
+        {
+            nextCandidate = (object->lastRecQueued + 1U)%MCASP_RX_DMA_TR_COUNT;
+        }
+        else
+        {
+            nextCandidate = (object->lastReceived+ 2U)%MCASP_RX_DMA_TR_COUNT;
+            object->lastRecQueued = MCASP_INVALID_TXN_IDX;
+        }
+
+        if(MCASP_INVALID_TXN_IDX == object->lastRecQueued)
+        {
+            nextCandidate = (object->lastReceived+ 2U)%MCASP_TX_DMA_TR_COUNT;
+        }
+
+        while (TRUE)
+        {
+            MCASP_Transaction *txn = NULL;
+            CSL_UdmapTR3 *pTr = NULL;
+
+            txn = QueueP_get(object->reqQueueHandleRx);
+
+            if(txn != object->reqQueueHandleRx)
+            {
+                object->lastRecQueued = nextCandidate;
+
+                rxCbParam = object->dmaChCfg->rxCbParams;
+                rxCbParam = rxCbParam + (object->lastRecQueued);
+                *(rxCbParam) = txn;
+
+                pTr = UdmaUtils_getTrpdTr3Pointer((uint8_t *)object->dmaChCfg->rxTrpdMem, object->lastRecQueued);
+
+                pTr->addr =(uint64_t)Udma_virtToPhyFxn(txn->buf, drvHandle, rxChHandle);
+
+                pTr->icnt0 = object->txDmaIcnt.icnt0;
+                pTr->icnt1 = object->txDmaIcnt.icnt1;
+                pTr->icnt2 = object->txDmaIcnt.icnt2;
+                pTr->icnt3 = object->txDmaIcnt.icnt3;
+
+                CacheP_wb(pTr, sizeof(CSL_UdmapTR3), CacheP_TYPE_ALLD);
+
+                nextCandidate = (nextCandidate+1U)%MCASP_TX_DMA_TR_COUNT;
+            }
+            else
+            {
+                break;
+            }
+        }
+    }
+
+    return;
+}
+
+int32_t MCASP_prepareDmaIcnts(MCASP_Handle handle, uint64_t byteCnt, uint8_t isTx)
+{
+    int32_t status = SystemP_SUCCESS;
+    uint64_t txnByteCnt = 0U;
+    MCASP_Object *object = NULL;
+    const MCASP_Attrs *attrs = NULL;
+    uint16_t tempIcntX = 0U;
+    uint16_t tempIcntY = 0U;
+    uint16_t waterLevel = 0U;
+
+    if ((NULL == handle))
+    {
+        status = SystemP_FAILURE;
+    }
+    if(status  == SystemP_SUCCESS)
+    {
+        object = ((MCASP_Config *)handle)->object;
+        attrs = ((MCASP_Config *)handle)->attrs;
+    }
+
+    if(status == SystemP_SUCCESS)
+    {
+        do
+        {
+            if(isTx == 1U)
+            {
+                txnByteCnt = byteCnt;
+
+                if(object->txDmaIcnt.initDone == 1U)
+                {
+                    if(object->txDmaIcnt.txnByteCnt != txnByteCnt)
+                    {
+                        status = SystemP_FAILURE;
+                        break;
+                    }
+
+                    if((object->XmtObj.txnLoopjob.count*WORD_BYTE_COUNT) != byteCnt)
+                    {
+                        DebugP_logError("Keep the transaction count same as loopjob count \r\n");
+                        status = SystemP_FAILURE;
+                        break;
+                    }
+
+                    if((attrs->txFifoWaterLevel != 0U) && (byteCnt % (WORD_BYTE_COUNT * attrs->txFifoWaterLevel)!= 0U))
+                    {
+                        DebugP_logError("Keep the transaction count multiple of fifo water level \r\n");
+                        status = SystemP_FAILURE;
+                        break;
+                    }
+                }
+                else
+                {
+                    if(attrs->txFifoWaterLevel != 0U)
+                    {
+                        waterLevel = attrs->txFifoWaterLevel;
+                    }
+                    else
+                    {
+                        waterLevel = 1U;
+                    }
+
+                    if((object->XmtObj.txnLoopjob.count*WORD_BYTE_COUNT) != byteCnt)
+                    {
+                        DebugP_logError("Keep the transaction count same as loopjob count \r\n");
+                        status = SystemP_FAILURE;
+                        break;
+                    }
+
+                    if((byteCnt % (WORD_BYTE_COUNT * waterLevel)) != 0U)
+                    {
+                        DebugP_logError("Keep the transaction count multiple of fifo water level \r\n");
+                        status = SystemP_FAILURE;
+                        break;
+                    }
+
+                    object->txDmaIcnt.icnt0 = WORD_BYTE_COUNT;
+                    object->txDmaIcnt.icnt1 = (waterLevel);
+                    tempIcntX = txnByteCnt/(WORD_BYTE_COUNT*(waterLevel));
+                    if(tempIcntX < MCASP_ICNT2_MAX)
+                    {
+                        object->txDmaIcnt.icnt2 = tempIcntX;
+                        object->txDmaIcnt.icnt3 = 1U;
+                    }
+                    else
+                    {
+                        tempIcntX = tempIcntX&(-tempIcntX);
+                        tempIcntY = txnByteCnt/(WORD_BYTE_COUNT*(waterLevel)*tempIcntX);
+                        if((tempIcntY < MCASP_ICNT2_MAX) || (tempIcntX < MCASP_ICNT2_MAX))
+                        {
+                            DebugP_logError("Transaction count out of bounds \r\n");
+                            status = SystemP_FAILURE;
+                            break;
+                        }
+                        else
+                        {
+                            object->txDmaIcnt.icnt2 = tempIcntX;
+                            object->txDmaIcnt.icnt3 = tempIcntY;
+                        }
+                    }
+
+                    object->txDmaIcnt.txnByteCnt = txnByteCnt;
+                    object->txDmaIcnt.initDone = 1;
                 }
             }
             else
             {
-                diff = (int32_t)((int32_t)object->lastReceived - (int32_t)object->lastRecQueued)%64;
-                if(diff < 2)
+                txnByteCnt = byteCnt;
+
+                if(object->rxDmaIcnt.initDone == 1U)
                 {
-                    object->lastRecQueued = (object->lastRecQueued+1)%MCASP_RX_DMA_RING_ELEM_CNT;
-                    txnPushed++;
+                    if(object->rxDmaIcnt.txnByteCnt != txnByteCnt)
+                    {
+                        status = SystemP_FAILURE;
+                        break;
+                    }
+
+                    if((object->RcvObj.txnLoopjob.count*WORD_BYTE_COUNT) != txnByteCnt)
+                    {
+                        DebugP_logError("Keep the transaction count same as loopjob count \r\n");
+                        status = SystemP_FAILURE;
+                        break;
+                    }
+
+                    if((attrs->rxFifoWaterLevel != 0U) && ((byteCnt % (WORD_BYTE_COUNT * attrs->rxFifoWaterLevel)) != 0U))
+                    {
+                        DebugP_logError("Keep the transaction count multiple of fifo water level \r\n");
+                        status = SystemP_FAILURE;
+                        break;
+                    }
+                }
+                else
+                {
+                    if(attrs->rxFifoWaterLevel != 0U)
+                    {
+                        waterLevel = attrs->rxFifoWaterLevel;
+                    }
+                    else
+                    {
+                        waterLevel = 1U;
+                    }
+
+                    if((object->RcvObj.txnLoopjob.count*WORD_BYTE_COUNT) != txnByteCnt)
+                    {
+                        DebugP_logError("Keep the transaction count same as loopjob count \r\n");
+                        status = SystemP_FAILURE;
+                        break;
+                    }
+
+                    if((byteCnt % (WORD_BYTE_COUNT * waterLevel)) != 0U)
+                    {
+                        DebugP_logError("Keep the transaction count multiple of fifo water level \r\n");
+                        status = SystemP_FAILURE;
+                        break;
+                    }
+
+                    object->rxDmaIcnt.icnt0 = WORD_BYTE_COUNT;
+                    object->rxDmaIcnt.icnt1 = waterLevel;
+                    tempIcntX = txnByteCnt/(WORD_BYTE_COUNT*waterLevel);
+                    if(tempIcntX < MCASP_ICNT2_MAX)
+                    {
+                        object->rxDmaIcnt.icnt2 = tempIcntX;
+                        object->rxDmaIcnt.icnt3 = 1U;
+                    }
+                    else
+                    {
+                        tempIcntX = tempIcntX&(-tempIcntX);
+                        tempIcntY = txnByteCnt/(WORD_BYTE_COUNT*waterLevel*tempIcntX);
+                        if((tempIcntY < MCASP_ICNT2_MAX) || (tempIcntX < MCASP_ICNT2_MAX))
+                        {
+                            DebugP_logError("Transaction count out of bounds \r\n");
+                            status = SystemP_FAILURE;
+                            break;
+                        }
+                        else
+                        {
+                            object->rxDmaIcnt.icnt2 = tempIcntX;
+                            object->rxDmaIcnt.icnt3 = tempIcntY;
+                        }
+                    }
+
+                    object->rxDmaIcnt.txnByteCnt = txnByteCnt;
+                    object->rxDmaIcnt.initDone = 1U;
                 }
             }
-        }
-
-        /* Push remaining Txn queued */
-        while (!QueueP_isEmpty(object->reqQueueHandleRx))
-        {
-            nextCandidate = (object->lastRecQueued+1)%MCASP_RX_DMA_RING_ELEM_CNT;
-
-            pHpd = (CSL_UdmapCppi5HMPD *)((uint8_t *)object->dmaChCfg->rxTrpdMem + (MCASP_UDMA_HPD_SIZE*nextCandidate));
-
-            if(CSL_udmapCppi5GetBufferAddr(pHpd) == (uint64_t)Udma_virtToPhyFxn(object->RcvObj.txnLoopjob.buf, drvHandle, rxChHandle))
-            {
-                txn = QueueP_get(object->reqQueueHandleRx);
-
-                MCASP_udmaHpdInit(rxChHandle,
-                                (uint8_t *)Udma_phyToVirtFxn((uint64_t)pHpd, drvHandle, rxChHandle),
-                                (void *)Udma_virtToPhyFxn(txn->buf, drvHandle, rxChHandle),
-                                txn->count *sizeof(uint32_t));
-                rxCbParam = (MCASP_Transaction **)object->dmaChCfg->rxCbParams + nextCandidate;
-                *rxCbParam = txn;
-                object->lastRecQueued = nextCandidate;
-                txnPushed++;
-            }
-        }
-
-        Udma_ringSetDoorBell(Udma_chGetFqRingHandle(rxChHandle), txnPushed);
+        } while(FALSE);
     }
+
+    return status;
 }

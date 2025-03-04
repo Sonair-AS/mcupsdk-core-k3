@@ -60,6 +60,15 @@
 #endif
 
 /* ========================================================================== */
+/*                             Macro Definitions                              */
+/* ========================================================================== */
+
+#define UDMA_DMA_MAX_L0_XFER_SIZE           (65536U)
+#define UDMA_DMA_XFER_SIZE                  (64512U)
+
+#define WORD_BYTE_COUNT                     (4U)
+
+/* ========================================================================== */
 /*                         Structure Declarations                             */
 /* ========================================================================== */
 
@@ -81,7 +90,7 @@ static void MCASP_rx_isr(void *args);
 static int32_t MCASP_programInstance(MCASP_Config *config, uint32_t transferMode);
 static int32_t MCASP_bitClearGblCtl(const MCASP_Handle handle, uint32_t bitMask);
 static int32_t MCASP_bitSetGblCtl(const MCASP_Handle handle, uint32_t bitMask);
-static int32_t MCASP_validateTransaction (MCASP_Transaction *txn);
+static int32_t MCASP_validateTransaction (MCASP_Handle handle, MCASP_Transaction *txn, uint8_t isTx);
 static int32_t MCASP_getBufferOffset(MCASP_TransferObj *xfrObj, uint8_t serIdx, uint32_t* pOffset);
 
 /* ========================================================================== */
@@ -276,7 +285,6 @@ MCASP_Handle MCASP_open(uint32_t index, const MCASP_OpenParams *openParams)
         if(obj->transferMode == MCASP_TRANSFER_MODE_DMA)
         {
             obj->mcaspDmaHandle = openParams->mcaspDmaDrvObj;
-            obj->mcaspPktDmaHandle = openParams->mcaspPktDmaDrvObj;
             MCASP_openDma(config, obj->dmaChCfg);
         }
 
@@ -475,12 +483,22 @@ static int32_t MCASP_programInstance(MCASP_Config *config, uint32_t transferMode
     return status;
 }
 
-static int32_t MCASP_validateTransaction (MCASP_Transaction *txn)
+static int32_t MCASP_validateTransaction (MCASP_Handle handle, MCASP_Transaction *txn, uint8_t isTx)
 {
     int32_t status = SystemP_SUCCESS;
-    if ((txn->buf == NULL) || (txn->count == 0))
+
+    if ((NULL == handle) || (txn->buf == NULL) || (txn->count == 0))
     {
         status = SystemP_FAILURE;
+    }
+    if(status  == SystemP_SUCCESS)
+    {
+        MCASP_Object *object = ((MCASP_Config *)handle)->object;
+
+        if(object->transferMode == MCASP_TRANSFER_MODE_DMA)
+        {
+            status = MCASP_prepareDmaIcnts(handle, (uint64_t)(txn->count*WORD_BYTE_COUNT), isTx);
+        }
     }
     return status;
 }
@@ -494,7 +512,7 @@ int32_t MCASP_submitTx(MCASP_Handle handle, MCASP_Transaction *txn)
     }
     if (SystemP_SUCCESS == status)
     {
-        status = MCASP_validateTransaction(txn);
+        status = MCASP_validateTransaction(handle, txn, 1U);
     }
     if (SystemP_SUCCESS == status)
     {
@@ -513,7 +531,7 @@ int32_t MCASP_submitRx(MCASP_Handle handle, MCASP_Transaction *txn)
     }
     if (SystemP_SUCCESS == status)
     {
-        status = MCASP_validateTransaction(txn);
+        status = MCASP_validateTransaction(handle, txn, 0U);
     }
     if (SystemP_SUCCESS == status)
     {
@@ -792,7 +810,7 @@ int32_t MCASP_startTransferRx(MCASP_Handle handle)
         if(MCASP_TRANSFER_MODE_DMA == object->transferMode)
         {
             /* Disable DMA requests generation */
-                CSL_REG32_FINS(&pReg->REVTCTL, MCASP_REVTCTL_RDATDMA,
+            CSL_REG32_FINS(&pReg->REVTCTL, MCASP_REVTCTL_RDATDMA,
                     CSL_MCASP_REVTCTL_RDATDMA_RSV);
             status = MCASP_enableDmaRx((MCASP_Config *)handle);
 
