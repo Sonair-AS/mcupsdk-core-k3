@@ -3,7 +3,7 @@
  * via the GUI or CLI. Run CLI with '--help' for additional information on how to override these arguments.
  * @cliArgs --device "AM62x" --part "Default" --package "AMC" --context "r5fss0-0" --product "MCU_PLUS_SDK@07.03.01"
  * @v2CliArgs --device "AM625-Q1" --package "FCBGA (AMC)" --variant "AM6254-G" --context "r5fss0-0" --product "MCU_PLUS_SDK@07.03.01"
- * @versions {"tool":"1.21.0+3721"}
+ * @versions {"tool":"1.22.0+3893"}
  */
 
 /**
@@ -29,6 +29,7 @@ ipc.enableLinuxIpc     = false;
 ipc.m4fss0_0           = "notify";
 ipc.vringAllocationPDK = false;
 ipc.a53ss0_0           = "notify";
+ipc.a53ss0_1           = "notify";
 
 clock.instance = "TIMER1";
 
