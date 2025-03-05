@@ -399,28 +399,25 @@ int32_t RPMessage_construct(RPMessage_Object *handle, const RPMessage_CreatePara
 
     uintptr_t oldIntState;
     
-    if(sizeof(RPMessage_Object) >= sizeof(RPMessage_Struct))
+    if((createParams->localEndPt < RPMESSAGE_MAX_LOCAL_ENDPT)
+        && (gIpcRpmsgCtrl.localEndPtObj[createParams->localEndPt] == NULL))
     {
-        if((createParams->localEndPt < RPMESSAGE_MAX_LOCAL_ENDPT)
-            && (gIpcRpmsgCtrl.localEndPtObj[createParams->localEndPt] == NULL))
-        {
-            obj->localEndPt = createParams->localEndPt;
-            obj->recvCallback = createParams->recvCallback;
-            obj->recvCallbackArgs = createParams->recvCallbackArgs;
-            obj->recvNotifyCallback = createParams->recvNotifyCallback;
-            obj->recvNotifyCallbackArgs = createParams->recvNotifyCallbackArgs;
-            obj->doRecvUnblock = 0;
-            RPMessage_queueReset(&obj->endPtQ);
-            SemaphoreP_constructBinary(&obj->newEndPtMsgSem, 0);
+        obj->localEndPt = createParams->localEndPt;
+        obj->recvCallback = createParams->recvCallback;
+        obj->recvCallbackArgs = createParams->recvCallbackArgs;
+        obj->recvNotifyCallback = createParams->recvNotifyCallback;
+        obj->recvNotifyCallbackArgs = createParams->recvNotifyCallbackArgs;
+        obj->doRecvUnblock = 0;
+        RPMessage_queueReset(&obj->endPtQ);
+        SemaphoreP_constructBinary(&obj->newEndPtMsgSem, 0);
 
-            oldIntState = HwiP_disable();
+        oldIntState = HwiP_disable();
 
-            gIpcRpmsgCtrl.localEndPtObj[createParams->localEndPt] = obj;
+        gIpcRpmsgCtrl.localEndPtObj[createParams->localEndPt] = obj;
 
-            HwiP_restore(oldIntState);
+        HwiP_restore(oldIntState);
 
-            status = SystemP_SUCCESS;
-        }
+        status = SystemP_SUCCESS;
     }
     return status;
 }
