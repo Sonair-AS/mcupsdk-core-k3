@@ -413,6 +413,29 @@ Then MCASP_Open can be called from application after clock configurations are do
                     description: "Transmit Loopjob Enable",
                 },
                 {
+                    name: "externTxLoopjob",
+                    displayName: "Extern Transmit Loopjob",
+                    default: false,
+                    description: "Extern Transmit Loopjob",
+                    longDescription:
+`Provide address to an external transmit loopjob defined elsewhere in the application.
+This address will be typecasted to an unsigned char pointer.
+The transaction buffer can itself be provided as an external loopjob.
+Note: This buffer will be declared as extern <Extern Transmit Loopjob>;`,
+                    onChange: function (inst, ui) {
+                        ui.txLoopjobBufExtern.hidden = !inst.externTxLoopjob;
+                    },
+                },
+                {
+                    name: "txLoopjobBufExtern",
+                    displayName: "Transmit loopjob buffer definition",
+                    default: "NULL",
+                    description: "Transmit loopjob buffer definition",
+                    hidden: true,
+                    longDescription:
+`Provide the extern definition for the transmit loopjob buffer.`,
+                },
+                {
                     name: "txLoopjobBuf",
                     displayName: "Transmit Loopjob Buffer",
                     default: "gTxLoopjobBuf0",
@@ -424,6 +447,8 @@ Then MCASP_Open can be called from application after clock configurations are do
                     default: 256,
                     displayFormat: "dec",
                     description: "Transmit Loopjob Buffer Length in Bytes",
+                    longDescription:
+`Note: Loopjob length must be same as the transactions submitted by the application.`,
                 },
                 {
                     name: "xmtClockConfig",
@@ -773,6 +798,29 @@ Then MCASP_Open can be called from application after clock configurations are do
 
                 },
                 {
+                    name: "externRxLoopjob",
+                    displayName: "Extern Receive Loopjob",
+                    default: false,
+                    description: "Extern Receive Loopjob",
+                    longDescription:
+`Provide address to an external receive loopjob defined elsewhere in the application.
+This address will be typecasted to an unsigned char pointer.
+The transaction buffer can itself be provided as an external loopjob.
+Note: This buffer will be declared as extern <Extern Transmit Loopjob>;`,
+                    onChange: function (inst, ui) {
+                        ui.rxLoopjobBufExtern.hidden = !inst.externRxLoopjob;
+                    }
+                },
+                {
+                    name: "rxLoopjobBufExtern",
+                    displayName: "Receive loopjob buffer definition",
+                    default: "NULL",
+                    description: "Receive loopjob buffer definition",
+                    hidden: true,
+                    longDescription:
+`Provide the extern definition for the receive loopjob buffer.`
+                },
+                {
                     name: "rxLoopjobBuf",
                     displayName: "Receive Loopjob Buffer",
                     default: "gRxLoopjobBuf0",
@@ -784,6 +832,8 @@ Then MCASP_Open can be called from application after clock configurations are do
                     default: 256,
                     displayFormat: "dec",
                     description: "Receive Loopjob Buffer Length in Bytes",
+                    longDescription:
+`Note: Loopjob length must be same as the transactions submitted by the application.`,
                 },
                 {
                     name: "rcvClockConfig",
@@ -1097,6 +1147,22 @@ function validatePinmux(inst, report)
     if (inst.txFsSource == 1)
     {
         report.logInfo(`Calculated FSX: ${afsx_int} KHz`, inst, "afsx");
+    }
+
+    if(inst.externRxLoopjob == true)
+    {
+        if(inst.rxLoopjobBufExtern == "NULL")
+        {
+            report.logError(`Invalid Rx Loopback Buffer`, inst,  "rxLoopjobBufExtern");
+        }
+    }
+
+    if(inst.externTxLoopjob == true)
+    {
+        if(inst.txLoopjobBufExtern == "NULL")
+        {
+            report.logError(`Invalid Tx Loopback Buffer`, inst, "txLoopjobBufExtern");
+        }
     }
 }
 
