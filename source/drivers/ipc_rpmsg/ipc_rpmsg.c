@@ -490,9 +490,12 @@ int32_t  RPMessage_coreInit(uint16_t remoteCoreId, const RPMessage_Params *param
     {
         /* reset RX ring */
         status = RPMessage_vringReset(remoteCoreId, 0, params);
-        /* reset TX ring */
-        status = RPMessage_vringReset(remoteCoreId, 1, params);
-
+        
+        if(status == SystemP_SUCCESS)
+        {
+            /* reset TX ring */
+            status = RPMessage_vringReset(remoteCoreId, 1, params);
+        }
         oldIntState = HwiP_disable();
         /* mark core data structure as initialized, now we can handle interrupts */
         gIpcRpmsgCtrl.isCoreInitialized[remoteCoreId] = 1;
