@@ -233,7 +233,7 @@ void IpcNotify_Params_init(IpcNotify_Params *params)
     }
     params->selfCoreId = CSL_CORE_ID_MAX;
     params->linuxCoreId = CSL_CORE_ID_MAX;
-    params->timeout = 0xFFFFFFFF;
+    params->timeout = 0xFFFFFFFFU;
 }
 
 
