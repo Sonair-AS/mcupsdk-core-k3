@@ -3,7 +3,7 @@
  * via the GUI or CLI. Run CLI with '--help' for additional information on how to override these arguments.
  * @cliArgs --device "AM62x" --part "Default" --package "ALW" --context "m4fss0-0" --product "MCU_PLUS_SDK@07.03.01"
  * @v2CliArgs --device "AM625" --package "FCBGA (ALW)" --variant "AM6254-G" --context "m4fss0-0" --product "MCU_PLUS_SDK@07.03.01"
- * @versions {"tool":"1.21.0+3721"}
+ * @versions {"tool":"1.22.0+3893"}
  */
 
 /**
@@ -27,6 +27,7 @@ const mpu_armv72      = mpu_armv7.addInstance();
  */
 ipc.enableLinuxIpc = false;
 ipc.a53ss0_0       = "notify_rpmsg";
+ipc.a53ss0_1       = "notify_rpmsg";
 
 addr_translate1.$name     = "CONFIG_ADDR_TRANSLATE_REGION0";
 addr_translate1.localAddr = 0x80000000;

@@ -32,8 +32,10 @@ ATF_BUILD_PATH:=$(MCU_PLUS_SDK_PATH)/source/atf/lib/soc/am62x
 CORE_0=--script ../r5fss0-0_freertos/example.syscfg --context r5fss0-0 --output ../r5fss0-0_freertos/ti-arm-clang/generated
 CORE_1=--script ../m4fss0-0_nortos/example.syscfg --context m4fss0-0 --output ../m4fss0-0_nortos/ti-arm-clang/generated
 CORE_2=--script ../a53ss0-0_freertos/example.syscfg --context a53ss0-0 --output ../a53ss0-0_freertos/gcc-aarch64/generated
+CORE_3=--script ../a53ss0-1_freertos/example.syscfg --context a53ss0-1 --output ../a53ss0-1_freertos/gcc-aarch64/generated
 
 CORES = \
+    $(CORE_3) \
     $(CORE_2) \
     $(CORE_1) \
     $(CORE_0) \
@@ -42,6 +44,7 @@ all: syscfg
 	$(MAKE) -C ../r5fss0-0_freertos/ti-arm-clang/ all
 	$(MAKE) -C ../m4fss0-0_nortos/ti-arm-clang/ all
 	$(MAKE) -C ../a53ss0-0_freertos/gcc-aarch64/ all
+	$(MAKE) -C ../a53ss0-1_freertos/gcc-aarch64/ all
 	$(MAKE) $(MULTI_CORE_BOOTIMAGE_NAME)
 ifeq ($(DEVICE_TYPE), HS)
 	$(MAKE) $(MULTI_CORE_BOOTIMAGE_NAME_HS)
@@ -51,6 +54,7 @@ clean:
 	$(MAKE) -C ../r5fss0-0_freertos/ti-arm-clang/ clean
 	$(MAKE) -C ../m4fss0-0_nortos/ti-arm-clang/ clean
 	$(MAKE) -C ../a53ss0-0_freertos/gcc-aarch64/ clean
+	$(MAKE) -C ../a53ss0-1_freertos/gcc-aarch64/ clean
 	$(RM) $(MULTI_CORE_BOOTIMAGE_NAME)
 	$(RM) $(MULTI_CORE_BOOTIMAGE_NAME_SIGNED)
 	$(RM) $(MULTI_CORE_BOOTIMAGE_NAME_XIP)
@@ -59,6 +63,7 @@ scrub:
 	$(MAKE) -C ../r5fss0-0_freertos/ti-arm-clang/ scrub
 	$(MAKE) -C ../m4fss0-0_nortos/ti-arm-clang/ scrub
 	$(MAKE) -C ../a53ss0-0_freertos/gcc-aarch64/ scrub
+	$(MAKE) -C ../a53ss0-1_freertos/gcc-aarch64/ scrub
 ifeq ($(OS),Windows_NT)
 	$(RM) \*.appimage
 	$(RM) \*.appimage.signed
@@ -106,12 +111,14 @@ MULTI_CORE_APP_PARAMS = \
     ../r5fss0-0_freertos/ti-arm-clang/ipc_rpmsg_echo.$(PROFILE).rprc@$(BOOTIMAGE_CORE_ID_r5fss0-0) \
     ../m4fss0-0_nortos/ti-arm-clang/ipc_rpmsg_echo.$(PROFILE).rprc@$(BOOTIMAGE_CORE_ID_m4fss0-0) \
     ../a53ss0-0_freertos/gcc-aarch64/ipc_rpmsg_echo.$(PROFILE).rprc@$(BOOTIMAGE_CORE_ID_load_only) \
+    ../a53ss0-1_freertos/gcc-aarch64/ipc_rpmsg_echo.$(PROFILE).rprc@$(BOOTIMAGE_CORE_ID_load_only) \
 
 else
 MULTI_CORE_APP_PARAMS = \
     ../r5fss0-0_freertos/ti-arm-clang/ipc_rpmsg_echo.$(PROFILE).rprc@$(BOOTIMAGE_CORE_ID_r5fss0-0) \
     ../m4fss0-0_nortos/ti-arm-clang/ipc_rpmsg_echo.$(PROFILE).rprc@$(BOOTIMAGE_CORE_ID_m4fss0-0) \
     ../a53ss0-0_freertos/gcc-aarch64/ipc_rpmsg_echo.$(PROFILE).rprc@$(BOOTIMAGE_CORE_ID_a53ss0-0) \
+    ../a53ss0-1_freertos/gcc-aarch64/ipc_rpmsg_echo.$(PROFILE).rprc@$(BOOTIMAGE_CORE_ID_a53ss0-1) \
 
 endif
 
@@ -119,6 +126,7 @@ MULTI_CORE_APP_PARAMS_XIP = \
     ../r5fss0-0_freertos/ti-arm-clang/ipc_rpmsg_echo.$(PROFILE).rprc_xip@$(BOOTIMAGE_CORE_ID_r5fss0-0) \
     ../m4fss0-0_nortos/ti-arm-clang/ipc_rpmsg_echo.$(PROFILE).rprc_xip@$(BOOTIMAGE_CORE_ID_m4fss0-0) \
     ../a53ss0-0_freertos/gcc-aarch64/ipc_rpmsg_echo.$(PROFILE).rprc_xip@$(BOOTIMAGE_CORE_ID_a53ss0-0) \
+    ../a53ss0-1_freertos/gcc-aarch64/ipc_rpmsg_echo.$(PROFILE).rprc_xip@$(BOOTIMAGE_CORE_ID_a53ss0-1) \
 
 ifeq ($(ATF_INTEGRATED_BOOT), yes)
 MULTI_CORE_BOOTIMAGE_DEPENDENCY = \
@@ -126,12 +134,14 @@ MULTI_CORE_BOOTIMAGE_DEPENDENCY = \
     ../r5fss0-0_freertos/ti-arm-clang/ipc_rpmsg_echo.$(PROFILE).rprc \
     ../m4fss0-0_nortos/ti-arm-clang/ipc_rpmsg_echo.$(PROFILE).rprc \
     ../a53ss0-0_freertos/gcc-aarch64/ipc_rpmsg_echo.$(PROFILE).rprc \
+    ../a53ss0-1_freertos/gcc-aarch64/ipc_rpmsg_echo.$(PROFILE).rprc \
 
 else
 MULTI_CORE_IMAGE_PARAMS = \
     ../r5fss0-0_freertos/ti-arm-clang/ipc_rpmsg_echo.$(PROFILE).rprc \
     ../m4fss0-0_nortos/ti-arm-clang/ipc_rpmsg_echo.$(PROFILE).rprc \
     ../a53ss0-0_freertos/gcc-aarch64/ipc_rpmsg_echo.$(PROFILE).rprc \
+    ../a53ss0-1_freertos/gcc-aarch64/ipc_rpmsg_echo.$(PROFILE).rprc \
 
 endif
 
