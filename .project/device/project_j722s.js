@@ -8,6 +8,7 @@ const component_file_list = [
     "source/drivers/device_manager/sciserver/.project/project.js",
     "source/drivers/device_manager/self_reset/.project/project.js",
     "source/drivers/dmautils/.project/project.js",
+    "source/fs/freertos_fat/.project/project.js",
     "source/kernel/nortos/.project/project.js",
     "source/kernel/freertos/.project/project.js",
     "source/kernel/safertos/.project/project.js",
@@ -42,7 +43,11 @@ const example_file_list = [
     "examples/drivers/uart/uart_echo_low_latency_interrupt/.project/project.js",
     "examples/drivers/uart/uart_echo_low_latency_polling/.project/project.js",
     "examples/empty/.project/project_freertos.js",
-    "examples/hello_world/.project/project.js"
+    "examples/hello_world/.project/project.js",
+    "examples/kernel/dpl/dpl_demo/.project/project.js",
+    "examples/kernel/dpl/dpl_demo/.project/project_safertos.js",
+    "examples/kernel/freertos/task_switch/.project/project.js",
+    "examples/kernel/safertos/task_switch/.project/project.js",
 ];
 
 function getProjectSpecCpu(cpu) {
