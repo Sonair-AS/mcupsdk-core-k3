@@ -1687,14 +1687,14 @@ int8_t test_sciclient_pm(void)
         failCount++;
     }
 
-    retVal = Sciclient_pmSetModuleRst_flags(0x0, 0x0, 0x0, 0x0);
+    retVal = Sciclient_pmSetModuleRst_flags(0x0, 0x0, reqFlag, 0x0);
     if(retVal == SystemP_SUCCESS)
     {
         DebugP_log("\r\n Testcase failed in %d and retVal is %d", __LINE__, retVal);
         failCount++;
     }
 
-    retVal = Sciclient_pmSetModuleRst_flags(0xFF, 0x0, 0x0, 0x0);
+    retVal = Sciclient_pmSetModuleRst_flags(0xFF, 0x0, reqFlag, 0x0);
     if(retVal == SystemP_SUCCESS)
     {
         DebugP_log("\r\n Testcase failed in %d and retVal is %d", __LINE__, retVal);
