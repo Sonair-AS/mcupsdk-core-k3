@@ -107,6 +107,7 @@ uint32_t gRemoteCoreId[] = {
     CSL_CORE_ID_R5FSS0_0,
     CSL_CORE_ID_M4FSS0_0,
     CSL_CORE_ID_A53SS0_0,
+    CSL_CORE_ID_A53SS0_1,
     CSL_CORE_ID_MAX /* this value indicates the end of the array */
 };
 #endif
@@ -1161,7 +1162,7 @@ void test_ipc_main_core_start()
     uint32_t i;
 
     Test_Args testArgs;
-    
+
     #if defined(BUILD_C7X_AS_MASTER)
     DebugP_log("This test is build with c7x as master\n\r");
     #endif
@@ -1196,6 +1197,11 @@ void test_ipc_main_core_start()
 
     #if defined(SOC_AM64X) || defined(SOC_AM62AX) || defined(SOC_AM62DX) || defined(SOC_AM62X)
     testArgs.remoteCoreId = CSL_CORE_ID_A53SS0_0;
+    RUN_TEST(test_rpmsgOneToOne, 1870, &testArgs);
+    #endif
+
+    #if defined(SOC_AM62X)
+    testArgs.remoteCoreId = CSL_CORE_ID_A53SS0_1;
     RUN_TEST(test_rpmsgOneToOne, 1870, &testArgs);
     #endif
 
@@ -1250,6 +1256,19 @@ void test_ipc_main_core_start()
     testArgs.msgSize = 64;
     RUN_TEST(test_rpmsgOneToOne, 2732, &testArgs);
     testArgs.remoteCoreId = CSL_CORE_ID_A53SS0_0;
+    testArgs.msgSize = 112;
+    RUN_TEST(test_rpmsgOneToOne, 2734, &testArgs);
+    #endif
+
+    #if defined(SOC_AM62X)
+    /* performance test with varying payload size */
+    testArgs.remoteCoreId = CSL_CORE_ID_A53SS0_1;
+    testArgs.msgSize = 32;
+    RUN_TEST(test_rpmsgOneToOne, 2464, &testArgs);
+    testArgs.remoteCoreId = CSL_CORE_ID_A53SS0_1;
+    testArgs.msgSize = 64;
+    RUN_TEST(test_rpmsgOneToOne, 2732, &testArgs);
+    testArgs.remoteCoreId = CSL_CORE_ID_A53SS0_1;
     testArgs.msgSize = 112;
     RUN_TEST(test_rpmsgOneToOne, 2734, &testArgs);
     #endif

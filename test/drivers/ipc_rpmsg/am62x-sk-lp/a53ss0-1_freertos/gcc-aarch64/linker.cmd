@@ -38,17 +38,16 @@ ENTRY(_c_int00)
 
 MEMORY {
 
-	DDR : ORIGIN =  0x80080000, LENGTH = 0x2000000
+	DDR : ORIGIN =  0x82100000, LENGTH = 0x2000000
     RTOS_NORTOS_IPC_SHM_MEM : ORIGIN = 0x9C800000, LENGTH = 0x300000
     AMP_SHM : ORIGIN = 0x99000000, LENGTH = 0x4000
 }
 
 SECTIONS {
 
-
     /* Keeping the .text.boot:_c_int00 section of the code at the ATF Jump address to ensure the code entry point is from this address. */
-    .text.boot:_c_int00 : AT (0x80080000) {} > DDR
-    .vecs : {} > DDR
+    .text.boot:_c_int00 : AT (0x82100000) {} > DDR
+	.vecs : {} > DDR
 		.text : {} > DDR
 		.rodata : {} > DDR
 

@@ -3,7 +3,7 @@
  * via the GUI or CLI. Run CLI with '--help' for additional information on how to override these arguments.
  * @cliArgs --device "AM62x" --part "Default" --package "AMC" --context "a53ss0-0" --product "MCU_PLUS_SDK@07.03.01"
  * @v2CliArgs --device "AM625-Q1" --package "FCBGA (AMC)" --variant "AM6254-G" --context "a53ss0-0" --product "MCU_PLUS_SDK@07.03.01"
- * @versions {"tool":"1.21.0+3721"}
+ * @versions {"tool":"1.22.0+3893"}
  */
 
 /**
@@ -23,10 +23,11 @@ const mmu_armv84 = mmu_armv8.addInstance();
 ipc.enableLinuxIpc     = false;
 ipc.vringAllocationPDK = false;
 
-debug_log.enableUartLog        = true;
-debug_log.uartTrace            = true;
-debug_log.uartLog.$name        = "CONFIG_UART0";
-debug_log.uartLog.UART.$assign = "USART0";
+debug_log.enableUartLog            = true;
+debug_log.uartTrace                = true;
+debug_log.enableSharedMemLogReader = true;
+debug_log.uartLog.$name            = "CONFIG_UART0";
+debug_log.uartLog.UART.$assign     = "USART0";
 
 mmu_armv81.size  = 0x80000000;
 mmu_armv81.$name = "SOC_MEM_REGION";
