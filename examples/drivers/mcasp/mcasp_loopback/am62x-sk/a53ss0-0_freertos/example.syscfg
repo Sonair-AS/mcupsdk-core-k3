@@ -1,8 +1,9 @@
 /**
  * These arguments were used when this file was generated. They will be automatically applied on subsequent loads
  * via the GUI or CLI. Run CLI with '--help' for additional information on how to override these arguments.
- * @cliArgs --device "AM62x" --package "ALW" --part "Default" --context "a53ss0-0" --product "MCU_PLUS_SDK@07.03.01"
- * @versions {"tool":"1.19.0+3426"}
+ * @cliArgs --device "AM62x" --part "Default" --package "ALW" --context "a53ss0-0" --product "MCU_PLUS_SDK@07.03.01"
+ * @v2CliArgs --device "AM625" --package "FCBGA (ALW)" --variant "AM6254-G" --context "a53ss0-0" --product "MCU_PLUS_SDK@07.03.01"
+ * @versions {"tool":"1.22.0+3893"}
  */
 
 /**
@@ -26,6 +27,8 @@ mcasp1.txCallbackFxn                           = "mcasp_loopback_txcb";
 mcasp1.rxDataMask                              = 0xFFFFFFFF;
 mcasp1.rxActiveSlotMask                        = 0x3;
 mcasp1.rxCallbackFxn                           = "mcasp_loopback_rxcb";
+mcasp1.txLoopjobBufLength                      = 1280;
+mcasp1.rxLoopjobBufLength                      = 1280;
 mcasp1.MCASP.$assignAllowConflicts             = "MCASP0";
 mcasp1.mcaspSer.create(2);
 mcasp1.mcaspSer[0].$name                       = "CONFIG_MCASP_SER0";

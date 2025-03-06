@@ -87,8 +87,16 @@ static MCASP_Attrs gMcaspAttrs[CONFIG_MCASP_NUM_INSTANCES] =
         },
         .txSlotSize = (uint32_t)`config.TxSlotSize`,
         .rxSlotSize = (uint32_t)`config.RxSlotSize`,
+        % if(config.txAfifoEnable == true) {
         .txFifoWaterLevel = `config.txAfifoNumEvt`,
+        % } else {
+         .txFifoWaterLevel = 0U,
+        % }
+        % if(config.rxAfifoEnable == true) {
         .rxFifoWaterLevel = `config.rxAfifoNumEvt`,
+        % } else {
+        .rxFifoWaterLevel = 0U,
+        % }
         .hwCfg =
         {
             .gbl =

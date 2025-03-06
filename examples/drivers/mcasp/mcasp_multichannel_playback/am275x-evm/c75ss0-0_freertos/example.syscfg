@@ -3,12 +3,15 @@
  * via the GUI or CLI. Run CLI with '--help' for additional information on how to override these arguments.
  * @cliArgs --device "AM275x" --part "AM2754" --package "ANJ" --context "c75ss0-0" --product "MCU_PLUS_SDK@07.03.01"
  * @v2CliArgs --device "AM2754" --package "FCCSP (ANJ)" --context "c75ss0-0" --product "MCU_PLUS_SDK@07.03.01"
- * @versions {"tool":"1.21.0+3721"}
+ * @versions {"tool":"1.22.0+3893"}
  */
 
 /**
  * Import the modules used in this configuration.
  */
+const gpio        = scripting.addModule("/drivers/gpio/gpio", {}, false);
+const gpio1       = gpio.addInstance();
+const gpio2       = gpio.addInstance();
 const i2c         = scripting.addModule("/drivers/i2c/i2c", {}, false);
 const i2c1        = i2c.addInstance();
 const mcasp       = scripting.addModule("/drivers/mcasp/mcasp", {}, false);
@@ -31,6 +34,14 @@ const mmu_armv812 = mmu_armv8.addInstance();
 /**
  * Write custom configuration values to the imported modules.
  */
+gpio1.$name        = "CONFIG_GPIO_TX";
+gpio1.pinDir       = "OUTPUT";
+gpio1.GPIO.$assign = "MCASP0_ACLKX";
+
+gpio2.$name        = "CONFIG_GPIO_RX";
+gpio2.pinDir       = "OUTPUT";
+gpio2.GPIO.$assign = "MCASP0_AFSX";
+
 i2c1.$name           = "CONFIG_I2C0";
 i2c1.I2C.$assign     = "I2C0";
 i2c1.I2C_child.$name = "drivers_i2c_v0_i2c_v0_template0";
@@ -58,6 +69,9 @@ mcasp1.rxHclkSource                            = 0;
 mcasp1.rxHclkSourceMux                         = 4;
 mcasp1.rxFsPolarity                            = 0;
 mcasp1.rxBitClkPolarity                        = 0;
+mcasp1.txLoopjobBufLength                      = 2048;
+mcasp1.rxLoopjobBufLength                      = 2048;
+mcasp1.txLoopjobBufExtern                      = "uint8_t gMcaspAudioBufferTx[][]";
 mcasp1.MCASP.$assignAllowConflicts             = "MCASP1";
 mcasp1.CLOCKING.$assign                        = "CLOCKING";
 mcasp1.mcaspSer.create(2);

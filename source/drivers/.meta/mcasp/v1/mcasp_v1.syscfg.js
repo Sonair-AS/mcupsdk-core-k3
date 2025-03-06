@@ -421,14 +421,14 @@ Then MCASP_Open can be called from application after clock configurations are do
 `Provide address to an external transmit loopjob defined elsewhere in the application.
 This address will be typecasted to an unsigned char pointer.
 The transaction buffer can itself be provided as an external loopjob.
-Note: This buffer will be declared as extern <Extern Transmit Loopjob>;`,
+Note: This buffer will be declared as extern "Extern Transmit Loopjob";`,
                     onChange: function (inst, ui) {
                         ui.txLoopjobBufExtern.hidden = !inst.externTxLoopjob;
                     },
                 },
                 {
                     name: "txLoopjobBufExtern",
-                    displayName: "Transmit loopjob buffer definition",
+                    displayName: "Transmit Loopjob Buffer Definition",
                     default: "NULL",
                     description: "Transmit loopjob buffer definition",
                     hidden: true,
@@ -806,14 +806,14 @@ Note: This buffer will be declared as extern <Extern Transmit Loopjob>;`,
 `Provide address to an external receive loopjob defined elsewhere in the application.
 This address will be typecasted to an unsigned char pointer.
 The transaction buffer can itself be provided as an external loopjob.
-Note: This buffer will be declared as extern <Extern Transmit Loopjob>;`,
+Note: This buffer will be declared as extern "Extern Transmit Loopjob";`,
                     onChange: function (inst, ui) {
                         ui.rxLoopjobBufExtern.hidden = !inst.externRxLoopjob;
                     }
                 },
                 {
                     name: "rxLoopjobBufExtern",
-                    displayName: "Receive loopjob buffer definition",
+                    displayName: "Receive Loopjob Buffer Definition",
                     default: "NULL",
                     description: "Receive loopjob buffer definition",
                     hidden: true,

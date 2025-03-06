@@ -192,6 +192,8 @@ void mcasp_start_stop_main(void *args)
 
     SemaphoreP_pend(&gRxSem, SystemP_WAIT_FOREVER);
 
+    MCASP_stopTransferRx(mcaspHandle);
+
     DebugP_log("5s audio received !!!!!!\r\n");
 
     do

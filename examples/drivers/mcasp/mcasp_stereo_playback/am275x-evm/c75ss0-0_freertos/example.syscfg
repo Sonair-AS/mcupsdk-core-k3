@@ -3,7 +3,7 @@
  * via the GUI or CLI. Run CLI with '--help' for additional information on how to override these arguments.
  * @cliArgs --device "AM275x" --part "AM2754" --package "ANJ" --context "c75ss0-0" --product "MCU_PLUS_SDK@07.03.01"
  * @v2CliArgs --device "AM2754" --package "FCCSP (ANJ)" --context "c75ss0-0" --product "MCU_PLUS_SDK@07.03.01"
- * @versions {"tool":"1.21.0+3721"}
+ * @versions {"tool":"1.22.0+3893"}
  */
 
 /**
@@ -48,6 +48,8 @@ mcasp1.RxMode                                  = "TDM";
 mcasp1.rxFsWidth                               = 0;
 mcasp1.rxFsPolarity                            = 0;
 mcasp1.rxBitClkPolarity                        = 0;
+mcasp1.txLoopjobBufLength                      = 2048;
+mcasp1.rxLoopjobBufLength                      = 2048;
 mcasp1.MCASP.$assignAllowConflicts             = "MCASP1";
 mcasp1.CLOCKING.$assign                        = "CLOCKING";
 mcasp1.mcaspSer.create(2);
