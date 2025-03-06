@@ -69,6 +69,7 @@ const files = {
         /* Enet utils */
         "enetphy.c",
         "generic_phy.c",
+        "dp83tg721.c",
 
         /* Enet utils */
         "enet_apputils.c",
@@ -127,6 +128,7 @@ const includes = {
         "${MCU_PLUS_SDK_PATH}/source/networking/enet/soc/k3/am275x",
 
         "${MCU_PLUS_SDK_PATH}/source/board/ethphy/enet/rtos_drivers/include",
+        "${MCU_PLUS_SDK_PATH}/source/board/ethphy/enet/rtos_drivers/src"
     ],
 };
 
@@ -170,24 +172,6 @@ const defines_r5f = {
         "ENETDMA_INSTRUMENTATION_ENABLED=1",
     ],
 };
-
-const defines_wkup_r5f = {
-    common: [
-        "MAKEFILE_BUILD",
-        "ENET_CFG_ASSERT=1",
-        "ENET_CFG_PRINT_ENABLE",
-        "ENET_CFG_TRACE_LEVEL=3",
-        "ENET_ENABLE_PER_CPSW=1",
-        "ENABLE_ENET_LOG",
-        "ENABLE_SCICLIENT_DIRECT",
-    ],
-    debug: [
-        "ENET_CFG_DEV_ERROR=1",
-        "LWIPIF_INSTRUMENTATION_ENABLED=1",
-        "ENETDMA_INSTRUMENTATION_ENABLED=1",
-    ],
-};
-
 
 const defines_a53 = {
     common: [
