@@ -36,10 +36,10 @@ help:
 	@echo  ======================
 	@echo  $(MAKE) -s -f makefile.j722s board_r5f.ti-arm-clang board_c75x.ti-c7000
 	@echo  $(MAKE) -s -f makefile.j722s drivers_mcu-r5f.ti-arm-clang drivers_wkup-r5f.ti-arm-clang drivers_main-r5f.ti-arm-clang drivers_c75ss0-0.ti-c7000 drivers_c75ss1-0.ti-c7000
-	@echo  $(MAKE) -s -f makefile.j722s self_reset_wkup-r5f.ti-arm-clang
 	@echo  $(MAKE) -s -f makefile.j722s sciclient_direct_wkup-r5f.ti-arm-clang
 	@echo  $(MAKE) -s -f makefile.j722s sciclient_direct_sbl_wkup-r5f.ti-arm-clang
 	@echo  $(MAKE) -s -f makefile.j722s sciserver_wkup-r5f.ti-arm-clang
+	@echo  $(MAKE) -s -f makefile.j722s self_reset_wkup-r5f.ti-arm-clang
 	@echo  $(MAKE) -s -f makefile.j722s dmautils_c75ss0-0.ti-c7000 dmautils_c75ss1-0.ti-c7000
 	@echo  $(MAKE) -s -f makefile.j722s freertos_r5f.ti-arm-clang freertos_c75x.ti-c7000
 	@echo  $(MAKE) -s -f makefile.j722s rm_pm_hal_wkup-r5f.ti-arm-clang
@@ -49,10 +49,10 @@ help:
 	@echo  ======================
 	@echo  $(MAKE) -s -f makefile.j722s board_r5f.ti-arm-clang_clean board_c75x.ti-c7000_clean
 	@echo  $(MAKE) -s -f makefile.j722s drivers_mcu-r5f.ti-arm-clang_clean drivers_wkup-r5f.ti-arm-clang_clean drivers_main-r5f.ti-arm-clang_clean drivers_c75ss0-0.ti-c7000_clean drivers_c75ss1-0.ti-c7000_clean
-	@echo  $(MAKE) -s -f makefile.j722s self_reset_wkup-r5f.ti-arm-clang_clean
 	@echo  $(MAKE) -s -f makefile.j722s sciclient_direct_wkup-r5f.ti-arm-clang_clean
 	@echo  $(MAKE) -s -f makefile.j722s sciclient_direct_sbl_wkup-r5f.ti-arm-clang_clean
 	@echo  $(MAKE) -s -f makefile.j722s sciserver_wkup-r5f.ti-arm-clang_clean
+	@echo  $(MAKE) -s -f makefile.j722s self_reset_wkup-r5f.ti-arm-clang_clean
 	@echo  $(MAKE) -s -f makefile.j722s dmautils_c75ss0-0.ti-c7000_clean dmautils_c75ss1-0.ti-c7000_clean
 	@echo  $(MAKE) -s -f makefile.j722s freertos_r5f.ti-arm-clang_clean freertos_c75x.ti-c7000_clean
 	@echo  $(MAKE) -s -f makefile.j722s rm_pm_hal_wkup-r5f.ti-arm-clang_clean
@@ -74,6 +74,12 @@ help:
 	@echo  $(MAKE) -s -C examples/drivers/i2c/i2c_read/j722s-evm/main-r5fss0-0_freertos/ti-arm-clang [all clean syscfg-gui syscfg]
 	@echo  $(MAKE) -s -C examples/drivers/i2c/i2c_temperature/j722s-evm/wkup-r5fss0-0_freertos/ti-arm-clang [all clean syscfg-gui syscfg]
 	@echo  $(MAKE) -s -C examples/drivers/i2c/i2c_temperature/j722s-evm/main-r5fss0-0_freertos/ti-arm-clang [all clean syscfg-gui syscfg]
+	@echo  $(MAKE) -s -C examples/drivers/sciclient/sciclient_get_version/j722s-evm/wkup-r5fss0-0_freertos/ti-arm-clang [all clean syscfg-gui syscfg]
+	@echo  $(MAKE) -s -C examples/drivers/sciclient/sciclient_unit_test/j722s-evm/wkup-r5fss0-0_freertos/ti-arm-clang [all clean syscfg-gui syscfg]
+	@echo  $(MAKE) -s -C examples/drivers/sciclient/sciclient_unit_test/j722s-evm/mcu-r5fss0-0_freertos/ti-arm-clang [all clean syscfg-gui syscfg]
+	@echo  $(MAKE) -s -C examples/drivers/sciclient/sciclient_unit_test/j722s-evm/main-r5fss0-0_freertos/ti-arm-clang [all clean syscfg-gui syscfg]
+	@echo  $(MAKE) -s -C examples/drivers/sciclient/sciclient_unit_test/j722s-evm/c75ss0-0_freertos/ti-c7000 [all clean syscfg-gui syscfg]
+	@echo  $(MAKE) -s -C examples/drivers/sciclient/sciclient_unit_test/j722s-evm/c75ss1-0_freertos/ti-c7000 [all clean syscfg-gui syscfg]
 	@echo  $(MAKE) -s -C examples/drivers/spinlock/spinlock_demo/j722s-evm/c75ss0-0_freertos/ti-c7000 [all clean syscfg-gui syscfg]
 	@echo  $(MAKE) -s -C examples/drivers/spinlock/spinlock_demo/j722s-evm/c75ss1-0_freertos/ti-c7000 [all clean syscfg-gui syscfg]
 	@echo  $(MAKE) -s -C examples/drivers/uart/uart_echo/j722s-evm/mcu-r5fss0-0_freertos/ti-arm-clang [all clean syscfg-gui syscfg]
@@ -97,12 +103,14 @@ help:
 	@echo  $(MAKE) -s -C examples/drivers/uart/uart_echo_low_latency_polling/j722s-evm/main-r5fss0-0_freertos/ti-arm-clang [all clean syscfg-gui syscfg]
 	@echo  $(MAKE) -s -C examples/drivers/uart/uart_echo_low_latency_polling/j722s-evm/c75ss0-0_freertos/ti-c7000 [all clean syscfg-gui syscfg]
 	@echo  $(MAKE) -s -C examples/drivers/uart/uart_echo_low_latency_polling/j722s-evm/c75ss1-0_freertos/ti-c7000 [all clean syscfg-gui syscfg]
-	@echo  $(MAKE) -s -C examples/drivers/sciclient/sciclient_get_version/j722s-evm/wkup-r5fss0-0_freertos/ti-arm-clang [all clean syscfg-gui syscfg]
-	@echo  $(MAKE) -s -C examples/drivers/sciclient/sciclient_unit_test/j722s-evm/wkup-r5fss0-0_freertos/ti-arm-clang [all clean syscfg-gui syscfg]
-	@echo  $(MAKE) -s -C examples/drivers/sciclient/sciclient_unit_test/j722s-evm/mcu-r5fss0-0_freertos/ti-arm-clang [all clean syscfg-gui syscfg]
-	@echo  $(MAKE) -s -C examples/drivers/sciclient/sciclient_unit_test/j722s-evm/main-r5fss0-0_freertos/ti-arm-clang [all clean syscfg-gui syscfg]
-	@echo  $(MAKE) -s -C examples/drivers/sciclient/sciclient_unit_test/j722s-evm/c75ss0-0_freertos/ti-c7000 [all clean syscfg-gui syscfg]
-	@echo  $(MAKE) -s -C examples/drivers/sciclient/sciclient_unit_test/j722s-evm/c75ss1-0_freertos/ti-c7000 [all clean syscfg-gui syscfg]
+	@echo  $(MAKE) -s -C examples/hello_world/j722s-evm/mcu-r5fss0-0_nortos/ti-arm-clang [all clean syscfg-gui syscfg]
+	@echo  $(MAKE) -s -C examples/hello_world/j722s-evm/wkup-r5fss0-0_nortos/ti-arm-clang [all clean syscfg-gui syscfg]
+	@echo  $(MAKE) -s -C examples/hello_world/j722s-evm/main-r5fss0-0_nortos/ti-arm-clang [all clean syscfg-gui syscfg]
+	@echo  $(MAKE) -s -C examples/hello_world/j722s-evm/mcu-r5fss0-0_freertos/ti-arm-clang [all clean syscfg-gui syscfg]
+	@echo  $(MAKE) -s -C examples/hello_world/j722s-evm/wkup-r5fss0-0_freertos/ti-arm-clang [all clean syscfg-gui syscfg]
+	@echo  $(MAKE) -s -C examples/hello_world/j722s-evm/main-r5fss0-0_freertos/ti-arm-clang [all clean syscfg-gui syscfg]
+	@echo  $(MAKE) -s -C examples/hello_world/j722s-evm/c75ss0-0_freertos/ti-c7000 [all clean syscfg-gui syscfg]
+	@echo  $(MAKE) -s -C examples/hello_world/j722s-evm/c75ss1-0_freertos/ti-c7000 [all clean syscfg-gui syscfg]
 	@echo  .
 	@echo  System Example build targets,
 	@echo  =============================
@@ -112,17 +120,17 @@ help:
 # Various Component Targets
 BUILD_COMBO_board = board_r5f.ti-arm-clang board_c75x.ti-c7000
 BUILD_COMBO_drivers = drivers_mcu-r5f.ti-arm-clang drivers_wkup-r5f.ti-arm-clang drivers_main-r5f.ti-arm-clang drivers_c75ss0-0.ti-c7000 drivers_c75ss1-0.ti-c7000
-BUILD_COMBO_self_reset = self_reset_wkup-r5f.ti-arm-clang
 BUILD_COMBO_sciclient_direct = sciclient_direct_wkup-r5f.ti-arm-clang
 BUILD_COMBO_sciclient_direct_sbl = sciclient_direct_sbl_wkup-r5f.ti-arm-clang
 BUILD_COMBO_sciserver = sciserver_wkup-r5f.ti-arm-clang
+BUILD_COMBO_self_reset = self_reset_wkup-r5f.ti-arm-clang
 BUILD_COMBO_dmautils = dmautils_c75ss0-0.ti-c7000 dmautils_c75ss1-0.ti-c7000
 BUILD_COMBO_freertos = freertos_r5f.ti-arm-clang freertos_c75x.ti-c7000
 BUILD_COMBO_rm_pm_hal = rm_pm_hal_wkup-r5f.ti-arm-clang
 BUILD_COMBO_rm_pm_hal_sbl = rm_pm_hal_sbl_wkup-r5f.ti-arm-clang
 
 # Combine all Components
-BUILD_COMBO_ALL = $(BUILD_COMBO_board) $(BUILD_COMBO_drivers) $(BUILD_COMBO_self_reset) $(BUILD_COMBO_sciclient_direct) $(BUILD_COMBO_sciclient_direct_sbl) $(BUILD_COMBO_sciserver) $(BUILD_COMBO_dmautils) $(BUILD_COMBO_freertos) $(BUILD_COMBO_rm_pm_hal) $(BUILD_COMBO_rm_pm_hal_sbl)
+BUILD_COMBO_ALL = $(BUILD_COMBO_board) $(BUILD_COMBO_drivers) $(BUILD_COMBO_sciclient_direct) $(BUILD_COMBO_sciclient_direct_sbl) $(BUILD_COMBO_sciserver) $(BUILD_COMBO_self_reset) $(BUILD_COMBO_dmautils) $(BUILD_COMBO_freertos) $(BUILD_COMBO_rm_pm_hal) $(BUILD_COMBO_rm_pm_hal_sbl)
 
 # Combine all External Components
 BUILD_COMBO_EXTERNAL_ALL =
@@ -147,9 +155,6 @@ $(BUILD_COMBO_board):
 $(BUILD_COMBO_drivers):
 	$(MAKE) -C source/drivers -f makefile.j722s.$(subst drivers_,,$@) all
 
-$(BUILD_COMBO_self_reset):
-	$(MAKE) -C source/drivers/device_manager/self_reset -f makefile.j722s.$(subst self_reset_,,$@) all
-
 $(BUILD_COMBO_sciclient_direct):
 	$(MAKE) -C source/drivers/device_manager/sciclient_direct -f makefile.j722s.$(subst sciclient_direct_,,$@) all
 
@@ -158,6 +163,9 @@ $(BUILD_COMBO_sciclient_direct_sbl):
 
 $(BUILD_COMBO_sciserver):
 	$(MAKE) -C source/drivers/device_manager/sciserver -f makefile.j722s.$(subst sciserver_,,$@) all
+
+$(BUILD_COMBO_self_reset):
+	$(MAKE) -C source/drivers/device_manager/self_reset -f makefile.j722s.$(subst self_reset_,,$@) all
 
 $(BUILD_COMBO_dmautils):
 	$(MAKE) -C source/drivers/dmautils -f makefile.j722s.$(subst dmautils_,,$@) all
@@ -175,17 +183,17 @@ $(BUILD_COMBO_rm_pm_hal_sbl):
 # Various Component Clean Targets
 BUILD_COMBO_CLEAN_board = board_r5f.ti-arm-clang_clean board_c75x.ti-c7000_clean
 BUILD_COMBO_CLEAN_drivers = drivers_mcu-r5f.ti-arm-clang_clean drivers_wkup-r5f.ti-arm-clang_clean drivers_main-r5f.ti-arm-clang_clean drivers_c75ss0-0.ti-c7000_clean drivers_c75ss1-0.ti-c7000_clean
-BUILD_COMBO_CLEAN_self_reset = self_reset_wkup-r5f.ti-arm-clang_clean
 BUILD_COMBO_CLEAN_sciclient_direct = sciclient_direct_wkup-r5f.ti-arm-clang_clean
 BUILD_COMBO_CLEAN_sciclient_direct_sbl = sciclient_direct_sbl_wkup-r5f.ti-arm-clang_clean
 BUILD_COMBO_CLEAN_sciserver = sciserver_wkup-r5f.ti-arm-clang_clean
+BUILD_COMBO_CLEAN_self_reset = self_reset_wkup-r5f.ti-arm-clang_clean
 BUILD_COMBO_CLEAN_dmautils = dmautils_c75ss0-0.ti-c7000_clean dmautils_c75ss1-0.ti-c7000_clean
 BUILD_COMBO_CLEAN_freertos = freertos_r5f.ti-arm-clang_clean freertos_c75x.ti-c7000_clean
 BUILD_COMBO_CLEAN_rm_pm_hal = rm_pm_hal_wkup-r5f.ti-arm-clang_clean
 BUILD_COMBO_CLEAN_rm_pm_hal_sbl = rm_pm_hal_sbl_wkup-r5f.ti-arm-clang_clean
 
 # Combine all Components Clean
-BUILD_COMBO_CLEAN_ALL = $(BUILD_COMBO_CLEAN_board) $(BUILD_COMBO_CLEAN_drivers) $(BUILD_COMBO_CLEAN_self_reset) $(BUILD_COMBO_CLEAN_sciclient_direct) $(BUILD_COMBO_CLEAN_sciclient_direct_sbl) $(BUILD_COMBO_CLEAN_sciserver) $(BUILD_COMBO_CLEAN_dmautils) $(BUILD_COMBO_CLEAN_freertos) $(BUILD_COMBO_CLEAN_rm_pm_hal) $(BUILD_COMBO_CLEAN_rm_pm_hal_sbl)
+BUILD_COMBO_CLEAN_ALL = $(BUILD_COMBO_CLEAN_board) $(BUILD_COMBO_CLEAN_drivers) $(BUILD_COMBO_CLEAN_sciclient_direct) $(BUILD_COMBO_CLEAN_sciclient_direct_sbl) $(BUILD_COMBO_CLEAN_sciserver) $(BUILD_COMBO_CLEAN_self_reset) $(BUILD_COMBO_CLEAN_dmautils) $(BUILD_COMBO_CLEAN_freertos) $(BUILD_COMBO_CLEAN_rm_pm_hal) $(BUILD_COMBO_CLEAN_rm_pm_hal_sbl)
 
 # Combine all External Components Clean
 BUILD_COMBO_EXTERNAL_CLEAN_ALL =
@@ -205,9 +213,6 @@ $(BUILD_COMBO_CLEAN_board):
 $(BUILD_COMBO_CLEAN_drivers):
 	$(MAKE) -C source/drivers -f makefile.j722s.$(subst drivers_,,$(subst _clean,,$@)) clean
 
-$(BUILD_COMBO_CLEAN_self_reset):
-	$(MAKE) -C source/drivers/device_manager/self_reset -f makefile.j722s.$(subst self_reset_,,$(subst _clean,,$@)) clean
-
 $(BUILD_COMBO_CLEAN_sciclient_direct):
 	$(MAKE) -C source/drivers/device_manager/sciclient_direct -f makefile.j722s.$(subst sciclient_direct_,,$(subst _clean,,$@)) clean
 
@@ -216,6 +221,9 @@ $(BUILD_COMBO_CLEAN_sciclient_direct_sbl):
 
 $(BUILD_COMBO_CLEAN_sciserver):
 	$(MAKE) -C source/drivers/device_manager/sciserver -f makefile.j722s.$(subst sciserver_,,$(subst _clean,,$@)) clean
+
+$(BUILD_COMBO_CLEAN_self_reset):
+	$(MAKE) -C source/drivers/device_manager/self_reset -f makefile.j722s.$(subst self_reset_,,$(subst _clean,,$@)) clean
 
 $(BUILD_COMBO_CLEAN_dmautils):
 	$(MAKE) -C source/drivers/dmautils -f makefile.j722s.$(subst dmautils_,,$(subst _clean,,$@)) clean
@@ -233,17 +241,17 @@ $(BUILD_COMBO_CLEAN_rm_pm_hal_sbl):
 # Various Component Scrub Targets
 BUILD_COMBO_SCRUB_board = board_r5f.ti-arm-clang_scrub board_c75x.ti-c7000_scrub_scrub
 BUILD_COMBO_SCRUB_drivers = drivers_mcu-r5f.ti-arm-clang_scrub drivers_wkup-r5f.ti-arm-clang_scrub drivers_main-r5f.ti-arm-clang_scrub drivers_c75ss0-0.ti-c7000_scrub drivers_c75ss1-0.ti-c7000_scrub_scrub
-BUILD_COMBO_SCRUB_self_reset = self_reset_wkup-r5f.ti-arm-clang_scrub_scrub
 BUILD_COMBO_SCRUB_sciclient_direct = sciclient_direct_wkup-r5f.ti-arm-clang_scrub_scrub
 BUILD_COMBO_SCRUB_sciclient_direct_sbl = sciclient_direct_sbl_wkup-r5f.ti-arm-clang_scrub_scrub
 BUILD_COMBO_SCRUB_sciserver = sciserver_wkup-r5f.ti-arm-clang_scrub_scrub
+BUILD_COMBO_SCRUB_self_reset = self_reset_wkup-r5f.ti-arm-clang_scrub_scrub
 BUILD_COMBO_SCRUB_dmautils = dmautils_c75ss0-0.ti-c7000_scrub dmautils_c75ss1-0.ti-c7000_scrub_scrub
 BUILD_COMBO_SCRUB_freertos = freertos_r5f.ti-arm-clang_scrub freertos_c75x.ti-c7000_scrub_scrub
 BUILD_COMBO_SCRUB_rm_pm_hal = rm_pm_hal_wkup-r5f.ti-arm-clang_scrub_scrub
 BUILD_COMBO_SCRUB_rm_pm_hal_sbl = rm_pm_hal_sbl_wkup-r5f.ti-arm-clang_scrub_scrub
 
 # Combine all Components Scrub Targets
-BUILD_COMBO_SCRUB_ALL = $(BUILD_COMBO_SCRUB_board) $(BUILD_COMBO_SCRUB_drivers) $(BUILD_COMBO_SCRUB_self_reset) $(BUILD_COMBO_SCRUB_sciclient_direct) $(BUILD_COMBO_SCRUB_sciclient_direct_sbl) $(BUILD_COMBO_SCRUB_sciserver) $(BUILD_COMBO_SCRUB_dmautils) $(BUILD_COMBO_SCRUB_freertos) $(BUILD_COMBO_SCRUB_rm_pm_hal) $(BUILD_COMBO_SCRUB_rm_pm_hal_sbl)
+BUILD_COMBO_SCRUB_ALL = $(BUILD_COMBO_SCRUB_board) $(BUILD_COMBO_SCRUB_drivers) $(BUILD_COMBO_SCRUB_sciclient_direct) $(BUILD_COMBO_SCRUB_sciclient_direct_sbl) $(BUILD_COMBO_SCRUB_sciserver) $(BUILD_COMBO_SCRUB_self_reset) $(BUILD_COMBO_SCRUB_dmautils) $(BUILD_COMBO_SCRUB_freertos) $(BUILD_COMBO_SCRUB_rm_pm_hal) $(BUILD_COMBO_SCRUB_rm_pm_hal_sbl)
 
 # Combine all External Components Scrub Targets
 BUILD_COMBO_EXTERNAL_SCRUB_ALL =
@@ -263,9 +271,6 @@ $(BUILD_COMBO_SCRUB_board):
 $(BUILD_COMBO_SCRUB_drivers):
 	$(MAKE) -C source/drivers -f makefile.j722s.$(subst drivers_,,$(subst _scrub,,$@)) scrub
 
-$(BUILD_COMBO_SCRUB_self_reset):
-	$(MAKE) -C source/drivers/device_manager/self_reset -f makefile.j722s.$(subst self_reset_,,$(subst _scrub,,$@)) scrub
-
 $(BUILD_COMBO_SCRUB_sciclient_direct):
 	$(MAKE) -C source/drivers/device_manager/sciclient_direct -f makefile.j722s.$(subst sciclient_direct_,,$(subst _scrub,,$@)) scrub
 
@@ -274,6 +279,9 @@ $(BUILD_COMBO_SCRUB_sciclient_direct_sbl):
 
 $(BUILD_COMBO_SCRUB_sciserver):
 	$(MAKE) -C source/drivers/device_manager/sciserver -f makefile.j722s.$(subst sciserver_,,$(subst _scrub,,$@)) scrub
+
+$(BUILD_COMBO_SCRUB_self_reset):
+	$(MAKE) -C source/drivers/device_manager/self_reset -f makefile.j722s.$(subst self_reset_,,$(subst _scrub,,$@)) scrub
 
 $(BUILD_COMBO_SCRUB_dmautils):
 	$(MAKE) -C source/drivers/dmautils -f makefile.j722s.$(subst dmautils_,,$(subst _scrub,,$@)) scrub
@@ -304,6 +312,12 @@ BUILD_COMBO_EXAMPLE_ALL += i2c_read_j722s-evm_wkup-r5fss0-0_freertos_ti-arm-clan
 BUILD_COMBO_EXAMPLE_ALL += i2c_read_j722s-evm_main-r5fss0-0_freertos_ti-arm-clang
 BUILD_COMBO_EXAMPLE_ALL += i2c_temperature_j722s-evm_wkup-r5fss0-0_freertos_ti-arm-clang
 BUILD_COMBO_EXAMPLE_ALL += i2c_temperature_j722s-evm_main-r5fss0-0_freertos_ti-arm-clang
+BUILD_COMBO_EXAMPLE_ALL += sciclient_get_version_j722s-evm_wkup-r5fss0-0_freertos_ti-arm-clang
+BUILD_COMBO_EXAMPLE_ALL += sciclient_unit_test_j722s-evm_wkup-r5fss0-0_freertos_ti-arm-clang
+BUILD_COMBO_EXAMPLE_ALL += sciclient_unit_test_j722s-evm_mcu-r5fss0-0_freertos_ti-arm-clang
+BUILD_COMBO_EXAMPLE_ALL += sciclient_unit_test_j722s-evm_main-r5fss0-0_freertos_ti-arm-clang
+BUILD_COMBO_EXAMPLE_ALL += sciclient_unit_test_j722s-evm_c75ss0-0_freertos_ti-c7000
+BUILD_COMBO_EXAMPLE_ALL += sciclient_unit_test_j722s-evm_c75ss1-0_freertos_ti-c7000
 BUILD_COMBO_EXAMPLE_ALL += spinlock_demo_j722s-evm_c75ss0-0_freertos_ti-c7000
 BUILD_COMBO_EXAMPLE_ALL += spinlock_demo_j722s-evm_c75ss1-0_freertos_ti-c7000
 BUILD_COMBO_EXAMPLE_ALL += uart_echo_j722s-evm_mcu-r5fss0-0_freertos_ti-arm-clang
@@ -327,12 +341,14 @@ BUILD_COMBO_EXAMPLE_ALL += uart_echo_low_latency_polling_j722s-evm_wkup-r5fss0-0
 BUILD_COMBO_EXAMPLE_ALL += uart_echo_low_latency_polling_j722s-evm_main-r5fss0-0_freertos_ti-arm-clang
 BUILD_COMBO_EXAMPLE_ALL += uart_echo_low_latency_polling_j722s-evm_c75ss0-0_freertos_ti-c7000
 BUILD_COMBO_EXAMPLE_ALL += uart_echo_low_latency_polling_j722s-evm_c75ss1-0_freertos_ti-c7000
-BUILD_COMBO_EXAMPLE_ALL += sciclient_get_version_j722s-evm_wkup-r5fss0-0_freertos_ti-arm-clang
-BUILD_COMBO_EXAMPLE_ALL += sciclient_unit_test_j722s-evm_wkup-r5fss0-0_freertos_ti-arm-clang
-BUILD_COMBO_EXAMPLE_ALL += sciclient_unit_test_j722s-evm_mcu-r5fss0-0_freertos_ti-arm-clang
-BUILD_COMBO_EXAMPLE_ALL += sciclient_unit_test_j722s-evm_main-r5fss0-0_freertos_ti-arm-clang
-BUILD_COMBO_EXAMPLE_ALL += sciclient_unit_test_j722s-evm_c75ss0-0_freertos_ti-c7000
-BUILD_COMBO_EXAMPLE_ALL += sciclient_unit_test_j722s-evm_c75ss1-0_freertos_ti-c7000
+BUILD_COMBO_EXAMPLE_ALL += hello_world_j722s-evm_mcu-r5fss0-0_nortos_ti-arm-clang
+BUILD_COMBO_EXAMPLE_ALL += hello_world_j722s-evm_wkup-r5fss0-0_nortos_ti-arm-clang
+BUILD_COMBO_EXAMPLE_ALL += hello_world_j722s-evm_main-r5fss0-0_nortos_ti-arm-clang
+BUILD_COMBO_EXAMPLE_ALL += hello_world_j722s-evm_mcu-r5fss0-0_freertos_ti-arm-clang
+BUILD_COMBO_EXAMPLE_ALL += hello_world_j722s-evm_wkup-r5fss0-0_freertos_ti-arm-clang
+BUILD_COMBO_EXAMPLE_ALL += hello_world_j722s-evm_main-r5fss0-0_freertos_ti-arm-clang
+BUILD_COMBO_EXAMPLE_ALL += hello_world_j722s-evm_c75ss0-0_freertos_ti-c7000
+BUILD_COMBO_EXAMPLE_ALL += hello_world_j722s-evm_c75ss1-0_freertos_ti-c7000
 # Various System Example Targets
 BUILD_COMBO_EXAMPLE_ALL += empty_j722s-evm_system_freertos
 
@@ -385,6 +401,24 @@ examples-private: $(BUILD_COMBO_EXAMPLE_PRIVATE_ALL)
 
  i2c_temperature_j722s-evm_main-r5fss0-0_freertos_ti-arm-clang:
 	$(MAKE) -C examples/drivers/i2c/i2c_temperature/j722s-evm/main-r5fss0-0_freertos/ti-arm-clang -f makefile all
+
+ sciclient_get_version_j722s-evm_wkup-r5fss0-0_freertos_ti-arm-clang:
+	$(MAKE) -C examples/drivers/sciclient/sciclient_get_version/j722s-evm/wkup-r5fss0-0_freertos/ti-arm-clang -f makefile all
+
+ sciclient_unit_test_j722s-evm_wkup-r5fss0-0_freertos_ti-arm-clang:
+	$(MAKE) -C examples/drivers/sciclient/sciclient_unit_test/j722s-evm/wkup-r5fss0-0_freertos/ti-arm-clang -f makefile all
+
+ sciclient_unit_test_j722s-evm_mcu-r5fss0-0_freertos_ti-arm-clang:
+	$(MAKE) -C examples/drivers/sciclient/sciclient_unit_test/j722s-evm/mcu-r5fss0-0_freertos/ti-arm-clang -f makefile all
+
+ sciclient_unit_test_j722s-evm_main-r5fss0-0_freertos_ti-arm-clang:
+	$(MAKE) -C examples/drivers/sciclient/sciclient_unit_test/j722s-evm/main-r5fss0-0_freertos/ti-arm-clang -f makefile all
+
+ sciclient_unit_test_j722s-evm_c75ss0-0_freertos_ti-c7000:
+	$(MAKE) -C examples/drivers/sciclient/sciclient_unit_test/j722s-evm/c75ss0-0_freertos/ti-c7000 -f makefile all
+
+ sciclient_unit_test_j722s-evm_c75ss1-0_freertos_ti-c7000:
+	$(MAKE) -C examples/drivers/sciclient/sciclient_unit_test/j722s-evm/c75ss1-0_freertos/ti-c7000 -f makefile all
 
  spinlock_demo_j722s-evm_c75ss0-0_freertos_ti-c7000:
 	$(MAKE) -C examples/drivers/spinlock/spinlock_demo/j722s-evm/c75ss0-0_freertos/ti-c7000 -f makefile all
@@ -455,23 +489,29 @@ examples-private: $(BUILD_COMBO_EXAMPLE_PRIVATE_ALL)
  uart_echo_low_latency_polling_j722s-evm_c75ss1-0_freertos_ti-c7000:
 	$(MAKE) -C examples/drivers/uart/uart_echo_low_latency_polling/j722s-evm/c75ss1-0_freertos/ti-c7000 -f makefile all
 
- sciclient_get_version_j722s-evm_wkup-r5fss0-0_freertos_ti-arm-clang:
-	$(MAKE) -C examples/drivers/sciclient/sciclient_get_version/j722s-evm/wkup-r5fss0-0_freertos/ti-arm-clang -f makefile all
+ hello_world_j722s-evm_mcu-r5fss0-0_nortos_ti-arm-clang:
+	$(MAKE) -C examples/hello_world/j722s-evm/mcu-r5fss0-0_nortos/ti-arm-clang -f makefile all
 
- sciclient_unit_test_j722s-evm_wkup-r5fss0-0_freertos_ti-arm-clang:
-	$(MAKE) -C examples/drivers/sciclient/sciclient_unit_test/j722s-evm/wkup-r5fss0-0_freertos/ti-arm-clang -f makefile all
+ hello_world_j722s-evm_wkup-r5fss0-0_nortos_ti-arm-clang:
+	$(MAKE) -C examples/hello_world/j722s-evm/wkup-r5fss0-0_nortos/ti-arm-clang -f makefile all
 
- sciclient_unit_test_j722s-evm_mcu-r5fss0-0_freertos_ti-arm-clang:
-	$(MAKE) -C examples/drivers/sciclient/sciclient_unit_test/j722s-evm/mcu-r5fss0-0_freertos/ti-arm-clang -f makefile all
+ hello_world_j722s-evm_main-r5fss0-0_nortos_ti-arm-clang:
+	$(MAKE) -C examples/hello_world/j722s-evm/main-r5fss0-0_nortos/ti-arm-clang -f makefile all
 
- sciclient_unit_test_j722s-evm_main-r5fss0-0_freertos_ti-arm-clang:
-	$(MAKE) -C examples/drivers/sciclient/sciclient_unit_test/j722s-evm/main-r5fss0-0_freertos/ti-arm-clang -f makefile all
+ hello_world_j722s-evm_mcu-r5fss0-0_freertos_ti-arm-clang:
+	$(MAKE) -C examples/hello_world/j722s-evm/mcu-r5fss0-0_freertos/ti-arm-clang -f makefile all
 
- sciclient_unit_test_j722s-evm_c75ss0-0_freertos_ti-c7000:
-	$(MAKE) -C examples/drivers/sciclient/sciclient_unit_test/j722s-evm/c75ss0-0_freertos/ti-c7000 -f makefile all
+ hello_world_j722s-evm_wkup-r5fss0-0_freertos_ti-arm-clang:
+	$(MAKE) -C examples/hello_world/j722s-evm/wkup-r5fss0-0_freertos/ti-arm-clang -f makefile all
 
- sciclient_unit_test_j722s-evm_c75ss1-0_freertos_ti-c7000:
-	$(MAKE) -C examples/drivers/sciclient/sciclient_unit_test/j722s-evm/c75ss1-0_freertos/ti-c7000 -f makefile all
+ hello_world_j722s-evm_main-r5fss0-0_freertos_ti-arm-clang:
+	$(MAKE) -C examples/hello_world/j722s-evm/main-r5fss0-0_freertos/ti-arm-clang -f makefile all
+
+ hello_world_j722s-evm_c75ss0-0_freertos_ti-c7000:
+	$(MAKE) -C examples/hello_world/j722s-evm/c75ss0-0_freertos/ti-c7000 -f makefile all
+
+ hello_world_j722s-evm_c75ss1-0_freertos_ti-c7000:
+	$(MAKE) -C examples/hello_world/j722s-evm/c75ss1-0_freertos/ti-c7000 -f makefile all
 
  empty_j722s-evm_system_freertos:
 	$(MAKE) -C examples/empty/j722s-evm/system_freertos -f makefile all
@@ -493,6 +533,12 @@ BUILD_COMBO_EXAMPLE_CLEAN_ALL += i2c_read_j722s-evm_wkup-r5fss0-0_freertos_ti-ar
 BUILD_COMBO_EXAMPLE_CLEAN_ALL += i2c_read_j722s-evm_main-r5fss0-0_freertos_ti-arm-clang_clean
 BUILD_COMBO_EXAMPLE_CLEAN_ALL += i2c_temperature_j722s-evm_wkup-r5fss0-0_freertos_ti-arm-clang_clean
 BUILD_COMBO_EXAMPLE_CLEAN_ALL += i2c_temperature_j722s-evm_main-r5fss0-0_freertos_ti-arm-clang_clean
+BUILD_COMBO_EXAMPLE_CLEAN_ALL += sciclient_get_version_j722s-evm_wkup-r5fss0-0_freertos_ti-arm-clang_clean
+BUILD_COMBO_EXAMPLE_CLEAN_ALL += sciclient_unit_test_j722s-evm_wkup-r5fss0-0_freertos_ti-arm-clang_clean
+BUILD_COMBO_EXAMPLE_CLEAN_ALL += sciclient_unit_test_j722s-evm_mcu-r5fss0-0_freertos_ti-arm-clang_clean
+BUILD_COMBO_EXAMPLE_CLEAN_ALL += sciclient_unit_test_j722s-evm_main-r5fss0-0_freertos_ti-arm-clang_clean
+BUILD_COMBO_EXAMPLE_CLEAN_ALL += sciclient_unit_test_j722s-evm_c75ss0-0_freertos_ti-c7000_clean
+BUILD_COMBO_EXAMPLE_CLEAN_ALL += sciclient_unit_test_j722s-evm_c75ss1-0_freertos_ti-c7000_clean
 BUILD_COMBO_EXAMPLE_CLEAN_ALL += spinlock_demo_j722s-evm_c75ss0-0_freertos_ti-c7000_clean
 BUILD_COMBO_EXAMPLE_CLEAN_ALL += spinlock_demo_j722s-evm_c75ss1-0_freertos_ti-c7000_clean
 BUILD_COMBO_EXAMPLE_CLEAN_ALL += uart_echo_j722s-evm_mcu-r5fss0-0_freertos_ti-arm-clang_clean
@@ -516,12 +562,14 @@ BUILD_COMBO_EXAMPLE_CLEAN_ALL += uart_echo_low_latency_polling_j722s-evm_wkup-r5
 BUILD_COMBO_EXAMPLE_CLEAN_ALL += uart_echo_low_latency_polling_j722s-evm_main-r5fss0-0_freertos_ti-arm-clang_clean
 BUILD_COMBO_EXAMPLE_CLEAN_ALL += uart_echo_low_latency_polling_j722s-evm_c75ss0-0_freertos_ti-c7000_clean
 BUILD_COMBO_EXAMPLE_CLEAN_ALL += uart_echo_low_latency_polling_j722s-evm_c75ss1-0_freertos_ti-c7000_clean
-BUILD_COMBO_EXAMPLE_CLEAN_ALL += sciclient_get_version_j722s-evm_wkup-r5fss0-0_freertos_ti-arm-clang_clean
-BUILD_COMBO_EXAMPLE_CLEAN_ALL += sciclient_unit_test_j722s-evm_wkup-r5fss0-0_freertos_ti-arm-clang_clean
-BUILD_COMBO_EXAMPLE_CLEAN_ALL += sciclient_unit_test_j722s-evm_mcu-r5fss0-0_freertos_ti-arm-clang_clean
-BUILD_COMBO_EXAMPLE_CLEAN_ALL += sciclient_unit_test_j722s-evm_main-r5fss0-0_freertos_ti-arm-clang_clean
-BUILD_COMBO_EXAMPLE_CLEAN_ALL += sciclient_unit_test_j722s-evm_c75ss0-0_freertos_ti-c7000_clean
-BUILD_COMBO_EXAMPLE_CLEAN_ALL += sciclient_unit_test_j722s-evm_c75ss1-0_freertos_ti-c7000_clean
+BUILD_COMBO_EXAMPLE_CLEAN_ALL += hello_world_j722s-evm_mcu-r5fss0-0_nortos_ti-arm-clang_clean
+BUILD_COMBO_EXAMPLE_CLEAN_ALL += hello_world_j722s-evm_wkup-r5fss0-0_nortos_ti-arm-clang_clean
+BUILD_COMBO_EXAMPLE_CLEAN_ALL += hello_world_j722s-evm_main-r5fss0-0_nortos_ti-arm-clang_clean
+BUILD_COMBO_EXAMPLE_CLEAN_ALL += hello_world_j722s-evm_mcu-r5fss0-0_freertos_ti-arm-clang_clean
+BUILD_COMBO_EXAMPLE_CLEAN_ALL += hello_world_j722s-evm_wkup-r5fss0-0_freertos_ti-arm-clang_clean
+BUILD_COMBO_EXAMPLE_CLEAN_ALL += hello_world_j722s-evm_main-r5fss0-0_freertos_ti-arm-clang_clean
+BUILD_COMBO_EXAMPLE_CLEAN_ALL += hello_world_j722s-evm_c75ss0-0_freertos_ti-c7000_clean
+BUILD_COMBO_EXAMPLE_CLEAN_ALL += hello_world_j722s-evm_c75ss1-0_freertos_ti-c7000_clean
 # Various System Example Clean Targets
 BUILD_COMBO_EXAMPLE_CLEAN_ALL += empty_j722s-evm_system_freertos_clean
 
@@ -574,6 +622,24 @@ examples-private-clean: $(BUILD_COMBO_EXAMPLE_PRIVATE_CLEAN_ALL)
 
  i2c_temperature_j722s-evm_main-r5fss0-0_freertos_ti-arm-clang_clean:
 	$(MAKE) -C examples/drivers/i2c/i2c_temperature/j722s-evm/main-r5fss0-0_freertos/ti-arm-clang -f makefile clean
+
+ sciclient_get_version_j722s-evm_wkup-r5fss0-0_freertos_ti-arm-clang_clean:
+	$(MAKE) -C examples/drivers/sciclient/sciclient_get_version/j722s-evm/wkup-r5fss0-0_freertos/ti-arm-clang -f makefile clean
+
+ sciclient_unit_test_j722s-evm_wkup-r5fss0-0_freertos_ti-arm-clang_clean:
+	$(MAKE) -C examples/drivers/sciclient/sciclient_unit_test/j722s-evm/wkup-r5fss0-0_freertos/ti-arm-clang -f makefile clean
+
+ sciclient_unit_test_j722s-evm_mcu-r5fss0-0_freertos_ti-arm-clang_clean:
+	$(MAKE) -C examples/drivers/sciclient/sciclient_unit_test/j722s-evm/mcu-r5fss0-0_freertos/ti-arm-clang -f makefile clean
+
+ sciclient_unit_test_j722s-evm_main-r5fss0-0_freertos_ti-arm-clang_clean:
+	$(MAKE) -C examples/drivers/sciclient/sciclient_unit_test/j722s-evm/main-r5fss0-0_freertos/ti-arm-clang -f makefile clean
+
+ sciclient_unit_test_j722s-evm_c75ss0-0_freertos_ti-c7000_clean:
+	$(MAKE) -C examples/drivers/sciclient/sciclient_unit_test/j722s-evm/c75ss0-0_freertos/ti-c7000 -f makefile clean
+
+ sciclient_unit_test_j722s-evm_c75ss1-0_freertos_ti-c7000_clean:
+	$(MAKE) -C examples/drivers/sciclient/sciclient_unit_test/j722s-evm/c75ss1-0_freertos/ti-c7000 -f makefile clean
 
  spinlock_demo_j722s-evm_c75ss0-0_freertos_ti-c7000_clean:
 	$(MAKE) -C examples/drivers/spinlock/spinlock_demo/j722s-evm/c75ss0-0_freertos/ti-c7000 -f makefile clean
@@ -644,23 +710,29 @@ examples-private-clean: $(BUILD_COMBO_EXAMPLE_PRIVATE_CLEAN_ALL)
  uart_echo_low_latency_polling_j722s-evm_c75ss1-0_freertos_ti-c7000_clean:
 	$(MAKE) -C examples/drivers/uart/uart_echo_low_latency_polling/j722s-evm/c75ss1-0_freertos/ti-c7000 -f makefile clean
 
- sciclient_get_version_j722s-evm_wkup-r5fss0-0_freertos_ti-arm-clang_clean:
-	$(MAKE) -C examples/drivers/sciclient/sciclient_get_version/j722s-evm/wkup-r5fss0-0_freertos/ti-arm-clang -f makefile clean
+ hello_world_j722s-evm_mcu-r5fss0-0_nortos_ti-arm-clang_clean:
+	$(MAKE) -C examples/hello_world/j722s-evm/mcu-r5fss0-0_nortos/ti-arm-clang -f makefile clean
 
- sciclient_unit_test_j722s-evm_wkup-r5fss0-0_freertos_ti-arm-clang_clean:
-	$(MAKE) -C examples/drivers/sciclient/sciclient_unit_test/j722s-evm/wkup-r5fss0-0_freertos/ti-arm-clang -f makefile clean
+ hello_world_j722s-evm_wkup-r5fss0-0_nortos_ti-arm-clang_clean:
+	$(MAKE) -C examples/hello_world/j722s-evm/wkup-r5fss0-0_nortos/ti-arm-clang -f makefile clean
 
- sciclient_unit_test_j722s-evm_mcu-r5fss0-0_freertos_ti-arm-clang_clean:
-	$(MAKE) -C examples/drivers/sciclient/sciclient_unit_test/j722s-evm/mcu-r5fss0-0_freertos/ti-arm-clang -f makefile clean
+ hello_world_j722s-evm_main-r5fss0-0_nortos_ti-arm-clang_clean:
+	$(MAKE) -C examples/hello_world/j722s-evm/main-r5fss0-0_nortos/ti-arm-clang -f makefile clean
 
- sciclient_unit_test_j722s-evm_main-r5fss0-0_freertos_ti-arm-clang_clean:
-	$(MAKE) -C examples/drivers/sciclient/sciclient_unit_test/j722s-evm/main-r5fss0-0_freertos/ti-arm-clang -f makefile clean
+ hello_world_j722s-evm_mcu-r5fss0-0_freertos_ti-arm-clang_clean:
+	$(MAKE) -C examples/hello_world/j722s-evm/mcu-r5fss0-0_freertos/ti-arm-clang -f makefile clean
 
- sciclient_unit_test_j722s-evm_c75ss0-0_freertos_ti-c7000_clean:
-	$(MAKE) -C examples/drivers/sciclient/sciclient_unit_test/j722s-evm/c75ss0-0_freertos/ti-c7000 -f makefile clean
+ hello_world_j722s-evm_wkup-r5fss0-0_freertos_ti-arm-clang_clean:
+	$(MAKE) -C examples/hello_world/j722s-evm/wkup-r5fss0-0_freertos/ti-arm-clang -f makefile clean
 
- sciclient_unit_test_j722s-evm_c75ss1-0_freertos_ti-c7000_clean:
-	$(MAKE) -C examples/drivers/sciclient/sciclient_unit_test/j722s-evm/c75ss1-0_freertos/ti-c7000 -f makefile clean
+ hello_world_j722s-evm_main-r5fss0-0_freertos_ti-arm-clang_clean:
+	$(MAKE) -C examples/hello_world/j722s-evm/main-r5fss0-0_freertos/ti-arm-clang -f makefile clean
+
+ hello_world_j722s-evm_c75ss0-0_freertos_ti-c7000_clean:
+	$(MAKE) -C examples/hello_world/j722s-evm/c75ss0-0_freertos/ti-c7000 -f makefile clean
+
+ hello_world_j722s-evm_c75ss1-0_freertos_ti-c7000_clean:
+	$(MAKE) -C examples/hello_world/j722s-evm/c75ss1-0_freertos/ti-c7000 -f makefile clean
 
  empty_j722s-evm_system_freertos_clean:
 	$(MAKE) -C examples/empty/j722s-evm/system_freertos -f makefile clean
@@ -682,6 +754,12 @@ BUILD_COMBO_EXAMPLE_SCRUB_ALL += i2c_read_j722s-evm_wkup-r5fss0-0_freertos_ti-ar
 BUILD_COMBO_EXAMPLE_SCRUB_ALL += i2c_read_j722s-evm_main-r5fss0-0_freertos_ti-arm-clang_scrub
 BUILD_COMBO_EXAMPLE_SCRUB_ALL += i2c_temperature_j722s-evm_wkup-r5fss0-0_freertos_ti-arm-clang_scrub
 BUILD_COMBO_EXAMPLE_SCRUB_ALL += i2c_temperature_j722s-evm_main-r5fss0-0_freertos_ti-arm-clang_scrub
+BUILD_COMBO_EXAMPLE_SCRUB_ALL += sciclient_get_version_j722s-evm_wkup-r5fss0-0_freertos_ti-arm-clang_scrub
+BUILD_COMBO_EXAMPLE_SCRUB_ALL += sciclient_unit_test_j722s-evm_wkup-r5fss0-0_freertos_ti-arm-clang_scrub
+BUILD_COMBO_EXAMPLE_SCRUB_ALL += sciclient_unit_test_j722s-evm_mcu-r5fss0-0_freertos_ti-arm-clang_scrub
+BUILD_COMBO_EXAMPLE_SCRUB_ALL += sciclient_unit_test_j722s-evm_main-r5fss0-0_freertos_ti-arm-clang_scrub
+BUILD_COMBO_EXAMPLE_SCRUB_ALL += sciclient_unit_test_j722s-evm_c75ss0-0_freertos_ti-c7000_scrub
+BUILD_COMBO_EXAMPLE_SCRUB_ALL += sciclient_unit_test_j722s-evm_c75ss1-0_freertos_ti-c7000_scrub
 BUILD_COMBO_EXAMPLE_SCRUB_ALL += spinlock_demo_j722s-evm_c75ss0-0_freertos_ti-c7000_scrub
 BUILD_COMBO_EXAMPLE_SCRUB_ALL += spinlock_demo_j722s-evm_c75ss1-0_freertos_ti-c7000_scrub
 BUILD_COMBO_EXAMPLE_SCRUB_ALL += uart_echo_j722s-evm_mcu-r5fss0-0_freertos_ti-arm-clang_scrub
@@ -705,12 +783,14 @@ BUILD_COMBO_EXAMPLE_SCRUB_ALL += uart_echo_low_latency_polling_j722s-evm_wkup-r5
 BUILD_COMBO_EXAMPLE_SCRUB_ALL += uart_echo_low_latency_polling_j722s-evm_main-r5fss0-0_freertos_ti-arm-clang_scrub
 BUILD_COMBO_EXAMPLE_SCRUB_ALL += uart_echo_low_latency_polling_j722s-evm_c75ss0-0_freertos_ti-c7000_scrub
 BUILD_COMBO_EXAMPLE_SCRUB_ALL += uart_echo_low_latency_polling_j722s-evm_c75ss1-0_freertos_ti-c7000_scrub
-BUILD_COMBO_EXAMPLE_SCRUB_ALL += sciclient_get_version_j722s-evm_wkup-r5fss0-0_freertos_ti-arm-clang_scrub
-BUILD_COMBO_EXAMPLE_SCRUB_ALL += sciclient_unit_test_j722s-evm_wkup-r5fss0-0_freertos_ti-arm-clang_scrub
-BUILD_COMBO_EXAMPLE_SCRUB_ALL += sciclient_unit_test_j722s-evm_mcu-r5fss0-0_freertos_ti-arm-clang_scrub
-BUILD_COMBO_EXAMPLE_SCRUB_ALL += sciclient_unit_test_j722s-evm_main-r5fss0-0_freertos_ti-arm-clang_scrub
-BUILD_COMBO_EXAMPLE_SCRUB_ALL += sciclient_unit_test_j722s-evm_c75ss0-0_freertos_ti-c7000_scrub
-BUILD_COMBO_EXAMPLE_SCRUB_ALL += sciclient_unit_test_j722s-evm_c75ss1-0_freertos_ti-c7000_scrub
+BUILD_COMBO_EXAMPLE_SCRUB_ALL += hello_world_j722s-evm_mcu-r5fss0-0_nortos_ti-arm-clang_scrub
+BUILD_COMBO_EXAMPLE_SCRUB_ALL += hello_world_j722s-evm_wkup-r5fss0-0_nortos_ti-arm-clang_scrub
+BUILD_COMBO_EXAMPLE_SCRUB_ALL += hello_world_j722s-evm_main-r5fss0-0_nortos_ti-arm-clang_scrub
+BUILD_COMBO_EXAMPLE_SCRUB_ALL += hello_world_j722s-evm_mcu-r5fss0-0_freertos_ti-arm-clang_scrub
+BUILD_COMBO_EXAMPLE_SCRUB_ALL += hello_world_j722s-evm_wkup-r5fss0-0_freertos_ti-arm-clang_scrub
+BUILD_COMBO_EXAMPLE_SCRUB_ALL += hello_world_j722s-evm_main-r5fss0-0_freertos_ti-arm-clang_scrub
+BUILD_COMBO_EXAMPLE_SCRUB_ALL += hello_world_j722s-evm_c75ss0-0_freertos_ti-c7000_scrub
+BUILD_COMBO_EXAMPLE_SCRUB_ALL += hello_world_j722s-evm_c75ss1-0_freertos_ti-c7000_scrub
 # Various System Example Scrub Targets
 BUILD_COMBO_EXAMPLE_SCRUB_ALL += empty_j722s-evm_system_freertos_scrub
 
@@ -763,6 +843,24 @@ examples-scrub-private: $(BUILD_COMBO_EXAMPLE_PRIVATE_SCRUB_ALL)
 
  i2c_temperature_j722s-evm_main-r5fss0-0_freertos_ti-arm-clang_scrub:
 	$(MAKE) -C examples/drivers/i2c/i2c_temperature/j722s-evm/main-r5fss0-0_freertos/ti-arm-clang -f makefile scrub
+
+ sciclient_get_version_j722s-evm_wkup-r5fss0-0_freertos_ti-arm-clang_scrub:
+	$(MAKE) -C examples/drivers/sciclient/sciclient_get_version/j722s-evm/wkup-r5fss0-0_freertos/ti-arm-clang -f makefile scrub
+
+ sciclient_unit_test_j722s-evm_wkup-r5fss0-0_freertos_ti-arm-clang_scrub:
+	$(MAKE) -C examples/drivers/sciclient/sciclient_unit_test/j722s-evm/wkup-r5fss0-0_freertos/ti-arm-clang -f makefile scrub
+
+ sciclient_unit_test_j722s-evm_mcu-r5fss0-0_freertos_ti-arm-clang_scrub:
+	$(MAKE) -C examples/drivers/sciclient/sciclient_unit_test/j722s-evm/mcu-r5fss0-0_freertos/ti-arm-clang -f makefile scrub
+
+ sciclient_unit_test_j722s-evm_main-r5fss0-0_freertos_ti-arm-clang_scrub:
+	$(MAKE) -C examples/drivers/sciclient/sciclient_unit_test/j722s-evm/main-r5fss0-0_freertos/ti-arm-clang -f makefile scrub
+
+ sciclient_unit_test_j722s-evm_c75ss0-0_freertos_ti-c7000_scrub:
+	$(MAKE) -C examples/drivers/sciclient/sciclient_unit_test/j722s-evm/c75ss0-0_freertos/ti-c7000 -f makefile scrub
+
+ sciclient_unit_test_j722s-evm_c75ss1-0_freertos_ti-c7000_scrub:
+	$(MAKE) -C examples/drivers/sciclient/sciclient_unit_test/j722s-evm/c75ss1-0_freertos/ti-c7000 -f makefile scrub
 
  spinlock_demo_j722s-evm_c75ss0-0_freertos_ti-c7000_scrub:
 	$(MAKE) -C examples/drivers/spinlock/spinlock_demo/j722s-evm/c75ss0-0_freertos/ti-c7000 -f makefile scrub
@@ -833,23 +931,29 @@ examples-scrub-private: $(BUILD_COMBO_EXAMPLE_PRIVATE_SCRUB_ALL)
  uart_echo_low_latency_polling_j722s-evm_c75ss1-0_freertos_ti-c7000_scrub:
 	$(MAKE) -C examples/drivers/uart/uart_echo_low_latency_polling/j722s-evm/c75ss1-0_freertos/ti-c7000 -f makefile scrub
 
- sciclient_get_version_j722s-evm_wkup-r5fss0-0_freertos_ti-arm-clang_scrub:
-	$(MAKE) -C examples/drivers/sciclient/sciclient_get_version/j722s-evm/wkup-r5fss0-0_freertos/ti-arm-clang -f makefile scrub
+ hello_world_j722s-evm_mcu-r5fss0-0_nortos_ti-arm-clang_scrub:
+	$(MAKE) -C examples/hello_world/j722s-evm/mcu-r5fss0-0_nortos/ti-arm-clang -f makefile scrub
 
- sciclient_unit_test_j722s-evm_wkup-r5fss0-0_freertos_ti-arm-clang_scrub:
-	$(MAKE) -C examples/drivers/sciclient/sciclient_unit_test/j722s-evm/wkup-r5fss0-0_freertos/ti-arm-clang -f makefile scrub
+ hello_world_j722s-evm_wkup-r5fss0-0_nortos_ti-arm-clang_scrub:
+	$(MAKE) -C examples/hello_world/j722s-evm/wkup-r5fss0-0_nortos/ti-arm-clang -f makefile scrub
 
- sciclient_unit_test_j722s-evm_mcu-r5fss0-0_freertos_ti-arm-clang_scrub:
-	$(MAKE) -C examples/drivers/sciclient/sciclient_unit_test/j722s-evm/mcu-r5fss0-0_freertos/ti-arm-clang -f makefile scrub
+ hello_world_j722s-evm_main-r5fss0-0_nortos_ti-arm-clang_scrub:
+	$(MAKE) -C examples/hello_world/j722s-evm/main-r5fss0-0_nortos/ti-arm-clang -f makefile scrub
 
- sciclient_unit_test_j722s-evm_main-r5fss0-0_freertos_ti-arm-clang_scrub:
-	$(MAKE) -C examples/drivers/sciclient/sciclient_unit_test/j722s-evm/main-r5fss0-0_freertos/ti-arm-clang -f makefile scrub
+ hello_world_j722s-evm_mcu-r5fss0-0_freertos_ti-arm-clang_scrub:
+	$(MAKE) -C examples/hello_world/j722s-evm/mcu-r5fss0-0_freertos/ti-arm-clang -f makefile scrub
 
- sciclient_unit_test_j722s-evm_c75ss0-0_freertos_ti-c7000_scrub:
-	$(MAKE) -C examples/drivers/sciclient/sciclient_unit_test/j722s-evm/c75ss0-0_freertos/ti-c7000 -f makefile scrub
+ hello_world_j722s-evm_wkup-r5fss0-0_freertos_ti-arm-clang_scrub:
+	$(MAKE) -C examples/hello_world/j722s-evm/wkup-r5fss0-0_freertos/ti-arm-clang -f makefile scrub
 
- sciclient_unit_test_j722s-evm_c75ss1-0_freertos_ti-c7000_scrub:
-	$(MAKE) -C examples/drivers/sciclient/sciclient_unit_test/j722s-evm/c75ss1-0_freertos/ti-c7000 -f makefile scrub
+ hello_world_j722s-evm_main-r5fss0-0_freertos_ti-arm-clang_scrub:
+	$(MAKE) -C examples/hello_world/j722s-evm/main-r5fss0-0_freertos/ti-arm-clang -f makefile scrub
+
+ hello_world_j722s-evm_c75ss0-0_freertos_ti-c7000_scrub:
+	$(MAKE) -C examples/hello_world/j722s-evm/c75ss0-0_freertos/ti-c7000 -f makefile scrub
+
+ hello_world_j722s-evm_c75ss1-0_freertos_ti-c7000_scrub:
+	$(MAKE) -C examples/hello_world/j722s-evm/c75ss1-0_freertos/ti-c7000 -f makefile scrub
 
  empty_j722s-evm_system_freertos_scrub:
 	$(MAKE) -C examples/empty/j722s-evm/system_freertos -f makefile scrub

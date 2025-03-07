@@ -3,10 +3,10 @@ const common = require("../common.js");
 const component_file_list = [
     "source/board/.project/project.js",
     "source/drivers/.project/project.js",
-    "source/drivers/device_manager/self_reset/.project/project.js",
     "source/drivers/device_manager/sciclient_direct/.project/project.js",
     "source/drivers/device_manager/sciclient_direct/sbl/.project/project.js",
     "source/drivers/device_manager/sciserver/.project/project.js",
+    "source/drivers/device_manager/self_reset/.project/project.js",
     //"source/kernel/nortos/.project/project.js",
     "source/drivers/dmautils/.project/project.js",
     "source/kernel/freertos/.project/project.js",
@@ -31,6 +31,9 @@ const example_file_list = [
     "examples/drivers/i2c/i2c_led_blink/.project/project.js",
     "examples/drivers/i2c/i2c_read/.project/project.js",
     "examples/drivers/i2c/i2c_temperature/.project/project.js",
+    "examples/drivers/sciclient/sciclient_ccs_init/.project/project.js",
+    "examples/drivers/sciclient/sciclient_get_version/.project/project.js",
+    "examples/drivers/sciclient/sciclient_unit_test/.project/project.js",
     "examples/drivers/spinlock/spinlock_demo/.project/project.js",
     "examples/drivers/uart/uart_echo/.project/project.js",
     "examples/drivers/uart/uart_echo_callback/.project/project.js",
@@ -38,9 +41,7 @@ const example_file_list = [
     "examples/drivers/uart/uart_echo_low_latency_interrupt/.project/project.js",
     "examples/drivers/uart/uart_echo_low_latency_polling/.project/project.js",
     "examples/empty/.project/project_freertos.js",
-    "examples/drivers/sciclient/sciclient_ccs_init/.project/project.js",
-    "examples/drivers/sciclient/sciclient_get_version/.project/project.js",
-    "examples/drivers/sciclient/sciclient_unit_test/.project/project.js",
+    "examples/hello_world/.project/project.js"
 ];
 
 function getProjectSpecCpu(cpu) {

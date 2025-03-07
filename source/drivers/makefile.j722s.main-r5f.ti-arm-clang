@@ -16,49 +16,64 @@ ConfigName:=$(PROFILE)
 LIBNAME:=drivers.j722s.main-r5f.ti-arm-clang.$(PROFILE).lib
 
 FILES_common := \
+    csl_bcdma.c \
+    csl_dru.c \
+    csl_dssCommon.c \
+    csl_dssOverlay.c \
+    csl_dssVideoPipe.c \
+    csl_dssVideoPort.c \
+    csl_intaggr.c \
+    csl_lcdma_ringacc.c \
+    csl_pktdma.c \
     csl_sec_proxy.c \
+    fvid2_drvMgr.c \
+    fvid2_graph.c \
+    fvid2_trace.c \
+    fvid2_utils.c \
     gpio.c \
+    i2c_soc.c \
     i2c_v0.c \
     i2c_v0_lld.c \
-    i2c_soc.c \
+    ipc_rpmsg.c \
+    ipc_rpmsg_vring.c \
+    mcan.c \
+    mcspi_dma.c \
+    mcspi_dma_udma.c \
+    mcspi_v0.c \
+    mmcsd_priv.c \
+    mmcsd_v0.c \
+    ospi_dma.c \
+    ospi_dma_udma.c \
+    ospi_nor_flash.c \
+    ospi_phy.c \
+    ospi_v0.c \
     pinmux.c \
-    soc.c \
     sciclient.c \
-    sciclient_pm.c \
-    sciclient_rm.c \
-    sciclient_rm_irq.c \
-    sciclient_procboot.c \
     sciclient_firewall.c \
-    sciclient_irq_rm.c \
-    sciclient_fmwSecureProxyMap.c \
-    sciclient_soc_priv.c \
-    sciclient_irq_rm.c \
     sciclient_fmwSecureProxyMap.c \
     sciclient_irq_rm.c \
     sciclient_pm.c \
+    sciclient_procboot.c \
     sciclient_rm.c \
     sciclient_rm_irq.c \
-    sciclient_procboot.c \
     sciclient_soc_priv.c \
+    soc.c \
     spinlock.c \
-    uart_v0.c \
     uart_dma.c \
     uart_dma_udma.c \
-    spinlock.c \
+    uart_v0.c \
+    udma.c \
+    udma_ch.c \
+    udma_event.c \
+    udma_flow.c \
+    udma_ring_common.c \
+    udma_ring_lcdma.c \
+    udma_rm.c \
+    udma_rmcfg_common.c \
+    udma_utils.c \
+    utils.c \
 
 FILES_PATH_common = \
-    dss \
-    dss/v0 \
-    dss/v0/common \
-    dss/v0/dctrl \
-    dss/v0/disp \
-    dss/v0/hw_include \
-    dss/v0/hw_include/V3 \
-    dss/v0/include \
-    dss/v0/soc \
-    dss/v0/soc/j722s \
-    fvid2/v0 \
-    gpio/v0 \
     csirx \
     csirx/v1 \
     csirx/v1/hw_include \
@@ -74,22 +89,35 @@ FILES_PATH_common = \
     csitx/v0/soc \
     csitx/v0/soc/V0 \
     csitx/v0/src \
+    dss \
+    dss/v0 \
+    dss/v0/common \
+    dss/v0/dctrl \
+    dss/v0/disp \
+    dss/v0/hw_include \
+    dss/v0/hw_include/V3 \
+    dss/v0/include \
+    dss/v0/soc \
+    dss/v0/soc/j722s \
+    fvid2/v0 \
+    gpio/v0 \
+    hw_include/dru/v2 \
     i2c/v0 \
     i2c/v0/lld \
     i2c/v0/soc/j722s \
     ipc_notify/v0 \
     ipc_notify/v0/soc/j722s \
     ipc_rpmsg/ \
+    mcan/v0 \
     mcspi/v0 \
     mcspi/v0/dma \
     mcspi/v0/dma/udma \
+    mmcsd \
+    mmcsd/v0 \
     ospi \
     ospi/v0 \
     ospi/v0/dma \
     ospi/v0/dma/udma \
-    mcan/v0 \
-    mmcsd \
-    mmcsd/v0 \
     pinmux/j722s \
     sciclient \
     sciclient/soc/j722s \
@@ -98,7 +126,6 @@ FILES_PATH_common = \
     uart/v0 \
     uart/v0/dma \
     uart/v0/dma/udma \
-    hw_include/dru/v2 \
     udma \
     udma/hw_include \
     udma/soc \
