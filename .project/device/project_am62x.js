@@ -136,6 +136,7 @@ const example_file_list = [
     "examples/kernel/freertos/posix_demo/.project/project.js",
     "examples/kernel/freertos/task_switch/.project/project.js",
     "examples/kernel/freertos/dhrystone_benchmark/.project/project.js",
+    "examples/lpm/lpm_mcu_mcan_wakeup/.project/project.js",
     "examples/otp/ext_otp/.project/project.js",
     "examples/safety/safety_app/.project/project.js",
     "examples/security/fwl_exception_log/.project/project.js",
