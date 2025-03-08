@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2022 Texas Instruments Incorporated
+ * Copyright (C) 2022-2025 Texas Instruments Incorporated
  *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions
@@ -48,6 +48,7 @@
  * \brief  This file contains pad configure register offsets and bit-field
  *         value macros for different configurations,
  *
+ *           BIT[23]        ISOBYPASS       bypass the isolation on given pin
  *           BIT[21]        TXDISABLE       disable the pin's output driver
  *           BIT[18]        RXACTIVE        enable the pin's input buffer (typically kept enabled)
  *           BIT[17]        PULLTYPESEL     set the iternal resistor pull direction high or low (if enabled)
@@ -94,6 +95,8 @@ extern "C" {
 #define PIN_INPUT_ENABLE                (((uint32_t) 0x1U) << 18U)
 /** \brief Driver disable */
 #define PIN_OUTPUT_DISABLE              (((uint32_t) 0x1U) << 21U)
+/** \brief Isolation bypass enable  */
+#define PIN_ISOLATION_BYPASS            (((uint32_t) 0x1U) << 23U)
 /** \brief Wakeup enable */
 #define PIN_WAKEUP_ENABLE               (((uint32_t) 0x1U) << 29U)
 
