@@ -107,17 +107,22 @@ RPMessage_Object gIpcAckReplyMsgObject;
 #endif
 
 #if defined (SOC_AM62AX)
-#define IPC_RPMESSAGE_TASK_STACK_SIZE  (32*1024U)
-#define LPM_MCU_SUSPEND_TASK_STACK_SIZE   (32*1024U)
+#define IPC_RPMESSAGE_TASK_STACK_SIZE  (64*1024U)
+#define LPM_MCU_SUSPEND_TASK_STACK_SIZE   (64*1024U)
 #else
 #define IPC_RPMESSAGE_TASK_STACK_SIZE  (8*1024U)
 #define LPM_MCU_SUSPEND_TASK_STACK_SIZE   (1024U)
 #endif
 
-uint8_t gIpcTaskStack[IPC_RPMESSAGE_NUM_RECV_TASKS][IPC_RPMESSAGE_TASK_STACK_SIZE] __attribute__((aligned(32)));
+#if defined(BUILD_C7X)
+#define STACK_ALIGNMENT     (0x2000U)
+#else
+#define STACK_ALIGNMENT     (32)
+#endif
+uint8_t gIpcTaskStack[IPC_RPMESSAGE_NUM_RECV_TASKS][IPC_RPMESSAGE_TASK_STACK_SIZE] __attribute__((aligned(STACK_ALIGNMENT)));
 TaskP_Object gIpcTask[IPC_RPMESSAGE_NUM_RECV_TASKS];
 
-uint8_t gLpmSuspendTaskStack[LPM_MCU_SUSPEND_TASK_STACK_SIZE] __attribute__((aligned(32)));
+uint8_t gLpmSuspendTaskStack[LPM_MCU_SUSPEND_TASK_STACK_SIZE] __attribute__((aligned(STACK_ALIGNMENT)));
 TaskP_Object gLpmSuspendTask;
 
 /* number of iterations of message exchange to do */
@@ -583,12 +588,14 @@ void lpm_create_suspend_task()
 }
 #endif
 
+volatile int loop_wait = 1;
+
 void ipc_rpmsg_echo_main(void *args)
 {
     int32_t status;
 
     DebugP_log("[IPC RPMSG ECHO] Version: %s (%s %s):  \r\n", IPC_FW_VERSION, __DATE__, __TIME__);
-
+    while (loop_wait);
     /* This API MUST be called by applications when its ready to talk to Linux */
     status = RPMessage_waitForLinuxReady(SystemP_WAIT_FOREVER);
     DebugP_assert(status==SystemP_SUCCESS);
