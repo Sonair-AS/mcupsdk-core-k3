@@ -1,5 +1,5 @@
 /*****************************************************************************/
-/* Copyright (c) 2021 Texas Instruments Incorporated                         */
+/* Copyright (c) 2021-25 Texas Instruments Incorporated                      */
 /* http://www.ti.com/                                                        */
 /*                                                                           */
 /*  Redistribution and  use in source  and binary forms, with  or without    */
@@ -32,12 +32,17 @@
 /*  OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.     */
 /*                                                                           */
 /*****************************************************************************/
-#include <stdint.h>
 
+#include <stdint.h>
+#include <string.h>
 #include "MmuP_c75.h"
 
 extern char __TI_STACK_END[];
 register volatile uint64_t __SP;
+
+/* Below symbols are set in linker command file */
+extern uint32_t __BSS_START;
+extern uint32_t __BSS_END;
 
 /*****************************************************************************/
 /* C_INT00() - C ENVIRONMENT ENTRY POINT                                     */
@@ -51,4 +56,48 @@ void _c_int00_secure()
     __SP = (((uint64_t)&__TI_STACK_END) - 16) & ~0b111;
 
    MmuP_init();
+}
+
+/*****************************************************************************/
+/* _SYSTEM_PRE_INIT() - _system_pre_init() is called in the C/C++ startup    */
+/* routine (_c_int00()) and provides a mechanism for the user to             */
+/* insert application specific low level initialization instructions prior   */
+/* to calling main().  The return value of _system_pre_init() is used to     */
+/* determine whether or not C/C++ global data initialization will be         */
+/* performed (return value of 0 to bypass C/C++ auto-initialization).        */
+/*                                                                           */
+/* PLEASE NOTE THAT BYPASSING THE C/C++ AUTO-INITIALIZATION ROUTINE MAY      */
+/* RESULT IN PROGRAM FAILURE.                                                */
+/*                                                                           */
+/* The version of _system_pre_init() below is skeletal and is provided to    */
+/* illustrate the interface and provide default behavior.  To replace this   */
+/* version rewrite the routine and include it as part of the current project.*/
+/* The linker will include the updated version if it is linked in prior to   */
+/* linking with the C/C++ runtime library.                                   */
+/*****************************************************************************/
+
+int _system_pre_init(void)
+{
+    /* initialize .bss to zero */
+    uint32_t bss_size = ((uintptr_t)&__BSS_END - (uintptr_t)&__BSS_START);
+    memset((void*)&__BSS_START, 0x00, bss_size);
+    return 1;
+}
+
+/*****************************************************************************/
+/* _SYSTEM_POST_CINIT() - _system_post_cinit() is a hook function called in  */
+/* the C/C++ auto-initialization function after cinit() and before pinit().  */
+/*                                                                           */
+/* The version of _system_post_cinit() below is skeletal and is provided to  */
+/* illustrate the interface and provide default behavior.  To replace this   */
+/* version rewrite the routine and include it as part of the current project.*/
+/* The linker will include the updated version if it is linked in prior to   */
+/* linking with the C/C++ runtime library.                                   */
+/*****************************************************************************/
+
+
+void _system_post_cinit(void)
+{
+    extern void c7x_startup_init(void);
+    c7x_startup_init();
 }

@@ -25,7 +25,7 @@
  * 1 tab == 4 spaces!
  */
 /*
- *  Copyright (C) 2018-2023 Texas Instruments Incorporated
+ *  Copyright (C) 2018-2025 Texas Instruments Incorporated
  *
  *  Redistribution and use in source and binary forms, with or without
  *  modification, are permitted provided that the following conditions
@@ -55,9 +55,8 @@
  *  (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
  *  OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
+
 #include <stdint.h>
-#include <stdio.h>
-#include <string.h>
 #include <c7x.h>    /* for C7x intrinsics */
 #include <FreeRTOS.h>
 #include <task.h>
@@ -114,10 +113,6 @@ uint32_t ulPortSchedularRunning = pdFALSE;
 
 /* set to true when scheduler gets enabled in xPortStartScheduler */
 uint32_t uxPortIncorrectYieldCount = 0UL;
-
-/* below are set in linker command file */
-extern uint32_t __BSS_START;
-extern uint32_t __BSS_END;
 
 /*
  * Task control block.  A task control block (TCB) is allocated for each task,
@@ -544,48 +539,4 @@ void vApplicationIdleHook( void )
     void vApplicationLoadHook();
 
     vApplicationLoadHook();
-}
-
-/*****************************************************************************/
-/* _SYSTEM_PRE_INIT() - _system_pre_init() is called in the C/C++ startup    */
-/* routine (_c_int00()) and provides a mechanism for the user to             */
-/* insert application specific low level initialization instructions prior   */
-/* to calling main().  The return value of _system_pre_init() is used to     */
-/* determine whether or not C/C++ global data initialization will be         */
-/* performed (return value of 0 to bypass C/C++ auto-initialization).        */
-/*                                                                           */
-/* PLEASE NOTE THAT BYPASSING THE C/C++ AUTO-INITIALIZATION ROUTINE MAY      */
-/* RESULT IN PROGRAM FAILURE.                                                */
-/*                                                                           */
-/* The version of _system_pre_init() below is skeletal and is provided to    */
-/* illustrate the interface and provide default behavior.  To replace this   */
-/* version rewrite the routine and include it as part of the current project.*/
-/* The linker will include the updated version if it is linked in prior to   */
-/* linking with the C/C++ runtime library.                                   */
-/*****************************************************************************/
-
-int _system_pre_init(void)
-{
-    /* initialize .bss to zero */
-    uint32_t bss_size = ((uintptr_t)&__BSS_END - (uintptr_t)&__BSS_START);
-    memset((void*)&__BSS_START, 0x00, bss_size);
-    return 1;
-}
-
-/*****************************************************************************/
-/* _SYSTEM_POST_CINIT() - _system_post_cinit() is a hook function called in  */
-/* the C/C++ auto-initialization function after cinit() and before pinit().  */
-/*                                                                           */
-/* The version of _system_post_cinit() below is skeletal and is provided to  */
-/* illustrate the interface and provide default behavior.  To replace this   */
-/* version rewrite the routine and include it as part of the current project.*/
-/* The linker will include the updated version if it is linked in prior to   */
-/* linking with the C/C++ runtime library.                                   */
-/*****************************************************************************/
-
-
-void _system_post_cinit(void)
-{
-    extern void c7x_startup_init(void);
-    c7x_startup_init();
 }
