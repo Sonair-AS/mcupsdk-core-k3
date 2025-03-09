@@ -52,8 +52,8 @@ Networking                                              | CSI RX Driver
 
 Tools/Components        | Supported CPUs | Version
 ------------------------|----------------|-----------------------
-Code Composer Studio    | M4F, R5F, A53  | 20.0.2
-SysConfig               | M4F, R5F, A53  | 1.22.0, build 3893
+Code Composer Studio    | M4F, R5F, A53  | 20.1.0
+SysConfig               | M4F, R5F, A53  | 1.23.0, build 4000
 TI ARM CLANG            | M4F, R5F       | 4.0.1.LTS
 GCC AARCH64             | A53            | 9.2-2019.12
 FreeRTOS Kernel         | M4F, R5F, A53  | 11.1.0

@@ -24,8 +24,8 @@ TBD                                                                             
 
 Tools/Components        | Supported CPUs           | Version
 ------------------------|--------------------------|-----------------------
-Code Composer Studio    | MCU-R5F, WKUP-R5F        | 20.0.2
-SysConfig               | MCU-R5F, WKUP-R5F        | 1.22.0, build 3893
+Code Composer Studio    | MCU-R5F, WKUP-R5F        | 20.1.0
+SysConfig               | MCU-R5F, WKUP-R5F        | 1.23.0, build 4000
 TI ARM CLANG            | MCU-R5F, WKUP-R5F        | 4.0.1.LTS
 GCC AARCH64             | A53                      | 9.2-2019.12
 FreeRTOS Kernel         | MCU-R5F, WKUP-R5F        | 11.1.0

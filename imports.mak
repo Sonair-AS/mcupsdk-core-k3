@@ -7,13 +7,14 @@ C6X_DSPLIB_VERSION=3_4_0_0
 CGT_C7X_VERSION=4.1.0.LTS
 CGT_ARMLLVM_VERSION=4.0.1.LTS
 CGT_PRU_VERSION=2.3.3
-SYSCONFIG_VERSION=1.22.0
-SYSCONFIG_BUILD=3893
+SYSCONFIG_VERSION=1.23.0
+SYSCONFIG_BUILD=4000
 SW_VERSION=0x0A010000
+CCS_FOLDER_VERSION=2010
 
 ifeq ($(OS),Windows_NT)
     TOOLS_PATH?=C:/ti
-    CCS_PATH?=$(TOOLS_PATH)/ccs2002/ccs
+    CCS_PATH?=$(TOOLS_PATH)/ccs$(CCS_FOLDER_VERSION)/ccs
     CCS_ECLIPSE=$(CCS_PATH)/eclipse/eclipsec
     CYGWIN_PATH?=$(CCS_PATH)/utils/cygwin
     MKDIR=$(CYGWIN_PATH)/mkdir -p
@@ -31,7 +32,7 @@ else
     UNAME_S := $(shell uname -s)
     ifeq ($(UNAME_S),Linux)
         export TOOLS_PATH?=$(HOME)/ti
-        export CCS_PATH?=$(TOOLS_PATH)/ccs2002/ccs
+        export CCS_PATH?=$(TOOLS_PATH)/ccs$(CCS_FOLDER_VERSION)/ccs
         export CCS_ECLIPSE=$(CCS_PATH)/eclipse/eclipse
         export MKDIR=mkdir -p
         export RMDIR=rm -rf

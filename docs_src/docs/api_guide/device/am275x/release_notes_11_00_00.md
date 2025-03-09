@@ -23,8 +23,8 @@ TBD                                                                             
 
 Tools/ Component        | Supported CPUs           | Version
 ------------------------|--------------------------|-----------------------
-Code Composer Studio    | R5F, C75                 | 20.0.2
-SysConfig               | R5F, C75                 | 1.22.0, build 3893
+Code Composer Studio    | R5F, C75                 | 20.1.0
+SysConfig               | R5F, C75                 | 1.23.0, build 4000
 TI ARM CLANG            | R5F                      | 4.0.1.LTS
 C7000-CGT               | C75                      | 4.1.0.LTS
 FreeRTOS Kernel         | R5F, C75                 | 11.1.0
