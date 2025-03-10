@@ -107,7 +107,7 @@ const lnkfiles = {
 
 const defines_a53 = {
     common: [
-        "AMP_A53",
+        "AMP_FREERTOS_A53",
         "USE_SINGLE_CONTEXT=1",
         "USE_FP64=1",
         "NO_ALIGNED_ALLOC",

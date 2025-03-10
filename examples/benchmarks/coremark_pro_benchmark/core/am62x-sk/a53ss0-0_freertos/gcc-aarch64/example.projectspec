@@ -58,7 +58,7 @@
             -Wno-pointer-sign
             -march=armv8-a
             -DSOC_AM62X
-            -DAMP_A53
+            -DAMP_FREERTOS_A53
             -DUSE_SINGLE_CONTEXT=1
             -DEE_SIZEOF_PTR=8
             -DEE_SIZEOF_LONG=8

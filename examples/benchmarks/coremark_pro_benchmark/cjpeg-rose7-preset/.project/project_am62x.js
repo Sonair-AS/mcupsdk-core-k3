@@ -128,7 +128,7 @@ const lnkfiles = {
 
 const defines_a53_amp = {
     common: [
-        "AMP_A53",
+        "AMP_FREERTOS_A53",
         "USE_SINGLE_CONTEXT=1",
         "SELECT_PRESET_ID=1",
         "EE_SIZEOF_LONG=8",
