@@ -35,10 +35,15 @@
 #ifndef LPDDR4_IF_H
 #define LPDDR4_IF_H
 
+#ifdef __cplusplus
+extern "C"
+{
+#endif
+
 #include "cdn_stdtypes.h"
 #if defined(SOC_AM64X) || defined(SOC_AM62X)
 #include "../../v0/include/lpddr4_if.h"
-#elif defined(SOC_AM62AX) || defined(SOC_AM62DX) ||  defined(SOC_AM62PX)
+#elif defined(SOC_AM62AX) || defined(SOC_AM62DX) || defined(SOC_AM62PX) || defined(SOC_J722S)
 #include "../../v1/include/lpddr4_if.h"
 #endif
 
@@ -534,5 +539,8 @@ uint32_t LPDDR4_DeferredRegVerify(const LPDDR4_PrivateData* pD, LPDDR4_RegBlock 
  *  @}
  */
 
+#ifdef __cplusplus
+}
+#endif
 
 #endif	/* LPDDR4_IF_H */

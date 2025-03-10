@@ -33,10 +33,10 @@
  * header file provides values and types to be used while interfacing
  * with the memory core.
  **********************************************************************/
-#ifndef LPDDR4_AM62X_OBJ_IF_H
-#define LPDDR4_AM62X_OBJ_IF_H
+#ifndef LPDDR4_V1_OBJ_IF_H
+#define LPDDR4_V1_OBJ_IF_H
 
 #include "lpddr4_if.h"
 
 
-#endif	/* LPDDR4_AM62X_OBJ_IF_H */
+#endif	/* LPDDR4_V1_OBJ_IF_H */

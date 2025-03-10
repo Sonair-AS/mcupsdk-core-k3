@@ -34,6 +34,11 @@
 #ifndef LPDDR4_OBJ_IF_H
 #define LPDDR4_OBJ_IF_H
 
+#ifdef __cplusplus
+extern "C"
+{
+#endif
+
 #include "lpddr4_if.h"
 
 /** @defgroup DriverObject Driver API Object
@@ -433,5 +438,8 @@ extern LPDDR4_OBJ *LPDDR4_GetInstance(void);
  *  @}
  */
 
+#ifdef __cplusplus
+}
+#endif
 
 #endif	/* LPDDR4_OBJ_IF_H */

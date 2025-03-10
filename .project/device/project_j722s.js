@@ -25,6 +25,7 @@ const device_defines = {
 };
 
 const example_file_list = [
+    "examples/drivers/ddr/ddr_perf/.project/project.js",
     "examples/drivers/gpio/gpio_input_interrupt/.project/project.js",
     "examples/drivers/gpio/gpio_led_blink/.project/project.js",
     "examples/drivers/i2c/i2c_led_blink/.project/project.js",

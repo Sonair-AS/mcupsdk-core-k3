@@ -1,5 +1,5 @@
 /*
- *  Copyright (C) 2024 Texas Instruments Incorporated
+ *  Copyright (C) 2023-25 Texas Instruments Incorporated
  *
  *  Redistribution and use in source and binary forms, with or without
  *  modification, are permitted provided that the following conditions
@@ -30,41 +30,28 @@
  *  OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-/**
- *  \file ddr_soc.h
- *
- *  \brief DDR Driver SOC specific file.
- */
-
-#ifndef DDR_SOC_TOP_H_
-#define DDR_SOC_TOP_H_
-
 /* ========================================================================== */
 /*                             Include Files                                  */
 /* ========================================================================== */
 
-#if defined (SOC_AM62AX)
-#include <drivers/ddr/v1/soc/am62ax/ddr_soc.h>
-#endif
-#if defined (SOC_AM62DX)
-#include <drivers/ddr/v1/soc/am62dx/ddr_soc.h>
-#endif
-#if defined (SOC_AM62PX)
-#include <drivers/ddr/v1/soc/am62px/ddr_soc.h>
-#elif defined (SOC_J722S)
-#include <drivers/ddr/v1/soc/j722s/ddr_soc.h>
-#endif
-
-#ifdef __cplusplus
-extern "C"
-{
-#endif
+#include <stdlib.h>
+#include <kernel/dpl/DebugP.h>
+#include <kernel/dpl/ClockP.h>
+#include "ti_drivers_config.h"
+#include "ti_board_config.h"
+#include "ti_drivers_open_close.h"
+#include "ti_board_open_close.h"
+#include "FreeRTOS.h"
+#include "task.h"
+#include <drivers/device_manager/sciserver/sciserver_init.h>
 
 /* ========================================================================== */
 /*                           Macros & Typedefs                                */
 /* ========================================================================== */
 
-/* None */
+#define TASK_PRI_MAIN_THREAD  (configMAX_PRIORITIES-4)
+
+#define TASK_SIZE (16384U/sizeof(configSTACK_DEPTH_TYPE))
 
 /* ========================================================================== */
 /*                         Structure Declarations                             */
@@ -73,25 +60,61 @@ extern "C"
 /* None */
 
 /* ========================================================================== */
-/*                  Internal/Private Function Declarations                    */
-/* ========================================================================== */
-
-/* None */
-
-/* ========================================================================== */
 /*                          Function Declarations                             */
 /* ========================================================================== */
 
-/* None */
+void ddr_perf_app_main(void *args);
 
 /* ========================================================================== */
-/*                       Static Function Definitions                          */
+/*                            Global Variables                                */
 /* ========================================================================== */
 
-/* None */
+StackType_t gMainTaskStack[TASK_SIZE] __attribute__((aligned(32)));
+StaticTask_t gMainTaskObj;
+TaskHandle_t gMainTask;
 
-#ifdef __cplusplus
+/* ========================================================================== */
+/*                          Function Definitions                              */
+/* ========================================================================== */
+
+void main_thread(void *args)
+{
+    /* Open UART for sysfw logs */
+    Drivers_uartOpen();
+
+    sciServer_init();
+
+    /* Close UART as Drivers_open() inside ddr_perf_app_main() opens the UART again */
+    Drivers_uartClose();
+
+    ddr_perf_app_main(NULL);
+
+    vTaskDelete(NULL);
 }
-#endif
 
-#endif /* DDR_SOC_TOP_H_ */
+int main()
+{
+    /* init SOC specific modules */
+    System_init();
+    Board_init();
+
+    gMainTask = xTaskCreateStatic( main_thread,   /* Pointer to the function that implements the task. */
+                                  "main_thread", /* Text name for the task.  This is to facilitate debugging only. */
+                                  TASK_SIZE,  /* Stack depth in units of StackType_t typically uint32_t on 32b CPUs */
+                                  NULL,            /* We are not using the task parameter. */
+                                  TASK_PRI_MAIN_THREAD,   /* task priority, 0 is lowest priority, configMAX_PRIORITIES-1 is highest */
+                                  gMainTaskStack,  /* pointer to stack base */
+                                  &gMainTaskObj ); /* pointer to statically allocated task object memory */
+    configASSERT(gMainTask != NULL);
+
+    /* Start the scheduler to start the tasks executing. */
+    vTaskStartScheduler();
+
+    /* The following line should never be reached because vTaskStartScheduler()
+    will only return if there was not enough FreeRTOS heap memory available to
+    create the Idle and (if configured) Timer tasks.  Heap management, and
+    techniques for trapping heap exhaustion, are described in the book text. */
+    DebugP_assertNoLog(0);
+
+    return 0;
+}

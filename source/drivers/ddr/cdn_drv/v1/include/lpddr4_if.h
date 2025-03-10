@@ -34,8 +34,8 @@
  * with the memory core.
  **********************************************************************/
 
-#ifndef LPDDR4_AM62X_IF_H
-#define LPDDR4_AM62X_IF_H
+#ifndef LPDDR4_V1_IF_H
+#define LPDDR4_V1_IF_H
 
 #include "../../common/include/cdn_stdtypes.h"
 
@@ -171,4 +171,4 @@ typedef enum {
  */
 
 
-#endif	/* LPDDR4_AM62X_IF_H */
+#endif	/* LPDDR4_V1_IF_H */
