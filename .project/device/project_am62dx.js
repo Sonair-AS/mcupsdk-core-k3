@@ -139,6 +139,7 @@ const example_file_list = [
     "source/networking/enet/core/examples/tsn/avtptalker_app/.project/project.js",
     "source/networking/enet/core/examples/tsn/aafpcmtalker_app/.project/project.js",
     "source/networking/enet/core/examples/tsn/aafpcmlistener_app/.project/project.js",
+    "source/networking/enet/core/examples/tsn/crflistener_app/.project/project.js",
     "source/networking/enet/core/examples/tsn/crftalker_app/.project/project.js",
     "source/networking/enet/core/examples/tsn/dolbyec3listener_app/.project/project.js",
     "source/networking/enet/core/examples/tsn/dolbyec3talker_app/.project/project.js",
