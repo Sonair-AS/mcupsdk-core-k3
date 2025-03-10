@@ -31,8 +31,8 @@ Linux running on A53 core can load the firmware to the remote cores. MCU R5F cor
 ````
  - On the callback, post the suspend thread.
 ````C
-volatile uint8_t gbSuspended = 0u;
-volatile uint8_t gbSuspendRemotecoreID = 0u;
+volatile uint8_t gbSuspended = 0U;
+volatile uint8_t gbSuspendRemotecoreID = 0U;
 void ipc_rp_mbox_callback(uint16_t remoteCoreId, uint16_t clientId, uint32_t msgValue, void *args)
 {
     if (clientId == IPC_NOTIFY_CLIENT_ID_RP_MBOX)
@@ -56,12 +56,12 @@ void ipc_rp_mbox_callback(uint16_t remoteCoreId, uint16_t clientId, uint32_t msg
     status = Sciclient_lpmGetNextHostState(SystemP_WAIT_FOREVER, &nextHostState);
     if (status != SystemP_SUCCESS)
     {
-        DebugP_log("[IPC RPMSG ECHO] Failed to get next system state. Canceling suspend.\r\n");
-        IpcNotify_sendMsg(gbSuspendRemotecoreID, IPC_NOTIFY_CLIENT_ID_RP_MBOX, IPC_NOTIFY_RP_MBOX_SUSPEND_CANCEL, 1u);
+        DebugP_log("Failed to get next system state. Canceling suspend.\r\n");
+        IpcNotify_sendMsg(gbSuspendRemotecoreID, IPC_NOTIFY_CLIENT_ID_RP_MBOX, IPC_NOTIFY_RP_MBOX_SUSPEND_CANCEL, 1U);
         continue;
     }
 
-    DebugP_log("[IPC RPMSG ECHO] Next MCU mode is %d\r\n", nextHostState);
+    DebugP_log("Next MCU mode is %d\r\n", nextHostState);
 ````
  - The response can be OFF or ON.
 
@@ -69,28 +69,31 @@ void ipc_rp_mbox_callback(uint16_t remoteCoreId, uint16_t clientId, uint32_t msg
 \attention This Low power mode is supported only by MCU remote cores.
 
  - ON state will be responded. As the core has to stay ON, send SUSPEND_AUTO to remoteproc driver.
+ - The application can configure any MCU IP to wake the system from low power mode.
+ - Currently, support is added to wakeup from MCU UART, MCU MCAN and MCU Timer.
+
+#### Wakeup from MCU UART
 
 ````C
-    gbSuspended = 1u;
+    gbSuspended = 1U;
 
     /* Print before sending ACK, otherwise IO isolation is enabled while printing */
-    DebugP_log("[IPC RPMSG ECHO] Suspend request to MCU-only mode received \r\n");
-    DebugP_log("[IPC RPMSG ECHO] Press a single key on this terminal to resume the kernel from MCU only mode \r\n");
+    DebugP_log("Suspend request to MCU-only mode received \r\n");
+    DebugP_log("Press a single key on this terminal to resume the kernel from MCU only mode \r\n");
 
-    IpcNotify_sendMsg(gbSuspendRemotecoreID, IPC_NOTIFY_CLIENT_ID_RP_MBOX, IPC_NOTIFY_RP_MBOX_SUSPEND_AUTO, 1u);
+    IpcNotify_sendMsg(gbSuspendRemotecoreID, IPC_NOTIFY_CLIENT_ID_RP_MBOX, IPC_NOTIFY_RP_MBOX_SUSPEND_AUTO, 1U);
     lpm_mcu_wait_for_uart();
-    gbSuspended = 0u;
+    gbSuspended = 0U;
 ````
  - MCU core then waits for key to be pressed at MCU UART. UART callback has to be enabled for resume support from MCU UART.
 
  - Wait for key to be pressed on MCU UART / any other system interrupt.
 
 ````C
-    while (gNumBytesRead == 0u && gbSuspended == 1u)
+    while (gNumBytesRead == 0u && gbSuspended == 1U)
     {
     }
 ````
-#### Wakeup from MCU UART
 
  - If the key is pressed on MCU UART, the callback sets gNumBytesRead.
  - The remotecore performs IPC to trigger system resume.
@@ -98,12 +101,12 @@ void ipc_rp_mbox_callback(uint16_t remoteCoreId, uint16_t clientId, uint32_t msg
 ````C
     if (gNumBytesRead != 0)
     {
-        DebugP_log("[IPC RPMSG ECHO] Key pressed. Notifying DM to wakeup main domain\r\n");
+        DebugP_log("Key pressed. Notifying DM to wakeup main domain\r\n");
         SOC_triggerMcuLpmWakeup();
         /* Wait for resuming the main domain */
         SemaphoreP_pend(&gLpmResumeSem, SystemP_WAIT_FOREVER);
 
-        DebugP_log("[IPC RPMSG ECHO] Main domain resumed due to MCU UART \r\n");
+        DebugP_log("Main domain resumed due to MCU UART \r\n");
     }
 ````
  - The linux resumes and remoteproc sends ECHO_REQUEST message to remote core.
@@ -116,16 +119,79 @@ void ipc_rp_mbox_callback(uint16_t remoteCoreId, uint16_t clientId, uint32_t msg
         {
             if (msgValue == IPC_NOTIFY_RP_MBOX_ECHO_REQUEST) /* This message is received after resuming from the MCU only LPM. */
             {
-                gbSuspended = 0u;
+                gbSuspended = 0U;
 
-                if (gNumBytesRead != 0u)
+                if (gNumBytesRead != 0U)
                 {
                     /* post this only for MCU UART Wakeup */
                     SemaphoreP_post(&gLpmResumeSem);
                 }
                 DebugP_shmLogWriterResume();
 
-                IpcNotify_sendMsg(remoteCoreId, IPC_NOTIFY_CLIENT_ID_RP_MBOX, IPC_NOTIFY_RP_MBOX_ECHO_REPLY, 1u);
+                IpcNotify_sendMsg(remoteCoreId, IPC_NOTIFY_CLIENT_ID_RP_MBOX, IPC_NOTIFY_RP_MBOX_ECHO_REPLY, 1U);
+            }
+        }
+    }
+````
+- Remote core is out of low power mode.
+
+#### Wakeup from MCU MCAN
+
+````C
+    gbSuspended = 1U;
+
+    /* Print before sending ACK, otherwise IO isolation is enabled while printing */
+    DebugP_log("Suspend request to MCU-only mode received \r\n");
+    DebugP_log("Send MCAN packet to resume the kernel from MCU only mode \r\n");
+
+    IpcNotify_sendMsg(gbSuspendRemotecoreID, IPC_NOTIFY_CLIENT_ID_RP_MBOX, IPC_NOTIFY_RP_MBOX_SUSPEND_AUTO, 1U);
+    lpm_mcu_wait_for_mcan();
+    gbSuspended = 0U;
+````
+ - MCU core then waits to receive a packet at MCU MCAN. MCAN callback has to be enabled for resume support from MCU MCAN.
+
+ - Wait for packet to be received on MCU MCAN / any other system interrupt.
+
+````C
+    while (gMCANMsgRcvd == 0u && gbSuspended == 1U)
+    {
+    }
+````
+
+ - If the MCAN packet is received on MCU MCAN, the callback sets gMCANMsgRcvd.
+ - The remotecore performs IPC to trigger system resume.
+
+````C
+    if (gMCANMsgRcvd != 0)
+    {
+        DebugP_log("MCAN event detected. Notifying DM to wakeup main domain\r\n");
+        SOC_triggerMcuLpmWakeup();
+        /* Wait for resuming the main domain */
+        SemaphoreP_pend(&gLpmResumeSem, SystemP_WAIT_FOREVER);
+
+        DebugP_log("Main domain resumed due to MCU MCAN\r\n");
+    }
+````
+ - The linux resumes and remoteproc sends ECHO_REQUEST message to remote core.
+ - On the callback, post the resume thread.
+
+````C
+    void ipc_rp_mbox_callback(uint16_t remoteCoreId, uint16_t clientId, uint32_t msgValue, void *args)
+    {
+        if (clientId == IPC_NOTIFY_CLIENT_ID_RP_MBOX)
+        {
+            if (msgValue == IPC_NOTIFY_RP_MBOX_ECHO_REQUEST) /* This message is received after resuming from the MCU only LPM. */
+            {
+                gbSuspended = 0U;
+
+                if (gMCANMsgRcvd != 0U)
+                {
+                    /* post this only for MCU UART Wakeup */
+                    SemaphoreP_post(&gLpmResumeSem);
+                }
+                DebugP_shmLogWriterResume();
+
+                IpcNotify_sendMsg(remoteCoreId, IPC_NOTIFY_CLIENT_ID_RP_MBOX, IPC_NOTIFY_RP_MBOX_ECHO_REPLY, 1U);
             }
         }
     }
@@ -136,10 +202,11 @@ void ipc_rp_mbox_callback(uint16_t remoteCoreId, uint16_t clientId, uint32_t msg
 
  - The linux resumes and remoteproc sends ECHO_REQUEST message to remote core.
  - On the callback, clear the gbSuspended variable.
- - Cancel UART Read and remote core exits low power mode.
+ - Cancel UART Read (if UART wakeup is used)
+ - Remote core exits low power mode.
 
 ````C
-    if (gbSuspended == 0u)
+    if (gbSuspended == 0U)
     {
         UART_readCancel(gUartHandle[CONFIG_UART0], &trans);
         DebugP_log("[IPC RPMSG ECHO] Main domain resumed from a different wakeup source \r\n");
@@ -150,9 +217,10 @@ void ipc_rp_mbox_callback(uint16_t remoteCoreId, uint16_t clientId, uint32_t msg
  - OFF state will be responded. As the core has to be shutdown, send SUSPEND_ACK to remoteproc driver to initiate shutdown of this core.
 
 ````C
-    IpcNotify_sendMsg(gbSuspendRemotecoreID, IPC_NOTIFY_CLIENT_ID_RP_MBOX, IPC_NOTIFY_RP_MBOX_SUSPEND_ACK, 1u);
+    IpcNotify_sendMsg(gbSuspendRemotecoreID, IPC_NOTIFY_CLIENT_ID_RP_MBOX, IPC_NOTIFY_RP_MBOX_SUSPEND_ACK, 1U);
 ````
 
  - An IPC message is then sent to the remote core by remoteproc for graceful shutdown. Refer \ref GRACEFUL_REMOTECORE_SHUTDOWN
 
-This is implemented on \ref EXAMPLES_DRIVERS_IPC_RPMESSAGE_LINUX_ECHO
+The MCU UART wakeup support is implemented on \ref EXAMPLES_DRIVERS_IPC_RPMESSAGE_LINUX_ECHO
+The MCU MCAN wakeup support is implemented on \ref EXAMPLES_LPM_MCU_MCAN_WAKEUP
