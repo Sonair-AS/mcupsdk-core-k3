@@ -122,6 +122,9 @@ void mcasp_loopback_main(void *args)
         /* wait for transfer completion. */
     }
 
+    MCASP_stopTransferRx(mcaspHandle);
+    MCASP_stopTransferTx(mcaspHandle);
+
     /* withdraw the buffers submitted to driver. */
     if(SystemP_SUCCESS == status)
     {
@@ -172,8 +175,8 @@ void mcasp_loopback_txcb (MCASP_Handle handle,
     if (gMcaspTestCntTx < APP_MCASP_TEST_COUNT)
     {
         gMcaspTestCntTx++;
+        MCASP_submitTx(handle, transaction);
     }
-    MCASP_submitTx(handle, transaction);
 }
 
 void mcasp_loopback_rxcb (MCASP_Handle handle,
@@ -183,10 +186,5 @@ void mcasp_loopback_rxcb (MCASP_Handle handle,
     {
         gMcaspTestCntRx++;
         MCASP_submitRx(handle, transaction);
-    }
-    else
-    {
-        MCASP_stopTransferRx(handle);
-        MCASP_stopTransferTx(handle);
     }
 }

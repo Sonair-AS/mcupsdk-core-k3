@@ -129,6 +129,13 @@ void mcasp_loopback_main(void *args)
         }
     }
 
+    for (i = CONFIG_MCASP0; i < CONFIG_MCASP_NUM_INSTANCES; i++)
+    {
+        mcaspHandle = MCASP_getHandle(i);
+        MCASP_stopTransferRx(mcaspHandle);
+        MCASP_stopTransferTx(mcaspHandle);
+    }
+
     /* withdraw the buffers submitted to driver. */
     if(SystemP_SUCCESS == status)
     {
@@ -192,10 +199,6 @@ void mcasp_loopback_txcb (MCASP_Handle handle,
         *testCntTx = *testCntTx + 1;
         MCASP_submitTx(handle, transaction);
     }
-    else
-    {
-        MCASP_stopTransferTx(handle);
-    }
 }
 
 void mcasp_loopback_rxcb (MCASP_Handle handle,
@@ -206,9 +209,5 @@ void mcasp_loopback_rxcb (MCASP_Handle handle,
     {
         *testCntRx = *testCntRx + 1;
         MCASP_submitRx(handle, transaction);
-    }
-    else
-    {
-        MCASP_stopTransferRx(handle);
     }
 }
