@@ -97,7 +97,7 @@ CFLAGS_debug := \
 CFLAGS_release := \
 	-Dxdc_target_name__=C71 \
 	--opt_level=3 \
-	--symdebug:none \
+	--symdebug:dwarf \
 
 LNK_FILES_common = \
 	linker.cmd \

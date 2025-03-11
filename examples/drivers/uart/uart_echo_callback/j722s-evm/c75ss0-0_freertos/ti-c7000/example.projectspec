@@ -97,7 +97,7 @@
             compilerBuildOptions="
                 -Dxdc_target_name__=C71
                 --opt_level=3
-                --symdebug:none
+                --symdebug:dwarf
             "
             linkerBuildOptions="
                 -lfreertos.j722s.c75x.ti-c7000.release.lib

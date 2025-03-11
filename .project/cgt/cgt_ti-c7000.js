@@ -78,7 +78,7 @@ const cgt_common = {
     },
 };
 
-const cgt_common_am275x = {
+const cgt_common_am275x_j722s = {
     path: "CGT_TI_C7000_PATH",
     cc: "cl7x",
     ar: "ar7x",
@@ -123,7 +123,7 @@ const cgt_common_am275x = {
             "-Dxdc_target_name__=C71",
             //"-Dxdc_target_types__=ti/targets/elf/std.h",
             "--opt_level=3",
-            "--symdebug:none",
+            "--symdebug:" + ((device=="j722s") ? "dwarf" : "none"),       // J722S supports SafeRTOS, which requires dwarf debug info in an "c75/portable/230_C7x/005_TI_CGT/c75x/portasm.asm" Assembly file
         ],
     },
     arflags: {
@@ -184,11 +184,11 @@ function getCgtOptions(cpu)
     let cgtOptions = {};
     if(buildOption.device=="am275x")
     {
-        cgtOptions = cgt_common_am275x;
+        cgtOptions = cgt_common_am275x_j722s;
     }
     else if(buildOption.device=="j722s")
     {
-        cgtOptions = common.mergeCgtOptions(cgt_common_am275x, cgt_common_j722s);
+        cgtOptions = common.mergeCgtOptions(cgt_common_am275x_j722s, cgt_common_j722s);
         if(cpu.match(/c75ss0-0*/))
         {
             cgtOptions = common.mergeCgtOptions(cgtOptions, cgt_common_c75ss0);
