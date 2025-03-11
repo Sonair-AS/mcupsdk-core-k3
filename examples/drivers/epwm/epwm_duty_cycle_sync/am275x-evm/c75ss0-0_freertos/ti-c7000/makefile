@@ -35,7 +35,7 @@ ifeq ($(DEVICE_TYPE), HS)
 endif
 
 FILES_common := \
-	app_epwm_dc.c \
+	app_epwm_dc_v1.c \
 	epwm_dc.c \
 	epwm_drv_aux.c \
 	main.c \
@@ -64,7 +64,7 @@ DEFINES_common := \
 	-DSOC_AM275X \
 
 CFLAGS_common := \
-	-mv7504 \
+	-mv7524 \
 	--abi=eabi \
 	-q \
 	-mo \
@@ -79,21 +79,19 @@ CFLAGS_common := \
 	--diag_suppress=770 \
 	--diag_suppress=69 \
 	--diag_suppress=70 \
+	-DBUILD_C7X \
+	-DBUILD_C7X_1 \
 
 CFLAGS_debug := \
 	-Dxdc_target_name__=C71 \
 	-D_DEBUG_=1 \
 	--opt_level=0 \
 	--symdebug:dwarf \
-	-DBUILD_C7X_1 \
-	-DBUILD_C7X \
 
 CFLAGS_release := \
 	-Dxdc_target_name__=C71 \
 	--opt_level=3 \
 	--symdebug:none \
-	-DBUILD_C7X_1 \
-	-DBUILD_C7X \
 
 LNK_FILES_common = \
 	linker.cmd \
@@ -101,7 +99,6 @@ LNK_FILES_common = \
 LIBS_PATH_common = \
 	-i${MCU_PLUS_SDK_PATH}/source/kernel/freertos/lib \
 	-i${MCU_PLUS_SDK_PATH}/source/drivers/lib \
-	-i${MCU_PLUS_SDK_PATH}/source/board/lib \
 	-i${CG_TOOL_ROOT}/lib \
 
 LIBS_common = \
@@ -110,7 +107,7 @@ LIBS_common = \
 	-llibc.a \
 
 LFLAGS_common = \
-	--silicon_version=7504 \
+	--silicon_version=7524 \
 	-z \
 	--emit_warnings_as_errors \
 	--diag_suppress=10063 \
@@ -118,7 +115,6 @@ LFLAGS_common = \
 	--warn_sections \
 	-q \
 	-x \
-	 \
 
 
 LIBS_NAME = \
@@ -129,7 +125,6 @@ LIBS_NAME = \
 LIBS_PATH_NAME = \
 	${MCU_PLUS_SDK_PATH}/source/kernel/freertos/lib \
 	${MCU_PLUS_SDK_PATH}/source/drivers/lib \
-	${MCU_PLUS_SDK_PATH}/source/board/lib \
 	${CG_TOOL_ROOT}/lib \
 
 FILES := $(FILES_common) $(FILES_$(PROFILE))
@@ -250,7 +245,7 @@ BOOTIMAGE_CORE_ID_hsm-m4fss0-0  = 7
 SBL_RUN_ADDRESS=0x72000000
 SBL_DEV_ID=55
 
-MCELF_IMAGE_GEN = $(MCU_PLUS_SDK_PATH)/tools/boot/multicoreELFImageGen/multicore-elf/genimage.py
+MCELF_IMAGE_GEN = $(MCU_PLUS_SDK_PATH)/tools/boot/multicoreELFImageGen/genimage.py
 APP_IMAGE_SIGN_CMD = $(MCU_PLUS_SDK_PATH)/tools/boot/signing/appimage_x509_cert_gen.py
 
 ifeq ($(OS),Windows_NT)
@@ -262,12 +257,14 @@ endif
 MULTI_CORE_IMAGE_PARAMS = \
     $(BOOTIMAGE_CORE_ID_c75ss0-0):$(OUTNAME) \
 
+MCELF_XIP_RANGE?=0x60100000:0x60200000 
+
 $(BOOTIMAGE_NAME): $(OUTNAME)
 	@echo  Boot image: am275x:c75ss0-0:freertos:ti-c7000 $(BOOTIMAGE_PATH)/$@ ...
 ifneq ($(OS),Windows_NT)
 	$(CHMOD) a+x $(XIPGEN_CMD)
 endif
-	$(PYTHON) $(MCELF_IMAGE_GEN) --core-img=$(MULTI_CORE_IMAGE_PARAMS) --output=$(BOOTIMAGE_NAME)
+	$(PYTHON) $(MCELF_IMAGE_GEN) --core-img=$(MULTI_CORE_IMAGE_PARAMS) --output=$(BOOTIMAGE_NAME) --xip=$(MCELF_XIP_RANGE) --sw_version=$(SW_VERSION)
 # Sign the appimage for HS-FS using appimage signing script
     #
     #   Authentication type 0 with load address 0x84000000

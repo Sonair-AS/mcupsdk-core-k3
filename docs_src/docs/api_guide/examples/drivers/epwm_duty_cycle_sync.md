@@ -158,6 +158,19 @@ GPIO output can be observed on the pins (below mentioned) of User Expansion Conn
 
 \endcond
 
+\cond SOC_AM275X
+The table below shows the jumper pins where the EPWM outputs can be observed.
+
+A debug GPIO is driven in the EPWM ISR to show the EPWM period timing. The
+EPWM output can be observed on the pins (below mentioned) of Audio Expansion Connector (AEC1) in the board.
+
+ EPWM   | EPWM Signal   | Pin Details
+ -------|---------------|-----------------------
+ 0      | EPWM0_A       | T2 (Pin_3 on AEC1)
+ 0      | EPWM0_B       | R2 (pin_5 on AEC1)
+ 1      | EPWM1_A       | R1 (Pin_3 on AEC2)
+
+\endcond
 # Supported Combinations {#EXAMPLES_DRIVERS_EPWM_DUTY_CYCLE_SYNC_COMBOS}
 
 \cond SOC_AM64X
