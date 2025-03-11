@@ -19,27 +19,6 @@ const filedirs = {
     ],
 };
 
-const libdirs_nortos = {
-    common: [
-        "${MCU_PLUS_SDK_PATH}/source/kernel/nortos/lib",
-        "${MCU_PLUS_SDK_PATH}/source/drivers/lib",
-        "${MCU_PLUS_SDK_PATH}/source/board/lib",
-    ],
-};
-
-const libdirs_freertos = {
-    common: [
-        "${MCU_PLUS_SDK_PATH}/source/drivers/device_manager/dm_stub/lib",
-        "${MCU_PLUS_SDK_PATH}/source/drivers/device_manager/rm_pm_hal/lib",
-        "${MCU_PLUS_SDK_PATH}/source/drivers/device_manager/sciclient_direct/lib",
-        "${MCU_PLUS_SDK_PATH}/source/drivers/device_manager/self_reset/lib",
-        "${MCU_PLUS_SDK_PATH}/source/kernel/freertos/lib",
-        "${MCU_PLUS_SDK_PATH}/source/drivers/lib",
-        "${MCU_PLUS_SDK_PATH}/source/board/lib",
-        "${MCU_PLUS_SDK_PATH}/source/drivers/device_manager/sciserver/lib",
-    ],
-};
-
 const includes_freertos_r5f = {
     common: [
         "${MCU_PLUS_SDK_PATH}/source/kernel/freertos/FreeRTOS-Kernel/include",
@@ -56,11 +35,17 @@ const includes_freertos_c75 = {
     ],
 };
 
+const libdirs_freertos = {
+    common: [
+        "${MCU_PLUS_SDK_PATH}/source/kernel/freertos/lib",
+        "${MCU_PLUS_SDK_PATH}/source/drivers/lib",
+    ],
+};
+
 const libs_freertos_r5f = {
     common: [
         "freertos.am275x.r5f.ti-arm-clang.${ConfigName}.lib",
         "drivers.am275x.r5f.ti-arm-clang.${ConfigName}.lib",
-        "board.am275x.r5f.ti-arm-clang.${ConfigName}.lib",
     ],
 };
 
@@ -135,7 +120,6 @@ function getComponentBuildProperty(buildOption) {
 
     build_property.files = files;
     build_property.filedirs = filedirs;
-    build_property.libdirs = libdirs_nortos;
     build_property.lnkfiles = lnkfiles;
     build_property.syscfgfile = syscfgfile;
     build_property.readmeDoxygenPageTag = readmeDoxygenPageTag;
@@ -148,7 +132,6 @@ function getComponentBuildProperty(buildOption) {
             build_property.templates = templates_freertos_r5f;
         }
     }
-
     if(buildOption.cpu.match(/c75*/)) {
         build_property.includes = includes_freertos_c75;
         build_property.libdirs = libdirs_freertos;

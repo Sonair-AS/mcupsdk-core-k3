@@ -34,7 +34,7 @@
             -I${MCU_PLUS_SDK_PATH}/source/kernel/freertos/FreeRTOS-Kernel/include
             -I${MCU_PLUS_SDK_PATH}/source/kernel/freertos/portable/TI_CGT/DSP_C75X
             -I${MCU_PLUS_SDK_PATH}/source/kernel/freertos/config/am275x/c75x
-            -mv7504
+            -mv7524
             --abi=eabi
             -q
             -mo
@@ -49,20 +49,16 @@
             --diag_suppress=770
             --diag_suppress=69
             --diag_suppress=70
+            -DBUILD_C7X
+            -DBUILD_C7X_1
             -DSOC_AM275X
         "
         linkerBuildOptions="
-            -i${MCU_PLUS_SDK_PATH}/source/drivers/device_manager/dm_stub/lib
-            -i${MCU_PLUS_SDK_PATH}/source/drivers/device_manager/rm_pm_hal/lib
-            -i${MCU_PLUS_SDK_PATH}/source/drivers/device_manager/sciclient_direct/lib
-            -i${MCU_PLUS_SDK_PATH}/source/drivers/device_manager/self_reset/lib
             -i${MCU_PLUS_SDK_PATH}/source/kernel/freertos/lib
             -i${MCU_PLUS_SDK_PATH}/source/drivers/lib
-            -i${MCU_PLUS_SDK_PATH}/source/board/lib
-            -i${MCU_PLUS_SDK_PATH}/source/drivers/device_manager/sciserver/lib
             -i${CG_TOOL_ROOT}/lib
             -m=ecap_apwm_mode.${ConfigName}.map
-            --silicon_version=7504
+            --silicon_version=7524
             -z
             --emit_warnings_as_errors
             --diag_suppress=10063
@@ -70,7 +66,6 @@
             --warn_sections
             -q
             -x
-            
         "
 
         postBuildStep="$(MAKE) -C ${CCS_PROJECT_DIR} -f makefile_ccs_bootimage_gen OUTNAME=${BuildArtifactFileBaseName} PROFILE=${ConfigName} MCU_PLUS_SDK_PATH=${MCU_PLUS_SDK_PATH} CG_TOOL_ROOT=${CG_TOOL_ROOT} CCS_INSTALL_DIR=${CCS_INSTALL_DIR} CCS_IDE_MODE=${CCS_IDE_MODE}"
@@ -88,8 +83,6 @@
                 -D_DEBUG_=1
                 --opt_level=0
                 --symdebug:dwarf
-                -DBUILD_C7X_1
-                -DBUILD_C7X
             "
             linkerBuildOptions="
                 -lfreertos.am275x.c75x.ti-c7000.debug.lib
@@ -102,8 +95,6 @@
                 -Dxdc_target_name__=C71
                 --opt_level=3
                 --symdebug:none
-                -DBUILD_C7X_1
-                -DBUILD_C7X
             "
             linkerBuildOptions="
                 -lfreertos.am275x.c75x.ti-c7000.release.lib

@@ -36,6 +36,11 @@ When using AM263x-LP
 - The signal can be probed from Pin 4 of the Debug Header-J3 on Audio expansion card 1 (B18/MCASP0_AXR1).
 \endcond
 
+\cond SOC_AM275X
+## AM275X-EVM
+- The signal can be probed from Pin 9(P2)  on Audio Expansion Connector1(AEC1).
+\endcond
+
 \cond SOC_AM62PX
 ## AM62PX-SK
 - The signal can be probed on Pin 7 (C25/GPIO1_30) of the User Expansion Connector (J4) on the base board.

@@ -3,7 +3,7 @@
  * via the GUI or CLI. Run CLI with '--help' for additional information on how to override these arguments.
  * @cliArgs --device "AM275x" --part "AM2754" --package "ANJ" --context "r5fss0-0" --product "MCU_PLUS_SDK@07.03.01"
  * @v2CliArgs --device "AM2754" --package "FCCSP (ANJ)" --context "r5fss0-0" --product "MCU_PLUS_SDK@07.03.01"
- * @versions {"tool":"1.21.0+3721"}
+ * @versions {"tool":"1.23.0+4000"}
  */
 
 /**
@@ -24,7 +24,8 @@ const mpu_armv75 = mpu_armv7.addInstance();
  * Write custom configuration values to the imported modules.
  */
 ecap1.$name                    = "CONFIG_ECAP0";
-ecap1.ECAP.IN_APWM_OUT.$assign = "EXT_REFCLK1";
+ecap1.ECAP.$assign             = "ECAP1";
+ecap1.ECAP.IN_APWM_OUT.$assign = "SPI2_D0";
 
 debug_log.enableUartLog        = true;
 debug_log.uartLog.$name        = "CONFIG_UART0";
@@ -57,6 +58,5 @@ mpu_armv75.size     = 21;
  * version of the tool will not impact the pinmux you originally saw.  These lines can be completely deleted in order to
  * re-solve from scratch.
  */
-ecap1.ECAP.$suggestSolution                 = "ECAP0";
 debug_log.uartLog.UART.RXD.$suggestSolution = "MCASP4_AXR0";
 debug_log.uartLog.UART.TXD.$suggestSolution = "MLB0_MLBCLK";
