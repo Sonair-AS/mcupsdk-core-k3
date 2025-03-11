@@ -72,6 +72,7 @@ const topModules_wkup = [
 
 const topModules_main = [
     "/drivers/adc/adc",
+    "/drivers/ecap/ecap",
     "/drivers/gpio/gpio",
     "/drivers/gtc/gtc",
     "/drivers/i2c/i2c",
@@ -88,6 +89,7 @@ const topModules_main = [
 ];
 
 const topModules_c75 = [
+    "/drivers/ecap/ecap",
     "/drivers/gpio/gpio",
     "/drivers/gtc/gtc",
     "/drivers/i2c/i2c",
