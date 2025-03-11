@@ -62,6 +62,7 @@ const example_file_list = [
     "examples/dmautils/dmautils_autoinc_circular/.project/project.js",
     "examples/dmautils/dmautils_autoincrement/.project/project.js",
     "examples/drivers/ecap/ecap_apwm_mode/.project/project.js",
+    "examples/drivers/ecap/ecap_epwm_loopback/.project/project.js",
     "examples/drivers/gpio/gpio_input_interrupt/.project/project.js",
     "examples/drivers/gpio/gpio_led_blink/.project/project.js",
     "examples/drivers/i2c/i2c_read/.project/project.js",

@@ -96,6 +96,16 @@ This example uses the Debug Header(J3) on Audio expansion card 1 for testing on 
 
 \endcond
 
+\cond SOC_AM275X
+## AM275X-EVM
+This example uses  Audio expansion Connector1 (AEC1) for testing
+
+- Connect the EPWM output to ECAP input by connecting Pin 3 to Pin 9 on AEC1.
+- EPWM O/P: T2 (Pin_3)
+- ECAP I/P: P2 (Pin_9)
+
+\endcond
+
 # Supported Combinations {#EXAMPLES_DRIVERS_ECAP_EPWM_LOOPBACK_COMBOS}
 
 \cond SOC_AM64X

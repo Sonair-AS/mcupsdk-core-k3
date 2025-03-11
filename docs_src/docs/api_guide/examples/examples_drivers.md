@@ -299,6 +299,7 @@ This page lists all the examples related to usage of SOC and board peripheral dr
    -# \subpage EXAMPLES_DRIVERS_ADC_SINGLESHOT
 -# ECAP
    -# \subpage EXAMPLES_DRIVERS_ECAP_APWM_MODE
+   -# \subpage EXAMPLES_DRIVERS_ECAP_EPWM_LOOPBACK
 -# EEPROM
    -# \subpage EXAMPLES_DRIVERS_EEPROM_READ_WRITE
 -# GPIO
