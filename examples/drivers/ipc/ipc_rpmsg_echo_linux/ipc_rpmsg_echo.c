@@ -588,14 +588,13 @@ void lpm_create_suspend_task()
 }
 #endif
 
-volatile int loop_wait = 1;
 
 void ipc_rpmsg_echo_main(void *args)
 {
     int32_t status;
 
     DebugP_log("[IPC RPMSG ECHO] Version: %s (%s %s):  \r\n", IPC_FW_VERSION, __DATE__, __TIME__);
-    while (loop_wait);
+
     /* This API MUST be called by applications when its ready to talk to Linux */
     status = RPMessage_waitForLinuxReady(SystemP_WAIT_FOREVER);
     DebugP_assert(status==SystemP_SUCCESS);
