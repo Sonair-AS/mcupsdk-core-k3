@@ -83,6 +83,15 @@ This example uses the Debug Header 2 (J3) on Audio expansion card 1 for testing 
 - EPWM Signal: D20/GPIO1_15 (Pin_24)
 \endcond
 
+\cond SOC_AM275X
+
+## AM275X-EVM
+This example uses the  Audio Expansion Connector1(AEC1) for testing.
+
+- Signal can be probed on Pin 3 of AEC1.
+- EPWM Signal: T2 (Pin_3)
+\endcond
+
 # Supported Combinations {#EXAMPLES_DRIVERS_EPWM_DUTY_CYCLE_COMBOS}
 
 \cond SOC_AM64X

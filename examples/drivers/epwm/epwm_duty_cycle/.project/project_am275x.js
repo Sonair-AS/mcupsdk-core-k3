@@ -2,9 +2,16 @@ let path = require('path');
 
 let device = "am275x";
 
-const files = {
+const files_c75 = {
     common: [
         "epwm_duty_cycle.c",
+        "main.c",
+    ],
+};
+
+const files_r5f = {
+    common: [
+        "epwm_duty_cycle_polling.c",
         "main.c",
     ],
 };
@@ -16,22 +23,6 @@ const filedirs = {
     common: [
         "..",       /* core_os_combo base */
         "../../..", /* Example base */
-    ],
-};
-
-const libdirs_nortos = {
-    common: [
-        "${MCU_PLUS_SDK_PATH}/source/kernel/nortos/lib",
-        "${MCU_PLUS_SDK_PATH}/source/drivers/lib",
-        "${MCU_PLUS_SDK_PATH}/source/board/lib",
-    ],
-};
-
-const libdirs_freertos = {
-    common: [
-        "${MCU_PLUS_SDK_PATH}/source/kernel/freertos/lib",
-        "${MCU_PLUS_SDK_PATH}/source/drivers/lib",
-        "${MCU_PLUS_SDK_PATH}/source/board/lib",
     ],
 };
 
@@ -51,11 +42,18 @@ const includes_freertos_c75 = {
     ],
 };
 
+const libdirs_freertos = {
+    common: [
+        "${MCU_PLUS_SDK_PATH}/source/kernel/freertos/lib",
+        "${MCU_PLUS_SDK_PATH}/source/drivers/lib",
+        "${MCU_PLUS_SDK_PATH}/source/board/lib",
+    ],
+};
+
 const libs_freertos_r5f = {
     common: [
         "freertos.am275x.r5f.ti-arm-clang.${ConfigName}.lib",
         "drivers.am275x.r5f.ti-arm-clang.${ConfigName}.lib",
-        "board.am275x.r5f.ti-arm-clang.${ConfigName}.lib",
     ],
 };
 
@@ -109,7 +107,7 @@ const templates_freertos_c75 =
 
 const buildOptionCombos = [
     { device: device, cpu: "r5fss0-0", cgt: "ti-arm-clang", board: "am275x-evm", os: "freertos"},
-    { device: device, cpu: "c75ss0-0",     cgt: "ti-c7000",     board: "am275x-evm", os: "freertos"},
+    { device: device, cpu: "c75ss0-0", cgt: "ti-c7000", board: "am275x-evm", os: "freertos"},
 ];
 
 function getComponentProperty(device) {
@@ -119,7 +117,7 @@ function getComponentProperty(device) {
     property.type = "executable";
     property.name = "epwm_duty_cycle";
     property.isInternal = false;
-    property.description = "An EPWM duty test example. This example generates a 1KHz wave with 25% duty cycle."
+    property.description = "An EPWM duty cycle example. This example generates a 1KHz wave with 25% duty cycle."
     property.buildOptionCombos = buildOptionCombos;
 
     return property;
@@ -128,9 +126,7 @@ function getComponentProperty(device) {
 function getComponentBuildProperty(buildOption) {
     let build_property = {};
 
-    build_property.files = files;
     build_property.filedirs = filedirs;
-    build_property.libdirs = libdirs_nortos;
     build_property.lnkfiles = lnkfiles;
     build_property.syscfgfile = syscfgfile;
     build_property.readmeDoxygenPageTag = readmeDoxygenPageTag;
@@ -138,14 +134,15 @@ function getComponentBuildProperty(buildOption) {
     if(buildOption.cpu.match(/r5f*/)) {
         if(buildOption.os.match(/freertos*/) )
         {
+            build_property.files = files_r5f;
             build_property.includes = includes_freertos_r5f;
             build_property.libdirs = libdirs_freertos;
             build_property.libs = libs_freertos_r5f;
             build_property.templates = templates_freertos_r5f;
         }
     }
-
     else if(buildOption.cpu.match(/c75*/)) {
+        build_property.files = files_c75;
         build_property.includes = includes_freertos_c75;
         build_property.libdirs = libdirs_freertos;
         build_property.libs = libs_freertos_c75;
