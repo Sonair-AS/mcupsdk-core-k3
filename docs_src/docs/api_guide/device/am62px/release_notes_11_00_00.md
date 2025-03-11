@@ -92,6 +92,9 @@ Ethernet driver (ENET)      | WKUP-R5F       | YES               | FreeRTOS    |
 
 ### SOC Device Drivers
 
+\note See the updated MCASP usage guidelines in \ref DRIVERS_MCASP_PAGE for changes in
+MCASP driver
+
 <table>
     <tr>
         <th>Peripheral</th>

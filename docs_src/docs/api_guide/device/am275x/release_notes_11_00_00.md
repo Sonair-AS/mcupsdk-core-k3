@@ -75,6 +75,9 @@ Ethernet driver (ENET)      | R5F       | YES               | FreeRTOS    | Ethe
 
 ### SOC Device Drivers
 
+\note See the updated MCASP usage guidelines in \ref DRIVERS_MCASP_PAGE for changes in
+MCASP driver
+
 Peripheral | Supported CPUs  | SysConfig Support
 -----------|-----------------|-------------------
 GPIO       | R5F, C7X        | YES

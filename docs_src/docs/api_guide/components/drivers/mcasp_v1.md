@@ -30,6 +30,18 @@ user will be required to assign same instance and choose to ignore the warning.
 
 ## Usage Overview
 
+### Key Careabouts in Driver Usage
+\note The changes pulled in for the driver starting release 10.0 requires some changes in
+the Driver usage from application
+
+- All transactions submitted from the applications must be of the same size.
+    - The TX and RX can be of seperate size.
+- The Loopjob buffer size can be configured from the sysconfig.
+- Application can provide an external buffer for loopjob buffer from Sysconfig
+    - This enables application to provide the transaction buffer itself as loopjob
+- #MCASP_stopTransferRx() and #MCASP_stopTransferTx() are blocking calls that should not
+  be called from an ISR context.
+
 ### API Sequence
 
 To use the MCASP driver to send data over the MCASP interface, the application
