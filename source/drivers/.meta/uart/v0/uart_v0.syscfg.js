@@ -604,7 +604,7 @@ function validate(inst, report) {
     }
     switch(inst.operMode) {
       case "16X":
-    if((inst.baudRate > Number(230400)) && (inst.baudRate != Number(3000000))) {
+    if((inst.baudRate > Number(230400)) && (inst.baudRate != Number(3000000)) && (inst.inputClkFreq == Number(48000000))) {
         report.logError("Operating mode should be 13X for the configured baudrate", inst, "operMode");
         }
         break;
