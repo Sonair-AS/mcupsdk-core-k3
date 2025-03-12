@@ -15,7 +15,6 @@ const files_r5f = {
         "sciclient_secureProxyCfg.c",
         "sciclient_secureproxy.c",
         "uart_print.c",
-        "Osal_wrapper.c",
     ]
 };
 
@@ -30,13 +29,6 @@ const includes_r5f = {
         "../rm_pm_hal/rm_pm_hal_src/rm/include",
         "../rm_pm_hal/rm_pm_hal_src/include/soc/am62x",
         "../rm_pm_hal/rm_pm_hal_src/include/lib/",
-        "../../../kernel/freertos/FreeRTOS-Kernel/include",
-        "../../../kernel/freertos/config/am62x/r5f",
-        "../../../kernel/freertos/portable/TI_ARM_CLANG/ARM_CR5F",
-        "../../../kernel/freertos/FreeRTOS-POSIX/include",
-        "../../../kernel/freertos/FreeRTOS-POSIX/include/private",
-        "../../../kernel/freertos/FreeRTOS-POSIX/FreeRTOS-Plus-POSIX/include",
-        "../../../kernel/freertos/FreeRTOS-POSIX/FreeRTOS-Plus-POSIX/include/portable",
     ],
 };
 

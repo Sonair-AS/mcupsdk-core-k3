@@ -102,8 +102,8 @@ _bottom_actions= \
 	$(call _pop_all) \
 	$(eval _MODULE :=)
 
-PDK_INSTALL_PATH :=
-objtree := $(PDK_INSTALL_PATH)
+DM_STUB_PATH :=
+objtree := $(DM_STUB_PATH)
 srctree := $(objtree)
 srcroot := $(srctree)
 DEFINES := $(CFLAGS_LOCAL_COMMON)

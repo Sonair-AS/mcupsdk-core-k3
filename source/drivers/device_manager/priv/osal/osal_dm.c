@@ -45,6 +45,7 @@
 #include <osal_dm.h>
 #include <drivers/device_manager/sciserver_tirtos.h>
 #include <kernel/nortos/dpl/r5/HwiP_armv7r_vim.h>
+#include <kernel/dpl/ClockP.h>
 
 #ifndef MCU_PLUS_SDK
 extern void CSL_armR5StartupIntrEnableVic( uint32_t enable );
@@ -79,7 +80,7 @@ void osal_dm_enable_interrupt(void)
 void osal_suspend_dm(void)
 {
         TaskP_disable();
-        OS_StopTickTimer();
+        ClockP_deinit();
         Sciclient_ApplicationLPMSuspend();
         #if defined MCU_PLUS_SDK
             HwiP_disableVIC();
@@ -108,7 +109,7 @@ u32 osal_resume_dm(void)
             CSL_armR5StartupIntrEnableVic(1);      /* Enable VIC mode */
         #endif
         Sciclient_ApplicationLPMResume();
-        OS_StartTickTimer();
+        ClockP_init();
         TaskP_restore(0);
         return 0;
 }
