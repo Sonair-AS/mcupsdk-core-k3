@@ -319,13 +319,32 @@ function getRPMessageVringRxTxMap(instance)
         {
             /* for each name, construct a N x N object mapping SRC CPU to DST CPU VRING ID,
             Assign VRING IDs to each SRC/DST pair, skip assignment when SRC == DST */
+            /* Initialize the array with -1 */
             for( let src of enabledCpus ) {
                 rxTxMap[src] = {};
                 for( let dst of enabledCpus ) {
                     rxTxMap[src][dst] = -1;
-                    if(dst != src) { /* NO VRING for a CPU to itself */
-                        rxTxMap[src][dst] = vringId;
-                        vringId++;
+                }
+            }
+			// Allocate buffer index
+            vringId = (((enabledCpus.length-1) * 2)-1);
+            for( let src of enabledCpus ) {
+                for( let dst of enabledCpus ) {
+                    if(dst != src){
+                        if(rxTxMap[src][dst] == -1)
+                        {
+                            rxTxMap[src][dst] = vringId - 1;
+                            rxTxMap[dst][src] = vringId;
+                            vringId = vringId - 2;
+                        }
+                    }
+                }
+            }
+			// Resolve out of index warning. This will not impact existing allocation
+            for( let src of enabledCpus ) {
+                for( let dst of enabledCpus ) {
+                    if (rxTxMap[src][dst] < 0){
+                        rxTxMap[src][dst] = 0;
                     }
                 }
             }
