@@ -254,4 +254,16 @@ static void ClockP_sleepTicks(uint32_t ticks)
     tx_thread_sleep(ticks);
 }
 
+/*
+ *  De-initialize the clock module.
+ */
+void ClockP_deinit()
+{
+    /* Stop the tick timer and clear any pending interrupts */
+    TimerP_stop(gClockCtrl.timerBaseAddr);
+    TimerP_clearOverflowInt(gClockCtrl.timerBaseAddr);
+
+    /* Disable and destroy the HWI of the timer used by clock module */
+    HwiP_destruct(&gClockCtrl.timerHwiObj);
+}
 
