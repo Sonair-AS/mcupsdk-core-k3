@@ -110,7 +110,6 @@ uint32_t ulPortInterruptNesting = 0UL;
 /* set to true when schedular gets enabled in xPortStartScheduler */
 uint32_t ulPortSchedularRunning = pdFALSE;
 
-
 /* set to true when scheduler gets enabled in xPortStartScheduler */
 uint32_t uxPortIncorrectYieldCount = 0UL;
 
@@ -204,6 +203,12 @@ typedef struct tskTaskControlBlock       /* The old naming convention is used to
 } tskTCB;
 
 extern  tskTCB * volatile pxCurrentTCB;
+
+/**
+ * The function that handles the timer tick while the scheduler is suspended.
+ */
+void vPortTimerTickHandler( void );
+
 /*
  * Starts the first task executing.  This function is necessarily written in
  * assembly code so is implemented in portASM.s.
@@ -296,15 +301,15 @@ BaseType_t xPortStartScheduler(void)
 
 void vPortYeildFromISR( uint32_t xSwitchRequired )
 {
-    if( xSwitchRequired != pdFALSE )
+    if( xSwitchRequired != (uint32_t) pdFALSE )
     {
         ulPortYieldRequired = pdTRUE;
     }
 }
 
-void vPortTimerTickHandler()
+void vPortTimerTickHandler( void )
 {
-    if( ulPortSchedularRunning == pdTRUE )
+    if( ulPortSchedularRunning == (uint32_t) pdTRUE )
     {
         /* Increment the RTOS tick. */
         if( xTaskIncrementTick() != pdFALSE )
@@ -324,7 +329,7 @@ void vPortTaskUsesFPU( void )
 
 
 /* initialize high resolution timer for CPU and task load calculation */
-void vPortConfigTimerForRunTimeStats()
+void vPortConfigTimerForRunTimeStats( void )
 {
 
     /* we assume clock is initialized before the schedular is started */
@@ -332,13 +337,13 @@ void vPortConfigTimerForRunTimeStats()
 }
 
 /* return current counter value of high speed counter in units of 10's of usecs */
-uint32_t uiPortGetRunTimeCounterValue()
+uint32_t uiPortGetRunTimeCounterValue( void )
 {
 // #if 1
     uint64_t ts = __TSC;
     uint64_t timeInUsecs;
 
-    timeInUsecs = (ts * 1000000) / (850 * 1000 * 1000);
+    timeInUsecs = (ts * 1000000UL) / (850UL * 1000UL * 1000UL);
     /* note, there is no overflow protection for this 32b value in FreeRTOS
      *
      * Dividing by 10 to reduce the resolution and avoid overflow for longer duration
@@ -356,14 +361,14 @@ uint32_t uiPortGetRunTimeCounterValue()
  * i.e FreeRTOS API should not be called from FIQ, however right now we dont enforce it by checking
  * if we are in FIQ when this API is called.
  */
-void vPortValidateInterruptPriority()
+void vPortValidateInterruptPriority( void )
 {
 }
 
 /* This is called as part of vTaskEndScheduler(), in our port, there is nothing to do here.
  * interrupt are disabled by FreeRTOS before calling this.
  */
-void vPortEndScheduler()
+void vPortEndScheduler( void )
 {
     /* nothing to do */
 }
@@ -441,7 +446,7 @@ static StackType_t uxTimerTaskStack[ configMINIMAL_STACK_SIZE ];
 
 
 
-void vPortRestoreTaskContext()
+void vPortRestoreTaskContext( void )
 {
     void * dummyTaskSp;
 
@@ -467,7 +472,7 @@ void vPortYield( void )
         //DebugP_log("Doing switch to same task:%p",(uintptr_t)oldSP);
         uxPortIncorrectYieldCount++;
     }
-    if (pxCurrentTCB->uxCriticalNesting == 0)
+    if (pxCurrentTCB->uxCriticalNesting == 0U)
     {
         /* Enable interrupts if task was preempted outside critical section */
         portENABLE_INTERRUPTS();
@@ -512,19 +517,19 @@ void vPortYieldAsyncFromISR( void )
  * Returns true if the current core is in ISR context; low prio ISR, med prio ISR or timer tick ISR. High prio ISRs
  * aren't detected here, but they normally cannot call C code, so that should not be an issue anyway.
  */
-BaseType_t xPortInIsrContext()
+BaseType_t xPortInIsrContext( void )
 {
     BaseType_t inISR = false;
-    if (ulPortInterruptNesting != 0)
+    if (ulPortInterruptNesting != 0U)
     {
         inISR =  true;
     }
     return inISR;
 }
 
-void vPortAssertIfInISR()
+void vPortAssertIfInISR( void )
 {
-    if( xPortInIsrContext() )
+    if( xPortInIsrContext() == true )
     {
         DebugP_log( "port_interruptNesting\n\n");
     }

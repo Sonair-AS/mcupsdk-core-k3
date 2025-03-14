@@ -55,11 +55,7 @@
 /*                           Macros & Typedefs                                */
 /* ========================================================================== */
 
-#define OSAL_SAFERTOS_C7X_CONFIGNUM_HWI      (64U)
-
-#ifndef OSAL_TARGET_PROC_MASK_DEFAULT
-#define OSAL_TARGET_PROC_MASK_DEFAULT        (0xFFFFU)
-#endif
+#define DPL_SAFERTOS_C7X_CONFIGNUM_HWI      (64U)
 
 #ifndef NULL_PTR
 #define NULL_PTR ((void *)0x0)
@@ -73,13 +69,11 @@
 
 typedef struct HwiP_safertos_s {
     bool              used;
-    HwiC7x_Struct        hwi;
+    HwiC7x_Struct     hwi;
 } HwiP_safertos;
 
 typedef struct HwiP_Struct_s {
-
     uint32_t intNum;
-
 } HwiP_Struct;
 
 /* ========================================================================== */
@@ -89,7 +83,7 @@ typedef struct HwiP_Struct_s {
 /**
  * Global pool of statically allocated semaphore pools
  */
-static HwiP_safertos gOsalHwiPSafeRtosPool[OSAL_SAFERTOS_C7X_CONFIGNUM_HWI];
+static HwiP_safertos gOsalHwiPSafeRtosPool[DPL_SAFERTOS_C7X_CONFIGNUM_HWI];
 
 portBaseType xPortInIsrContext(void);
 
@@ -130,10 +124,10 @@ int32_t HwiP_construct(HwiP_Object *object, HwiP_Params *params)
 
     DebugP_assertNoLog( sizeof(HwiP_Struct) <= sizeof(HwiP_Object) );
     DebugP_assertNoLog( params->callback != NULL );
-    DebugP_assertNoLog( params->intNum < OSAL_SAFERTOS_C7X_CONFIGNUM_HWI );
+    DebugP_assertNoLog( params->intNum < DPL_SAFERTOS_C7X_CONFIGNUM_HWI );
 
     hwiPool        = (HwiP_safertos *) &gOsalHwiPSafeRtosPool[0];
-    maxHwi         = OSAL_SAFERTOS_C7X_CONFIGNUM_HWI;
+    maxHwi         = DPL_SAFERTOS_C7X_CONFIGNUM_HWI;
 
     if(gOsalHwiAllocCnt==0U)
     {
@@ -145,7 +139,7 @@ int32_t HwiP_construct(HwiP_Object *object, HwiP_Params *params)
 
     for (i = 0U; i < maxHwi; i++)
     {
-        if (hwiPool[i].used == false)
+        if (hwiPool[i].used == (bool)false)
         {
             hwiPool[i].used = true;
             /* Update statistics */
@@ -172,7 +166,7 @@ int32_t HwiP_construct(HwiP_Object *object, HwiP_Params *params)
         if(status == SystemP_SUCCESS)
         {
             Hwi_Params_init(&hwiParams);
-            hwiParams.arg            = (uintptr_t)(params->args);
+            hwiParams.arg = (uint32_t)(params->args);
 
             if (params->priority==0U)
             {
@@ -207,7 +201,7 @@ int32_t HwiP_construct(HwiP_Object *object, HwiP_Params *params)
 void HwiP_destruct(HwiP_Object *handle)
 {
     HwiP_Struct *obj = (HwiP_Struct *)handle;
-    DebugP_assertNoLog( obj->intNum < OSAL_SAFERTOS_C7X_CONFIGNUM_HWI );
+    DebugP_assertNoLog( obj->intNum < DPL_SAFERTOS_C7X_CONFIGNUM_HWI );
 
     uintptr_t   key;
 
@@ -303,7 +297,7 @@ int32_t HwiP_setArgs(HwiP_Object *handle, void *args)
 {
     HwiP_Struct *obj = (HwiP_Struct *)handle;
 
-    DebugP_assertNoLog( obj->intNum < OSAL_SAFERTOS_C7X_CONFIGNUM_HWI );
+    DebugP_assertNoLog( obj->intNum < DPL_SAFERTOS_C7X_CONFIGNUM_HWI );
 
     Hwi_Module_state.dispatchTable[obj->intNum]->arg = (uintptr_t)args;
 

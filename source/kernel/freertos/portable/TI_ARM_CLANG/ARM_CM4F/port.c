@@ -409,13 +409,13 @@ static void vPortEnableVFP( void )
 /*-----------------------------------------------------------*/
 
 /* initialize high resolution timer for CPU and task load calculation */
-void vPortConfigTimerForRunTimeStats()
+void vPortConfigTimerForRunTimeStats( void )
 {
     /* we assume clock is initialized before the schedular is started */
 }
 
 /* return current counter value of high speed counter in units of usecs */
-uint32_t uiPortGetRunTimeCounterValue()
+uint32_t uiPortGetRunTimeCounterValue( void )
 {
     uint64_t timeInUsecs = ClockP_getTimeUsec();
 

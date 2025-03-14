@@ -33,6 +33,10 @@
  *  ======== TaskSupport.c ========
  */
 
+/* ========================================================================== */
+/*                             Include Files                                  */
+/* ========================================================================== */
+
 #include <stdint.h>
 #include <stdbool.h>
 #include <stdarg.h>
@@ -41,6 +45,31 @@
 #include <kernel/freertos/dpl/c75/TaskSupport_c75.h>
 
 #include <kernel/dpl/DebugP.h>
+
+/* ========================================================================== */
+/*                           Macros & Typedefs                                */
+/* ========================================================================== */
+
+#define TCSP_SIZE   (0x2000U)
+#define TCSP_ALIGN  (0x2000U)
+
+/* ========================================================================== */
+/*                         Structures and Enums                               */
+/* ========================================================================== */
+
+/* None */
+
+/* ========================================================================== */
+/*                            Global Variables                                */
+/* ========================================================================== */
+
+/* None */
+
+/* ========================================================================== */
+/*                      Internal Function Declarations                        */
+/* ========================================================================== */
+
+/* None */
 
 /*
  *
@@ -87,11 +116,11 @@
  *
  */
 
-#define TCSP_SIZE  0x2000
-#define TCSP_ALIGN 0x2000
+/* ========================================================================== */
+/*                          Function Definitions                              */
+/* ========================================================================== */
 
-
-void * TaskSupport_setupTaskStack(StackType_t * pxStackArrayEndAddress, StackType_t * pxStackArrayStartAddress, Task_FuncPtr fxn, TaskSupport_FuncPtr exit, TaskSupport_FuncPtr enter, TaskFunction_t pxCode, void * pvParameters , bool privileged)
+void * TaskSupport_setupTaskStack(StackType_t * pxStackArrayEndAddress, StackType_t * pxStackArrayStartAddress, Task_FuncPtr fxn, TaskSupport_FuncPtr exitPoint, TaskSupport_FuncPtr enter, TaskFunction_t pxCode, void * pvParameters , bool privileged)
 {
     void * sp;
     void * tcspBase;
@@ -127,18 +156,20 @@ void * TaskSupport_setupTaskStack(StackType_t * pxStackArrayEndAddress, StackTyp
     DebugP_assert(tskStackSize >= TaskSupport_defaultStackSize);
 
     if (tskStackSize < TaskSupport_defaultStackSize) {
-        return (NULL);
+        sp = NULL;
     }
-
-    tcspBase = (void *)(((uintptr_t)pxStackArrayStartAddressAligned + tskStackSize) - TCSP_SIZE);
-    if (align)
+    else
     {
-        DebugP_assert(((uintptr_t)tcspBase & (align - 1U)) == 0U);
+        tcspBase = (void *)(((uintptr_t)pxStackArrayStartAddressAligned + tskStackSize) - TCSP_SIZE);
+        if (align > 0U)
+        {
+            DebugP_assert(((uintptr_t)tcspBase & (align - 1U)) == 0U);
+        }
+        /* subtract 16 from size to account for 16-byte free area @SP */
+        sp = TaskSupport_buildTaskStack((void *)((size_t)tcspBase - 16U), fxn,
+                                        exitPoint, enter, pvParameters, pxCode,
+                                        tcspBase, privileged);
     }
-    /* subtract 16 from size to account for 16-byte free area @SP */
-    sp = TaskSupport_buildTaskStack((void *)((size_t)tcspBase - 16), fxn,
-                                    exit, enter, pvParameters, pxCode,
-                                    tcspBase, privileged);
 
     return (sp);
 }
@@ -146,7 +177,7 @@ void * TaskSupport_setupTaskStack(StackType_t * pxStackArrayEndAddress, StackTyp
 /*
  *  ======== TaskSupport_getStackAlignment ========
  */
-unsigned int TaskSupport_getStackAlignment()
+unsigned int TaskSupport_getStackAlignment(void)
 {
     return (TaskSupport_stackAlignment);
 }

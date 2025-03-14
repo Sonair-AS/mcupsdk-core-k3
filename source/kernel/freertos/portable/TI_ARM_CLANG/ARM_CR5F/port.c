@@ -410,13 +410,13 @@ void vPortExitCritical( void )
 }
 
 /* initialize high resolution timer for CPU and task load calculation */
-void vPortConfigTimerForRunTimeStats()
+void vPortConfigTimerForRunTimeStats( void )
 {
     /* we assume clock is initialized before the schedular is started */
 }
 
 /* return current counter value of high speed counter in units of usecs */
-uint32_t uiPortGetRunTimeCounterValue()
+uint32_t uiPortGetRunTimeCounterValue( void )
 {
     uint64_t timeInUsecs = ClockP_getTimeUsec();
 
@@ -436,14 +436,14 @@ uint32_t uiPortGetRunTimeCounterValue()
  * i.e FreeRTOS API should not be called from FIQ, however right now we dont enforce it by checking
  * if we are in FIQ when this API is called.
  */
-void vPortValidateInterruptPriority()
+void vPortValidateInterruptPriority( void )
 {
 }
 
 /* This is called as part of vTaskEndScheduler(), in our port, there is nothing to do here.
  * interrupt are disabled by FreeRTOS before calling this.
  */
-void vPortEndScheduler()
+void vPortEndScheduler( void )
 {
     /* nothing to do */
 }
