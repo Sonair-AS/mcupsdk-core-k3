@@ -120,7 +120,6 @@ INCLUDES_common := \
     -I${MCU_PLUS_SDK_PATH}/source/networking/enet/hw_include/mdio \
     -I${MCU_PLUS_SDK_PATH}/source/networking/enet/soc/k3/am62dx \
     -I${MCU_PLUS_SDK_PATH}/source/board/ethphy/enet/rtos_drivers/include \
-    -I${MCU_PLUS_SDK_PATH}/source/board/ethphy/enet/rtos_drivers/src \
 
 DEFINES_common := \
     -DSOC_AM62DX \

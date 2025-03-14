@@ -128,7 +128,6 @@ const includes = {
         "${MCU_PLUS_SDK_PATH}/source/networking/enet/soc/k3/am275x",
 
         "${MCU_PLUS_SDK_PATH}/source/board/ethphy/enet/rtos_drivers/include",
-        "${MCU_PLUS_SDK_PATH}/source/board/ethphy/enet/rtos_drivers/src"
     ],
 };
 
@@ -145,17 +144,6 @@ const cflags = {
     ],
 };
 
-const cflags_a53 = {
-    common: [
-        "-Wno-extra",
-        "-Wno-error=unused-but-set-variable",
-        "-Wno-unused-but-set-variable",
-        "-Wno-unused-function",
-    ],
-    release: [
-        "-flto",
-    ],
-};
 
 const defines_r5f = {
     common: [
@@ -173,21 +161,6 @@ const defines_r5f = {
     ],
 };
 
-const defines_a53 = {
-    common: [
-        "MAKEFILE_BUILD",
-        "ENET_CFG_ASSERT=1",
-        "ENET_CFG_PRINT_ENABLE",
-        "ENET_CFG_TRACE_LEVEL=3",
-        "ENET_ENABLE_PER_CPSW=1",
-        "ENABLE_ENET_LOG",
-    ],
-    debug: [
-        "ENET_CFG_DEV_ERROR=1",
-        "LWIPIF_INSTRUMENTATION_ENABLED=1",
-        "ENETDMA_INSTRUMENTATION_ENABLED=1",
-    ],
-};
 
 const buildOptionCombos = [
     { device: device, cpu: "r5f", cgt: "ti-arm-clang"},

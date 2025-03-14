@@ -128,7 +128,6 @@ const includes = {
         "${MCU_PLUS_SDK_PATH}/source/networking/enet/soc/k3/am62dx",
 
         "${MCU_PLUS_SDK_PATH}/source/board/ethphy/enet/rtos_drivers/include",
-        "${MCU_PLUS_SDK_PATH}/source/board/ethphy/enet/rtos_drivers/src"
     ],
 };
 
