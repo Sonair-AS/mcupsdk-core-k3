@@ -1269,7 +1269,26 @@ int32_t OSPI_readDirect(OSPI_Handle handle, OSPI_Transaction *trans)
     }
     else
     {
+        #if defined(__C7504__) || defined(__C7524__)
+        if(attrs->phyEnable == 1U)
+        {
+            /* Enable PHY pipeline */
+            CSL_REG32_FINS(&pReg->CONFIG_REG,
+                   OSPI_FLASH_CFG_CONFIG_REG_PIPELINE_PHY_FLD,
+                   TRUE);
+        }
+        #endif
         Utils_memcpyWord(pSrc, pDst, trans->count);
+
+        #if defined(__C7504__) || defined(__C7524__)
+        if(attrs->phyEnable == 1U)
+        {
+            /* Disable PHY pipeline */
+            CSL_REG32_FINS(&pReg->CONFIG_REG,
+                   OSPI_FLASH_CFG_CONFIG_REG_PIPELINE_PHY_FLD,
+                   FALSE);
+        }
+        #endif
     }
 
     return status;
