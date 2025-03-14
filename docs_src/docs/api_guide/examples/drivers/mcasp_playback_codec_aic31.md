@@ -13,7 +13,19 @@ The audio from the microphone will be played back to both the headset (Left & Ri
 
 # Supported Combinations {#EXAMPLES_DRIVERS_MCASP_PLAYBACK_COMBOS}
 
-\cond SOC_AM62AX || SOC_AM62DX
+\cond SOC_AM62AX
+
+ Parameter      | Value
+ ---------------|-----------
+ CPU + OS       | c75ss0-0 freertos
+ ^              | r5fss0-0 nortos
+ Toolchain      | ti-c7000
+ Board          | @VAR_BOARD_NAME_LOWER
+ Example folder | examples/drivers/mcasp/mcasp_playback_codec_aic32
+
+\endcond
+
+\cond SOC_AM62DX
 
  Parameter      | Value
  ---------------|-----------

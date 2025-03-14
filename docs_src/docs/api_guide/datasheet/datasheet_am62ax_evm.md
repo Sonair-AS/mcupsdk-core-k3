@@ -247,19 +247,6 @@ Mode   | Data size(MiB) | Write speed(MiBps) | Read speed(MiBps)
  HS200 | 4	            | 62.93	             | 155.52
  HS200 | 6	            | 61.54	             | 161.17
 
-**a53ss0-0_freertos:**
-Mode   | Data size(MiB) | Write speed(MiBps) | Read speed(MiBps)
--------|----------------|--------------------|-----------------
- SDR50 | 1	            | 37.38		         | 45.96
- SDR50 | 4	            | 42.35	             | 46.50
- SDR50 | 6	            | 42.42		         | 46.54
- DDR50 | 1	            | 71.59		         | 84.90
- DDR50 | 4	            | 54.20	             | 86.93
- DDR50 | 6	            | 73.54		         | 87.03
- HS200 | 1	            | 98.74		         | 171.25
- HS200 | 4	            | 113.31	         | 183.62
- HS200 | 6	            | 77.47	             | 184.07
-
 ### OSPI NAND Performance
 **r5f0-0:**
  - Flash protocol: FLASH_CFG_PROTO_1S_8S_8S

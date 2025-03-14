@@ -15,9 +15,7 @@ Application write 20 samples to EEPROM and read those 20 samples from the EEPROM
  Parameter      | Value
  ---------------|-----------
  CPU + OS       | r5fss0-0 freertos
- ^              | a53ss0-0 nortos
  Toolchain      | ti-arm-clang
- ^              | arm.gnu.aarch64-none
  Board          | @VAR_BOARD_NAME_LOWER
  Example folder | examples/board/eeprom/eeprom_read_write
 

@@ -49,12 +49,8 @@ This example just does driver and board initialization and prints the string, He
  ---------------|-----------
  CPU + OS       | mcu-r5fss0-0 nortos
  ^              | mcu-r5fss0-0 freertos
- ^              | a53ss0-0 nortos
- ^              | a53ss0-0 freertos
- ^              | a53ss0-0 freertos-smp
  ^              | c75ss0-0 freertos
  Toolchain      | ti-arm-clang
-  ^             | arm.gnu.aarch64-none
  Boards         | @VAR_BOARD_NAME_LOWER
  Example folder | examples/hello_world/
 

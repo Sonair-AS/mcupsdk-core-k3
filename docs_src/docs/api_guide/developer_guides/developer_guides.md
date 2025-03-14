@@ -83,9 +83,13 @@ SDK features and tools.
 - \subpage APPIMAGE_SW_VERSION
 \endcond
 
-\cond SOC_AM62AX || SOC_AM62DX
+\cond SOC_AM62DX
 - \subpage ROV_INTRO_PAGE
 - \subpage SMP_FREERTOS_GUIDE
+\endcond
+
+\cond SOC_AM62AX
+- \subpage ROV_INTRO_PAGE
 \endcond
 \cond SOC_AM275X
 - \subpage ROV_INTRO_PAGE

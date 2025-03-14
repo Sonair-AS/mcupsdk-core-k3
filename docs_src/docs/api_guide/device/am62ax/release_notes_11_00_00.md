@@ -12,7 +12,7 @@
 \cond SOC_AM62AX
 SOC    | Supported CPUs              | EVM                                                    | Host PC
 -------|-----------------------------|--------------------------------------------------------|-----------------------------------
-AM62Ax | MCU R5F, DM R5F, A53, C75   | @VAR_BOARD_NAME EVM (referred to as am62ax-sk in code) | Windows 10 64b or Ubuntu 22.04 64b
+AM62Ax | MCU R5F, DM R5F, C75   | @VAR_BOARD_NAME EVM (referred to as am62ax-sk in code) | Windows 10 64b or Ubuntu 22.04 64b
 \endcond
 
 ## Features Added in This Release
@@ -21,12 +21,9 @@ Feature                                                                         
 -----------------------------------------------------------------------------------------------|-----------------------------------
 -                                                                                              | -
 
-### Experimental Features {#EXPERIMENTAL_FEATURES}
+### Unsupported Features {#UNSUPPORTED_FEATURES}
 
-\attention Features listed below are early versions and should be considered as "experimental".
-\attention Users can evaluate the feature, however the feature is not fully tested at TI side.
 \attention TI would not support these feature on public e2e.
-\attention Experimental features will be enabled with limited examples and SW modules.
 
 Feature                                                             | Module
 --------------------------------------------------------------------|--------------------------
@@ -38,12 +35,12 @@ A53 FreeRTOS SMP support and A53 FreeRTOS SMP examples              | DPL, FreeR
 
 Tools                   | Supported CPUs           | Version
 ------------------------|--------------------------|-----------------------
-Code Composer Studio    | MCU-R5F, C75, A53        | 20.1.0
-SysConfig               | MCU-R5F, DM-R5F, C75, A53| 1.23.0, build 4000
+Code Composer Studio    | MCU-R5F, C75             | 20.1.0
+SysConfig               | MCU-R5F, DM-R5F, C75     | 1.23.0, build 4000
 TI ARM CLANG            | MCU-R5F, DM-R5F          | 4.0.1.LTS
 GCC AARCH64             | A53                      | 9.2-2019.12
 C7000-CGT               | C75                      | 4.1.0.LTS
-FreeRTOS Kernel         | MCU-R5F, DM-R5F, C75, A53| 11.1.0
+FreeRTOS Kernel         | MCU-R5F, DM-R5F, C75     | 11.1.0
 TIFS                    | NA                       | v10.01.08
 
 ## Key Features
@@ -52,26 +49,25 @@ TIFS                    | NA                       | v10.01.08
 
 OS              | Supported CPUs            | SysConfig Support
 ----------------|---------------------------|-------------------
-FreeRTOS Kernel | MCU-R5F, DM-R5F, A53, C75 | NA
-FreeRTOS POSIX  | MCU-R5F, A53              | NA
-FreeRTOS SMP    | A53                       | NA
-No RTOS         | MCU-R5F, DM-R5F, A53      | NA
+FreeRTOS Kernel | MCU-R5F, DM-R5F, C75      | NA
+FreeRTOS POSIX  | MCU-R5F                   | NA
+No RTOS         | MCU-R5F, DM-R5F           | NA
 
 ### Driver Porting Layer (DPL)
 
 Module            | Supported CPUs            | SysConfig Support | OS support
 ------------------|---------------------------|-------------------|------------------
 Address Translate | MCU-R5F, DM-R5F           | Yes               | FreeRTOS, NORTOS
-Cache             | MCU-R5F, DM-R5F, A53, C75 | Yes               | FreeRTOS, NORTOS
-Clock             | MCU-R5F, DM-R5F, A53, C75 | Yes               | FreeRTOS, NORTOS
-CycleCounter      | MCU-R5F, DM-R5F, A53, C75 | NA                | FreeRTOS, NORTOS
-Debug             | MCU-R5F, DM-R5F, A53, C75 | Yes               | FreeRTOS, NORTOS
-Heap              | MCU-R5F, DM-R5F, A53, C75 | NA                | FreeRTOS, NORTOS
-Hwi               | MCU-R5F, DM-R5F, A53, C75 | Yes               | FreeRTOS, NORTOS
-MPU               | MCU-R5F, DM-R5F, A53, C75 | Yes               | FreeRTOS, NORTOS
-Semaphore         | MCU-R5F, DM-R5F, A53, C75 | NA                | FreeRTOS, NORTOS
-Task              | MCU-R5F, DM-R5F, A53, C75 | NA                | FreeRTOS
-Timer             | MCU-R5F, DM-R5F, A53      | Yes               | FreeRTOS, NORTOS
+Cache             | MCU-R5F, DM-R5F, C75      | Yes               | FreeRTOS, NORTOS
+Clock             | MCU-R5F, DM-R5F, C75      | Yes               | FreeRTOS, NORTOS
+CycleCounter      | MCU-R5F, DM-R5F, C75      | NA                | FreeRTOS, NORTOS
+Debug             | MCU-R5F, DM-R5F, C75      | Yes               | FreeRTOS, NORTOS
+Heap              | MCU-R5F, DM-R5F, C75      | NA                | FreeRTOS, NORTOS
+Hwi               | MCU-R5F, DM-R5F, C75      | Yes               | FreeRTOS, NORTOS
+MPU               | MCU-R5F, DM-R5F, C75      | Yes               | FreeRTOS, NORTOS
+Semaphore         | MCU-R5F, DM-R5F, C75      | NA                | FreeRTOS, NORTOS
+Task              | MCU-R5F, DM-R5F, C75      | NA                | FreeRTOS
+Timer             | MCU-R5F, DM-R5F           | Yes               | FreeRTOS, NORTOS
 
 ### Secondary Bootloader (SBL)
 
@@ -100,36 +96,36 @@ UART      | DM-R5F         | Yes               | NA          |   No        | NOR
     <tr>
         <td>ECAP</td>
         <td>Main</td>
-        <td>DM-R5F, A53, C75</td>
+        <td>DM-R5F , C75</td>
         <td>Yes</td>
     </tr>
     <tr>
         <td>EPWM</td>
         <td>Main</td>
-        <td>MCU-R5F, DM-R5F, A53, C75</td>
+        <td>MCU-R5F, DM-R5F , C75</td>
         <td>Yes</td>
     </tr>
     <tr>
         <td>EQEP</td>
         <td>Main</td>
-        <td>DM-R5F, A53, C75</td>
+        <td>DM-R5F , C75</td>
         <td>Yes</td>
     </tr>
     <tr>
         <td rowspan=2>GPIO</td>
         <td>MCU</td>
-        <td>MCU-R5F, DM-R5F, A53, C75</td>
+        <td>MCU-R5F, DM-R5F , C75</td>
         <td>Yes</td>
     </tr>
     <tr>
         <td>Main</td>
-        <td>MCU-R5F, DM-R5F, A53, C75</td>
+        <td>MCU-R5F, DM-R5F , C75</td>
         <td>Yes</td>
     </tr>
     <tr>
         <td rowspan=3>I2C </td>
         <td>Main</td>
-        <td>MCU-R5F, DM-R5F, A53, C75</td>
+        <td>MCU-R5F, DM-R5F , C75</td>
         <td>Yes</td>
     </tr>
     <tr>
@@ -145,25 +141,25 @@ UART      | DM-R5F         | Yes               | NA          |   No        | NOR
     <tr>
         <td>IPC</td>
         <td>Main</td>
-        <td>MCU-R5F, DM-R5F, A53, C75</td>
+        <td>MCU-R5F, DM-R5F , C75</td>
         <td>Yes</td>
     </tr>
     <tr>
         <td>MCAN</td>
         <td>MCU</td>
-        <td>MCU-R5F, A53</td>
+        <td>MCU-R5F     </td>
         <td>Yes</td>
     <tr>
         <td rowspan>MCASP</td>
         <td>Main</td>
-        <td>DM-R5F, A53, C75</td>
+        <td>DM-R5F , C75</td>
         <td>Yes</td>
     </tr>
     </tr>
     <tr>
         <td rowspan=2>MCSPI</td>
         <td>Main</td>
-        <td>MCU-R5F, DM-R5F, A53</td>
+        <td>MCU-R5F, DM-R5F     </td>
         <td>Yes</td>
     </tr>
     <tr>
@@ -174,53 +170,47 @@ UART      | DM-R5F         | Yes               | NA          |   No        | NOR
     <tr>
         <td>MMCSD</td>
         <td>Main</td>
-        <td>DM-R5F, A53</td>
+        <td>DM-R5F     </td>
         <td>Yes</td>
     </tr>
     <tr>
         <td>OSPI</td>
         <td>Main</td>
-        <td>DM-R5F, A53</td>
+        <td>DM-R5F     </td>
         <td>Yes</td>
     </tr>
     <tr>
         <td rowspan=3>Pinmux</td>
         <td>Main</td>
-        <td>MCU-R5F, DM-R5F, A53, C75</td>
+        <td>MCU-R5F, DM-R5F , C75</td>
         <td>Yes</td>
     </tr>
     <tr>
         <td>MCU</td>
-        <td>MCU-R5F, DM-R5F, A53, C75</td>
+        <td>MCU-R5F, DM-R5F , C75</td>
         <td>Yes</td>
     </tr>
     <tr>
         <td>Wakeup</td>
-        <td>MCU-R5F, DM-R5F, A53, C75</td>
-        <td>Yes</td>
-    </tr>
-    <tr>
-        <td>SA3UL</td>
-        <td>Main</td>
-        <td>A53</td>
+        <td>MCU-R5F, DM-R5F , C75</td>
         <td>Yes</td>
     </tr>
     <tr>
         <td>SOC</td>
         <td>NA</td>
-        <td>MCU-R5F, DM-R5F, A53, C75</td>
+        <td>MCU-R5F, DM-R5F , C75</td>
         <td>Yes</td>
     </tr>
     <tr>
         <td>SCIClient</td>
         <td>NA</td>
-        <td>MCU-R5F, DM-R5F, A53, C75</td>
+        <td>MCU-R5F, DM-R5F , C75</td>
         <td>Yes</td>
     </tr>
     <tr>
         <td rowspan=3>UART</td>
         <td>Main</td>
-        <td>MCU-R5F, DM-R5F, A53, C75</td>
+        <td>MCU-R5F, DM-R5F , C75</td>
         <td>Yes</td>
     </tr>
     <tr>
@@ -236,13 +226,7 @@ UART      | DM-R5F         | Yes               | NA          |   No        | NOR
     <tr>
         <td>UDMA</td>
         <td>Main</td>
-        <td>MCU-R5F, DM-R5F, A53, C75</td>
-        <td>Yes</td>
-    </tr>
-    <tr>
-        <td>WDT</td>
-        <td>Main</td>
-        <td>A53</td>
+        <td>MCU-R5F, DM-R5F , C75</td>
         <td>Yes</td>
     </tr>
 </table>
@@ -253,9 +237,9 @@ UART      | DM-R5F         | Yes               | NA          |   No        | NOR
 
 Peripheral | Supported CPUs | SysConfig Support
 -----------|----------------|-------------------
-EEPROM     | MCU-R5F, A53   | Yes
-Flash      | DM-R5F, A53    | Yes
-LED        | MCU-R5F, A53   | Yes
+EEPROM     | MCU-R5F        | Yes
+Flash      | DM-R5F         | Yes
+LED        | MCU-R5F        | Yes
 
 ### SDL
 

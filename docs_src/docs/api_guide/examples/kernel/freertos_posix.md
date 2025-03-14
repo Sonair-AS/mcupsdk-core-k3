@@ -77,10 +77,7 @@ The example does the below
  Parameter      | Value
  ---------------|-----------
  CPU + OS       | mcu-r5fss0-0 nortos
-  ^             | a53ss0-0 freertos
-  ^             | a53ss0-0 freertos-smp
  Toolchain      | ti-arm-clang
- ^              | arm.gnu.aarch64-none
  Boards         | @VAR_BOARD_NAME_LOWER
  Example folder | examples/kernel/freertos/posix_demo
 

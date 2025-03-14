@@ -46,15 +46,13 @@ To modify the example to use main domain SPI, refer \ref MAIN_DOMAIN_PERIPHERAL_
 
 \endcond
 
-\cond SOC_AM62AX || SOC_AM62DX
+\cond SOC_AM62AX
 
  Parameter      | Value
  ---------------|-----------
  CPU + OS       | mcu-r5fss0-0 freertos
  ^              | mcu-r5fss0-0 nortos
- ^              | a53ss0-0 nortos
  Toolchain      | ti-arm-clang
- ^              | arm.gnu.aarch64-none
  Boards         | @VAR_BOARD_NAME_LOWER
  Example folder | examples/drivers/mcspi/mcspi_performance_32bit
 

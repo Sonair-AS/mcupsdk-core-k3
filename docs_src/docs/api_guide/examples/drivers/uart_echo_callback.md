@@ -88,9 +88,7 @@ The application ends when the user types 8 characters.
  Parameter      | Value
  ---------------|-----------
  CPU + OS       | mcu-r5fss0-0 nortos
- ^              | a53ss0-0 nortos
  Toolchain      | ti-arm-clang
- ^              | arm.gnu.aarch64-none
  Board          | @VAR_BOARD_NAME_LOWER
  Example folder | examples/drivers/uart/uart_echo_callback
 

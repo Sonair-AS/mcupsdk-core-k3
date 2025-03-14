@@ -110,11 +110,9 @@ This example uses the Debug Header(J3) on Audio expansion card 1 for testing on 
 
  Parameter      | Value
  ---------------|-----------
- CPU + OS       | a53ss0-0 nortos
- ^              | r5fss0-0 freertos
+ CPU + OS       | r5fss0-0 freertos
  ^              | c75ss0-0 freertos
- Toolchain      | arm.gnu.aarch64-none
- ^              | ti-arm-clang
+ Toolchain      | ti-arm-clang
  ^              | ti-c7000
  Board          | @VAR_BOARD_NAME_LOWER
  Example folder | examples/drivers/eqep/eqep_position_speed/
