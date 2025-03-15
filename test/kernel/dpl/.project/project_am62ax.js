@@ -1,5 +1,5 @@
 let path = require('path');
-const device_project = require("../../../../.project/device/project_am62ax.js");
+const device_project = require(path.resolve(".project/device/project_am62ax.js"));
 
 let device = "am62ax";
 
@@ -198,7 +198,7 @@ const libs_threadx_r5f = {
         "threadx.am62ax.r5f.ti-arm-clang.${ConfigName}.lib",
         "drivers.am62ax.r5f.ti-arm-clang.${ConfigName}.lib",
         "unity.am62ax.r5f.ti-arm-clang.${ConfigName}.lib",
-    ],  
+    ],
 }
 
 const libs_threadx_a53 = {
@@ -206,7 +206,7 @@ const libs_threadx_a53 = {
         "threadx.am62ax.a53.gcc-aarch64.${ConfigName}.lib",
         "drivers.am62ax.a53.gcc-aarch64.${ConfigName}.lib",
         "unity.am62ax.a53.gcc-aarch64.${ConfigName}.lib",
-    ],  
+    ],
 }
 
 const libs_freertos_mcu_r5f = {
@@ -480,7 +480,7 @@ function getComponentBuildProperty(buildOption) {
             build_property.libs = libs_freertos_mcu_r5f;
             build_property.templates = templates_freertos_mcu_r5f;
             build_property.defines = defines_freertos_mcu_r5;
-        } 
+        }
         else if (buildOption.os.match(/threadx*/))
         {
             build_property.includes = includes_threadx_r5f;
@@ -534,7 +534,7 @@ function getComponentBuildProperty(buildOption) {
                 build_property.libs = libs_a53_smp;
                 build_property.defines = defines_a53_smp;
             }
-        }        
+        }
         else if (buildOption.os.match(/threadx*/))
         {
             build_property.includes = includes_threadx_a53;

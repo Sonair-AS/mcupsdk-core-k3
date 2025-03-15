@@ -27,6 +27,7 @@ const device_defines = {
 };
 
 const example_file_list = [
+    /* Example Applications */
     "examples/drivers/ddr/ddr_perf/.project/project.js",
     "examples/drivers/gpio/gpio_input_interrupt/.project/project.js",
     "examples/drivers/gpio/gpio_led_blink/.project/project.js",
@@ -48,6 +49,9 @@ const example_file_list = [
     "examples/kernel/dpl/dpl_demo/.project/project_safertos.js",
     "examples/kernel/freertos/task_switch/.project/project.js",
     "examples/kernel/safertos/task_switch/.project/project.js",
+
+    /* Test Applications */
+    "test/kernel/dpl_core_r5_test/.project/project.js",
 ];
 
 function getProjectSpecCpu(cpu) {
