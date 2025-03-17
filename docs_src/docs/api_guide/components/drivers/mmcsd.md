@@ -22,7 +22,7 @@ The MMCSD controller provides accessibility to external MMC/SD/SDIO devices usin
 - 64-bit data, address width System Bus Interface
 \if SOC_AM62PX
 - MMC0 interface is compliant with the JEDEC eMMC electrical standard v5.1 (JESD84-B51) and it supports the
-following eMMC applications: Legacy SDR, High Speed SDR, High Speed DDR, HS200 and HS400
+following eMMC applications: Legacy SDR, High Speed SDR, High Speed DDR, HS200
 - MMC0 interface is also compliant with the SD Host Controller Standard Specification 4.10 and SD Physical
 Layer Specification v3.01 as well as SDIO Specification v3.00 and it supports the following SD Card
 applications: UHS–I SDR12, UHS–I SDR25, UHS–I SDR50, UHS–I DDR50 and UHS–I SDR104

@@ -76,7 +76,7 @@ SBL Stage2: Total time taken            |   32.759
 - Size of images loaded by stage1  : 206 KB
 - Size of images loaded by stage2  : 914 KB
 - Boot Media Clock                 : 200.00 MHz
-- Mode                             : HS400
+- Mode                             : HS200
 
 SBL Stage1 boot time breakdown          |   Time (ms)
 ----------------------------------------|--------------
@@ -199,9 +199,6 @@ Mode   | Data size(MiB) | Write speed(MiBps) | Read speed(MiBps)
  HS200 | 1	            | 70.56	     	     | 157.70
  HS200 | 4	            | 109.64		     | 169.40
  HS200 | 6	            | 74.31 		     | 152.66
- HS400 | 1	            | 71.93		         | 249.19
- HS400 | 4	            | 109.97		     | 267.29
- HS400 | 6	            | 108.35		     | 226.37
 
 ### OSPI NOR Flash Performance
  - Flash protocol: FLASH_CFG_PROTO_8D_8D_8D
