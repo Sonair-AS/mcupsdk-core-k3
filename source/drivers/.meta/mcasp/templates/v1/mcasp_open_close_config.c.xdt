@@ -80,7 +80,12 @@ Udma_EventObject gBcdmaRxCqEventObj;
 #define MCASP_RING_MEM_SIZE_TX           (MCASP_UDMA_RING_ENTRY_SIZE*UDMA_RING_ENTRIES_TX)
 #define MCASP_RING_MEM_SIZE_RX           (MCASP_UDMA_RING_ENTRY_SIZE*UDMA_RING_ENTRIES_RX)
 
+#if defined (MCASP_TX_EVENT_TYPE_L2G)
+#define MCASP_UDMA_TR15_TRPD_SIZE_TX        (UDMA_GET_TRPD_TR15_SIZE(MCASP_TX_DMA_TR_COUNT))
+#else
 #define MCASP_UDMA_TR3_TRPD_SIZE_TX         (UDMA_GET_TRPD_TR3_SIZE(MCASP_TX_DMA_TR_COUNT))
+#endif
+
 #define MCASP_UDMA_TR3_TRPD_SIZE_RX         (UDMA_GET_TRPD_TR3_SIZE(MCASP_RX_DMA_TR_COUNT))
         % break;
     % }
@@ -96,7 +101,12 @@ Udma_EventObject    gMcasp`i`_UdmaCqEventObjTx;
 Udma_ChObject       gMcasp`i`UdmaRxChObj;
 Udma_EventObject    gMcasp`i`_UdmaCqEventObjRx;
 
+#if defined (MCASP_TX_EVENT_TYPE_L2G)
+uint8_t gMcasp`i`UdmaTxTrpdMem[MCASP_UDMA_TR15_TRPD_SIZE_TX*MCASP_TX_DMA_RING_ELEM_CNT] __attribute__((aligned(UDMA_CACHELINE_ALIGNMENT)));
+#else
 uint8_t gMcasp`i`UdmaTxTrpdMem[MCASP_UDMA_TR3_TRPD_SIZE_TX*MCASP_TX_DMA_RING_ELEM_CNT] __attribute__((aligned(UDMA_CACHELINE_ALIGNMENT)));
+#endif
+
 uint8_t gMcasp`i`UdmaRxTrpdMem[MCASP_UDMA_TR3_TRPD_SIZE_RX*MCASP_RX_DMA_RING_ELEM_CNT] __attribute__((aligned(UDMA_CACHELINE_ALIGNMENT)));
 
 static uint8_t gMcasp`i`TxFqRingMem[UDMA_ALIGN_SIZE(MCASP_RING_MEM_SIZE_TX)] __attribute__((aligned(UDMA_CACHELINE_ALIGNMENT)));

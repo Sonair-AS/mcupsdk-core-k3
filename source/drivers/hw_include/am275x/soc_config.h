@@ -86,6 +86,9 @@ extern "C"
 /* Driver bootloader format */
 #define DRV_BOOTLOADER_FORMAT_MCELF
 
+/* MCASP TX DMA event type */
+#define MCASP_TX_EVENT_TYPE_L2G
+
 #ifdef __cplusplus
 }
 #endif

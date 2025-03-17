@@ -80,6 +80,15 @@ extern "C" {
  */
 int32_t MCASP_extHclkSrcConfig(uint32_t instNum, uint32_t source, uint32_t dir);
 
+/**
+ * \brief Function to get Tx local event ID
+ *
+ * \param   handle      Mcasp handle
+ *
+ * \return  Tx local event ID or SystemP_FAILURE
+*/
+uint32_t MCASP_getTxLocalEventId(uint32_t instNum);
+
 #ifdef __cplusplus
 }
 #endif

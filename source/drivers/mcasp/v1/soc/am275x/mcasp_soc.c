@@ -157,3 +157,21 @@ int32_t MCASP_extHclkSrcConfig(uint32_t instNum, uint32_t source, uint32_t dir)
 
     return status;
 }
+
+uint32_t MCASP_getTxLocalEventId(uint32_t instNum)
+{
+    uint32_t localEventId = UINT32_MAX;
+
+    if(instNum <= MCASP4)
+    {
+        /* MCASP instance number    | Tx Local Event ID */
+        /*       MCASP0             |           1       */
+        /*       MCASP1             |           2       */
+        /*       MCASP2             |           3       */
+        /*       MCASP3             |           4       */
+        /*       MCASP4             |           5       */
+        localEventId = instNum + 1U;
+    }
+
+    return localEventId;
+}
