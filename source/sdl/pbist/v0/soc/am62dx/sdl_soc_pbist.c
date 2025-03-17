@@ -151,51 +151,6 @@ static SDL_pbistInstInfo SDL_PBIST_InstInfoArray[SDL_PBIST_NUM_INSTANCES] =
         .doneFlag               = PBIST_NOT_DONE
     },
 
-        /* VPAC Instance VPAC0_PBIST */
-	{
-        .PBISTRegsHiAddress  = 0u,
-        .pPBISTRegs          = (SDL_pbistRegs *)SDL_VPAC0_MEM_BASE,
-        .numPBISTRuns        = SDL_VPAC0_NUM_TEST_VECTORS,
-        .PBISTConfigRun = {
-            {
-                .override           = 0x0u,
-                /* Override bit set to 0 to use memoryGroupsBitMap & algorithmsBitMap */
-                .algorithmsBitMap   = SDL_VPAC0_ALGO_BITMAP_0,
-                .memoryGroupsBitMap = SDL_VPAC0_MEM_BITMAP_0,
-                .scrambleValue      = 0xFEDCBA9876543210U,        /* Scramble Value */
-            },
-            {
-                .override           = 0x0u,
-                .algorithmsBitMap   = SDL_VPAC0_ALGO_BITMAP_1,
-                .memoryGroupsBitMap = SDL_VPAC0_MEM_BITMAP_1,
-                .scrambleValue      = 0xFEDCBA9876543210U,
-            }
-        },
-
-        .PBISTNegConfigRun = {
-            .CA0   = SDL_VPAC0_FAIL_INSERTION_TEST_VECTOR_CA0,
-            .CA1   = SDL_VPAC0_FAIL_INSERTION_TEST_VECTOR_CA1,
-            .CA2   = SDL_VPAC0_FAIL_INSERTION_TEST_VECTOR_CA2,
-            .CA3   = SDL_VPAC0_FAIL_INSERTION_TEST_VECTOR_CA3,
-            .CL0   = SDL_VPAC0_FAIL_INSERTION_TEST_VECTOR_CL0,
-            .CL1   = SDL_VPAC0_FAIL_INSERTION_TEST_VECTOR_CL1,
-            .CL2   = SDL_VPAC0_FAIL_INSERTION_TEST_VECTOR_CL2,
-            .CL3   = SDL_VPAC0_FAIL_INSERTION_TEST_VECTOR_CL3,
-            .CMS   = SDL_VPAC0_FAIL_INSERTION_TEST_VECTOR_CMS,
-            .CSR   = SDL_VPAC0_FAIL_INSERTION_TEST_VECTOR_CSR,
-            .I0    = SDL_VPAC0_FAIL_INSERTION_TEST_VECTOR_I0,
-            .I1    = SDL_VPAC0_FAIL_INSERTION_TEST_VECTOR_I1,
-            .I2    = SDL_VPAC0_FAIL_INSERTION_TEST_VECTOR_I2,
-            .I3    = SDL_VPAC0_FAIL_INSERTION_TEST_VECTOR_I3,
-            .RAMT  = SDL_VPAC0_FAIL_INSERTION_TEST_VECTOR_RAMT,
-        },
-
-        .interruptNumber        = SDL_PBIST_INTERRUPT_INVALID,
-        .esmInst                = SDL_ESM_INST_MAIN_ESM0,
-        .esmEventNumber         = SDLR_ESM0_ESM_PLS_EVENT0_VPAC0_COMMON_0_K3_PBIST_8C28P_4BIT_WRAP__DFT_PBIST_CPU_0,
-        .doneFlag               = PBIST_NOT_DONE
-    },
-
 		/* MAIN Instance PBIST0 */
 	{
         .PBISTRegsHiAddress  = 0u,

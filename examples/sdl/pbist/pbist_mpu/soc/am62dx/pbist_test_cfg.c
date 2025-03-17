@@ -73,7 +73,6 @@ int32_t PBIST_MPUAuxInitRestore(bool init);
 int32_t PBIST_MainAuxInitRestore(bool init);
 int32_t PBIST_McuAuxInitRestore(bool init);
 int32_t PBIST_C7xAuxInitRestore(bool init);
-int32_t PBIST_VpacAuxInitRestore(bool init);
 
 /* ========================================================================== */
 /*                            Global Variables                                */
@@ -230,64 +229,6 @@ PBIST_TestHandle_t PBIST_TestHandleArray[PBIST_MAX_INSTANCE+1] =
         .auxDeviceIdsP          = &PBIST_C7xAuxDevList[0], 					/* Array of Aux device ids */
         .auxInitRestoreFunction = PBIST_C7xAuxInitRestore, 					/* Auxilliary init function */
         .doneFlag               = false,                    /* Initialize done flag */
-    },
-
-    	/* VPAC Instance VPAC0_PBIST*/
-    {
-        .testName               = "VPAC INST",
-        .pbistInst              = SDL_PBIST_INST_VPAC,
-        .numPostPbistToCheck    = 0u,
-        .pPBISTRegs          	= (SDL_pbistRegs *)SDL_VPAC0_MEM_BASE, /* PBIST2: Main R5F 0 */
-        .numPBISTRuns        	= SDL_VPAC0_NUM_TEST_VECTORS,
-        .PBISTConfigRun = {
-            {
-                .override           = 0x0u,
-                /* Override bit set to 0 to use memoryGroupsBitMap & algorithmsBitMap */
-                .algorithmsBitMap   = SDL_VPAC0_ALGO_BITMAP_0,
-                .memoryGroupsBitMap = SDL_VPAC0_MEM_BITMAP_0,
-                .scrambleValue      = 0xFEDCBA9876543210U,        /* Scramble Value */
-            },
-            {
-                .override           = 0x0u,
-                .algorithmsBitMap   = SDL_VPAC0_ALGO_BITMAP_1,
-                .memoryGroupsBitMap = SDL_VPAC0_MEM_BITMAP_1,
-                .scrambleValue      = 0xFEDCBA9876543210U,
-            }
-
-        },
-
-        .PBISTNegConfigRun = {
-            .CA0   = SDL_VPAC0_FAIL_INSERTION_TEST_VECTOR_CA0,
-            .CA1   = SDL_VPAC0_FAIL_INSERTION_TEST_VECTOR_CA1,
-            .CA2   = SDL_VPAC0_FAIL_INSERTION_TEST_VECTOR_CA2,
-            .CA3   = SDL_VPAC0_FAIL_INSERTION_TEST_VECTOR_CA3,
-            .CL0   = SDL_VPAC0_FAIL_INSERTION_TEST_VECTOR_CL0,
-            .CL1   = SDL_VPAC0_FAIL_INSERTION_TEST_VECTOR_CL1,
-            .CL2   = SDL_VPAC0_FAIL_INSERTION_TEST_VECTOR_CL2,
-            .CL3   = SDL_VPAC0_FAIL_INSERTION_TEST_VECTOR_CL3,
-            .CMS   = SDL_VPAC0_FAIL_INSERTION_TEST_VECTOR_CMS,
-            .CSR   = SDL_VPAC0_FAIL_INSERTION_TEST_VECTOR_CSR,
-            .I0    = SDL_VPAC0_FAIL_INSERTION_TEST_VECTOR_I0,
-            .I1    = SDL_VPAC0_FAIL_INSERTION_TEST_VECTOR_I1,
-            .I2    = SDL_VPAC0_FAIL_INSERTION_TEST_VECTOR_I2,
-            .I3    = SDL_VPAC0_FAIL_INSERTION_TEST_VECTOR_I3,
-            .RAMT  = SDL_VPAC0_FAIL_INSERTION_TEST_VECTOR_RAMT,
-        },
-
-        .tisciPBISTDeviceId     = TISCI_DEV_VPAC0,    /* PBIST device id  */
-        .interruptNumber        = SDL_PBIST_INTERRUPT_INVALID,
-        .esmInst                = SDL_ESM_INST_MAIN_ESM0,
-        .esmEventNumber         = SDLR_ESM0_ESM_PLS_EVENT0_VPAC0_COMMON_0_K3_PBIST_8C28P_4BIT_WRAP__DFT_PBIST_CPU_0,
-        .procRstNeeded          = false,
-        .secondaryCoreNeeded    = false,               	/* Secondary core needed */
-        .coreName               = "VPAC",             	/* No coreName   */
-        .tisciProcId            = 0x0u,
-        .tisciDeviceId          = 0x0u,
-        .coreCustPwrSeqNeeded   = false,
-        .numAuxDevices          = 0x0u,    				/* No Aux devices */
-        .auxDeviceIdsP          = 0x0u, 				/* Array of Aux device ids */
-        .auxInitRestoreFunction = PBIST_VpacAuxInitRestore, 				/* Auxilliary init function */
-        .doneFlag               = false,               	/* Initialize done flag */
     },
 
 	/* MAIN Instance PBIST0*/
@@ -514,18 +455,4 @@ int32_t PBIST_C7xAuxInitRestore(bool init)
 	return testResult;
 }
 
-int32_t PBIST_VpacAuxInitRestore(bool init)
-{
-    int32_t testResult = 0;
-	uint32_t baseAddr;
-    baseAddr = (uint32_t) AddrTranslateP_getLocalAddr(CSL_WKUP_CTRL_MMR0_CFG0_BASE);
-
-    *((uint32_t *)(baseAddr + CSL_WKUP_CTRL_MMR_CFG0_LOCK2_KICK0)) = KICK0_UNLOCK_VAL;
-    *((uint32_t *)(baseAddr + CSL_WKUP_CTRL_MMR_CFG0_LOCK2_KICK1)) = KICK1_UNLOCK_VAL;
-    *((uint32_t *)(baseAddr + CSL_WKUP_CTRL_MMR_CFG0_LOCK6_KICK0)) = KICK0_UNLOCK_VAL;
-    *((uint32_t *)(baseAddr + CSL_WKUP_CTRL_MMR_CFG0_LOCK6_KICK1)) = KICK1_UNLOCK_VAL;
-    *((uint32_t *)(baseAddr + CSL_WKUP_CTRL_MMR_CFG0_CLKGATE_CTRL1)) = 0x00008000;
-
-	return testResult;
-}
 /* Nothing past this point */

@@ -73,7 +73,6 @@ int32_t PBIST_MPUAuxInitRestore(bool init);
 int32_t PBIST_MainAuxInitRestore(bool init);
 int32_t PBIST_McuAuxInitRestore(bool init);
 int32_t PBIST_C7xAuxInitRestore(bool init);
-int32_t PBIST_VpacAuxInitRestore(bool init);
 
 /* ========================================================================== */
 /*                            Global Variables                                */
@@ -151,23 +150,6 @@ PBIST_TestHandle_t PBIST_TestHandleArray[PBIST_MAX_INSTANCE+1] =
         .numAuxDevices          = C7X_NUM_AUX_DEVICES,     				/* No Aux devices */
         .auxDeviceIdsP          = &PBIST_C7xAuxDevList[0], 					/* Array of Aux device ids */
         .auxInitRestoreFunction = PBIST_C7xAuxInitRestore, 					/* Auxilliary init function */
-    },
-
-    /* VPAC Instance VPAC0_PBIST*/
-    {
-        .testName               = "VPAC INST",
-        .pbistInst              = SDL_PBIST_INST_VPAC,
-        .numPostPbistToCheck    = 0u,
-        .tisciPBISTDeviceId     = TISCI_DEV_VPAC0,    /* PBIST device id  */
-        .procRstNeeded          = false,
-        .secondaryCoreNeeded    = false,               	/* Secondary core needed */
-        .coreName               = "VPAC",             	/* No coreName   */
-        .tisciProcId            = 0x0u,
-        .tisciDeviceId          = 0x0u,
-        .coreCustPwrSeqNeeded   = false,
-        .numAuxDevices          = 0x0u,    				/* No Aux devices */
-        .auxDeviceIdsP          = 0x0u, 				/* Array of Aux device ids */
-        .auxInitRestoreFunction = PBIST_VpacAuxInitRestore, 				/* Auxilliary init function */
     },
 
 	/* MAIN Instance PBIST0*/
@@ -304,18 +286,4 @@ int32_t PBIST_C7xAuxInitRestore(bool init)
 	return testResult;
 }
 
-int32_t PBIST_VpacAuxInitRestore(bool init)
-{
-    int32_t testResult = 0;
-	uint32_t baseAddr;
-    baseAddr = (uint32_t) AddrTranslateP_getLocalAddr(CSL_WKUP_CTRL_MMR0_CFG0_BASE);
-
-    *((uint32_t *)(baseAddr + CSL_WKUP_CTRL_MMR_CFG0_LOCK2_KICK0)) = KICK0_UNLOCK_VAL;
-    *((uint32_t *)(baseAddr + CSL_WKUP_CTRL_MMR_CFG0_LOCK2_KICK1)) = KICK1_UNLOCK_VAL;
-    *((uint32_t *)(baseAddr + CSL_WKUP_CTRL_MMR_CFG0_LOCK6_KICK0)) = KICK0_UNLOCK_VAL;
-    *((uint32_t *)(baseAddr + CSL_WKUP_CTRL_MMR_CFG0_LOCK6_KICK1)) = KICK1_UNLOCK_VAL;
-    *((uint32_t *)(baseAddr + CSL_WKUP_CTRL_MMR_CFG0_CLKGATE_CTRL1)) = 0x00008000;
-
-	return testResult;
-}
 /* Nothing past this point */

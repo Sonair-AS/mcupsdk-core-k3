@@ -68,10 +68,6 @@ typedef enum {
      */
     SDL_PBIST_INST_C7X,
     /*!
-     * VPAC0_PBIST : VPAC
-     */
-	SDL_PBIST_INST_VPAC,
-    /*!
      * PBIST0 : Main IP
      */
 	SDL_PBIST_INST_MAIN,
@@ -82,7 +78,7 @@ typedef enum {
 } SDL_PBIST_inst;
 
 /* Total number of instances*/
-#define SDL_PBIST_NUM_INSTANCES 5U
+#define SDL_PBIST_NUM_INSTANCES 4U
 
 #ifdef __cplusplus
 }
