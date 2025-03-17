@@ -67,6 +67,10 @@ const defines_c75 = {
 const templates_freertos_c75 =
 [
     {
+        input: ".project/templates/am62dx/common/linker_c75.cmd.xdt",
+        output: "linker.cmd",
+    },
+    {
         input: ".project/templates/am62dx/freertos/main_freertos.c.xdt",
         output: "../main.c",
         options: {

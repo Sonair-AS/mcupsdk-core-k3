@@ -58,13 +58,33 @@ const defines_c75 = {
         "MCU_PLUS_SDK",
         "BUILD_C7X_1",
         "BUILD_C7X",
-        "DMA_UTILS_STANDALONE" //Just a macro required for dmautils libs. Not relevant.
-                               // Examples use mcupsdk udma driver.
+        "DMA_UTILS_STANDALONE", //Just a macro required for dmautils libs. Not relevant.
+                                // Examples use mcupsdk udma driver.
     ],
 };
 
-const templates_freertos_c75 =
+const templates_freertos_c75_0 =
 [
+    {
+        input: ".project/templates/am275x/common/linker_c75ss0.cmd.xdt",
+        output: "linker.cmd",
+    },
+    {
+        input: ".project/templates/am275x/freertos/main_freertos.c.xdt",
+        output: "../main.c",
+        options: {
+            entryFunction: "dmautils_autoinc_1d2d3d_main",
+            stackSize: 64*1024,
+        },
+    }
+];
+
+const templates_freertos_c75_1 =
+[
+    {
+        input: ".project/templates/am275x/common/linker_c75ss1.cmd.xdt",
+        output: "linker.cmd",
+    },
     {
         input: ".project/templates/am275x/freertos/main_freertos.c.xdt",
         output: "../main.c",
@@ -94,7 +114,6 @@ function getComponentProperty() {
     property.tirexResourceSubClass = [ "example.gettingstarted" ];
     property.description = "Dmautils autoinc 1d2d3d example"
     property.buildOptionCombos = buildOptionCombos;
-    property.isLogSHM = true;
 
     return property;
 }
@@ -112,7 +131,14 @@ function getComponentBuildProperty(buildOption) {
         build_property.libdirs = libdirs_freertos_c75;
         build_property.libs = libs_freertos_c75;
         build_property.defines = defines_c75;
-        build_property.templates = templates_freertos_c75;
+        if(buildOption.cpu.match("c75ss0-0"))
+        {
+            build_property.templates = templates_freertos_c75_0;
+        }
+        else if (buildOption.cpu.match("c75ss1-0"))
+        {
+            build_property.templates = templates_freertos_c75_1;
+        }
     }
     return build_property;
 }

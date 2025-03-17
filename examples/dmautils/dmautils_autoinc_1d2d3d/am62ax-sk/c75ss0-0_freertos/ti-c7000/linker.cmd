@@ -4,6 +4,8 @@
 -stack 0x20000
 --args 0x1000
 --diag_suppress=10068 /* to suppress no matching section error */
+--cinit_compression=off
+-e _c_int00_secure
 
 #define DDR0_ALLOCATED_START  0x80000000
 #define C7X_ALLOCATED_START DDR0_ALLOCATED_START + 0x19800000
@@ -32,7 +34,7 @@ SECTIONS
     } load > C7X_BOOT_D ALIGN(0x200000)
     .vecs       >       C7X_VECS_D ALIGN(0x400000)
     .secure_vecs    >   C7X_DDR_SPACE ALIGN(0x200000)
-    .text:_c_int00:   > C7X_DDR_SPACE ALIGN(0x200000)
+    .text:_c_int00_secure > C7X_DDR_SPACE ALIGN(0x200000)
     .text       >       C7X_DDR_SPACE ALIGN(0x200000)
 
     .bss        >       C7X_DDR_SPACE  /* Zero-initialized data */
@@ -49,7 +51,17 @@ SECTIONS
     .const      >       C7X_DDR_SPACE
     .switch     >       C7X_DDR_SPACE /* For exception handling. */
     .sysmem     >       C7X_DDR_SPACE /* heap */
-	.L2SramSect >       L2SRAM /* TODO */
+
+    GROUP:              >  C7X_DDR_SPACE
+    {
+        .data.Mmu_tableArray          : type=NOINIT
+        .data.Mmu_tableArraySlot      : type=NOINIT
+        .data.Mmu_level1Table         : type=NOINIT
+        .data.gMmu_tableArray_NS       : type=NOINIT
+        .data.Mmu_tableArraySlot_NS   : type=NOINIT
+        .data.Mmu_level1Table_NS      : type=NOINIT
+    }
 
     .benchmark_buffer:     > C7X_DDR_SPACE ALIGN (32)
+
 }

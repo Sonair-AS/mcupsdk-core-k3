@@ -55,33 +55,40 @@
 #include "ti_drivers_config.h"
 #include "ti_drivers_open_close.h"
 #include "ti_board_open_close.h"
+#include <kernel/dpl/CacheP.h>
+#include <drivers/hw_include/cslr_soc.h>
+#include <kernel/nortos/dpl/c75/csl_clec.h>
 
-#define APP_DMAUTILS_L2SRAM_SIZE (64*1024)
+#define DRU_LOCAL_EVENT_START_DEFAULT       (128U) /* Default for AM62A/AM62D/AM275X ref: clec spec */
+#define DRU_NUM_OF_CHANNELS                 (16U)
+#define APP_DMAUTILS_L2SRAM_SIZE            (64*1024)
+#define APP_ALIGN_SIZE                      (128U)
 #define APP_DMAUTILS_ALIGN_CEIL(VAL, ALIGN) ((((VAL) + (ALIGN) - 1)/(ALIGN)) * (ALIGN) )
-#define APP_ALIGN_SIZE (128U)
+
+
 
 typedef enum{
-  DMAUTILSTESTAUTOINC_CHANNEL_IN,
-  DMAUTILSTESTAUTOINC_CHANNEL_OUT,
-  DMAUTILSTESTAUTOINC_CHANNEL_MAX
+    DMAUTILSTESTAUTOINC_CHANNEL_IN,
+    DMAUTILSTESTAUTOINC_CHANNEL_OUT,
+    DMAUTILSTESTAUTOINC_CHANNEL_MAX
 }AppDmautilsTestAutoIncChannel;
 
 typedef enum{
-  APP_DMAUTILS_TRANSFER_SIZE_1D = DMAUTILSAUTOINC3D_SYNC_1D,
-  APP_DMAUTILS_TRANSFER_SIZE_2D = DMAUTILSAUTOINC3D_SYNC_2D,
-  APP_DMAUTILS_TRANSFER_SIZE_3D = DMAUTILSAUTOINC3D_SYNC_3D
+    APP_DMAUTILS_TRANSFER_SIZE_1D = DMAUTILSAUTOINC3D_SYNC_1D,
+    APP_DMAUTILS_TRANSFER_SIZE_2D = DMAUTILSAUTOINC3D_SYNC_2D,
+    APP_DMAUTILS_TRANSFER_SIZE_3D = DMAUTILSAUTOINC3D_SYNC_3D
 }AppDmaUtilsTransferSize;
 
 
 typedef struct
 {
-  uint32_t testcaseId;
-  uint32_t requirementId;
-  uint32_t imageWidth;
-  uint32_t imageHeight;
-  uint32_t blockWidth;
-  uint32_t blockHeight;
-  uint32_t transferSize;
+    uint32_t testcaseId;
+    uint32_t requirementId;
+    uint32_t imageWidth;
+    uint32_t imageHeight;
+    uint32_t blockWidth;
+    uint32_t blockHeight;
+    uint32_t transferSize;
 }App_DmautilsAutoIncTestConfig;
 
 
@@ -123,7 +130,7 @@ static int32_t  App_dmautilsBlockCopy(
 
 static int32_t  App_dmautilsBlockCopyKernel(
                 uint8_t *inputData,
-                uint8_t *outputData,
+                uint8_t *restrict outputData,
                 uint16_t width,
                 uint16_t height,
                 uint16_t inPitch,
@@ -146,94 +153,35 @@ App_DmautilsAutoIncTestConfig gTestConfig[] =
     {
         0,
         1,
-        40,/*Image Width */
-        16,/*Image Height */
-        8,/*Image blockWidth */
-        8,/*Image blockHeight */
+        40, /* Image Width */
+        16, /* Image Height */
+        8, /* Image blockWidth */
+        8, /* Image blockHeight */
         APP_DMAUTILS_TRANSFER_SIZE_1D
     },
     {
         1,
         1,
-        40,/*Image Width */
-        16,/*Image Height */
-        8,/*Image blockWidth */
-        8,/*Image blockHeight */
+        40, /* Image Width */
+        16, /* Image Height */
+        8, /* Image blockWidth */
+        8, /* Image blockHeight */
         APP_DMAUTILS_TRANSFER_SIZE_2D
     },
     {
         2,
         1,
-        40,/*Image Width */
-        16,/*Image Height */
-        8,/*Image blockWidth */
-        8,/*Image blockHeight */
+        40, /* Image Width */
+        16, /* Image Height */
+        8, /* Image blockWidth */
+        8, /* Image blockHeight */
         APP_DMAUTILS_TRANSFER_SIZE_3D
     },
 };
 
-#if !defined(SOC_AM62A)  && !defined(SOC_AM62DX) && !defined(SOC_AM275X)
-
-static int32_t App_dmautilsSciclientDmscGetVersion(char *versionStr, uint32_t versionStrSize)
-{
-    int32_t retVal = 0;
-
-    struct tisci_msg_version_req request;
-
-    const Sciclient_ReqPrm_t      reqPrm =
-    {
-        TISCI_MSG_VERSION,
-        TISCI_MSG_FLAG_AOP,
-        (uint8_t *) &request,
-        sizeof(request),
-        SCICLIENT_SERVICE_WAIT_FOREVER
-    };
-    struct tisci_msg_version_resp response;
-    Sciclient_RespPrm_t           respPrm =
-    {
-        0,
-        (uint8_t *) &response,
-        sizeof (response)
-    };
-
-    retVal = Sciclient_service(&reqPrm, &respPrm);
-    if (0 == retVal)
-    {
-        if (respPrm.flags == TISCI_MSG_FLAG_ACK)
-        {
-            if(versionStr == NULL)
-            {
-                printf("SCICLIENT: DMSC FW version [%s]\n", (char *) response.str);
-                printf("SCICLIENT: DMSC FW revision 0x%x  \n", response.version);
-                printf("SCICLIENT: DMSC FW ABI revision %d.%d\n",
-                    response.abi_major, response.abi_minor);
-            }
-            else
-            {
-                snprintf(versionStr, versionStrSize, "version %s, revision 0x%x, ABI %d.%d",
-                    (char *) response.str,
-                    response.version,
-                    response.abi_major, response.abi_minor
-                    );
-            }
-        }
-        else
-        {
-            retVal = -1;
-        }
-    }
-    if(retVal!=0)
-    {
-        printf("SCICLIENT: ERROR: DMSC Firmware Get Version failed !!!\n");
-    }
-
-    return (retVal);
-}
-#endif
-
 static int32_t  App_dmautilsBlockCopyKernel(
                 uint8_t *inputData,
-                uint8_t  *outputData,
+                uint8_t *restrict outputData,
                 uint16_t width,
                 uint16_t height,
                 uint16_t inPitch,
@@ -280,7 +228,7 @@ static void App_dmautilsAutoIncSetupXferProp(
 
 }
 
-/* This function is main function exposed to user*/
+/* This function is main function exposed to user */
 static int32_t  App_dmautilsBlockCopy(
                 uint8_t*   pInput,
                 uint8_t*   pOutput,
@@ -301,7 +249,7 @@ static int32_t  App_dmautilsBlockCopy(
 
     if(useDMA == 0)
     {
-    //call the kernel directly on data in DDR
+    /* call the kernel directly on data in DDR */
     App_dmautilsBlockCopyKernel(
         pInput,
         pOutput,
@@ -342,7 +290,7 @@ static int32_t  App_dmautilsBlockCopy(
 
         dmaChannels = 1U; /* One for input and other for output */
 
-        //Allocation/Assignment of buffers in internal memory
+        /* Allocation/Assignment of buffers in internal memory */
         dmautilsContext     =  pIntMmeBase + intMemUsedSize ;
         intMemUsedSize += APP_DMAUTILS_ALIGN_CEIL(DmaUtilsAutoInc3d_getContextSize(dmaChannels), APP_ALIGN_SIZE);
 
@@ -416,9 +364,9 @@ static int32_t  App_dmautilsBlockCopy(
 
         while ( 1 )
         {
-            //DMA trigger for pipe-up, out transfer is dummy and handled inside DMA utility
+            /* DMA trigger for pipe-up, out transfer is dummy and handled inside DMA utility */
             blockIdx = DmaUtilsAutoInc3d_trigger(dmautilsContext, DMAUTILSTESTAUTOINC_CHANNEL_IN);
-            //Wait for previous transfer of in
+            /* Wait for previous transfer of in */
             DmaUtilsAutoInc3d_wait(dmautilsContext, DMAUTILSTESTAUTOINC_CHANNEL_IN);
 
             if ( blockIdx == 0 )
@@ -452,6 +400,49 @@ Exit:
     return retVal ;
 }
 
+static void App_dmautilsClecInitDru(void)
+{
+    CSL_ClecEventConfig     cfgClec;
+    CSL_CLEC_EVTRegs        *clecBaseAddr;
+    uint32_t                clusterId;
+
+    clusterId = CSL_clecGetC7xClusterId();
+
+    if(clusterId == CSL_C75_CPU_CLUSTER_NUM_C75_1)
+    {
+        clecBaseAddr = (CSL_CLEC_EVTRegs * ) CSL_C7X256V0_CLEC_BASE;
+    }
+#if(CSL_C7X256V_MAIN_CNT == 2U)
+    else if (clusterId == CSL_C75_CPU_CLUSTER_NUM_C75_2)
+    {
+        clecBaseAddr = (CSL_CLEC_EVTRegs * ) CSL_C7X256V1_CLEC_BASE;
+    }
+#endif
+    else
+    {
+        clecBaseAddr = (CSL_CLEC_EVTRegs *) NULL;
+    }
+
+    if(clecBaseAddr != NULL)
+    {
+        uint32_t i;
+        uint32_t dru_input_start = DRU_LOCAL_EVENT_START_DEFAULT;
+        uint32_t dru_input_num   = DRU_NUM_OF_CHANNELS;
+
+        /* Only configuring 16 channels */
+        for(i = dru_input_start; i < (dru_input_start + dru_input_num); i++)
+        {
+            /* Configure CLEC */
+            cfgClec.secureClaimEnable = FALSE;
+            cfgClec.evtSendEnable     = TRUE;
+            cfgClec.rtMap             = CSL_CLEC_RTMAP_CPU_ALL;
+            cfgClec.extEvtNum         = 0;
+            cfgClec.c7xEvtNum         = (i - dru_input_start) + 32;
+            CSL_clecConfigEvent(clecBaseAddr, i, &cfgClec);
+        }
+    }
+}
+
 void dmautils_autoinc_1d2d3d_main(void *args)
 {
     uint16_t   width;
@@ -464,7 +455,6 @@ void dmautils_autoinc_1d2d3d_main(void *args)
     int32_t i, j;
     uint8_t *input     = NULL;
     uint8_t  *output    = NULL;
-    uint8_t  *refOut    = NULL;
 
     uint8_t * pInputBlock;
     uint8_t * pOutputBlock;
@@ -476,6 +466,8 @@ void dmautils_autoinc_1d2d3d_main(void *args)
     uint32_t testcaseIdx;
     uint32_t transferSize;
     uint32_t testCaseCounter = 0;
+
+    App_dmautilsClecInitDru();
 
     for (testcaseIdx = 0; testcaseIdx < sizeof(gTestConfig)/ sizeof(App_DmautilsAutoIncTestConfig); testcaseIdx++)
     {
@@ -491,7 +483,6 @@ void dmautils_autoinc_1d2d3d_main(void *args)
         transferSize = gTestConfig[testcaseIdx].transferSize;
 
         /* Buffer allocations for input, output and reference output  */
-
         input = (uint8_t *)malloc(width * height);
         if(input == NULL)
         {
@@ -500,12 +491,6 @@ void dmautils_autoinc_1d2d3d_main(void *args)
         }
         output = (uint8_t *)malloc(width * height);
         if(output == NULL)
-        {
-            DebugP_log("Memory allocation failed ..!!\n\r");
-            exit(0);
-        }
-        refOut = (uint8_t *)malloc(width * height);
-        if(refOut == NULL)
         {
             DebugP_log("Memory allocation failed ..!!\n\r");
             exit(0);
@@ -524,7 +509,6 @@ void dmautils_autoinc_1d2d3d_main(void *args)
         }
 
         memset(output, 0, width * height);
-        memset(refOut, 0, width * height);
 
         /* Random pattern generator for input  */
         for ( j = 0 ; j < height; j++)
@@ -534,13 +518,13 @@ void dmautils_autoinc_1d2d3d_main(void *args)
                 input[i + j * inPitch] = i + j* 56;
             }
         }
-        //DMA based function call
+        /* DMA based function call */
         useDMA = 1;
 
 #if CORE_DSP
         tscStart = _TSC_read();
 #endif
-
+        CacheP_wb(input, width * height, CacheP_TYPE_ALL);
         App_dmautilsBlockCopy(
             input,
             output,
@@ -561,8 +545,8 @@ void dmautils_autoinc_1d2d3d_main(void *args)
         tscEnd = _TSC_read();
         printf("Cycles - Using DMA = %llu\n",(tscEnd-tscStart));
 #endif
-
-        /*Compare output with reference output */
+        CacheP_inv(output, width * height, CacheP_TYPE_ALL);
+        /* Compare output with reference output */
         for(j = 0; j < height; j++)
         {
             for(i = 0; i < width; i++)
@@ -591,7 +575,6 @@ void dmautils_autoinc_1d2d3d_main(void *args)
 
         free(input);
         free(output);
-        free(refOut);
         free(pInputBlock);
         free(pOutputBlock);
     }
