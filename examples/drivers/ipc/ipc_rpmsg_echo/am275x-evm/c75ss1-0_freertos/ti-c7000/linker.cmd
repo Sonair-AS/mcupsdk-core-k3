@@ -44,16 +44,16 @@ SECTIONS
     .text:_c_int00_secure > C75_1_OCRAM_ENTRY ALIGN(0x100000)
     .text       >       C75_1_OCRAM
 
-    .bss        >       C75_1_OCRAM  /* Zero-initialized data */
+    .bss        >       C75_1_L2SRAM  /* Zero-initialized data */
     RUN_START(__BSS_START)
     RUN_END(__BSS_END)
 
-    .data       >       C75_1_OCRAM  /* Initialized data */
+    .data       >       C75_1_L2SRAM  /* Initialized data */
 
     .cinit      >       C75_1_OCRAM  /* could be part of const */
     .init_array >       C75_1_OCRAM  /* C++ initializations */
     .stack      >       C75_1_L2SRAM ALIGN(0x2000)
-    .args       >       C75_1_OCRAM
+    .args       >       C75_1_L2SRAM
     .cio        >       C75_1_CIO_MEM
     .const      >       C75_1_OCRAM
     .switch     >       C75_1_OCRAM /* For exception handling. */
