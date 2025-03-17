@@ -66,7 +66,7 @@
 #define I2C_READ_LEN                    (1U)
 
 /* CSL ID of the core that triggers firewall exception */
-#if defined (SOC_AM62AX)
+#if defined (SOC_AM62AX) || defined(SOC_AM62DX)
 #define FWL_EXCEPTION_TRIGGER_CORE_ID    (CSL_CORE_ID_R5FSS0_0)
 #elif defined (SOC_AM62PX)
 #define FWL_EXCEPTION_TRIGGER_CORE_ID    (CSL_CORE_ID_WKUP_R5FSS0_0)
