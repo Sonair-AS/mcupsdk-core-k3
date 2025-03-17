@@ -51,7 +51,6 @@ extern "C"
 #include <drivers/hw_include/am62ax/cslr_mcu_r5fss0_baseaddress.h>
 #include <drivers/hw_include/am62ax/cslr_dmss_defines.h>
 #include <drivers/hw_include/am62ax/csl_psilcfg_thread_map.h>
-#include <drivers/hw_include/am62ax/cslr_mcu_ctrl_mmr.h>
 #include <drivers/hw_include/am62ax/cslr_psc.h>
 #include <drivers/hw_include/am62ax/csl_soc_firewalls.h>
 #include <drivers/hw_include/am62ax/csl_soc_psc.h>
