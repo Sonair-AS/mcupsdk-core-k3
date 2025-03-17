@@ -54,7 +54,7 @@ Below is the software components overview highlighting mainly the components use
 ### Examples and Demos
 You can find out-of-box examples and demos **[here](\ref EXAMPLES_NETWORKING)**.
 
-\cond SOC_AM263X || SOC_AM263PX || SOC_AM273X || SOC_AM243X || SOC_AM62DX || SOC_275X
+\cond SOC_AM263X || SOC_AM263PX || SOC_AM273X || SOC_AM243X || SOC_AM62DX || SOC_AM275X
 ### Performance
 You can find ethernet performance data **[here](\ref enetlld_performance)**.
 \endcond
