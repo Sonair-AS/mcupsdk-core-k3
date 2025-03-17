@@ -19,7 +19,10 @@ AM62Ax | MCU R5F, DM R5F, C75   | @VAR_BOARD_NAME EVM (referred to as am62ax-sk 
 
 Feature                                                                                        | Module
 -----------------------------------------------------------------------------------------------|-----------------------------------
--                                                                                              | -
+Safety qualification for IPC driver                                                            | IPC
+Exmaple for Key Revision update                                                                | OTP 
+RTC driver on R5F                                                                              | RTC
+LPM example for MCU only with Timer and MCAN as wakeup sources                                 | LPM
 
 ### Unsupported Features {#UNSUPPORTED_FEATURES}
 
@@ -196,6 +199,12 @@ UART      | DM-R5F         | Yes               | NA          |   No        | NOR
         <td>Yes</td>
     </tr>
     <tr>
+        <td>RTC</td>
+        <td>Main</td>
+        <td>MCU-R5F, DM-R5F </td>
+        <td>Yes</td>
+    </tr>
+    <tr>
         <td>SOC</td>
         <td>NA</td>
         <td>MCU-R5F, DM-R5F , C75</td>
@@ -270,10 +279,22 @@ ROM Checksum |MCU-R5F         | No
     <th> Applicable Releases
 </tr>
 <tr>
-    <td> TBD
-    <td> TBD
-    <td> TBD
-    <td> TBD
+    <td> \htmllink{https://sir.ext.ti.com/jira/browse/EXT_SITMPUSW-58, EXT_SITMPUSW-58}
+    <td> ipc_rpmsg_echo [DM Firmware] Timeout not working as expected, crashes FW
+    <td> IPC, DM
+    <td> 08.06.00
+</tr>
+<tr>
+    <td> \htmllink{https://sir.ext.ti.com/jira/browse/EXT_SITMPUSW-59, EXT_SITMPUSW-59}
+    <td> VTM giving same value for every call
+    <td> MCSPI
+    <td> 09.02.00
+</tr>
+<tr>
+    <td> \htmllink{https://sir.ext.ti.com/jira/browse/EXT_SITMPUSW-57, EXT_SITMPUSW-57}
+    <td> Data Abort at MCSPI_udmaIsrTx when using MCSPI DMA
+    <td> MCSPI
+    <td> 08.06.00
 </tr>
 </table>
 
@@ -289,83 +310,11 @@ ROM Checksum |MCU-R5F         | No
     <th> Workaround
 </tr>
 <tr>
-    <td> TBD
-    <td> TBD
-    <td> TBD
-    <td> TBD
-    <td> TBD
-</tr>
-<tr>
-    <td> SYSFW-7811
-    <td> Resume from IO Only + DDR mode fails sometimes
-    <td> DM (LPM)
-    <td> 10.01.00
-    <td> None.
-</tr>
-<tr>
-    <td> SYSFW-7831
-    <td> DMA Resources used by ROM are not cleaned up when resuming from IO Only + DDR mode
-    <td> DM (LPM)
-    <td> 10.01.00
-    <td> None.
-</tr>
-<tr>
-    <td> SYSFW-7884
-    <td> There is an additional divide by 4 on all clocks of WKUP/MCU GPIO clock mux
-    <td> DM
-    <td> 10.01.00
-    <td> None.
-</tr>
-<tr>
-    <td> SYSFW-7897
-    <td> Partial I/O mode fails after few hundred iterations
-    <td> DM (LPM)
-    <td> 10.01.00
-    <td> None.
-</tr>
-<tr>
-    <td> SYSFW-7034
-    <td> Read lock on extended OTP area does not work after doing write lock
-    <td> TIFS
+    <td> \htmllink{https://sir.ext.ti.com/jira/browse/EXT_SITMPUSW-28, EXT_SITMPUSW-28}
+    <td> Outstanding mailbox messages prevent suspend when remotecore is not used in DTS
+    <td> IPC
     <td> 09.01.00
-    <td> None.
-</tr>
-<tr>
-    <td> PROC_SDL-6326
-    <td> Running MCU LBIST on SBL causes JTAG connection issues to MCU R5F
-    <td> LBIST
-    <td> 09.00.00
-    <td> None.
-</tr>
-<tr>
-    <td> PROC_SDL-8863
-    <td> ECC is failing for 2 Bit VTM selftest
-    <td> SDL
-    <td> 10.01.00
-    <td> None
-</tr>
-<tr>
-    <td> PROC_SDL-8861
-    <td> SDL cannot test the following aggregators due to firewall : SDL_SA3_SS0_SA3SS_AM62A_DMSS_ECCAGGR
-    SDL_SMS0_SMS_HSM_ECC
-    SDL_SMS0_SMS_TIFS_ECC
-    <td> SDL
-    <td> 10.01.00
-    <td> None
-</tr>
-<tr>
-    <td> PROC_SDL-8792
-    <td> System_deinit error in MCRC Semi cpu and Auto CPU examples.
-    <td> SDL
-    <td> 10.01.00
-    <td> None
-</tr>
-<tr>
-    <td> PROC_SDL-6299
-    <td> ECC is not supported for some instances. These are SDL_CPSW0_CPSW_3GUSS_CORE_ECC_CPSW_ECC_AGGR and SDL_CSI_RX_IF0_CSI_RX_IF_ECC_AGGR.
-    <td> SDL
-    <td> 09.00.00
-    <td> None. Support will be added in future release.
+    <td> When remotecore is removed on DTS, remove the core from ipc_rpmsg_echo_linux example's sysconfig as well
 </tr>
 </table>
 
