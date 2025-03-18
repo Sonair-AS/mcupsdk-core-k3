@@ -33,6 +33,17 @@ The MCAN module is programmed to transmit a CAN message and wait for the same me
 
 \endcond
 
+\cond SOC_AM275X
+
+ Parameter      | Value
+ ---------------|-----------
+ CPU + OS       | r5fss0-0_freertos
+ Toolchain      | ti-arm-clang
+ Boards         | @VAR_BOARD_NAME_LOWER
+ Example folder | examples/drivers/mcan/mcan_external_read_write
+
+\endcond
+
 # Steps to Run the Example
 
 - **Hardware Conectivity**, connect the PCAN-USB module to PC from USB and Serial Port to be connected as mentioned in the image below.
