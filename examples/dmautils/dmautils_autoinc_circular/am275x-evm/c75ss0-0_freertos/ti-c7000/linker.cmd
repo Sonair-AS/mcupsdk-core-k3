@@ -1,10 +1,11 @@
 
 --ram_model
--heap  0x20000
--stack 0x20000
+-heap  0x10000
+-stack 0x8000
 --args 0x1000
 --diag_suppress=10068 /* to suppress no matching section error */
-
+--cinit_compression=off
+-e _c_int00_secure
 
 /******************************************************************************/
 /*   The SRAM address is aliased as follows for C7x for enabling CacheWT      */
@@ -32,14 +33,13 @@ MEMORY
 
     C75_1_OCRAM   (RWIX)         : ORIGIN = 0x80400000 LENGTH = 0x00080000          /* 512 KB for c75ss1-0 core */
 
-    LOG_SHM_MEM                  : ORIGIN = 0x80380000, LENGTH = 0x40000
 
 }
 
 SECTIONS
 {
     .vecs       >       C75_0_L2SRAM ALIGN(0x200000)
-    .text:_c_int00 > C75_0_OCRAM_ENTRY ALIGN(0x200000)
+    .text:_c_int00_secure > C75_0_OCRAM_ENTRY ALIGN(0x200000)
     .text       >       C75_0_OCRAM
 
     .bss        >       C75_0_L2SRAM  /* Zero-initialized data */
@@ -56,10 +56,17 @@ SECTIONS
     .const      >       C75_0_OCRAM
     .switch     >       C75_0_L2SRAM /* For exception handling. */
     .sysmem     >       C75_0_OCRAM /* heap */
-    .L2SramSect >       C75_0_L2SRAM /* TODO */
+
+    GROUP:              >  C75_0_OCRAM
+    {
+        .data.Mmu_tableArray          : type=NOINIT
+        .data.Mmu_tableArraySlot      : type=NOINIT
+        .data.Mmu_level1Table         : type=NOINIT
+        .data.gMmu_tableArray_NS       : type=NOINIT
+        .data.Mmu_tableArraySlot_NS   : type=NOINIT
+        .data.Mmu_level1Table_NS      : type=NOINIT
+    }
 
     .benchmark_buffer:     > C75_0_OCRAM ALIGN (32)
 
-    /* this is used when Debug log's to shared memory is enabled, else this is not used */
-    .bss.log_shared_mem  (NOLOAD) : {} > LOG_SHM_MEM
 }
