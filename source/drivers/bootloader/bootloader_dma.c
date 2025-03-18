@@ -36,6 +36,7 @@
 #include <drivers/udma.h>
 #include <drivers/bootloader.h>
 #include <drivers/bootloader/bootloader_dma.h>
+#include <drivers/bootloader/soc/bootloader_soc.h>
 
 /* ========================================================================== */
 /*                           Macros & Typedefs                                */
@@ -217,7 +218,7 @@ int32_t Bootloader_dmaOpen(void* udmaDmaArgs)
     trpdMemSize = udmaArgs->trpdMemSize;
 
     /* Init channel parameters */
-    chType = UDMA_CH_TYPE_TR_BLK_COPY;
+    chType = BOOTLOADER_DMA_CHANNEL_TYPE;
     UdmaChPrms_init(&chPrms, chType);
     chPrms.fqRingPrms.ringMem       = udmaArgs->ringMem;
     chPrms.fqRingPrms.ringMemSize   = udmaArgs->ringMemSize;

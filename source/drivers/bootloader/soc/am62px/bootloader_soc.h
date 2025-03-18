@@ -34,6 +34,7 @@
 #define BOOTLOADER_SOC_AM62PX_H_
 
 #include <drivers/hw_include/cslr_soc.h>
+#include <drivers/udma.h>
 
 #define BOOTLOADER_SBL_BOOT_MAGIC_NUM_HSRAM_ADDR (0x43c00100)
 #define BOOTLOADER_SBL_BOOT_MAGIC_NUM            (0x4c425342) /* BSBL in ascii */
@@ -41,6 +42,10 @@
 #define FREERTOS_SMP_RPRC_CORE_ID           (100)
 #define FREERTOS_SMP_NO_OF_CORES            (4)
 #define FREERTOS_SMP_CSL_CORE_ID_MAX        (FREERTOS_SMP_NO_OF_CORES + CSL_CORE_ID_A53SS0_0)
+
+/* DMA channel type configured by bootloader layer */
+#define BOOTLOADER_DMA_CHANNEL_TYPE         UDMA_CH_TYPE_TR_BLK_COPY_HC
+
 /**
  * \brief Data structure containing information about a core specific to the AM62px SOC
  *
