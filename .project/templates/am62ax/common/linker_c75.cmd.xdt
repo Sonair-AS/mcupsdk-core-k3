@@ -1,7 +1,19 @@
 
+%%{
+    let options = args.options;
+
+    let stackSize = 0x20000;
+    let heapSize =  0x20000;
+
+    /* if no options given use defaults */
+    if(options && options.stackSize)
+        stackSize = options.stackSize;
+    if(options && options.heapSize)
+        heapSize = options.heapSize;
+%%}
 --ram_model
--heap  0x20000
--stack 0x20000
+-heap  0x`heapSize.toString(16).toUpperCase()`
+-stack 0x`stackSize.toString(16).toUpperCase()`
 --args 0x1000
 --diag_suppress=10068 /* to suppress no matching section error */
 --cinit_compression=off

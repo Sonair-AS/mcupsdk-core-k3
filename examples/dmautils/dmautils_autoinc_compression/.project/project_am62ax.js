@@ -43,13 +43,11 @@ const libs_freertos_c75 = {
     ],
 };
 
-
 const lnkfiles = {
     common: [
         "linker.cmd",
     ]
 };
-
 
 const defines_c75 = {
     common: [
@@ -65,6 +63,13 @@ const defines_c75 = {
 
 const templates_freertos_c75 =
 [
+    {
+        input: ".project/templates/am62ax/common/linker_c75.cmd.xdt",
+        output: "linker.cmd",
+        options: {
+            heapSize: 0x800000,
+        },
+    },
     {
         input: ".project/templates/am62ax/freertos/main_freertos.c.xdt",
         output: "../main.c",

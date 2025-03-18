@@ -1,5 +1,5 @@
 /*
- *  Copyright (c) Texas Instruments Incorporated 2022-2024
+ *  Copyright (c) Texas Instruments Incorporated 2022-2025
  *
  *  Redistribution and use in source and binary forms, with or without
  *  modification, are permitted provided that the following conditions
@@ -55,70 +55,72 @@
 #include <drivers/dmautils/dmautils.h>
 #include <kernel/dpl/DebugP.h>
 #include <drivers/dmautils/src/dmautils_autoincrement_3d_priv.h>
+#include <kernel/dpl/CacheP.h>
+#include <drivers/hw_include/cslr_soc.h>
+#include <kernel/nortos/dpl/c75/csl_clec.h>
 
-
-#define APP_DMAUTILS_DRU_LOCAL_EVENT_START_DEFAULT  (192U)   // Default for J721E and J721S2
-#define APP_DMAUTILS_DRU_LOCAL_EVENT_START_J784S4   (664U)
-#define APP_DMAUTILS_ALIGN(ptr) (uint8_t*)((((uint64_t)(ptr)+127)/128)*128)
-#define APP_DMAUTILS_L2SRAM_SIZE (64*1024)
-#define APP_DMAUTILS_ALIGN_CEIL(VAL, APP_DMAUTILS_ALIGN) ((((VAL) + (APP_DMAUTILS_ALIGN) - 1)/(APP_DMAUTILS_ALIGN)) * (APP_DMAUTILS_ALIGN) )
-#define APP_DMAUTILS_AUTOINC_MAX_NUM_TR  (32)
-#define APP_DMAUTILS_ALIGN_SIZE (128U)
+#define DRU_LOCAL_EVENT_START_DEFAULT                       (128U) /* Default for AM62A/AM62D/AM275X ref: clec spec */
+#define DRU_NUM_OF_CHANNELS                                 (16U)
+#define APP_DMAUTILS_ALIGN(ptr)                             (uint8_t*)((((uint64_t)(ptr)+127)/128)*128)
+#define APP_DMAUTILS_L2SRAM_SIZE                            (64*1024)
+#define APP_DMAUTILS_ALIGN_CEIL(VAL, APP_DMAUTILS_ALIGN)    ((((VAL) + (APP_DMAUTILS_ALIGN) - 1)/(APP_DMAUTILS_ALIGN)) * (APP_DMAUTILS_ALIGN) )
+#define APP_DMAUTILS_AUTOINC_MAX_NUM_TR                     (32)
+#define APP_DMAUTILS_ALIGN_SIZE                             (128U)
 
 typedef enum{
-  DMAUTILSTESTAUTOINC_CHANNEL_IN,
-  DMAUTILSTESTAUTOINC_CHANNEL_OUT,
-  DMAUTILSTESTAUTOINC_CHANNEL_MAX
+    DMAUTILSTESTAUTOINC_CHANNEL_IN,
+    DMAUTILSTESTAUTOINC_CHANNEL_OUT,
+    DMAUTILSTESTAUTOINC_CHANNEL_MAX
 }AppDmautilsTestAutoInc_Channel;
 
 typedef enum{
-  DMAUTILSAUTOINC_ROW_FLOW = 0,
-  DMAUTILSAUTOINC_COLUMN_FLOW
+    DMAUTILSAUTOINC_ROW_FLOW = 0,
+    DMAUTILSAUTOINC_COLUMN_FLOW
 } AppDmautilsAutoInc_AnalyticComp_DataflowType;
 
 typedef struct
 {
-  uint32_t testcaseId;
-  uint32_t requirementId;
-  uint32_t featurePlaneWidth;
-  uint32_t featurePlaneHeight;
-  uint32_t tensorWidth;
-  uint32_t tensorHeight;
-  uint32_t outProcSize; //Compression
-  uint32_t inProcSize;  //decompression
-  uint32_t Nco;      //Compression
-  uint32_t Nci;       //decompression
+    uint32_t testcaseId;
+    uint32_t requirementId;
+    uint32_t featurePlaneWidth;
+    uint32_t featurePlaneHeight;
+    uint32_t tensorWidth;
+    uint32_t tensorHeight;
+    uint32_t outProcSize; /* Compression */
+    uint32_t inProcSize; /* decompression */
+    uint32_t Nco; /* Compression */
+    uint32_t Nci; /* decompression */
 
-  uint32_t outDataFlowType; //Compression
-  uint32_t inDataFlowType;  //decompression
+    uint32_t outDataFlowType; /* Compression */
+    uint32_t inDataFlowType; /* decompression */
 
-  uint32_t circularity;     //decompression
-  uint32_t sbWidth;
-  uint32_t sbHeight;
+    uint32_t circularity; /* decompression */
+    uint32_t sbWidth;
+    uint32_t sbHeight;
 
-  uint8_t  algorithm;
-  uint8_t  bias;
+    uint8_t  algorithm;
+    uint8_t  bias;
 }App_DmautilsAutoInc_AnalyticCompTestConfig;
 
 typedef struct
 {
-  uint32_t testcaseId;
-  uint32_t requirementId;
-  uint32_t imageWidth;
-  uint32_t imageHeight;
-  uint8_t  algorithm;
-  uint8_t  bias;
+    uint32_t testcaseId;
+    uint32_t requirementId;
+    uint32_t imageWidth;
+    uint32_t imageHeight;
+    uint8_t  algorithm;
+    uint8_t  bias;
 }App_DmautilsAutoIncTestConfig;
 
-static int32_t App_dmautilsTensorCopy( uint8_t*  const pInput,
-            uint8_t* const pOutput,
-            uint8_t* const sectr,
-            uint8_t* const cdbTable,
-            App_DmautilsAutoInc_AnalyticCompTestConfig *config,
-            uint8_t* pIntMemBase,
-            uint32_t intMemSize,
-            uint32_t compress);
-
+static int32_t  App_dmautilsTensorCopy(
+                uint8_t*  const pInput,
+                uint8_t* const pOutput,
+                uint8_t* const sectr,
+                uint8_t* const cdbTable,
+                App_DmautilsAutoInc_AnalyticCompTestConfig *config,
+                uint8_t* pIntMemBase,
+                uint32_t intMemSize,
+                uint32_t compress);
 
 static uint8_t App_dmautilsGetRandomNumberLCG();
 static void App_dmautilsFillBufferRandom(uint8_t* buffer, int32_t width, int32_t height, int32_t distribution);
@@ -131,34 +133,34 @@ App_DmautilsAutoIncTestConfig gTestConfig[] =
     {
         0,
         1,
-        40,/*Image Width */
-        32,/*Image Height */
-        0,/*algorithm=zero*/
-        5/*bias*/
+        40, /* Image Width */
+        32, /* Image Height */
+        0, /* algorithm=zero */
+        5 /* bias */
     },
     {
         1,
         1,
-        48,/*Image Width */
-        32,/*Image Height */
-        1,/*algorithm=ueg*/
-        72/*bias*/
+        48, /* Image Width */
+        32, /* Image Height */
+        1, /* algorithm=ueg */
+        72 /* bias */
     },
     {
         2,
         1,
-        64,/*Image Width */
-        48,/*Image Height */
-        2,/*algorithm=seg*/
-        0/*bias*/
+        64, /* Image Width */
+        48, /* Image Height */
+        2, /* algorithm=seg */
+        0 /* bias */
     },
     {
         3,
         1,
-        128,/*Image Width */
-        48,/*Image Height */
-        2,/*algorithm=seg*/
-        23/*bias*/
+        128, /* Image Width */
+        48, /* Image Height */
+        2, /* algorithm=seg */
+        23 /* bias */
     }
 
 };
@@ -166,716 +168,711 @@ App_DmautilsAutoIncTestConfig gTestConfig[] =
 App_DmautilsAutoInc_AnalyticCompTestConfig gAnalyticCompTestConfig[] =
 {
    {
-     0, /*testcaseId*/
-     0, /*requirementId*/
-     32, /*featurePlaneWidth*/
-     32, /*featurePlaneHeight*/
-     1024, /*tensorWidth*/
-     128, /*tensorHeight*/
-     128, /*outProcSize*/
-     1024, /*inProcSize*/
-     128, /*Nco*/
-     16, /*Nci*/
-     DMAUTILSAUTOINC_ROW_FLOW, /*outDataFlowType*/
-     DMAUTILSAUTOINC_COLUMN_FLOW, /*inDataFlowType*/
-     0, /*circularity*/
-     128, /*sbWidth*/
-     8, /*sbHeight*/
-     0, /*algorithm*/
-     0, /*bias*/
+     0, /* testcaseId */
+     0, /* requirementId */
+     32, /* featurePlaneWidth */
+     32, /* featurePlaneHeight */
+     1024, /* tensorWidth */
+     128, /* tensorHeight */
+     128, /* outProcSize */
+     1024, /* inProcSize */
+     128, /* Nco */
+     16, /* Nci */
+     DMAUTILSAUTOINC_ROW_FLOW, /* outDataFlowType */
+     DMAUTILSAUTOINC_COLUMN_FLOW, /* inDataFlowType */
+     0, /* circularity */
+     128, /* sbWidth */
+     8, /* sbHeight */
+     0, /* algorithm */
+     0, /* bias */
    },
 
    {
-     1, /*testcaseId*/
-     0, /*requirementId*/
-     32, /*featurePlaneWidth*/
-     32, /*featurePlaneHeight*/
-     1024, /*tensorWidth*/
-     128, /*tensorHeight*/
-     1024, /*outProcSize*/
-     128, /*inProcSize*/
-     16, /*Nco*/
-     128, /*Nci*/
-     DMAUTILSAUTOINC_COLUMN_FLOW, /*outDataFlowType*/
-     DMAUTILSAUTOINC_ROW_FLOW, /*inDataFlowType*/
-     0, /*circularity*/
-     128, /*sbWidth*/
-     8, /*sbHeight*/
-     1, /*algorithm*/
-     0, /*bias*/
+     1, /* testcaseId */
+     0, /* requirementId */
+     32, /* featurePlaneWidth */
+     32, /* featurePlaneHeight */
+     1024, /* tensorWidth */
+     128, /* tensorHeight */
+     1024, /* outProcSize */
+     128, /* inProcSize */
+     16, /* Nco */
+     128, /* Nci */
+     DMAUTILSAUTOINC_COLUMN_FLOW, /* outDataFlowType */
+     DMAUTILSAUTOINC_ROW_FLOW, /* inDataFlowType */
+     0, /* circularity */
+     128, /* sbWidth */
+     8, /* sbHeight */
+     1, /* algorithm */
+     0, /* bias */
    },
 
    {
-     2, /*testcaseId*/
-     0, /*requirementId*/
-     32, /*featurePlaneWidth*/
-     32, /*featurePlaneHeight*/
-     1024, /*tensorWidth*/
-     128, /*tensorHeight*/
-     128, /*outProcSize*/
-     64, /*inProcSize*/
-     128, /*Nco*/
-     128, /*Nci*/
-     DMAUTILSAUTOINC_ROW_FLOW, /*outDataFlowType*/
-     DMAUTILSAUTOINC_ROW_FLOW, /*inDataFlowType*/
-     0, /*circularity*/
-     64, /*sbWidth*/
-     128, /*sbHeight*/
-     1, /*algorithm*/
-     0, /*bias*/
+     2, /* testcaseId */
+     0, /* requirementId */
+     32, /* featurePlaneWidth */
+     32, /* featurePlaneHeight */
+     1024, /* tensorWidth */
+     128, /* tensorHeight */
+     128, /* outProcSize */
+     64, /* inProcSize */
+     128, /* Nco */
+     128, /* Nci */
+     DMAUTILSAUTOINC_ROW_FLOW, /* outDataFlowType */
+     DMAUTILSAUTOINC_ROW_FLOW, /* inDataFlowType */
+     0, /* circularity */
+     64, /* sbWidth */
+     128, /* sbHeight */
+     1, /* algorithm */
+     0, /* bias */
    },
    {
-     3, /*testcaseId*/
-     0, /*requirementId*/
-     32, /*featurePlaneWidth*/
-     32, /*featurePlaneHeight*/
-     1024, /*tensorWidth*/
-     128, /*tensorHeight*/
-     1024, /*outProcSize*/
-     1024, /*inProcSize*/
-     16, /*Nco*/
-     8, /*Nci*/
-     DMAUTILSAUTOINC_COLUMN_FLOW, /*outDataFlowType*/
-     DMAUTILSAUTOINC_COLUMN_FLOW, /*inDataFlowType*/
-     0, /*circularity*/
-     1024, /*sbWidth*/
-     8, /*sbHeight*/
-     2, /*algorithm*/
-     0, /*bias*/
-   },
-
-   {
-     4, /*testcaseId*/
-     0, /*requirementId*/
-     32, /*featurePlaneWidth*/
-     32, /*featurePlaneHeight*/
-     1024, /*tensorWidth*/
-     128, /*tensorHeight*/
-     1024, /*outProcSize*/
-     1024, /*inProcSize*/
-     1, /*Nco*/
-     1, /*Nci*/
-     DMAUTILSAUTOINC_COLUMN_FLOW, /*outDataFlowType*/
-     DMAUTILSAUTOINC_COLUMN_FLOW, /*inDataFlowType*/
-     0, /*circularity*/
-     1024, /*sbWidth*/
-     1, /*sbHeight*/
-     2, /*algorithm*/
-     0, /*bias*/
+     3, /* testcaseId */
+     0, /* requirementId */
+     32, /* featurePlaneWidth */
+     32, /* featurePlaneHeight */
+     1024, /* tensorWidth */
+     128, /* tensorHeight */
+     1024, /* outProcSize */
+     1024, /* inProcSize */
+     16, /* Nco */
+     8, /* Nci */
+     DMAUTILSAUTOINC_COLUMN_FLOW, /* outDataFlowType */
+     DMAUTILSAUTOINC_COLUMN_FLOW, /* inDataFlowType */
+     0, /* circularity */
+     1024, /* sbWidth */
+     8, /* sbHeight */
+     2, /* algorithm */
+     0, /* bias */
    },
 
    {
-     0, /*testcaseId*/
-     0, /*requirementId*/
-     32, /*featurePlaneWidth*/
-     32, /*featurePlaneHeight*/
-     1024, /*tensorWidth*/
-     128, /*tensorHeight*/
-     128, /*outProcSize*/
-     1024, /*inProcSize*/
-     128, /*Nco*/
-     16, /*Nci*/
-     DMAUTILSAUTOINC_ROW_FLOW, /*outDataFlowType*/
-     DMAUTILSAUTOINC_COLUMN_FLOW, /*inDataFlowType*/
-     0, /*circularity*/
-     128, /*sbWidth*/
-     8, /*sbHeight*/
-     0, /*algorithm*/
-     39, /*bias*/
+     4, /* testcaseId */
+     0, /* requirementId */
+     32, /* featurePlaneWidth */
+     32, /* featurePlaneHeight */
+     1024, /* tensorWidth */
+     128, /* tensorHeight */
+     1024, /* outProcSize */
+     1024, /* inProcSize */
+     1, /* Nco */
+     1, /* Nci */
+     DMAUTILSAUTOINC_COLUMN_FLOW, /* outDataFlowType */
+     DMAUTILSAUTOINC_COLUMN_FLOW, /* inDataFlowType */
+     0, /* circularity */
+     1024, /* sbWidth */
+     1, /* sbHeight */
+     2, /* algorithm */
+     0, /* bias */
+   },
+
+   {
+     0, /* testcaseId */
+     0, /* requirementId */
+     32, /* featurePlaneWidth */
+     32, /* featurePlaneHeight */
+     1024, /* tensorWidth */
+     128, /* tensorHeight */
+     128, /* outProcSize */
+     1024, /* inProcSize */
+     128, /* Nco */
+     16, /* Nci */
+     DMAUTILSAUTOINC_ROW_FLOW, /* outDataFlowType */
+     DMAUTILSAUTOINC_COLUMN_FLOW, /* inDataFlowType */
+     0, /* circularity */
+     128, /* sbWidth */
+     8, /* sbHeight */
+     0, /* algorithm */
+     39, /* bias */
    },
 
 };
 
-static int32_t App_dmautilsTensorCopy( uint8_t* const pInput,
-            uint8_t* const pOutput,
-            uint8_t* const sectr,
-            uint8_t* const cdbTable,
-            App_DmautilsAutoInc_AnalyticCompTestConfig *testConfig,
-            uint8_t* pIntMemBase,
-            uint32_t intMemSize,
-            uint32_t compress)
+static int32_t  App_dmautilsTensorCopy(
+                uint8_t* const pInput,
+                uint8_t* const pOutput,
+                uint8_t* const sectr,
+                uint8_t* const cdbTable,
+                App_DmautilsAutoInc_AnalyticCompTestConfig *testConfig,
+                uint8_t* pIntMemBase,
+                uint32_t intMemSize,
+                uint32_t compress)
 {
 
-  int32_t retVal = UDMA_SOK ;
+    int32_t retVal = UDMA_SOK ;
 
-  uint32_t intMemUsedSize = 0;
-  uint8_t *dmautilsContext;
-  uint8_t *TrMem;
-  uint32_t TrSize;
-  uint32_t numTrReq;
-  uint32_t dmaChannels;
+    uint32_t intMemUsedSize = 0;
+    uint8_t *dmautilsContext;
+    uint8_t *TrMem;
+    uint32_t TrSize;
+    uint32_t numTrReq;
+    uint32_t dmaChannels;
 
-  DmaUtilsAutoInc3d_InitParam        initParams;
-  DmaUtilsAutoInc3d_ChannelInitParam chInitParams[DMAUTILSTESTAUTOINC_CHANNEL_MAX];
-  DmaUtilsAutoInc3d_TrPrepareParam   trPrepParam;
-  DmaUtilsAutoInc3d_TransferProp    *transferProp;
+    DmaUtilsAutoInc3d_InitParam        initParams;
+    DmaUtilsAutoInc3d_ChannelInitParam chInitParams[DMAUTILSTESTAUTOINC_CHANNEL_MAX];
+    DmaUtilsAutoInc3d_TrPrepareParam   trPrepParam;
+    DmaUtilsAutoInc3d_TransferProp    *transferProp;
 
-  Udma_InitPrms           initPrms;
-  Udma_DrvObjectInt       udmaDrvObj;
-  uint32_t                instId;
+    Udma_InitPrms           initPrms;
+    Udma_DrvObjectInt       udmaDrvObj;
+    uint32_t                instId;
 
-  Udma_DrvHandle  drvHandle = &udmaDrvObj;
+    Udma_DrvHandle  drvHandle = &udmaDrvObj;
 
-  instId = UDMA_INST_ID_0;
-  UdmaInitPrms_init(instId, &initPrms);
+    instId = UDMA_INST_ID_0;
+    UdmaInitPrms_init(instId, &initPrms);
 
-  initPrms.instId = UDMA_INST_ID_0;
-  initPrms.enableUtc = UTRUE;
-  retVal = Udma_init(drvHandle, &initPrms);
-  if(UDMA_SOK != retVal)
-  {
-      DebugP_log("[Error] UDMA init failed!!\n");
-  }
-
-  dmaChannels = 1;
-  //Allocation/Assignment of buffers in internal memory
-  dmautilsContext =  pIntMemBase + intMemUsedSize ;
-  intMemUsedSize += APP_DMAUTILS_ALIGN_CEIL(DmaUtilsAutoInc3d_getContextSize(dmaChannels), APP_DMAUTILS_ALIGN_SIZE);
-
-  transferProp    = (DmaUtilsAutoInc3d_TransferProp * ) (pIntMemBase + intMemUsedSize );
-  intMemUsedSize += APP_DMAUTILS_ALIGN_CEIL((sizeof(DmaUtilsAutoInc3d_TransferProp)), APP_DMAUTILS_ALIGN_SIZE);
-
-  initParams.contextSize = DmaUtilsAutoInc3d_getContextSize(dmaChannels);
-  initParams.numChannels = dmaChannels;
-  initParams.traceLogLevel    = 1;
-  initParams.udmaDrvHandle = drvHandle;
-  initParams.DmaUtilsVprintf = vprintf;
-
-  numTrReq = 1; // one TR per compression
-
-  chInitParams[DMAUTILSTESTAUTOINC_CHANNEL_IN].dmaQueNo  = 0;
-
-
-  chInitParams[DMAUTILSTESTAUTOINC_CHANNEL_IN ].druOwner    = DMAUTILSAUTOINC3D_DRUOWNER_DIRECT_TR;
-  retVal = DmaUtilsAutoInc3d_init(dmautilsContext, &initParams, chInitParams);
-
-  const int32_t CIBLENGTH = 8;
-  int32_t icnt0, icnt1, icnt2, icnt3;
-  int32_t sdim0, sdim1, sdim2, sdim3;
-  int32_t dicnt0, dicnt1, dicnt2, dicnt3;
-  int32_t ddim0, ddim1, ddim2, ddim3;
-  int32_t numSBinTensorWidth = testConfig->tensorWidth / testConfig->sbWidth;
-  int32_t triggers;
-  int32_t i;
-
-  if ( retVal != UDMA_SOK )
-  {
-    DebugP_log("[Error] DmaUtilsAutoInc3d_init failed!!\r\n");
-    goto Exit;
-  }
-
-  TrSize = DmaUtilsAutoInc3d_getTrMemReq(numTrReq);
-
-  TrMem = pIntMemBase + intMemUsedSize ;
-
-  intMemUsedSize += APP_DMAUTILS_ALIGN_CEIL(TrSize, APP_DMAUTILS_ALIGN_SIZE);
-
-  trPrepParam.channelId = DMAUTILSTESTAUTOINC_CHANNEL_IN;
-  trPrepParam.numTRs    = numTrReq;
-  trPrepParam.trMem     = TrMem;
-  trPrepParam.trMemSize = TrSize;
-  //setup requrest
-  transferProp[0].syncType               = DMAUTILSAUTOINC3D_SYNC_2D;
-
-  transferProp[0].dmaDfmt                = (compress == 1) ? DMAUTILSAUTOINC3D_DFMT_COMP : DMAUTILSAUTOINC3D_DFMT_DECOMP;
-
-  if(compress ==  1)
-  {
-
-    if(testConfig->outDataFlowType == DMAUTILSAUTOINC_ROW_FLOW)
+    initPrms.instId = UDMA_INST_ID_0;
+    initPrms.enableUtc = UTRUE;
+    retVal = Udma_init(drvHandle, &initPrms);
+    if(UDMA_SOK != retVal)
     {
-      icnt0 = testConfig->outProcSize / testConfig->sbWidth;
-      sdim0 = testConfig->sbWidth;
-      dicnt0 = icnt0;
-      ddim0 = CIBLENGTH;
+        DebugP_log("[Error] UDMA init failed!!\n");
+    }
 
-      icnt1 = testConfig->tensorHeight / testConfig->sbHeight;
-      sdim1 = testConfig->tensorWidth * testConfig->sbHeight;
-      dicnt1 =  icnt1;
-      ddim1 = numSBinTensorWidth * CIBLENGTH;
+    dmaChannels = 1;
+    /* Allocation/Assignment of buffers in internal memory */
+    dmautilsContext =  pIntMemBase + intMemUsedSize ;
+    intMemUsedSize += APP_DMAUTILS_ALIGN_CEIL(DmaUtilsAutoInc3d_getContextSize(dmaChannels), APP_DMAUTILS_ALIGN_SIZE);
 
-      if(testConfig->tensorWidth > testConfig->outProcSize)
-      {
-        icnt2 = 2;
-        sdim2 = testConfig->outProcSize;
-        if(testConfig->tensorWidth % testConfig->outProcSize == 0)
+    transferProp    = (DmaUtilsAutoInc3d_TransferProp * ) (pIntMemBase + intMemUsedSize );
+    intMemUsedSize += APP_DMAUTILS_ALIGN_CEIL((sizeof(DmaUtilsAutoInc3d_TransferProp)), APP_DMAUTILS_ALIGN_SIZE);
+
+    initParams.contextSize = DmaUtilsAutoInc3d_getContextSize(dmaChannels);
+    initParams.numChannels = dmaChannels;
+    initParams.traceLogLevel    = 1;
+    initParams.udmaDrvHandle = drvHandle;
+    initParams.DmaUtilsVprintf = vprintf;
+
+    numTrReq = 1; /* one TR per compression */
+
+    chInitParams[DMAUTILSTESTAUTOINC_CHANNEL_IN].dmaQueNo  = 0;
+
+    chInitParams[DMAUTILSTESTAUTOINC_CHANNEL_IN ].druOwner    = DMAUTILSAUTOINC3D_DRUOWNER_DIRECT_TR;
+    retVal = DmaUtilsAutoInc3d_init(dmautilsContext, &initParams, chInitParams);
+
+    const int32_t CIBLENGTH = 8;
+    int32_t icnt0, icnt1, icnt2, icnt3;
+    int32_t sdim0, sdim1, sdim2, sdim3;
+    int32_t dicnt0, dicnt1, dicnt2, dicnt3;
+    int32_t ddim0, ddim1, ddim2, ddim3;
+    int32_t numSBinTensorWidth = testConfig->tensorWidth / testConfig->sbWidth;
+    int32_t triggers;
+    int32_t i;
+
+    if ( retVal != UDMA_SOK )
+    {
+        DebugP_log("[Error] DmaUtilsAutoInc3d_init failed!!\r\n");
+        goto Exit;
+    }
+
+    TrSize = DmaUtilsAutoInc3d_getTrMemReq(numTrReq);
+
+    TrMem = pIntMemBase + intMemUsedSize ;
+
+    intMemUsedSize += APP_DMAUTILS_ALIGN_CEIL(TrSize, APP_DMAUTILS_ALIGN_SIZE);
+
+    trPrepParam.channelId = DMAUTILSTESTAUTOINC_CHANNEL_IN;
+    trPrepParam.numTRs    = numTrReq;
+    trPrepParam.trMem     = TrMem;
+    trPrepParam.trMemSize = TrSize;
+    //setup requrest
+    transferProp[0].syncType               = DMAUTILSAUTOINC3D_SYNC_2D;
+
+    transferProp[0].dmaDfmt                = (compress == 1) ? DMAUTILSAUTOINC3D_DFMT_COMP : DMAUTILSAUTOINC3D_DFMT_DECOMP;
+
+    if(compress ==  1)
+    {
+        if(testConfig->outDataFlowType == DMAUTILSAUTOINC_ROW_FLOW)
         {
-          dicnt2 = testConfig->tensorWidth / testConfig->outProcSize;
+            icnt0 = testConfig->outProcSize / testConfig->sbWidth;
+            sdim0 = testConfig->sbWidth;
+            dicnt0 = icnt0;
+            ddim0 = CIBLENGTH;
+
+            icnt1 = testConfig->tensorHeight / testConfig->sbHeight;
+            sdim1 = testConfig->tensorWidth * testConfig->sbHeight;
+            dicnt1 =  icnt1;
+            ddim1 = numSBinTensorWidth * CIBLENGTH;
+
+            if(testConfig->tensorWidth > testConfig->outProcSize)
+            {
+                icnt2 = 2;
+                sdim2 = testConfig->outProcSize;
+                if(testConfig->tensorWidth % testConfig->outProcSize == 0)
+                {
+                    dicnt2 = testConfig->tensorWidth / testConfig->outProcSize;
+                }
+                else
+                {
+                    dicnt2 = testConfig->tensorWidth / testConfig->outProcSize + 1;
+                }
+                ddim2 = icnt0 * CIBLENGTH;
+
+                if (testConfig->tensorWidth % (2*  testConfig->outProcSize) == 0)
+                {
+                    icnt3 = testConfig->tensorWidth / (2*  testConfig->outProcSize);
+                }
+                else
+                {
+                    icnt3 = testConfig->tensorWidth / (2*  testConfig->outProcSize) + 1;
+                }
+                sdim3 = 2 * testConfig->outProcSize;
+
+                dicnt3 =  1;
+                ddim3 = 0;
+            }
         }
         else
         {
-          dicnt2 = testConfig->tensorWidth / testConfig->outProcSize + 1;
-        }
-        ddim2 = icnt0 * CIBLENGTH;
+            if(testConfig->tensorWidth == testConfig->outProcSize)
+            {
+                icnt0 = testConfig->tensorWidth / testConfig->sbWidth;
+                sdim0 = testConfig->sbWidth;
+                dicnt0 = icnt0;
+                ddim0 = CIBLENGTH;
 
-        if (testConfig->tensorWidth % (2*  testConfig->outProcSize) == 0)
-        {
-          icnt3 = testConfig->tensorWidth / (2*  testConfig->outProcSize);
-        }
-        else
-        {
-          icnt3 = testConfig->tensorWidth / (2*  testConfig->outProcSize) + 1;
-        }
-        sdim3 = 2 * testConfig->outProcSize;
+                icnt1 = testConfig->Nco / testConfig->sbHeight;
+                sdim1 = testConfig->tensorWidth * testConfig->sbHeight;
+                dicnt1 =  icnt1;
+                ddim1 = numSBinTensorWidth * CIBLENGTH;
 
-        dicnt3 =  1;
-        ddim3 = 0;
-      }
+                icnt2 = 2;
+                sdim2 = testConfig->tensorWidth * testConfig->Nco;
+                if(testConfig->tensorHeight % testConfig->Nco == 0)
+                {
+                    dicnt2 = testConfig->tensorHeight / testConfig->Nco;
+                }
+                else
+                {
+                    dicnt2 = testConfig->tensorHeight / testConfig->Nco + 1;
+                }
+                ddim2 = numSBinTensorWidth * icnt1 * CIBLENGTH;
+
+                if (testConfig->tensorHeight % (2*  testConfig->Nco) == 0)
+                {
+                    icnt3 = testConfig->tensorHeight / (2*  testConfig->Nco);
+                }
+                else
+                {
+                    icnt3 = testConfig->tensorHeight / (2*  testConfig->Nco) + 1;
+                }
+                sdim3 = 2 * testConfig->tensorWidth * testConfig->Nco;
+
+                dicnt3 =  1;
+                ddim3 = 0;
+            }
+        }
     }
     else
     {
-      if(testConfig->tensorWidth == testConfig->outProcSize)
-      {
-        icnt0 = testConfig->tensorWidth / testConfig->sbWidth;
-        sdim0 = testConfig->sbWidth;
-        dicnt0 = icnt0;
-        ddim0 = CIBLENGTH;
-
-        icnt1 = testConfig->Nco / testConfig->sbHeight;
-        sdim1 = testConfig->tensorWidth * testConfig->sbHeight;
-        dicnt1 =  icnt1;
-        ddim1 = numSBinTensorWidth * CIBLENGTH;
-
-        icnt2 = 2;
-        sdim2 = testConfig->tensorWidth * testConfig->Nco;
-        if(testConfig->tensorHeight % testConfig->Nco == 0)
+        if(testConfig->inDataFlowType == DMAUTILSAUTOINC_ROW_FLOW)
         {
-          dicnt2 = testConfig->tensorHeight / testConfig->Nco;
+            icnt0 = testConfig->inProcSize / testConfig->sbWidth;
+            sdim0 = CIBLENGTH;
+            dicnt0 = icnt0;
+            ddim0 = testConfig->sbWidth;
+
+            icnt1 = testConfig->tensorHeight / testConfig->sbHeight;
+            sdim1 = numSBinTensorWidth * CIBLENGTH;
+            dicnt1 =  icnt1;
+            ddim1 = testConfig->tensorWidth * testConfig->sbHeight;
+
+            if(testConfig->tensorWidth > testConfig->inProcSize)
+            {
+                if (testConfig->tensorWidth % ( testConfig->inProcSize) == 0)
+                {
+                    icnt2 = testConfig->tensorWidth / testConfig->inProcSize;
+                }
+                else
+                {
+                    icnt2 = testConfig->tensorWidth / testConfig->inProcSize + 1;
+                }
+                sdim2 = icnt0 * CIBLENGTH;
+                dicnt2 =  2;
+                ddim2 = testConfig->inProcSize;
+
+                icnt3 = 1;
+                sdim3 = 0;
+                if (testConfig->tensorWidth % (2*  testConfig->inProcSize) == 0)
+                {
+                    dicnt3 = testConfig->tensorWidth / (2*  testConfig->inProcSize);
+                }
+                else
+                {
+                    dicnt3 = testConfig->tensorWidth / (2*  testConfig->inProcSize) + 1;
+                }
+                ddim3 = 2 * testConfig->inProcSize;
+            }
+
         }
         else
         {
-          dicnt2 = testConfig->tensorHeight / testConfig->Nco + 1;
-        }
-        ddim2 = numSBinTensorWidth * icnt1 * CIBLENGTH;
+            if(testConfig->tensorWidth == testConfig->inProcSize)
+            {
+            icnt0 = testConfig->tensorWidth / testConfig->sbWidth;
+            sdim0 = CIBLENGTH;
+            dicnt0 = icnt0;
+            ddim0 = testConfig->sbWidth;
 
-        if (testConfig->tensorHeight % (2*  testConfig->Nco) == 0)
-        {
-          icnt3 = testConfig->tensorHeight / (2*  testConfig->Nco);
-        }
-        else
-        {
-          icnt3 = testConfig->tensorHeight / (2*  testConfig->Nco) + 1;
-        }
-        sdim3 = 2 * testConfig->tensorWidth * testConfig->Nco;
+            icnt1 = testConfig->Nci / testConfig->sbHeight;
+            sdim1 = numSBinTensorWidth * CIBLENGTH;
+            dicnt1 =  icnt1;
+            ddim1 = testConfig->tensorWidth * testConfig->sbHeight;
 
-        dicnt3 =  1;
-        ddim3 = 0;
-      }
+            if(testConfig->tensorHeight % testConfig->Nci == 0)
+            {
+                icnt2 = testConfig->tensorHeight / testConfig->Nci;
+            }
+            else
+            {
+                icnt2 = testConfig->tensorHeight / testConfig->Nci + 1;
+            }
+            sdim2 = numSBinTensorWidth * icnt1 * CIBLENGTH;
+            icnt3 = 1;
+            sdim3 = 0;
+            dicnt2 =  2;
+            ddim2 =  testConfig->tensorWidth * testConfig->Nci;
+
+
+            if (testConfig->tensorHeight % (2*  testConfig->Nci) == 0)
+            {
+                dicnt3 = testConfig->tensorHeight / (2*  testConfig->Nci);
+            }
+            else
+            {
+                dicnt3 = testConfig->tensorHeight / (2*  testConfig->Nci) + 1;
+            }
+            ddim3 = 2 * testConfig->tensorWidth * testConfig->Nci;
+            }
+        }
     }
-  }
-  else
-  {
-    if(testConfig->inDataFlowType == DMAUTILSAUTOINC_ROW_FLOW)
+
+    triggers = ((icnt2 * icnt3) < (dicnt2 * dicnt3)) ? (icnt2 * icnt3) : (dicnt2 * dicnt3);
+
+    transferProp[0].transferDim.sicnt0     = icnt0;
+    transferProp[0].transferDim.sicnt1     = icnt1;
+    transferProp[0].transferDim.sicnt2     = icnt2;
+    transferProp[0].transferDim.sicnt3     = icnt3;
+
+    transferProp[0].transferDim.dicnt0     = dicnt0;
+    transferProp[0].transferDim.dicnt1     = dicnt1;
+    transferProp[0].transferDim.dicnt2     = dicnt2;
+    transferProp[0].transferDim.dicnt3     = dicnt3;
+
+    transferProp[0].circProp.circSize1     = 0;
+    transferProp[0].circProp.circSize2     = 0;
+    transferProp[0].circProp.addrModeIcnt0 = 0;
+    transferProp[0].circProp.addrModeIcnt1 = 0;
+    transferProp[0].circProp.addrModeIcnt2 = 0;
+    transferProp[0].circProp.addrModeIcnt3 = 0;
+    transferProp[0].circProp.circDir       = 0;
+
+
+    transferProp[0].cmpProp.cmpAlg         = testConfig->algorithm;
+    transferProp[0].cmpProp.cmpBias        = testConfig->bias;
+    transferProp[0].cmpProp.varKStartK     = 0; /* generic not supported */
+    transferProp[0].cmpProp.varKUpdateK    = 0; /* generic not supported */
+    transferProp[0].cmpProp.varKElemSize   = 0; /* generic not supported */
+    transferProp[0].cmpProp.varKSubType    = 0; /* generic not supported */
+    transferProp[0].cmpProp.varKSubSel0    = 0; /* generic not supported */
+    transferProp[0].cmpProp.varKSubSel1    = 0; /* generic not supported */
+    transferProp[0].cmpProp.varKSubSel2    = 0; /* generic not supported */
+    transferProp[0].cmpProp.varKSubSel3    = 0; /* generic not supported */
+    transferProp[0].cmpProp.sbIcnt0        = testConfig->sbWidth / 16;
+    transferProp[0].cmpProp.sbIcnt1        = testConfig->sbHeight; /*2 rows per superblock */
+    transferProp[0].cmpProp.sbDim1         = testConfig->tensorWidth;
+    transferProp[0].cmpProp.sbAM0          = 0;
+    transferProp[0].cmpProp.sbAM1          = 0;
+
+    transferProp[0].transferDim.sdim1      = sdim1;
+    transferProp[0].transferDim.sdim2      = sdim2;
+    transferProp[0].transferDim.sdim3      = sdim3;
+
+    transferProp[0].transferDim.ddim1      = ddim1; /* table dims */
+    transferProp[0].transferDim.ddim2      = ddim2;
+    transferProp[0].transferDim.ddim3      = ddim3;
+
+    transferProp[0].cmpProp.sDim0          = sdim0;
+    transferProp[0].cmpProp.dDim0          = ddim0; /* 2 rows per superblock */
+
+
+    transferProp[0].ioPointers.srcPtr      = pInput;
+    transferProp[0].ioPointers.dstPtr      = pOutput;
+    transferProp[0].ioPointers.strPtr      = sectr;
+    transferProp[0].ioPointers.cdbPtr      = cdbTable;
+
+
+    retVal = DmaUtilsAutoInc3d_prepareTr(&trPrepParam, &transferProp[0]);
+    if ( retVal != UDMA_SOK )
     {
-      icnt0 = testConfig->inProcSize / testConfig->sbWidth;
-      sdim0 = CIBLENGTH;
-      dicnt0 = icnt0;
-      ddim0 = testConfig->sbWidth;
-
-      icnt1 = testConfig->tensorHeight / testConfig->sbHeight;
-      sdim1 = numSBinTensorWidth * CIBLENGTH;
-      dicnt1 =  icnt1;
-      ddim1 = testConfig->tensorWidth * testConfig->sbHeight;
-
-      if(testConfig->tensorWidth > testConfig->inProcSize)
-      {
-        if (testConfig->tensorWidth % ( testConfig->inProcSize) == 0)
-        {
-          icnt2 = testConfig->tensorWidth / testConfig->inProcSize;
-        }
-        else
-        {
-          icnt2 = testConfig->tensorWidth / testConfig->inProcSize + 1;
-        }
-        sdim2 = icnt0 * CIBLENGTH;
-        dicnt2 =  2;
-        ddim2 = testConfig->inProcSize;
-
-
-        icnt3 = 1;
-        sdim3 = 0;
-        if (testConfig->tensorWidth % (2*  testConfig->inProcSize) == 0)
-        {
-          dicnt3 = testConfig->tensorWidth / (2*  testConfig->inProcSize);
-        }
-        else
-        {
-          dicnt3 = testConfig->tensorWidth / (2*  testConfig->inProcSize) + 1;
-        }
-        ddim3 = 2 * testConfig->inProcSize;
-      }
-
+        goto Exit;
     }
-    else
+
+    if(intMemUsedSize > intMemSize)
     {
-      if(testConfig->tensorWidth == testConfig->inProcSize)
-      {
-        icnt0 = testConfig->tensorWidth / testConfig->sbWidth;
-        sdim0 = CIBLENGTH;
-        dicnt0 = icnt0;
-        ddim0 = testConfig->sbWidth;
-
-        icnt1 = testConfig->Nci / testConfig->sbHeight;
-        sdim1 = numSBinTensorWidth * CIBLENGTH;
-        dicnt1 =  icnt1;
-        ddim1 = testConfig->tensorWidth * testConfig->sbHeight;
-
-        if(testConfig->tensorHeight % testConfig->Nci == 0)
-        {
-          icnt2 = testConfig->tensorHeight / testConfig->Nci;
-        }
-        else
-        {
-          icnt2 = testConfig->tensorHeight / testConfig->Nci + 1;
-        }
-        sdim2 = numSBinTensorWidth * icnt1 * CIBLENGTH;
-        icnt3 = 1;
-        sdim3 = 0;
-        dicnt2 =  2;
-        ddim2 =  testConfig->tensorWidth * testConfig->Nci;
-
-
-        if (testConfig->tensorHeight % (2*  testConfig->Nci) == 0)
-        {
-          dicnt3 = testConfig->tensorHeight / (2*  testConfig->Nci);
-        }
-        else
-        {
-          dicnt3 = testConfig->tensorHeight / (2*  testConfig->Nci) + 1;
-        }
-        ddim3 = 2 * testConfig->tensorWidth * testConfig->Nci;
-      }
+        printf("insufficient memory, required is %d vs provided %d\n",intMemUsedSize, intMemSize);
+        return -1 ;
     }
-  }
 
-  triggers = ((icnt2 * icnt3) < (dicnt2 * dicnt3)) ? (icnt2 * icnt3) : (dicnt2 * dicnt3);
+    retVal = DmaUtilsAutoInc3d_configure(dmautilsContext, DMAUTILSTESTAUTOINC_CHANNEL_IN, TrMem, numTrReq);
 
-  transferProp[0].transferDim.sicnt0     = icnt0;
-  transferProp[0].transferDim.sicnt1     = icnt1;
-  transferProp[0].transferDim.sicnt2     = icnt2;
-  transferProp[0].transferDim.sicnt3     = icnt3;
+    if ( retVal != UDMA_SOK )
+    {
+        goto Exit;
+    }
 
-  transferProp[0].transferDim.dicnt0     = dicnt0;
-  transferProp[0].transferDim.dicnt1     = dicnt1;
-  transferProp[0].transferDim.dicnt2     = dicnt2;
-  transferProp[0].transferDim.dicnt3     = dicnt3;
+    for (i = 0; i < triggers; i++ )
+    {
 
-  transferProp[0].circProp.circSize1     = 0;
-  transferProp[0].circProp.circSize2     = 0;
-  transferProp[0].circProp.addrModeIcnt0 = 0;
-  transferProp[0].circProp.addrModeIcnt1 = 0;
-  transferProp[0].circProp.addrModeIcnt2 = 0;
-  transferProp[0].circProp.addrModeIcnt3 = 0;
-  transferProp[0].circProp.circDir       = 0;
+        /* DMA trigger for pipe-up, out transfer is dummy and handled inside DMA utility */
+        DmaUtilsAutoInc3d_trigger(dmautilsContext, DMAUTILSTESTAUTOINC_CHANNEL_IN);
 
+        /* Wait for previous transfer of in */
+        DmaUtilsAutoInc3d_wait(dmautilsContext, DMAUTILSTESTAUTOINC_CHANNEL_IN);
+    }
 
-  transferProp[0].cmpProp.cmpAlg         = testConfig->algorithm;
-  transferProp[0].cmpProp.cmpBias        = testConfig->bias;
-  transferProp[0].cmpProp.varKStartK     = 0; //generic not supported
-  transferProp[0].cmpProp.varKUpdateK    = 0; //generic not supported
-  transferProp[0].cmpProp.varKElemSize   = 0; //generic not supported
-  transferProp[0].cmpProp.varKSubType    = 0; //generic not supported
-  transferProp[0].cmpProp.varKSubSel0    = 0; //generic not supported
-  transferProp[0].cmpProp.varKSubSel1    = 0; //generic not supported
-  transferProp[0].cmpProp.varKSubSel2    = 0; //generic not supported
-  transferProp[0].cmpProp.varKSubSel3    = 0; //generic not supported
-  transferProp[0].cmpProp.sbIcnt0        = testConfig->sbWidth / 16;
-  transferProp[0].cmpProp.sbIcnt1        = testConfig->sbHeight; //2 rows per superblock
-  transferProp[0].cmpProp.sbDim1         = testConfig->tensorWidth;
-  transferProp[0].cmpProp.sbAM0          = 0;
-  transferProp[0].cmpProp.sbAM1          = 0;
+    retVal = DmaUtilsAutoInc3d_deconfigure(dmautilsContext, DMAUTILSTESTAUTOINC_CHANNEL_IN, TrMem, 1);
 
-  transferProp[0].transferDim.sdim1      = sdim1;
-  transferProp[0].transferDim.sdim2      = sdim2;
-  transferProp[0].transferDim.sdim3      = sdim3;
+    if ( retVal != UDMA_SOK )
+    {
+        goto Exit;
+    }
 
-  transferProp[0].transferDim.ddim1      = ddim1; // table dims
-  transferProp[0].transferDim.ddim2      = ddim2;
-  transferProp[0].transferDim.ddim3      = ddim3;
+    retVal = DmaUtilsAutoInc3d_deinit(dmautilsContext);
 
-  transferProp[0].cmpProp.sDim0          = sdim0;
-  transferProp[0].cmpProp.dDim0          = ddim0; //2 rows per superblock
+    if ( retVal != UDMA_SOK )
+    {
+        goto Exit;
+    }
 
 
-  transferProp[0].ioPointers.srcPtr      = pInput;
-  transferProp[0].ioPointers.dstPtr      = pOutput;
-  transferProp[0].ioPointers.strPtr      = sectr;
-  transferProp[0].ioPointers.cdbPtr      = cdbTable;
+    retVal = Udma_deinit(drvHandle);
+    if ( retVal != UDMA_SOK )
+    {
+        goto Exit;
+    }
 
-
-  retVal = DmaUtilsAutoInc3d_prepareTr(&trPrepParam, &transferProp[0]);
-  if ( retVal != UDMA_SOK )
-  {
-    goto Exit;
-  }
-
-  if(intMemUsedSize > intMemSize)
-  {
-    printf("insufficient memory, required is %d vs provided %d\n",intMemUsedSize, intMemSize);
-    return -1 ;
-  }
-
-  retVal = DmaUtilsAutoInc3d_configure(dmautilsContext, DMAUTILSTESTAUTOINC_CHANNEL_IN, TrMem, numTrReq);
-
-  if ( retVal != UDMA_SOK )
-  {
-    goto Exit;
-  }
-
-  for (i = 0; i < triggers; i++ )
-  {
-
-    //DMA trigger for pipe-up, out transfer is dummy and handled inside DMA utility
-    DmaUtilsAutoInc3d_trigger(dmautilsContext, DMAUTILSTESTAUTOINC_CHANNEL_IN);
-
-	//Wait for previous transfer of in
-    DmaUtilsAutoInc3d_wait(dmautilsContext, DMAUTILSTESTAUTOINC_CHANNEL_IN);
-  }
-
-  retVal = DmaUtilsAutoInc3d_deconfigure(dmautilsContext, DMAUTILSTESTAUTOINC_CHANNEL_IN, TrMem, 1);
-
-  if ( retVal != UDMA_SOK )
-  {
-    goto Exit;
-  }
-
-  retVal = DmaUtilsAutoInc3d_deinit(dmautilsContext);
-
-  if ( retVal != UDMA_SOK )
-  {
-    goto Exit;
-  }
-
-
-  retVal = Udma_deinit(drvHandle);
-  if ( retVal != UDMA_SOK )
-  {
-    goto Exit;
-  }
-
-  Exit:
-  {
-      return retVal ;
-  }
+    Exit:
+    {
+        return retVal ;
+    }
 
 }
+/* Linear congruential generator */
+static uint8_t App_dmautilsGetRandomNumberLCG()
+{
+    uint32_t    returnValue;
+    uint32_t    largestValue = 16;
+    uint32_t randomNumberGeneratorState = 258001;
+    uint32_t    randomNumberGeneratorStateLoc;
+    randomNumberGeneratorStateLoc = ((randomNumberGeneratorState * (uint32_t)48271) + (uint32_t)0) >> 0x5U;	// c++11 minstd_rand
+    returnValue = randomNumberGeneratorStateLoc % largestValue;
+    randomNumberGeneratorState = randomNumberGeneratorStateLoc;
 
-static uint8_t App_dmautilsGetRandomNumberLCG() {			//Linear congruential generator
-  uint32_t    returnValue;
-  uint32_t    largestValue = 16;
-  uint32_t randomNumberGeneratorState = 258001;
-  uint32_t    randomNumberGeneratorStateLoc;
-  randomNumberGeneratorStateLoc = ((randomNumberGeneratorState * (uint32_t)48271) + (uint32_t)0) >> 0x5U;	// c++11 minstd_rand
-  returnValue = randomNumberGeneratorStateLoc % largestValue;
-  randomNumberGeneratorState = randomNumberGeneratorStateLoc;
-  return ((uint8_t )returnValue);
+    return ((uint8_t )returnValue);
 }
 
 
 static void App_dmautilsFillBufferRandom(uint8_t* buffer, int32_t width, int32_t height, int32_t distribution)
 {
-  int32_t i,j, tmp1;
-  for ( j = 0 ; j < height; j++)
-  {
-    tmp1 = j * width;
-    for (i = 0; i < width; i++)
+    int32_t i,j, tmp1;
+    for ( j = 0 ; j < height; j++)
     {
-      buffer[i + tmp1] = App_dmautilsGetRandomNumberLCG();
+        tmp1 = j * width;
+        for (i = 0; i < width; i++)
+        {
+            buffer[i + tmp1] = App_dmautilsGetRandomNumberLCG();
+        }
     }
-  }
-  return;
+
+    return;
 }
 
 static int32_t App_dmautilsCompareBuffers(uint8_t* buffer1, uint8_t* buffer2, int32_t width, int32_t height)
 {
-  int32_t i,j, tmp1,  tmp2;
-  int32_t fail = -1;
-  int32_t firstmismatchFound = 0;
-  for ( j = 0 ; j < height; j++)
-  {
-    tmp1 = j * width;
-
-    for (i = 0; i < width; i++)
+    int32_t i,j, tmp1,  tmp2;
+    int32_t fail = -1;
+    int32_t firstmismatchFound = 0;
+    for ( j = 0 ; j < height; j++)
     {
-      tmp2 = tmp1 + i;
-      if (*(buffer1 + tmp2) != *(buffer2 + tmp2) && firstmismatchFound == 0)
-      {
-        fail = tmp2;
-	firstmismatchFound = 1;
-	return fail;
-      }
+        tmp1 = j * width;
 
+        for (i = 0; i < width; i++)
+        {
+            tmp2 = tmp1 + i;
+            if (*(buffer1 + tmp2) != *(buffer2 + tmp2) && firstmismatchFound == 0)
+            {
+                fail = tmp2;
+                firstmismatchFound = 1;
+
+                return fail;
+            }
+
+        }
     }
-  }
-  return fail;
+
+    return fail;
 }
 
-#if !defined(SOC_AM62A) && !defined(SOC_AM62DX) && !defined(SOC_AM275X)
-static int32_t App_dmautilsTestSciclientDmscGetVersion(char *versionStr, uint32_t versionStrSize)
+static void App_dmautilsClecInitDru(void)
 {
-    int32_t retVal = 0;
+    CSL_ClecEventConfig     cfgClec;
+    CSL_CLEC_EVTRegs        *clecBaseAddr;
+    uint32_t                clusterId;
 
-    struct tisci_msg_version_req request;
-    const Sciclient_ReqPrm_t      reqPrm =
-    {
-        TISCI_MSG_VERSION,
-        TISCI_MSG_FLAG_AOP,
-        (uint8_t *) &request,
-        sizeof(request),
-        SCICLIENT_SERVICE_WAIT_FOREVER
-    };
-    struct tisci_msg_version_resp response;
-    Sciclient_RespPrm_t           respPrm =
-    {
-        0,
-        (uint8_t *) &response,
-        sizeof (response)
-    };
+    clusterId = CSL_clecGetC7xClusterId();
 
-    retVal = Sciclient_service(&reqPrm, &respPrm);
-    if (0 == retVal)
+    if(clusterId == CSL_C75_CPU_CLUSTER_NUM_C75_1)
     {
-        if (respPrm.flags == TISCI_MSG_FLAG_ACK)
-        {
-            if(versionStr == NULL)
-            {
-                printf("SCICLIENT: DMSC FW version [%s]\n", (char *) response.str);
-                printf("SCICLIENT: DMSC FW revision 0x%x  \n", response.version);
-                printf("SCICLIENT: DMSC FW ABI revision %d.%d\n",
-                    response.abi_major, response.abi_minor);
-            }
-            else
-            {
-                snprintf(versionStr, versionStrSize, "version %s, revision 0x%x, ABI %d.%d",
-                    (char *) response.str,
-                    response.version,
-                    response.abi_major, response.abi_minor
-                    );
-            }
-        }
-        else
-        {
-            retVal = -1;
-        }
+        clecBaseAddr = (CSL_CLEC_EVTRegs * ) CSL_C7X256V0_CLEC_BASE;
     }
-    if(retVal!=0)
+#if (CSL_C7X256V_MAIN_CNT == 2U)
+    else if (clusterId == CSL_C75_CPU_CLUSTER_NUM_C75_2)
     {
-        printf("SCICLIENT: ERROR: DMSC Firmware Get Version failed !!!\n");
+        clecBaseAddr = (CSL_CLEC_EVTRegs * ) CSL_C7X256V1_CLEC_BASE;
     }
-
-    return (retVal);
-}
 #endif
+    else
+    {
+        clecBaseAddr = (CSL_CLEC_EVTRegs *) NULL;
+    }
+
+    if(clecBaseAddr != NULL)
+    {
+        uint32_t i;
+        uint32_t dru_input_start = DRU_LOCAL_EVENT_START_DEFAULT;
+        uint32_t dru_input_num   = DRU_NUM_OF_CHANNELS;
+
+        /* Only configuring 16 channels */
+        for(i = dru_input_start; i < (dru_input_start + dru_input_num); i++)
+        {
+            /* Configure CLEC */
+            cfgClec.secureClaimEnable = FALSE;
+            cfgClec.evtSendEnable     = TRUE;
+            cfgClec.rtMap             = CSL_CLEC_RTMAP_CPU_ALL;
+            cfgClec.extEvtNum         = 0;
+            cfgClec.c7xEvtNum         = (i - dru_input_start) + 32;
+            CSL_clecConfigEvent(clecBaseAddr, i, &cfgClec);
+        }
+    }
+}
 
 void dmautils_autoinc_compression_main(void *args)
 {
-  uint16_t   width;
-  uint16_t   height;
-  uint8_t *input     = NULL;
-  uint8_t *compressed = NULL;
-  uint8_t *sectr      = NULL;
-  uint8_t  *output    = NULL;
-  uint8_t  *refOut    = NULL;
-  uint8_t*    pIntMmeBase  = gL2sramMem;
-  uint32_t   intMemSize   = APP_DMAUTILS_L2SRAM_SIZE;
-  uint8_t    compress;
-  int32_t status = -1;
-  uint32_t testcaseIdx;
-  uint32_t testCaseCounter = 0;
+    uint16_t   width;
+    uint16_t   height;
+    uint8_t *input     = NULL;
+    uint8_t *compressed = NULL;
+    uint8_t *sectr      = NULL;
+    uint8_t  *output    = NULL;
+    uint8_t  *refOut    = NULL;
+    uint8_t*    pIntMmeBase  = gL2sramMem;
+    uint32_t   intMemSize   = APP_DMAUTILS_L2SRAM_SIZE;
+    uint8_t    compress;
+    int32_t status = -1;
+    uint32_t testcaseIdx;
+    uint32_t testCaseCounter = 0;
 
-  for (testcaseIdx = 0; testcaseIdx < sizeof(gAnalyticCompTestConfig)/ sizeof(App_DmautilsAutoInc_AnalyticCompTestConfig); testcaseIdx++)
-  {
-      width    = gAnalyticCompTestConfig[testcaseIdx].tensorWidth;
-      height   = gAnalyticCompTestConfig[testcaseIdx].tensorHeight;
-      DebugP_log("width  : %d \r\n", width);
-      DebugP_log("height : %d \r\n", height);
+    App_dmautilsClecInitDru();
 
-      int32_t tensorSize = ceil((float)(width * height) / (float)(gAnalyticCompTestConfig[testcaseIdx].sbWidth)) * gAnalyticCompTestConfig[testcaseIdx].sbWidth;
-      int32_t CDBTableWidth = ceil((float)(width) / (float)(gAnalyticCompTestConfig[testcaseIdx].sbWidth));
-      int32_t CDBTableHeight = height / gAnalyticCompTestConfig[testcaseIdx].sbHeight;
-      int32_t sectrSize = CDBTableWidth * CDBTableHeight * 8 + 64;
+    for (testcaseIdx = 0; testcaseIdx < sizeof(gAnalyticCompTestConfig)/ sizeof(App_DmautilsAutoInc_AnalyticCompTestConfig); testcaseIdx++)
+    {
+        width    = gAnalyticCompTestConfig[testcaseIdx].tensorWidth;
+        height   = gAnalyticCompTestConfig[testcaseIdx].tensorHeight;
+        DebugP_log("width  : %d \r\n", width);
+        DebugP_log("height : %d \r\n", height);
 
-      /* Buffer allocations for input, output and reference output  */
+        int32_t tensorSize = ceil((float)(width * height) / (float)(gAnalyticCompTestConfig[testcaseIdx].sbWidth)) * gAnalyticCompTestConfig[testcaseIdx].sbWidth;
+        int32_t CDBTableWidth = ceil((float)(width) / (float)(gAnalyticCompTestConfig[testcaseIdx].sbWidth));
+        int32_t CDBTableHeight = height / gAnalyticCompTestConfig[testcaseIdx].sbHeight;
+        int32_t sectrSize = CDBTableWidth * CDBTableHeight * 8 + 64;
 
-      //Malloc alignment to 128
-      sectr      = (uint8_t *)malloc(width * height + 64 + 128); // need two headers since compression and decompression have different fields and they will be interleaved...
-      input      = (uint8_t *)malloc(width * height + 128);
-      output     = (uint8_t *)malloc(width * height + 128);
-      compressed = (uint8_t *)malloc(width * height * 3 + 128);
-      //Alignment to 128
-      sectr   = APP_DMAUTILS_ALIGN(sectr);
-      input   = APP_DMAUTILS_ALIGN(input);
-      output  = APP_DMAUTILS_ALIGN(output);
-      compressed  = APP_DMAUTILS_ALIGN(compressed);
-      refOut     = input;
+        /* Buffer allocations for input, output and reference output  */
 
-      memset(output,     0, tensorSize);
-      memset(compressed, 0, tensorSize * 3);
-      memset(sectr,      0, sectrSize);
+        /* Malloc alignment to 128 */
+        sectr      = (uint8_t *)malloc(width * height + 64 + 128); /* need two headers since compression and decompression have different fields and they will be interleaved... */
+        input      = (uint8_t *)malloc(width * height + 128);
+        output     = (uint8_t *)malloc(width * height + 128);
+        compressed = (uint8_t *)malloc(width * height * 3 + 128);
+        /* Alignment to 128 */
+        sectr   = APP_DMAUTILS_ALIGN(sectr);
+        input   = APP_DMAUTILS_ALIGN(input);
+        output  = APP_DMAUTILS_ALIGN(output);
+        compressed  = APP_DMAUTILS_ALIGN(compressed);
+        refOut     = input;
 
-      App_dmautilsFillBufferRandom(input, width, height, 0);
-      DebugP_log("Tensor Filled\r\n");
-      compress = 1;
+        memset(output,     0, tensorSize);
+        memset(compressed, 0, tensorSize * 3);
+        memset(sectr,      0, sectrSize);
 
-#if CORE_DSP
-      tscStart = _TSC_read();
-#endif
-
-      App_dmautilsTensorCopy( input,
-                  compressed,
-                  sectr, // leave room for decompression header
-                  sectr + 32, // first CDB table entry is 32B after header
-                  &gAnalyticCompTestConfig[testcaseIdx],
-                  pIntMmeBase,
-                  intMemSize,
-                  compress);
+        App_dmautilsFillBufferRandom(input, width, height, 0);
+        DebugP_log("Tensor Filled\r\n");
+        CacheP_wb(input, width * height + 128, CacheP_TYPE_ALL);
+        compress = 1;
 
 #if CORE_DSP
-      tscEnd = _TSC_read();
-      DebugP_log("Cycles - Compression = %llu\r\n",(tscEnd-tscStart));
+        tscStart = _TSC_read();
 #endif
-      DebugP_log("Tensor Compressed\r\n");
-      compress = 0;
-#if CORE_DSP
-      tscStart = _TSC_read();
-#endif
-      // decompress data
-      App_dmautilsTensorCopy( compressed,
-                  output,
-                  sectr, // leave room for decompression header
-                  sectr + 32, // first CDB table entry is 32B after header
-                  &gAnalyticCompTestConfig[testcaseIdx],
-                  pIntMmeBase,
-                  intMemSize,
-                  compress);
+
+        App_dmautilsTensorCopy(
+                    input,
+                    compressed,
+                    sectr, /* leave room for decompression header */
+                    sectr + 32, /* first CDB table entry is 32B after header */
+                    &gAnalyticCompTestConfig[testcaseIdx],
+                    pIntMmeBase,
+                    intMemSize,
+                    compress);
 
 #if CORE_DSP
-      tscEnd = _TSC_read();
-      DebugP_log("Cycles - De-compression = %llu\r\n",(tscEnd-tscStart));
+        tscEnd = _TSC_read();
+        DebugP_log("Cycles - Compression = %llu\r\n",(tscEnd-tscStart));
 #endif
-      DebugP_log("Tensor Un-compressed\r\n");
+        DebugP_log("Tensor Compressed\r\n");
+        compress = 0;
+#if CORE_DSP
+        tscStart = _TSC_read();
+#endif
+        /* decompress data */
+        App_dmautilsTensorCopy(
+                    compressed,
+                    output,
+                    sectr, /* leave room for decompression header */
+                    sectr + 32, /* first CDB table entry is 32B after header */
+                    &gAnalyticCompTestConfig[testcaseIdx],
+                    pIntMmeBase,
+                    intMemSize,
+                    compress);
+        CacheP_inv(output, width * height + 128, CacheP_TYPE_ALL);
+#if CORE_DSP
+        tscEnd = _TSC_read();
+        DebugP_log("Cycles - De-compression = %llu\r\n",(tscEnd-tscStart));
+#endif
+        DebugP_log("Tensor Un-compressed\r\n");
 
-      status = App_dmautilsCompareBuffers(refOut, output,  width, height);
-      if(status == -1)
-      {
-        DebugP_log("DMAUtils Compression TestCase %d,        PASSED \r\n", gAnalyticCompTestConfig[testcaseIdx].testcaseId);
-        testCaseCounter++;
-      }
-      else
-      {
-        DebugP_log("\nDMAUtils Compression %d,        FAILED!!!!!! \r\n", gAnalyticCompTestConfig[testcaseIdx].testcaseId);
-        DebugP_log("\nFirst mismatch at               [%d, %d]     \r\n", status / width, status % width);
-      }
-  }
+        status = App_dmautilsCompareBuffers(refOut, output,  width, height);
+        if(status == -1)
+        {
+            DebugP_log("DMAUtils Compression TestCase %d,        PASSED \r\n", gAnalyticCompTestConfig[testcaseIdx].testcaseId);
+            testCaseCounter++;
+        }
+        else
+        {
+            DebugP_log("\nDMAUtils Compression %d,        FAILED!!!!!! \r\n", gAnalyticCompTestConfig[testcaseIdx].testcaseId);
+            DebugP_log("\nFirst mismatch at               [%d, %d]     \r\n", status / width, status % width);
+        }
+    }
 
-  if(testCaseCounter == sizeof(gAnalyticCompTestConfig)/ sizeof(App_DmautilsAutoInc_AnalyticCompTestConfig))
-  {
-     DebugP_log("All tests have passed!!\r\n");
-  }
-  else{
-     DebugP_log("Some tests have failed!!\r\n");
-  }
+    if(testCaseCounter == sizeof(gAnalyticCompTestConfig)/ sizeof(App_DmautilsAutoInc_AnalyticCompTestConfig))
+    {
+        DebugP_log("All tests have passed!!\r\n");
+    }
+    else
+    {
+        DebugP_log("Some tests have failed!!\r\n");
+    }
 
-  return;
+    return;
 }
 
