@@ -7,7 +7,7 @@ let panelConfig =
         bridgeName : "SII9022A",
         bridgeI2cAddr : "0x3B",
         pinCtrlInterface : "TCA6424",
-        pinCtrlI2cAddr: "0x23",
+        pinCtrlI2cAddr: "0x22",
         pinCtrl : [
             {
                 pinIoNum : 14,
