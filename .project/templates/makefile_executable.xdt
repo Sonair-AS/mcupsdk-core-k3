@@ -839,7 +839,7 @@ endif
 	$(RM) $(BOOTIMAGE_TEMP_OUT_FILE)
 % }
 	@echo  Boot image: `args.project.device`:`args.project.cpu`:`args.project.os`:`args.project.cgt` $(BOOTIMAGE_PATH)/$@ Done !!!
-% if ((args.project.device == "am64x") || (args.project.device == "am243x") || (args.project.device == "am62x") || (args.project.device == "am62ax") || (args.project.device == "am62dx") || (args.project.device == "am62px") || (args.project.device == "am275x")) {
+% if ((args.project.device == "am64x") || (args.project.device == "am243x") || (args.project.device == "am62x") || (args.project.device == "am62ax") || (args.project.device == "am62dx") || (args.project.device == "am62px") || (args.project.device == "am275x") || (args.project.device == "j722s")) {
 ifeq ($(DEVICE_TYPE),GP)
 	$(COPY) $(BOOTIMAGE_PATH)/$(BOOTIMAGE_NAME_HS_FS) $(SBL_PREBUILT_PATH)/
 	@echo  Boot image: `args.project.device`:`args.project.cpu`:`args.project.os`:`args.project.cgt` $(BOOTIMAGE_PATH)/$(BOOTIMAGE_NAME_HS_FS) Done !!!
@@ -1073,9 +1073,9 @@ endif
 % if (args.project.device == "awr294x") {
 	$(MULTI_CORE_IMAGE_GEN) --devID $(SBL_DEV_ID) --out $(BOOTIMAGE_NAME_QSPI) $(MULTI_CORE_IMAGE_PARAMS_QSPI) >> $(BOOTIMAGE_TEMP_OUT_FILE)
 % }
-% if ((args.project.device == "am243x") || (args.project.device == "am64x") || (args.project.device == "am62x") || (args.project.device == "am62ax") || (args.project.device == "am62dx") || (args.project.device == "am62px") || (args.project.device == "am275x")) {
+% if ((args.project.device == "am243x") || (args.project.device == "am64x") || (args.project.device == "am62x") || (args.project.device == "am62ax") || (args.project.device == "am62dx") || (args.project.device == "am62px") || (args.project.device == "am275x") || (args.project.device == "j722s")) {
 # Sign the appimage for HS-FS using appimage signing script
-    % if ((args.project.device == "am62x") || (args.project.device == "am62ax") || (args.project.device == "am62dx") || (args.project.device == "am62px") || (args.project.device == "am275x") ){
+    % if ((args.project.device == "am62x") || (args.project.device == "am62ax") || (args.project.device == "am62dx") || (args.project.device == "am62px") || (args.project.device == "am275x") || (args.project.device == "j722s")){
     % if ((args.project.enableauthtype2 == true)){
     #
     #   Authentication type 2
@@ -1104,18 +1104,18 @@ endif
 % }
 	@echo  Boot image: `args.project.device`:`args.project.cpu`:`args.project.os`:`args.project.cgt` $(BOOTIMAGE_PATH)/$@ Done !!!
 	@echo  .
-% if ((args.project.device == "am243x") || (args.project.device == "am64x") || (args.project.device == "am62x") || (args.project.device == "am62ax") || (args.project.device == "am62dx") || (args.project.device == "am62px") || (args.project.device == "am275x")) {
+% if ((args.project.device == "am243x") || (args.project.device == "am64x") || (args.project.device == "am62x") || (args.project.device == "am62ax") || (args.project.device == "am62dx") || (args.project.device == "am62px") || (args.project.device == "am275x") || (args.project.device == "j722s")) {
 	@echo  Boot image: `args.project.device`:`args.project.cpu`:`args.project.os`:`args.project.cgt` $(BOOTIMAGE_PATH)/$(BOOTIMAGE_NAME_HS_FS) Done !!!
 	@echo  .
 % }
 
-% if ((args.project.device == "am243x") || (args.project.device == "am64x") || (args.project.device == "am62x") || (args.project.device == "am62ax") || (args.project.device == "am62dx") || (args.project.device == "am62px") || (args.project.device == "am275x")) {
+% if ((args.project.device == "am243x") || (args.project.device == "am64x") || (args.project.device == "am62x") || (args.project.device == "am62ax") || (args.project.device == "am62dx") || (args.project.device == "am62px") || (args.project.device == "am275x") || (args.project.device == "j722s")) {
 $(BOOTIMAGE_NAME_HS): $(BOOTIMAGE_NAME)
 ifeq ($(DEVICE_TYPE), HS)
 # Sign the appimage using appimage signing script
 ifeq ($(ENC_ENABLED),no)
 	@echo Boot image signing: Encryption is disabled.
-    % if ((args.project.device == "am62x") || (args.project.device == "am62ax") || (args.project.device == "am62dx") || (args.project.device == "am62px") || (args.project.device == "am275x")) {
+    % if ((args.project.device == "am62x") || (args.project.device == "am62ax") || (args.project.device == "am62dx") || (args.project.device == "am62px") || (args.project.device == "am275x") || (args.project.device == "j722s")) {
     % if ((args.project.enableauthtype2 == true)){
     #
     #   Authentication type 2
@@ -1133,7 +1133,7 @@ ifeq ($(ENC_ENABLED),no)
     % }
 else
 	@echo Boot image signing: Encryption is enabled.
-    % if ((args.project.device == "am62x") || (args.project.device == "am62ax") || (args.project.device == "am62dx") || (args.project.device == "am62px") || (args.project.device == "am275x") ){
+    % if ((args.project.device == "am62x") || (args.project.device == "am62ax") || (args.project.device == "am62dx") || (args.project.device == "am62px") || (args.project.device == "am275x") || (args.project.device == "j722s")){
     % if ((args.project.enableauthtype2 == true)){
     #
     #   Authentication type 2
