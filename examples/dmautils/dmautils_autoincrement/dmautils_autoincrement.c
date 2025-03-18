@@ -54,28 +54,31 @@
 #include "drivers/dmautils/src/dmautils_autoincrement_3d_priv.h"
 #include <kernel/dpl/DebugP.h>
 #include <drivers/dmautils/dmautils.h>
+#include <kernel/dpl/CacheP.h>
+#include <drivers/hw_include/cslr_soc.h>
+#include <kernel/nortos/dpl/c75/csl_clec.h>
 
-#define APP_DMAUTILS_L2SRAM_SIZE (64*1024)
-#define APP_DMAUTILS_DRU_LOCAL_EVENT_START_DEFAULT  (192U)   // Default for J721E and J721S2
-#define APP_DMAUTILS_DRU_LOCAL_EVENT_START_J784S4   (664U)
+#define DRU_LOCAL_EVENT_START_DEFAULT       (128U) /* Default for AM62A/AM62D/AM275X ref: clec spec */
+#define DRU_NUM_OF_CHANNELS                 (16U)
+#define APP_DMAUTILS_L2SRAM_SIZE            (64*1024)
 #define APP_DMAUTILS_ALIGN_CEIL(VAL, ALIGN) ((((VAL) + (ALIGN) - 1)/(ALIGN)) * (ALIGN) )
-#define APP_DMAUTILS_TESTAUTOINC_MAX_NUM_TR  (32)
-#define APP_DMAUTILS_ALIGN_SIZE (128U)
+#define APP_DMAUTILS_TESTAUTOINC_MAX_NUM_TR (32)
+#define APP_DMAUTILS_ALIGN_SIZE             (128U)
 
 typedef enum{
-  DMAUTILSTESTAUTOINC_CHANNEL_IN,
-  DMAUTILSTESTAUTOINC_CHANNEL_OUT,
-  DMAUTILSTESTAUTOINC_CHANNEL_MAX
+    DMAUTILSTESTAUTOINC_CHANNEL_IN,
+    DMAUTILSTESTAUTOINC_CHANNEL_OUT,
+    DMAUTILSTESTAUTOINC_CHANNEL_MAX
 }AppDmautilsTestAutoIncChannel;
 
 typedef struct
 {
-  uint32_t testcaseId;
-  uint32_t requirementId;
-  uint32_t imageWidth;
-  uint32_t imageHeight;
-  uint32_t blockWidth;
-  uint32_t blockHeight;
+    uint32_t testcaseId;
+    uint32_t requirementId;
+    uint32_t imageWidth;
+    uint32_t imageHeight;
+    uint32_t blockWidth;
+    uint32_t blockHeight;
 }AppDmautilsAutoIncTestConfig;
 
 /*
@@ -116,7 +119,7 @@ static int32_t  App_dmautilsBlockCopy(
 
 static int32_t  App_dmautilsBlockCopyKernel(
                 uint8_t *inputData,
-                uint8_t  *outputData,
+                uint8_t  *restrict outputData,
                 uint16_t width,
                 uint16_t height,
                 uint16_t inPitch,
@@ -139,8 +142,8 @@ static int32_t App_dmautilsDmaAutoIncSetupTr(  int16_t   width,
                 uint8_t * pInputBlock,
                 uint8_t * pOutput,
                 uint8_t * pOutputBlock,
-                DmaUtilsAutoInc3d_TransferProp transferPropIn[],
-                DmaUtilsAutoInc3d_TransferProp transferPropOut[]);
+                DmaUtilsAutoInc3d_TransferProp  transferPropIn[],
+                DmaUtilsAutoInc3d_TransferProp  transferPropOut[]);
 
 uint8_t gL2sramMem[APP_DMAUTILS_L2SRAM_SIZE] __attribute__((aligned(128)));
 
@@ -149,27 +152,27 @@ AppDmautilsAutoIncTestConfig gTestConfig[] =
     {
         0,
         1,
-        40,/*Image Width */
-        16,/*Image Height */
-        8,/*Image blockWidth */
-        8/*Image blockHeight */
+        40, /* Image Width */
+        16, /* Image Height */
+        8, /* Image blockWidth */
+        8 /* Image blockHeight */
     },
     #if !defined(SOC_AM62A) && !defined(SOC_AM62DX) && !defined(SOC_AM275X)
     {
           1,
           1,
-          44,/*Image Width */
-          16,/*Image Height */
-          8,/*Image blockWidth */
-          8/*Image blockHeight */
+          44, /* Image Width */
+          16, /* Image Height */
+          8, /* Image blockWidth */
+          8 /* Image blockHeight */
      },
      {
           2,
           1,
-          44,/*Image Width */
-          35,/*Image Height */
-          8,/*Image blockWidth */
-          8/*Image blockHeight */
+          44, /* Image Width */
+          35, /* Image Height */
+          8, /* Image blockWidth */
+          8 /* Image blockHeight */
      },
 
      {
@@ -185,7 +188,7 @@ AppDmautilsAutoIncTestConfig gTestConfig[] =
 
 static int32_t  App_dmautilsBlockCopyKernel(
                 uint8_t *inputData,
-                uint8_t  *outputData,
+                uint8_t*  restrict outputData,
                 uint16_t width,
                 uint16_t height,
                 uint16_t inPitch,
@@ -260,8 +263,8 @@ static int32_t  App_dmautilsDmaAutoIncSetupTr(  int16_t   width,
                 uint8_t * pInputBlock,
                 uint8_t * pOutput,
                 uint8_t * pOutputBlock,
-                DmaUtilsAutoInc3d_TransferProp transferPropIn[],
-                DmaUtilsAutoInc3d_TransferProp transferPropOut[])
+                DmaUtilsAutoInc3d_TransferProp   transferPropIn[],
+                DmaUtilsAutoInc3d_TransferProp   transferPropOut[])
 {
     DmaUtilsAutoInc3d_TransferProp * transferPropPrev;
     uint32_t i, j;
@@ -519,8 +522,9 @@ static int32_t  App_dmautilsBlockCopy(
 
     if(useDMA == 0)
     {
-        //call the kernel directly on data in DDR
-        App_dmautilsBlockCopyKernel(pInput,
+        /* call the kernel directly on data in DDR */
+        App_dmautilsBlockCopyKernel(
+            pInput,
             pOutput,
             width,
             height,
@@ -567,7 +571,7 @@ static int32_t  App_dmautilsBlockCopy(
 
         dmaChannels = DMAUTILSTESTAUTOINC_CHANNEL_MAX; /* One for input and other for output */
 
-        //Allocation/Assignment of buffers in internal memory
+        /* Allocation/Assignment of buffers in internal memory */
         dmautilsContext     =  pIntMmeBase + intMemUsedSize ;
         intMemUsedSize += APP_DMAUTILS_ALIGN_CEIL(DmaUtilsAutoInc3d_getContextSize(dmaChannels), APP_DMAUTILS_ALIGN_SIZE);
 
@@ -673,10 +677,9 @@ static int32_t  App_dmautilsBlockCopy(
             goto Exit;
         }
 
-
-        //DMA trigger for pipe-up, out transfer is dummy and handled inside DMA utility
+        /* DMA trigger for pipe-up, out transfer is dummy and handled inside DMA utility */
         DmaUtilsAutoInc3d_trigger(dmautilsContext, DMAUTILSTESTAUTOINC_CHANNEL_IN);
-        //Wait for previous transfer of in
+        /* Wait for previous transfer of in */
         DmaUtilsAutoInc3d_wait(dmautilsContext, DMAUTILSTESTAUTOINC_CHANNEL_IN);
 
         pingPongFlag^=1;
@@ -684,7 +687,6 @@ static int32_t  App_dmautilsBlockCopy(
 
         while (1)
         {
-
             pingPongFlag^=1;
 
             if (firstTrigger != 0 )
@@ -692,12 +694,13 @@ static int32_t  App_dmautilsBlockCopy(
                 blockIdx = DmaUtilsAutoInc3d_trigger(dmautilsContext, DMAUTILSTESTAUTOINC_CHANNEL_OUT) ;
             }
 
-            //DMA trigger for next in buffer
+            /* DMA trigger for next in buffer */
             if ( blockIdx != 1)
             {
                 DmaUtilsAutoInc3d_trigger(dmautilsContext, DMAUTILSTESTAUTOINC_CHANNEL_IN);
             }
 
+            CacheP_wbInvAll(CacheP_TYPE_ALL);
             App_dmautilsBlockCopyKernel(
                 pInputBlock   + pingPongFlag * blockWidth * blockHeight,
                 pOutputBlock + pingPongFlag * blockWidth * blockHeight,
@@ -710,7 +713,7 @@ static int32_t  App_dmautilsBlockCopy(
             {
                 DmaUtilsAutoInc3d_wait(dmautilsContext, DMAUTILSTESTAUTOINC_CHANNEL_IN);
             }
-            //Wait for previous transfer out
+            /* Wait for previous transfer out */
             if (firstTrigger != 0 )
             {
                 DmaUtilsAutoInc3d_wait(dmautilsContext, DMAUTILSTESTAUTOINC_CHANNEL_OUT)  ;
@@ -729,7 +732,7 @@ static int32_t  App_dmautilsBlockCopy(
 
         DmaUtilsAutoInc3d_trigger(dmautilsContext, DMAUTILSTESTAUTOINC_CHANNEL_OUT) ;
 
-        //Need to wait for last out transfer
+        /* Need to wait for last out transfer */
         DmaUtilsAutoInc3d_wait(dmautilsContext, DMAUTILSTESTAUTOINC_CHANNEL_OUT)  ;
 
         retVal = DmaUtilsAutoInc3d_deconfigure(dmautilsContext, DMAUTILSTESTAUTOINC_CHANNEL_IN, inTrMem, 1);
@@ -764,62 +767,48 @@ Exit:
     return retVal ;
 }
 
-#if !defined(SOC_AM62A) && !defined(SOC_AM62DX) && !defined(SOC_AM275X)
-static int32_t App_dmautilsSciclientDmscGetVersion(char *versionStr, uint32_t versionStrSize)
+static void App_dmautilsClecInitDru(void)
 {
-    int32_t retVal = 0;
+    CSL_ClecEventConfig     cfgClec;
+    CSL_CLEC_EVTRegs        *clecBaseAddr;
+    uint32_t                clusterId;
 
-    struct tisci_msg_version_req request;
-    const Sciclient_ReqPrm_t      reqPrm =
-    {
-        TISCI_MSG_VERSION,
-        TISCI_MSG_FLAG_AOP,
-        (uint8_t *) &request,
-        sizeof(request),
-        SCICLIENT_SERVICE_WAIT_FOREVER
-    };
-    struct tisci_msg_version_resp response;
-    Sciclient_RespPrm_t           respPrm =
-    {
-        0,
-        (uint8_t *) &response,
-        sizeof (response)
-    };
+    clusterId = CSL_clecGetC7xClusterId();
 
-    retVal = Sciclient_service(&reqPrm, &respPrm);
-    if (0 == retVal)
+    if(clusterId == CSL_C75_CPU_CLUSTER_NUM_C75_1)
     {
-        if (respPrm.flags == TISCI_MSG_FLAG_ACK)
-        {
-            if(versionStr == NULL)
-            {
-                printf("SCICLIENT: DMSC FW version [%s]\n", (char *) response.str);
-                printf("SCICLIENT: DMSC FW revision 0x%x  \n", response.version);
-                printf("SCICLIENT: DMSC FW ABI revision %d.%d\n",
-                    response.abi_major, response.abi_minor);
-            }
-            else
-            {
-                snprintf(versionStr, versionStrSize, "version %s, revision 0x%x, ABI %d.%d",
-                    (char *) response.str,
-                    response.version,
-                    response.abi_major, response.abi_minor
-                    );
-            }
-        }
-        else
-        {
-            retVal = -1;
-        }
+        clecBaseAddr = (CSL_CLEC_EVTRegs * ) CSL_C7X256V0_CLEC_BASE;
     }
-    if(retVal!=0)
+#if (CSL_C7X256V_MAIN_CNT == 2U)
+    else if (clusterId == CSL_C75_CPU_CLUSTER_NUM_C75_2)
     {
-        printf("SCICLIENT: ERROR: DMSC Firmware Get Version failed !!!\n");
+        clecBaseAddr = (CSL_CLEC_EVTRegs * ) CSL_C7X256V1_CLEC_BASE;
     }
-
-    return (retVal);
-}
 #endif
+    else
+    {
+        clecBaseAddr = (CSL_CLEC_EVTRegs *) NULL;
+    }
+
+    if(clecBaseAddr != NULL)
+    {
+        uint32_t i;
+        uint32_t dru_input_start = DRU_LOCAL_EVENT_START_DEFAULT;
+        uint32_t dru_input_num   = DRU_NUM_OF_CHANNELS;
+
+        /* Only configuring 16 channels */
+        for(i = dru_input_start; i < (dru_input_start + dru_input_num); i++)
+        {
+            /* Configure CLEC */
+            cfgClec.secureClaimEnable = FALSE;
+            cfgClec.evtSendEnable     = TRUE;
+            cfgClec.rtMap             = CSL_CLEC_RTMAP_CPU_ALL;
+            cfgClec.extEvtNum         = 0;
+            cfgClec.c7xEvtNum         = (i - dru_input_start) + 32;
+            CSL_clecConfigEvent(clecBaseAddr, i, &cfgClec);
+        }
+    }
+}
 
 void dmautils_autoincrement_main(void *args)
 {
@@ -844,6 +833,8 @@ void dmautils_autoincrement_main(void *args)
     uint8_t status = 1;
     uint32_t testcaseIdx;
     uint32_t testCaseCounter = 0;
+
+    App_dmautilsClecInitDru();
 
     for (testcaseIdx = 0; testcaseIdx < sizeof(gTestConfig)/ sizeof(AppDmautilsAutoIncTestConfig); testcaseIdx++)
     {
@@ -902,13 +893,13 @@ void dmautils_autoincrement_main(void *args)
             }
         }
 
-        //DMA based function call
+        /* DMA based function call */
         useDMA = 1;
 
 #if CORE_DSP
         tscStart = _TSC_read();
 #endif
-
+        CacheP_wb(input, width * height, CacheP_TYPE_ALL);
         App_dmautilsBlockCopy(
             input,
             output,
@@ -923,7 +914,7 @@ void dmautils_autoincrement_main(void *args)
             pIntMmeBase,
             intMemSize,
             useDMA );
-
+        CacheP_inv(output, width * height, CacheP_TYPE_ALL);
 #if CORE_DSP
         tscEnd = _TSC_read();
         printf("Cycles - Using DMA = %llu\n",(tscEnd-tscStart));
@@ -951,8 +942,7 @@ void dmautils_autoincrement_main(void *args)
         tscEnd = _TSC_read();
         printf("Cycles - Without using DMA = %llu\n",(tscEnd-tscStart));
 #endif
-
-        /*Compare output with reference output */
+        /* Compare output with reference output */
         for(j = 0; j < height; j++)
         {
             for(i = 0; i < width; i++)
