@@ -153,6 +153,10 @@ int32_t App_runCpus(Bootloader_Handle bootHandle,Bootloader_BootImageInfo *bootI
             {
                 DebugP_logError("App_runCpus failed for %s !!!\r\n", Bootloader_socGetCoreName(cpuId));
             }
+        }        
+        else
+        {
+            Bootloader_powerOffCpu(bootHandle, &bootCpuInfo[cpuId]);
         }
     }
 
