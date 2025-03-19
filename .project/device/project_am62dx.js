@@ -118,6 +118,7 @@ const example_file_list = [
 	"examples/kernel/freertos/smp_task_switch/.project/project.js",
 	"examples/kernel/freertos/task_switch/.project/project.js",
     "source/networking/enet/core/examples/enet_cpsw_est/.project/project.js",
+    "source/networking/enet/core/examples/enet_cpsw_fast_startup/.project/project.js",
     "source/networking/enet/core/examples/enet_layer2_cpsw/.project/project.js",
     "source/networking/enet/core/examples/enet_layer2_cpsw_switch/.project/project.js",
     "source/networking/enet/core/examples/enet_loopback/enet_cpsw_loopback/loopback_phy_end/.project/project.js",

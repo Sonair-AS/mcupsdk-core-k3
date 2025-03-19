@@ -41,6 +41,7 @@ This page lists all the examples related to Ethernet Communication.
 \cond SOC_AM275X
 ### Layer 2 Examples on FreeRTOS
 -# \subpage EXAMPLES_ENET_CPSW_LOOPBACK
+-# \subpage EXAMPLES_ENET_LAYER2_CPSW_FAST_STARTUP_AUTOPHY
 ### TCP/IP Examples using LwIP Stack on FreeRTOS
 -# \subpage EXAMPLES_ENET_LWIP_CPSW
 -# \subpage ENET_LWIP_CPSW_OPERATING_MODES
@@ -58,6 +59,7 @@ This page lists all the examples related to Ethernet Communication.
 -# \subpage EXAMPLES_ENET_LAYER2_CPSW
 -# \subpage EXAMPLES_ENET_LAYER2_CPSW_SWITCH
 -# \subpage EXAMPLES_ENET_CPSW_EST
+-# \subpage EXAMPLES_ENET_LAYER2_CPSW_FAST_STARTUP_AUTOPHY
 ### TCP/IP Examples using LwIP Stack on FreeRTOS
 -# \subpage EXAMPLES_ENET_LWIP_CPSW
 -# \subpage ENET_LWIP_CPSW_OPERATING_MODES
