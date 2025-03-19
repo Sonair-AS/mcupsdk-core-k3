@@ -38,9 +38,9 @@
 
 	let isSingleCore = true;
 	let useDdr = true;
-	let addrBaseDdr = 0x82100000;
+	let addrBaseDdr = 0x8E000000;
 	let codeDataSizeDdr = 0x1000000;
-    let addrAtfJump = 0x82100000;
+    let addrAtfJump = 0x8E000000;
 
 	/* if no options given use defaults */
 	if(options && options.stackSize)

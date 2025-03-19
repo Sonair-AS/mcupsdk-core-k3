@@ -113,7 +113,7 @@ In this way, different SPI_MAIN_GPIOMUX_INTROUTER and GPIO mux introuter output 
     - For a53ss1-1 TF-A load address is 0x88080000
 - 4 distinct TF-A build binaries are used because TF-A jump address or preload base address is different for each a53 core
     - For a53ss0-0 TF-A jump address is 0x80080000
-    - For a53ss0-1 TF-A jump address is 0x82100000
+    - For a53ss0-1 TF-A jump address is 0x8E000000
     - For a53ss1-0 TF-A jump address is 0x86080000
     - For a53ss1-1 TF-A jump address is 0x88100000
 - TF-A logs from a53ss0-0 are printed to UART0 and  logs from other cores are blocked
@@ -126,7 +126,7 @@ In this way, different SPI_MAIN_GPIOMUX_INTROUTER and GPIO mux introuter output 
 - Separate linker.cmd file is used for each a53 core
 - DDR Memory region is divided and allocated to each a53 core
     - From 0x80080000 to 0x82080000 is allocated to a53core0
-    - From 0x82100000 to 0x84100000 is allocated to a53core1
+    - From 0x8E000000 to 0x90000000 is allocated to a53core1
     - From 0x86080000 to 0x88080000 is allocated to a53core2
     - From 0x88100000 to 0x8A100000 is allocated to a53core3
 - Different TF-A jump address is used for each a53 core

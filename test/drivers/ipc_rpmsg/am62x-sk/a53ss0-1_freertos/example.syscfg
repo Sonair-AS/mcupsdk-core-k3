@@ -33,8 +33,8 @@ mmu_armv81.$name = "REGISTER_REGION";
 mmu_armv82.attribute = "MAIR7";
 mmu_armv82.$name     = "DDR";
 mmu_armv82.size      = 0x2000000;
-mmu_armv82.vAddr     = 0x82100000;
-mmu_armv82.pAddr     = 0x82100000;
+mmu_armv82.vAddr     = 0x8E000000;
+mmu_armv82.pAddr     = 0x8E000000;
 
 mmu_armv83.$name     = "AMP_SHM";
 mmu_armv83.vAddr     = 0x99000000;
