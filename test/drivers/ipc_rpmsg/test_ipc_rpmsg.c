@@ -141,6 +141,20 @@ uint32_t gRemoteCoreId[] = {
 };
 #endif
 
+#if defined (SOC_AM275X)
+/* main core that checks the test pass/fail */
+uint32_t gMainCoreId = CSL_CORE_ID_R5FSS0_0;
+/* All cores that participate in the IPC */
+uint32_t gRemoteCoreId[] = {
+    CSL_CORE_ID_R5FSS0_1,
+    CSL_CORE_ID_R5FSS1_0,
+    CSL_CORE_ID_R5FSS1_1,
+    CSL_CORE_ID_C75SS0_0,
+    CSL_CORE_ID_C75SS1_0,
+    CSL_CORE_ID_MAX /* this value indicates the end of the array */
+};
+#endif
+
 /* max size of message that will be ever sent */
 #define MAX_MSG_SIZE    (128u)
 
@@ -163,7 +177,7 @@ SemaphoreP_Object gRxNotifyAckDoneSem;
 
 /* server task related properties, like priority, stack size, stack memory, task object handles */
 #define SERVER_TASK_PRI (2u)
-#if defined(__C7504__)
+#if defined(__C7504__) || defined(__C7524__)
 #define SERVER_TASK_SIZE (1024*32u)
 #else
 #define SERVER_TASK_SIZE (16*1024/sizeof(StackType_t))
@@ -867,7 +881,6 @@ void test_rpmsgErrorChecks(void *args)
     uint32_t remoteEndPt;
     uint32_t txDataBuff[100];
     uint32_t rxDataBuff[100];
-    uint32_t timeout;
     RPMessage_CreateParams rpmsgPrm;
     RPMessage_Params rpmsgParams;
     Msg_BackToBack msgObj;
@@ -875,7 +888,6 @@ void test_rpmsgErrorChecks(void *args)
     /* disable error and warning logs since we are testing for those, so it will clutter the output */
     oldDebugLogZone = DebugP_logZoneDisable(DebugP_LOG_ZONE_WARN | DebugP_LOG_ZONE_ERROR);
 
-    timeout = 10;
     /* message to send, set values such ack callback wont post a semaphore */
     msgObj.curCount = 0;
     msgObj.maxCount = 10;
@@ -1075,9 +1087,13 @@ void test_rpmsgErrorChecks(void *args)
 
     /*Re-initialize again with faulty parameter*/
     RPMessage_Params_init(&rpmsgParams);
-
+#if !defined(SOC_AM275X)
     rpmsgParams.vringTxBaseAddr[CSL_CORE_ID_A53SS0_0] = (uintptr_t)&txDataBuff;
     rpmsgParams.vringRxBaseAddr[CSL_CORE_ID_A53SS0_0] = (uintptr_t)&rxDataBuff;
+#else
+    rpmsgParams.vringTxBaseAddr[CSL_CORE_ID_C75SS0_0] = (uintptr_t)&txDataBuff;
+    rpmsgParams.vringRxBaseAddr[CSL_CORE_ID_C75SS0_0] = (uintptr_t)&rxDataBuff;
+#endif
     rpmsgParams.vringSize = 1;
 
     status = RPMessage_init(&rpmsgParams);
@@ -1089,7 +1105,11 @@ void test_rpmsgErrorChecks(void *args)
     /*Re-initialize again with faulty parameter*/
     RPMessage_Params_init(&rpmsgParams);
 
+#if !defined(SOC_AM275X)
     rpmsgParams.vringTxBaseAddr[CSL_CORE_ID_A53SS0_0] = (uintptr_t)&txDataBuff;
+#else
+    rpmsgParams.vringTxBaseAddr[CSL_CORE_ID_C75SS0_0] = (uintptr_t)&txDataBuff;
+#endif
     rpmsgParams.vringTxBaseAddr[gMainCoreId] = (uintptr_t)&txDataBuff;
     rpmsgParams.vringRxBaseAddr[gMainCoreId] = (uintptr_t)&rxDataBuff;
 
@@ -1109,7 +1129,8 @@ void test_rpmsgErrorChecks(void *args)
 
     /*This will timeout*/
     RPMessage_deInit();
-
+#if !defined(SOC_AM275X)
+    uint32_t timeout = 10;
     /*For better bracnh coverage*/
     /*Calling this API without any resource table linked*/
 
@@ -1121,7 +1142,7 @@ void test_rpmsgErrorChecks(void *args)
     RPMessage_init(&rpmsgParams);
     status = RPMessage_waitForLinuxReady(timeout);
     TEST_ASSERT_EQUAL_INT32(SystemP_TIMEOUT, status);
-
+#endif
     /* Dynamic analysis test - Calling RPMsg Destruct with faulty parameters*/
     RPMessage_Object faultyMsgObject;
 
@@ -1178,7 +1199,7 @@ void test_ipc_main_core_start()
     /* performance test with minimum payload size */
     testArgs.msgSize = 4;
 
-    #if !defined(SOC_AM62AX) && !defined(SOC_AM62DX) && !defined(SOC_AM62X) && !defined(SOC_AM62PX)
+    #if !defined(SOC_AM62AX) && !defined(SOC_AM62DX) && !defined(SOC_AM62X) && !defined(SOC_AM62PX) && !defined(SOC_AM275X)
     testArgs.remoteCoreId = CSL_CORE_ID_R5FSS0_1;
     RUN_TEST(test_rpmsgOneToOne, 298, &testArgs);
     #endif
@@ -1222,7 +1243,7 @@ void test_ipc_main_core_start()
     #endif
 
     /* performance test with varying payload size */
-    #if !defined(SOC_AM62AX) &&  !defined(SOC_AM62DX) && !defined(SOC_AM62X) && !defined(SOC_AM62PX)
+    #if !defined(SOC_AM62AX) &&  !defined(SOC_AM62DX) && !defined(SOC_AM62X) && !defined(SOC_AM62PX) && !defined(SOC_AM275X)
     testArgs.remoteCoreId = CSL_CORE_ID_R5FSS0_1;
     testArgs.msgSize = 32;
     RUN_TEST(test_rpmsgOneToOne, 6230, &testArgs);
@@ -1326,11 +1347,78 @@ void test_ipc_main_core_start()
     RUN_TEST(test_rpmsgRecvErrorChecks, 5671, &testArgs);
     #endif
 
-    #if !defined(SOC_AM62AX) && !defined(SOC_AM62DX) && !defined(SOC_AM62X) && !defined(SOC_AM62PX)
+    #if !defined(SOC_AM62AX) && !defined(SOC_AM62DX) && !defined(SOC_AM62X) && !defined(SOC_AM62PX) && !defined(SOC_AM275X)
     /* back to back message send and handler mode rx tests */
     testArgs.remoteCoreId = CSL_CORE_ID_R5FSS0_1;
     testArgs.msgSize = 4;
     RUN_TEST(test_rpmsgOneToOneBackToBack, 305, &testArgs);
+    #endif
+
+    #if defined(SOC_AM275X)
+    /* back to back message send and handler mode rx tests */
+    testArgs.remoteCoreId = CSL_CORE_ID_R5FSS0_1;
+    testArgs.msgSize = 32;
+    RUN_TEST(test_rpmsgOneToOne, 6224, &testArgs);
+    /* back to back message send and handler mode rx tests */
+    testArgs.remoteCoreId = CSL_CORE_ID_R5FSS0_1;
+    testArgs.msgSize = 64;
+    RUN_TEST(test_rpmsgOneToOne, 6225, &testArgs);
+    /* back to back message send and handler mode rx tests */
+    testArgs.remoteCoreId = CSL_CORE_ID_R5FSS0_1;
+    testArgs.msgSize = 112;
+    RUN_TEST(test_rpmsgOneToOne, 6226, &testArgs);
+
+    /* back to back message send and handler mode rx tests */
+    testArgs.remoteCoreId = CSL_CORE_ID_R5FSS1_0;
+    testArgs.msgSize = 32;
+    RUN_TEST(test_rpmsgOneToOne, 6227, &testArgs);
+    /* back to back message send and handler mode rx tests */
+    testArgs.remoteCoreId = CSL_CORE_ID_R5FSS1_0;
+    testArgs.msgSize = 64;
+    RUN_TEST(test_rpmsgOneToOne, 6228, &testArgs);
+    /* back to back message send and handler mode rx tests */
+    testArgs.remoteCoreId = CSL_CORE_ID_R5FSS1_0;
+    testArgs.msgSize = 112;
+    RUN_TEST(test_rpmsgOneToOne, 6229, &testArgs);
+
+    /* back to back message send and handler mode rx tests */
+    testArgs.remoteCoreId = CSL_CORE_ID_R5FSS1_1;
+    testArgs.msgSize = 32;
+    RUN_TEST(test_rpmsgOneToOne, 6230, &testArgs);
+    /* back to back message send and handler mode rx tests */
+    testArgs.remoteCoreId = CSL_CORE_ID_R5FSS1_1;
+    testArgs.msgSize = 64;
+    RUN_TEST(test_rpmsgOneToOne, 6231, &testArgs);
+    /* back to back message send and handler mode rx tests */
+    testArgs.remoteCoreId = CSL_CORE_ID_R5FSS1_1;
+    testArgs.msgSize = 112;
+    RUN_TEST(test_rpmsgOneToOne, 6232, &testArgs);
+
+    /* back to back message send and handler mode rx tests */
+    testArgs.remoteCoreId = CSL_CORE_ID_C75SS0_0;
+    testArgs.msgSize = 32;
+    RUN_TEST(test_rpmsgOneToOne, 6233, &testArgs);
+    /* back to back message send and handler mode rx tests */
+    testArgs.remoteCoreId = CSL_CORE_ID_C75SS0_0;
+    testArgs.msgSize = 64;
+    RUN_TEST(test_rpmsgOneToOne, 6234, &testArgs);
+    /* back to back message send and handler mode rx tests */
+    testArgs.remoteCoreId = CSL_CORE_ID_C75SS0_0;
+    testArgs.msgSize = 112;
+    RUN_TEST(test_rpmsgOneToOne, 6235, &testArgs);
+
+    /* back to back message send and handler mode rx tests */
+    testArgs.remoteCoreId = CSL_CORE_ID_C75SS1_0;
+    testArgs.msgSize = 32;
+    RUN_TEST(test_rpmsgOneToOne, 6236, &testArgs);
+    /* back to back message send and handler mode rx tests */
+    testArgs.remoteCoreId = CSL_CORE_ID_C75SS1_0;
+    testArgs.msgSize = 64;
+    RUN_TEST(test_rpmsgOneToOne, 6237, &testArgs);
+    /* back to back message send and handler mode rx tests */
+    testArgs.remoteCoreId = CSL_CORE_ID_C75SS1_0;
+    testArgs.msgSize = 112;
+    RUN_TEST(test_rpmsgOneToOne, 6238, &testArgs);
     #endif
 
     #if defined(SOC_AM64X) || defined(SOC_AM243X)
@@ -1357,7 +1445,7 @@ void test_ipc_main_core_start()
     //RUN_TEST(test_rpmsgOneToOneBackToBack, 1874, &testArgs);
     #endif
 
-    #if !defined(SOC_AM62AX) && !defined(SOC_AM62DX) && !defined(SOC_AM62X) && !defined(SOC_AM62PX)
+    #if !defined(SOC_AM62AX) && !defined(SOC_AM62DX) && !defined(SOC_AM62X) && !defined(SOC_AM62PX) && !defined(SOC_AM275X)
     /* rx notify callback tests */
     testArgs.remoteCoreId = CSL_CORE_ID_R5FSS0_1;
     testArgs.msgSize = 4;
