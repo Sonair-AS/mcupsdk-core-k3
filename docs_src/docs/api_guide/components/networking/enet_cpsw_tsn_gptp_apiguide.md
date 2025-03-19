@@ -38,12 +38,13 @@ gmake DEVICE:=@VAR_SOC_NAME PROFILE:=release libs
 
 The TSN Stack library is composed of the following source modules:
 
- Module Name  | lcoation | Description
+ Module Name  | location | Description
  -------------|-----------|-----------
  Unibase      | `<${SDK_INSTALL_PATH}>/source/networking/tsn/tsn_unibase` | Universal utility libraries that are platform-independent
  Combase      | `<${SDK_INSTALL_PATH}>/source/networking/tsn/tsn_combase` | Communication utility libraries that provide support for functions like sockets, mutexes, and semaphores
  Uniconf      | `<${SDK_INSTALL_PATH}>/source/networking/tsn/tsn_uniconf` | Universal configuration daemon for Yang, provides APIs for developing a client application which retreives/writes yang parameters from/to database
  gPTP         | `<${SDK_INSTALL_PATH}>/source/networking/tsn/tsn_gptp`    | Implementation of the IEEE 802.1 AS gptp protocol
+ yangemb         | `<${SDK_INSTALL_PATH}>/source/networking/tsn/license_lib`    | YangDB 1 hour limitted access for AVB Applications. gPTP is considered non-AVB application so that it can run normally after 1 hour.
 
 ## Stack Initialization {#ENET_CPSW_TSN_STACK_INITIALIZATION}
 
@@ -105,7 +106,7 @@ This function will start the uniconf and gPTP tasks.
 
 To deinitialize the TSN modules, you can invoke the ``EnetApp_stopTsn();`` and ``EnetApp_deInitTsn();`` functions.
 
-## gPTP Multiple Domains
+## gPTP Multiple Domains and CMLDS mode
 
 At the moment, our system supports two domains, but this feature is turned off by default.
 To turn on multiple domains, follow these steps:
@@ -118,24 +119,34 @@ To turn on multiple domains, follow these steps:
     {"SECOND_DOMAIN_THIS_CLOCK", XL4_EXTMOD_XL4GPTP_SECOND_DOMAIN_THIS_CLOCK, 1}
 #endif
 ```
-This will activate the second domain in the gPTP system.
+This will activate the second domain in the gPTP system. The CMLDS_MODE enabled help to provide the mean propagation delay for all active domains.
 
 ## gPTP Shorter Sync Interval
 
-By default, the gPTP Sync interval is set to 125 milliseconds.
-If you need a shorter Sync interval, you can adjust it by setting a specific value in the ``sitara_buildconf.h`` file:
+By default, the gPTP Sync interval is set to 125 milliseconds as logSyncInterval is set to -3 in ``gptp_init.c``.
+If you need a shorter Sync interval, you can adjust it by changing `SYNC_LOG` value in ``gptp_init.c`` to smaller interval:
 
 ```
-/* Interval timeout in nanoseconds used to generate timers in GPTP.
- * Supported values are 125, 62.5, 31.25, 15.625 and 7.8125 milliseconds. */
-#define GPTPNET_INTERVAL_TIMEOUT_NSEC 15625000u
+ /*
+  * To shorten the sync interval, configure this parameter on both the master
+  * and slave devices.
+  * Additionally, update the GPTPNET_INTERVAL_TIMEOUT_NSEC macro in the
+  * <platform>_buildconf.h file (e.g., sitara_buildconf.h
+  * #define GPTPNET_INTERVAL_TIMEOUT_NSEC 15625000u) to be less than or equal
+  * the sync interval.
+  *
+  * The SYNC_LOG values adjust the sync interval as follows:
+  * SYNC_LOG = -3: 125 msec
+  * SYNC_LOG = -4: (125/2) msec
+  * SYNC_LOG = -5: (125/4) msec
+  * SYNC_LOG = -6: (125/8) msec
+  * SYNC_LOG = -7: (125/16) msec
+  */
+#define SYNC_LOG -3
+#define PDELAY_LOG 0 // Apply the same idea with SYNC_LOG
 ```
 
-``GPTPNET_INTERVAL_TIMEOUT_NSEC`` must be equal to or less than the desired Sync interval time.
-For instance, if you want a Sync interval time of 31.25 milliseconds, set ``GPTPNET_INTERVAL_TIMEOUT_NSEC`` to 31.25, 15.625, or 7.8125 milliseconds.
-Be aware that decreasing ``GPTPNET_INTERVAL_TIMEOUT_NSEC`` will increase CPU load.
-Additionally, adjust the ``log-sync-interval`` in the standard yang config by referring to the ``gptp_init.c`` file.
-For example, to set the Sync interval to 31.25 milliseconds, set ``log-sync-interval`` to -5.
+The gptp tsn-stack will self consider the corresponding timer interval to adapt with new changed in interval.
 
 # Integration
 ## Source integration {#ENET_CPSW_TSN_SOURCE_INTEGRATION}
@@ -243,6 +254,20 @@ that it has been started successfully.
 it means the uniconf will configure HW.
 If "NONE" is specified (hwmod="NONE"), the uniconf will not configure HW when client
 side writes the database and ask it for an update.
+
+## Licensing library
+\cond SOC_AM62X || SOC_AM62AX || SOC_AM62DX
+There is yangemb-freertos.`@VAR_SOC_NAME_LOWER`.r5f.ti-arm-clang.lib located under ``<${SDK_INSTALL_PATH}>/source/networking/tsn/tsn-stack/license_lib``,
+which must be added to all `tsn-stack` application's makefile.
+\endcond
+\cond SOC_AM62PX
+There is yangemb-freertos.`@VAR_SOC_NAME_LOWER`.wkup-r5f.ti-arm-clang.lib located under ``<${SDK_INSTALL_PATH}>/source/networking/tsn/tsn-stack/license_lib``,
+which must be added to all `tsn-stack` application's makefile.
+\endcond
+
+Add ``<${SDK_INSTALL_PATH}>/source/networking/tsn/tsn-stack/license_lib`` to `LIBS_PATH_common` and yangemb lib file to `LIBS_common` flags.
+
+The licensing library will NOT prevent gptp application running after 1 hour, but the application must link to the library as a dependency library.
 
 ## gPTP Yang Config Parameters {#ENET_CPSW_TSN_YANG_CONFIG_PARAMS}
 

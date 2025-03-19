@@ -28,12 +28,13 @@ The TSN Stack library is composed of the following source modules:
 
  Module Name  | location | Description
  -------------|-----------|-----------
- Unibase      | `<mcu_plus_sdk>/source/networking/tsn/tsn_unibase`         | Universal utility libraries that are platform-independent
- Combase      | `<mcu_plus_sdk>/source/networking/tsn/tsn_combase`         | Communication utility libraries that provide support for functions like sockets, mutexes, and semaphores
- Uniconf      | `<mcu_plus_sdk>/source/networking/tsn/tsn_uniconf`         | Universal configuration daemon for Yang, provides APIs for developing a client application which retreives/writes yang parameters from/to database
- gPTP         | `<mcu_plus_sdk>/source/networking/tsn/tsn_gptp`            | Implementation of the IEEE 802.1 AS gptp protocol
- l2           | `<mcu_plus_sdk>/source/networking/tsn/tsn-stack/tsn_l2`    | Implementation of the IEEE Std 1722™-2016 AVTP
- xmrpd        | `<mcu_plus_sdk>/source/networking/tsn/tsn-stack/eval_lib/xmrpd`    | Implementation of the section 35. Stream reservation Protocol (SRP)
+ Unibase      | `<${SDK_INSTALL_PATH}>/source/networking/tsn/tsn_unibase`         | Universal utility libraries that are platform-independent
+ Combase      | `<${SDK_INSTALL_PATH}>/source/networking/tsn/tsn_combase`         | Communication utility libraries that provide support for functions like sockets, mutexes, and semaphores
+ Uniconf      | `<${SDK_INSTALL_PATH}>/source/networking/tsn/tsn_uniconf`         | Universal configuration daemon for Yang, provides APIs for developing a client application which retreives/writes yang parameters from/to database
+ gPTP         | `<${SDK_INSTALL_PATH}>/source/networking/tsn/tsn_gptp`            | Implementation of the IEEE 802.1 AS gptp protocol
+ l2/conl2     | `<${SDK_INSTALL_PATH}>/source/networking/tsn/tsn-stack/eval_lib`    | The evaluation library which implements of the IEEE Std 1722™-2016 AVTP
+ xmrpd        | `<${SDK_INSTALL_PATH}>/source/networking/tsn/tsn-stack/eval_lib/xmrpd`    | The evaluation library which implements of the section 35. Stream reservation Protocol (SRP)
+yangemb         | `<${SDK_INSTALL_PATH}>/source/networking/tsn/license_lib`    | YangDB 1 hour limitted access for AVB Applications.
 
 ## Stack Initialization
 
@@ -63,6 +64,20 @@ Refer \ref ENET_CPSW_TSN_GPTP. <b>Source integration</b> section
 
 Refer \ref ENET_CPSW_TSN_GPTP. <b>Uniconf configuration</b> section
 
+## Licensing library
+\cond SOC_AM62X || SOC_AM62AX || SOC_AM62DX
+There is yangemb-freertos.`@VAR_SOC_NAME_LOWER`.r5f.ti-arm-clang.lib located under ``<${SDK_INSTALL_PATH}>/source/networking/tsn/tsn-stack/license_lib``,
+which must be added to all `tsn-stack` application's makefile.
+\endcond
+\cond SOC_AM62PX
+There is yangemb-freertos.`@VAR_SOC_NAME_LOWER`.wkup-r5f.ti-arm-clang.lib located under ``<${SDK_INSTALL_PATH}>/source/networking/tsn/tsn-stack/license_lib``,
+which must be added to all `tsn-stack` application's makefile.
+\endcond
+
+Add ``<${SDK_INSTALL_PATH}>/source/networking/tsn/tsn-stack/license_lib`` to `LIBS_PATH_common` and yangemb lib file to `LIBS_common` flags.
+
+The licensing library will Prevent all avtp application running after 1 hour.
+
 ## GPTP configuration parameters
 Refer \ref ENET_CPSW_TSN_GPTP. <b>gPTP Yang Config Parameters</b> section
 
@@ -70,8 +85,8 @@ Refer \ref ENET_CPSW_TSN_GPTP. <b>gPTP Yang Config Parameters</b> section
 ### MRP Applications list
  App               | location | Description
  ------------------|----------|-----------
- mrptalker_app    | `<mcu_plus_sdk>/examples/networking/tsn/mrptalker_app`         | MRP apps which support up to 7 talkers
- mrplistener_app  | `<mcu_plus_sdk>/examples/networking/tsn/mrplistener_app`         | Avtp apps which support up to 7 listeners
+ mrptalker_app    | `<${SDK_INSTALL_PATH}>/examples/networking/tsn/mrptalker_app`         | MRP apps which support up to 7 talkers
+ mrplistener_app  | `<${SDK_INSTALL_PATH}>/examples/networking/tsn/mrplistener_app`         | Avtp apps which support up to 7 listeners
 
 ### MRP External control
 The MRP Application(s) declare their attributes to MRP Daemon (xmrpd) via external control commands which follow `802.1Q-2022 section 12.32.4 MRP External Control`.
@@ -117,7 +132,7 @@ Refer \ref EXAMPLES_ENET_CPSW_MRP for how the applications interract with each o
 - ``XMRPD_ENABLED=1`` and ``XMRPD_TALKER_ENABLE=1 or XMRPD_LISTENER_ENABLE=1`` to enable MRP with talker or listener
 - ``MRP_APP_NO=1``: Increase this value to enable more AVTP streams to be talker(s) or listener(s)
 
-All of the TSN applications (gPtp, avtp, mrp, lldp) are using static memory configuration. Refer `<mcu_plus_sdk>/source/networking/tsn/tsn_buildconf/sitara_buildconf.h` for static configuration parameters. The list below listup some important parameters:
+All of the TSN applications (gPtp, avtp, mrp, lldp) are using static memory configuration. Refer `<${SDK_INSTALL_PATH}>/source/networking/tsn/tsn_buildconf/sitara_buildconf.h` for static configuration parameters. The list below listup some important parameters:
 - ``TSN_USE_LOG_BUFFER``: Set to 1 to apply async log, but one more task for logger is needed.
 - ``CB_LLDTASK_INSTNUM``: Currently is total tasks needed to enable 7 avtps application (direct mode) with one mrp application to control 7 streams.
 - ``CB_LLDTASK_STACK_INSTNUM``: Total stacks (2) needed inside tsn-stack and avtp is running with direct mode

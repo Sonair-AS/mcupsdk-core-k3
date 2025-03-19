@@ -106,7 +106,7 @@ Refer :\ref ENET_CPSW_LLDP for how to configure LLDP parameters.
 ### Verification #1 LLDPDU Tx interval and LLDPDU content (per one dest-mac-address)
 With default setting
 \code
-{"message-tx-interval" , "30"},
+{IEEE802_DOT1AB_LLDP_MESSAGE_TX_INTERVAL, 30, sizeof(uint32_t), YDBI_CONFIG},
 \endcode
 
 Capture LLDPDU via wireshark and confirm the TX interval is around 30s
@@ -129,8 +129,8 @@ docker run --rm --net=host --uts=host \
 
 With default setting
 \code
-{"message-fast-tx" , "1"},
-{"tx-fast-init" , "2"},
+{IEEE802_DOT1AB_LLDP_MESSAGE_FAST_TX, 1, sizeof(uint32_t), YDBI_CONFIG},
+{IEEE802_DOT1AB_LLDP_TX_FAST_INIT, 2, sizeof(uint32_t), YDBI_CONFIG},
 \endcode
 
 Capture LLDPDU via wireshark and confirm after receive Linux PC LLDPDU, the DUT process fast tx flow by one TX LLDPDU immediately,
@@ -175,18 +175,27 @@ Configure 3 message-tx-interval values differently each other, like below:
 
 \code
 {
-.dest_mac = "01-80-c2-00-00-0e",
-    {"message-tx-interval" , "30"},
+.destMac = {0x01, 0x80, 0xc2, 0x00, 0x00, 0x0e},
+.cfgKeyValInt =
+    {
+    {IEEE802_DOT1AB_LLDP_MESSAGE_TX_INTERVAL, 30, sizeof(uint32_t), YDBI_CONFIG},
+    }
 }
 
 {
-.dest_mac = "01-80-c2-00-00-03",
-    {"message-tx-interval" , "20"},
+.destMac = {0x01, 0x80, 0xc2, 0x00, 0x00, 0x03},
+.cfgKeyValInt =
+    {
+        {IEEE802_DOT1AB_LLDP_MESSAGE_TX_INTERVAL, 20, sizeof(uint32_t), YDBI_CONFIG},
+    }
 }
 
 {
-.dest_mac = "01-80-c2-00-00-00",
-    {"message-tx-interval" , "25"},
+.destMac = {0x01, 0x80, 0xc2, 0x00, 0x00, 0x00},
+.cfgKeyValInt =
+    {
+        {IEEE802_DOT1AB_LLDP_MESSAGE_TX_INTERVAL, 25, sizeof(uint32_t), YDBI_CONFIG},
+    }
 }
 \endcode
 

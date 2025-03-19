@@ -28,11 +28,12 @@ The TSN Stack library is composed of the following source modules:
 
  Module Name  | lcoation | Description
  -------------|-----------|-----------
- Unibase      | `<mcu_plus_sdk>/source/networking/tsn/tsn_unibase`         | Universal utility libraries that are platform-independent
- Combase      | `<mcu_plus_sdk>/source/networking/tsn/tsn_combase`         | Communication utility libraries that provide support for functions like sockets, mutexes, and semaphores
- Uniconf      | `<mcu_plus_sdk>/source/networking/tsn/tsn_uniconf`         | Universal configuration daemon for Yang, provides APIs for developing a client application which retreives/writes yang parameters from/to database
- gPTP         | `<mcu_plus_sdk>/source/networking/tsn/tsn_gptp`            | Implementation of the IEEE 802.1 AS gptp protocol
- l2/conl2     | `<mcu_plus_sdk>/source/networking/tsn/tsn-stack/tsn_l2`    | Implementation of the IEEE Std 1722™-2016 AVTP
+ Unibase      | `<${SDK_INSTALL_PATH}>/source/networking/tsn/tsn_unibase`         | Universal utility libraries that are platform-independent
+ Combase      | `<${SDK_INSTALL_PATH}>/source/networking/tsn/tsn_combase`         | Communication utility libraries that provide support for functions like sockets, mutexes, and semaphores
+ Uniconf      | `<${SDK_INSTALL_PATH}>/source/networking/tsn/tsn_uniconf`         | Universal configuration daemon for Yang, provides APIs for developing a client application which retreives/writes yang parameters from/to database
+ gPTP         | `<${SDK_INSTALL_PATH}>/source/networking/tsn/tsn_gptp`            | Implementation of the IEEE 802.1 AS gptp protocol
+ l2/conl2     | `<${SDK_INSTALL_PATH}>/source/networking/tsn/tsn-stack/eval_lib`    | The evaluation library which implements of the IEEE Std 1722™-2016 AVTP
+ yangemb         | `<${SDK_INSTALL_PATH}>/source/networking/tsn/license_lib`    | YangDB 1 hour limitted access for AVB Applications.
 
 ## Stack Initialization
 
@@ -63,6 +64,20 @@ Refer \ref ENET_CPSW_TSN_SOURCE_INTEGRATION section
 
 Refer \ref ENET_CPSW_TSN_UNICONF_CONFIGURATION section
 
+## Licensing library
+\cond SOC_AM62X || SOC_AM62AX || SOC_AM62DX
+There is yangemb-freertos.`@VAR_SOC_NAME_LOWER`.r5f.ti-arm-clang.lib located under ``<${SDK_INSTALL_PATH}>/source/networking/tsn/tsn-stack/license_lib``,
+which must be added to all `tsn-stack` application's makefile.
+\endcond
+\cond SOC_AM62PX
+There is yangemb-freertos.`@VAR_SOC_NAME_LOWER`.wkup-r5f.ti-arm-clang.lib located under ``<${SDK_INSTALL_PATH}>/source/networking/tsn/tsn-stack/license_lib``,
+which must be added to all `tsn-stack` application's makefile.
+\endcond
+
+Add ``<${SDK_INSTALL_PATH}>/source/networking/tsn/tsn-stack/license_lib`` to `LIBS_PATH_common` and yangemb lib file to `LIBS_common` flags.
+
+The licensing library will Prevent all avtp applications running after 1 hour.
+
 ## GPTP configuration parameters
 Refer \ref ENET_CPSW_TSN_YANG_CONFIG_PARAMS section
 
@@ -70,13 +85,13 @@ Refer \ref ENET_CPSW_TSN_YANG_CONFIG_PARAMS section
 ### AVTP Applications list
  App               | location | Description
  ------------------|----------|-----------
- aafpcmlistener_app   | `<mcu_plus_sdk>/examples/networking/tsn/aafpcmlistener_app`               | AVTP AAF PCM Listener Example Application
- aafpcmtalker_app     | `<mcu_plus_sdk>/examples/networking/tsn/aafpcmtalker_app`                 | AVTP AAF PCM Talker Example Application
- dolbyec3talker_app   | `<mcu_plus_sdk>/examples/networking/tsn/dolbyec3talker_app`               | AVTP Dolby EC3 format Listener Example Application
- dolbyec3listener_app     | `<mcu_plus_sdk>/examples/networking/tsn/dolbyec3listener_app`                 | AVTP Dolby EC3 format Talker Example Application
+ aafpcmlistener_app   | `<${SDK_INSTALL_PATH}>/examples/networking/tsn/aafpcmlistener_app`               | AVTP AAF PCM Listener Example Application
+ aafpcmtalker_app     | `<${SDK_INSTALL_PATH}>/examples/networking/tsn/aafpcmtalker_app`                 | AVTP AAF PCM Talker Example Application
+ dolbyec3talker_app   | `<${SDK_INSTALL_PATH}>/examples/networking/tsn/dolbyec3talker_app`               | AVTP Dolby EC3 format Listener Example Application
+ dolbyec3listener_app     | `<${SDK_INSTALL_PATH}>/examples/networking/tsn/dolbyec3listener_app`                 | AVTP Dolby EC3 format Talker Example Application
 
 ### Configuration parameters
-Refer to `<mcu_plus_sdk>/examples/networking/tsn/avtp_init.c`, the avtp talker/listener can only be actived with following definitions in project files.
+Refer to `<${SDK_INSTALL_PATH}>/examples/networking/tsn/avtp_init.c`, the avtp talker/listener can only be actived with following definitions in project files.
 - Use ``#define AAF_PCM_ENABLED=1`` to enable aaf pcm task. This has to be enabled for both AAF PCM Talker and Listener.
 - Use ``#define AAF_PCM_LISTENER_ENABLE=1`` to enable aap pcm listener app
 
