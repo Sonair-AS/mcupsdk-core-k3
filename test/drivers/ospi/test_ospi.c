@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2021-2024 Texas Instruments Incorporated
+ * Copyright (C) 2021-2025 Texas Instruments Incorporated
  *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions
@@ -64,19 +64,35 @@
 #define TEST_OSPI_2MB_SIZE                 (TEST_OSPI_1MB_SIZE*2U)
 #define TEST_OSPI_5MB_SIZE                 (TEST_OSPI_1MB_SIZE*5U)
 #define TEST_OSPI_10MB_SIZE                (TEST_OSPI_1MB_SIZE*10U)
+#define TEST_OSPI_UNALIGNED_TEST_SIZE      (1000U)
+#define TEST_OSPI_UNALIGNED_TEST_OFFSET    (5U)
+
 #if defined (SOC_AM275X)
+#if defined(__C7504__) || defined(__C7524__)
+#define TEST_OSPI_MAX_TEST_SIZE            (TEST_OSPI_1MB_SIZE)
+#else
 #define TEST_OSPI_MAX_TEST_SIZE            (TEST_OSPI_2MB_SIZE)
+#endif
 #else
 #define TEST_OSPI_MAX_TEST_SIZE            (TEST_OSPI_10MB_SIZE)
 #endif
+
 #define TEST_OSPI_BLOCK_SIZE               (TEST_OSPI_1KB_SIZE*256U)
 #define TEST_OSPI_READ_FRCOUNT             (10U)  /* Frequency of reading required for average time of read operation*/
+
 #if defined (SOC_AM275X)
+#if defined(__C7504__) || defined(__C7524__)
+#define TEST_OSPI_PERF_TEST_DATA_COUNT     (1U)   /* Change this value as per testSizes list size */
+#else
 #define TEST_OSPI_PERF_TEST_DATA_COUNT     (2U)   /* Change this value as per testSizes list size */
+#endif
 #else
 #define TEST_OSPI_PERF_TEST_DATA_COUNT     (3U)   /* Change this value as per testSizes list size */
 #endif
 
+#if (TEST_OSPI_UNALIGNED_TEST_OFFSET + TEST_OSPI_UNALIGNED_TEST_SIZE > TEST_OSPI_MAX_TEST_SIZE)
+#error Increase the TEST_OSPI_MAX_TEST_SIZE.
+#endif
 
 /* ========================================================================== */
 /*                 Structure Declarations                             */
@@ -117,6 +133,7 @@ static float test_ospi_read_in_mb(uint32_t flashOffset, uint32_t readSize);
 static int32_t test_ospi_read_write_test_in_mb(TestData_SizesAttr* testDataCurObj, uint32_t flashOffset, uint32_t dataSize);
 static void test_ospi_gdevcfg_set_flash_protocol(uint32_t givenflashProtocol);
 static void set_test_flash_type(void);
+static void test_ospi_unaligned_read_write(void *args);
 
 /* ========================================================================== */
 /*                            Global Variables                                */
@@ -255,6 +272,9 @@ void test_main(void *args)
     Drivers_ospiClose();
     Drivers_ospiOpen();
     RUN_TEST(test_ospi_skip_phy_tuning_perf, 3825, NULL);
+    Drivers_ospiClose();
+    Drivers_ospiOpen();
+    RUN_TEST(test_ospi_unaligned_read_write, 0, NULL);
 
     UNITY_END();
 
@@ -281,6 +301,7 @@ static void test_ospi_read_write_1s1s1s_config(void *args)
     int32_t retVal = SystemP_SUCCESS;
     int32_t status = SystemP_SUCCESS;
     uint32_t offset = TEST_OSPI_FLASH_OFFSET_BASE;
+    uint32_t i, txChunkCnt;
 
 
     if( modeParams.cfgflashType == CONFIG_FLASH_TYPE_SERIAL_NOR)
@@ -292,14 +313,14 @@ static void test_ospi_read_write_1s1s1s_config(void *args)
         /* Block erase at the test offset */
         OSPI_norFlashErase(ospiHandle, offset);
 
-        for(uint32_t i = 0; i < TEST_OSPI_DATA_REPEAT_COUNT; i++)
+        for(i = 0; i < TEST_OSPI_DATA_REPEAT_COUNT; i++)
         {
             OSPI_norFlashWrite(ospiHandle, offset + i*TEST_OSPI_DATA_SIZE, gOspiTestTxBuf, TEST_OSPI_DATA_SIZE);
         }
 
         OSPI_norFlashRead(ospiHandle, offset, gOspiTestRxBuf, TEST_OSPI_RX_BUF_SIZE);
 
-        for(uint32_t i = 0; i < TEST_OSPI_RX_BUF_SIZE; i++)
+        for(i = 0; i < TEST_OSPI_RX_BUF_SIZE; i++)
         {
             if(gOspiTestRxBuf[i] != gOspiTestTxBuf[(i%256)])
             {
@@ -348,7 +369,7 @@ static void test_ospi_read_write_1s1s1s_config(void *args)
         retVal = Flash_eraseBlk(gFlashHandle[CONFIG_FLASH0], blk);
         TEST_ASSERT_EQUAL_INT32(SystemP_SUCCESS, retVal);
 
-        for(uint32_t txChunkCnt = 0; txChunkCnt < TEST_OSPI_2KB_SIZE/TEST_OSPI_DATA_SIZE; txChunkCnt++)
+        for(txChunkCnt = 0; txChunkCnt < TEST_OSPI_2KB_SIZE/TEST_OSPI_DATA_SIZE; txChunkCnt++)
         {
             memcpy(gOspiTestTxBulkBuf + txChunkCnt*sizeof(gOspiTestTxBuf) , gOspiTestTxBuf , sizeof(gOspiTestTxBuf));
         }
@@ -544,7 +565,7 @@ static void test_ospi_skip_phy_tuning_perf(void *args)
 static void test_ospi_read_write_max_config(void *args)
 {
     int32_t retVal = SystemP_SUCCESS;
-    uint32_t blk, page;
+    uint32_t blk, page, txChunkCnt;
     uint32_t offset = TEST_OSPI_FLASH_OFFSET_BASE;
 
     /* Open Flash drivers with OSPI instance as input */
@@ -557,7 +578,7 @@ static void test_ospi_read_write_max_config(void *args)
 
     TEST_ASSERT_EQUAL_INT32(SystemP_SUCCESS, retVal);
 
-    for(uint32_t txChunkCnt = 0; txChunkCnt < (TEST_OSPI_2KB_SIZE)/TEST_OSPI_DATA_SIZE; txChunkCnt++)
+    for(txChunkCnt = 0; txChunkCnt < (TEST_OSPI_2KB_SIZE)/TEST_OSPI_DATA_SIZE; txChunkCnt++)
     {
         memcpy(gOspiTestTxBulkBuf + txChunkCnt*sizeof(gOspiTestTxBuf) , gOspiTestTxBuf , sizeof(gOspiTestTxBuf));
     }
@@ -577,14 +598,98 @@ static void test_ospi_read_write_max_config(void *args)
     Board_driversClose();
 }
 
+static void test_ospi_unaligned_read_write(void *args)
+{
+    int32_t retVal = SystemP_SUCCESS;
+    uint32_t offset = TEST_OSPI_FLASH_OFFSET_BASE;
+    uint32_t blk, page, txChunkCnt;
+
+    /* Open Flash drivers with OSPI instance as input */
+    retVal = Board_driversOpen();
+    TEST_ASSERT_EQUAL_INT32(SystemP_SUCCESS, retVal);
+
+    /* Block erase at the test offset */
+    Flash_offsetToBlkPage(gFlashHandle[CONFIG_FLASH0], offset, &blk, &page);
+    retVal = Flash_eraseBlk(gFlashHandle[CONFIG_FLASH0], blk);
+
+    TEST_ASSERT_EQUAL_INT32(SystemP_SUCCESS, retVal);
+
+    for(txChunkCnt = 0; txChunkCnt < (TEST_OSPI_UNALIGNED_TEST_SIZE)/TEST_OSPI_DATA_SIZE; txChunkCnt++)
+    {
+        if((txChunkCnt * TEST_OSPI_DATA_SIZE) < TEST_OSPI_UNALIGNED_TEST_SIZE)
+        {
+            memcpy(gOspiTestTxBulkBuf + txChunkCnt*sizeof(gOspiTestTxBuf) , gOspiTestTxBuf , sizeof(gOspiTestTxBuf));
+        }
+        else
+        {
+            memcpy(gOspiTestTxBulkBuf + txChunkCnt*sizeof(gOspiTestTxBuf) , gOspiTestTxBuf , (TEST_OSPI_UNALIGNED_TEST_SIZE - (txChunkCnt * TEST_OSPI_DATA_SIZE)));
+        }
+    }
+
+    /* source unaligned */
+    retVal += Flash_write(gFlashHandle[CONFIG_FLASH0], offset, gOspiTestTxBulkBuf, TEST_OSPI_UNALIGNED_TEST_SIZE);
+
+    TEST_ASSERT_EQUAL_INT32(SystemP_SUCCESS, retVal);
+
+    retVal = Flash_read(gFlashHandle[CONFIG_FLASH0], offset + TEST_OSPI_UNALIGNED_TEST_OFFSET, gOspiTestRxBuf, TEST_OSPI_UNALIGNED_TEST_SIZE - TEST_OSPI_UNALIGNED_TEST_OFFSET);
+
+    TEST_ASSERT_EQUAL_INT32(SystemP_SUCCESS, retVal);
+
+    retVal = memcmp(gOspiTestRxBuf, gOspiTestTxBulkBuf + TEST_OSPI_UNALIGNED_TEST_OFFSET, TEST_OSPI_UNALIGNED_TEST_SIZE - TEST_OSPI_UNALIGNED_TEST_OFFSET);
+
+    TEST_ASSERT_EQUAL_INT32(SystemP_SUCCESS, retVal);
+
+    /* Block erase at the test offset */
+    Flash_offsetToBlkPage(gFlashHandle[CONFIG_FLASH0], offset, &blk, &page);
+    retVal = Flash_eraseBlk(gFlashHandle[CONFIG_FLASH0], blk);
+
+    /* Destination unaligned */
+    retVal += Flash_write(gFlashHandle[CONFIG_FLASH0], offset, gOspiTestTxBulkBuf, TEST_OSPI_UNALIGNED_TEST_SIZE);
+
+    TEST_ASSERT_EQUAL_INT32(SystemP_SUCCESS, retVal);
+
+    retVal = Flash_read(gFlashHandle[CONFIG_FLASH0], offset, gOspiTestRxBuf + TEST_OSPI_UNALIGNED_TEST_OFFSET, TEST_OSPI_UNALIGNED_TEST_SIZE);
+
+    TEST_ASSERT_EQUAL_INT32(SystemP_SUCCESS, retVal);
+
+    retVal = memcmp(gOspiTestRxBuf + TEST_OSPI_UNALIGNED_TEST_OFFSET, gOspiTestTxBulkBuf, TEST_OSPI_UNALIGNED_TEST_SIZE);
+
+    TEST_ASSERT_EQUAL_INT32(SystemP_SUCCESS, retVal);
+
+    /* Block erase at the test offset */
+    Flash_offsetToBlkPage(gFlashHandle[CONFIG_FLASH0], offset, &blk, &page);
+    retVal = Flash_eraseBlk(gFlashHandle[CONFIG_FLASH0], blk);
+    
+    /* Both source and destination unaligned */
+    retVal += Flash_write(gFlashHandle[CONFIG_FLASH0], offset, gOspiTestTxBulkBuf, TEST_OSPI_UNALIGNED_TEST_SIZE);
+
+    TEST_ASSERT_EQUAL_INT32(SystemP_SUCCESS, retVal);
+
+    retVal = Flash_read(gFlashHandle[CONFIG_FLASH0], offset + TEST_OSPI_UNALIGNED_TEST_OFFSET, gOspiTestRxBuf + TEST_OSPI_UNALIGNED_TEST_OFFSET, TEST_OSPI_UNALIGNED_TEST_SIZE - TEST_OSPI_UNALIGNED_TEST_OFFSET);
+
+    TEST_ASSERT_EQUAL_INT32(SystemP_SUCCESS, retVal);
+
+    retVal = memcmp(gOspiTestRxBuf + TEST_OSPI_UNALIGNED_TEST_OFFSET, gOspiTestTxBulkBuf + TEST_OSPI_UNALIGNED_TEST_OFFSET, TEST_OSPI_UNALIGNED_TEST_SIZE - TEST_OSPI_UNALIGNED_TEST_OFFSET);
+
+    TEST_ASSERT_EQUAL_INT32(SystemP_SUCCESS, retVal);
+
+    Board_driversClose();
+
+}
+
 static void test_ospi_read_perf(void *args)
 {
     int32_t retVal = SystemP_SUCCESS;
-    uint32_t blk, page;
+    uint32_t blk, page, txChunkCnt, testCount, blkCount;
     uint32_t offset = TEST_OSPI_FLASH_OFFSET_BASE;
     uint64_t startTime, endTime;
+    
 #if defined (SOC_AM275X)
-    uint32_t testSizes[TEST_OSPI_PERF_TEST_DATA_COUNT] = { TEST_OSPI_1MB_SIZE, TEST_OSPI_2MB_SIZE};
+#if defined(__C7504__) || defined(__C7524__)
+    uint32_t testSizes[TEST_OSPI_PERF_TEST_DATA_COUNT] = {TEST_OSPI_1MB_SIZE};
+#else
+    uint32_t testSizes[TEST_OSPI_PERF_TEST_DATA_COUNT] = {TEST_OSPI_1MB_SIZE, TEST_OSPI_2MB_SIZE};
+#endif
 #else
     /* Please provide size of atleast 1MiB */
     uint32_t testSizes[TEST_OSPI_PERF_TEST_DATA_COUNT] = {TEST_OSPI_1MB_SIZE, TEST_OSPI_5MB_SIZE, TEST_OSPI_10MB_SIZE};
@@ -619,14 +724,14 @@ static void test_ospi_read_perf(void *args)
     /* The contents of buffer "gOspiTestTxBuf" are copied at incremental offsets of 'TEST_OSPI_DATA_SIZE'
      * until gOspiTestTxBulkBuf buffer is full
      */
-    for(uint32_t txChunkCnt = 0; txChunkCnt < TEST_OSPI_MAX_TEST_SIZE/TEST_OSPI_DATA_SIZE; txChunkCnt++)
+    for(txChunkCnt = 0; txChunkCnt < TEST_OSPI_MAX_TEST_SIZE/TEST_OSPI_DATA_SIZE; txChunkCnt++)
     {
         memcpy(gOspiTestTxBulkBuf + txChunkCnt*sizeof(gOspiTestTxBuf) , gOspiTestTxBuf , sizeof(gOspiTestTxBuf));
     }
 
-    for(uint32_t testCount = 0; testCount < sizeof(testSizes)/sizeof(testSizes[0]); testCount++)
+    for(testCount = 0; testCount < sizeof(testSizes)/sizeof(testSizes[0]); testCount++)
     {
-        for(uint32_t blkCount = 0; blkCount < testSizes[testCount]/TEST_OSPI_BLOCK_SIZE; blkCount++)
+        for(blkCount = 0; blkCount < testSizes[testCount]/TEST_OSPI_BLOCK_SIZE; blkCount++)
         {
             retVal = Flash_eraseBlk(gFlashHandle[CONFIG_FLASH0], blk + blkCount);
             TEST_ASSERT_EQUAL_INT32(SystemP_SUCCESS, retVal);
@@ -666,7 +771,7 @@ static void test_ospi_read_perf(void *args)
     DebugP_log("Data size(MiB) | Write speed(MiBps) | Read speed(MiBps)\r\n");
     DebugP_log("---------------|--------------------|-----------------\r\n");
 
-    for (uint32_t testCount=0; testCount<sizeof(testSizes)/sizeof(testSizes[0]); testCount++) {
+    for (testCount=0; testCount<sizeof(testSizes)/sizeof(testSizes[0]); testCount++) {
         DebugP_log(" %d\t       | %.2f\t\t    | %.2f\r\n", testDataObj[testCount].dataSize, testDataObj[testCount].writeSpeed,
             testDataObj[testCount].readSpeed);
     }

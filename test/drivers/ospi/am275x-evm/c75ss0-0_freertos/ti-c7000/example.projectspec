@@ -3,24 +3,24 @@
     <applicability>
         <when>
             <context
-                deviceFamily="ARM"
-                deviceId="Cortex R.AM275x"
+                deviceFamily="C7000"
+                deviceId="TMS320C75XX.AM275x"
             />
         </when>
     </applicability>
 
     <project
         title="Test Ospi"
-        name = "test_ospi_am275x-evm_wkup-r5fss0-0_freertos_ti-arm-clang"
+        name = "test_ospi_am275x-evm_c75ss0-0_freertos_ti-c7000"
         products="sysconfig;com.ti.MCU_PLUS_SDK_AMXXX"
         configurations="
             Debug,
             Release,
         "
         connection="TIXDS110_Connection.xml"
-        toolChain="TICLANG"
-        cgtVersion="4.0.1"
-        device="Cortex R.AM275x"
+        toolChain="TI"
+        cgtVersion=""
+        device="TMS320C75XX.AM275x"
         deviceCore=""
         ignoreDefaultDeviceSettings="true"
         ignoreDefaultCCSSettings="true"
@@ -29,83 +29,83 @@
         outputType="executable"
 
         compilerBuildOptions="
-            -I${CG_TOOL_ROOT}/include/c
+            -I${CG_TOOL_ROOT}/include
             -I${MCU_PLUS_SDK_PATH}/source
             -I${MCU_PLUS_SDK_PATH}/source/kernel/freertos/FreeRTOS-Kernel/include
-            -I${MCU_PLUS_SDK_PATH}/source/kernel/freertos/portable/TI_ARM_CLANG/ARM_CR5F
-            -I${MCU_PLUS_SDK_PATH}/source/kernel/freertos/config/am275x/r5f
+            -I${MCU_PLUS_SDK_PATH}/source/kernel/freertos/portable/TI_CGT/DSP_C75X
+            -I${MCU_PLUS_SDK_PATH}/source/kernel/freertos/config/am275x/c75x
             -I${MCU_PLUS_SDK_PATH}/test/unity/
-            -mcpu=cortex-r5
-            -mfloat-abi=hard
-            -mfpu=vfpv3-d16
-            -mthumb
-            -Wall
-            -Werror
-            -g
-            -Wno-gnu-variable-sized-type-not-at-end
-            -Wno-unused-function
+            -mv7524
+            -q
+            -mo
+            -pden
+            -pds=238
+            -pds=880
+            -pds1110
+            --disable_inlining
+            -ea.se71
+            --emit_warnings_as_errors
+            --diag_suppress=770
+            --diag_suppress=69
+            --diag_suppress=70
+            -DBUILD_C7X
+            -DBUILD_C7X_1
             -DSOC_AM275X
-            -DENABLE_SCICLIENT_DIRECT
         "
         linkerBuildOptions="
-            -i${MCU_PLUS_SDK_PATH}/source/drivers/device_manager/rm_pm_hal/lib
-            -i${MCU_PLUS_SDK_PATH}/source/drivers/device_manager/sciclient_direct/lib
-            -i${MCU_PLUS_SDK_PATH}/source/drivers/device_manager/self_reset/lib
             -i${MCU_PLUS_SDK_PATH}/source/kernel/freertos/lib
             -i${MCU_PLUS_SDK_PATH}/source/drivers/lib
             -i${MCU_PLUS_SDK_PATH}/source/board/lib
-            -i${MCU_PLUS_SDK_PATH}/source/drivers/device_manager/sciserver/lib
             -i${MCU_PLUS_SDK_PATH}/source/drivers/udma/lib
             -i${MCU_PLUS_SDK_PATH}/test/unity/lib
             -i${CG_TOOL_ROOT}/lib
             -m=test_ospi.${ConfigName}.map
+            -z
+            --emit_warnings_as_errors
             --diag_suppress=10063
-            --priority
             --ram_model
-            --reread_libs
+            --warn_sections
+            -x
         "
 
         postBuildStep="$(MAKE) -C ${CCS_PROJECT_DIR} -f makefile_ccs_bootimage_gen OUTNAME=${BuildArtifactFileBaseName} PROFILE=${ConfigName} MCU_PLUS_SDK_PATH=${MCU_PLUS_SDK_PATH} CG_TOOL_ROOT=${CG_TOOL_ROOT} CCS_INSTALL_DIR=${CCS_INSTALL_DIR} CCS_IDE_MODE=${CCS_IDE_MODE}"
 
         enableSysConfigTool="true"
         sysConfigBuildOptions="
-            --context wkup-r5fss0-0 --part AM2754 --package ANJ
+            --context c75ss0-0 --part AM2754 --package ANJ
         "
 
         description="A Test Ospi FREERTOS project">
 
         <configuration name="Debug"
             compilerBuildOptions="
+                -Dxdc_target_name__=C71
                 -D_DEBUG_=1
+                --opt_level=0
+                --symdebug:dwarf
             "
             linkerBuildOptions="
-                -lrm_pm_hal.am275x.wkup-r5f.ti-arm-clang.debug.lib
-                -lsciclient_direct.am275x.wkup-r5f.ti-arm-clang.debug.lib
-                -lself_reset.am275x.wkup-r5f.ti-arm-clang.debug.lib
-                -lfreertos.am275x.r5f.ti-arm-clang.debug.lib
-                -ldrivers.am275x.wkup-r5f.ti-arm-clang.debug.lib
-                -lboard.am275x.r5f.ti-arm-clang.debug.lib
-                -lsciserver.am275x.wkup-r5f.ti-arm-clang.debug.lib
-                -lunity.am275x.r5f.ti-arm-clang.debug.lib
+                -lfreertos.am275x.c75x.ti-c7000.debug.lib
+                -ldrivers.am275x.c75x.ti-c7000.debug.lib
+                -lboard.am275x.c75x.ti-c7000.debug.lib
+                -ludma.am275x.c75x.ti-c7000.debug.lib
+                -lunity.am275x.c75x.ti-c7000.debug.lib
                 -llibc.a
-                -llibsysbm.a
             "
         ></configuration>
         <configuration name="Release"
             compilerBuildOptions="
-                -Os
+                -Dxdc_target_name__=C71
+                --opt_level=3
+                --symdebug:none
             "
             linkerBuildOptions="
-                -lrm_pm_hal.am275x.wkup-r5f.ti-arm-clang.release.lib
-                -lsciclient_direct.am275x.wkup-r5f.ti-arm-clang.release.lib
-                -lself_reset.am275x.wkup-r5f.ti-arm-clang.release.lib
-                -lfreertos.am275x.r5f.ti-arm-clang.release.lib
-                -ldrivers.am275x.wkup-r5f.ti-arm-clang.release.lib
-                -lboard.am275x.r5f.ti-arm-clang.release.lib
-                -lsciserver.am275x.wkup-r5f.ti-arm-clang.release.lib
-                -lunity.am275x.r5f.ti-arm-clang.release.lib
+                -lfreertos.am275x.c75x.ti-c7000.release.lib
+                -ldrivers.am275x.c75x.ti-c7000.release.lib
+                -lboard.am275x.c75x.ti-c7000.release.lib
+                -ludma.am275x.c75x.ti-c7000.release.lib
+                -lunity.am275x.c75x.ti-c7000.release.lib
                 -llibc.a
-                -llibsysbm.a
             "
         ></configuration>
         <pathVariable name="MCU_PLUS_SDK_PATH" path="${COM_TI_MCU_PLUS_SDK_AMXXX_INSTALL_DIR}" scope="project" />

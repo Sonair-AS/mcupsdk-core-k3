@@ -39,6 +39,10 @@ static int32_t OspiDma_udmaOpen(void* ospiDmaArgs);
 static int32_t OspiDma_udmaClose(OSPI_DmaHandle handle, void* ospiDmaArgs);
 static int32_t OspiDma_udmaCopy(void* ospiDmaArgs, void* dst, void* src, uint32_t length);
 
+extern uint64_t Udma_virtToPhyFxn(const void *virtAddr,
+    Udma_DrvHandle drvHandle,
+    Udma_ChHandle chHandle); 
+
 OSPI_DmaFxns gOspiDmaUdmaFxns =
 {
     .dmaOpenFxn = OspiDma_udmaOpen,
@@ -197,7 +201,7 @@ static int32_t OspiDma_udmaUpdateSubmitTR(void* ospiDmaArgs, void* dst, void* sr
     uint32_t trpdMemSize = udmaArgs->trpdMemSize;
     uint64_t pDesc;
     uint32_t trRespStatus;
-    uint64_t trpdMemPhy = (uint64_t) Udma_defaultVirtToPhyFxn(trpdMem, 0U, NULL);
+    uint64_t trpdMemPhy = (uint64_t) Udma_virtToPhyFxn(trpdMem, udmaArgs->drvHandle, udmaArgs->chHandle);
 
     /* Update TRPD */
     CSL_UdmapTR15  *pTr;
@@ -221,8 +225,8 @@ static int32_t OspiDma_udmaUpdateSubmitTR(void* ospiDmaArgs, void* dst, void* sr
     pTr->ddim2    = (int32_t)pTr->dicnt0 * (int32_t)pTr->dicnt1;
     pTr->ddim3    = (int32_t)pTr->dicnt0 * (int32_t)pTr->dicnt1 * (int32_t)pTr->dicnt2;
 
-    pTr->addr     = (uint64_t) Udma_defaultVirtToPhyFxn(src, 0U, NULL);
-    pTr->daddr    = (uint64_t) Udma_defaultVirtToPhyFxn(dst, 0U, NULL);
+    pTr->addr     = (uint64_t) Udma_virtToPhyFxn(src, udmaArgs->drvHandle, udmaArgs->chHandle);
+    pTr->daddr    = (uint64_t) Udma_virtToPhyFxn(dst, udmaArgs->drvHandle, udmaArgs->chHandle);
 
     uint32_t length = pTr->icnt0 * pTr->icnt1 * pTr->icnt2 * pTr->icnt3;
 
