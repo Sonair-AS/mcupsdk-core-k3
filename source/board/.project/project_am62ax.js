@@ -16,13 +16,6 @@ const files_r5f={
         "led_ioexp.c",
         "ioexp_tca6424.c",
         "nor_spi_sfdp.c",
-        "phy_common_priv.c",
-        "dp83tc812.c",
-		"dp83tg720.c",
-		"dp83869.c",
-		"dp83867.c",
-		"dp83822.c",
-		"dp83826.c",
     ],
 };
 
@@ -45,13 +38,6 @@ const files_a53 = {
         "led_ioexp.c",
         "ioexp_tca6424.c",
         "nor_spi_sfdp.c",
-        "phy_common_priv.c",
-        "dp83tc812.c",
-		"dp83tg720.c",
-		"dp83869.c",
-		"dp83867.c",
-		"dp83822.c",
-		"dp83826.c",
     ],
 };
 const filedirs = {
@@ -63,8 +49,6 @@ const filedirs = {
         "null",
         "led",
         "eeprom",
-        "ethphy/enet/rtos_drivers/src",
-        "ethphy/enet/rtos_drivers/include",
     ],
 };
 
