@@ -36,14 +36,12 @@
             -I${MCU_PLUS_SDK_PATH}/source/kernel/freertos/config/am62dx/c75x
             -I${MCU_PLUS_SDK_PATH}/test/drivers/mcasp/
             -mv7504
-            --abi=eabi
             -q
             -mo
             -pden
             -pds=238
             -pds=880
             -pds1110
-            --endian=little
             --disable_inlining
             -ea.se71
             --emit_warnings_as_errors
@@ -61,13 +59,11 @@
             -i${MCU_PLUS_SDK_PATH}/source/drivers/udma/lib
             -i${CG_TOOL_ROOT}/lib
             -m=mcasp_start_stop.${ConfigName}.map
-            --silicon_version=7504
             -z
             --emit_warnings_as_errors
             --diag_suppress=10063
             --ram_model
             --warn_sections
-            -q
             -x
         "
 

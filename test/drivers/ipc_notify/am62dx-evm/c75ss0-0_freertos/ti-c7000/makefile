@@ -67,14 +67,12 @@ DEFINES_common := \
 
 CFLAGS_common := \
 	-mv7504 \
-	--abi=eabi \
 	-q \
 	-mo \
 	-pden \
 	-pds=238 \
 	-pds=880 \
 	-pds1110 \
-	--endian=little \
 	--disable_inlining \
 	-ea.se71 \
 	--emit_warnings_as_errors \
@@ -111,13 +109,11 @@ LIBS_common = \
 	-llibc.a \
 
 LFLAGS_common = \
-	--silicon_version=7504 \
 	-z \
 	--emit_warnings_as_errors \
 	--diag_suppress=10063 \
 	--ram_model \
 	--warn_sections \
-	-q \
 	-x \
 
 
