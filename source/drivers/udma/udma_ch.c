@@ -4314,3 +4314,87 @@ int32_t Udma_chReset(Udma_ChHandle chHandle)
 
     return retVal;
 }
+
+int32_t Udma_chGetChanEnStatus(Udma_ChHandle chHandle, uint8_t *chEnableStat)
+{
+    int32_t retVal = 0U;
+    Udma_DrvHandleInt   drvHandle;
+    Udma_ChHandleInt    chHandleInt = (Udma_ChHandleInt) chHandle;
+#if (UDMA_SOC_CFG_LCDMA_PRESENT == 1)
+    CSL_BcdmaRT pRT;
+    CSL_PktdmaRT pktdmaRtStatus;
+#endif
+
+    /* Error check */
+    if((NULL_PTR == chHandleInt) || (chHandleInt->chInitDone != UDMA_INIT_DONE))
+    {
+        retVal = UDMA_EBADARGS;
+    }
+    if(UDMA_SOK == retVal)
+    {
+        drvHandle = chHandleInt->drvHandle;
+        if((NULL_PTR == drvHandle) || (drvHandle->drvInitDone != UDMA_INIT_DONE))
+        {
+            retVal = UDMA_EFAIL;
+        }
+    }
+
+    if(retVal == UDMA_SOK)
+    {
+#if (UDMA_SOC_CFG_LCDMA_PRESENT == 1)
+        if(UDMA_INST_TYPE_LCDMA_BCDMA == drvHandle->instType)
+        {
+            if((chHandleInt->chType & UDMA_CH_FLAG_BLK_COPY) == UDMA_CH_FLAG_BLK_COPY)
+            {
+                retVal = CSL_bcdmaChanOp(&drvHandle->bcdmaRegs, CSL_BCDMA_CHAN_OP_GET_RT,
+                    CSL_BCDMA_CHAN_TYPE_BLOCK_COPY, chHandleInt->txChNum, (void *)&pRT);
+
+                *chEnableStat = (uint8_t)pRT.enable;
+            }
+            else if((chHandleInt->chType & UDMA_CH_FLAG_TX) == UDMA_CH_FLAG_TX)
+            {
+                retVal = CSL_bcdmaChanOp(&drvHandle->bcdmaRegs, CSL_BCDMA_CHAN_OP_GET_RT,
+                    CSL_BCDMA_CHAN_TYPE_SPLIT_TX, chHandleInt->txChNum, (void *)&pRT);
+
+                *chEnableStat = (uint8_t)pRT.enable;
+            }
+            else if((chHandleInt->chType & UDMA_CH_FLAG_RX) == UDMA_CH_FLAG_RX)
+            {
+                retVal = CSL_bcdmaChanOp(&drvHandle->bcdmaRegs, CSL_BCDMA_CHAN_OP_GET_RT,
+                    CSL_BCDMA_CHAN_TYPE_SPLIT_RX, chHandleInt->txChNum, (void *)&pRT);
+
+                *chEnableStat = (uint8_t)pRT.enable;
+            }
+            else
+            {
+                retVal = UDMA_EBADARGS;
+            }
+        }
+        else if(UDMA_INST_TYPE_LCDMA_PKTDMA == drvHandle->instType)
+        {
+            if((chHandleInt->chType & UDMA_CH_FLAG_TX) == UDMA_CH_FLAG_TX)
+            {
+                retVal = CSL_pktdmaGetTxRT(&drvHandle->pktdmaRegs, chHandleInt->txChNum, &pktdmaRtStatus);
+
+                *chEnableStat = (uint8_t)pktdmaRtStatus.enable;
+            }
+            else if((chHandleInt->chType & UDMA_CH_FLAG_RX) == UDMA_CH_FLAG_RX)
+            {
+                retVal = CSL_pktdmaGetRxRT(&drvHandle->pktdmaRegs, chHandleInt->rxChNum, &pktdmaRtStatus);
+
+                *chEnableStat = (uint8_t)pktdmaRtStatus.enable;
+            }
+            else
+            {
+                retVal = UDMA_EBADARGS;
+            }
+        }
+        else
+        {
+            retVal = UDMA_EBADARGS;
+        }
+#endif
+    }
+
+    return retVal;
+}

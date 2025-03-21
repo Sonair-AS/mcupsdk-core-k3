@@ -1156,6 +1156,18 @@ int32_t Udma_clearPeerData(Udma_ChHandle chHandle, uint32_t peerData);
  * \return \ref Udma_ErrorCodes
  */
 int32_t Udma_chReset(Udma_ChHandle chHandle);
+
+/**
+ * \brief Get the channel enable status
+ *
+ * \param chHandle     [IN] UDMA channel handle.
+ *                          This parameter can't be NULL.
+ * \param chEnableStat [INOUT] Pointer to channel enable status
+ *
+ * \return \ref Udma_ErrorCodes
+*/
+int32_t Udma_chGetChanEnStatus(Udma_ChHandle chHandle, uint8_t *chEnableStat);
+
 /* ========================================================================== */
 /*                       Static Function Definitions                          */
 /* ========================================================================== */
