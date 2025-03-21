@@ -153,6 +153,7 @@ static int32_t OspiDma_udmaClose(OSPI_DmaHandle handle, void* ospiDmaArgs)
 {
     int32_t status = SystemP_SUCCESS;
     int32_t udmaStatus = UDMA_SOK;
+    uint8_t chanEnStatus;
 
     OspiDma_UdmaArgs *udmaArgs = (OspiDma_UdmaArgs *)ospiDmaArgs;
 
@@ -170,9 +171,14 @@ static int32_t OspiDma_udmaClose(OSPI_DmaHandle handle, void* ospiDmaArgs)
         }
     }
 
-    /* Disable Channel */
-    udmaStatus = Udma_chDisable(chHandle, UDMA_DEFAULT_CH_DISABLE_TIMEOUT);
+    udmaStatus = Udma_chGetChanEnStatus(chHandle, &chanEnStatus);
     DebugP_assert(UDMA_SOK == udmaStatus);
+    if(chanEnStatus == 1U)
+    {
+        /* Disable Channel */
+        status = Udma_chDisable(chHandle, UDMA_DEFAULT_CH_DISABLE_TIMEOUT);
+        DebugP_assert(UDMA_SOK == udmaStatus);
+    }
 
     /* Close channel */
     udmaStatus = Udma_chClose(chHandle);

@@ -378,10 +378,16 @@ static int32_t UART_udmaDeInitCh(Udma_ChHandle chHandle,
                                   Udma_EventHandle eventHandle)
 {
     int32_t status = UDMA_SOK;
+    uint8_t chanEnStatus;
 
-    /* Disable Channel */
-    status = Udma_chDisable(chHandle, UDMA_DEFAULT_CH_DISABLE_TIMEOUT);
+    status = Udma_chGetChanEnStatus(chHandle, &chanEnStatus);
     DebugP_assert(UDMA_SOK == status);
+    if(chanEnStatus == 1U)
+    {
+        /* Disable Channel */
+        status = Udma_chDisable(chHandle, UDMA_DEFAULT_CH_DISABLE_TIMEOUT);
+        DebugP_assert(UDMA_SOK == status);
+    }
 
     /* UnRegister Event */
     status = Udma_eventUnRegister(eventHandle);
@@ -417,6 +423,7 @@ static int32_t UART_udmaDisableChannel(UART_Handle handle,
     UART_DmaConfig *dmaConfig;
     UartDma_UdmaArgs *udmaArgs;
     Udma_ChHandle chHandle;
+    uint8_t chanEnStatus;
 
     config = (UART_Config *) handle;
     dmaHandle = config->object->uartDmaHandle;
@@ -433,8 +440,14 @@ static int32_t UART_udmaDisableChannel(UART_Handle handle,
         chHandle = udmaArgs->rxChHandle;
     }
 
-    status = Udma_chDisable(chHandle, UDMA_DEFAULT_CH_DISABLE_TIMEOUT);
+    status = Udma_chGetChanEnStatus(chHandle, &chanEnStatus);
     DebugP_assert(UDMA_SOK == status);
+    if(chanEnStatus == 1U)
+    {
+        /* Disable Channel */
+        status = Udma_chDisable(chHandle, UDMA_DEFAULT_CH_DISABLE_TIMEOUT);
+        DebugP_assert(UDMA_SOK == status);
+    }
 
     /* Flush any pending request from the free queue */
     while(1)

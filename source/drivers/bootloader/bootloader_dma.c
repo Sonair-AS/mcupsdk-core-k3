@@ -301,15 +301,21 @@ int32_t Bootloader_dmaOpen(void* udmaDmaArgs)
 int32_t Bootloader_dmaClose(void* udmaDmaArgs)
 {
     int32_t status = SystemP_SUCCESS;
+    uint8_t chanEnStatus;
 
     BootloaderDma_UdmaArgs* udmaArgs = (BootloaderDma_UdmaArgs *)udmaDmaArgs;
     Udma_ChHandle chHandle = udmaArgs->chHandle;
 
     if(chHandle != NULL)
     {
-        /* Disable Channel */
-        status = Udma_chDisable(chHandle, UDMA_DEFAULT_CH_DISABLE_TIMEOUT);
+        status = Udma_chGetChanEnStatus(chHandle, &chanEnStatus);
         DebugP_assert(UDMA_SOK == status);
+        if(chanEnStatus == 1U)
+        {
+            /* Disable Channel */
+            status = Udma_chDisable(chHandle, UDMA_DEFAULT_CH_DISABLE_TIMEOUT);
+            DebugP_assert(UDMA_SOK == status);
+        }
 
         /* Flush any pending request from the free queue */
         while(1)

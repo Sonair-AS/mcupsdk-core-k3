@@ -561,13 +561,20 @@ void MCASP_closeDma(MCASP_Config *config, MCASP_DmaChConfig *dmaChCfg)
 {
     int32_t status = SystemP_SUCCESS;
     Udma_ChHandle txChHandle = NULL, rxChHandle = NULL;
+    uint8_t chanEnStatus;
 
     if((NULL != config) && (NULL != dmaChCfg))
     {
         txChHandle = dmaChCfg->txChHandle;
         rxChHandle = dmaChCfg->rxChHandle;
 
-        status = Udma_chDisable(txChHandle, UDMA_DEFAULT_CH_DISABLE_TIMEOUT);
+        status = Udma_chGetChanEnStatus(txChHandle, &chanEnStatus);
+        DebugP_assert(UDMA_SOK == status);
+        if(chanEnStatus == 1U)
+        {
+            /* Disable Channel */
+            status = Udma_chDisable(txChHandle, UDMA_DEFAULT_CH_DISABLE_TIMEOUT);
+        }
 
         while(TRUE)
         {
@@ -587,8 +594,14 @@ void MCASP_closeDma(MCASP_Config *config, MCASP_DmaChConfig *dmaChCfg)
         }
         DebugP_assert(SystemP_SUCCESS == status);
 
-        status = Udma_chDisable(rxChHandle, UDMA_DEFAULT_CH_DISABLE_TIMEOUT);
-        DebugP_assert(SystemP_SUCCESS == status);
+        status = Udma_chGetChanEnStatus(rxChHandle, &chanEnStatus);
+        DebugP_assert(UDMA_SOK == status);
+        if(chanEnStatus == 1U)
+        {
+            /* Disable Channel */
+            status = Udma_chDisable(rxChHandle, UDMA_DEFAULT_CH_DISABLE_TIMEOUT);
+            DebugP_assert(UDMA_SOK == status);
+        }
 
         while(TRUE)
         {
@@ -1009,13 +1022,20 @@ void MCASP_disableDmaRx(MCASP_Config *config)
     int32_t status = SystemP_SUCCESS;
     MCASP_Object *obj = NULL;
     Udma_ChHandle rxChHandle = NULL;
+    uint8_t chanEnStatus;
 
     if(NULL != config)
     {
         obj = config->object;
         rxChHandle = obj->dmaChCfg->rxChHandle;
 
-        status = Udma_chDisable(rxChHandle, UDMA_DEFAULT_CH_DISABLE_TIMEOUT);
+        status = Udma_chGetChanEnStatus(rxChHandle, &chanEnStatus);
+        DebugP_assert(UDMA_SOK == status);
+        if(chanEnStatus == 1U)
+        {
+            /* Disable Channel */
+            status = Udma_chDisable(rxChHandle, UDMA_DEFAULT_CH_DISABLE_TIMEOUT);
+        }
 
         while(TRUE)
         {

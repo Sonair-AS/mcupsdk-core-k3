@@ -381,10 +381,16 @@ static int32_t MCSPI_udmaDeInitCh(Udma_ChHandle chHandle,
                                   Udma_EventHandle eventHandle)
 {
     int32_t status = UDMA_SOK;
+    uint8_t chanEnStatus;
 
-    /* Disable Channel */
-    status = Udma_chDisable(chHandle, UDMA_DEFAULT_CH_DISABLE_TIMEOUT);
+    status = Udma_chGetChanEnStatus(chHandle, &chanEnStatus);
     DebugP_assert(UDMA_SOK == status);
+    if(chanEnStatus == 1U)
+    {
+        /* Disable Channel */
+        status = Udma_chDisable(chHandle, UDMA_DEFAULT_CH_DISABLE_TIMEOUT);
+        DebugP_assert(UDMA_SOK == status);
+    }
 
     /* UnRegister Event */
     status = Udma_eventUnRegister(eventHandle);
