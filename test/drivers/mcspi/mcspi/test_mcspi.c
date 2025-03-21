@@ -283,6 +283,8 @@ static void mcspi_low_latency_transfer_16bit(uint32_t baseAddr,
 #if (CONFIG_MCSPI_NUM_INSTANCES > 2)
 void test_mcspi_loopback_dma(void *args);
 void test_mcspi_loopback_multimaster_dma(void *args);
+
+void test_mcspi_dma_open_close(void *args);
 #endif
 
 #define TEST_APP_MCSPI_ASSERT_ON_FAILURE(transferOK, transaction) \
@@ -468,6 +470,11 @@ void test_main(void *args)
 #endif
     }
     DebugP_log("\nMCSPI Performance Numbers Print End\r\n");
+
+#if (CONFIG_MCSPI_NUM_INSTANCES > 2)
+    test_mcspi_set_params(&testParams, 6864);
+    RUN_TEST(test_mcspi_dma_open_close,  6864, (void*)&testParams);
+#endif
 
     UNITY_END();
 
@@ -2310,6 +2317,14 @@ static void test_mcspi_set_params(MCSPI_TestParams *testParams, uint32_t tcId)
             attrParams->operMode               = MCSPI_OPER_MODE_DMA;
             openParams->mcspiDmaIndex          = 0;
             break;
+        case 6864:
+            attrParams->baseAddr               = MCSPI3_BASE_ADDRESS;
+            testParams->dataSize               = 8;
+            attrParams->operMode               = MCSPI_OPER_MODE_DMA;
+            openParams->transferMode           = MCSPI_TRANSFER_MODE_CALLBACK;
+            openParams->transferCallbackFxn    = test_mcspi_callback;
+            openParams->mcspiDmaIndex          = 0;
+            break;
 #endif
     }
 
@@ -2325,4 +2340,20 @@ static void test_mcspi_set_params(MCSPI_TestParams *testParams, uint32_t tcId)
     }
 
     return;
+}
+
+void test_mcspi_dma_open_close(void *args)
+{
+    int32_t status = SystemP_SUCCESS;
+    MCSPI_Handle mcspiHandle;
+    MCSPI_TestParams   *testParams = (MCSPI_TestParams *)args;
+    MCSPI_OpenParams *mcspiOpenParams = &(testParams->mcspiOpenParams);
+
+    MCSPI_close(gMcspiHandle[CONFIG_MCSPI3]);
+
+    mcspiHandle = MCSPI_open(CONFIG_MCSPI3, mcspiOpenParams);
+    TEST_ASSERT_NOT_NULL(mcspiHandle);
+
+    MCSPI_close(gMcspiHandle[CONFIG_MCSPI3]);
+    TEST_ASSERT_EQUAL_INT32(SystemP_SUCCESS, status);
 }
