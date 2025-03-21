@@ -1,5 +1,5 @@
 /*
- *  Copyright (C) 2021-24 Texas Instruments Incorporated
+ *  Copyright (C) 2021-25 Texas Instruments Incorporated
  *
  *  Redistribution and use in source and binary forms, with or without
  *  modification, are permitted provided that the following conditions
@@ -174,6 +174,19 @@
 #define MCSPI4_INT_NUM                  (209U)
 #endif
 
+#elif defined(SOC_AM275X)
+
+#define MCSPI0_BASE_ADDRESS             (CSL_MCSPI0_CFG_BASE)
+#define MCSPI1_BASE_ADDRESS             (CSL_MCSPI1_CFG_BASE)
+#define MCSPI2_BASE_ADDRESS             (CSL_MCSPI4_CFG_BASE)
+#define MCSPI3_BASE_ADDRESS             (CSL_MCSPI2_CFG_BASE)
+#define MCSPI4_BASE_ADDRESS             (CSL_MCSPI3_CFG_BASE)
+
+#define MCSPI0_INT_NUM                  (204U)
+#define MCSPI1_INT_NUM                  (205U)
+#define MCSPI2_INT_NUM                  (208U)
+#define MCSPI3_INT_NUM                  (206U)
+#define MCSPI4_INT_NUM                  (207U)
 #else
 
 #define MCSPI0_BASE_ADDRESS             (CSL_MCSPI0_CFG_BASE)
@@ -298,7 +311,7 @@ void test_main(void *args)
     test_mcspi_set_params(&testParams, 336);
     RUN_TEST(test_mcspi_loopback, 336, (void*)&testParams);
 /* AM263X does not support MCU_SPI instance */
-#if !defined(SOC_AM263X) && !defined(SOC_AM62AX) && !defined(SOC_AM62X) && !defined(SOC_AM62DX)
+#if !defined(SOC_AM263X) && !defined(SOC_AM62AX) && !defined(SOC_AM62X) && !defined(SOC_AM62DX) && !defined(SOC_AM275X)
 /* AM243 LP we, have only 2 instances available */
 #if (CONFIG_MCSPI_NUM_INSTANCES > 2)
     test_mcspi_set_params(&testParams, 970);
@@ -1571,7 +1584,7 @@ void test_mcspi_loopback_simultaneous(void *args)
     attrParams->eventId            = MCSPI1_EVENT_ID;
 #endif
 #else /* LP Case */
-    #if defined(SOC_AM62AX) || defined(SOC_AM62X) || defined(SOC_AM62DX)
+    #if defined(SOC_AM62AX) || defined(SOC_AM62X) || defined(SOC_AM62DX) || defined(SOC_AM275X)
     attrParams->baseAddr           = MCSPI1_BASE_ADDRESS;
     attrParams->intrNum            = MCSPI1_INT_NUM;
 #if defined BUILD_C7X
@@ -2104,12 +2117,23 @@ static void test_mcspi_set_params(MCSPI_TestParams *testParams, uint32_t tcId)
 #if !defined(SOC_AM263X)
 #if (CONFIG_MCSPI_NUM_INSTANCES > 2)
         case 970:
+#if defined(SOC_AM275X)
+            attrParams->baseAddr           = CSL_MCSPI4_CFG_BASE;
+            attrParams->intrNum            = 208U;
+#else
             attrParams->baseAddr           = CSL_MCU_MCSPI0_CFG_BASE;
             attrParams->intrNum            = 208U;
+#endif
             break;
         case 971:
+#if defined(SOC_AM275X)
+            attrParams->baseAddr           = CSL_MCSPI3_CFG_BASE;
+            attrParams->intrNum            = 207U;
+#else
+
             attrParams->baseAddr           = CSL_MCU_MCSPI1_CFG_BASE;
             attrParams->intrNum            = 209U;
+#endif
             testParams->dataSize           = 8;
             break;
 #endif
@@ -2124,7 +2148,7 @@ static void test_mcspi_set_params(MCSPI_TestParams *testParams, uint32_t tcId)
             #endif
             break;
         case 973:
-            #if defined(SOC_AM62AX) ||  defined(SOC_AM62X) || defined(SOC_AM62DX)
+            #if defined(SOC_AM62AX) ||  defined(SOC_AM62X) || defined(SOC_AM62DX) || defined(SOC_AM275X)
             attrParams->baseAddr           = MCSPI0_BASE_ADDRESS;
             attrParams->intrNum            = MCSPI0_INT_NUM;
 #if defined BUILD_C7X

@@ -58,7 +58,7 @@ const mcspi_config_r5fss = [
         baseAddr        : "CSL_MCSPI2_CFG_BASE",
         inputClkFreq    : mcspi_input_clk_freq,
         intrNum         : 206,
-        clockIds        : [ "TISCI_DEV_MCSPI0" ],
+        clockIds        : [ "TISCI_DEV_MCSPI2" ],
         udmaPdmaChannels: [
             {
                 txCh    : "UDMA_PDMA_CH_MAIN0_MCSPI2_CH0_TX",
