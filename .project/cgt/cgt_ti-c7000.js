@@ -91,14 +91,12 @@ const cgt_common_am275x_j722s = {
     cflags: {
         common: [
             "-mv7524",
-            "--abi=eabi",
             "-q",
             "-mo",
             "-pden",
             "-pds=238",
             "-pds=880",
             "-pds1110",
-            "--endian=little",
             "--disable_inlining",
             "-ea.se71",
             "--emit_warnings_as_errors",
@@ -129,13 +127,11 @@ const cgt_common_am275x_j722s = {
     },
     lflags: {
         common: [
-            "--silicon_version=7524",
             "-z",
             "--emit_warnings_as_errors",
             "--diag_suppress=10063",
             "--ram_model",
             "--warn_sections",
-            "-q",
             "-x",
         ],
     },
