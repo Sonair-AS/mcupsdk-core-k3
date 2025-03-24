@@ -210,8 +210,6 @@ int main()
     Bootloader_ReservedMemInit(BOOTLOADER_SECOND_STAGE_RESERVED_MEMORY_START, \
                                BOOTLOADER_SECOND_STAGE_RESERVED_MEMORY_LENGTH);
 
-    loop_forever();
-
     if(SystemP_SUCCESS == status)
     {
         Bootloader_LoadImageParams bootArray[CONFIG_BOOTLOADER_NUM_INSTANCES];
