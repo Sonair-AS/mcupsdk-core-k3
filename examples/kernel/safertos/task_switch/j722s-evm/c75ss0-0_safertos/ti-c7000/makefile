@@ -74,14 +74,12 @@ CFLAGS_common := \
 	-DBUILD_C75X_1 \
 	--advice:performance=none \
 	-mv7524 \
-	--abi=eabi \
 	-q \
 	-mo \
 	-pden \
 	-pds=238 \
 	-pds=880 \
 	-pds1110 \
-	--endian=little \
 	--disable_inlining \
 	-ea.se71 \
 	--emit_warnings_as_errors \
@@ -117,13 +115,11 @@ LIBS_common = \
 	-llibc.a \
 
 LFLAGS_common = \
-	--silicon_version=7524 \
 	-z \
 	--emit_warnings_as_errors \
 	--diag_suppress=10063 \
 	--ram_model \
 	--warn_sections \
-	-q \
 	-x \
 
 
