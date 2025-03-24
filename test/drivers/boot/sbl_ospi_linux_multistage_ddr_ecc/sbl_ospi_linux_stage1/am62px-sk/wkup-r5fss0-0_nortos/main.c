@@ -154,6 +154,8 @@ int main()
 
     if(SystemP_SUCCESS == status)
     {
+        Bootloader_openDma();
+
         Bootloader_BootImageInfo bootImageInfoDM;
 		Bootloader_Params bootParamsDM;
         Bootloader_Handle bootHandleDM;
@@ -191,6 +193,8 @@ int main()
 			DebugP_log("Starting 2nd stage bootloader\r\n");
 			UART_flushTxFifo(gUartHandle[CONFIG_UART_SBL]);
 		}
+
+        Bootloader_closeDma();
 
     }
 
