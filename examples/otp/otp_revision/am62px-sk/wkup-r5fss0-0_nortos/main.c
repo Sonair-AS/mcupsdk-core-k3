@@ -124,6 +124,13 @@ int main()
         }
         else
         {
+            /*
+             * Note: Add the delay needed for Vpp signal to ramp up
+             * fully before starting otp writing operation.
+             *
+             * The ramp up time of Vpp will depend on the board design.
+             */
+
             /* Update software revision for boardcfg*/
             status = otp_revsion_writeSwrev(OTP_REV_ID_SEC_BRDCFG, swrev + 1);
         }

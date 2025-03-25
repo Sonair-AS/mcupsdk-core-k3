@@ -122,6 +122,13 @@ int main()
             /* Enable VPP first */
             runtime_keyrev_setVpp(EFUSE_VPP_PIN, EFUSE_VPP_PIN_LED);
 
+            /*
+             * Note: Add the delay needed for Vpp signal to ramp up
+             * fully before starting otp writing operation.
+             *
+             * The ramp up time of Vpp will depend on the board design.
+             */
+
             /*Update Key revision*/
             status = runtime_keyrev_writeKeyrev();
 
