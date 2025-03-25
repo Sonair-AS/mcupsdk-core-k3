@@ -178,10 +178,10 @@ void App_bootMultipleCoreFlash()
             else
             {
                 DebugP_logWarn("App_loadImages failed for core %s !!!\r\n", \
-                    Bootloader_socGetCoreName(bootArray[inst].bootImageInfo.cpuInfo[inst].cpuId));
+                    Bootloader_socGetCoreName(bootArray[inst].bootImageInfo.cpuInfo[inst + 1].cpuId));
 
                 DebugP_logWarn("App_loadImages failed at address %x !!!\r\n", \
-                    bootArray[inst].bootImageInfo.cpuInfo[inst].entryPoint);
+                    bootArray[inst].bootImageInfo.cpuInfo[inst + 1].entryPoint);
             }
         }
 
@@ -211,6 +211,10 @@ void App_bootMultipleCoreFlash()
                 {
                     DebugP_logError("App_runCpus failed !!!\r\n");
                 }
+            }
+            else
+            {
+                Bootloader_powerOffCpu(bootArray[inst].bootHandle, &bootArray[inst].bootImageInfo.cpuInfo[inst + 1]);
             }
         }
 

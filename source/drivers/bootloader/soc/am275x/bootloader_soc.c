@@ -1293,6 +1293,7 @@ void Bootloader_socCpuPowerOff(uint32_t cpuId)
         case CSL_CORE_ID_R5FSS1_1:
         case CSL_CORE_ID_HSM_M4FSS0_0:
         case CSL_CORE_ID_C75SS0_0:
+        case CSL_CORE_ID_C75SS1_0:
             status = Sciclient_pmSetModuleState(sciclientCpuDevId,
                 TISCI_MSG_VALUE_DEVICE_SW_STATE_AUTO_OFF,
                 TISCI_MSG_FLAG_AOP,

@@ -193,11 +193,17 @@ void App_bootMultipleCoreEmmc()
         {
             for(uint8_t inst = 0U; inst < CONFIG_BOOTLOADER_NUM_INSTANCES; inst++)
             {
-		        status = App_runCpus(&bootArray[inst]);
-                if(SystemP_SUCCESS != status)
+                if(bootArray[inst].loadStatus == BOOTLOADER_IMAGE_LOADED)
                 {
-                    DebugP_logError("App_runCpus failed !!!\r\n");
-                    break;
+                    status = App_runCpus(&bootArray[inst]);
+                    if(SystemP_SUCCESS != status)
+                    {
+                        DebugP_logError("App_runCpus failed !!!\r\n");
+                    }
+                }
+                else
+                {
+                    Bootloader_powerOffCpu(bootArray[inst].bootHandle, &bootArray[inst].bootImageInfo.cpuInfo[inst + 1]);
                 }
             }
         }
