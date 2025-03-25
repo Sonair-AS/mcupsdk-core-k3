@@ -44,9 +44,9 @@ The figure below shows some important cable connections, ports and switches.
     \imageStyle{ccs_uart_identify.png,width:50%}
     \image html ccs_uart_identify.png "Identify UART Port in Windows Device Manager"
 
-- In CCS, goto "View > Terminal"
+- In CCS, goto "View > Console > Serial Console"
 
-    \imageStyle{ccs_uart_00.png,width:20%}
+    \imageStyle{ccs_uart_00.png,width:40%}
     \image html ccs_uart_00.png "UART Terminal Menu"
 
 - Open a new UART terminal

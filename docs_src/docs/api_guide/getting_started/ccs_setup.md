@@ -32,8 +32,8 @@
 \cond !SOC_AM263X
 - Install CCS @VAR_CCS_VERSION by double clicking the installer file from the downloaded and un-zipped CCS package file.
 
-    \imageStyle{installer_file.png,width:20%}
-    \image html installer_file.png "CCS Installer File"
+    \imageStyle{installer_file_20p1.png,width:20%}
+    \image html installer_file_20p1.png "CCS Installer File"
 \endcond
 \cond SOC_AM263X
 - Install CCS @VAR_CCS_VERSION_AM263X by double clicking the installer file from the downloaded and un-zipped CCS package file.
@@ -45,8 +45,8 @@
 \cond !SOC_AM263X
 - Follow the steps and at below screen, recommend to keep install directory as default.
 
-    \imageStyle{install_directory.png,width:40%}
-    \image html install_directory.png "CCS Install Path"
+    \imageStyle{install_directory_20p1.png,width:40%}
+    \image html install_directory_20p1.png "CCS Install Path"
 \endcond
 
 \cond SOC_AM263X
@@ -55,11 +55,12 @@
     \imageStyle{install_directory_11p2.png,width:50%}
     \image html install_directory_11p2.png "CCS Install Path"
 \endcond
-
+\cond !SOC_AM62X && !SOC_AM62AX && !SOC_AM62PX && !SOC_AM62DX && !SOC_AM275X
 - Follow the steps and at below screen, recommend to keep setup type as "custom"
 
     \imageStyle{setup_type.png,width:50%}
     \image html setup_type.png "CCS Setup Type"
+\endcond
 \cond SOC_AM243X || SOC_AM64X || SOC_AM263X || SOC_AM273X
 - Follow the steps and at below screen, select the component as "Sitara AM2x MCUs" to install @VAR_SOC_NAME related emulation and GELs
 
@@ -73,10 +74,10 @@
     \image html select_components_sitara_mmwave.png "CCS Select Components"
 \endcond
 \cond SOC_AM62X || SOC_AM62AX || SOC_AM62PX || SOC_AM62DX
-- Follow the steps and at below screen, select the component as "Sitara AM3x, AM4x, AM5x and AM6x MPUs" to install @VAR_SOC_NAME related emulation and GELs
+- Follow the steps and at below screen, select the component as "ARM-based Processors" to install @VAR_SOC_NAME related emulation and GELs
 
-    \imageStyle{select_components_sitara_am6x.png,width:50%}
-    \image html select_components_sitara_am6x.png "CCS Select Components"
+    \imageStyle{select_components_sitara_am6x_20p.png,width:50%}
+    \image html select_components_sitara_am6x_20p.png "CCS Select Components"
 \endcond
 - Follow the steps, until CCS is installed.
 
@@ -84,26 +85,29 @@
 
 - If using Windows, add C:/ti/ccs@VAR_CCS_FOLDER_VERSION/ccs/utils/bin to PATH environment variable. Without this gmake commands will not work.
 
-- Launch CCS and select the workspace.
+- Launch CCS
+
+\cond !SOC_AM62X && !SOC_AM62AX && !SOC_AM62PX && !SOC_AM62DX && !SOC_AM275X
+- Select the workspace.
 
     \imageStyle{first_launch.png,width:50%}
     \image html first_launch.png "CCS Select Workspace"
-
+\endcond
 ## Check Packages as seen by CCS {#CCS_PACKAGE_CHECK}
 
 - Launch CCS
 
-- Goto "Window > Preferences"
+- Goto "File > Preferences > Code Composer Studio Settings"
 
-    \imageStyle{ccs_setup_00.png,width:20%}
-    \image html ccs_setup_00.png "CCS Preferences"
+    \imageStyle{ccs_setup_00_20p1.png,width:20%}
+    \image html ccs_setup_00_20p1.png "CCS Preferences"
 
 \cond !SOC_AM263X
-- Goto "Code Composer Studio > Products", make sure you see SysConfig @VAR_SYSCFG_VERSION listed here.
+- Goto  "General > Products", make sure you see SysConfig @VAR_SYSCFG_VERSION listed here.
   - Sometimes, you need to click "Restore Defaults" and then "Refresh"
 
-    \imageStyle{ccs_setup_01.png,width:50%}
-    \image html ccs_setup_01.png "CCS Products"
+    \imageStyle{ccs_setup_01_20p1.png,width:50%}
+    \image html ccs_setup_01_20p1.png "CCS Products"
 \endcond
 \cond SOC_AM263X
 - Goto "Code Composer Studio > Products", make sure you see SysConfig @VAR_SYSCFG_VERSION_AM263X listed here.
@@ -114,11 +118,11 @@
 \endcond
 
 \cond !SOC_AM263X
-- Goto "Code Composer Studio > Build > Compilers", make sure you see TI CLANG @VAR_TI_ARM_CLANG_VERSION listed here
+- Goto "General > Compilers", make sure you see TI CLANG @VAR_TI_ARM_CLANG_VERSION listed here
   - Sometimes, you need to click "Restore Defaults" and then "Refresh"
 
-    \imageStyle{ccs_setup_02.png,width:50%}
-    \image html ccs_setup_02.png "CCS Compilers"
+    \imageStyle{ccs_setup_02_20p1.png,width:50%}
+    \image html ccs_setup_02_20p1.png "CCS Compilers"
 \endcond
 \cond SOC_AM263X
 - Goto "Code Composer Studio > Build > Compilers", make sure you see TI CLANG @VAR_TI_ARM_CLANG_VERSION listed here
@@ -302,32 +306,25 @@
 \cond SOC_AM62X
 ## Create Target Configuration {#CCS_NEW_TARGET_CONFIG}
 
-- Goto "View > Target Configuration"
+- Create a new target configuration from the debug menu.
 
-    \imageStyle{new_target_config_00.png,width:20%}
-    \image html new_target_config_00.png "Target Configuration Menu"
-
-- If "Target Configuration" is not available under view, goto "View → Other" and then search and double click Target Configuration.
-
-- Create a new target configuration
-
-    \imageStyle{new_target_config_01.png,width:25%}
-    \image html new_target_config_01.png "New Target Configuration"
+    \imageStyle{new_target_config_01_20p1.png,width:25%}
+    \image html new_target_config_01_20p1.png "New Target Configuration"
 
 - Give a nice name to the new target configuration, typically {soc name}_{JTAG type}
 
-    \imageStyle{target_config_name.png,width:50%}
+    \imageStyle{target_config_name.png,width:40%}
     \image html target_config_name.png "Target Configuration Name"
 
 - Select connection as XDS110 USB Debug Probe
 
-    \imageStyle{target_config_xds.png,width:50%}
-    \image html target_config_xds.png "Select JTAG Connection"
+    \imageStyle{target_config_xds_20p1.png,width:40%}
+    \image html target_config_xds_20p1.png "Select JTAG Connection"
 
-- In "Board or Device" type "@VAR_SOC_NAME" and select "AM62x_SK_EVM"
+- In "Board or Device" type "@VAR_SOC_NAME" and select "@VAR_SOC_NAME _SK_EVM"
 
-    \imageStyle{ccs_target_config_00.png,width:50%}
-    \image html ccs_target_config_00.png "Select @VAR_SOC_NAME EVM"
+    \imageStyle{ccs_target_config_01.png,width:50%}
+    \image html ccs_target_config_01.png "Select @VAR_SOC_NAME EVM"
 
 - Click "Save" to save the newly created target configuration.
 
@@ -353,15 +350,17 @@
 \cond SOC_AM62AX || SOC_AM62PX || SOC_AM62DX || SOC_AM275X
 ## Create Target Configuration {#CCS_NEW_TARGET_CONFIG}
 
-- Goto "View > Target Configuration"
+- Goto "View > Debug"
+
+- Create a new target configuration from the debug menu.
 
     \imageStyle{new_target_config_00.png,width:20%}
     \image html new_target_config_00.png "Target Configuration Menu"
 
 - Create a new target configuration
 
-    \imageStyle{new_target_config_01.png,width:25%}
-    \image html new_target_config_01.png "New Target Configuration"
+    \imageStyle{new_target_config_01_20p1.png,width:25%}
+    \image html new_target_config_01_20p1.png "New Target Configuration"
 
 - Give a nice name to the new target configuration, typically {soc name}_{JTAG type}
 
@@ -370,8 +369,8 @@
 
 - Select connection as XDS110 USB Debug Probe
 
-    \imageStyle{target_config_xds.png,width:40%}
-    \image html target_config_xds.png "Select JTAG Connection"
+    \imageStyle{target_config_xds_20p1.png,width:40%}
+    \image html target_config_xds_20p1.png "Select JTAG Connection"
 
 - In "Board or Device" type "@VAR_SOC_NAME" and select "@VAR_SOC_NAME _SK_EVM"
 

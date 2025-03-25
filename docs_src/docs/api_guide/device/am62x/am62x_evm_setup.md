@@ -46,14 +46,14 @@
     \imageStyle{minicom_uart_identify.png,width:30%}
     \image html minicom_uart_identify.png "Identify UART Port in Linux "
 
-- In CCS, goto "View > Terminal"
+- In CCS, goto "View > Console > Serial Console"
 
-    \imageStyle{ccs_uart_00.png,width:20%}
+    \imageStyle{ccs_uart_00.png,width:40%}
     \image html ccs_uart_00.png "UART Terminal Menu"
 
 - Open a new UART terminal
 
-    \imageStyle{ccs_uart_01.png,width:50%}
+    \imageStyle{ccs_uart_01.png,width:70%}
     \image html ccs_uart_01.png "Open New UART Terminal"
 
 - In Windows,
