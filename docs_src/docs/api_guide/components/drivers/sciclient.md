@@ -165,6 +165,60 @@ Here is a snippet explaining this with an example of configuring a GPIO interrup
 \endcond
 \snippet Sciclient_sample.c sciclient_rm_irq_gpio
 
+### Configuring the Flag Field in TISCI Messages
+
+To receive a response message, `TISCI_MSG_FLAG_AOP` is used in the flag field of the outgoing message. But, if a response is not needed, then the flag field can be set to 0 instead. That being said, setting the flag field to 0 means no response will be returned, even if the message fails.
+
+When sending TISCI messages, it is recommended to avoid directly writing to the generic header in the payload (request.hdr.flags). Instead, we use the `Sciclient_service` API and pass the field value to the Sciclient request parameter (reqParam.flags).
+
+To utilize the `Sciclient_service` API, the following components must be defined:
+
+- TISCI Request - Define an empty TISCI request structure for the TISCI message type and specify the various required fields in it. We can leave the fields of `tisci_header` structure as empty.
+- TISCI Response - Define an empty TISCI response structure for the TISCI message type.
+- Request Parameters - Define the structure of the Sciclient request message, and specify the following fields in it -
+  - Message Type - Specify the type of message being transmitted.
+  - Flags - Determine the custom flag options, selecting either `TISCI_MSG_FLAG_AOP` for messages requiring a response or `0` for messages that do not require a response.
+  - Request Payload - Pass the TISCI Request structure.
+  - Request Payload Size - Pass the size of the TISCI Request structure.
+  - Timeout - Specify the timeout value for the message.
+- Response Parameters - Define the expected structure of the Sciclient response message, and specify the following fields in it -
+  - Response Payload - Pass the TISCI Response structure.
+  - Response Payload Size - Pass the size of the TISCI Response structure.
+
+The `Sciclient_service` call will then copy the message type and the flag value specified in the Sciclient request structure (reqParam.flags) into the TISCI Generic Messaging Header (request.hdr.flags) of the TISCI Request message. This enables users to send messages with AOP or empty flag settings without directly manipulating the TISCI Generic Header.
+
+To learn more about the TISCI Generic Messaging Header, refer to the \htmllink{https://software-dl.ti.com/tisci/esd/latest/2_tisci_msgs/general/TISCI_header.html#tisci-generic-messaging-header, TISCI Generic Messaging Header} documentation. And for more information on supported message types and required parameters, refer to the \ref DRV_SCICLIENT_MODULE documentation.
+
+Example -
+\code
+    int32_t retVal = SystemP_SUCCESS;
+    struct tisci_msg_get_device_req request = {0};
+    struct tisci_msg_get_device_resp response = {0};
+    Sciclient_ReqPrm_t reqParam = {0};
+
+    Sciclient_RespPrm_t respParam = {0};
+
+    request.id = (uint32_t) TISCI_DEV_A53SS0;
+
+    reqParam.messageType    = (uint16_t) TISCI_MSG_GET_DEVICE;
+    reqParam.flags          = (uint32_t) 0;    /* We can set this value to either 0 or `TISCI_MSG_FLAG_AOP` */
+    reqParam.pReqPayload    = (const uint8_t *) &request;
+    reqParam.reqPayloadSize = (uint32_t) sizeof (request);
+    reqParam.timeout        = (uint32_t) timeout;
+
+    respParam.flags           = (uint32_t) 0;    /* Populated by the API when `TISCI_MSG_FLAG_AOP` flag is set in the request */
+    respParam.pRespPayload    = (uint8_t *) &response;
+    respParam.respPayloadSize = (uint32_t) sizeof (response);
+
+    retVal = Sciclient_service(&reqParam, &respParam);
+    if(retVal != SystemP_SUCCESS)
+    {
+        retVal = SystemP_FAILURE;
+    }
+\endcode
+
+\note Setting the flags value to 0 in the request parameter structure using the `Sciclient_service` API may cause the message to fail.
+
 ## API
 
 \ref DRV_SCICLIENT_MODULE
