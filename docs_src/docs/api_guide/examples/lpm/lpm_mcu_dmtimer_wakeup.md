@@ -111,7 +111,7 @@ through SBL.
 - Set the wake up resume latency as 100ms for CPU0 on the linux kernel by running the following command. When the resume latency value is less, suspending the kernel will go to `MCU only sleep mode`.
 
 \code
-$ echo 100 > /sys/devices/system/cpu/cpu0/power/pm_qos_resume_latency_us
+$ echo 100000 > /sys/devices/system/cpu/cpu0/power/pm_qos_resume_latency_us
 \endcode
 
 - Go to MCU only low power mode by running the following command on the linux.
