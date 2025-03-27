@@ -4346,24 +4346,45 @@ int32_t Udma_chGetChanEnStatus(Udma_ChHandle chHandle, uint8_t *chEnableStat)
         {
             if((chHandleInt->chType & UDMA_CH_FLAG_BLK_COPY) == UDMA_CH_FLAG_BLK_COPY)
             {
-                retVal = CSL_bcdmaChanOp(&drvHandle->bcdmaRegs, CSL_BCDMA_CHAN_OP_GET_RT,
+                if(chHandleInt->txChNum == UDMA_DMA_CH_INVALID)
+                {
+                    retVal = UDMA_DMA_CH_INVALID;
+                }
+                else
+                {
+                    retVal = CSL_bcdmaChanOp(&drvHandle->bcdmaRegs, CSL_BCDMA_CHAN_OP_GET_RT,
                     CSL_BCDMA_CHAN_TYPE_BLOCK_COPY, chHandleInt->txChNum, (void *)&pRT);
 
-                *chEnableStat = (uint8_t)pRT.enable;
+                    *chEnableStat = (uint8_t)pRT.enable;
+                }
             }
             else if((chHandleInt->chType & UDMA_CH_FLAG_TX) == UDMA_CH_FLAG_TX)
             {
-                retVal = CSL_bcdmaChanOp(&drvHandle->bcdmaRegs, CSL_BCDMA_CHAN_OP_GET_RT,
+                if(chHandleInt->txChNum == UDMA_DMA_CH_INVALID)
+                {
+                    retVal = UDMA_DMA_CH_INVALID;
+                }
+                else
+                {
+                    retVal = CSL_bcdmaChanOp(&drvHandle->bcdmaRegs, CSL_BCDMA_CHAN_OP_GET_RT,
                     CSL_BCDMA_CHAN_TYPE_SPLIT_TX, chHandleInt->txChNum, (void *)&pRT);
 
-                *chEnableStat = (uint8_t)pRT.enable;
+                    *chEnableStat = (uint8_t)pRT.enable;
+                }
             }
             else if((chHandleInt->chType & UDMA_CH_FLAG_RX) == UDMA_CH_FLAG_RX)
             {
-                retVal = CSL_bcdmaChanOp(&drvHandle->bcdmaRegs, CSL_BCDMA_CHAN_OP_GET_RT,
-                    CSL_BCDMA_CHAN_TYPE_SPLIT_RX, chHandleInt->txChNum, (void *)&pRT);
+                if(chHandleInt->rxChNum == UDMA_DMA_CH_INVALID)
+                {
+                    retVal = UDMA_DMA_CH_INVALID;
+                }
+                else
+                {
+                    retVal = CSL_bcdmaChanOp(&drvHandle->bcdmaRegs, CSL_BCDMA_CHAN_OP_GET_RT,
+                    CSL_BCDMA_CHAN_TYPE_SPLIT_RX, chHandleInt->rxChNum, (void *)&pRT);
 
-                *chEnableStat = (uint8_t)pRT.enable;
+                    *chEnableStat = (uint8_t)pRT.enable;
+                }
             }
             else
             {
@@ -4374,15 +4395,29 @@ int32_t Udma_chGetChanEnStatus(Udma_ChHandle chHandle, uint8_t *chEnableStat)
         {
             if((chHandleInt->chType & UDMA_CH_FLAG_TX) == UDMA_CH_FLAG_TX)
             {
-                retVal = CSL_pktdmaGetTxRT(&drvHandle->pktdmaRegs, chHandleInt->txChNum, &pktdmaRtStatus);
+                if(chHandleInt->txChNum == UDMA_DMA_CH_INVALID)
+                {
+                    retVal = UDMA_DMA_CH_INVALID;
+                }
+                else
+                {
+                    retVal = CSL_pktdmaGetTxRT(&drvHandle->pktdmaRegs, chHandleInt->txChNum, &pktdmaRtStatus);
 
-                *chEnableStat = (uint8_t)pktdmaRtStatus.enable;
+                    *chEnableStat = (uint8_t)pktdmaRtStatus.enable;
+                }
             }
             else if((chHandleInt->chType & UDMA_CH_FLAG_RX) == UDMA_CH_FLAG_RX)
             {
-                retVal = CSL_pktdmaGetRxRT(&drvHandle->pktdmaRegs, chHandleInt->rxChNum, &pktdmaRtStatus);
+                if(chHandleInt->rxChNum == UDMA_DMA_CH_INVALID)
+                {
+                    retVal = UDMA_DMA_CH_INVALID;
+                }
+                else
+                {
+                    retVal = CSL_pktdmaGetRxRT(&drvHandle->pktdmaRegs, chHandleInt->rxChNum, &pktdmaRtStatus);
 
-                *chEnableStat = (uint8_t)pktdmaRtStatus.enable;
+                    *chEnableStat = (uint8_t)pktdmaRtStatus.enable;
+                }
             }
             else
             {
