@@ -127,11 +127,18 @@ int32_t App_loadA53Images(Bootloader_Handle bootHandle, Bootloader_BootImageInfo
     {
 		status = Bootloader_parseMultiCoreAppImage(bootHandle, bootImageInfo);
 
-		if(status == SystemP_SUCCESS)
+		if((status == SystemP_SUCCESS) && (TRUE == Bootloader_isCorePresent(bootHandle, CSL_CORE_ID_A53SS0_0)))
 		{
 			bootImageInfo->cpuInfo[CSL_CORE_ID_A53SS0_0].clkHz = Bootloader_socCpuGetClkDefault(CSL_CORE_ID_A53SS0_0);
 			Bootloader_profileAddCore(CSL_CORE_ID_A53SS0_0);
             status = Bootloader_loadCpu(bootHandle, &(bootImageInfo->cpuInfo[CSL_CORE_ID_A53SS0_0]));
+		}
+
+        if((status == SystemP_SUCCESS) && (TRUE == Bootloader_isCorePresent(bootHandle, CSL_CORE_ID_A53SS0_1)))
+		{
+			bootImageInfo->cpuInfo[CSL_CORE_ID_A53SS0_1].clkHz = Bootloader_socCpuGetClkDefault(CSL_CORE_ID_A53SS0_1);
+			Bootloader_profileAddCore(CSL_CORE_ID_A53SS0_1);
+            status = Bootloader_loadCpu(bootHandle, &(bootImageInfo->cpuInfo[CSL_CORE_ID_A53SS0_1]));
 		}
 	}
 
@@ -147,14 +154,11 @@ int32_t App_runCpus(Bootloader_Handle bootHandle, Bootloader_BootImageInfo *boot
 	return status;
 }
 
-int32_t App_runA53Cpu(Bootloader_Handle bootHandle, Bootloader_BootImageInfo *bootImageInfo)
+int32_t App_runA53Cpu(Bootloader_Handle bootHandle, Bootloader_BootImageInfo *bootImageInfo, uint32_t coreId)
 {
 	int32_t status = SystemP_FAILURE;
 
-    /* Unlock all the control MMRs.U-boot expects all the MMRs to be unlocked */
-    SOC_unlockAllMMR();
-
-	status = Bootloader_runCpu(bootHandle, &(bootImageInfo->cpuInfo[CSL_CORE_ID_A53SS0_0]));
+	status = Bootloader_runCpu(bootHandle, &(bootImageInfo->cpuInfo[coreId]));
 
 	return status;
 }
@@ -193,21 +197,28 @@ int main()
 		Bootloader_Params bootParamsDM;
         Bootloader_Handle bootHandleDM;
 
-		Bootloader_BootImageInfo bootImageInfoA53;
-		Bootloader_Params bootParamsA53;
-        Bootloader_Handle bootHandleA53;
+		Bootloader_BootImageInfo bootImageInfoA530_0;
+		Bootloader_Params bootParamsA530_0;
+        Bootloader_Handle bootHandleA530_0;
+
+        Bootloader_BootImageInfo bootImageInfoA530_1;
+		Bootloader_Params bootParamsA530_1;
+        Bootloader_Handle bootHandleA530_1;
 
         Bootloader_Params_init(&bootParams);
         Bootloader_Params_init(&bootParamsDM);
-		Bootloader_Params_init(&bootParamsA53);
+		Bootloader_Params_init(&bootParamsA530_0);
+        Bootloader_Params_init(&bootParamsA530_1);
 
 		Bootloader_BootImageInfo_init(&bootImageInfo);
         Bootloader_BootImageInfo_init(&bootImageInfoDM);
-		Bootloader_BootImageInfo_init(&bootImageInfoA53);
+		Bootloader_BootImageInfo_init(&bootImageInfoA530_0);
+        Bootloader_BootImageInfo_init(&bootImageInfoA530_1);
 
         bootHandle = Bootloader_open(CONFIG_BOOTLOADER_FLASH_HSM, &bootParams);
         bootHandleDM = Bootloader_open(CONFIG_BOOTLOADER_FLASH_DM, &bootParamsDM);
-		bootHandleA53 = Bootloader_open(CONFIG_BOOTLOADER_FLASH_A53, &bootParamsA53);
+		bootHandleA530_0 = Bootloader_open(CONFIG_BOOTLOADER_FLASH_A530_0, &bootParamsA530_0);
+        bootHandleA530_1 = Bootloader_open(CONFIG_BOOTLOADER_FLASH_A530_1, &bootParamsA530_1);
 
         Bootloader_ReservedMemInit(BOOTLOADER_SECOND_STAGE_RESERVED_MEMORY_START, \
                                     BOOTLOADER_SECOND_STAGE_RESERVED_MEMORY_LENGTH);
@@ -231,17 +242,28 @@ int main()
 
 		if(SystemP_SUCCESS == status)
 		{
-			if(bootHandleA53 != NULL)
+			if(bootHandleA530_0 != NULL)
 			{
-                ((Bootloader_Config *)bootHandleA53)->scratchMemPtr = gAppimage;
-				status = App_loadA53Images(bootHandleA53, &bootImageInfoA53);
-                Bootloader_profileAddProfilePoint("App_loadA53Images");
+                ((Bootloader_Config *)bootHandleA530_0)->scratchMemPtr = gAppimage;
+				status = App_loadA53Images(bootHandleA530_0, &bootImageInfoA530_0);
+                Bootloader_profileAddProfilePoint("App_loadA530_0_Images");
+			}
+        }
+
+        if(SystemP_SUCCESS == status)
+		{
+			if(bootHandleA530_1 != NULL)
+			{
+                ((Bootloader_Config *)bootHandleA530_1)->scratchMemPtr = gAppimage;
+				status = App_loadA53Images(bootHandleA530_1, &bootImageInfoA530_1);
+                Bootloader_profileAddProfilePoint("App_loadA530_1_Images");
 			}
         }
 
         Bootloader_profileUpdateAppimageSize(Bootloader_getMulticoreImageSize(bootHandleDM) + \
                                             Bootloader_getMulticoreImageSize(bootHandle) + \
-                                            Bootloader_getMulticoreImageSize(bootHandleA53));
+                                            Bootloader_getMulticoreImageSize(bootHandleA530_0)+ \
+                                            Bootloader_getMulticoreImageSize(bootHandleA530_1));
         Bootloader_profileUpdateMediaAndClk(BOOTLOADER_MEDIA_FLASH, OSPI_getInputClk(gOspiHandle[CONFIG_OSPI0]));
 
 		if(SystemP_SUCCESS == status)
@@ -257,12 +279,22 @@ int main()
            so that other systems can access and reinitialise it.*/
         Board_driversClose();
 
+        /* Unlock all the control MMRs.U-boot expects all the MMRs to be unlocked */
+        SOC_unlockAllMMR();
+
 		if(SystemP_SUCCESS == status)
 		{
-			status = App_runA53Cpu(bootHandleA53, &bootImageInfoA53);
+			status = App_runA53Cpu(bootHandleA530_0, &bootImageInfoA530_0, CSL_CORE_ID_A53SS0_0);
 		}
 
-        Bootloader_close(bootHandleA53);
+        Bootloader_close(bootHandleA530_0);
+
+        if(SystemP_SUCCESS == status)
+		{
+			status = App_runA53Cpu(bootHandleA530_1, &bootImageInfoA530_1, CSL_CORE_ID_A53SS0_1);
+		}
+
+        Bootloader_close(bootHandleA530_1);
 
         if(SystemP_SUCCESS == status)
 		{

@@ -41,10 +41,11 @@
 
 #define BOOTLOADER_SD_MULTICORE_APPIMAGE_FILENAME       ("/sd0/app")
 #define BOOTLOADER_SD_DM_APPIMAGE_FILENAME              ("/sd0/dm")
-#define BOOTLOADER_SD_A53_APPIMAGE_FILENAME             ("/sd0/app_a53")
+#define BOOTLOADER_SD_A530_0_APPIMAGE_FILENAME          ("/sd0/app_a530_0")
+#define BOOTLOADER_SD_A530_1_APPIMAGE_FILENAME          ("/sd0/app_a530_1")
 
 #define BOOTLOADER_SD_APP_IMAGE_LOADED                  (1)
-#define BOOTLOADER_SD_MAX_NO_OF_FILES                   (3)
+#define BOOTLOADER_SD_MAX_NO_OF_FILES                   (4)
 
 #define BOOTLOADER_APPIMAGE_MAX_FILE_SIZE (0x800000) /* Size of section DDR specified in linker.cmd */
 uint8_t gAppImageBuf[BOOTLOADER_APPIMAGE_MAX_FILE_SIZE] __attribute__((aligned(128), section(".bss.filebuf")));
@@ -56,7 +57,8 @@ Bootloader_CpuInfo bootCpuInfo[CSL_CORE_ID_MAX];
 char* gBootLoaderSDFiles[BOOTLOADER_SD_MAX_NO_OF_FILES] =
            {BOOTLOADER_SD_MULTICORE_APPIMAGE_FILENAME,
             BOOTLOADER_SD_DM_APPIMAGE_FILENAME,
-            BOOTLOADER_SD_A53_APPIMAGE_FILENAME,
+            BOOTLOADER_SD_A530_0_APPIMAGE_FILENAME,
+            BOOTLOADER_SD_A530_1_APPIMAGE_FILENAME
            };
 char** pFiles = gBootLoaderSDFiles;
 
@@ -149,6 +151,16 @@ int32_t App_loadImages(Bootloader_Handle bootHandle, Bootloader_BootImageInfo *b
             Bootloader_profileAddCore(CSL_CORE_ID_A53SS0_0);
             Bootloader_profileAddProfilePoint("App_loadImages(CSL_CORE_ID_A53SS0_0)");
 		}
+        if((SystemP_SUCCESS == status) && (TRUE == Bootloader_isCorePresent(bootHandle, CSL_CORE_ID_A53SS0_1)))
+        {
+            bootImageInfo->cpuInfo[CSL_CORE_ID_A53SS0_1].clkHz = Bootloader_socCpuGetClkDefault(CSL_CORE_ID_A53SS0_1);
+            status = Bootloader_loadCpu(bootHandle, &(bootImageInfo->cpuInfo[CSL_CORE_ID_A53SS0_1]));
+            socCpuCores[CSL_CORE_ID_A53SS0_1] = BOOTLOADER_SD_APP_IMAGE_LOADED;
+            bootCpuInfo[CSL_CORE_ID_A53SS0_1] = bootImageInfo->cpuInfo[CSL_CORE_ID_A53SS0_1];
+
+            Bootloader_profileAddCore(CSL_CORE_ID_A53SS0_1);
+            Bootloader_profileAddProfilePoint("App_loadImages(CSL_CORE_ID_A53SS0_1)");
+        }
     }
 
     return status;
