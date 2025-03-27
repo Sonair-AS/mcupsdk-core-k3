@@ -960,16 +960,6 @@ function addModuleInstances(instance) {
                 instance: "BCDMA_0",
             }
         });
-
-        modInstances.push({
-            name: "pktDmaDriver",
-            displayName: "UDMA Configuration",
-            moduleName: "/drivers/udma/udma",
-            requiredArgs: {
-                parentName: "MCASP",
-                instance: "PKTDMA_0",
-            }
-        });
     }
 
     return modInstances;

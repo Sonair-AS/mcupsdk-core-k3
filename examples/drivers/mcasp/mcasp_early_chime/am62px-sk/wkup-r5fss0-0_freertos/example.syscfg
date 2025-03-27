@@ -104,9 +104,7 @@ bootloader1.udmaDriver                               = udma1;
 bootloader2.udmaDriver                               = udma1;
 bootloader3.udmaDriver                               = udma1;
 
-const udma2         = udma.addInstance({}, false);
-udma2.$name         = "CONFIG_UDMA1";
-mcasp1.pktDmaDriver = udma2;
+
 
 const udma_blkcopy_channel                                   = scripting.addModule("/drivers/udma/udma_blkcopy_channel", {}, false);
 const udma_blkcopy_channel1                                  = udma_blkcopy_channel.addInstance({}, false);

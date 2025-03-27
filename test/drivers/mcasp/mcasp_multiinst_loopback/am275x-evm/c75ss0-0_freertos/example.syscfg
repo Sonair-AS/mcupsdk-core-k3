@@ -138,13 +138,6 @@ mcasp2.bcDmaDriver = udma1;
 mcasp3.bcDmaDriver = udma1;
 mcasp4.bcDmaDriver = udma1;
 
-const udma2         = udma.addInstance({}, false);
-udma2.$name         = "CONFIG_UDMA1";
-mcasp1.pktDmaDriver = udma2;
-mcasp2.pktDmaDriver = udma2;
-mcasp3.pktDmaDriver = udma2;
-mcasp4.pktDmaDriver = udma2;
-
 debug_log.enableUartLog            = true;
 debug_log.uartLog.$name            = "CONFIG_UART0";
 debug_log.uartLog.UART.$assign     = "UART2";

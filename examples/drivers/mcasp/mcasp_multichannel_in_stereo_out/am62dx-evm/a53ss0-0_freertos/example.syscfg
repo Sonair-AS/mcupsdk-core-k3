@@ -67,9 +67,7 @@ mcasp1.bcDmaDriver                = udma1;
 udma1.udmaBlkCopyChannel.create(1);
 udma1.udmaBlkCopyChannel[0].$name = "CONFIG_UDMA_BLKCOPY_CH0";
 
-const udma2         = udma.addInstance({}, false);
-udma2.$name         = "CONFIG_UDMA1";
-mcasp1.pktDmaDriver = udma2;
+
 
 debug_log.enableUartLog        = true;
 debug_log.uartLog.$name        = "CONFIG_UART_CONSOLE";

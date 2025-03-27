@@ -59,10 +59,6 @@ const udma1        = udma.addInstance({}, false);
 udma1.$name        = "CONFIG_UDMA0";
 mcasp1.bcDmaDriver = udma1;
 
-const udma2         = udma.addInstance({}, false);
-udma2.$name         = "CONFIG_UDMA1";
-mcasp1.pktDmaDriver = udma2;
-
 debug_log.enableUartLog        = true;
 debug_log.uartLog.$name        = "CONFIG_UART_CONSOLE";
 debug_log.uartLog.UART.$assign = "USART0";
