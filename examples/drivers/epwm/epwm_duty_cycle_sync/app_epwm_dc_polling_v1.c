@@ -109,8 +109,6 @@ void epwm_duty_cycle_sync_main(void *args)
     int32_t         status;
     EPwmCfgPrms_t   epwmCfgPrms;
 
-    Drivers_open();
-
     DebugP_log("EPWM Duty Cycle Sync Test Started ...\r\n");
     DebugP_log("Please refer to the EXAMPLES_DRIVERS_EPWM_DUTY_CYCLE_SYNC example \
 user guide for the test setup to probe the EPWM signals.\r\n");
@@ -215,7 +213,6 @@ user guide for the test setup to probe the EPWM signals.\r\n");
     DebugP_log("EPWM Duty Cycle Sync Test Passed!!\r\n");
     DebugP_log("All tests have passed!!\r\n");
 
-    Drivers_close();
 }
 
 static void AppEpwm_updateEpwmPeriod(void)

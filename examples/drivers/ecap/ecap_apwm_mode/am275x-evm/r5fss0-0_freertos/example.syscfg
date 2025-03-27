@@ -27,9 +27,11 @@ ecap1.$name                    = "CONFIG_ECAP0";
 ecap1.ECAP.$assign             = "ECAP1";
 ecap1.ECAP.IN_APWM_OUT.$assign = "SPI2_D0";
 
-debug_log.enableUartLog        = true;
-debug_log.uartLog.$name        = "CONFIG_UART0";
-debug_log.uartLog.UART.$assign = "UART0";
+debug_log.enableUartLog            = true;
+debug_log.uartLog.$name            = "CONFIG_UART0";
+debug_log.uartLog.UART.$assign     = "UART0";
+debug_log.uartLog.UART.RXD.$assign = "UART0_RXD";
+debug_log.uartLog.UART.TXD.$assign = "UART0_TXD";
 
 mpu_armv71.accessPermissions = "Supervisor RD+WR, User RD";
 mpu_armv71.allowExecute      = false;
@@ -52,11 +54,3 @@ mpu_armv74.size     = 22;
 mpu_armv75.$name    = "MSRAM_BANK4_TO_BANK5";
 mpu_armv75.baseAddr = 0x72400000;
 mpu_armv75.size     = 21;
-
-/**
- * Pinmux solution for unlocked pins/peripherals. This ensures that minor changes to the automatic solver in a future
- * version of the tool will not impact the pinmux you originally saw.  These lines can be completely deleted in order to
- * re-solve from scratch.
- */
-debug_log.uartLog.UART.RXD.$suggestSolution = "MCASP4_AXR0";
-debug_log.uartLog.UART.TXD.$suggestSolution = "MLB0_MLBCLK";

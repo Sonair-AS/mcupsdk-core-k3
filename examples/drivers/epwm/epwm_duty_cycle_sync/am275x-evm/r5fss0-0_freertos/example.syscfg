@@ -44,9 +44,11 @@ gpio1.pinDir                   = "OUTPUT";
 gpio1.useMcuGpioPins           = true;
 gpio1.MCU_GPIO.gpioPin.$assign = "MCU_GPIO0_15";
 
-debug_log.enableUartLog        = true;
-debug_log.uartLog.$name        = "CONFIG_UART0";
-debug_log.uartLog.UART.$assign = "UART0";
+debug_log.enableUartLog            = true;
+debug_log.uartLog.$name            = "CONFIG_UART0";
+debug_log.uartLog.UART.$assign     = "UART0";
+debug_log.uartLog.UART.RXD.$assign = "UART0_RXD";
+debug_log.uartLog.UART.TXD.$assign = "UART0_TXD";
 
 mpu_armv71.size         = 31;
 mpu_armv71.attributes   = "Device";
@@ -73,7 +75,5 @@ mpu_armv75.$name    = "MSRAM_BANK4_TO_BANK5";
  * version of the tool will not impact the pinmux you originally saw.  These lines can be completely deleted in order to
  * re-solve from scratch.
  */
-epwm1.EPWM.$suggestSolution                 = "EPWM0";
-gpio1.MCU_GPIO.$suggestSolution             = "MCU_GPIO0_15";
-debug_log.uartLog.UART.RXD.$suggestSolution = "MCASP4_AXR0";
-debug_log.uartLog.UART.TXD.$suggestSolution = "MLB0_MLBCLK";
+epwm1.EPWM.$suggestSolution     = "EPWM0";
+gpio1.MCU_GPIO.$suggestSolution = "MCU_GPIO0_15";

@@ -93,10 +93,6 @@ void epwm_duty_cycle_main(void *args)
     int32_t             status;
     uint32_t            numCnt = (APP_EPWM_RUN_TIME * APP_EPWM_OUTPUT_FREQ);
 
-    /* Open drivers to open the UART driver for console */
-    Drivers_open();
-    Board_driversOpen();
-
     DebugP_log("EPWM Duty Cycle Test Started ...\r\n");
     DebugP_log("Please refer EXAMPLES_DRIVERS_EPWM_DUTY_CYCLE example user \
 guide for the test setup to probe EPWM signal. \r\n");
@@ -119,8 +115,6 @@ guide for the test setup to probe EPWM signal. \r\n");
     DebugP_log("EPWM Duty Cycle Test Passed!!\r\n");
     DebugP_log("All tests have passed!!\r\n");
 
-    Board_driversClose();
-    Drivers_close();
 }
 
 static void App_epwmConfig(uint32_t epwmBaseAddr,
