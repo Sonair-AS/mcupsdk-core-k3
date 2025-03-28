@@ -68,7 +68,7 @@
 #define CSL_PSILCFG_REG_STATIC_TR_Y_SHIFT                   (0U)
 #define CSL_PSILCFG_REG_STATIC_TR_Y_MASK                    (((uint32_t)0x0FFFU) << CSL_PSILCFG_REG_STATIC_TR_Y_SHIFT)
 #define CSL_PSILCFG_REG_STATIC_TR_Z_SHIFT                   (0U)
-#define CSL_PSILCFG_REG_STATIC_TR_Z_MASK                    (((uint32_t)0x0FFFU) << CSL_PSILCFG_REG_STATIC_TR_Z_SHIFT)
+#define CSL_PSILCFG_REG_STATIC_TR_Z_MASK                    (((uint32_t)0xFFFFFFU) << CSL_PSILCFG_REG_STATIC_TR_Z_SHIFT)
 #define CSL_PSIL_REG_STATIC_TR_BURST_SHIFT                  (31U)
 #define CSL_PSIL_REG_STATIC_TR_BURST_MASK                   (((uint32_t)0x1U) << CSL_PSIL_REG_STATIC_TR_BURST_SHIFT)
 #define CSL_PSIL_REG_STATIC_TR_ACC2_SHIFT                   (30U)
