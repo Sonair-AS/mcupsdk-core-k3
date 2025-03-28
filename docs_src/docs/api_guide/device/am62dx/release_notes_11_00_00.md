@@ -39,7 +39,25 @@ TI ARM CLANG            | MCU-R5F, WKUP-R5F          | 4.0.1.LTS
 GCC AARCH64             | A53                        | 9.2-2019.12
 C7000-CGT               | C75                        | 4.1.0.LTS
 FreeRTOS Kernel         | MCU-R5F, WKUP-R5F, C75, A53| 11.1.0
-TIFS                    | NA                         | v10.01.08
+
+## SDK Components
+
+### SYSFW / TIFS
+
+<table>
+    <tr>
+        <td>Version</td>
+        <td>11.00.07</td>
+    </tr>
+    <tr>
+        <td>Release Notes</td>
+        <td>[LINK](https://software-dl.ti.com/tisci/esd/11_00_07/release_notes/release_notes.html)</td>
+    </tr>
+    <tr>
+        <td>User Guide</td>
+        <td>[LINK](https://software-dl.ti.com/tisci/esd/11_00_07/1_intro/TISCI.html)</td>
+    </tr>
+</table>
 
 ## Key Features
 

@@ -28,7 +28,25 @@ SysConfig               | R5F, C75                 | 1.23.0, build 4000
 TI ARM CLANG            | R5F                      | 4.0.1.LTS
 C7000-CGT               | C75                      | 4.1.0.LTS
 FreeRTOS Kernel         | R5F, C75                 | 11.1.0
-TIFS                    | NA                       | v10.01.09
+
+## SDK Components
+
+### SYSFW / TIFS
+
+<table>
+    <tr>
+        <td>Version</td>
+        <td>11.00.07</td>
+    </tr>
+    <tr>
+        <td>Release Notes</td>
+        <td>[LINK](https://software-dl.ti.com/tisci/esd/11_00_07/release_notes/release_notes.html)</td>
+    </tr>
+    <tr>
+        <td>User Guide</td>
+        <td>[LINK](https://software-dl.ti.com/tisci/esd/11_00_07/1_intro/TISCI.html)</td>
+    </tr>
+</table>
 
 ## Key Features
 
