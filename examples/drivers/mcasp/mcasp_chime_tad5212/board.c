@@ -58,8 +58,6 @@ Dac_RegCfg gTad5212Reg[] =
     {0x02, 0x01},
     /* I2S, 32b mode */
     {0x1A, 0x70},
-    /* 1b delay between FSYNC and data */
-    {0x26, 0x01},
     /* CH1 - Input from DAC, Mono single ended output at OUT1P */
     {0x64, 0x28},
     /* CH1 - Line Out driver with 300ohm impedance, 0dB gain */
