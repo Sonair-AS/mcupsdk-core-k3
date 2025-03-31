@@ -1563,10 +1563,10 @@ static void MCASP_udmaIsrRx(Udma_EventHandle eventHandle,
 
                 pTr->addr =(uint64_t)Udma_virtToPhyFxn(txn->buf, drvHandle, rxChHandle);
 
-                pTr->icnt0 = object->txDmaIcnt.icnt0;
-                pTr->icnt1 = object->txDmaIcnt.icnt1;
-                pTr->icnt2 = object->txDmaIcnt.icnt2;
-                pTr->icnt3 = object->txDmaIcnt.icnt3;
+                pTr->icnt0 = object->rxDmaIcnt.icnt0;
+                pTr->icnt1 = object->rxDmaIcnt.icnt1;
+                pTr->icnt2 = object->rxDmaIcnt.icnt2;
+                pTr->icnt3 = object->rxDmaIcnt.icnt3;
 
                 CacheP_wb(pTr, sizeof(CSL_UdmapTR3), CacheP_TYPE_ALLD);
 

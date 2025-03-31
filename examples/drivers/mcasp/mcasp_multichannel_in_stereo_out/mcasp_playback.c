@@ -53,7 +53,7 @@
 #define APP_MCASP_AUDIO_BUFF_SIZE_TX   (2048U/4U)
 
 #define MCASP_TX_TASK_PRI           (8U)
-#define MCASP_TX_TASK_STACK_SIZE    (32*1024U)
+#define MCASP_TX_TASK_STACK_SIZE    (64*1024U)
 
 /* UDMA TR packet descriptor memory size - with one TR */
 #define UDMA_TEST_TRPD_SIZE             (UDMA_GET_TRPD_TR15_SIZE(1U))
