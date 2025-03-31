@@ -146,7 +146,7 @@ Dac_RegCfg gTad5212Reg[] =
     /* I2S, 32b mode */
     {0x1A, 0x70},
     /* 1b delay between FSYNC and data */
-    {0x26, 0x01},
+    // {0x26, 0x01},
     /* CH1 - Input from DAC, Mono single ended output at OUT1P */
     {0x64, 0x28},
     /* CH1 - Headphone with 4ohm impedence, 0dB gain */
