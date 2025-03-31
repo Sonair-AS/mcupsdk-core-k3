@@ -38,6 +38,7 @@
 
 void Utils_memcpyWord(uint8_t *source, uint8_t *destination, uint32_t length)
 {
+#if !defined(__aarch64__)
     if((((uintptr_t)source % PTR_COPY_SRC_ALIGNMENT) == ((uintptr_t)destination % PTR_COPY_SRC_ALIGNMENT)) ||
        ((length % PTR_COPY_SRC_ALIGNMENT) != 0))
     {
@@ -98,6 +99,20 @@ void Utils_memcpyWord(uint8_t *source, uint8_t *destination, uint32_t length)
     {
         memcpy(destination, source, length);
     }
+#else
+
+    uint32_t i = length;
+    uint8_t *temp8Src = source;
+    uint8_t *temp8Dst = destination;
+
+    while(i != 0U)
+    {
+        *temp8Dst = *temp8Src;
+        temp8Src++;
+        temp8Dst++;
+        i--;
+    }
+#endif
 }
 
 void Utils_dataAndInstructionBarrier(void)
