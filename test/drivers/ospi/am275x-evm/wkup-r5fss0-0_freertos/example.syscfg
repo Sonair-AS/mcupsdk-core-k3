@@ -3,7 +3,7 @@
  * via the GUI or CLI. Run CLI with '--help' for additional information on how to override these arguments.
  * @cliArgs --device "AM275x" --part "AM2754" --package "ANJ" --context "wkup-r5fss0-0" --product "MCU_PLUS_SDK@07.03.01"
  * @v2CliArgs --device "AM2754" --package "FCCSP (ANJ)" --context "wkup-r5fss0-0" --product "MCU_PLUS_SDK@07.03.01"
- * @versions {"tool":"1.22.0+3893"}
+ * @versions {"tool":"1.23.0+4000"}
  */
 
 /**
@@ -40,11 +40,12 @@ const udma_blkcopy_channel1                                  = udma_blkcopy_chan
 udma_blkcopy_channel1.$name                                  = "CONFIG_UDMA_BLKCOPY_CH0";
 flash1.serialFlashDriver.peripheralDriver.udmaBlkCopyChannel = udma_blkcopy_channel1;
 
-debug_log.enableUartLog            = true;
-debug_log.uartLog.$name            = "CONFIG_UART0";
-debug_log.uartLog.UART.$assign     = "UART0";
-debug_log.uartLog.UART.RXD.$assign = "UART0_RXD";
-debug_log.uartLog.UART.TXD.$assign = "UART0_TXD";
+debug_log.enableUartLog                      = true;
+debug_log.uartLog.$name                      = "CONFIG_UART0";
+debug_log.uartLog.useWakeupDomainPeripherals = true;
+debug_log.uartLog.WKUP_UART.$assign          = "WKUP_UART";
+debug_log.uartLog.WKUP_UART.RXD.$assign      = "WKUP_UART0_RXD";
+debug_log.uartLog.WKUP_UART.TXD.$assign      = "WKUP_UART0_TXD";
 
 mpu_armv71.size         = 31;
 mpu_armv71.attributes   = "Device";
@@ -65,8 +66,8 @@ mpu_armv74.baseAddr = 0x43C00000;
 mpu_armv74.size     = 19;
 
 mpu_armv75.$name    = "OCMC_RAM";
-mpu_armv75.size     = 20;
 mpu_armv75.baseAddr = 0x72000000;
+mpu_armv75.size     = 22;
 
 mpu_armv76.$name        = "CONFIG_MPU_REGION0";
 mpu_armv76.baseAddr     = 0x5C00000;
