@@ -17,7 +17,7 @@ AM62P  | MCU R5F, WKUP R5F           | @VAR_BOARD_NAME EVM (referred to as am62p
 
 Feature                                                                                        | Module
 -----------------------------------------------------------------------------------------------|-----------------------------------
-TBD                                                                                            | TBD
+ECC example for R5F cache                                                                      | SDL
 
 ## Dependent Tools and Compiler Information
 \attention It is recommended to use the TIFS version provided with the release for ensuring compatibility between TIFS and device manager. Using the TIFS from different MCU+SDK release is not recomended and may cause TIFS/ DM functionality to break.
@@ -263,6 +263,24 @@ MCASP driver
     <td> Bootloader
     <td> 11.00.00
 </tr>
+<tr>
+    <td> PROC_SDL-8957
+    <td> AM62Px: PBIST: Unnecessary code in pbist_test_cfg.c files
+    <td> SDL
+    <td> 11.00.00
+</tr>
+<tr>
+    <td> PROC_SDL-8955
+    <td> SDL_ECC_aggrTransBaseAddressTable declared without extern keyword
+    <td> SDL
+    <td> 11.00.00
+</tr>
+<tr>
+    <td> PROC_SDL-8683
+    <td> gSDL_pvt_poly_golden has to be used in SDL_vtmPrepLookupTable API instead of gSDL_pvt_poly
+    <td> SDL
+    <td> 11.00.00
+</tr>
 </table>
 
 ## Known Issues
@@ -275,6 +293,27 @@ MCASP driver
     <th> Module
     <th> Reported in release
     <th> Workaround
+</tr>
+<tr>
+    <td> \htmllink{https://sir.ext.ti.com/jira/browse/EXT_EP-12277, EXT_EP-12277}
+    <td> AM62Px: ECC: SDL_MCAN1_MCANSS_MSGMEM_WRAP_ECC_AGGR aggregator is failing
+    <td> SDL
+    <td> 10.01.00
+    <td> No known workaround
+</tr>
+<tr>
+    <td> \htmllink{https://sir.ext.ti.com/jira/browse/EXT_EP-12279, EXT_EP-12279}
+    <td> CSI RX ECC aggregators are failing on AM62P/AM62X
+    <td> SDL
+    <td> 09.01.00
+    <td> No known workaround
+</tr>
+<tr>
+    <td> \htmllink{https://sir.ext.ti.com/jira/browse/EXT_EP-12280, EXT_EP-12280}
+    <td> Running MCU LBIST on SBL causes JTAG connection issues to MCU R5F - After running MCU LBIST, not able to connect to any core through JTAG on AM62px
+    <td> SDL
+    <td> 09.00.00
+    <td> No known workaround
 </tr>
 <tr>
     <td> TBD

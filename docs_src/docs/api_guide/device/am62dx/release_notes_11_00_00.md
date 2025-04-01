@@ -19,7 +19,7 @@ AM62Dx | MCU R5F, WKUP R5F, A53, C75 | @VAR_BOARD_NAME EVM (referred to as am62d
 
 Feature                                                                                        | Module
 -----------------------------------------------------------------------------------------------|-----------------------------------
-TBD                                                                                            |TBD
+ECC example for R5F cache                                                                      | SDL
 
 
 ## Other Updates on This Release
@@ -338,6 +338,24 @@ ROM_CHECKSUM     |MCU-R5F         | No
     <td> Bootloader
     <td> 11.00.00
 </tr>
+<tr>
+    <td> PROC_SDL-9058
+    <td> AM62dx: PBIST: VPAC controller test is to be removed
+    <td> SDL
+    <td> 11.00.00
+</tr>
+<tr>
+    <td> PROC_SDL-8955
+    <td> SDL_ECC_aggrTransBaseAddressTable declared without extern keyword
+    <td> SDL
+    <td> 11.00.00
+</tr>
+<tr>
+    <td> PROC_SDL-8683
+    <td> gSDL_pvt_poly_golden has to be used in SDL_vtmPrepLookupTable API instead of gSDL_pvt_poly
+    <td> SDL
+    <td> 11.00.00
+</tr>
 </table>
 
 ## Known Issues
@@ -350,6 +368,27 @@ ROM_CHECKSUM     |MCU-R5F         | No
     <th> Module
     <th> Reported in release
     <th> Workaround
+</tr>
+<tr>
+    <td> \htmllink{https://sir.ext.ti.com/jira/browse/EXT_EP-12267, EXT_EP-12267}
+    <td> AM62D: MCRC Udma Init failure in semi cpu and auto mode configuration - MCRC semi cpu and auto mode examples fail at udma init step
+    <td> SDL
+    <td> 11.00.00
+    <td> No known workaround
+</tr>
+<tr>
+    <td> \htmllink{https://sir.ext.ti.com/jira/browse/EXT_EP-12276, EXT_EP-12276}
+    <td> ECC: Firewall related aggregators failures - ECC Aggregators SDL_SMS0_SMS_TIFS_ECC, SDL_SMS0_SMS_HSM_ECC, SDL_SA3_SS0_SA3SS_AM62A_DMSS_ECCAGGR and SDL_SA3_SS0_SA3SS_AM62A_SA_UL_ECC_AGGR fail because of firewall access issues faced by SDL
+    <td> SDL
+    <td> 10.01.00
+    <td> No known workaround
+</tr>
+<tr>
+    <td> \htmllink{https://sir.ext.ti.com/jira/browse/EXT_EP-12283, EXT_EP-12283}
+    <td> ECC aggregators CPSW0, CSI RX are failing on AM62A and CPSW0 on AM62D.
+    <td> SDL
+    <td> 09.00.00
+    <td> No known workaround
 </tr>
 <tr>
     <td> TBD

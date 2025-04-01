@@ -22,7 +22,7 @@ AM62x  | M4F, R5F, A53   | SK-AM62 (referred as am62x-sk in code), SK-AM62-LP (r
 
 Feature                                                                                        | Module
 -----------------------------------------------------------------------------------------------|-----------------------------------
-TBD                                                                                            | TBD
+ECC example for R5F cache                                                                      | SDL
 
 
 ### Experimental Features {#EXPERIMENTAL_FEATURES}
@@ -337,6 +337,30 @@ ROM Checksum | R5F            | No
     <td> Bootloader
     <td> 11.00.00
 </tr>
+<tr>
+    <td> PROC_SDL-8955
+    <td> SDL_ECC_aggrTransBaseAddressTable declared without extern keyword
+    <td> SDL
+    <td> 11.00.00
+</tr>
+<tr>
+    <td> PROC_SDL-8870
+    <td> AM62x: VTM: vtm_example is failing on R5F core
+    <td> SDL
+    <td> 11.00.00
+</tr>
+<tr>
+    <td> PROC_SDL-8683
+    <td> gSDL_pvt_poly_golden has to be used in SDL_vtmPrepLookupTable API instead of gSDL_pvt_poly
+    <td> SDL
+    <td> 11.00.00
+</tr>
+<tr>
+    <td> PROC_SDL-8865
+    <td> AM62x: ECC: SDL_ICSSM0_ICSS_M_CORE_BORG_ECC_AGGR aggregator is failing
+    <td> SDL
+    <td> 11.00.00
+</tr>
 </table>
 
 
@@ -349,6 +373,34 @@ ROM Checksum | R5F            | No
     <th> Module
     <th> Reported in release
     <th> Workaround
+</tr>
+<tr>
+    <td> \htmllink{https://sir.ext.ti.com/jira/browse/EXT_EP-12275, EXT_EP-12275}
+    <td> AM62x: ECC: SDL_WKUP_R5FSS0_PULSAR_UL_CPU0_ECC_AGGR aggregator is failing on M4F core
+    <td> SDL
+    <td> 10.01.00
+    <td> No known workaround
+</tr>
+<tr>
+    <td> \htmllink{https://sir.ext.ti.com/jira/browse/EXT_EP-12276, EXT_EP-12276}
+    <td> ECC: Firewall related aggregator failures - ECC Aggregators SDL_SA3_SS0_SA3SS_AM62A_DMSS_ECCAGGR and SDL_SMS0_SMS_TIFS_ECC fail because of firewall access issues faced by SDL
+    <td> SDL
+    <td> 10.01.00
+    <td> No known workaround
+</tr>
+<tr>
+    <td> \htmllink{https://sir.ext.ti.com/jira/browse/EXT_EP-12278, EXT_EP-12278}
+    <td> ECC Aggregator SMS0_SMS_HSM_ECC Aggr fails on AM62x.
+    <td> SDL
+    <td> 10.00.00
+    <td> No known workaround
+</tr>
+<tr>
+    <td> \htmllink{https://sir.ext.ti.com/jira/browse/EXT_EP-12279, EXT_EP-12279}
+    <td> CSI RX ECC aggregators are failing on AM62P/AM62X
+    <td> SDL
+    <td> 09.01.00
+    <td> No known workaround
 </tr>
 <tr>
     <td> TBD

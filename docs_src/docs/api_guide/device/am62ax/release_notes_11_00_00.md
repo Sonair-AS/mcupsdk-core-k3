@@ -23,6 +23,7 @@ Safety qualification for IPC driver                                             
 Exmaple for Key Revision update                                                                | OTP
 RTC driver on R5F                                                                              | RTC
 LPM example for MCU only with Timer and MCAN as wakeup sources                                 | LPM
+ECC example for R5F cache                                                                      | SDL
 
 ### Unsupported Features {#UNSUPPORTED_FEATURES}
 
@@ -323,6 +324,24 @@ ROM Checksum |MCU-R5F         | No
     <td> Bootloader
     <td> 11.00.00
 </tr>
+<tr>
+    <td> PROC_SDL-8955
+    <td> SDL_ECC_aggrTransBaseAddressTable declared without extern keyword
+    <td> SDL
+    <td> 11.00.00
+</tr>
+<tr>
+    <td> PROC_SDL-8792
+    <td> MCRC: System_deinit failure in MCRC Semi CPU mode and MCRC auto mode in AM275x and AM62a
+    <td> SDL
+    <td> 11.00.00
+</tr>
+<tr>
+    <td> PROC_SDL-8683
+    <td> gSDL_pvt_poly_golden has to be used in SDL_vtmPrepLookupTable API instead of gSDL_pvt_poly
+    <td> SDL
+    <td> 11.00.00
+</tr>
 </table>
 
 ## Known Issues
@@ -342,6 +361,34 @@ ROM Checksum |MCU-R5F         | No
     <td> IPC
     <td> 09.01.00
     <td> When remotecore is removed on DTS, remove the core from ipc_rpmsg_echo_linux example's sysconfig as well
+</tr>
+<tr>
+    <td> \htmllink{https://sir.ext.ti.com/jira/browse/EXT_EP-12281, EXT_EP-12281}
+    <td> AM62A: ECC: ECC is failing for 2 Bit VTM selftest - ECC Unit test fails at the API call ECC_Test_runECC2BitVTM0selfTest()
+    <td> SDL
+    <td> 10.01.00
+    <td> No known workaround
+</tr>
+<tr>
+    <td> \htmllink{https://sir.ext.ti.com/jira/browse/EXT_EP-12276, EXT_EP-12276}
+    <td> ECC: Firewall related aggregators failures - ECC Aggregators SDL_SMS0_SMS_TIFS_ECC, SDL_SMS0_SMS_HSM_ECC and SDL_SA3_SS0_SA3SS_AM62A_DMSS_ECCAGGR fail because of firewall access issues faced by SDL
+    <td> SDL
+    <td> 10.01.00
+    <td> No known workaround
+</tr>
+<tr>
+    <td> \htmllink{https://sir.ext.ti.com/jira/browse/EXT_EP-12280, EXT_EP-12280}
+    <td> Running MCU LBIST on SBL causes JTAG connection issues to MCU R5F - Running MCU LBIST on SBL causes JTAG connection issues to MCU R5F on AM62ax
+    <td> SDL
+    <td> 09.00.00
+    <td> No known workaround
+</tr>
+<tr>
+    <td> \htmllink{https://sir.ext.ti.com/jira/browse/EXT_EP-12283, EXT_EP-12283}
+    <td> ECC aggregators CPSW0, CSI RX are failing on AM62A and CPSW0 on AM62D.
+    <td> SDL
+    <td> 09.00.00
+    <td> No known workaround
 </tr>
 </table>
 

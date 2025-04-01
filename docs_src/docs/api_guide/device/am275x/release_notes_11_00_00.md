@@ -17,7 +17,7 @@ AM275x | R5F, C75                    | @VAR_BOARD_NAME (referred to as am275x-ev
 
 Feature                                                                                  | Module
 -----------------------------------------------------------------------------------------|-----------------------------------
-TBD                                                                                      | TBD
+ECC example for R5F cache                                                                | SDL
 
 ## Dependent Tools and Compiler Information
 
@@ -172,6 +172,36 @@ ROM_CHECKSUM     |  R5F           | No
     <td> Bootloader
     <td> 11.00.00
 </tr>
+<tr>
+    <td> PROC_SDL-8792
+    <td> MCRC: System_deinit failure in MCRC Semi CPU mode and MCRC auto mode in AM275x and AM62a
+    <td> SDL
+    <td> 11.00.00
+</tr>
+<tr>
+    <td> PROC_SDL-8788
+    <td> AM275x: PBIST: MAIN_PULSAR_0 (PBIST1) and MAIN_PULSAR_1 (PBIST2) secondary core reset failure
+    <td> SDL
+    <td> 11.00.00
+</tr>
+<tr>
+    <td> PROC_SDL-8786
+    <td> AM275x: PBIST: MAIN_IP (PBIST0) controller testing failure
+    <td> SDL
+    <td> 11.00.00
+</tr>
+<tr>
+    <td> PROC_SDL-8683
+    <td> gSDL_pvt_poly_golden has to be used in SDL_vtmPrepLookupTable API instead of gSDL_pvt_poly
+    <td> SDL
+    <td> 11.00.00
+</tr>
+<tr>
+    <td> PROC_SDL-8955
+    <td> SDL_ECC_aggrTransBaseAddressTable declared without extern keyword
+    <td> SDL
+    <td> 11.00.00
+</tr>
 </table>
 
 ## Known Issues
@@ -184,6 +214,20 @@ ROM_CHECKSUM     |  R5F           | No
     <th> Module
     <th> Reported in release
     <th> Workaround
+</tr>
+<tr>
+    <td> \htmllink{https://sir.ext.ti.com/jira/browse/EXT_EP-12276, EXT_EP-12276}
+    <td> ECC: Firewall related aggregators failures - ECC Aggregators SDL_SMS0_SMS_TIFS_ECC, SDL_SMS0_SMS_HSM_ECC, SDL_SA3_SS0_SA3SS_AM62A_DMSS_ECCAGGR and SDL_SA3_SS0_SA3SS_AM62A_SA_UL_ECC_AGGR fail because of firewall access issues faced by SDL
+    <td> SDL
+    <td> 10.01.00
+    <td> No known workaround
+</tr>
+<tr>
+    <td> \htmllink{https://sir.ext.ti.com/jira/browse/EXT_EP-12282, EXT_EP-12282}
+    <td> AM275x: ECC: Some of the aggregators are failing on AM275x - ECC aggregators IDOM0_PULSAR_8 and 10, IDOM0_MAIN_4 and 6, IDOM1_PULSAR_9 and 11, IDOM1_MAIN_5 and 7, FSS1_OSPI, WKUP_AGGR0_DM, WKUP_PSRAM and ADC12FCC0 are failing
+    <td> SDL
+    <td> 10.01.00
+    <td> No known workaround
 </tr>
 <tr>
     <td> TBD
