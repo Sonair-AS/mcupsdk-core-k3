@@ -26,8 +26,7 @@ MCAN external read write example is added                                       
 Early chime example is added                                                             | McASP
 RTC support on R5F                                                                       | RTC
 Image version check on SBL                                                               | Bootloader
-
-
+Ethernet AVB: CRF Talker functionality added along with example                          | Networking
 
 ## Dependent Tools and Compiler Information
 

@@ -25,6 +25,7 @@ OSPI support on MCU-R5F                                                         
 RTC driver on R5F                                                                              | RTC
 Example to show usage of firewalls isolation of MCU domain                                     | Examples
 Optimized boottime for eMMC, SD boot by enabling DMA for DDR to DDR copy                       | Bootloader
+Ethernet AVB: CRF Talker functionality added along with example                                | Networking
 
 
 ## Other Updates on This Release

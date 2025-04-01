@@ -600,10 +600,10 @@ ROM Checksum | R5F            | No
 
 <tr>
     <td> \htmllink{https://sir.ext.ti.com/jira/browse/EXT_SITMPUSW-55, EXT_SITMPUSW-55}
-    <td> AM62x: ENET : A53 : TCP Throughput drop in iperf application running on FreeRTOS A53 core 
+    <td> AM62x: ENET : A53 : TCP Throughput drop in iperf application running on FreeRTOS A53 core
     <td> Ethernet
     <td> 10.01.00
-    <td> Issue is seen only with 1Gbps Full Duplex link speed. Any other link speed such as 100 Mbps link speed shall work seemlessly 
+    <td> Issue is seen only with 1Gbps Full Duplex link speed. Any other link speed such as 100 Mbps link speed shall work seemlessly
 </tr>
 </table>
 

@@ -23,9 +23,9 @@ AM62x  | M4F, R5F, A53   | SK-AM62 (referred as am62x-sk in code), SK-AM62-LP (r
 Feature                                                                                        | Module
 -----------------------------------------------------------------------------------------------|-----------------------------------
 ECC example for R5F cache                                                                      | SDL
-IPC between A53 cores                                                                          | IPC 
-Example for Key Revision update                                                                | OTP 
-LPM example for MCU only with Timer and MCAN as wakeup sources                                 | LPM 
+IPC between A53 cores                                                                          | IPC
+Example for Key Revision update                                                                | OTP
+LPM example for MCU only with Timer and MCAN as wakeup sources                                 | LPM
 Coremark-pro, Dhrystone, interrupt latency benchmarks for A53                                  | Benchmark
 Optimized boottime for eMMC, SD boot by enabling DMA for DDR to DDR copy                       | Bootloader
 
@@ -47,7 +47,7 @@ Is                                                      | Is Not
 --------------------------------------------------------|--------------------------
 FreeRTOS AMP support on A53                             | GPU Support
 Drivers listed for A53 in "SOC Device Drivers" section  | Low power mode support
-Networking                                              | CSI RX Driver
+Ethernet Networking                                     | CSI RX Driver
 -                                                       | WiFi, USB, BLE Drivers
 -                                                       | Safety on A53
 
@@ -121,9 +121,9 @@ UART      | R5F            | Yes               | NA          |   No        | NOR
 
 Module                      | Supported CPUs | SysConfig Support | OS Support  | Key features tested                                                                                                                                                                    | Key features not tested
 ----------------------------|----------------|-------------------|-------------|----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|--------------------------------------------------------------------------------------------------
-TSN                         | A53            | NO                | FreeRTOS    | [Experimental] gPTP IEEE 802.1 AS-2020 compliant gPTP stack, End Nodes and Bridge mode support, YANG data model configuration  | Multi-Clock Domain
-LwIP                        | A53            | YES               | FreeRTOS    | [Experimental] TCP/UDP IP networking stack with and without checksum offload enabled, TCP/UDP IP networking stack with server and client functionality, basic Socket APIs, netconn APIs and raw APIs, DHCP, ping, TCP iperf, scatter-gather, DSCP priority mapping, LwIP bridge, shared memory driver  | Other LwIP features
-Ethernet driver (ENET)      | A53            | YES               | FreeRTOS    | [Experimental] Ethernet as port using CPSW,  MAC loopback and PHY loopback, Layer 2 MAC, Packet Timestamping, CPSW Switch, Policer and Classifier, MDIO Manual Mode, CBS (IEEE 802.1Qav) on CPSW, IET (IEEE 802.1Qbu) on CPSW, Strapped PHY (Early Ethernet), cut through switch on CPSW  | RMII mode
+TSN                         | A53            | NO                | FreeRTOS    | gPTP IEEE 802.1 AS-2020 compliant gPTP stack, End Nodes and Bridge mode support, YANG data model configuration  | Multi-Clock Domain
+LwIP                        | A53            | YES               | FreeRTOS    | TCP/UDP IP networking stack with and without checksum offload enabled, TCP/UDP IP networking stack with server and client functionality, basic Socket APIs, netconn APIs and raw APIs, DHCP, ping, TCP iperf, scatter-gather, DSCP priority mapping, LwIP bridge, shared memory driver  | Other LwIP features
+Ethernet driver (ENET)      | A53            | YES               | FreeRTOS    | Ethernet as port using CPSW,  MAC loopback and PHY loopback, Layer 2 MAC, Packet Timestamping, CPSW Switch, Policer and Classifier, MDIO Manual Mode, CBS (IEEE 802.1Qav) on CPSW, IET (IEEE 802.1Qbu) on CPSW, Strapped PHY (Early Ethernet), cut through switch on CPSW  | RMII mode
 
 ### SOC Device Drivers
 
@@ -394,6 +394,12 @@ ROM Checksum | R5F            | No
     <td> PROC_SDL-8865
     <td> AM62x: ECC: SDL_ICSSM0_ICSS_M_CORE_BORG_ECC_AGGR aggregator is failing
     <td> SDL
+    <td> 11.00.00
+</tr>
+<tr>
+    <td> \htmllink{https://sir.ext.ti.com/jira/browse/EXT_SITMPUSW-55, EXT_SITMPUSW-55}
+    <td> AM62x: ENET : A53 : TCP Throughput drop in iperf application running on FreeRTOS A53 core
+    <td> Ethernet
     <td> 11.00.00
 </tr>
 </table>
