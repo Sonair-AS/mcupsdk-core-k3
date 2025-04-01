@@ -33,6 +33,27 @@ Rx packet length                | 200 B                    |
 Tx packet length                | 200 B                    |
 \n
 
+## Layer 2 Latency
+<table>
+    <tr>
+        <td style="text-align: center;"><b>Parameter</b></td>
+        <td style="text-align: center;"><b>CPU<->CPSW \n Latency Value (ns)</b></td>
+        <td style="text-align: center;"><b>PHY (DP83867IR) Latency\n (from datasheet) in ns</b></td>
+        <td style="text-align: center;"><b>Total Latency \n (ns)</b></td>
+    </tr>
+    <tr>
+        <td>RX Latency</td>
+        <td>19000</td>
+        <td>288</td>
+        <td>19288</td>
+    </tr>
+    <tr>
+        <td>TX Latency</td>
+        <td>7000</td>
+        <td>384</td>
+        <td>7384</td>
+    </tr>
+</table>
 
 # TCP/IP Performance
 
@@ -124,6 +145,15 @@ Number of Tx packet buffers     | 16                                            
         <td>175</td><td>23.4</td><td>0.59</td>
         
     </tr>
+
+    <tr>
+        <td>UDP RX (Max) \n with 128 Rx buffers</td>
+        <td>115</td><td>69.1</td><td>0.1</td>
+        <td>240</td><td>74.8</td><td>0.1</td>
+        <td>720</td><td>90.8</td><td>1.3</td>
+        
+    </tr>
+
     <tr>
         <td>UDP TX (Max)</td>
         <td>175</td><td>100</td><td>0.05</td>

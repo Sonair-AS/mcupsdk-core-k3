@@ -1,4 +1,4 @@
-# Ethernet Performance{#enetlld_performance}
+# Ethernet Performance on AM62P{#enetlld_performance}
 [TOC]
 # Introduction
 This section provides the performance numbers of Ethernet drivers using CPSW peripheral in MCU+ SDK
@@ -38,20 +38,20 @@ Tx packet length                | 200 B                    |
     <tr>
         <td style="text-align: center;"><b>Parameter</b></td>
         <td style="text-align: center;"><b>CPU<->CPSW \n Latency Value (ns)</b></td>
-        <td style="text-align: center;"><b>PHY Latency\n (from datasheet) in ns</b></td>
+        <td style="text-align: center;"><b>PHY (DP83867IR) Latency\n (from datasheet) in ns</b></td>
         <td style="text-align: center;"><b>Total Latency \n (ns)</b></td>
     </tr>
     <tr>
         <td>RX Latency</td>
-        <td>14000</td>
-        <td>193</td>
-        <td>14193</td>
+        <td>20000</td>
+        <td>288</td>
+        <td>20288</td>
     </tr>
     <tr>
         <td>TX Latency</td>
-        <td>7000</td>
+        <td>10000</td>
         <td>384</td>
-        <td>7384</td>
+        <td>10384</td>
     </tr>
 </table>
 
