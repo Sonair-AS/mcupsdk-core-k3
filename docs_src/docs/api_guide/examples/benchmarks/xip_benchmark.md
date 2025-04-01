@@ -57,7 +57,7 @@ The example does the below
 - To flash this program use the sample config file located at below.
 
 \cond SOC_AM275X
-        examples/benchmarks/xip_benchmark/@VAR_BOARD_NAME_LOWER/system_freertos/sbl_ospi.cfg
+        examples/benchmarks/xip_benchmark/@VAR_BOARD_NAME_LOWER/r5fss0-0_freertos/xip_benchmark_sbl_ospi_hs_fs.cfg
 \endcond
 
 - This config file has the filenames listed assuming application is built using makefile's and release profile.
