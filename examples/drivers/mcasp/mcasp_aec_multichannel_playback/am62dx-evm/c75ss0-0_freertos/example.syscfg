@@ -3,7 +3,7 @@
  * via the GUI or CLI. Run CLI with '--help' for additional information on how to override these arguments.
  * @cliArgs --device "AM62Dx" --part "AM62D24-G" --package "ANF" --context "c75ss0-0" --product "MCU_PLUS_SDK@07.03.01"
  * @v2CliArgs --device "AM62D-Q1" --package "FCBGA (ANF)" --variant "AM62D24-G" --context "c75ss0-0" --product "MCU_PLUS_SDK@07.03.01"
- * @versions {"tool":"1.22.0+3893"}
+ * @versions {"tool":"1.23.0+4000"}
  */
 
 /**
@@ -67,17 +67,17 @@ mcasp1.externTxLoopjob                         = true;
 mcasp1.txLoopjobBufExtern                      = "unsigned int audio_sample[]";
 mcasp1.txLoopjobBuf                            = "audio_sample";
 mcasp1.txLoopjobBufLength                      = 1411200;
-mcasp1.MCASP.$assignAllowConflicts             = "MCASP1";
-mcasp1.MCASP.AFSX.$assign                      = "MMC2_SDWP";
-mcasp1.MCASP.ACLKX.$assign                     = "MMC2_SDCD";
 mcasp1.SYSTEM.$assignAllowConflicts            = "SYSTEM0";
 mcasp1.mcaspSer.create(1);
 mcasp1.mcaspSer[0].$name                       = "CONFIG_MCASP_SER0";
 mcasp1.mcaspSer[0].MCASP.$assignAllowConflicts = "MCASP1";
 mcasp1.mcaspSer[0].MCASP.AXR0.$assign          = "MMC2_DAT0";
-scripting.suppress("Resource conflict,MCASP1 is also in use by @@@.+?@@@", mcasp1.MCASP, "$assign");
+mcasp1.MCASP.$assignAllowConflicts             = "MCASP1";
+mcasp1.MCASP.AFSX.$assign                      = "MMC2_SDWP";
+mcasp1.MCASP.ACLKX.$assign                     = "MMC2_SDCD";
 scripting.suppress("Resource conflict,SYSTEM0 is also in use by @@@.+?@@@", mcasp1.SYSTEM, "$assign");
 scripting.suppress("Resource conflict,MCASP1 is also in use by @@@.+?@@@", mcasp1.mcaspSer[0].MCASP, "$assign");
+scripting.suppress("Resource conflict,MCASP1 is also in use by @@@.+?@@@", mcasp1.MCASP, "$assign");
 
 mcasp2.$name                                   = "CONFIG_MCASP1";
 mcasp2.enableLoopback                          = false;
@@ -90,18 +90,21 @@ mcasp2.txFsPolarity                            = 0;
 mcasp2.txDataMask                              = 0xFFFFFFFF;
 mcasp2.txActiveSlotMask                        = 0xFF;
 mcasp2.enableMcaspRx                           = false;
-mcasp2.txLoopjobBuf                            = "gTxLoopjobBuf1";
 mcasp2.txCallbackFxn                           = "mcasp_txcb";
-mcasp2.MCASP.$assignAllowConflicts             = "MCASP2";
-mcasp2.MCASP.AFSX.$assign                      = "GPMC0_AD12";
-mcasp2.MCASP.ACLKX.$assign                     = "GPMC0_AD13";
+mcasp2.externTxLoopjob                         = true;
+mcasp2.txLoopjobBufExtern                      = "unsigned int audio_sample[]";
+mcasp2.txLoopjobBuf                            = "audio_sample";
+mcasp2.txLoopjobBufLength                      = 1411200;
 mcasp2.SYSTEM.$assignAllowConflicts            = "SYSTEM0";
 mcasp2.mcaspSer.create(1);
 mcasp2.mcaspSer[0].$name                       = "CONFIG_MCASP_SER1";
 mcasp2.mcaspSer[0].MCASP.$assignAllowConflicts = "MCASP2";
-scripting.suppress("Resource conflict,MCASP2 is also in use by @@@.+?@@@", mcasp2.MCASP, "$assign");
+mcasp2.MCASP.$assignAllowConflicts             = "MCASP2";
+mcasp2.MCASP.AFSX.$assign                      = "GPMC0_AD12";
+mcasp2.MCASP.ACLKX.$assign                     = "GPMC0_AD13";
 scripting.suppress("Resource conflict,SYSTEM0 is also in use by @@@.+?@@@", mcasp2.SYSTEM, "$assign");
 scripting.suppress("Resource conflict,MCASP2 is also in use by @@@.+?@@@", mcasp2.mcaspSer[0].MCASP, "$assign");
+scripting.suppress("Resource conflict,MCASP2 is also in use by @@@.+?@@@", mcasp2.MCASP, "$assign");
 
 const udma         = scripting.addModule("/drivers/udma/udma", {}, false);
 const udma1        = udma.addInstance({}, false);
