@@ -18,6 +18,16 @@ AM275x | R5F, C75                    | @VAR_BOARD_NAME (referred to as am275x-ev
 Feature                                                                                  | Module
 -----------------------------------------------------------------------------------------|-----------------------------------
 ECC example for R5F cache                                                                | SDL
+DRU support is enabled with DMAUtils examples                                            | UDMA
+OSPI XIP boot support is added with XIP benchmark example                                | Bootloader
+ADC support on R5F                                                                       | ADC
+ECAP, EPWM, EQEP on R5F and C7X                                                          | Drivers
+MCAN external read write example is added                                                | MCAN
+Early chime example is added                                                             | McASP
+RTC support on R5F                                                                       | RTC
+Image version check on SBL                                                               | Bootloader
+
+
 
 ## Dependent Tools and Compiler Information
 
@@ -98,6 +108,10 @@ MCASP driver
 
 Peripheral | Supported CPUs  | SysConfig Support
 -----------|-----------------|-------------------
+ADC        | R5F             | YES
+ECAP       | R5F, C7X        | YES
+EPWM       | R5F, C7X        | YES
+EQEP       | R5F, C7X        | YES
 GPIO       | R5F, C7X        | YES
 I2C        | R5F, C7X        | YES
 IPC        | R5F, C7X        | YES
@@ -106,6 +120,7 @@ MCASP      | R5F, C7X        | YES
 MCSPI      | R5F             | YES
 MMCSD      | R5F             | YES
 Pinmux     | R5F, C7X        | YES
+RTC        | C7X             | YES
 SOC        | R5F, C7X        | YES
 SCI Client | R5F, C7X        | YES
 UART       | R5F, C7X        | YES
@@ -119,24 +134,6 @@ Peripheral | Supported CPUs | SysConfig Support
 EEPROM     | R5F            | Yes
 Flash      | WKUP-R5F       | Yes
 LED        | R5F            | Yes
-
-### SDL
-
-SDL Module       | Supported CPUs | SysConfig Support
------------------|----------------|-------------------
-MCRC             |  R5F           | No
-ESM              |  R5F           | No
-VTM              |  R5F           | No
-DCC              |  R5F           | No
-ECC              |  R5F           | No
-RTI              |  R5F           | No
-POK              |  R5F           | No
-PBIST            |  R5F           | No
-LBIST            |  R5F           | No
-ROM_CHECKSUM     |  R5F           | No
-
-
-\note This is BQ release for SDL. FSQ release will be provided in next release. \n
 
 ### SDL
 

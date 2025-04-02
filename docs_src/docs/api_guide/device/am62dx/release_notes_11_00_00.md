@@ -20,6 +20,11 @@ AM62Dx | MCU R5F, WKUP R5F, A53, C75 | @VAR_BOARD_NAME EVM (referred to as am62d
 Feature                                                                                        | Module
 -----------------------------------------------------------------------------------------------|-----------------------------------
 ECC example for R5F cache                                                                      | SDL
+FreeRTOS AMP support on A53                                                                    | DPL
+OSPI support on MCU-R5F                                                                        | OSPI
+RTC driver on R5F                                                                              | RTC
+Example to show usage of firewalls isolation of MCU domain                                     | Examples
+Optimized boottime for eMMC, SD boot by enabling DMA for DDR to DDR copy                       | Bootloader
 
 
 ## Other Updates on This Release

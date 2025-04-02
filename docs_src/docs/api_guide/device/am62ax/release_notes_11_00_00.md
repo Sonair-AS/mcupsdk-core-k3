@@ -24,6 +24,7 @@ Exmaple for Key Revision update                                                 
 RTC driver on R5F                                                                              | RTC
 LPM example for MCU only with Timer and MCAN as wakeup sources                                 | LPM
 ECC example for R5F cache                                                                      | SDL
+Optimized boottime for eMMC, SD boot by enabling DMA for DDR to DDR copy                       | Bootloader
 
 ### Unsupported Features {#UNSUPPORTED_FEATURES}
 

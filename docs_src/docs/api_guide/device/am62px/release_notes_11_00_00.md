@@ -18,6 +18,11 @@ AM62P  | MCU R5F, WKUP R5F           | @VAR_BOARD_NAME EVM (referred to as am62p
 Feature                                                                                        | Module
 -----------------------------------------------------------------------------------------------|-----------------------------------
 ECC example for R5F cache                                                                      | SDL
+Example for Key Revision update                                                                | OTP 
+RTC driver on MCU R5F                                                                          | RTC
+LPM example for MCU only with Timer and MCAN as wakeup sources                                 | LPM
+Optimized boottime for eMMC, SD boot by enabling DMA for DDR to DDR copy                       | Bootloader
+Optimized boottime for OSPI by enabling HCDMA in bootloader                                    | Bootloader
 
 ## Dependent Tools and Compiler Information
 \attention It is recommended to use the TIFS version provided with the release for ensuring compatibility between TIFS and device manager. Using the TIFS from different MCU+SDK release is not recomended and may cause TIFS/ DM functionality to break.

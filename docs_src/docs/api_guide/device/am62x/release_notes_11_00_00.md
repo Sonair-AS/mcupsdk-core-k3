@@ -23,6 +23,11 @@ AM62x  | M4F, R5F, A53   | SK-AM62 (referred as am62x-sk in code), SK-AM62-LP (r
 Feature                                                                                        | Module
 -----------------------------------------------------------------------------------------------|-----------------------------------
 ECC example for R5F cache                                                                      | SDL
+IPC between A53 cores                                                                          | IPC 
+Example for Key Revision update                                                                | OTP 
+LPM example for MCU only with Timer and MCAN as wakeup sources                                 | LPM 
+Coremark-pro, Dhrystone, interrupt latency benchmarks for A53                                  | Benchmark
+Optimized boottime for eMMC, SD boot by enabling DMA for DDR to DDR copy                       | Bootloader
 
 
 ### Experimental Features {#EXPERIMENTAL_FEATURES}
