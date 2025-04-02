@@ -30,38 +30,38 @@ Data Placement          | HSM RAM (For SBL Stage1), DDR (SBL Stage2 and others)
 - Software/Application used        : sbl_ospi_multistage, ipc_rpmsg_echo, and HSM App Images
 - Cores booted by stage1 SBL       : r5f0-0
 - Cores booted by stage2 SBL       : hsm-m4f0-0 mcu-r5f0-0 a530-0 c75ss0
-- Size of images loaded by stage1  : 236 KB
-- Size of images loaded by stage2  : 264 KB
+- Size of images loaded by stage1  : 262 KB
+- Size of images loaded by stage2  : 266 KB
 - Boot Media Clock                 : 166.667 MHz
 - Mode                             : PHY enabled, DMA enabled
 - Protocol                         : 8D-8D-8D
 
 SBL Stage1 boot time breakdown          |   Time (ms)
 ----------------------------------------|--------------
-SBL Stage1: System_init                 |   22.063
+SBL Stage1: System_init                 |   21.969
 SBL Stage1: Board_init                  |    0.000
 SBL Stage1: Drivers_open                |    0.001
-SBL Stage1: SBL Drivers_open            |    0.193
+SBL Stage1: SBL Drivers_open            |    0.195
 SBL Stage1: Board_driversOpen           |    0.007
-SBL Stage1: SBL Board_driversOpen       |    1.312
-SBL Stage1: Sciclient Get Version       |   10.169
-SBL Stage1: App_loadSelfcoreImage       |    5.609
+SBL Stage1: SBL Board_driversOpen       |    1.294
+SBL Stage1: Sciclient Get Version       |   10.170
+SBL Stage1: App_loadSelfcoreImage       |    4.935
 ----------------------------------------|--------------
-SBL Stage2: Total time taken            |   39.356
+SBL Stage2: Total time taken            |   38.576
 
 SBL Stage2 boot time breakdown          |   Time (ms)
 ----------------------------------------|--------------
-SBL Stage2: System_init                 |    1.801
+SBL Stage2: System_init                 |    1.935
 SBL Stage2: Board_init                  |    0.002
-SBL Stage2: FreeRtosTask Create         |    0.258
-SBL Stage2: SBL Drivers_open            |    0.718
+SBL Stage2: FreeRtosTask Create         |    0.298
+SBL Stage2: SBL Drivers_open            |    0.733
 SBL Stage2: SBL Board Drivers_open      |    0.118
-SBL Stage2: App_loadImages              |    3.034
-SBL Stage2: App_loadMCUImages           |    5.375
-SBL Stage2: App_loadA53Images           |    6.429
-SBL Stage2: App_loadDSPImage            |   16.189
+SBL Stage2: App_loadImages              |    3.147
+SBL Stage2: App_loadMCUImages           |    4.426
+SBL Stage2: App_loadA53Images           |    5.995
+SBL Stage2: App_loadDSPImage            |   15.317
 ----------------------------------------|--------------
-SBL Stage2: Total time taken            |   33.927
+SBL Stage2: Total time taken            |   31.975
 
 - Here the CPU load or section copy takes place from the OSPI memory to DDR, this would be slower that mem to mem copy.
 
@@ -74,34 +74,34 @@ SBL Stage2: Total time taken            |   33.927
 - Software/Application used        : sbl_emmc_multistage, ipc_rpmsg_echo and HSM App Images
 - Cores booted by stage1 SBL       : r5f0-0
 - Cores booted by stage2 SBL       : hsm-m4f0-0 mcu-r5f0-0 r5f0-0 a530-0 c75ss0
-- Size of images loaded by stage1  : 236 KB
-- Size of images loaded by stage2  : 264 KB
+- Size of images loaded by stage1  : 262 KB
+- Size of images loaded by stage2  : 266 KB
 - Boot Media Clock                 : 200.000 MHz
 - Mode                             : HS200
 
 SBL Stage1 boot time breakdown          |   Time (ms)
 ----------------------------------------|--------------
-SBL Stage1: System_init                 |   21.979
+SBL Stage1: System_init                 |   22.056
 SBL Stage1: Board_init                  |    0.000
-SBL Stage1: Drivers_open                |   20.636
+SBL Stage1: Drivers_open                |   20.635
 SBL Stage1: Board_driversOpen           |    0.000
 SBL Stage1: Sciclient Get Version       |   10.185
-SBL Stage1: App_loadImages              |   10.318
+SBL Stage1: App_loadImages              |    9.800
 ----------------------------------------|--------------
-SBL Stage1: Total time taken            |   63.120
+SBL Stage1: Total time taken            |   62.679
 
 SBL Stage2 boot time breakdown          |   Time (ms)
 ----------------------------------------|--------------
-SBL Stage2: System_init                 |    1.818
+SBL Stage2: System_init                 |    1.943
 SBL Stage2: Board_init                  |    0.002
-SBL Stage2: FreeRtosTask Create         |    0.258
-SBL Stage2: Drivers_open                |   16.656
-SBL Stage2: App_loadImages              |    5.438
-SBL Stage2: App_loadMCUImage            |    6.889
-SBL Stage2: App_loadA53Images           |    7.678
-SBL Stage2: App_loadDSPImage            |   14.908
+SBL Stage2: FreeRtosTask Create         |    0.298
+SBL Stage2: Drivers_open                |   16.678
+SBL Stage2: App_loadImages              |    5.539
+SBL Stage2: App_loadMCUImage            |    6.880
+SBL Stage2: App_loadA53Images           |    6.513
+SBL Stage2: App_loadDSPImage            |   13.846
 ----------------------------------------|--------------
-SBL Stage2: Total time taken            |   53.651
+SBL Stage2: Total time taken            |   51.503
 
 - The emmc driver initialization is done as part of Drivers_open.
 
@@ -147,16 +147,15 @@ Local Core  | Remote Core | Message Size | Average Message Latency (us) | Max La
 
 Mode   | Data size(MiB) | Write speed(MiBps) | Read speed(MiBps)
 -------|----------------|--------------------|-----------------
- SDR50 | 1	            | 40.57		         | 45.01
+ SDR50 | 1	            | 40.56		         | 45.15
  SDR50 | 4	            | 41.55		         | 45.55
- SDR50 | 6	            | 35.20		         | 45.58
- DDR50 | 1	            | 67.95		         | 81.88
- DDR50 | 4	            | 71.06		         | 83.63
- DDR50 | 6	            | 71.26		         | 83.73
- HS200 | 1	            | 98.36		         | 158.16
- HS200 | 4	            | 62.39		         | 169.34
- HS200 | 6	            | 108.10		     | 169.80
-
+ SDR50 | 6	            | 41.52		         | 45.58
+ DDR50 | 1	            | 54.16		         | 81.89
+ DDR50 | 4	            | 71.02		         | 83.66
+ DDR50 | 6	            | 60.09		         | 79.33
+ HS200 | 1	            | 73.10		         | 159.84
+ HS200 | 4	            | 107.37		     | 169.46
+ HS200 | 6	            | 109.19		     | 152.01
 
 ### OSPI Performance
  - Flash protocol: FLASH_CFG_PROTO_8D_8D_8D
@@ -165,9 +164,9 @@ Mode   | Data size(MiB) | Write speed(MiBps) | Read speed(MiBps)
 
 Data size(MiB) | Write speed(MiBps) | Read speed(MiBps)
 ---------------|--------------------|-----------------
-  1	           | 0.40		        | 283.86
-  5	           | 0.41		        | 284.83
- 10	           | 0.42		        | 284.96
+  1	           | 0.42		        | 283.84
+  5	           | 0.42		        | 284.84
+  10	       | 0.42		        | 284.96
 
 ### McASP (audio) Latency
  - Measured in am62a-sk
