@@ -4,6 +4,10 @@
 
 # Introduction
 
+\cond SOC_AM62DX
+\note This example supports the AM62D-EVM-PROC180E2. To test with the AM62D-EVM-PROC180E1, change the phy addresses in TI BOARD DRIVERS -> ETHPHY -> CONFIG_ENET_ETHPHY(x) -> phy Address to 15 and 3.
+\endcond
+
 The layer 2 cpsw example is dedicated to demonstrate usage of Enet CPSW3G peripheral operation.
 
 \cond SOC_AM64X || SOC_AM243X || SOC_AM62DX || SOC_AM62X
@@ -70,7 +74,7 @@ This example do below:
 
 \endcond
 
- \cond SOC_AM62X 
+ \cond SOC_AM62X
  Parameter      | Value
  ---------------|-----------
  CPU + OS       | a53ss0-0_freertos

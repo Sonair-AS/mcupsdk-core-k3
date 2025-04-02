@@ -3,6 +3,11 @@
 [TOC]
 
 # Introduction
+
+\cond SOC_AM62DX
+\note This example supports the AM62D-EVM-PROC180E2. To test with the AM62D-EVM-PROC180E1, change the phy addresses in TI BOARD DRIVERS -> ETHPHY -> CONFIG_ENET_ETHPHY(x) -> phy Address to 15 and 3.
+\endcond
+
 This ethernet AVTP example illustrates the usage of IEEE Std 1722™-2016 stack with CPSW peripheral.
 
 In this example, the DUT MAC port is connected to a PC which can act as either AVTP Talker or AVTP Listener. In the talker example, the DUT sends
@@ -40,7 +45,7 @@ Not support in this device
 
  Parameter      | Value
  ---------------|-----------
- CPU + OS       | mcu-r5fss0-0_freertos
+ CPU + OS       | r5fss0-0_freertos
  Toolchain      | ti-arm-clang
  Board          | @VAR_BOARD_NAME_LOWER
  Example folder | examples/networking/tsn/aafpcmlistener_app, aafpcmtalker_app
@@ -55,7 +60,6 @@ Not support in this device
  Toolchain      | ti-arm-clang
  Board          | @VAR_BOARD_NAME_LOWER
  Example folder | examples/networking/tsn/aafpcmlistener_app, aafpcmtalker_app, dolbyec3talker_app, dolbyec3listener_app
- Example folder | examples/networking/tsn/acf_app, aafpcmlistener_app, aafpcmtalker_app
 
 \endcond
 # Prerequisites

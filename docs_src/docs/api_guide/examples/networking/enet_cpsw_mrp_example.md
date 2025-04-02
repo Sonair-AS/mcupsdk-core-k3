@@ -3,6 +3,11 @@
 [TOC]
 
 # Introduction
+
+\cond SOC_AM62DX
+\note This example supports the AM62D-EVM-PROC180E2. To test with the AM62D-EVM-PROC180E1, change the phy addresses in TI BOARD DRIVERS -> ETHPHY -> CONFIG_ENET_ETHPHY(x) -> phy Address to 15 and 3.
+\endcond
+
 This MRP example illustrates the usage of ``IEEE Std 802.1Q-2022 Section 35. Stream Reservation Protocol (SRP)`` stack with CPSW peripheral.
 
 In this example, the DUT MAC port is connected to a neighbor PC which also has gptp, avtp applications and MRP application
@@ -185,7 +190,7 @@ mrp_linkcheck: tilld0 up
 EnetApp_setMrpExtControlConfig
 INF:uconf:cbs_hw_action:cbs setup tilld0, tc=7
 INF:uconf:update_cbs_idle_slope:cbs setup tc=7, lqueue=7, pqueue=7
-ERR:cbase:LLDEnetSetCreditBasedShaping, set CBS for mac port 0, queue: 7 
+ERR:cbase:LLDEnetSetCreditBasedShaping, set CBS for mac port 0, queue: 7
 INF:uconf:cbs_hw_action:update_cbs_idle_slope. res=1
 INF:uconf:000003-769447:notice_cb:tilld0, CBS setup completed, tc=7, idleslope=4096000
 \endcode
@@ -215,11 +220,11 @@ mvrp_state_machine: GPTP Sync-ed on dev tilld0
 \code
 mvrp_state_machine: talker[vid=100]: STARTED -> REGVLAN
 mvrp_state_machine: talker[vid=100]: REGVLAN -> RUNNING
-mvrp_state_machine: MSRP talker[sid=01-02-03-04-05-06:00-00]: IDLE -> STARTED 
+mvrp_state_machine: MSRP talker[sid=01-02-03-04-05-06:00-00]: IDLE -> STARTED
 msrp_state_machine: talker[sid=01-02-03-04-05-06:00-00]: MSRP_STATE_STARTED -> MSRP_STATE_REGISTERED_DOMAIN
-msrp_state_machine: talker[sid=01-02-03-04-05-06:00-00]: MSRP_STATE_REGISTERED_DOMAIN -> MSRP_STATE_WAIT_TARGET 
-msrp_state_machine: talker[sid=01-02-03-04-05-06:00-00]: MSRP_STATE_WAIT_TARGET -> MSRP_STATE_WAIT_REGIST 
-msrp_state_machine: talker[sid=01-02-03-04-05-06:00-00]: MSRP_STATE_WAIT_REGIST -> MSRP_STATE_RUNNING 
+msrp_state_machine: talker[sid=01-02-03-04-05-06:00-00]: MSRP_STATE_REGISTERED_DOMAIN -> MSRP_STATE_WAIT_TARGET
+msrp_state_machine: talker[sid=01-02-03-04-05-06:00-00]: MSRP_STATE_WAIT_TARGET -> MSRP_STATE_WAIT_REGIST
+msrp_state_machine: talker[sid=01-02-03-04-05-06:00-00]: MSRP_STATE_WAIT_REGIST -> MSRP_STATE_RUNNING
 avtp_testclient:talker sid=01:02:03:04:05:06:00:00/vid=100 start
 [TX 01:02:03:04:05:06:00:00] Rp#0 Mbps(period=4.991435, total=4.991435)
 domain=0, offset=0nsec, hw-adjrate=0ppb
@@ -271,13 +276,13 @@ mvrp_state_machine: GPTP Sync-ed on dev tilld0
 \endcode
 <b>Verification #2</b> After gptp sync, the MRP state machines will be running, and at the end, the avtp will be started with listener mode
 \code
-mrpmanager_declare_vid: Found vid = 100 in OperListReq 
-mvrp_state_machine: listener[vid=100]: STARTED -> REGVLAN 
-mvrp_state_machine: listener[vid=100]: REGVLAN -> RUNNING 
-msrp_state_machine: listener[sid=01-02-03-04-05-06:00-00]: MSRP_STATE_STARTED -> MSRP_STATE_REGISTERED_DOMAIN 
-msrp_state_machine: listener[sid=01-02-03-04-05-06:00-00]: MSRP_STATE_REGISTERED_DOMAIN -> MSRP_STATE_WAIT_TARGET 
-msrp_state_machine: listener[sid=01-02-03-04-05-06:00-00]: MSRP_STATE_WAIT_TARGET -> MSRP_STATE_WAIT_REGIST 
-msrp_state_machine: listener[sid=01-02-03-04-05-06:00-00]: MSRP_STATE_WAIT_REGIST -> MSRP_STATE_RUNNING 
+mrpmanager_declare_vid: Found vid = 100 in OperListReq
+mvrp_state_machine: listener[vid=100]: STARTED -> REGVLAN
+mvrp_state_machine: listener[vid=100]: REGVLAN -> RUNNING
+msrp_state_machine: listener[sid=01-02-03-04-05-06:00-00]: MSRP_STATE_STARTED -> MSRP_STATE_REGISTERED_DOMAIN
+msrp_state_machine: listener[sid=01-02-03-04-05-06:00-00]: MSRP_STATE_REGISTERED_DOMAIN -> MSRP_STATE_WAIT_TARGET
+msrp_state_machine: listener[sid=01-02-03-04-05-06:00-00]: MSRP_STATE_WAIT_TARGET -> MSRP_STATE_WAIT_REGIST
+msrp_state_machine: listener[sid=01-02-03-04-05-06:00-00]: MSRP_STATE_WAIT_REGIST -> MSRP_STATE_RUNNING
 avtp_testclient:listener sid=01:02:03:04:05:06:00:00/vid=100 start
 INF:xmrpd:Waiting for avtpd to be ready...
 INF:xmrpd:waiting avtpd

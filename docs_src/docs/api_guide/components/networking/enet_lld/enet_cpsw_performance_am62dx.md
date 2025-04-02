@@ -3,6 +3,59 @@
 # Introduction
 This section provides the performance numbers of Ethernet drivers using CPSW peripheral in MCU+ SDK
 
+# Setup Details
+SOC Details           | Values             |
+----------------------|--------------------|
+Core                  | Main R5F0 Core 0   |
+Core Operating Speed  | 800 MHz            |
+Memory Type           | DDR                |
+Cache status          | Enabled            |
+EVM Type              | AM62D-EVM          |
+PHY Card used         | DP83867 Add-on Card|
+
+# Layer 2 Performance
+  \imageStyle{CPSW_latency_measurement_diagram.bmp,width:30%}
+  \image html CPSW_latency_measurement_diagram.bmp Latency defination
+
+## Configuration Details
+Configuration                   | Value                    |
+--------------------------------|--------------------------|
+Processing Core                 | Main R5F0 Core 0         |
+Core Frequency                  | 800 MHz                  |
+Ethernet Interface Type         | RGMII at 1 Gbps          |
+Packet buffer memory            | DDR (uncached)           |
+Scatter-gather TX               | Yes                      |
+Scatter-gather RX               | Yes                      |
+UDMA interrupt pacing           | NO                       |
+RTOS                            | FreeRTOS                 |
+RTOS application                | Modified \ref EXAMPLES_ENET_CPSW_LOOPBACK \n example   |
+Host PC tool version            | nload                    |
+Rx packet length                | 200 B                    |
+Tx packet length                | 200 B                    |
+\n
+
+## Layer 2 Latency
+<table>
+    <tr>
+        <td style="text-align: center;"><b>Parameter</b></td>
+        <td style="text-align: center;"><b>CPU<->CPSW \n Latency Value (ns)</b></td>
+        <td style="text-align: center;"><b>PHY (DP83867IR) Latency\n (from datasheet) in ns</b></td>
+        <td style="text-align: center;"><b>Total Latency \n (ns)</b></td>
+    </tr>
+    <tr>
+        <td>RX Latency</td>
+        <td>19000</td>
+        <td>288</td>
+        <td>19288</td>
+    </tr>
+    <tr>
+        <td>TX Latency</td>
+        <td>11000</td>
+        <td>384</td>
+        <td>11384</td>
+    </tr>
+</table>
+
 # TCP/IP Performance
 
 ## Configuration Details

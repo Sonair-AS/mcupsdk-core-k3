@@ -7,6 +7,10 @@
 \note LwIP and MbedTLS features are made available as is from the public lwIP and MbedTLS project. SDK configuration may only enable and exercise a subset of these features.
 The mbedTLS public project being used here (tag 2.13.1) can be found here: https://github.com/Mbed-TLS/mbedtls/tree/mbedtls-2.13.1
 
+\cond SOC_AM62DX
+\note This example supports the AM62D-EVM-PROC180E2. To test with the AM62D-EVM-PROC180E1, change the phy addresses in TI BOARD DRIVERS -> ETHPHY -> CONFIG_ENET_ETHPHY(x) -> phy Address to 15 and 3.
+\endcond
+
 This example demonstates how to run a MQTT client with TLS enabled on LwIP networking stack using raw API coupled with ethernet driver (ENET), with MbedTLS providing TLS functionality in the L4 layer.
 
 \cond SOC_AM64X || SOC_AM243X || SOC_AM62DX
@@ -76,7 +80,7 @@ The example does below
     <th>Remarks/Default Setting
 </tr>
 
-\cond SOC_AM64X || SOC_AM243X 
+\cond SOC_AM64X || SOC_AM243X
 <tr>
     <td>Mdio Manual Mode Enable
     <td>TI Networking / Enet (CPSW)

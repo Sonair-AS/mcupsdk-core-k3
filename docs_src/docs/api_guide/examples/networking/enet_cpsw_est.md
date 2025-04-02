@@ -3,13 +3,18 @@
 [TOC]
 
 # Introduction
+
+\cond SOC_AM62DX
+\note This example supports the AM62D-EVM-PROC180E2. To test with the AM62D-EVM-PROC180E1, change the phy addresses in TI BOARD DRIVERS -> ETHPHY -> CONFIG_ENET_ETHPHY(x) -> phy Address to 15 and 3.
+\endcond
+
 This example application illustrates the configuration and usage of 802.1Qbv
 Enhanced Scheduled Traffic (EST) with CPSW through Enet LLD.  The example
 application enables MAC port 1 by default, but it supports up to two MAC
 ports available in CPSW3G on SoC.
 
   \image html cpsw_est_am62x.png CPSW EST example on device
-  
+
 
 The example application opens one DMA TX channel and one DMA RX channel.  The TX
 channel will be used to inject test packets into CPSW host port.  The RX channel
@@ -124,7 +129,7 @@ Additionally, the following *getter* IOCTLs are called for informational reasons
 - \ref ENET_TAS_IOCTL_GET_OPER_LIST to get the driver's version of the
   operational list after one has been programmed.  The oper list is then
   printed to serial console.
-  
+
 
 ## Transmit Test
 
@@ -362,7 +367,7 @@ are shown in the following sequence diagram:
 
   \image html CpswEst_ExampleApp.png Application Flow
 
-  
+
 
 # Supported Combinations
 
@@ -375,7 +380,7 @@ are shown in the following sequence diagram:
  Example folder | source/networking/enet/core/examples/enet_cpsw_est/V1
  \endcond
 
- \cond SOC_AM62X 
+ \cond SOC_AM62X
  Parameter      | Value
  ---------------|-----------
  CPU + OS       | a53ss0-0_freertos
@@ -447,7 +452,7 @@ The steps to run this test are:
 
 \code
 ==========================
-       CPSW EST Test      
+       CPSW EST Test
 ==========================
 Open MAC port 1
 EnetPhy_bindDriver: PHY 0: OUI:080028 Model:0f Ver:01 <-> 'dp83869' : OK

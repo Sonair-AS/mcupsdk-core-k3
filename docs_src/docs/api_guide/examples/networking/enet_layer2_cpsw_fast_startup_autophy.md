@@ -4,6 +4,10 @@
 
 # Introduction
 
+\cond SOC_AM62DX
+\note This example supports the AM62D-EVM-PROC180E2. To test with the AM62D-EVM-PROC180E1, change the phy addresses in TI BOARD DRIVERS -> ETHPHY -> CONFIG_ENET_ETHPHY(x) -> phy Address to 15 and 3.
+\endcond
+
 The Enet CPSW fast startup example is dedicated to demonstrate the fast link up functionality of CPSW3G showing Fast Enet startup with Autophy (DP83TG721)
 
 

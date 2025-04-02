@@ -4,6 +4,10 @@
 
 # Introduction
 
+\cond SOC_AM62DX
+\note This example supports the AM62D-EVM-PROC180E2. To test with the AM62D-EVM-PROC180E1, change the phy addresses in TI BOARD DRIVERS -> ETHPHY -> CONFIG_ENET_ETHPHY(x) -> phy Address to 15 and 3.
+\endcond
+
 \note lwIP features are made available as is from public lwIP project. SDK configuration may only enable and exercise a subset of these features.
 
 This example is a TCP/UDP IP application using the LwIP networking stack, coupled with
@@ -65,7 +69,7 @@ Example folder | source/networking/enet/core/examples/lwip/enet_lwip_cpsw
 
  Parameter      | Value
  ---------------|-----------
- CPU + OS       | mcu-r5fss0-0_freertos
+ CPU + OS       | r5fss0-0_freertos
  Toolchain      | ti-arm-clang
  Boards         | @VAR_BOARD_NAME_LOWER
  Example folder | source/networking/enet/core/examples/lwip/enet_lwip_cpsw

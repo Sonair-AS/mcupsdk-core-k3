@@ -6,6 +6,10 @@
 
 \note LwIP features are made available as is from public lwIP project. SDK configuration may only enable and exercise a subset of these features.
 
+\cond SOC_AM62DX
+\note This example supports the AM62D-EVM-PROC180E2. To test with the AM62D-EVM-PROC180E1, change the phy addresses in TI BOARD DRIVERS -> ETHPHY -> CONFIG_ENET_ETHPHY(x) -> phy Address to 15 and 3.
+\endcond
+
 This example shows about how to implement a simple HTTP web Server on LwIP networking stack using LwIP raw APIs on bare metal (No-RTOS) using no-rtos LwIP stack, no-rtos lwip-if and enet driver.
 
 On @VAR_SOC_NAME, we can do ethernet based communication using CPSW peripheral

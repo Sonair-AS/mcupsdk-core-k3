@@ -3,6 +3,11 @@
 [TOC]
 
 # Introduction
+
+\cond SOC_AM62DX
+\note This example supports the AM62D-EVM-PROC180E2. To test with the AM62D-EVM-PROC180E1, change the phy addresses in TI BOARD DRIVERS -> ETHPHY -> CONFIG_ENET_ETHPHY(x) -> phy Address to 15 and 3.
+\endcond
+
 This ethernet TSN example illustrates the usage of gPTP IEEE 802.1AS stack with CPSW peripheral with LwIP network stack running in parallel. Here we demonstrate a simple TCP echo server using netconn APIs with the LwIP stack.
 On the gPTP front, the application used here supports all the below modes:
     - gPTP End-Point time_transmitter mode (i.e. master mode)
@@ -14,7 +19,7 @@ In this example, We use two Rx and two Tx DMA channel, one Rx and one Tx channel
   \cond SOC_AM62PX || SOC_AM62DX || AM64X
 
   \imageStyle{gPTPwithLwIP.png,width:20%}
-  \image html gPTPwithLwIP.png 
+  \image html gPTPwithLwIP.png
 
   \endcond
 
@@ -69,7 +74,7 @@ See also :\ref ENET_CPSW_TSN_GPTP for gPTP stack documentation.
 
 \endcond
 
-\cond SOC_AM62X 
+\cond SOC_AM62X
 
  Parameter      | Value
  ---------------|-----------
@@ -165,7 +170,7 @@ Out of box configuration for PPS signal output of this example is as follow:
 | am64x-EVM | PRG0_PRU0_GPO17 | U1 | 3.814 KHz | Pin B8 on J2 (i.e PIN8 on J2B) connector |
 | am243x-EVM | PRG0_PRU0_GPO17 | U1 | 3.814 KHz | Pin B8 on J2 (i.e PIN8 on J2B) connector |
 | am243x-LP | MMC1_DAT2 | K20 | 3.814 KHz | Pin3 on J6 connector |
-| am263x-CC | SFDM0_CLK1 | A16 | 3.814 KHz | Pin4 on J6 connector | 
+| am263x-CC | SFDM0_CLK1 | A16 | 3.814 KHz | Pin4 on J6 connector |
 | am263x-LP | SFDM0_CLK1 | A16 | 3.814 KHz | Pin4 on J6 connector |
 
 To set/modify configuration of PPS signal , you may follow the below steps:
@@ -174,24 +179,24 @@ To set/modify configuration of PPS signal , you may follow the below steps:
   2. Configure pinmux for PPS Output signal under ENET(CPSW)->'pinmux Config'->'CPTS0_TS_SYNC(CPTS0_TS_SYNC)' and select the appropriate pin as per your EVM.
     \imageStyle{gptp_pps_out_syscfg_gui1.png,width:50%}
     \image html gptp_pps_out_syscfg_gui1.png  **Figure**: Syscfg tool CPSW pinmux changes to select PPS signal pin
-    
+
   3. Signal is generated on the above configured PIN. You may connect oscilloscope on the pin to visualize and compare.
 One sample signal captured using oscilloscope. Blue from gPTP TT (master) and purple is from gPTP TR (slave)
     \imageStyle{gptp_pps_out_scope_capture.jpg,width:50%}
     \image html gptp_pps_out_scope_capture.jpg **Figure**: Signal captured on oscilloscope
 
 ## Create a network between EVM and host PC
-EVM and PC has to connected directly as shown below using CAT6 or CAT5 cable. If there is ethernet switch placed in between, make sure the switch is gPTP capable. Connect both EVM and PC to a DHCP server to get the IP addressess. 
+EVM and PC has to connected directly as shown below using CAT6 or CAT5 cable. If there is ethernet switch placed in between, make sure the switch is gPTP capable. Connect both EVM and PC to a DHCP server to get the IP addressess.
   \imageStyle{Lwip-gPTP-setup.png,width:30%}
   \image html Lwip-gPTP-setup.png Local network between PC and EVM
- 
+
 PORT1 instead of PORT0 on EVM can be used as well.
 
 ## Run the example
-  
+
 \attention If you need to reload and run again, a CPU power-cycle is MUST
 
-- Execute the below command in PC terminal to start the gPTP on linux: 
+- Execute the below command in PC terminal to start the gPTP on linux:
 \code
 $ sudo ptp4l -i eno1 -m -l 6 -q -f ~/gptp_config.cfg
 \endcode
@@ -227,13 +232,13 @@ ptp4l[7732.354]: assuming the grand master role
 ### DUT output
 \code
 ==================================
-  CPSW GPTP LWIP TCP ECHO SERVER 
+  CPSW GPTP LWIP TCP ECHO SERVER
 ==================================
 Enabling clocks!
-EnetAppUtils_reduceCoreMacAllocation: Reduced Mac Address Allocation for CoreId:1 From 4 To 2 
-Mdio_open:294 
-EnetPhy_bindDriver:1828 
-EnetPhy_bindDriver:1828 
+EnetAppUtils_reduceCoreMacAllocation: Reduced Mac Address Allocation for CoreId:1 From 4 To 2
+Mdio_open:294
+EnetPhy_bindDriver:1828
+EnetPhy_bindDriver:1828
 PHY 3 is alive
 PHY 15 is alive
 unibase-1.1.4
@@ -294,14 +299,14 @@ INF:gptp:000000-379622:domainIndex=0, GM changed old=00:00:00:00:00:00:00:00, ne
 INF:gptp:gptpclock_set_gmsync:gptpInstanceIndex=0, domainIndex=0, gmstate=2
 INF:gptp:set_phase_offsetGM:domainIndex=0, New adjustment(New GM?)
 [0]Waiting for network UP ...
-Cpsw_handleLinkUp:1450 
+Cpsw_handleLinkUp:1450
 MAC Port 2: link up
 INF:cbase:cbl_query_response:tilld1: link UP, speed=1000, duplex=1 !!!!
 [0]Network Link UP Event
 INF:gptp:index=2 speed=1000, duplex=full, ptpdev=tilld1
 WRN:gptp:000003-251701:waiting_for_pdelay_interval_timer_proc:portIndex=2, sourcePortIdentity=68:05:CA:FF:FE:C8:7A:C2, thisClock=F4:84:4C:FF:FE:FB:C0:42, neighborPropDelay=203
 INF:gptp:waiting_for_pdelay_interval_timer_proc:portIndex=2, not asCapable
-Cpsw_handleLinkUp:1450 
+Cpsw_handleLinkUp:1450
 MAC Port 1: link up
 INF:cbase:cbl_query_response:tilld0: link UP, speed=1000, duplex=1 !!!!
 INF:gptp:index=1 speed=1000, duplex=full, ptpdev=tilld0

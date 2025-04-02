@@ -4,6 +4,10 @@
 
 # Introduction
 
+\cond SOC_AM62DX
+\note This example supports the AM62D-EVM-PROC180E2. To test with the AM62D-EVM-PROC180E1, change the phy addresses in TI BOARD DRIVERS -> ETHPHY -> CONFIG_ENET_ETHPHY(x) -> phy Address to 15 and 3.
+\endcond
+
 The layer 2 cpsw switch example is dedicated to demonstrate usage of Enet CPSW3G peripheral operation as a basic switch.
 
 \cond SOC_AM62PX || SOC_AM62DX || SOC_AM62X
@@ -91,7 +95,7 @@ This example do below:
 
 \endcond
 
-\cond SOC_AM62X 
+\cond SOC_AM62X
 
  Parameter      | Value
  ---------------|-----------
@@ -164,7 +168,7 @@ Example folder  | source/networking/enet/core/examples/enet_layer2_cpsw_switch/V
 \code
 
 ==========================
- Layer 2 CPSW SWITCH Test 
+ Layer 2 CPSW SWITCH Test
 ==========================
 
 Init all peripheral clocks
@@ -178,15 +182,15 @@ cpsw-3g: Create RX task
 Open all peripherals
 ----------------------------------------------
 cpsw-3g: Open enet
-EnetAppUtils_reduceCoreMacAllocation: Reduced Mac Address Allocation for CoreId:1 From 4 To 1 
+EnetAppUtils_reduceCoreMacAllocation: Reduced Mac Address Allocation for CoreId:1 From 4 To 1
 
 Init all configs
 ----------------------------------------------
 cpsw-3g: init config
 cpsw-3g: Open port 1
-EnetPhy_bindDriver:1842 
+EnetPhy_bindDriver:1842
 cpsw-3g: Open port 2
-EnetPhy_bindDriver:1842 
+EnetPhy_bindDriver:1842
 PHY 0 is alive
 PHY 1 is alive
 
@@ -196,9 +200,9 @@ cpsw-3g: Attach core
 cpsw-3g: Open DMA
 initQs() txFreePktInfoQ initialized with 16 pkts
 cpsw-3g: Waiting for link up...
-Cpsw_handleLinkUp:1450 
+Cpsw_handleLinkUp:1450
 MAC Port 2: link up
-Cpsw_handleLinkUp:1450 
+Cpsw_handleLinkUp:1450
 MAC Port 1: link up
 cpsw-3g: Port 1 link is up
 cpsw-3g: Port 2 link is up

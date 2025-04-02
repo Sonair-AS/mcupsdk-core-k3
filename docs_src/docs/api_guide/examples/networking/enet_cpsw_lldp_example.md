@@ -3,6 +3,11 @@
 [TOC]
 
 # Introduction
+
+\cond SOC_AM62DX
+\note This example supports the AM62D-EVM-PROC180E2. To test with the AM62D-EVM-PROC180E1, change the phy addresses in TI BOARD DRIVERS -> ETHPHY -> CONFIG_ENET_ETHPHY(x) -> phy Address to 15 and 3.
+\endcond
+
 This ethernet LLDP example illustrates the usage of LLDP IEEE 802.1AB stack with CPSW peripheral.
 
 In this example, the DUT MAC port is connected to a neighbor PC which also have opensource lldp agent.

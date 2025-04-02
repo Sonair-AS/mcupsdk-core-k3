@@ -1,6 +1,11 @@
 # Enet TSN AVTP Dolby Example {#EXAMPLES_DOLBYEC3_TALKER_APP}
 
 # Introduction
+
+\cond SOC_AM62DX
+\note This example supports the AM62D-EVM-PROC180E2. To test with the AM62D-EVM-PROC180E1, change the phy addresses in TI BOARD DRIVERS -> ETHPHY -> CONFIG_ENET_ETHPHY(x) -> phy Address to 15 and 3.
+\endcond
+
 This Ethernet TSN example demonstrates Dolby EC3 AVB listener instance. Here, the listerner waits for talker to send the audio stream, when the audio stream is received, it is decoded into SMPTE337 frames and copied into the memory shared with Remote Core(C7x core). The Remote Core periodically reads from the shared memory and copies into its local memory for further processing.
 
 The below image shows the program flow for the Dolby EC3 listener application.

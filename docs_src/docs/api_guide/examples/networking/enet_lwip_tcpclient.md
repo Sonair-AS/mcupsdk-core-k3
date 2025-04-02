@@ -6,6 +6,10 @@
 
 \note LwIP features are made available as is from public lwIP project. SDK configuration may only enable and exercise a subset of these features.
 
+\cond SOC_AM62DX
+\note This example supports the AM62D-EVM-PROC180E2. To test with the AM62D-EVM-PROC180E1, change the phy addresses in TI BOARD DRIVERS -> ETHPHY -> CONFIG_ENET_ETHPHY(x) -> phy Address to 15 and 3.
+\endcond
+
 This example shows about how to implement simple TCP Client on LwIP networking stack using netconn interface coupled with ethernet driver (ENET)
 
 On @VAR_SOC_NAME, we can do ethernet based communication using CPSW as HW mechanism
@@ -47,7 +51,7 @@ Note: To run the example on any core other than r5fss0-0, user needs to change t
  Example folder | examples/networking/lwip/enet_cpsw_tcpclient
 
 
- 
+
 
 Note: To run the example on any core other than r5fss0-0, user needs to change the DMA channel resource ownership accordingly using the resource partioning tool in \ref RESOURCE_ALLOCATION_GUIDE and build the new SBL.
 \endcond
@@ -74,7 +78,7 @@ Note: To run the example on any core other than r5fss0-0, user needs to change t
 
 \endcond
 
-\cond SOC_AM62X 
+\cond SOC_AM62X
 
  Parameter      | Value
  ---------------|-----------
@@ -374,6 +378,6 @@ Connection closed
      browser. Check your router user manual for more details.
 
 # See Also
-\cond SOC_AM64X || SOC_AM243X || SOC_AM62DX || SOC_AM62X 
+\cond SOC_AM64X || SOC_AM243X || SOC_AM62DX || SOC_AM62X
 \ref NETWORKING
 \endcond

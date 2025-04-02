@@ -4,6 +4,9 @@
 
 # Introduction
 
+\cond SOC_AM62DX
+\note This example supports the AM62D-EVM-PROC180E2. To test with the AM62D-EVM-PROC180E1, change the phy addresses in TI BOARD DRIVERS -> ETHPHY -> CONFIG_ENET_ETHPHY(x) -> phy Address to 15 and 3.
+\endcond
 
 This example exercises the MAC loopback functionality of the hardware. The CPSW hardware is opened with default initialization parameters and either the MAC loopback is enabled based on the user input.
 
@@ -67,7 +70,7 @@ Example folder | source/networking/enet/core/examples/enet_loopback/enet_cpsw_lo
 
 \endcond
 
-\cond SOC_275X
+\cond SOC_AM275X
 
  Parameter      | Value
  ---------------|-----------

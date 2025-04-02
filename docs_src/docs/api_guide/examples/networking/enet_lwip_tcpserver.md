@@ -6,6 +6,10 @@
 
 \note LwIP features are made available as is from public lwIP project. SDK configuration may only enable and exercise a subset of these features.
 
+\cond SOC_AM62DX
+\note This example supports the AM62D-EVM-PROC180E2. To test with the AM62D-EVM-PROC180E1, change the phy addresses in TI BOARD DRIVERS -> ETHPHY -> CONFIG_ENET_ETHPHY(x) -> phy Address to 15 and 3.
+\endcond
+
 This example shows about how to implement a simple TCP Server on LwIP networking stack using netconn API coupled with ethernet driver (ENET).
 \cond SOC_AM273X || SOC_AM263X || SOC_AM263PX
 This example also demonstrates Rx Scatter-Gather, the buffer size is kept to 384 bytes. Send packets greater than 384 bytes to exercise scatter-gather on Rx.
@@ -37,7 +41,7 @@ The example does below
 Note: To run the example on any core other than r5fss0-0, user needs to change the DMA channel resource ownership accordingly using the resource partioning tool in \ref RESOURCE_ALLOCATION_GUIDE and build the new SBL.
 \endcond
 
-\cond SOC_AM62X 
+\cond SOC_AM62X
 
  Parameter      | Value
  ---------------|-----------

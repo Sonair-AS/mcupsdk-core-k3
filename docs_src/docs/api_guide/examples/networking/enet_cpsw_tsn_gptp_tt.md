@@ -3,6 +3,11 @@
 [TOC]
 
 # Introduction
+
+\cond SOC_AM62DX
+\note This example supports the AM62D-EVM-PROC180E2. To test with the AM62D-EVM-PROC180E1, change the phy addresses in TI BOARD DRIVERS -> ETHPHY -> CONFIG_ENET_ETHPHY(x) -> phy Address to 15 and 3.
+\endcond
+
 This ethernet TSN example illustrates the usage of gPTP IEEE 802.1AS stack with CPSW peripheral, in gPTP End-Point time_transmitter mode (i.e. master mode).
 
 However, application used here supports all the below modes-
@@ -38,7 +43,7 @@ See also :\ref ENET_CPSW_TSN_GPTP
 
 \endcond
 
-\cond SOC_AM62X 
+\cond SOC_AM62X
 
  Parameter      | Value
  ---------------|-----------
@@ -82,6 +87,16 @@ Example folder | source/networking/enet/core/examples/tsn/gptp_cpsw_app
 \endcond
 
 \cond SOC_AM62DX
+
+ Parameter      | Value
+ ---------------|-----------
+ CPU + OS       | mcu-r5fss0-0_freertos
+ Toolchain      | ti-arm-clang
+ Board          | @VAR_BOARD_NAME_LOWER
+ Example folder | source/networking/enet/core/examples/tsn/gptp_cpsw_app
+\endcond
+
+\cond SOC_AM275X
 
  Parameter      | Value
  ---------------|-----------
@@ -211,7 +226,7 @@ Out of box configuration for PPS signal output of this example is as follow:
 | am64x-EVM | PRG0_PRU0_GPO17 | U1 | 3.814 KHz | Pin B8 on J2 (i.e PIN8 on J2B) connector |
 | am243x-EVM | PRG0_PRU0_GPO17 | U1 | 3.814 KHz | Pin B8 on J2 (i.e PIN8 on J2B) connector |
 | am243x-LP | MMC1_DAT2 | K20 | 3.814 KHz | Pin3 on J6 connector |
-| am263x-CC | SFDM0_CLK1 | A16 | 3.814 KHz | Pin4 on J6 connector | 
+| am263x-CC | SFDM0_CLK1 | A16 | 3.814 KHz | Pin4 on J6 connector |
 | am263x-LP | SFDM0_CLK1 | A16 | 3.814 KHz | Pin4 on J6 connector |
 
 To set/modify configuration of PPS signal , you may follow the below steps:
@@ -220,26 +235,26 @@ To set/modify configuration of PPS signal , you may follow the below steps:
   2. Configure pinmux for PPS Output signal under ENET(CPSW)->'pinmux Config'->'CPTS0_TS_SYNC(CPTS0_TS_SYNC)' and select the appropriate pin as per your EVM.
     \imageStyle{gptp_pps_out_syscfg_gui1.png,width:50%}
     \image html gptp_pps_out_syscfg_gui1.png  **Figure**: Syscfg tool CPSW pinmux changes to select PPS signal pin
-    
+
   3. Signal is generated on the above configured PIN. You may connect oscilloscope on the pin to visualize and compare.
 One sample signal captured using oscilloscope. Blue from gPTP TT (master) and purple is from gPTP TR (slave)
     \imageStyle{gptp_pps_out_scope_capture.jpg,width:50%}
     \image html gptp_pps_out_scope_capture.jpg **Figure**: Signal captured on oscilloscope
-    
+
 ## Create a network between EVM and host PC
 EVM and PC has to connected directly as shown below using CAT6 or CAT5 cable. If there is ethernet switch placed in between, make sure the switch is gPTP capable.
   \imageStyle{gptp_topology_evm_pc.png,width:30%}
   \image html gptp_topology_evm_pc.png Local network between PC and EVM
- 
+
 PORT1 instead of PORT0 on EVM can be used as well.
 
 ## Run the example
-  
+
 \attention If you need to reload and run again, a CPU power-cycle is MUST
 
 - Launch a CCS debug session and run the example executable, see \ref CCS_LAUNCH_PAGE
 - Connect board and PC as mentioned in "HW Setup" above.
-- Execute the below command in PC terminal: 
+- Execute the below command in PC terminal:
 \code
 $ sudo ptp4l -i eno1 -m -l 6 -q -f ~/gptp_config.cfg
 \endcode
@@ -250,21 +265,21 @@ Replace eno1 with the network interface connected to your PC.
 ### DUT output
 \code
 ==========================
-          gPTP App        
+          gPTP App
 ==========================
 Enabling clocks!
-sitara-cpsw: Create RX task for regular traffic 
+sitara-cpsw: Create RX task for regular traffic
 start to open driver.
-EnetAppUtils_reduceCoreMacAllocation: Reduced Mac Address Allocation for CoreId:1 From 4 To 2 
+EnetAppUtils_reduceCoreMacAllocation: Reduced Mac Address Allocation for CoreId:1 From 4 To 2
 
 Init all configs
 ----------------------------------------------
 sitara-cpsw: init config
-Mdio_open:294 
+Mdio_open:294
 sitara-cpsw: Open port 1
-EnetPhy_bindDriver:1717 
+EnetPhy_bindDriver:1717
 sitara-cpsw: Open port 2
-EnetPhy_bindDriver:1717 
+EnetPhy_bindDriver:1717
 PHY 3 is alive
 PHY 15 is alive
 initQs() txFreePktInfoQ initialized with 16 pkts
@@ -290,7 +305,7 @@ INF:gptp:onenet_activate:tilld1 status=0, duplex=0, speed=0Mbps
 INF:gptp:000000-250071:domainIndex=0, GM changed old=00:00:00:00:00:00:00:00, new=F4:84:4C:FF:FE:FB:C0:42
 INF:gptp:gptpclock_set_gmsync:gptpInstanceIndex=0, domainIndex=0, gmstate=2
 INF:gptp:set_phase_offsetGM:domainIndex=0, New adjustment(New GM?)
-Cpsw_handleLinkUp:1449 
+Cpsw_handleLinkUp:1449
 MAC Port 1: link up
 INF:gptp:index=1 speed=1000, duplex=full, ptpdev=tilld0
 WRN:gptp:000004-750003:waiting_for_pdelay_interval_timer_proc:portIndex=1, sourcePortIdentity=68:05:CA:FF:FE:C8:7A:C2, thisClock=F4:84:4C:FF:FE:FB:C0:42, neighborPropDelay=201
