@@ -143,41 +143,40 @@ SBL Total Time Taken             |     109696
 
 Local Core  | Remote Core | Average Message Latency (us)
 ------------|-------------|------------------------------
- c75ss0-0   | c75ss1-0      | 1.748
- r5f0-0     | r5f0-1        | 1.171
- r5f0-0     | r5f1-0        | 1.285
- r5f0-0     | r5f1-1        | 1.161
- r5f0-0     | c75ss0-0      | 1.118
- r5f0-0     | c75ss1-0      | 1.120
-
+ c75ss0-0	| c75ss1-0	  | 1.300
+ r5f0-0	    | r5f0-1	  | 1.279
+ r5f0-0	    | r5f1-0	  | 1.386
+ r5f0-0	    | r5f1-1	  | 1.265
+ r5f0-0	    | c75ss0-0	  | 1.174
+ r5f0-0	    | c75ss1-0	  | 1.173
 #### IPC RPMSG
 
 - 1000 messages are sent and average one way message latency is measured
 Local Core  | Remote Core | Message Size | Average Message Latency (us) | Max Latency (us) |
 ------------|-------------|--------------|------------------------------|------------------|
-      r5f0-0|       r5f0-1|            32|                         8.289|                 9|
-      r5f0-0|       r5f0-1|            64|                        10.050|                11|
-      r5f0-0|       r5f0-1|           112|                        12.826|                14|
-      r5f0-0|       r5f1-0|            32|                         8.223|                 9|
-      r5f0-0|       r5f1-0|            64|                         9.989|                10|
-      r5f0-0|       r5f1-0|           112|                        12.749|                13|
-      r5f0-0|       r5f1-1|            32|                         8.257|                 9|
-      r5f0-0|       r5f1-1|            64|                        10.047|                10|
-      r5f0-0|       r5f1-1|           112|                        12.813|                13|
-      r5f0-0|     c75ss0-0|            32|                         9.326|                10|
-      r5f0-0|     c75ss0-0|            64|                        10.148|                11|
-      r5f0-0|     c75ss0-0|           112|                        11.397|                12|
-      r5f0-0|     c75ss1-0|            32|                         9.382|                10|
-      r5f0-0|     c75ss1-0|            64|                        10.197|                11|
-      r5f0-0|     c75ss1-0|           112|                        11.487|                13|
+      r5f0-0|       r5f0-1|            32|                         8.290|                 9|
+      r5f0-0|       r5f0-1|            64|                        10.049|                10|
+      r5f0-0|       r5f0-1|           112|                        12.805|                13|
+      r5f0-0|       r5f1-0|            32|                         8.225|                 9|
+      r5f0-0|       r5f1-0|            64|                         9.982|                10|
+      r5f0-0|       r5f1-0|           112|                        12.750|                13|
+      r5f0-0|       r5f1-1|            32|                         8.293|                 9|
+      r5f0-0|       r5f1-1|            64|                        10.048|                10|
+      r5f0-0|       r5f1-1|           112|                        12.812|                13|
+      r5f0-0|     c75ss0-0|            32|                         9.474|                10|
+      r5f0-0|     c75ss0-0|            64|                        10.301|                11|
+      r5f0-0|     c75ss0-0|           112|                        11.579|                13|
+      r5f0-0|     c75ss1-0|            32|                         9.467|                10|
+      r5f0-0|     c75ss1-0|            64|                        10.261|                11|
+      r5f0-0|     c75ss1-0|           112|                        11.553|                13|
 
 ### EMMC Performance
 
 Mode   | Data size(MiB) | Write speed(MiBps) | Read speed(MiBps)
 -------|----------------|--------------------|-----------------
-SDR50  | 1	       | 40.54		    | 45.01
-DDR50  | 1	       | 67.55		    | 82.00
-HS200  | 1	       | 94.21		    | 157.80
+SDR50  | 1	       | 9.40		    | 45.02
+DDR50  | 1	       | 15.03		    | 82.00
+HS200  | 1	       | 98.67		    | 158.08
 
 ### OSPI NOR Flash Performance
  - Flash protocol: FLASH_CFG_PROTO_8D_8D_8D
@@ -186,8 +185,8 @@ HS200  | 1	       | 94.21		    | 157.80
 
 Data size(MiB) | Write speed(MiBps) | Read speed(MiBps)
 ---------------|--------------------|-----------------
- 1             | 0.41               | 284.11
- 2             | 0.41               | 284.60
+ 1             | 0.43               | 284.09
+ 2             | 0.43               | 284.60
 
  ### XIP Benchmark
 - Core :	R5F
@@ -199,14 +198,14 @@ Data size(MiB) | Write speed(MiBps) | Read speed(MiBps)
 
 Caching status                          | Cycles taken
 ----------------------------------------|-------------
-Code/Data fully cached                  |    24048
-Code/Data not cached                    |    66115
+Code/Data fully cached                  |    23906
+Code/Data not cached                    |    69957
 Code/Data not cached 1 of 10 iterations |    28257
 
 - 2) MEMCPY operation
 
 Caching status                          | Cycles taken
 ----------------------------------------|-------------
-Code/Data fully cached                  |    1566
-Code/Data not cached                    |    4497
-Code/Data not cached 1 of 10 iterations |    1864
+Code/Data fully cached                  |    1564
+Code/Data not cached                    |    3661
+Code/Data not cached 1 of 10 iterations |    1865
