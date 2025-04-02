@@ -12,7 +12,8 @@ This page lists all the examples related to Ethernet Communication.
 -# \subpage EXAMPLES_ENET_LWIP_CPSW_TCPSERVER
 ### Time-Sensitive Networking (TSN) Examples on FreeRTOS
 -# \subpage EXAMPLES_ENET_CPSW_TSN_LWIP_GPTP
-### LLDP Example on FreeRTOS
+### Ethernet Firmware
+-# \subpage ETHFW_SERVER_AND_CLIENT 
 \endcond
 
 \cond SOC_AM62X
