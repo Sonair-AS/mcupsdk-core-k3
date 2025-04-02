@@ -106,7 +106,7 @@ Core : **a530-0**
 Benchmarks                      | am62x-sk      | am62x-sk-lp   | am62x-sip-sk   |
 --------------------------------|---------------|---------------|----------------|
 cpu_clock (MHz)                 |   1400        |  1400         |  1400          |
-interrupt latency (ns)          |   620         |  622          |  628           |
+interrupt latency (ns)          |   620         |  622          |  620           |
 
 ### AM62X Coremark Pro Benchmark performance
 
@@ -119,13 +119,13 @@ Benchmark (worloads)             |  am62xx_lp_sk-fs  |    am62xx_sk-fs    |   am
 cjpeg-rose7-preset               | 40.40             | 40.40              | 40.40                |
 core                             | 0.28              | 0.28               | 0.28                 |
 linear_alg-mid-100x100-sp        | 16.30             | 16.30              | 16.30                |
-loops-all-mid-10k-sp             | 0.71              | 0.72               | 0.72                 |
-nnet_test                        | 1.87              | 1.88               | 1.87                 |
-parser-125k                      | 5.75              | 5.76               | 5.75                 |
-radix2-big-64k                   | 77.54             | 78.46              | 78.11                |
-sha-test                         | 81.72             | 81.73              | 81.74                |
-zip-test                         | 27.13             | 27.32              | 27.23                |
-Coremark-pro()(overall score)    | 982.68            | 984.90             | 984.03               |
+loops-all-mid-10k-sp             | 0.71              | 0.72               | 0.73                 |
+nnet_test                        | 1.87              | 1.88               | 1.88                 |
+parser-125k                      | 5.75              | 5.76               | 5.76                 |
+radix2-big-64k                   | 77.54             | 78.46              | 78.02                |
+sha-test                         | 81.72             | 81.73              | 81.75                |
+zip-test                         | 27.13             | 27.32              | 27.28                |
+Coremark-pro()(overall score)    | 982.68            | 984.90             | 984.74               |
 
 ### AM62X-SK SBL OSPI performance (HS-FS)
 
