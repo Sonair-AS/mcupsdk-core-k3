@@ -380,19 +380,19 @@ ROM_CHECKSUM     |MCU-R5F         | No
     <td> 10.00.00
 </tr>
 <tr>
-    <td> PROC_SDL-9058
+    <td> \htmllink{https://sir.ext.ti.com/jira/browse/EXT_EP-12316, EXT_EP-12316}
     <td> AM62dx: PBIST: VPAC controller test is to be removed
     <td> SDL
     <td> 11.00.00
 </tr>
 <tr>
-    <td> PROC_SDL-8955
+    <td> \htmllink{https://sir.ext.ti.com/jira/browse/EXT_EP-12318, EXT_EP-12318}
     <td> SDL_ECC_aggrTransBaseAddressTable declared without extern keyword
     <td> SDL
     <td> 11.00.00
 </tr>
 <tr>
-    <td> PROC_SDL-8683
+    <td> \htmllink{https://sir.ext.ti.com/jira/browse/EXT_EP-12324, EXT_EP-12324}
     <td> gSDL_pvt_poly_golden has to be used in SDL_vtmPrepLookupTable API instead of gSDL_pvt_poly
     <td> SDL
     <td> 11.00.00
