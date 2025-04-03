@@ -338,10 +338,46 @@ ROM_CHECKSUM     |MCU-R5F         | No
     <th> Applicable Releases
 </tr>
 <tr>
-    <td> SITSW-5829
-    <td> No synchronization wrt DMA between main & boot thread of the Stage2/DM application
-    <td> Bootloader
-    <td> 11.00.00
+    <td> \htmllink{https://sir.ext.ti.com/jira/browse/EXT_SITMPUSW-52, EXT_SITMPUSW-52}
+    <td> UART baud rate and operational mode condition misalignment
+    <td> UART
+    <td> 10.00.00
+</tr>
+<tr>
+    <td> \htmllink{https://sir.ext.ti.com/jira/browse/EXT_SITMPUSW-57, EXT_SITMPUSW-57}
+    <td> Data Abort at MCSPI_udmaIsrTx when using MCSPI DMA
+    <td> MCSPI
+    <td> 10.00.00
+</tr>
+<tr>
+    <td> \htmllink{https://sir.ext.ti.com/jira/browse/EXT_SITMPUSW-59, EXT_SITMPUSW-59}
+    <td> VTM giving same value for every call
+    <td> VTM
+    <td> 10.00.00
+</tr>
+<tr>
+    <td> \htmllink{https://sir.ext.ti.com/jira/browse/EXT_SITMPUSW-88, EXT_SITMPUSW-88}
+    <td> MCASP_close() function is not having a graceful exit and is stuck in a for loop for very long time.
+    <td> MCASP
+    <td> 10.00.00
+</tr>
+<tr>
+    <td> \htmllink{https://sir.ext.ti.com/jira/browse/EXT_SITMPUSW-89, EXT_SITMPUSW-89}
+    <td> I2C Error Handler transition from status to i2cTransaction.status
+    <td> I2C
+    <td> 10.00.00
+</tr>
+<tr>
+    <td> \htmllink{https://sir.ext.ti.com/jira/browse/EXT_SITMPUSW-90, EXT_SITMPUSW-90}
+    <td> MMCSD_write & MMCSD_read function fails for the numBlocks greater than 0xFFFF
+    <td> MCSPI
+    <td> 10.00.00
+</tr>
+<tr>
+    <td> \htmllink{https://sir.ext.ti.com/jira/browse/EXT_SITMPUSW-91, EXT_SITMPUSW-91}
+    <td> The DMA channels are not able to close without DMA Tx for MCSPI and UART
+    <td> DMA
+    <td> 10.00.00
 </tr>
 <tr>
     <td> PROC_SDL-9058
@@ -373,6 +409,34 @@ ROM_CHECKSUM     |MCU-R5F         | No
     <th> Module
     <th> Reported in release
     <th> Workaround
+</tr>
+<tr>
+    <td> \htmllink{https://sir.ext.ti.com/jira/browse/EXT_SITMPUSW-73, EXT_SITMPUSW-73}
+    <td> OSPI_readDirect and OSPI_isPhyEnable do not correctly check if the PHY is enabled
+    <td> OSPI
+    <td> 10.00.00
+    <td> No known workaround
+</tr>
+<tr>
+    <td> \htmllink{https://sir.ext.ti.com/jira/browse/EXT_SITMPUSW-77, EXT_SITMPUSW-77}
+    <td> Modify Read capture delay logic for Tap Mode
+    <td> OSPI
+    <td> 10.00.00
+    <td> No known workaround
+</tr>
+<tr>
+    <td> \htmllink{https://sir.ext.ti.com/jira/browse/EXT_SITMPUSW-78, EXT_SITMPUSW-78}
+    <td> MMCSD Sysconfig provides options to configure PHY type
+    <td> MMCSD
+    <td> 10.00.00
+    <td> No known workaround
+</tr>
+<tr>
+    <td> \htmllink{https://sir.ext.ti.com/jira/browse/EXT_SITMPUSW-85, EXT_SITMPUSW-85}
+    <td> Flash_eraseSector and Flash_norOspiEraseSector does not erases the mentioned sector.
+    <td> Flash
+    <td> 10.00.00
+    <td> No known workaround
 </tr>
 <tr>
     <td> \htmllink{https://sir.ext.ti.com/jira/browse/EXT_EP-12267, EXT_EP-12267}

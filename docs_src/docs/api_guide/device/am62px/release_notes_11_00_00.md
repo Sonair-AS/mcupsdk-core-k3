@@ -263,10 +263,46 @@ MCASP driver
     <th> Applicable Releases
 </tr>
 <tr>
-    <td> SITSW-5829
+    <td> \htmllink{https://sir.ext.ti.com/jira/browse/EXT_SITMPUSW-52, EXT_SITMPUSW-52}
+    <td> UART baud rate and operational mode condition misalignment
+    <td> UART
+    <td> 09.02.00
+</tr>
+<tr>
+    <td> \htmllink{https://sir.ext.ti.com/jira/browse/EXT_SITMPUSW-57, EXT_SITMPUSW-57}
+    <td> Data Abort at MCSPI_udmaIsrTx when using MCSPI DMA
+    <td> MCSPI
+    <td> 09.02.00
+</tr>
+<tr>
+    <td> \htmllink{https://sir.ext.ti.com/jira/browse/EXT_SITMPUSW-58, EXT_SITMPUSW-58}
+    <td> MCU PLUS SDK: ipc_rpmsg_echo [DM Firmware] Timeout not working as expected, crashes FW
+    <td> DM, IPC
+    <td> 09.02.00
+</tr>
+<tr>
+    <td> \htmllink{https://sir.ext.ti.com/jira/browse/EXT_SITMPUSW-59, EXT_SITMPUSW-59}
+    <td> VTM giving same value for every call
+    <td> VTM
+    <td> 10.01.00
+</tr>
+<tr>
+    <td> \htmllink{https://sir.ext.ti.com/jira/browse/EXT_SITMPUSW-60, EXT_SITMPUSW-60}
     <td> No synchronization wrt DMA between main & boot thread of the Stage2/DM application
     <td> Bootloader
-    <td> 11.00.00
+    <td> 09.02.00
+</tr>
+<tr>
+    <td> \htmllink{https://sir.ext.ti.com/jira/browse/EXT_SITMPUSW-89, EXT_SITMPUSW-89}
+    <td> I2C Error Handler transition from status to i2cTransaction.status
+    <td> I2C
+    <td> 09.02.00
+</tr>
+<tr>
+    <td> \htmllink{https://sir.ext.ti.com/jira/browse/EXT_SITMPUSW-90, EXT_SITMPUSW-90}
+    <td> MMCSD_write & MMCSD_read function fails for the numBlocks greater than 0xFFFF
+    <td> MCSPI
+    <td> 09.02.00
 </tr>
 <tr>
     <td> PROC_SDL-8957
@@ -300,6 +336,41 @@ MCASP driver
     <th> Workaround
 </tr>
 <tr>
+    <td> \htmllink{https://sir.ext.ti.com/jira/browse/EXT_SITMPUSW-28, EXT_SITMPUSW-28}
+    <td> Outstanding mailbox messages prevent suspend
+    <td> IPC
+    <td> 08.03.00
+    <td> No known workaround
+</tr>
+<tr>
+    <td> \htmllink{https://sir.ext.ti.com/jira/browse/EXT_SITMPUSW-73, EXT_SITMPUSW-73}
+    <td> OSPI_readDirect and OSPI_isPhyEnable do not correctly check if the PHY is enabled
+    <td> OSPI
+    <td> 08.03.00
+    <td> No known workaround
+</tr>
+<tr>
+    <td> \htmllink{https://sir.ext.ti.com/jira/browse/EXT_SITMPUSW-77, EXT_SITMPUSW-77}
+    <td> Modify Read capture delay logic for Tap Mode
+    <td> OSPI
+    <td> 08.03.00
+    <td> No known workaround
+</tr>
+<tr>
+    <td> \htmllink{https://sir.ext.ti.com/jira/browse/EXT_SITMPUSW-78, EXT_SITMPUSW-78}
+    <td> MMCSD Sysconfig provides options to configure PHY type
+    <td> MMCSD
+    <td> 08.03.00
+    <td> No known workaround
+</tr>
+<tr>
+    <td> \htmllink{https://sir.ext.ti.com/jira/browse/EXT_SITMPUSW-85, EXT_SITMPUSW-85}
+    <td> Flash_eraseSector and Flash_norOspiEraseSector does not erases the mentioned sector.
+    <td> Flash
+    <td> 08.03.00
+    <td> No known workaround
+</tr>
+<tr>
     <td> \htmllink{https://sir.ext.ti.com/jira/browse/EXT_EP-12277, EXT_EP-12277}
     <td> AM62Px: ECC: SDL_MCAN1_MCANSS_MSGMEM_WRAP_ECC_AGGR aggregator is failing
     <td> SDL
@@ -319,13 +390,6 @@ MCASP driver
     <td> SDL
     <td> 09.00.00
     <td> No known workaround
-</tr>
-<tr>
-    <td> TBD
-    <td> TBD
-    <td> TBD
-    <td> TBD
-    <td> TBD
 </tr>
 </table>
 
