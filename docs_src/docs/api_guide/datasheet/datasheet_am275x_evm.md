@@ -92,6 +92,8 @@ DSP 1 Image Load                 |       6908
 SBL Total Time Taken             |      51801
 
 #### R5FSS0_0 boot time using Fast-xSPI Bootmode
+
+For how to enable Fast XSPI boot refer \ref FAST_XSPI_BOOTMODE_GUIDE
  - GPIO toggle time from R5FSS0_0 (Measured from PORz)
    - 37.52524 ms
 
@@ -99,6 +101,8 @@ SBL Total Time Taken             |      51801
  - R5FSS0-0 image size = ~ 1 MB and remaining cores by default ipc rpmsg images
 
 #### C7x audio chime time using Fast-xSPI Bootmode
+
+For how to enable Fast XSPI boot refer \ref FAST_XSPI_BOOTMODE_GUIDE
  - C7x audio out time (Measured from PORz)
    - 72.69178 ms
 
