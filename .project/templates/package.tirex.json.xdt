@@ -52,7 +52,7 @@
         "version": "07.03.00.01",
         "type": "software",
         "image": "./mcu_plus_sdk.png",
-        % if ((args.device == "am64x") || (args.device == "am243x") || (args.device == "am275x") || (isDevelopmentMode)) {
+        % if ((args.device == "am64x") || (args.device == "am243x") || (isDevelopmentMode)) {
         "license": "../../license.txt",
         % }
         "devices": ["`deviceName`"],
